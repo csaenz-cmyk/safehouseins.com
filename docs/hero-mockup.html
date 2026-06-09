@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safe House — Hero mockup (Instrument Serif + Plus Jakarta Sans)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1666ED;
+    --blue-700:#0F4FBF;
+    --accent:#00D1FF;
+    --ink:#0B1220;
+    --muted:#5B6470;
+    --line:#E7EBF2;
+    --soft:#F4F7FB;
+    --soft2:#EAF1FE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .mono{font-family:'Geist Mono',monospace}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+      padding:16px 32px;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav .logo{height:30px}
+  .links{display:flex;gap:28px;align-items:center}
+  .links a{color:var(--ink);text-decoration:none;font-weight:600;font-size:15px;opacity:.85}
+  .links a:hover{opacity:1;color:var(--blue)}
+  .nav-cta{display:flex;gap:14px;align-items:center}
+  .signin{font-weight:600;font-size:15px;color:var(--ink);text-decoration:none}
+  .btn{background:var(--blue);color:#fff;border:none;border-radius:12px;padding:12px 20px;font-weight:700;
+       font-size:15px;font-family:inherit;cursor:pointer;text-decoration:none;display:inline-block;transition:background .15s}
+  .btn:hover{background:var(--blue-700)}
+  @media(max-width:860px){.links{display:none}}
+
+  /* hero */
+  .hero{position:relative;overflow:hidden;padding:72px 32px 88px;
+        background:radial-gradient(1100px 520px at 78% -8%, var(--soft2), transparent 60%), #fff}
+  .hero-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  @media(max-width:940px){.hero-inner{grid-template-columns:1fr;gap:36px}}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;letter-spacing:.14em;
+           text-transform:uppercase;color:var(--blue);background:var(--soft2);border:1px solid #d7e4fd;
+           padding:7px 14px;border-radius:999px}
+  .eyebrow .pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(0,209,255,.25)}
+
+  h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(46px,7vw,82px);
+     line-height:1.02;letter-spacing:-.01em;margin-top:22px}
+  h1 .it{font-style:italic;color:var(--blue)}
+  .lede{font-size:19px;color:var(--muted);max-width:46ch;margin-top:22px}
+
+  .stats{display:flex;gap:34px;margin-top:34px;flex-wrap:wrap}
+  .stats .s b{font-family:'Instrument Serif',serif;font-size:40px;line-height:1;display:block}
+  .stats .s span{font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-top:6px;display:block}
+
+  /* quote card */
+  .quote{background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px;
+         box-shadow:0 24px 60px -24px rgba(15,79,191,.28)}
+  .quote h3{font-family:'Instrument Serif',serif;font-weight:400;font-size:30px;line-height:1.1}
+  .quote h3 .it{font-style:italic;color:var(--blue)}
+  .quote p.k{font-size:14px;color:var(--muted);margin-top:6px;margin-bottom:20px}
+  .field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+  .field label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .field input{border:1px solid var(--line);border-radius:13px;padding:15px 16px;font-size:17px;
+               font-family:inherit;font-weight:600;background:var(--soft);outline:none}
+  .field input:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(22,102,237,.12)}
+  .quote .btn{width:100%;text-align:center;padding:16px;font-size:16px;border-radius:14px}
+  .reassure{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;font-size:13px;color:var(--muted)}
+  .reassure b{color:var(--ink)}
+  .or{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--muted);font-size:13px}
+  .or::before,.or::after{content:"";height:1px;background:var(--line);flex:1}
+  .talk{display:block;text-align:center;border:1px solid var(--line);border-radius:14px;padding:14px;
+        font-weight:700;color:var(--ink);text-decoration:none;font-size:15px}
+  .talk:hover{border-color:var(--blue);color:var(--blue)}
+
+  /* trust strip */
+  .trust{max-width:1120px;margin:0 auto;padding:0 32px}
+  .trust-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:22px 0 4px;color:var(--muted);font-size:14px}
+  .trust-row .stars{color:#f5a623;letter-spacing:2px}
+  .carriers{display:flex;gap:26px;flex-wrap:wrap;align-items:center;padding:18px 0 40px;opacity:.6}
+  .carriers span{font-weight:800;font-size:19px;letter-spacing:-.02em;color:#9aa6b8}
+</style>
+</head>
+<body>
+
+  <nav>
+    <img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance">
+    <div class="links">
+      <a href="#">Auto</a>
+      <a href="#">Home</a>
+      <a href="#">Commercial</a>
+      <a href="#">How it works</a>
+      <a href="#">About</a>
+    </div>
+    <div class="nav-cta">
+      <a class="signin" href="#">Sign in</a>
+      <a class="btn" href="#">Get a quote</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <span class="eyebrow"><span class="pulse"></span> The modern way to insure</span>
+        <h1>Auto insurance,<br><span class="it">quoted in 60 seconds.</span></h1>
+        <p class="lede">Skip the paperwork and the phone tag. Our engine compares 15+ top carriers in real time and shows you the best price — instantly.</p>
+        <div class="stats">
+          <div class="s"><b>$847</b><span>Avg. saved / year</span></div>
+          <div class="s"><b>15+</b><span>Carriers compared</span></div>
+          <div class="s"><b>4.9★</b><span>Customer rating</span></div>
+        </div>
+      </div>
+
+      <div class="quote">
+        <h3>See your price<br><span class="it">in seconds.</span></h3>
+        <p class="k">Start with your ZIP code. No spam, no obligation.</p>
+        <div class="field">
+          <label>ZIP code</label>
+          <input type="text" value="79901" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label>Vehicle</label>
+          <input type="text" placeholder="Plate or Year / Make / Model">
+        </div>
+        <a class="btn" href="#">Get my quote →</a>
+        <div class="reassure">🔒 Takes <b>~60 seconds</b> · Your info stays private</div>
+        <div class="or">or</div>
+        <a class="talk" href="tel:+19155031207">📞 Talk to a real agent</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="trust">
+    <div class="trust-row">
+      <span class="stars">★★★★★</span> Rated 4.9/5 by 1,200+ drivers in TX &amp; NM · El Paso based
+    </div>
+    <div class="carriers">
+      <span>Progressive</span><span>Travelers</span><span>Foremost</span><span>National General</span><span>Bristol West</span>
+    </div>
+  </div>
+
+</body>
+</html>

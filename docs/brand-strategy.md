@@ -235,7 +235,8 @@ El cliente eligió:
 - **Prioridad de negocio #1:** **Diferenciación tecnológica** → inclina la *capacidad de producto* hacia **B — IA / Automatización**.
 - **Identidad/color:** logo recibido. **Azul de marca = `#1666ED`** (rgb 22,102,237), extraído del logo (corazón + wordmark bold itálico redondeado). Acento tech tentativo: cian `#00D1FF` (por confirmar).
 - **Idioma del sitio:** **inglés** (decisión del cliente, 2026 — descartado el enfoque bilingüe en copy; la cercanía se mantiene vía tono y trato humano, no traducción).
-- **Tipografía:** en evaluación. Ronda 1 (Inter/Poppins/Manrope/Space Grotesk/Sofia) se descartó por "muy simple". Ronda 2 explora display de diseñador: Clash Display, Bricolage Grotesque, Fraunces, Instrument Serif, Cabinet Grotesk, Sora.
+- **Tipografía (elegida, tentativa):** **Instrument Serif** (display/titulares, con itálica para énfasis) + **Plus Jakarta Sans** (subtítulos, UI, cuerpo). Dirección "Elegant Contrast" editorial — premium y poco común en seguros. Acento mono opcional (Geist/Space Mono) para labels tech.
+  - Rondas exploradas y descartadas por "muy simples": R1 (Inter/Poppins/Manrope/Space Grotesk/Sofia). R2 (Clash Display, Bricolage, Fraunces, Cabinet Grotesk, Sora). R3 experimental (Geist, Clash Grotesk, Unbounded, Gambarino, Funnel, Anton, Schibsted). Specimens en `docs/typography-options*.html`.
 
 **Síntesis de dirección:** marca con *postura E* (cálida, bilingüe, humana) y *motor de producto B* (IA visible pero explicada en lenguaje humano). El héroe del sitio es un cotizador inteligente (placa/VIN → precio en segundos) con "habla con alguien en español" siempre presente. La IA acelera el trato humano, no lo reemplaza. Narrativa: *"Tecnología de punta + gente que de verdad te entiende."* Historia vendible para futura expansión/capital.
 
