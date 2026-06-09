@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safe House — Typography Options v3 (experimental)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;700&family=Unbounded:wght@400;500;700;800&family=Funnel+Display:wght@400;500;700;800&family=Schibsted+Grotesk:wght@400;500;700;800&family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Fontshare: Clash Grotesk, Gambarino, General Sans, Sentient -->
+<link href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600,700&f[]=gambarino@400&f[]=general-sans@400,500,600&f[]=sentient@400,500,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1666ED;
+    --accent:#00D1FF;
+    --ink:#0B1220;
+    --muted:#5B6470;
+    --line:#E6E9EF;
+    --soft:#F4F7FB;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--soft);color:var(--ink);font-family:Inter,system-ui,sans-serif;padding:48px 20px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1000px;margin:0 auto}
+  .top h1{font-family:'Clash Grotesk',sans-serif;font-size:clamp(30px,6vw,52px);font-weight:600;letter-spacing:-.02em;line-height:1}
+  .top p{color:var(--muted);max-width:62ch;margin-top:12px;font-size:17px}
+  .swatches{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .sw{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-weight:600;font-size:13px}
+  .dot{width:16px;height:16px;border-radius:50%}
+  .card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:36px;margin:22px 0;box-shadow:0 2px 10px rgba(11,18,32,.04);overflow:hidden}
+  .card.dark{background:#0B1220;border-color:#1b2536;color:#fff}
+  .card.dark .sub,.card.dark .persona{color:#9aa6b8}
+  .card.dark .pill{background:#131c2c;border-color:#243049;color:#fff}
+  .card.dark .persona{border-top-color:#1b2536}
+  .label{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:26px}
+  .card.dark .label{border-bottom-color:#1b2536}
+  .label .name{font-family:'General Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue)}
+  .card.dark .label .name{color:var(--accent)}
+  .label .fonts{font-family:'Geist Mono',monospace;font-size:12px;color:var(--muted)}
+  .eyebrow{font-family:'Geist Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+  .card.dark .eyebrow{color:var(--accent)}
+  .h{font-size:clamp(30px,5.5vw,54px);font-weight:700;letter-spacing:-.03em;line-height:1.02}
+  .h .hl{color:var(--blue)}
+  .card.dark .h .hl{color:var(--accent)}
+  .sub{font-size:18px;color:var(--muted);margin-top:16px;max-width:50ch;line-height:1.4}
+  .ui{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;align-items:center}
+  .btn{background:var(--blue);color:#fff;border:none;border-radius:12px;padding:14px 24px;font-weight:600;font-size:15px;font-family:inherit}
+  .pill{background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:13px 18px;font-weight:600;font-size:15px}
+  .nums{display:flex;gap:34px;margin-top:28px;flex-wrap:wrap}
+  .nums div b{display:block;font-size:34px;font-weight:700;letter-spacing:-.02em;line-height:1}
+  .nums div span{font-size:12px;color:var(--muted);font-family:'Geist Mono',monospace;letter-spacing:.04em;margin-top:6px;display:block;text-transform:uppercase}
+  .persona{margin-top:26px;font-size:14px;color:var(--muted);border-top:1px dashed var(--line);padding-top:16px}
+  .card:not(.dark) .persona b{color:var(--ink)}
+
+  /* ---- font systems ---- */
+  .geist .h,.geist .nums b{font-family:'Geist',sans-serif;font-weight:700}
+  .geist .sub,.geist .ui,.geist .btn{font-family:'Geist',sans-serif}
+
+  .clashg .h,.clashg .nums b{font-family:'Clash Grotesk',sans-serif;font-weight:600}
+  .clashg .sub,.clashg .ui,.clashg .btn{font-family:'General Sans',sans-serif}
+
+  .unbounded .h,.unbounded .nums b{font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:-.02em}
+  .unbounded .sub,.unbounded .ui,.unbounded .btn{font-family:'Inter',sans-serif}
+
+  .gambarino .h{font-family:'Gambarino',serif;font-weight:400;letter-spacing:0}
+  .gambarino .nums b{font-family:'Gambarino',serif}
+  .gambarino .sub,.gambarino .ui,.gambarino .btn{font-family:'General Sans',sans-serif}
+
+  .funnel .h,.funnel .nums b{font-family:'Funnel Display',sans-serif;font-weight:800;letter-spacing:-.02em}
+  .funnel .sub,.funnel .ui,.funnel .btn{font-family:'Inter',sans-serif}
+
+  .anton .h{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:0;text-transform:uppercase;line-height:.98}
+  .anton .nums b{font-family:'Anton',sans-serif;text-transform:uppercase}
+  .anton .sub,.anton .ui,.anton .btn{font-family:'Schibsted Grotesk',sans-serif}
+
+  .schibsted .h,.schibsted .nums b{font-family:'Schibsted Grotesk',sans-serif;font-weight:800;letter-spacing:-.02em}
+  .schibsted .sub,.schibsted .ui,.schibsted .btn{font-family:'Inter',sans-serif}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>Typography — round 3 (experimental)</h1>
+    <p>More distinctive and experimental systems, including Vercel's Geist and the free Clash Grotesk (a PP Neue Montreal alternative). English copy, brand blue + tentative tech accent. Open in a browser to see them live.</p>
+    <div class="swatches">
+      <span class="sw"><span class="dot" style="background:#1666ED"></span> Brand blue · #1666ED</span>
+      <span class="sw"><span class="dot" style="background:#00D1FF"></span> Tech accent · #00D1FF</span>
+      <span class="sw"><span class="dot" style="background:#0B1220"></span> Ink · #0B1220</span>
+    </div>
+  </div>
+
+  <!-- 1 Geist (dark, tech) -->
+  <div class="card geist dark">
+    <div class="label"><span class="name">Option 7 · Engineered (Geist)</span><span class="fonts">Geist · Geist Mono</span></div>
+    <div class="eyebrow">Auto insurance</div>
+    <div class="h">Auto insurance, <span class="hl">quoted in 60 seconds.</span></div>
+    <div class="sub">No paperwork. No phone tag. Our engine scans 15+ carriers in real time.</div>
+    <div class="ui"><button class="btn">Get my quote</button><span class="pill">Talk to an agent</span></div>
+    <div class="nums"><div><b>$847</b><span>Avg. saved / yr</span></div><div><b>15+</b><span>Carriers</span></div><div><b>60s</b><span>To your price</span></div></div>
+    <div class="persona"><b>Personality:</b> Vercel's typeface — peak modern, precise, developer/AI energy. The single most "2026 tech" choice. Maximizes direction B.</div>
+  </div>
+
+  <!-- 2 Clash Grotesk -->
+  <div class="card clashg">
+    <div class="label"><span class="name">Option 8 · Premium Neutral</span><span class="fonts">Clash Grotesk · General Sans</span></div>
+    <div class="eyebrow">Auto insurance</div>
+    <div class="h">Auto insurance, <span class="hl">quoted in 60 seconds.</span></div>
+    <div class="sub">No paperwork. No phone tag. Just your best price across 15+ carriers.</div>
+    <div class="ui"><button class="btn">Get my quote</button><span class="pill">Talk to an agent</span></div>
+    <div class="nums"><div><b>$847</b><span>Avg. saved / yr</span></div><div><b>15+</b><span>Carriers</span></div><div><b>60s</b><span>To your price</span></div></div>
+    <div class="persona"><b>Personality:</b> the free answer to PP Neue Montreal — refined, expensive-looking neutral grotesk used by top studios. Quiet confidence, premium feel.</div>
+  </div>
+
+  <!-- 3 Unbounded -->
+  <div class="card unbounded">
+    <div class="label"><span class="name">Option 9 · Statement Display</span><span class="fonts">Unbounded · Inter</span></div>
+    <div class="eyebrow">Auto insurance</div>
+    <div class="h">Auto insurance, <span class="hl">quoted in 60 seconds.</span></div>
+    <div class="sub">No paperwork. No phone tag. Just your best price across 15+ carriers.</div>
+    <div class="ui"><button class="btn">Get my quote</button><span class="pill">Talk to an agent</span></div>
+    <div class="nums"><div><b>$847</b><span>Avg. saved / yr</span></div><div><b>15+</b><span>Carriers</span></div><div><b>60s</b><span>To your price</span></div></div>
+    <div class="persona"><b>Personality:</b> rounded, bold, unmistakable. A loud brand statement that echoes your rounded heart logo. High recall — best used big and sparingly.</div>
+  </div>
+
+  <!-- 4 Gambarino (editorial serif) -->
+  <div class="card gambarino dark">
+    <div class="label"><span class="name">Option 10 · Fashion Editorial</span><span class="fonts">Gambarino · General Sans</span></div>
+    <div class="eyebrow">Auto insurance</div>
+    <div class="h">Auto insurance, <span class="hl">quoted in 60 seconds.</span></div>
+    <div class="sub">No paperwork. No phone tag. Just your best price across 15+ carriers.</div>
+    <div class="ui"><button class="btn">Get my quote</button><span class="pill">Talk to an agent</span></div>
+    <div class="nums"><div><b>$847</b><span>Avg. saved / yr</span></div><div><b>15+</b><span>Carriers</span></div><div><b>60s</b><span>To your price</span></div></div>
+    <div class="persona"><b>Personality:</b> expressive, fashion-magazine serif. Bold, unexpected for insurance — instantly memorable and high-end. A real differentiator.</div>
+  </div>
+
+  <!-- 5 Funnel Display -->
+  <div class="card funnel">
+    <div class="label"><span class="name">Option 11 · Modern Display</span><span class="fonts">Funnel Display · Inter</span></div>
+    <div class="eyebrow">Auto insurance</div>
+    <div class="h">Auto insurance, <span class="hl">quoted in 60 seconds.</span></div>
+    <div class="sub">No paperwork. No phone tag. Just your best price across 15+ carriers.</div>
+    <div class="ui"><button class="btn">Get my quote</button><span class="pill">Talk to an agent</span></div>
+    <div class="nums"><div><b>$847</b><span>Avg. saved / yr</span></div><div><b>15+</b><span>Carriers</span></div><div><b>60s</b><span>To your price</span></div></div>
+    <div class="persona"><b>Personality:</b> contemporary display with subtle quirks — fresh, friendly, design-forward. A modern middle ground between neutral and expressive.</div>
+  </div>
+
+  <!-- 6 Anton (impact) -->
+  <div class="card anton">
+    <div class="label"><span class="name">Option 12 · Big Impact</span><span class="fonts">Anton · Schibsted Grotesk</span></div>
+    <div class="eyebrow">Auto insurance</div>
+    <div class="h">Auto insurance, <span class="hl">quoted in 60 seconds.</span></div>
+    <div class="sub">No paperwork. No phone tag. Just your best price across 15+ carriers.</div>
+    <div class="ui"><button class="btn">Get my quote</button><span class="pill">Talk to an agent</span></div>
+    <div class="nums"><div><b>$847</b><span>Avg. saved / yr</span></div><div><b>15+</b><span>Carriers</span></div><div><b>60s</b><span>To your price</span></div></div>
+    <div class="persona"><b>Personality:</b> condensed, heavy, advertising-poster impact. Commands attention and feels bold/disruptive. Strong for marketing, pair carefully for UI.</div>
+  </div>
+
+  <!-- 7 Schibsted -->
+  <div class="card schibsted">
+    <div class="label"><span class="name">Option 13 · Editorial Grotesk</span><span class="fonts">Schibsted Grotesk · Inter</span></div>
+    <div class="eyebrow">Auto insurance</div>
+    <div class="h">Auto insurance, <span class="hl">quoted in 60 seconds.</span></div>
+    <div class="sub">No paperwork. No phone tag. Just your best price across 15+ carriers.</div>
+    <div class="ui"><button class="btn">Get my quote</button><span class="pill">Talk to an agent</span></div>
+    <div class="nums"><div><b>$847</b><span>Avg. saved / yr</span></div><div><b>15+</b><span>Carriers</span></div><div><b>60s</b><span>To your price</span></div></div>
+    <div class="persona"><b>Personality:</b> modern editorial grotesk — clean with just enough character. Versatile, news/tech-publication feel. Safe-but-not-boring workhorse.</div>
+  </div>
+
+</div>
+</body>
+</html>
