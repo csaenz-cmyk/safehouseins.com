@@ -226,4 +226,15 @@ Si tu prioridad #1 fuera **volumen agresivo de auto barato**, la balanza se move
 
 ---
 
-*Decisiones pendientes del cliente: (1) colores/logo reales, (2) dirección elegida, (3) prioridad de negocio #1 (volumen barato vs. diferenciación tech vs. confianza/gama).*
+---
+
+## 8. Decisión tomada (2026-06-09)
+
+El cliente eligió:
+- **Dirección base de marca:** **E — Human-tech bilingüe** (la *postura*: cercana, humana, en español/inglés).
+- **Prioridad de negocio #1:** **Diferenciación tecnológica** → inclina la *capacidad de producto* hacia **B — IA / Automatización**.
+- **Identidad/color:** el cliente compartirá los hex y el logo actuales para anclar la paleta (conservar azul ancla + sumar acento tech).
+
+**Síntesis de dirección:** marca con *postura E* (cálida, bilingüe, humana) y *motor de producto B* (IA visible pero explicada en lenguaje humano). El héroe del sitio es un cotizador inteligente (placa/VIN → precio en segundos) con "habla con alguien en español" siempre presente. La IA acelera el trato humano, no lo reemplaza. Narrativa: *"Tecnología de punta + gente que de verdad te entiende."* Historia vendible para futura expansión/capital.
+
+**Pendiente para arrancar el sistema de diseño:** recibir hex exactos + logo. Luego: arquitectura de información → sistema de diseño (claro/oscuro) → prototipo del flujo estrella (cotización de auto en <60s) → stack API-first.
