@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safe House — Opciones de tipografía</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@500;600;700;800&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,700&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Sofia+Sans:ital,wght@0,400;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1666ED;
+    --ink:#0A0A0A;
+    --muted:#5B6470;
+    --line:#E6E9EF;
+    --bg:#FFFFFF;
+    --soft:#F5F7FB;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--soft);color:var(--ink);font-family:Inter,system-ui,sans-serif;padding:48px 20px;line-height:1.5}
+  .wrap{max-width:980px;margin:0 auto}
+  .top{margin-bottom:40px}
+  .top h1{font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:-.02em}
+  .top p{color:var(--muted);max-width:60ch;margin-top:10px;font-size:18px}
+  .swatch{display:inline-flex;align-items:center;gap:10px;margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-weight:600;font-size:14px}
+  .dot{width:18px;height:18px;border-radius:50%;background:var(--blue)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:32px;margin:22px 0;box-shadow:0 1px 2px rgba(10,10,10,.04)}
+  .label{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:22px}
+  .label .name{font-weight:700;font-size:15px;letter-spacing:.04em;text-transform:uppercase;color:var(--blue)}
+  .label .fonts{font-size:13px;color:var(--muted);font-family:'Space Grotesk',monospace}
+  .eyebrow{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+  .h{font-size:clamp(26px,4.5vw,40px);font-weight:800;letter-spacing:-.025em;line-height:1.08}
+  .sub{font-size:18px;color:var(--muted);margin-top:12px;max-width:54ch}
+  .body{margin-top:18px;font-size:16px;max-width:62ch}
+  .ui{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;align-items:center}
+  .btn{background:var(--blue);color:#fff;border:none;border-radius:12px;padding:13px 22px;font-weight:700;font-size:15px}
+  .pill{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-weight:600;font-size:15px}
+  .nums{display:flex;gap:28px;margin-top:22px;flex-wrap:wrap}
+  .nums div b{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em}
+  .nums div span{font-size:13px;color:var(--muted)}
+  .persona{margin-top:20px;font-size:14px;color:var(--muted);border-top:1px dashed var(--line);padding-top:14px}
+  .persona b{color:var(--ink)}
+
+  /* font systems */
+  .f-inter .h,.f-inter .eyebrow{font-family:'Inter Tight',sans-serif}
+  .f-inter .sub,.f-inter .body,.f-inter .ui,.f-inter .nums{font-family:'Inter',sans-serif}
+
+  .f-poppins .h,.f-poppins .eyebrow,.f-poppins .nums b{font-family:'Poppins',sans-serif}
+  .f-poppins .sub,.f-poppins .body,.f-poppins .ui{font-family:'Inter',sans-serif}
+
+  .f-manrope .h,.f-manrope .eyebrow,.f-manrope .sub,.f-manrope .body,.f-manrope .ui,.f-manrope .nums{font-family:'Manrope',sans-serif}
+
+  .f-grotesk .h,.f-grotesk .eyebrow,.f-grotesk .nums b{font-family:'Space Grotesk',sans-serif}
+  .f-grotesk .sub,.f-grotesk .body,.f-grotesk .ui{font-family:'Inter',sans-serif}
+
+  .f-sofia .h,.f-sofia .eyebrow,.f-sofia .nums b{font-family:'Sofia Sans',sans-serif}
+  .f-sofia .h{font-style:italic}
+  .f-sofia .sub,.f-sofia .body,.f-sofia .ui{font-family:'Inter',sans-serif}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>Safe House — Opciones de tipografía</h1>
+    <p>Cada bloque muestra el mismo contenido bilingüe con un sistema tipográfico distinto, usando el azul de marca extraído del logo. Abre este archivo en tu navegador para compararlas.</p>
+    <div class="swatch"><span class="dot"></span> Azul de marca · #1666ED · rgb(22, 102, 237)</div>
+  </div>
+
+  <!-- 1 -->
+  <div class="card f-inter">
+    <div class="label"><span class="name">Opción 1 · Tech limpio</span><span class="fonts">Inter Tight · Inter</span></div>
+    <div class="eyebrow">Seguro de auto</div>
+    <div class="h">Cotiza tu seguro de auto en 60 segundos.</div>
+    <div class="sub">Get a real auto quote in under a minute — sin papeleo, sin llamadas.</div>
+    <p class="body">Comparamos varias aseguradoras por ti y te mostramos el mejor precio. Si tienes dudas, hablas con alguien de verdad. En español o inglés.</p>
+    <div class="ui"><button class="btn">Cotizar ahora</button><span class="pill">Hablar con un agente</span></div>
+    <div class="nums"><div><b>$847/año</b><span>Ahorro promedio</span></div><div><b>+15</b><span>Aseguradoras</span></div><div><b>60s</b><span>Tu precio</span></div></div>
+    <div class="persona"><b>Personalidad:</b> neutral, precisa, "producto". El estándar fintech (Stripe, Linear). Súper legible y escalable. Riesgo: muy común.</div>
+  </div>
+
+  <!-- 2 -->
+  <div class="card f-poppins">
+    <div class="label"><span class="name">Opción 2 · Geométrica amigable</span><span class="fonts">Poppins · Inter</span></div>
+    <div class="eyebrow">Seguro de auto</div>
+    <div class="h">Cotiza tu seguro de auto en 60 segundos.</div>
+    <div class="sub">Get a real auto quote in under a minute — sin papeleo, sin llamadas.</div>
+    <p class="body">Comparamos varias aseguradoras por ti y te mostramos el mejor precio. Si tienes dudas, hablas con alguien de verdad. En español o inglés.</p>
+    <div class="ui"><button class="btn">Cotizar ahora</button><span class="pill">Hablar con un agente</span></div>
+    <div class="nums"><div><b>$847/año</b><span>Ahorro promedio</span></div><div><b>+15</b><span>Aseguradoras</span></div><div><b>60s</b><span>Tu precio</span></div></div>
+    <div class="persona"><b>Personalidad:</b> redonda y cálida — es la que <b>más se parece al corazón/logo</b>. Humana y moderna a la vez. Ideal para la dirección E.</div>
+  </div>
+
+  <!-- 3 -->
+  <div class="card f-manrope">
+    <div class="label"><span class="name">Opción 3 · Moderna y cercana</span><span class="fonts">Manrope (una sola familia)</span></div>
+    <div class="eyebrow">Seguro de auto</div>
+    <div class="h">Cotiza tu seguro de auto en 60 segundos.</div>
+    <div class="sub">Get a real auto quote in under a minute — sin papeleo, sin llamadas.</div>
+    <p class="body">Comparamos varias aseguradoras por ti y te mostramos el mejor precio. Si tienes dudas, hablas con alguien de verdad. En español o inglés.</p>
+    <div class="ui"><button class="btn">Cotizar ahora</button><span class="pill">Hablar con un agente</span></div>
+    <div class="nums"><div><b>$847/año</b><span>Ahorro promedio</span></div><div><b>+15</b><span>Aseguradoras</span></div><div><b>60s</b><span>Tu precio</span></div></div>
+    <div class="persona"><b>Personalidad:</b> moderna, ligeramente redondeada, "warm-tech". Una sola familia = simplicidad y rendimiento. Equilibrio perfecto humano + tech.</div>
+  </div>
+
+  <!-- 4 -->
+  <div class="card f-grotesk">
+    <div class="label"><span class="name">Opción 4 · Tech con carácter</span><span class="fonts">Space Grotesk · Inter</span></div>
+    <div class="eyebrow">Seguro de auto</div>
+    <div class="h">Cotiza tu seguro de auto en 60 segundos.</div>
+    <div class="sub">Get a real auto quote in under a minute — sin papeleo, sin llamadas.</div>
+    <p class="body">Comparamos varias aseguradoras por ti y te mostramos el mejor precio. Si tienes dudas, hablas con alguien de verdad. En español o inglés.</p>
+    <div class="ui"><button class="btn">Cotizar ahora</button><span class="pill">Hablar con un agente</span></div>
+    <div class="nums"><div><b>$847/año</b><span>Ahorro promedio</span></div><div><b>+15</b><span>Aseguradoras</span></div><div><b>60s</b><span>Tu precio</span></div></div>
+    <div class="persona"><b>Personalidad:</b> distintiva, "ingeniería/IA". Empuja la <b>diferenciación tech (B)</b>. Más fría — buena en titulares, no para todo.</div>
+  </div>
+
+  <!-- 5 -->
+  <div class="card f-sofia">
+    <div class="label"><span class="name">Opción 5 · Eco del logo (itálica)</span><span class="fonts">Sofia Sans Italic · Inter</span></div>
+    <div class="eyebrow">Seguro de auto</div>
+    <div class="h">Cotiza tu seguro de auto en 60 segundos.</div>
+    <div class="sub">Get a real auto quote in under a minute — sin papeleo, sin llamadas.</div>
+    <p class="body">Comparamos varias aseguradoras por ti y te mostramos el mejor precio. Si tienes dudas, hablas con alguien de verdad. En español o inglés.</p>
+    <div class="ui"><button class="btn">Cotizar ahora</button><span class="pill">Hablar con un agente</span></div>
+    <div class="nums"><div><b>$847/año</b><span>Ahorro promedio</span></div><div><b>+15</b><span>Aseguradoras</span></div><div><b>60s</b><span>Tu precio</span></div></div>
+    <div class="persona"><b>Personalidad:</b> titulares en <b>itálica</b> que retoman el movimiento del wordmark del logo. Conecta directo con la marca. Úsalo con medida.</div>
+  </div>
+
+</div>
+</body>
+</html>
