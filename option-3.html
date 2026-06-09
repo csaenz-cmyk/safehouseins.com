@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safe House Insurance — Option 3</title>
+<meta name="description" content="Safe House Insurance — the modern way to insure. Auto, home & commercial in El Paso, TX. Already insured? We'll help you switch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1666ED; --blue2:#2D7BFF; --sky:#00B4FF; --cyan:#00D1FF; --ink:#0B1220;
+    --muted:#5B6470; --line:#ECEFF5; --soft:#F5F8FD; --soft2:#EAF1FE;
+    --grad:linear-gradient(125deg,#1666ED 0%,#2D7BFF 50%,#00B4FF 100%);
+    --grad2:linear-gradient(100deg,#2D7BFF,#00D1FF);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+  .display{font-family:'Bricolage Grotesque',sans-serif}
+  .mono{font-family:'Geist Mono',monospace}.it{font-style:italic}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+  .grad-text{background:var(--grad2);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;border:none;border-radius:999px;padding:15px 28px;font-weight:800;font-size:15.5px;font-family:inherit;cursor:pointer;transition:transform .18s,box-shadow .18s;box-shadow:0 12px 30px -10px rgba(22,102,237,.6)}
+  .btn:hover{transform:translateY(-3px) scale(1.02)}
+  .btn.white{background:#fff;color:var(--blue)}
+  .btn.ghost-w{background:rgba(255,255,255,.14);color:#fff;box-shadow:none;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.35)}
+  .btn.sm{padding:12px 20px;font-size:14px}
+
+  /* switcher */
+  .switcher{position:fixed;right:18px;bottom:18px;z-index:200;display:flex;gap:6px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px;box-shadow:0 18px 40px -18px rgba(11,18,32,.4)}
+  .switcher a{font-size:13px;font-weight:700;padding:8px 13px;border-radius:999px;color:var(--muted)}
+  .switcher a.on{background:var(--ink);color:#fff}
+
+  .topbar{background:var(--ink);color:#cfe0ff;font-size:13px;font-weight:600;text-align:center;padding:8px 16px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+  .topbar a{color:#fff}.topbar .es{background:rgba(255,255,255,.12);padding:2px 10px;border-radius:999px}
+  @media(max-width:760px){.topbar{font-size:11.5px;gap:10px}}
+
+  nav{position:absolute;top:37px;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px 26px}
+  nav .logo{height:30px;filter:brightness(0) invert(1)}
+  .links{display:flex;gap:26px;align-items:center}
+  .links a{color:rgba(255,255,255,.92);font-weight:700;font-size:14.5px}.links a:hover{opacity:.7}
+  .nav-cta{display:flex;gap:12px;align-items:center}.signin{color:#fff;font-weight:700;font-size:14.5px}
+  @media(max-width:960px){.links{display:none}}
+
+  /* HERO */
+  .hero{position:relative;background:var(--grad);background-size:200% 200%;animation:gradShift 14s ease infinite;color:#fff;overflow:hidden;padding:150px 0 190px;text-align:center}
+  @keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  .floats{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+  .floats img,.floats .fi{position:absolute;animation:rise linear infinite}
+  .floats img{filter:brightness(0) invert(1);opacity:.18}
+  .floats .fi{display:grid;place-items:center;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:18px;backdrop-filter:blur(2px);font-size:24px;box-shadow:0 14px 30px -16px rgba(0,0,0,.4)}
+  @keyframes rise{0%{transform:translateY(60px) rotate(-10deg);opacity:0}12%{opacity:1}88%{opacity:.9}100%{transform:translateY(-118vh) rotate(12deg);opacity:0}}
+
+  .hero-inner{position:relative;z-index:3;max-width:820px;margin:0 auto}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);padding:9px 16px;border-radius:999px}
+  .hero h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(48px,8vw,96px);line-height:.98;letter-spacing:-.02em;margin-top:22px}
+  .hero .lede{font-size:20px;color:rgba(255,255,255,.92);max-width:44ch;margin:22px auto 0}
+  .hero-actions{display:flex;gap:14px;justify-content:center;margin-top:32px;flex-wrap:wrap}
+  .trustline{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:26px;font-size:14px;color:rgba(255,255,255,.92);flex-wrap:wrap}
+  .trustline .stars{color:#ffd84d}
+  .wave{position:absolute;bottom:-1px;left:0;width:100%;z-index:2;line-height:0}.wave svg{display:block;width:100%;height:90px}
+
+  /* MARQUEE */
+  .marquee{background:#fff;padding:30px 0 6px;overflow:hidden}
+  .marquee p{text-align:center;font-size:13px;color:var(--muted);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+  .marquee .row{display:flex;gap:54px;align-items:center;white-space:nowrap;width:max-content;animation:scroll 26s linear infinite}
+  .marquee span{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:22px;color:#c2cbdb}@keyframes scroll{to{transform:translateX(-50%)}}
+
+  section{padding:88px 0}
+  .kicker{font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+  .h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(38px,5.4vw,62px);line-height:1.02;letter-spacing:-.02em;margin-top:12px}
+  .sec-lede{font-size:18px;color:var(--muted);max-width:54ch;margin-top:14px}
+  .center{margin:0 auto;text-align:center}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}.reveal.in{opacity:1;transform:none}
+
+  /* SWITCH cluster */
+  .switch{background:var(--soft);position:relative;overflow:hidden}
+  .cluster{display:flex;flex-wrap:wrap;gap:26px;justify-content:center;align-items:center;max-width:920px;margin:54px auto 0}
+  .bubble{position:relative;border-radius:50%;display:grid;place-items:center;text-align:center;padding:18px;
+          background:radial-gradient(circle at 32% 28%, #ffffff, #eaf1fe);border:1px solid #dbe7fb;
+          box-shadow:0 26px 50px -28px rgba(22,102,237,.5);transition:transform .25s,box-shadow .25s;animation:bob 5s ease-in-out infinite}
+  .bubble:hover{transform:translateY(-8px) scale(1.04);box-shadow:0 40px 70px -30px rgba(22,102,237,.7);background:var(--grad);color:#fff}
+  .bubble:hover .pct{background:#fff;-webkit-background-clip:text;background-clip:text}
+  .bubble .pct{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,4vw,52px);line-height:1;background:var(--grad2);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .bubble .co{font-weight:700;font-size:14px;margin-top:6px;max-width:14ch}
+  .bubble:hover .co{color:#fff}
+  .bubble.lg{width:230px;height:230px}.bubble.md{width:185px;height:185px}.bubble.sm{width:155px;height:155px}
+  .bubble.o1{transform:translateY(18px)}.bubble.o2{transform:translateY(-24px)}.bubble.o3{transform:translateY(30px)}.bubble.o4{transform:translateY(-10px)}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .note{text-align:center;font-size:12.5px;color:#9aa6b8;margin-top:30px}
+
+  /* HOW */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}@media(max-width:840px){.steps{grid-template-columns:1fr}}
+  .step{background:#fff;border:1px solid var(--line);border-radius:24px;padding:30px;transition:.25s}
+  .step:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(22,102,237,.45);border-color:#d4e3ff}
+  .step .ico{width:58px;height:58px;border-radius:16px;background:var(--soft2);display:grid;place-items:center;font-size:26px;transition:.25s}
+  .step:hover .ico{transform:rotate(-6deg) scale(1.08);background:var(--grad2)}
+  .step h4{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:700;margin-top:16px}.step p{color:var(--muted);margin-top:8px;font-size:15px}
+
+  /* COVERAGE */
+  .prods{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:22px;margin-top:50px}@media(max-width:900px){.prods{grid-template-columns:1fr}}
+  .prod{border-radius:26px;padding:30px;border:1px solid var(--line);background:#fff;transition:.25s;min-height:230px;display:flex;flex-direction:column}
+  .prod:hover{transform:translateY(-6px);box-shadow:0 30px 64px -30px rgba(22,102,237,.5)}
+  .prod.feat{background:var(--grad);color:#fff;border:none}
+  .prod .pico{font-size:30px;width:60px;height:60px;border-radius:16px;background:var(--soft2);display:grid;place-items:center}.prod.feat .pico{background:rgba(255,255,255,.2)}
+  .prod h4{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:26px;margin-top:auto}.prod.feat h4{font-size:34px}
+  .prod p{color:var(--muted);font-size:14.5px;margin-top:8px}.prod.feat p{color:rgba(255,255,255,.92)}
+  .prod .go{margin-top:14px;font-weight:800;font-size:14px;color:var(--blue)}.prod.feat .go{color:#fff}
+
+  /* CTA */
+  .cta{position:relative;background:var(--grad);background-size:200% 200%;animation:gradShift 16s ease infinite;color:#fff;border-radius:36px;padding:74px 36px;text-align:center;overflow:hidden}
+  .cta .heart{position:absolute;right:-30px;top:-30px;width:230px;filter:brightness(0) invert(1);opacity:.12;animation:bob 5s ease-in-out infinite}
+  .cta .h2{position:relative;color:#fff}.cta p{position:relative;color:rgba(255,255,255,.92);max-width:46ch;margin:14px auto 0;font-size:18px}.cta .btn{position:relative;margin-top:26px}
+
+  footer{background:var(--ink);color:#9fb0cc;padding:54px 0 30px}
+  .fbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;border-top:1px solid rgba(255,255,255,.1);padding-top:24px;font-size:13.5px}
+  footer .logo{height:26px;filter:brightness(0) invert(1)}
+</style>
+</head>
+<body>
+
+  <div class="switcher">
+    <a href="index.html">Opt 1</a><a href="option-2.html">Opt 2</a><a href="option-3.html" class="on">Opt 3</a>
+  </div>
+
+  <div class="topbar">
+    <span>📞 <a href="tel:+19155031207">915-503-1207</a></span>
+    <span>✉️ <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></span>
+    <span class="es">🇲🇽 Se habla español</span>
+    <span>El Paso, TX · TX &amp; NM</span>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="floats" id="floats"></div>
+    <nav>
+      <a href="index.html"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+      <div class="links"><a href="#switch">Switch &amp; save</a><a href="#how">How it works</a><a href="#coverage">Coverage</a><a href="#cta">Contact</a></div>
+      <div class="nav-cta"><a class="signin" href="#cta">Contact</a><a class="btn white sm" href="#cta">Get a quote</a></div>
+    </nav>
+    <div class="hero-inner">
+      <span class="eyebrow">💙 The modern way to insure</span>
+      <h1>Insurance that<br>feels good.</h1>
+      <p class="lede">Auto, home &amp; commercial — compared across top carriers, quoted in 60 seconds, and managed in one place. Se habla español.</p>
+      <div class="hero-actions"><a class="btn white" href="#cta">Get my quote →</a><a class="btn ghost-w" href="#switch">Already insured? Switch →</a></div>
+      <div class="trustline"><span class="stars">★★★★★</span> <b>Real 5-star Google reviews</b> from El Paso &amp; NM drivers</div>
+    </div>
+    <div class="wave"><svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path fill="#ffffff" d="M0,40 C360,100 720,0 1080,40 C1260,60 1380,50 1440,40 L1440,90 L0,90 Z"/></svg></div>
+  </header>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <p>We shop the carriers you trust</p>
+    <div class="row">
+      <span>Progressive</span><span>Geico</span><span>Lemonade</span><span>Alinsco</span><span>Commonwealth</span><span>Progressive</span><span>Geico</span><span>Lemonade</span><span>Alinsco</span><span>Commonwealth</span>
+    </div>
+  </div>
+
+  <!-- SWITCH cluster -->
+  <section id="switch" class="switch">
+    <div class="wrap">
+      <div class="reveal center" style="max-width:680px">
+        <span class="kicker">Already insured?</span>
+        <h2 class="h2">We'll help you <span class="grad-text">switch &amp; save.</span></h2>
+        <p class="sec-lede center">Drivers across El Paso made the move to Safe House from these companies — and we made the switch effortless.</p>
+      </div>
+      <div class="cluster">
+        <div class="bubble lg o1 reveal"><div class="pct">28%</div><div class="co">Fred Loya</div></div>
+        <div class="bubble md o2 reveal"><div class="pct">19%</div><div class="co">State Farm</div></div>
+        <div class="bubble md o3 reveal"><div class="pct">16%</div><div class="co">Allstate</div></div>
+        <div class="bubble sm o4 reveal"><div class="pct">12%</div><div class="co">Liberty Mutual</div></div>
+        <div class="bubble sm o1 reveal"><div class="pct">25%</div><div class="co">Geico, Progressive &amp; more</div></div>
+      </div>
+      <p class="note">↑ Sample figures for layout — replace with Safe House's real switch data (or we can remove the percentages).</p>
+      <div class="center reveal" style="margin-top:30px"><a class="btn" href="#cta">See if you'll save →</a></div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section id="how">
+    <div class="wrap">
+      <div class="reveal center" style="max-width:660px"><span class="kicker">How it works</span><h2 class="h2">Three steps. Zero hassle.</h2></div>
+      <div class="steps">
+        <div class="step reveal"><div class="ico">💬</div><h4>Tell us a little</h4><p>Your ZIP and your vehicle — that's it to start. No long forms, no phone tag.</p></div>
+        <div class="step reveal"><div class="ico">⚡</div><h4>We compare carriers</h4><p>Real-time rates from top carriers, powered by TurboRater, ranked by your best price.</p></div>
+        <div class="step reveal"><div class="ico">🎉</div><h4>Switch &amp; get covered</h4><p>We handle the switch and cancel the old policy. Covered the same day.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COVERAGE -->
+  <section id="coverage" style="background:var(--soft)">
+    <div class="wrap">
+      <div class="reveal center" style="max-width:660px"><span class="kicker">Coverage</span><h2 class="h2">One agency. Every policy.</h2></div>
+      <div class="prods">
+        <a class="prod feat reveal" href="#cta"><div class="pico" style="margin-top:auto">🚗</div><h4>Auto</h4><p>Full coverage, liability, SR-22, high-risk &amp; non-owner — our specialty.</p><span class="go">Quote auto →</span></a>
+        <a class="prod reveal" href="#cta"><div class="pico">🏠</div><h4 style="margin-top:auto">Home</h4><p>Homeowners, renters &amp; mobile homes. Bundle to save.</p><span class="go">Quote home →</span></a>
+        <a class="prod reveal" href="#cta"><div class="pico">🏢</div><h4 style="margin-top:auto">Commercial</h4><p>Commercial auto, general liability &amp; bonds.</p><span class="go">Quote commercial →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta" style="padding-top:10px">
+    <div class="wrap"><div class="cta reveal">
+      <img class="heart" src="assets/safehouse-heart.png" alt="">
+      <h2 class="h2">Switch in minutes.<br>Save all year.</h2>
+      <p>Call or text 915-503-1207, email contact@safehouseins.com, or start your free quote online.</p>
+      <a class="btn white" href="tel:+19155031207">📞 Get my quote</a>
+    </div></div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="fbar">
+        <img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance">
+        <span>📞 915-503-1207 · ✉️ contact@safehouseins.com · 🇲🇽 Se habla español</span>
+        <span>© 2026 Safe House Insurance · El Paso, TX</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  // floating hearts + insurance icons
+  const fl=document.getElementById('floats');
+  const icons=['🚗','🏠','🏍️','🛻','🔑','🛡️','🚙','🏢'];
+  for(let i=0;i<14;i++){
+    const isHeart=i%3===0;
+    let el;
+    if(isHeart){ el=document.createElement('img'); el.src='assets/safehouse-heart.png'; const s=22+Math.random()*40; el.style.width=s+'px'; }
+    else { el=document.createElement('div'); el.className='fi'; const s=44+Math.random()*22; el.style.width=s+'px'; el.style.height=s+'px'; el.textContent=icons[Math.floor(Math.random()*icons.length)]; el.style.fontSize=(s*0.5)+'px'; }
+    el.style.left=(Math.random()*100)+'%';
+    el.style.bottom=(-12-Math.random()*22)+'%';
+    el.style.animationDuration=(14+Math.random()*12)+'s';
+    el.style.animationDelay=(-Math.random()*18)+'s';
+    fl.appendChild(el);
+  }
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
