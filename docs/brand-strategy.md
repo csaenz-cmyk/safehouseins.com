@@ -233,7 +233,9 @@ Si tu prioridad #1 fuera **volumen agresivo de auto barato**, la balanza se move
 El cliente eligió:
 - **Dirección base de marca:** **E — Human-tech bilingüe** (la *postura*: cercana, humana, en español/inglés).
 - **Prioridad de negocio #1:** **Diferenciación tecnológica** → inclina la *capacidad de producto* hacia **B — IA / Automatización**.
-- **Identidad/color:** el cliente compartirá los hex y el logo actuales para anclar la paleta (conservar azul ancla + sumar acento tech).
+- **Identidad/color:** logo recibido. **Azul de marca = `#1666ED`** (rgb 22,102,237), extraído del logo (corazón + wordmark bold itálico redondeado). Acento tech tentativo: cian `#00D1FF` (por confirmar).
+- **Idioma del sitio:** **inglés** (decisión del cliente, 2026 — descartado el enfoque bilingüe en copy; la cercanía se mantiene vía tono y trato humano, no traducción).
+- **Tipografía:** en evaluación. Ronda 1 (Inter/Poppins/Manrope/Space Grotesk/Sofia) se descartó por "muy simple". Ronda 2 explora display de diseñador: Clash Display, Bricolage Grotesque, Fraunces, Instrument Serif, Cabinet Grotesk, Sora.
 
 **Síntesis de dirección:** marca con *postura E* (cálida, bilingüe, humana) y *motor de producto B* (IA visible pero explicada en lenguaje humano). El héroe del sitio es un cotizador inteligente (placa/VIN → precio en segundos) con "habla con alguien en español" siempre presente. La IA acelera el trato humano, no lo reemplaza. Narrativa: *"Tecnología de punta + gente que de verdad te entiende."* Historia vendible para futura expansión/capital.
 
