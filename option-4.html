@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safe House Insurance — Option 4</title>
+<meta name="description" content="Safe House Insurance — premium, friendly, the modern way to insure. Auto, home & commercial in El Paso, TX. Already insured? We'll help you switch & save.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAF7F1; --cream2:#F3EEE4; --ink:#15151D; --ink2:#3a3a45;
+    --blue:#1666ED; --blue2:#2D7BFF; --cyan:#00C2FF; --coral:#FF7A5A; --gold:#E7B24C;
+    --muted:#6b6b76; --line:#EAE4D8; --card:#fff;
+    --grad:linear-gradient(120deg,#1666ED,#2D7BFF 60%,#00C2FF);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+  .serif{font-family:'Fraunces',serif}.hand{font-family:'Caveat',cursive}.mono{font-family:'Geist Mono',monospace}.it{font-style:italic}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 26px}
+
+  .btn{position:relative;display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border:none;border-radius:999px;padding:15px 27px;font-weight:700;font-size:15.5px;font-family:inherit;cursor:pointer;transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s,background .2s;box-shadow:0 16px 34px -16px rgba(21,21,29,.6);will-change:transform}
+  .btn:hover{box-shadow:0 24px 46px -18px rgba(21,21,29,.7)}
+  .btn.blue{background:var(--blue);box-shadow:0 16px 34px -14px rgba(22,102,237,.65)}
+  .btn.coral{background:var(--coral);box-shadow:0 16px 34px -14px rgba(255,122,90,.6)}
+  .btn.line{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:0 12px 26px -18px rgba(21,21,29,.4)}
+  .btn.sm{padding:11px 19px;font-size:14px}
+  .btn .i{font-size:18px;display:inline-flex}
+  svg.i{width:1em;height:1em;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+  /* switcher */
+  .switcher{position:fixed;right:18px;bottom:18px;z-index:200;display:flex;gap:6px;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:999px;padding:6px;box-shadow:0 18px 40px -18px rgba(21,21,29,.3)}
+  .switcher a{font-size:13px;font-weight:700;padding:8px 12px;border-radius:999px;color:var(--muted)}
+  .switcher a.on{background:var(--ink);color:#fff}
+
+  /* annotations */
+  .anno{position:relative;display:inline-block;white-space:nowrap}
+  .anno svg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:128%;height:150%;overflow:visible;pointer-events:none}
+  .anno svg path{fill:none;stroke-width:3.4;stroke-linecap:round;stroke-dasharray:300;stroke-dashoffset:300;transition:stroke-dashoffset 1s ease}
+  .anno.in svg path{stroke-dashoffset:0}
+  .anno.circle svg path{stroke:var(--coral)}
+  .anno.uline{display:inline-block}
+  .anno.uline svg{top:auto;bottom:-6px;transform:translateX(-50%);height:18px;width:104%}
+  .anno.uline svg path{stroke:var(--blue);stroke-width:5}
+  .scribble-note{position:absolute;font-family:'Caveat',cursive;font-weight:700;color:var(--coral);font-size:26px;white-space:nowrap;opacity:0;transition:opacity .5s .6s}
+  .anno.in .scribble-note{opacity:1}
+
+  .topbar{background:var(--ink);color:#cdd3e2;font-size:13px;font-weight:600;text-align:center;padding:9px 16px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+  .topbar a{color:#fff}.topbar .es{background:rgba(255,255,255,.12);padding:2px 10px;border-radius:999px}
+  @media(max-width:760px){.topbar{font-size:11.5px;gap:10px}}
+
+  nav{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:16px 26px;background:rgba(250,247,241,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav .logo{height:30px}
+  .links{display:flex;gap:26px;align-items:center}
+  .links a{color:var(--ink2);font-weight:600;font-size:14.5px}.links a:hover{color:var(--blue)}
+  .nav-cta{display:flex;gap:12px;align-items:center}
+  @media(max-width:980px){.links{display:none}}
+
+  /* HERO */
+  .hero{position:relative;overflow:hidden;padding:60px 0 70px}
+  .hero .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;z-index:0}
+  .hero .blob.b1{width:360px;height:360px;background:#cfe0ff;top:-80px;left:-60px}
+  .hero .blob.b2{width:320px;height:320px;background:#ffd9cf;bottom:-90px;right:-40px}
+  .spark{position:absolute;color:var(--gold);z-index:1;animation:tw 3s ease-in-out infinite}
+  @keyframes tw{0%,100%{transform:scale(.8);opacity:.5}50%{transform:scale(1.2);opacity:1}}
+  .hero-inner{position:relative;z-index:5;display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center}
+  @media(max-width:980px){.hero-inner{grid-template-columns:1fr;gap:44px}}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--ink2);background:#fff;border:1px solid var(--line);padding:8px 15px;border-radius:999px;box-shadow:0 10px 24px -18px rgba(21,21,29,.4)}
+  .eyebrow b{color:var(--blue)}
+  h1.hh{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(46px,6.6vw,82px);line-height:1.0;letter-spacing:-.02em;margin-top:22px}
+  .lede{font-size:19px;color:var(--ink2);max-width:44ch;margin-top:34px}
+  .hero-actions{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;align-items:center}
+  .mini-trust{display:flex;align-items:center;gap:10px;margin-top:24px;font-size:14px;color:var(--ink2);flex-wrap:wrap}
+  .mini-trust .stars{color:var(--gold)}
+
+  /* savings calculator card */
+  .calc{position:relative;z-index:5;background:var(--card);border:1px solid var(--line);border-radius:30px;padding:28px;box-shadow:0 50px 90px -50px rgba(21,21,29,.5)}
+  .calc .tag{font-family:'Caveat',cursive;font-weight:700;color:var(--coral);font-size:24px;position:absolute;top:-22px;right:22px;transform:rotate(-6deg)}
+  .calc h3{font-family:'Fraunces',serif;font-weight:600;font-size:24px}
+  .calc .row{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;font-size:14px;color:var(--muted);font-weight:600}
+  .calc .cur{font-family:'Geist Mono',monospace;font-size:18px;color:var(--ink);font-weight:600}
+  input[type=range]{-webkit-appearance:none;width:100%;height:8px;border-radius:99px;background:linear-gradient(90deg,var(--blue) 50%,var(--cream2) 50%);margin:12px 0 4px;outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid var(--blue);box-shadow:0 6px 16px -4px rgba(22,102,237,.7);cursor:pointer}
+  .calc .result{margin-top:22px;background:linear-gradient(120deg,#EAF1FE,#fff);border:1px solid #dbe7fb;border-radius:20px;padding:20px;text-align:center}
+  .calc .result .big{font-family:'Fraunces',serif;font-weight:600;font-size:46px;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .calc .result small{display:block;color:var(--muted);font-size:13px;margin-top:4px}
+  .calc .btn{width:100%;justify-content:center;margin-top:16px}
+
+  /* MARQUEE */
+  .marquee{padding:26px 0 4px;overflow:hidden}
+  .marquee p{text-align:center;font-size:13px;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+  .marquee .row{display:flex;gap:50px;align-items:center;white-space:nowrap;width:max-content;animation:scroll 26s linear infinite}
+  .marquee span{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:24px;color:#b9b1a0}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  section{padding:84px 0}
+  .kicker{font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+  .h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(36px,5.1vw,58px);line-height:1.04;letter-spacing:-.02em;margin-top:12px}
+  .sec-lede{font-size:18px;color:var(--muted);max-width:54ch;margin-top:14px}
+  .center{margin:0 auto;text-align:center}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1)}.reveal.in{opacity:1;transform:none}
+
+  /* SWITCH cards */
+  .switchgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:48px}
+  @media(max-width:980px){.switchgrid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.switchgrid{grid-template-columns:1fr}}
+  .scard{background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px;transition:transform .25s,box-shadow .25s;text-align:center}
+  .scard:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:0 30px 60px -34px rgba(22,102,237,.5)}
+  .scard .badge{width:46px;height:46px;border-radius:14px;background:var(--cream2);display:grid;place-items:center;color:var(--blue);font-size:22px;margin:0 auto}
+  .scard .pct{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(34px,4.2vw,48px);line-height:1;margin-top:14px;color:var(--ink)}
+  .scard .co{font-weight:700;font-size:14px;margin-top:2px}
+  .scard .lbl{font-size:12px;color:var(--muted);margin-top:4px}
+  .note{text-align:center;font-size:12.5px;color:#a59b88;margin-top:24px}
+
+  /* TABS coverage */
+  .tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+  .tab{padding:12px 22px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:700;font-size:15px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:8px}
+  .tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .panelwrap{margin-top:28px}
+  .panel{display:none;grid-template-columns:1fr 1fr;gap:30px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:30px;padding:36px;box-shadow:0 40px 80px -50px rgba(21,21,29,.4)}
+  .panel.on{display:grid;animation:fade .5s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @media(max-width:820px){.panel{grid-template-columns:1fr;gap:22px}}
+  .panel h3{font-family:'Fraunces',serif;font-weight:600;font-size:34px}
+  .panel p{color:var(--muted);margin-top:10px}
+  .panel ul{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:10px}
+  .panel li{display:flex;gap:10px;font-weight:600;font-size:15px}.panel li .i{color:var(--blue)}
+  .panel .art{border-radius:22px;min-height:230px;display:grid;place-items:center;font-size:80px;color:#fff}
+
+  /* HOW */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}@media(max-width:840px){.steps{grid-template-columns:1fr}}
+  .step{background:#fff;border:1px solid var(--line);border-radius:24px;padding:30px;transition:.25s}
+  .step:hover{transform:translateY(-6px) rotate(1deg);box-shadow:0 30px 60px -34px rgba(22,102,237,.4)}
+  .step .ico{width:56px;height:56px;border-radius:16px;background:var(--cream2);display:grid;place-items:center;color:var(--blue);font-size:24px;transition:.25s}
+  .step:hover .ico{background:var(--grad);color:#fff;transform:rotate(-8deg) scale(1.08)}
+  .step .n{font-family:'Caveat',cursive;font-size:22px;color:var(--coral);font-weight:700;margin-top:14px}
+  .step h4{font-family:'Fraunces',serif;font-size:23px;font-weight:600;margin-top:2px}.step p{color:var(--muted);margin-top:8px;font-size:15px}
+
+  /* CTA */
+  .cta{position:relative;background:var(--ink);color:#fff;border-radius:36px;padding:74px 36px;text-align:center;overflow:hidden}
+  .cta::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 360px at 26% 0%,rgba(45,123,255,.45),transparent 60%),radial-gradient(560px 340px at 84% 110%,rgba(255,122,90,.4),transparent 60%)}
+  .cta .h2{position:relative;color:#fff}.cta p{position:relative;color:#c9cdd8;max-width:46ch;margin:14px auto 0;font-size:18px}.cta .btn{position:relative;margin-top:26px}
+  .cta .hand{position:relative;color:var(--gold);font-size:28px;display:block;margin-top:14px}
+
+  footer{padding:50px 0 30px;color:var(--muted)}
+  .fbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;border-top:1px solid var(--line);padding-top:24px;font-size:13.5px}
+  footer .logo{height:26px}
+
+  #confetti{position:fixed;inset:0;pointer-events:none;z-index:9999}
+</style>
+</head>
+<body>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="car" viewBox="0 0 24 24"><path d="M3 13l1.6-4.2A2 2 0 0 1 6.5 7.5h11a2 2 0 0 1 1.9 1.3L21 13M4 13h16v4a1 1 0 0 1-1 1h-1.5M6.5 18H5a1 1 0 0 1-1-1v-4"/><circle cx="7.5" cy="18" r="1.6"/><circle cx="16.5" cy="18" r="1.6"/></symbol>
+    <symbol id="home" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6M6 10v9h12v-9M10 19v-5h4v5"/></symbol>
+    <symbol id="biz" viewBox="0 0 24 24"><path d="M4 20V8l7-4 7 4v12M4 20h16M9 20v-4h4v4M8 11h.01M14 11h.01"/></symbol>
+    <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="chat" viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 4V6z"/></symbol>
+    <symbol id="bolt" viewBox="0 0 24 24"><path d="M13 3L5 13h6l-1 8 8-10h-6z"/></symbol>
+    <symbol id="check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></symbol>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  </svg>
+
+  <canvas id="confetti"></canvas>
+
+  <div class="switcher">
+    <a href="index.html">1</a><a href="option-2.html">2</a><a href="option-3.html">3</a><a href="option-4.html" class="on">4</a>
+  </div>
+
+  <div class="topbar">
+    <span>📞 <a href="tel:+19155031207">915-503-1207</a></span>
+    <span>✉️ <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></span>
+    <span class="es">🇲🇽 Se habla español</span>
+    <span>El Paso, TX · TX &amp; NM</span>
+  </div>
+
+  <nav>
+    <a href="index.html"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+    <div class="links"><a href="#switch">Switch &amp; save</a><a href="#coverage">Coverage</a><a href="#how">How it works</a><a href="#cta">Contact</a></div>
+    <div class="nav-cta"><a class="btn blue sm magnetic" href="#cta">Get a quote</a></div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="blob b1"></span><span class="blob b2"></span>
+    <span class="spark" style="left:46%;top:16%;font-size:22px">✦</span>
+    <span class="spark" style="right:30%;top:60%;font-size:16px;animation-delay:-1s">✦</span>
+    <span class="spark" style="left:8%;top:70%;font-size:18px;animation-delay:-2s">✦</span>
+    <div class="wrap hero-inner">
+      <div>
+        <span class="eyebrow">💙 The modern way to insure · <b>se habla español</b></span>
+        <h1 class="hh">Insurance that's<br>actually
+          <span class="anno circle" data-anno>simple
+            <svg viewBox="0 0 240 90"><path d="M18,46 C18,18 70,12 120,12 C186,12 224,26 224,46 C224,70 168,80 120,80 C66,80 22,72 18,46"/></svg>
+            <span class="scribble-note" style="left:100%;top:-26px">we promise ✦</span>
+          </span>.
+        </h1>
+        <p class="lede">Auto, home &amp; commercial — compared across top carriers, quoted in <span class="anno uline" data-anno>60 seconds<svg viewBox="0 0 200 16" preserveAspectRatio="none"><path d="M4,9 C50,15 150,15 196,7"/></svg></span>, and handled with real, local care.</p>
+        <div class="hero-actions">
+          <a class="btn blue magnetic" id="quoteBtn" href="#cta">Get my quote <svg class="i"><use href="#arrow"/></svg></a>
+          <a class="btn line" href="#switch">Already insured? Switch</a>
+        </div>
+        <div class="mini-trust"><span class="stars">★★★★★</span> <b>Real 5-star Google reviews</b> from El Paso &amp; New Mexico</div>
+      </div>
+
+      <!-- savings calculator -->
+      <div class="calc tilt">
+        <span class="tag">try it →</span>
+        <h3>How much could you save?</h3>
+        <div class="row"><span>Your current premium</span><span class="cur" id="curVal">$180/mo</span></div>
+        <input type="range" id="slider" min="80" max="320" value="180">
+        <div class="result">
+          <div class="big" id="saveBig">$0</div>
+          <small id="saveSub">estimated savings per year *</small>
+        </div>
+        <a class="btn blue magnetic" href="#cta">See my real price <svg class="i"><use href="#arrow"/></svg></a>
+        <p style="font-size:11px;color:#a59b88;text-align:center;margin-top:10px">* Illustrative estimate. Your real quote may vary.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <p>We shop the carriers you trust</p>
+    <div class="row"><span>Progressive</span><span>Geico</span><span>Lemonade</span><span>Alinsco</span><span>Commonwealth</span><span>Progressive</span><span>Geico</span><span>Lemonade</span><span>Alinsco</span><span>Commonwealth</span></div>
+  </div>
+
+  <!-- SWITCH -->
+  <section id="switch">
+    <div class="wrap">
+      <div class="reveal center" style="max-width:700px">
+        <span class="kicker">Already insured?</span>
+        <h2 class="h2">We'll help you
+          <span class="anno circle" data-anno>switch &amp; save
+            <svg viewBox="0 0 360 90"><path d="M20,46 C20,18 110,12 180,12 C280,12 340,26 340,46 C340,70 250,80 180,80 C96,80 24,72 20,46"/></svg>
+          </span>
+        </h2>
+        <p class="sec-lede center">Neighbors across El Paso moved to Safe House from these companies — and we made the switch effortless.</p>
+      </div>
+      <div class="switchgrid">
+        <div class="scard reveal tilt"><div class="badge"><svg class="i"><use href="#car"/></svg></div><div class="pct" data-count="28">0%</div><div class="co">Fred Loya</div><div class="lbl">switched to us</div></div>
+        <div class="scard reveal tilt"><div class="badge"><svg class="i"><use href="#shield"/></svg></div><div class="pct" data-count="19">0%</div><div class="co">State Farm</div><div class="lbl">switched to us</div></div>
+        <div class="scard reveal tilt"><div class="badge"><svg class="i"><use href="#home"/></svg></div><div class="pct" data-count="16">0%</div><div class="co">Allstate</div><div class="lbl">switched to us</div></div>
+        <div class="scard reveal tilt"><div class="badge"><svg class="i"><use href="#shield"/></svg></div><div class="pct" data-count="12">0%</div><div class="co">Liberty Mutual</div><div class="lbl">switched to us</div></div>
+        <div class="scard reveal tilt"><div class="badge">+</div><div class="pct" data-count="25">0%</div><div class="co">Geico &amp; more</div><div class="lbl">switched to us</div></div>
+      </div>
+      <p class="note">↑ Sample figures for layout — replace with Safe House's real switch data, or we can remove the percentages.</p>
+    </div>
+  </section>
+
+  <!-- COVERAGE TABS -->
+  <section id="coverage" style="background:var(--cream2);border-radius:40px;margin:0 14px">
+    <div class="wrap">
+      <div class="reveal center" style="max-width:660px"><span class="kicker">Coverage</span><h2 class="h2">Pick what you need.</h2></div>
+      <div class="tabs reveal">
+        <button class="tab on" data-tab="auto"><svg class="i"><use href="#car"/></svg> Auto</button>
+        <button class="tab" data-tab="home"><svg class="i"><use href="#home"/></svg> Home</button>
+        <button class="tab" data-tab="biz"><svg class="i"><use href="#biz"/></svg> Commercial</button>
+      </div>
+      <div class="panelwrap reveal">
+        <div class="panel on" data-panel="auto">
+          <div><h3>Auto — our specialty</h3><p>Good record or not, we find the carrier that says yes — at the best price.</p>
+            <ul><li><svg class="i"><use href="#check"/></svg> Full coverage &amp; liability-only</li><li><svg class="i"><use href="#check"/></svg> SR-22 filings, same day</li><li><svg class="i"><use href="#check"/></svg> High-risk, non-owner &amp; no-license</li></ul></div>
+          <div class="art" style="background:linear-gradient(150deg,#1666ED,#2D7BFF)"><svg class="i" style="width:90px"><use href="#car"/></svg></div>
+        </div>
+        <div class="panel" data-panel="home">
+          <div><h3>Home &amp; renters</h3><p>Protect where you live and everything in it — and save when you bundle with auto.</p>
+            <ul><li><svg class="i"><use href="#check"/></svg> Homeowners &amp; renters</li><li><svg class="i"><use href="#check"/></svg> Mobile &amp; manufactured homes</li><li><svg class="i"><use href="#check"/></svg> Bundle &amp; save up to 22%</li></ul></div>
+          <div class="art" style="background:linear-gradient(150deg,#00B4FF,#00C2FF)"><svg class="i" style="width:90px"><use href="#home"/></svg></div>
+        </div>
+        <div class="panel" data-panel="biz">
+          <div><h3>Commercial &amp; bonds</h3><p>Keep your business moving — from one truck to a full fleet, plus the bonds you need.</p>
+            <ul><li><svg class="i"><use href="#check"/></svg> Commercial auto &amp; fleets</li><li><svg class="i"><use href="#check"/></svg> General liability</li><li><svg class="i"><use href="#check"/></svg> Surety &amp; license bonds</li></ul></div>
+          <div class="art" style="background:linear-gradient(150deg,#15151D,#2b2b3a)"><svg class="i" style="width:90px"><use href="#biz"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section id="how">
+    <div class="wrap">
+      <div class="reveal center" style="max-width:660px"><span class="kicker">How it works</span><h2 class="h2">Three steps. <span class="anno circle" data-anno>that's it<svg viewBox="0 0 220 90"><path d="M18,46 C18,18 66,12 110,12 C176,12 204,26 204,46 C204,70 152,80 110,80 C56,80 22,72 18,46"/></svg></span>.</h2></div>
+      <div class="steps">
+        <div class="step reveal"><div class="ico"><svg class="i"><use href="#chat"/></svg></div><div class="n">step one</div><h4>Tell us a little</h4><p>Your ZIP and your vehicle — no long forms, no phone tag.</p></div>
+        <div class="step reveal"><div class="ico"><svg class="i"><use href="#bolt"/></svg></div><div class="n">step two</div><h4>We compare carriers</h4><p>Real-time rates with TurboRater, ranked by your best price.</p></div>
+        <div class="step reveal"><div class="ico"><svg class="i"><use href="#shield"/></svg></div><div class="n">step three</div><h4>Switch &amp; relax</h4><p>We handle the switch and cancel the old policy. Covered today.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta" style="padding-top:10px">
+    <div class="wrap"><div class="cta reveal">
+      <span class="kicker" style="color:#bff0ff">Free quote · No obligation</span>
+      <h2 class="h2" style="margin-top:10px">Let's find your<br>better price.</h2>
+      <p>Call or text 915-503-1207, email contact@safehouseins.com, or start your free quote online.</p>
+      <a class="btn coral magnetic" id="quoteBtn2" href="tel:+19155031207">📞 Get my quote</a>
+      <span class="hand">se habla español ✦</span>
+    </div></div>
+  </section>
+
+  <footer>
+    <div class="wrap"><div class="fbar">
+      <img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance">
+      <span>📞 915-503-1207 · ✉️ contact@safehouseins.com · 🇲🇽 Se habla español</span>
+      <span>© 2026 Safe House Insurance · El Paso, TX</span>
+    </div></div>
+  </footer>
+
+<script>
+  // savings slider
+  const slider=document.getElementById('slider'),curVal=document.getElementById('curVal'),saveBig=document.getElementById('saveBig'),saveSub=document.getElementById('saveSub');
+  function upd(){const v=+slider.value;const pct=(v-80)/(320-80)*100;slider.style.background=`linear-gradient(90deg,var(--blue) ${pct}%,var(--cream2) ${pct}%)`;
+    curVal.textContent='$'+v+'/mo';const save=Math.round(v*0.22*12/5)*5;saveBig.textContent='$'+save;saveSub.textContent='estimated savings per year *';}
+  slider.addEventListener('input',upd);upd();
+
+  // annotations + reveal + count-up
+  const counted=new WeakSet();
+  function countUp(el){const t=+el.dataset.count;let n=0;const s=t/35;(function tick(){n+=s;if(n>=t){el.textContent=t+'%';return;}el.textContent=Math.floor(n)+'%';requestAnimationFrame(tick);})();}
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');const c=e.target.querySelector('[data-count]');if(c&&!counted.has(c)){counted.add(c);countUp(c);}if(!e.target.dataset.anno)io.unobserve(e.target);}}),{threshold:.25});
+  document.querySelectorAll('.reveal,[data-anno]').forEach(el=>io.observe(el));
+
+  // tabs
+  document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');
+    const id=t.dataset.tab;document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.dataset.panel===id));
+  }));
+
+  // magnetic buttons
+  document.querySelectorAll('.magnetic').forEach(b=>{
+    b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px, ${(e.clientY-r.top-r.height/2)*.35}px)`;});
+    b.addEventListener('mouseleave',()=>b.style.transform='');
+  });
+
+  // 3D tilt
+  document.querySelectorAll('.tilt').forEach(c=>{
+    c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const rx=((e.clientY-r.top)/r.height-.5)*-8;const ry=((e.clientX-r.left)/r.width-.5)*8;c.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`;});
+    c.addEventListener('mouseleave',()=>c.style.transform='');
+  });
+
+  // confetti on quote click
+  const cv=document.getElementById('confetti'),ctx=cv.getContext('2d');let parts=[];
+  function size(){cv.width=innerWidth;cv.height=innerHeight;}size();addEventListener('resize',size);
+  const cols=['#1666ED','#2D7BFF','#00C2FF','#FF7A5A','#E7B24C'];
+  function burst(x,y){for(let i=0;i<90;i++)parts.push({x,y,vx:(Math.random()-.5)*9,vy:Math.random()*-9-3,g:.28,s:6+Math.random()*6,c:cols[i%cols.length],r:Math.random()*6,vr:(Math.random()-.5)*.4,life:90});}
+  function loop(){ctx.clearRect(0,0,cv.width,cv.height);parts.forEach(p=>{p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life--;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);ctx.restore();});parts=parts.filter(p=>p.life>0&&p.y<cv.height+40);requestAnimationFrame(loop);}loop();
+  function fire(e){const r=e.currentTarget.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2);}
+  document.getElementById('quoteBtn').addEventListener('click',fire);
+  document.getElementById('quoteBtn2').addEventListener('click',fire);
+</script>
+</body>
+</html>
