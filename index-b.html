@@ -51,14 +51,7 @@
      The product illustrations sit on top and hand off to each other with a soft
      left-to-right mask sweep, so each drawing looks like it is being inked in.
      The headline word under them changes with the drawing. */
-  .hero{position:relative;overflow:hidden;padding-bottom:38px;
-    background:radial-gradient(130% 78% at 50% -6%,#E6F0FF 0%,#F5F9FF 44%,#fff 76%)}
-  .hero .mesh{position:absolute;inset:0;pointer-events:none;opacity:.5;
-    background-image:linear-gradient(rgba(22,102,237,.06) 1px,transparent 1px),
-                     linear-gradient(90deg,rgba(22,102,237,.06) 1px,transparent 1px);
-    background-size:52px 52px;
-    -webkit-mask-image:radial-gradient(78% 62% at 50% 26%,#000,transparent);
-    mask-image:radial-gradient(78% 62% at 50% 26%,#000,transparent)}
+  .hero{position:relative;overflow:hidden;padding-bottom:38px;background:#fff}
 
   header nav{position:relative;z-index:70;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 22px}
   .logo{height:34px;display:block}
@@ -84,43 +77,35 @@
   body.locked{overflow:hidden}
 
   /* ---- the drawing stage ---- */
-  .stage{position:relative;z-index:5;margin-top:6px}
+  .stage{position:relative;z-index:5;margin-top:0}
   .paper{position:relative;width:110%;margin-left:-5%;aspect-ratio:1400/800;overflow:hidden}
-  .paper::before{content:"";position:absolute;left:50%;top:52%;translate:-50% -50%;
-      width:74%;aspect-ratio:1;border-radius:50%;pointer-events:none;
-      background:radial-gradient(circle,rgba(22,102,237,.13),rgba(0,194,255,.05) 46%,transparent 68%)}
-  .art{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;
-      transform:translateX(12px) scale(1.025);
-      -webkit-mask-image:linear-gradient(90deg,#000 40%,rgba(0,0,0,0) 58%);
-              mask-image:linear-gradient(90deg,#000 40%,rgba(0,0,0,0) 58%);
-      -webkit-mask-size:250% 100%;mask-size:250% 100%;
+  /* One edge travels left to right. Behind it the new drawing is already inked,
+     ahead of it the old one is still there — so the two never fade over each other,
+     they hand off along the same line. */
+  .art{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+      -webkit-mask-size:200% 100%;mask-size:200% 100%;
       -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
-      -webkit-mask-position:100% 0;mask-position:100% 0;
-      transition:opacity .3s ease,transform .95s cubic-bezier(.2,.8,.2,1),
-                 -webkit-mask-position 1.05s cubic-bezier(.42,.18,.58,.86),mask-position 1.05s cubic-bezier(.42,.18,.58,.86)}
-  .art.on{opacity:1;transform:none;-webkit-mask-position:0 0;mask-position:0 0}
-  /* the pen: a hairline that runs ahead of the ink */
-  .pen{position:absolute;top:8%;bottom:8%;width:2px;left:0;opacity:0;border-radius:2px;
-      background:linear-gradient(180deg,transparent,var(--blue),transparent);
-      box-shadow:0 0 14px 3px rgba(22,102,237,.45)}
-  .pen.go{animation:ink 1.05s cubic-bezier(.42,.18,.58,.86)}
-  @keyframes ink{0%{opacity:0;left:0}10%{opacity:1}88%{opacity:1}100%{opacity:0;left:100%}}
+      transition:-webkit-mask-position var(--sweep,1.3s) cubic-bezier(.42,.18,.58,.86),
+                          mask-position var(--sweep,1.3s) cubic-bezier(.42,.18,.58,.86)}
+  /* incoming: opaque behind the edge */
+  .art{-webkit-mask-image:linear-gradient(90deg,#000 48%,rgba(0,0,0,0) 52%);
+               mask-image:linear-gradient(90deg,#000 48%,rgba(0,0,0,0) 52%);
+       -webkit-mask-position:100% 0;mask-position:100% 0}
+  .art.on{-webkit-mask-position:0 0;mask-position:0 0}
+  /* outgoing: the mirror mask, so it is erased by the very same edge */
+  .art.out{-webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,0) 48%,#000 52%);
+                   mask-image:linear-gradient(90deg,rgba(0,0,0,0) 48%,#000 52%);
+           -webkit-mask-position:100% 0;mask-position:100% 0}
+  .art.out.go{-webkit-mask-position:0 0;mask-position:0 0}
+  /* the pen rides the edge */
+  .pen{position:absolute;top:10%;bottom:10%;width:1.5px;left:0;opacity:0;border-radius:2px;
+      background:linear-gradient(180deg,transparent,rgba(22,102,237,.85),transparent)}
+  .art.nt{transition:none!important}
+  .pen.go{animation:ink var(--sweep,1.3s) cubic-bezier(.42,.18,.58,.86)}
+  @keyframes ink{0%{opacity:0;left:0}9%{opacity:.9}86%{opacity:.9}100%{opacity:0;left:100%}}
 
-  /* ---- product tabs, doubling as the carousel control ---- */
-  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;padding:0 22px;justify-content:center}
-  .tb{position:relative;flex:0 0 auto;border:1.6px solid var(--line);background:#fff;border-radius:999px;
-      padding:8px 13px;font-family:inherit;font-size:12px;font-weight:800;color:#63728a;cursor:pointer;
-      overflow:hidden;transition:color .25s,border-color .25s}
-  .tb.on{color:var(--blue-d);border-color:#BBD5FF}
-  .tb i{position:absolute;left:0;bottom:0;height:2.5px;width:0;background:var(--grad);border-radius:2px}
-  .tb.on i{animation:tick var(--dwell,4200ms) linear forwards}
-  @keyframes tick{from{width:0}to{width:100%}}
-
-  .hbody{position:relative;z-index:5;padding:24px 22px 0}
-  .eb{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;
-      letter-spacing:.12em;text-transform:uppercase;color:var(--blue-d);background:#fff;
-      border:1px solid #D8E6FF;padding:7px 13px;border-radius:999px}
-  h1{font-size:clamp(38px,10.2vw,58px);line-height:1.02;letter-spacing:-.035em;font-weight:900;color:var(--navy);margin-top:16px}
+  .hbody{position:relative;z-index:5;padding:6px 22px 0}
+  h1{font-size:clamp(38px,10.2vw,58px);line-height:1.02;letter-spacing:-.035em;font-weight:900;color:var(--navy)}
   .rot{display:block;position:relative;height:1.12em;overflow:hidden}
   .rot span{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(70%);white-space:nowrap;
       transition:opacity .3s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
@@ -285,8 +270,6 @@
          width:100%;max-width:1260px;margin:0 auto;padding:0 40px}
     .stage{margin-top:0;order:2}
     .paper{width:104%;margin-left:-2%;aspect-ratio:1400/840}
-    .paper::before{width:88%}
-    .tabs{padding:0;justify-content:center;margin-top:10px}
     .hbody{order:1;padding:0}
     .kin{height:300vh}
     .kstage{padding:0 40px}
@@ -304,7 +287,6 @@
     .hacts{flex-direction:row;align-items:center}
     .hacts .btn{width:auto}
     .badges{grid-template-columns:1fr 1fr;max-width:430px}
-    .tb{font-size:13.5px;padding:10px 18px}
     section{padding:80px 0}
     .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
     .st{margin-top:0;flex-direction:column}
@@ -354,7 +336,6 @@
 
 <!-- ================= HERO ================= -->
 <header class="hero">
-  <span class="mesh" aria-hidden="true"></span>
   <nav>
     <a href="/" aria-label="Safe House Insurance home"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
     <div class="links">
@@ -375,16 +356,9 @@
         <img class="art" src="assets/art-roadside.png" alt="Line drawing of a tow truck" width="1400" height="800">
         <span class="pen" id="pen" aria-hidden="true"></span>
       </div>
-      <div class="tabs" id="tabs" role="tablist" aria-label="What we insure">
-        <button class="tb on" role="tab" aria-selected="true" data-i="0">Auto<i></i></button>
-        <button class="tb" role="tab" aria-selected="false" data-i="1">Commercial<i></i></button>
-        <button class="tb" role="tab" aria-selected="false" data-i="2">Home<i></i></button>
-        <button class="tb" role="tab" aria-selected="false" data-i="3">Tow trucks<i></i></button>
-      </div>
     </div>
 
     <div class="hbody">
-      <span class="eb">Licensed independent agency &middot; El Paso, TX</span>
       <h1>Real insurance for
         <span class="rot" id="rot">
           <span class="on gtd">your car.</span>
@@ -582,47 +556,51 @@
   addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
   addEventListener('resize',function(){if(innerWidth>=900)setMenu(false);});
 
-  // ===== hero: the drawings, the headline word and the tabs all run off one index =====
+  // ===== hero: one wipe hands each drawing to the next =====
   (function(){
     var arts=[].slice.call(document.querySelectorAll('.art')),
         words=[].slice.call(document.getElementById('rot').children),
-        tabs=[].slice.call(document.querySelectorAll('.tb')),
         pen=document.getElementById('pen'),
         paper=document.getElementById('paper'),
-        DWELL=4200, i=0, timer=null,
+        SWEEP=1300, DWELL=4600, i=0, timer=null, busy=false,
         still=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-    function go(n,manual){
-      if(n===i) return;
-      var prev=i; i=(n+arts.length)%arts.length;
-      // the outgoing drawing fades first, the incoming one inks in behind it
-      arts[prev].classList.remove('on');
+    function go(n){
+      n=(n+arts.length)%arts.length;
+      if(n===i||busy) return;
+      busy=true;
+      var prev=i, oldEl=arts[i], newEl=arts[n]; i=n;
+
+      // park the outgoing drawing on the mirror mask without moving a pixel...
+      oldEl.classList.add('nt','out'); oldEl.classList.remove('on');
+      void oldEl.offsetWidth;
+      // ...then let one edge erase it and ink the new one in, in the same pass
+      oldEl.classList.remove('nt'); oldEl.classList.add('go');
+      newEl.classList.add('on');
+      pen.classList.remove('go'); void pen.offsetWidth; pen.classList.add('go');
+
       words[prev].classList.remove('on'); words[prev].classList.add('out');
-      tabs[prev].classList.remove('on'); tabs[prev].setAttribute('aria-selected','false');
-      setTimeout(function(){
-        arts[i].classList.add('on');
-        if(!still){ pen.classList.remove('go'); void pen.offsetWidth; pen.classList.add('go'); }
-      },manual?0:150);
       words[i].classList.remove('out'); words[i].classList.add('on');
-      tabs[i].classList.add('on'); tabs[i].setAttribute('aria-selected','true');
       setTimeout(function(){ words[prev].classList.remove('out'); },620);
+
+      setTimeout(function(){
+        oldEl.classList.add('nt'); oldEl.classList.remove('out','go');
+        void oldEl.offsetWidth; oldEl.classList.remove('nt');
+        busy=false;
+      },SWEEP+70);
       start();
     }
     function start(){ if(still) return; clearInterval(timer); timer=setInterval(function(){go(i+1);},DWELL); }
 
-    tabs.forEach(function(t){ t.addEventListener('click',function(){ go(+t.dataset.i,true); }); });
-    // pause while the visitor is looking at it, and while the tab is in the background
     paper.addEventListener('pointerenter',function(){clearInterval(timer);});
     paper.addEventListener('pointerleave',start);
     document.addEventListener('visibilitychange',function(){ document.hidden?clearInterval(timer):start(); });
-    // swipe on touch
     var x0=null;
     paper.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
     paper.addEventListener('touchend',function(e){
       if(x0===null) return; var dx=e.changedTouches[0].clientX-x0; x0=null;
-      if(Math.abs(dx)>44) go(i+(dx<0?1:-1),true);
+      if(Math.abs(dx)>44) go(i+(dx<0?1:-1));
     },{passive:true});
-    if(still){ arts[0].style.webkitMaskImage='none'; arts[0].style.maskImage='none'; }
     start();
   })();
 
