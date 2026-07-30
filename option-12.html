@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1666ED">
+<title>Safe House Insurance — The live desk that apps can't run</title>
+<meta name="description" content="Watch what Safe House finds for real El Paso drivers — SR-22, new drivers, families and work trucks. Licensed bilingual agents, live carrier comparison, and we re-shop your rate at renewal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1666ED; --blue-l:#4A90FF; --blue-d:#0F4FBF; --cyan:#00C2FF; --cyan-l:#8CE3FF;
+    --navy:#071731; --navy2:#0C2450;
+    --ink:#0C1424; --muted:#5B6A82; --line:#E2E9F5; --ice:#EDF4FF; --ice2:#D7E7FF; --paper:#fff;
+    --grad:linear-gradient(115deg,#1666ED,#00C2FF);
+    --grad-r:linear-gradient(115deg,#00C2FF,#1666ED);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Figtree',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+       -webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+  .mono{font-family:'Geist Mono',monospace}
+  a{text-decoration:none;color:inherit;-webkit-tap-highlight-color:transparent}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  svg.i{width:1em;height:1em;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--blue);color:#fff;border:none;
+       border-radius:999px;padding:16px 28px;font-weight:800;font-size:16px;font-family:inherit;cursor:pointer;
+       transition:transform .18s,filter .18s,box-shadow .18s;box-shadow:0 14px 30px -12px rgba(22,102,237,.75)}
+  .btn:hover{transform:translateY(-3px);filter:brightness(1.08)}
+  .btn.grad{background:var(--grad)}
+  .btn.cyan{background:var(--cyan);color:#00303F;box-shadow:0 14px 30px -12px rgba(0,194,255,.8)}
+  .btn.white{background:#fff;color:var(--blue-d);box-shadow:0 14px 30px -16px rgba(0,0,0,.4)}
+  .btn.line{background:#fff;color:var(--navy);border:2px solid var(--line);box-shadow:none}
+  .btn.line:hover{border-color:var(--ice2);background:var(--ice)}
+  .btn.ghost{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.34);box-shadow:none}
+  .btn.sm{padding:11px 19px;font-size:14.5px}
+  .btn.full{width:100%}
+
+  .switcher{position:fixed;right:16px;bottom:16px;z-index:200;display:flex;gap:3px;background:#fff;border:1px solid var(--line);
+            border-radius:999px;padding:5px;box-shadow:0 16px 34px -18px rgba(7,23,49,.45)}
+  .switcher a{font-size:12px;font-weight:800;padding:6px 8px;border-radius:999px;color:var(--muted)}
+  .switcher a.on{background:var(--blue);color:#fff}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  nav .in{max-width:1180px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+  nav .logo{height:34px;display:block}
+  .links{display:flex;gap:26px;align-items:center}
+  .links a{font-weight:600;font-size:15px;color:#33405a;white-space:nowrap}
+  .links a:hover{color:var(--blue)}
+  .nav-cta{display:flex;gap:10px;align-items:center}
+  .nav-tel{font-weight:800;font-size:15px;color:var(--navy);white-space:nowrap;display:inline-flex;align-items:center;gap:7px}
+  @media(max-width:1160px){.nav-tel{display:none}}
+  .burger{display:none;width:44px;height:44px;border-radius:12px;border:2px solid var(--line);background:#fff;cursor:pointer;
+          flex-direction:column;gap:5px;align-items:center;justify-content:center;padding:0}
+  .burger span{display:block;width:18px;height:2.4px;background:var(--navy);border-radius:2px;transition:transform .25s,opacity .2s}
+  .burger.on span:nth-child(1){transform:translateY(7.4px) rotate(45deg)}
+  .burger.on span:nth-child(2){opacity:0}
+  .burger.on span:nth-child(3){transform:translateY(-7.4px) rotate(-45deg)}
+  .drawer{position:fixed;left:0;right:0;top:0;z-index:70;background:#fff;display:flex;flex-direction:column;
+          padding:94px 22px 26px;transform:translateY(-101%);transition:transform .35s cubic-bezier(.2,.8,.2,1);
+          visibility:hidden;box-shadow:0 30px 60px -30px rgba(7,23,49,.35)}
+  .drawer.on{transform:none;visibility:visible}
+  .drawer a{font-weight:800;font-size:22px;padding:14px 2px;border-bottom:1px solid var(--line);color:var(--navy)}
+  .drawer .btn{margin-top:20px;border-bottom:none;font-size:16px}
+  .drawer .dr-mail{border-bottom:none;font-size:14px;font-weight:600;color:var(--muted);text-align:center;padding-top:14px}
+  body.locked{overflow:hidden}
+
+  /* ================= HERO ================= */
+  .hero{position:relative;background:linear-gradient(180deg,var(--ice),#fff 74%);overflow:hidden;padding:56px 0 70px}
+  .hero .orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;z-index:0}
+  .hero .o1{width:420px;height:420px;background:rgba(22,102,237,.22);top:-140px;left:-90px;animation:fl 16s ease-in-out infinite}
+  .hero .o2{width:360px;height:360px;background:rgba(0,194,255,.22);top:20%;right:-100px;animation:fl 20s ease-in-out infinite reverse}
+  @keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(38px,-30px)}}
+  .hero .in{position:relative;z-index:3;display:grid;grid-template-columns:1.02fr .98fr;gap:46px;align-items:center}
+
+  .pill{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--ice2);color:var(--blue);
+        font-family:'Geist Mono',monospace;font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+        padding:8px 15px;border-radius:999px;box-shadow:0 8px 20px -14px rgba(22,102,237,.5)}
+  .pill .d{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,194,255,.7)}70%{box-shadow:0 0 0 9px rgba(0,194,255,0)}100%{box-shadow:0 0 0 0 rgba(0,194,255,0)}}
+
+  h1{font-size:clamp(38px,5.6vw,72px);line-height:1.0;letter-spacing:-.04em;font-weight:900;margin-top:20px;color:var(--navy)}
+  /* rotating word — kinetic */
+  .rot{display:block;position:relative;height:1.06em;overflow:hidden;font-size:.9em}
+  .rot span{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(70%);
+            transition:opacity .45s,transform .55s cubic-bezier(.2,.8,.2,1);white-space:nowrap}
+  .rot span.on{opacity:1;transform:none}
+  .rot span.out{opacity:0;transform:translateY(-70%)}
+  .lede{font-size:19px;color:var(--muted);max-width:46ch;margin-top:20px;font-weight:500}
+  .hero-actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .metrics{display:flex;gap:26px;margin-top:30px;flex-wrap:wrap}
+  .metrics div b{display:block;font-size:26px;font-weight:900;letter-spacing:-.03em}
+  .metrics div span{font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+
+  /* ============ LIVE DESK ============ */
+  .desk{background:var(--navy);border-radius:26px;padding:22px;color:#fff;position:relative;overflow:hidden;
+        box-shadow:0 44px 96px -46px rgba(7,23,49,.85)}
+  .desk::before{content:"";position:absolute;inset:0;background:radial-gradient(520px 340px at 88% 4%,rgba(0,194,255,.26),transparent 62%),radial-gradient(520px 360px at 4% 98%,rgba(22,102,237,.44),transparent 62%)}
+  .desk .dh{position:relative;display:flex;align-items:center;gap:10px}
+  .desk .dh img{width:22px;filter:brightness(0) invert(1)}
+  .desk .dh b{font-size:15px;font-weight:800;display:block}
+  .desk .dh small{font-family:'Geist Mono',monospace;font-size:10.5px;color:#9fb6d8;letter-spacing:.08em}
+  .desk .dh .on{margin-left:auto;font-family:'Geist Mono',monospace;font-size:10px;color:var(--cyan-l);
+        background:rgba(0,194,255,.14);border:1px solid rgba(0,194,255,.35);padding:4px 9px;border-radius:7px;display:flex;align-items:center;gap:6px}
+  .desk .dh .on i{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:blink 1.1s infinite;display:block}
+  @keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+
+  .scene{position:relative;margin-top:18px;min-height:296px}
+  .sc{position:absolute;inset:0;opacity:0;transform:translateY(12px);transition:opacity .45s,transform .5s;pointer-events:none}
+  .sc.on{opacity:1;transform:none;pointer-events:auto}
+  .sc .who{display:flex;align-items:center;gap:11px}
+  .sc .who .av{width:40px;height:40px;border-radius:12px;background:var(--grad);display:grid;place-items:center;font-size:19px;flex:0 0 auto}
+  .sc .who b{font-size:16px;font-weight:800;display:block}
+  .sc .who small{font-size:12.5px;color:#a9bcd9}
+  .sc .flag{display:inline-block;margin-top:12px;font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.08em;
+        text-transform:uppercase;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:5px 10px;border-radius:7px;color:#cfe2ff}
+  .sc .rows{margin-top:12px}
+  .dr{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);
+      border-radius:12px;padding:10px 12px;margin-top:8px}
+  .dr.best{background:#fff;color:var(--navy);border-color:#fff}
+  .dr .nm{font-size:13px;font-weight:700;flex:1;min-width:0}
+  .dr .pr{font-family:'Geist Mono',monospace;font-size:13px;font-weight:600}
+  .dr .tag{font-size:9px;font-weight:900;background:var(--grad);color:#fff;padding:3px 6px;border-radius:5px}
+  .sc .out .av{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:16px;flex:0 0 auto}
+  .sc .out{margin-top:12px;background:rgba(0,194,255,.13);border:1px solid rgba(0,194,255,.34);border-radius:13px;
+      padding:12px 14px;display:flex;align-items:center;gap:11px}
+  .sc .out .k{font-family:'Geist Mono',monospace;font-size:10px;color:var(--cyan-l);letter-spacing:.08em;text-transform:uppercase;display:block}
+  .sc .out b{font-size:15px;font-weight:800}
+  .dots{display:flex;gap:7px;justify-content:center;margin-top:16px;position:relative}
+  .dots button{width:26px;height:5px;border-radius:9px;border:none;background:rgba(255,255,255,.2);cursor:pointer;padding:0;transition:.25s}
+  .dots button.on{background:var(--cyan);width:40px}
+  .desk .note{position:relative;text-align:center;font-family:'Geist Mono',monospace;font-size:10px;color:#7e94b6;margin-top:11px}
+
+  /* ============ TICKER ============ */
+  .tick{background:var(--navy);padding:13px 0;overflow:hidden}
+  .tick .row{display:flex;gap:30px;white-space:nowrap;width:max-content;animation:scroll 20s linear infinite;align-items:center}
+  .tick span{font-size:16px;font-weight:800;color:#fff;display:inline-flex;align-items:center;gap:30px}
+  .tick em{font-style:normal;color:var(--cyan)}
+  .tick .hm{width:16px;filter:brightness(0) invert(1);opacity:.8}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  section{padding:84px 0}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:11.5px;font-weight:600;
+          letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+  .kicker img{width:14px}
+  .h2{font-size:clamp(30px,4.7vw,56px);line-height:1.03;letter-spacing:-.035em;font-weight:900;color:var(--navy);margin-top:12px}
+  .sec-lede{font-size:17.5px;color:var(--muted);max-width:56ch;margin-top:14px;font-weight:500}
+  .center{margin:0 auto;text-align:center}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .75s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ============ SCOREBOARD ============ */
+  .board{margin-top:46px;background:#fff;border:2px solid var(--line);border-radius:26px;padding:32px}
+  .brow{padding:20px 0;border-bottom:1px solid var(--line)}
+  .brow:last-child{border-bottom:none}
+  .brow .lbl{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .brow .lbl b{font-size:16.5px;font-weight:800;color:var(--navy)}
+  .brow .lbl span{font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em}
+  .track{margin-top:12px}
+  .tr{display:flex;align-items:center;gap:12px;margin-top:8px}
+  .tr .who{font-size:12.5px;font-weight:800;width:96px;flex:0 0 auto}
+  .tr .who.us{color:var(--blue)}
+  .tr .who.them{color:#96a2b6}
+  .tr .rail{flex:1;height:14px;border-radius:9px;background:var(--ice);overflow:hidden;min-width:0}
+  .tr .rail i{display:block;height:100%;width:0;border-radius:9px;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+  .tr.us .rail i{background:var(--grad)}
+  .tr.them .rail i{background:#C3CCDA}
+  .tr .v{font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;width:44px;text-align:right;flex:0 0 auto}
+  .tr.us .v{color:var(--blue)}.tr.them .v{color:#96a2b6}
+  .bnote{font-size:12.5px;color:var(--muted);margin-top:16px;font-weight:500}
+
+  /* ============ HOW (kinetic steps) ============ */
+  .flow{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+  .fc{position:relative;background:var(--ice);border:2px solid transparent;border-radius:22px;padding:28px;transition:.25s;overflow:hidden}
+  .fc:hover{border-color:var(--blue);background:#fff;transform:translateY(-6px);box-shadow:0 28px 58px -32px rgba(22,102,237,.45)}
+  .fc .n{font-family:'Geist Mono',monospace;font-size:11.5px;font-weight:600;letter-spacing:.1em;color:var(--blue)}
+  .fc h4{font-size:21px;font-weight:900;color:var(--navy);margin-top:12px;letter-spacing:-.02em}
+  .fc p{color:var(--muted);font-size:15px;margin-top:7px;font-weight:500}
+  .fc .big{position:absolute;right:14px;bottom:-16px;font-size:80px;font-weight:900;color:#fff;opacity:.9;letter-spacing:-.05em;transition:.25s}
+  .fc:hover .big{color:var(--ice);opacity:1}
+
+  /* ============ HARD ============ */
+  .hard{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .hard::before{content:"";position:absolute;inset:0;background:radial-gradient(660px 400px at 86% 6%,rgba(0,194,255,.22),transparent 62%),radial-gradient(620px 420px at 6% 96%,rgba(22,102,237,.5),transparent 62%)}
+  .hard .in{position:relative;z-index:2;display:grid;grid-template-columns:1.02fr .98fr;gap:44px;align-items:center}
+  .hard .kicker{color:var(--cyan-l)}
+  .hard .h2{color:#fff}
+  .hard .sec-lede{color:#b9c9e4}
+  .hard .card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:22px;padding:30px;backdrop-filter:blur(10px)}
+  .hard .card h3{font-size:23px;font-weight:900;letter-spacing:-.02em}
+  .hard ul{list-style:none;margin-top:18px;display:flex;flex-direction:column;gap:11px}
+  .hard li{display:flex;gap:11px;font-size:15.5px;font-weight:600}
+  .hard li .i{color:var(--cyan);flex:0 0 auto;margin-top:3px}
+  .hard .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+  .hard .chips>span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:999px;
+        padding:9px 15px;font-size:13.5px;font-weight:800;transition:.2s}
+  .hard .chips>span:hover{background:var(--cyan);color:#00303F;border-color:transparent;transform:translateY(-2px)}
+
+  /* REVIEWS */
+  .revs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
+  .rev{background:#fff;border:2px solid var(--line);border-radius:20px;padding:26px;transition:.25s}
+  .rev:hover{border-color:var(--blue);transform:translateY(-5px);box-shadow:0 26px 54px -32px rgba(22,102,237,.45)}
+  .rev .stars{color:#FFC53D;letter-spacing:2px;font-size:15px}
+  .rev p{font-size:16px;color:#2b3849;margin-top:11px;font-weight:500}
+  .rev .who{display:flex;align-items:center;gap:11px;margin-top:17px}
+  .rev .av{width:38px;height:38px;border-radius:11px;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:900;font-size:15px}
+  .rev .who b{display:block;font-size:14.5px;color:var(--navy)}
+  .rev .who span{font-size:12.5px;color:var(--muted)}
+
+  /* CTA WALL */
+  .wall{position:relative;background:var(--grad);color:#fff;text-align:center;padding:86px 0;overflow:hidden}
+  .wall .pat{position:absolute;inset:0;opacity:.08;background-image:url("assets/safehouse-heart.png");
+        background-size:96px;filter:brightness(0) invert(1);pointer-events:none}
+  .wall .in{position:relative;z-index:2;max-width:700px;margin:0 auto;padding:0 24px}
+  .wall h2{font-size:clamp(29px,4.3vw,52px);font-weight:900;letter-spacing:-.035em;line-height:1.04}
+  .wall p{color:rgba(255,255,255,.92);font-size:17.5px;margin-top:14px;font-weight:500}
+  .wall .acts{display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap}
+
+  footer{padding:50px 0 90px;color:var(--muted);border-top:1px solid var(--line)}
+  .fgrid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:32px}
+  footer .logo{height:32px;margin-bottom:14px}
+  footer h5{color:var(--navy);font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:13px}
+  footer a{display:block;font-size:14.5px;margin-bottom:9px;color:var(--muted);overflow-wrap:anywhere}
+  footer a:hover{color:var(--blue)}
+  .fbot{border-top:1px solid var(--line);margin-top:34px;padding-top:22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px}
+  .disc{font-size:12px;color:#8b95a6;line-height:1.6;margin-top:14px}
+
+  /* ============ STICKY BAR (app-like) ============ */
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(7,23,49,.94);backdrop-filter:blur(14px);
+          border-top:1px solid rgba(255,255,255,.14);padding:11px 16px;transform:translateY(110%);
+          transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+  .sticky.on{transform:none}
+  .sticky .in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px;justify-content:space-between}
+  .sticky .t{color:#fff;font-weight:800;font-size:15px}
+  .sticky .t small{display:block;font-weight:500;font-size:12px;color:#a9bcd9}
+  .sticky .acts{display:flex;gap:9px;align-items:center;flex:0 0 auto}
+  .sticky .btn{padding:12px 20px;font-size:14.5px}
+
+  /* ============ RESPONSIVE ============ */
+  .hero .in>*,.hard .in>*,.flow>*,.revs>*,.fgrid>*{min-width:0}
+  @media(max-width:1024px){
+    section{padding:62px 0}
+    .hero{padding:42px 0 60px}
+    .hero .in,.hard .in{grid-template-columns:1fr;gap:38px}
+    .lede{max-width:100%}
+    .flow{grid-template-columns:1fr}
+    .board{padding:26px}
+  }
+  @media(max-width:900px){
+    .links{display:none}
+    .burger{display:flex}
+    .nav-cta .btn.sm{display:none}
+  }
+  @media(max-width:760px){
+    .wrap,nav .in{padding-left:18px;padding-right:18px}
+    section{padding:52px 0}
+    .h2{font-size:clamp(26px,7.4vw,40px)}
+    .sec-lede{font-size:16px}
+    .desk{padding:18px;border-radius:22px}
+    .scene{min-height:330px}
+    .tick span{font-size:14.5px;gap:22px}
+    .board{padding:20px;border-radius:20px}
+    .tr .who{width:74px;font-size:11.5px}
+    .tr .v{width:38px;font-size:11px}
+    .revs{grid-template-columns:1fr}
+    .rev,.hard .card{padding:22px}
+    .wall{padding:64px 0}
+    .fgrid{grid-template-columns:1fr 1fr;gap:26px}
+    .fbot{flex-direction:column}
+    .switcher{left:10px;right:auto;bottom:76px;padding:4px}
+    .switcher a{padding:6px 7px;font-size:11.5px}
+    .sticky .t{display:none}
+    .sticky .in{justify-content:center}
+    .sticky .acts{flex:1}
+    .sticky .btn{flex:1}
+  }
+  @media(max-width:520px){
+    .hero-actions{width:100%}
+    .hero-actions .btn,.wall .acts .btn{width:100%}
+    .metrics{gap:18px}
+    .metrics div b{font-size:22px}
+    .fgrid{grid-template-columns:1fr;text-align:center}
+    .drawer a{font-size:20px}
+  }
+  @media(hover:none){ .rev:hover,.fc:hover,.hard .chips>span:hover{transform:none} }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h2l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 4 5z"/></symbol>
+  <symbol id="bolt" viewBox="0 0 24 24"><path d="M13 3L5 13h6l-1 8 8-10h-6z"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
+
+<div class="switcher">
+  <a href="index.html">1</a><a href="option-2.html">2</a><a href="option-3.html">3</a><a href="option-4.html">4</a><a href="option-9.html">9</a><a href="option-11.html">11</a><a href="option-12.html" class="on">12</a>
+</div>
+
+<nav>
+  <div class="in">
+    <a href="index.html"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+    <div class="links">
+      <a href="#desk">Live desk</a><a href="#board">Scoreboard</a><a href="#how">How it works</a><a href="#hard">Hard to insure</a>
+    </div>
+    <div class="nav-cta">
+      <a class="nav-tel" href="tel:+19155031207"><svg class="i"><use href="#phone"/></svg> 915-503-1207</a>
+      <a class="btn grad sm" href="#cta">Compare rates</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="drawer" id="drawer">
+  <a href="#desk">Live desk</a>
+  <a href="#board">Scoreboard</a>
+  <a href="#how">How it works</a>
+  <a href="#hard">Hard to insure</a>
+  <a class="btn grad" href="tel:+19155031207">📞 Call 915-503-1207</a>
+  <a class="dr-mail" href="mailto:contact@safehouseins.com">contact@safehouseins.com · Se habla español</a>
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="desk">
+  <span class="orb o1"></span><span class="orb o2"></span>
+  <div class="wrap in">
+    <div>
+      <span class="pill"><span class="d"></span> El Paso, TX · live carrier rates</span>
+      <h1>
+        Real insurance for
+        <span class="rot" id="rot">
+          <span class="on gt">SR-22 drivers.</span>
+          <span class="gt">new drivers.</span>
+          <span class="gt">work trucks.</span>
+          <span class="gt">families.</span>
+          <span class="gt">hard cases.</span>
+        </span>
+      </h1>
+      <p class="lede">An app quotes the easy ones and quits on the rest. This is our desk — watch what we actually find for drivers across El Paso, in English or Spanish.</p>
+      <div class="hero-actions">
+        <a class="btn grad" href="#cta">Compare my rates <svg class="i"><use href="#arrow"/></svg></a>
+        <a class="btn line" href="tel:+19155031207"><svg class="i"><use href="#phone"/></svg> Talk to a human</a>
+      </div>
+      <div class="metrics">
+        <div><b class="gt">~1 min</b><span>To compare</span></div>
+        <div><b class="gt">Live</b><span>Carrier rates</span></div>
+        <div><b class="gt">EN / ES</b><span>Every call</span></div>
+        <div><b class="gt">SR-22</b><span>Same day</span></div>
+      </div>
+    </div>
+
+    <!-- LIVE DESK -->
+    <div class="desk">
+      <div class="dh">
+        <img src="assets/safehouse-heart.png" alt="">
+        <span><b>The Safe House desk</b><small>WHAT WE FOUND TODAY</small></span>
+        <span class="on"><i></i> LIVE</span>
+      </div>
+
+      <div class="scene" id="scene">
+        <!-- scenario 1 -->
+        <div class="sc on">
+          <div class="who"><span class="av">📄</span><span><b>Driver with an SR-22</b><small>El Paso · 2016 Civic · liability</small></span></div>
+          <span class="flag">App result: no quotes available</span>
+          <div class="rows">
+            <div class="dr best"><span class="nm">Alinsco</span><span class="pr">$148/mo</span><span class="tag">BOUND</span></div>
+            <div class="dr"><span class="nm">Commonwealth</span><span class="pr">$171/mo</span></div>
+            <div class="dr"><span class="nm">Progressive</span><span class="pr">declined</span></div>
+          </div>
+          <div class="out"><span class="av">✅</span><span><span class="k">Outcome</span><b>SR-22 filed the same afternoon</b></span></div>
+        </div>
+
+        <!-- scenario 2 -->
+        <div class="sc">
+          <div class="who"><span class="av">🚗</span><span><b>19-year-old, first policy</b><small>Horizon City · 2012 Corolla · full</small></span></div>
+          <span class="flag">App result: quoted, then rate doubled</span>
+          <div class="rows">
+            <div class="dr best"><span class="nm">Geico</span><span class="pr">$164/mo</span><span class="tag">BEST</span></div>
+            <div class="dr"><span class="nm">Progressive</span><span class="pr">$189/mo</span></div>
+            <div class="dr"><span class="nm">Lemonade</span><span class="pr">$203/mo</span></div>
+          </div>
+          <div class="out"><span class="av">🎓</span><span><span class="k">Outcome</span><b>Good-student discount applied by hand</b></span></div>
+        </div>
+
+        <!-- scenario 3 -->
+        <div class="sc">
+          <div class="who"><span class="av">🛻</span><span><b>Contractor, 3 work trucks</b><small>Socorro · commercial auto</small></span></div>
+          <span class="flag">App result: not supported</span>
+          <div class="rows">
+            <div class="dr best"><span class="nm">Commonwealth</span><span class="pr">$412/mo</span><span class="tag">BEST</span></div>
+            <div class="dr"><span class="nm">Progressive</span><span class="pr">$488/mo</span></div>
+            <div class="dr"><span class="nm">Alinsco</span><span class="pr">$505/mo</span></div>
+          </div>
+          <div class="out"><span class="av">📋</span><span><span class="k">Outcome</span><b>Fleet policy + license bond, one file</b></span></div>
+        </div>
+
+        <!-- scenario 4 -->
+        <div class="sc">
+          <div class="who"><span class="av">👨‍👩‍👧</span><span><b>Family, 2 cars + a house</b><small>El Paso · bundle</small></span></div>
+          <span class="flag">App result: auto only, no bundle</span>
+          <div class="rows">
+            <div class="dr best"><span class="nm">Progressive</span><span class="pr">$236/mo</span><span class="tag">BUNDLED</span></div>
+            <div class="dr"><span class="nm">Geico</span><span class="pr">$259/mo</span></div>
+            <div class="dr"><span class="nm">Lemonade</span><span class="pr">$268/mo</span></div>
+          </div>
+          <div class="out"><span class="av">🏠</span><span><span class="k">Outcome</span><b>Multi-policy discount on both</b></span></div>
+        </div>
+      </div>
+
+      <div class="dots" id="dots"></div>
+      <p class="note">ILLUSTRATIVE SCENARIOS &amp; SAMPLE RATES — NOT A QUOTE</p>
+    </div>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="tick">
+  <div class="row">
+    <span>Apps quote the easy ones. <em>We take the rest.</em> <img class="hm" src="assets/safehouse-heart.png" alt=""> SR-22 same day <img class="hm" src="assets/safehouse-heart.png" alt=""> Se habla español <img class="hm" src="assets/safehouse-heart.png" alt=""> We re-shop at renewal <img class="hm" src="assets/safehouse-heart.png" alt=""></span>
+    <span>Apps quote the easy ones. <em>We take the rest.</em> <img class="hm" src="assets/safehouse-heart.png" alt=""> SR-22 same day <img class="hm" src="assets/safehouse-heart.png" alt=""> Se habla español <img class="hm" src="assets/safehouse-heart.png" alt=""> We re-shop at renewal <img class="hm" src="assets/safehouse-heart.png" alt=""></span>
+  </div>
+</div>
+
+<!-- SCOREBOARD -->
+<section id="board">
+  <div class="wrap">
+    <div class="reveal center" style="max-width:680px">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> The scoreboard</span>
+      <h2 class="h2">Where the app<br><span class="gt">runs out of road.</span></h2>
+      <p class="sec-lede center">Speed isn't the differentiator anymore — everybody's fast. Here's what actually separates us.</p>
+    </div>
+    <div class="board reveal" id="boardEl">
+      <div class="brow">
+        <div class="lbl"><b>Speed to a real comparison</b><span>DEAD HEAT</span></div>
+        <div class="track">
+          <div class="tr us"><span class="who us">Safe House</span><span class="rail"><i data-w="96"></i></span><span class="v">96</span></div>
+          <div class="tr them"><span class="who them">Quote apps</span><span class="rail"><i data-w="94"></i></span><span class="v">94</span></div>
+        </div>
+      </div>
+      <div class="brow">
+        <div class="lbl"><b>Will quote SR-22 &amp; high-risk</b><span>NOT CLOSE</span></div>
+        <div class="track">
+          <div class="tr us"><span class="who us">Safe House</span><span class="rail"><i data-w="98"></i></span><span class="v">98</span></div>
+          <div class="tr them"><span class="who them">Quote apps</span><span class="rail"><i data-w="14"></i></span><span class="v">14</span></div>
+        </div>
+      </div>
+      <div class="brow">
+        <div class="lbl"><b>Full service in Spanish</b><span>NOT CLOSE</span></div>
+        <div class="track">
+          <div class="tr us"><span class="who us">Safe House</span><span class="rail"><i data-w="100"></i></span><span class="v">100</span></div>
+          <div class="tr them"><span class="who them">Quote apps</span><span class="rail"><i data-w="22"></i></span><span class="v">22</span></div>
+        </div>
+      </div>
+      <div class="brow">
+        <div class="lbl"><b>A licensed human on a claim</b><span>NOT CLOSE</span></div>
+        <div class="track">
+          <div class="tr us"><span class="who us">Safe House</span><span class="rail"><i data-w="97"></i></span><span class="v">97</span></div>
+          <div class="tr them"><span class="who them">Quote apps</span><span class="rail"><i data-w="18"></i></span><span class="v">18</span></div>
+        </div>
+      </div>
+      <div class="brow">
+        <div class="lbl"><b>Still with you at renewal</b><span>OUR FAVOURITE</span></div>
+        <div class="track">
+          <div class="tr us"><span class="who us">Safe House</span><span class="rail"><i data-w="95"></i></span><span class="v">95</span></div>
+          <div class="tr them"><span class="who them">Quote apps</span><span class="rail"><i data-w="38"></i></span><span class="v">38</span></div>
+        </div>
+      </div>
+      <p class="bnote">Scores are our own illustrative assessment of the typical app-only quoting experience versus a licensed independent agency — not a measured study. Individual providers vary.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how" style="padding-top:16px">
+  <div class="wrap">
+    <div class="reveal" style="max-width:660px">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> How it works</span>
+      <h2 class="h2">Three steps.<br>Then we stay.</h2>
+    </div>
+    <div class="flow">
+      <div class="fc reveal"><span class="big">1</span><div class="n">STEP ONE</div><h4>Tell us about your car</h4><p>ZIP, vehicle, a few details. No 20-field form, no credit card, no spam calls afterward.</p></div>
+      <div class="fc reveal"><span class="big">2</span><div class="n">STEP TWO</div><h4>We work the carriers</h4><p>Live rates, ranked by price and coverage — including the carriers that specialize in tough records.</p></div>
+      <div class="fc reveal"><span class="big">3</span><div class="n">STEP THREE</div><h4>We switch it and stay</h4><p>New policy bound, old one cancelled, and we re-shop your rate at every renewal from then on.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HARD -->
+<section id="hard" class="hard">
+  <div class="wrap in">
+    <div class="reveal">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt="" style="filter:brightness(0) invert(1)"> Turned down by the app?</span>
+      <h2 class="h2">"No quotes available"<br>is where we begin.</h2>
+      <p class="sec-lede">That message means the algorithm gave up — not that you're uninsurable. Tell us the situation honestly and we'll work the carriers built for it.</p>
+      <div class="chips"><span>SR-22</span><span>High-risk</span><span>No license</span><span>Non-owner</span><span>Prior lapse</span><span>Multiple tickets</span><span>New driver</span></div>
+    </div>
+    <div class="card reveal">
+      <h3>We'll find the carrier that says yes.</h3>
+      <ul>
+        <li><svg class="i"><use href="#check"/></svg> SR-22 filings, often the same day</li>
+        <li><svg class="i"><use href="#check"/></svg> Tickets, accidents and coverage lapses</li>
+        <li><svg class="i"><use href="#check"/></svg> Non-owner and no-license policies</li>
+        <li><svg class="i"><use href="#check"/></svg> Low down payments and flexible plans</li>
+        <li><svg class="i"><use href="#check"/></svg> Commercial auto, fleets and bonds</li>
+      </ul>
+      <a class="btn cyan full" href="tel:+19155031207" style="margin-top:22px"><svg class="i"><use href="#phone"/></svg> Call 915-503-1207</a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="reveal center" style="max-width:640px">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> Reviews</span>
+      <h2 class="h2">They tried the app first.</h2>
+    </div>
+    <div class="revs">
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>"Took a few minutes and they actually saved me money. They cancelled my old policy for me too."</p><div class="who"><span class="av">M</span><span><b>Marcos T.</b><span>El Paso, TX · Google review</span></span></div></div>
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>"They found me coverage even with an SR-22, and a real person explained everything in Spanish."</p><div class="who"><span class="av">J</span><span><b>Jazmín R.</b><span>Las Cruces, NM · Google review</span></span></div></div>
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>"Insured my truck and my house in one call. They follow up — an app never did that for me."</p><div class="who"><span class="av">D</span><span><b>Diego M.</b><span>El Paso, TX · Google review</span></span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA WALL -->
+<div class="wall" id="cta">
+  <div class="pat"></div>
+  <div class="in">
+    <h2>Get on the desk.</h2>
+    <p>Free comparison, no obligation, and a licensed bilingual agent who stays on your file. Se habla español.</p>
+    <div class="acts">
+      <a class="btn white" href="tel:+19155031207">📞 Compare my rates</a>
+      <a class="btn ghost" href="mailto:contact@safehouseins.com">Email us instead</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance">
+        <p style="font-size:14.5px;max-width:34ch">A licensed independent insurance agency in El Paso, Texas. We compare carriers — and we answer the phone. Se habla español.</p>
+        <p style="margin-top:14px;color:var(--navy);font-weight:800">915-503-1207</p>
+        <p style="font-size:14px"><a href="mailto:contact@safehouseins.com" style="display:inline">contact@safehouseins.com</a></p>
+      </div>
+      <div><h5>Insurance</h5><a href="#cta">Auto</a><a href="#cta">Home &amp; renters</a><a href="#cta">Commercial</a><a href="#cta">Life</a><a href="#cta">Bonds</a></div>
+      <div><h5>Compare</h5><a href="#desk">Live desk</a><a href="#board">Scoreboard</a><a href="#how">How it works</a><a href="#hard">Hard to insure</a></div>
+      <div><h5>Support</h5><a href="tel:+19155031207">Report a claim</a><a href="#cta">Request a quote</a><a href="mailto:contact@safehouseins.com">Service request</a></div>
+    </div>
+    <div class="fbot"><span>© 2026 Safe House Insurance. All rights reserved.</span><span>Privacy · Terms · Licensing</span></div>
+    <p class="disc">The scenarios, rates and scores on this page are illustrative samples created for layout purposes — they are not quotes, not real client files, and not a guarantee of price or coverage. Comparisons describe the typical app-only quoting experience versus a licensed independent agency; individual providers and their features vary. Safe House Insurance is an independent insurance agency licensed in Texas and New Mexico (license #__________). Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy.</p>
+  </div>
+</footer>
+
+<!-- STICKY BAR -->
+<div class="sticky" id="sticky">
+  <div class="in">
+    <span class="t">See what you should be paying<small>Free comparison · no obligation · se habla español</small></span>
+    <span class="acts">
+      <a class="btn grad" href="tel:+19155031207">📞 Compare rates</a>
+    </span>
+  </div>
+</div>
+
+<script>
+  // ===== drawer =====
+  var burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
+  function setMenu(open){
+    if(open){var r=document.querySelector('nav').getBoundingClientRect();
+      drawer.style.paddingTop=Math.max(r.bottom+20,88)+'px';}
+    burger.classList.toggle('on',open);drawer.classList.toggle('on',open);
+    document.body.classList.toggle('locked',open);
+    burger.setAttribute('aria-expanded',open);
+    burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+  }
+  burger.addEventListener('click',function(){setMenu(!drawer.classList.contains('on'));});
+  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
+  addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
+  addEventListener('resize',function(){if(innerWidth>900)setMenu(false);});
+
+  // ===== rotating headline word =====
+  (function(){
+    var wrap=document.getElementById('rot');
+    var items=[].slice.call(wrap.children),i=0;
+    setInterval(function(){
+      items[i].classList.remove('on');items[i].classList.add('out');
+      var prev=i; i=(i+1)%items.length;
+      items[i].classList.remove('out');items[i].classList.add('on');
+      setTimeout(function(){items[prev].classList.remove('out');},600);
+    },2600);
+  })();
+
+  // ===== live desk scenario cycler =====
+  (function(){
+    var scenes=[].slice.call(document.querySelectorAll('#scene .sc')),
+        dots=document.getElementById('dots'),cur=0,timer=null;
+    scenes.forEach(function(_,k){
+      var b=document.createElement('button');
+      b.type='button'; b.setAttribute('aria-label','Scenario '+(k+1));
+      if(k===0)b.classList.add('on');
+      b.addEventListener('click',function(){stop();show(k);start();});
+      dots.appendChild(b);
+    });
+    var btns=[].slice.call(dots.children);
+    function show(k){
+      cur=(k+scenes.length)%scenes.length;
+      scenes.forEach(function(s,i){s.classList.toggle('on',i===cur);});
+      btns.forEach(function(b,i){b.classList.toggle('on',i===cur);});
+    }
+    function start(){timer=setInterval(function(){show(cur+1);},4200);}
+    function stop(){if(timer){clearInterval(timer);timer=null;}}
+    start();
+  })();
+
+  // ===== scoreboard bars fill on scroll =====
+  (function(){
+    var board=document.getElementById('boardEl'),done=false;
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(!e.isIntersecting||done)return; done=true;
+      board.querySelectorAll('.rail i').forEach(function(bar,k){
+        setTimeout(function(){bar.style.width=bar.dataset.w+'%';},70*k);
+      });
+    });},{threshold:.25});
+    io.observe(board);
+  })();
+
+  // ===== sticky bar appears past the hero =====
+  (function(){
+    var bar=document.getElementById('sticky'),hero=document.querySelector('.hero');
+    addEventListener('scroll',function(){
+      var past=window.scrollY>hero.offsetHeight*0.75;
+      bar.classList.toggle('on',past);
+    },{passive:true});
+  })();
+
+  // ===== reveal =====
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+</script>
+</body>
+</html>

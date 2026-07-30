@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#061530">
+<title>Safe House Insurance — The app can't call you back</title>
+<meta name="description" content="Insurance apps hand you a link and disappear. Safe House compares your carriers in about a minute and gives you a licensed bilingual agent in El Paso who answers. SR-22 and high-risk welcome.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1666ED; --blue-l:#4A90FF; --blue-d:#0F4FBF; --cyan:#00C2FF; --cyan-l:#7FE0FF;
+    --navy:#061530; --navy2:#0B2148; --navy3:#122E5C;
+    --ink:#0C1424; --muted:#5B6A82; --line:#E3EAF5; --ice:#EDF4FF; --ice2:#DCEAFF; --paper:#fff;
+    --grad:linear-gradient(115deg,#1666ED,#00C2FF);
+    --grad2:linear-gradient(115deg,#4A90FF,#7FE0FF);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Figtree',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+       -webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+  .mono{font-family:'Geist Mono',monospace}
+  a{text-decoration:none;color:inherit;-webkit-tap-highlight-color:transparent}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  svg.i{width:1em;height:1em;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--blue);color:#fff;border:none;
+       border-radius:14px;padding:16px 26px;font-weight:800;font-size:16px;font-family:inherit;cursor:pointer;
+       transition:transform .18s,box-shadow .18s,filter .18s;box-shadow:0 14px 30px -12px rgba(22,102,237,.8)}
+  .btn:hover{transform:translateY(-3px);filter:brightness(1.08)}
+  .btn.grad{background:var(--grad)}
+  .btn.cyan{background:var(--cyan);color:#00303F;box-shadow:0 14px 30px -12px rgba(0,194,255,.8)}
+  .btn.white{background:#fff;color:var(--navy);box-shadow:0 14px 30px -16px rgba(0,0,0,.5)}
+  .btn.ghost{background:rgba(255,255,255,.08);color:#fff;border:1.5px solid rgba(255,255,255,.32);box-shadow:none;backdrop-filter:blur(6px)}
+  .btn.line{background:#fff;color:var(--navy);border:2px solid var(--line);box-shadow:none}
+  .btn.sm{padding:11px 18px;font-size:14.5px;border-radius:11px}
+  .btn.full{width:100%}
+
+  .switcher{position:fixed;right:16px;bottom:16px;z-index:200;display:flex;gap:3px;background:#fff;border:1px solid var(--line);
+            border-radius:999px;padding:5px;box-shadow:0 16px 34px -18px rgba(6,21,48,.45)}
+  .switcher a{font-size:12px;font-weight:800;padding:6px 8px;border-radius:999px;color:var(--muted)}
+  .switcher a.on{background:var(--navy);color:#fff}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:80;background:rgba(6,21,48,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08)}
+  nav .in{max-width:1180px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+  nav .logo{height:33px;display:block;filter:brightness(0) invert(1)}
+  .links{display:flex;gap:26px;align-items:center}
+  .links a{font-weight:600;font-size:15px;color:#b9c9e4;white-space:nowrap}
+  .links a:hover{color:#fff}
+  .nav-cta{display:flex;gap:10px;align-items:center}
+  .nav-tel{font-weight:800;font-size:15px;color:#fff;white-space:nowrap;display:inline-flex;align-items:center;gap:7px}
+  @media(max-width:1160px){.nav-tel{display:none}}
+  .burger{display:none;width:44px;height:44px;border-radius:12px;border:1.5px solid rgba(255,255,255,.3);
+          background:rgba(255,255,255,.1);cursor:pointer;flex-direction:column;gap:5px;align-items:center;justify-content:center;padding:0}
+  .burger span{display:block;width:18px;height:2.4px;background:#fff;border-radius:2px;transition:transform .25s,opacity .2s}
+  .burger.on span:nth-child(1){transform:translateY(7.4px) rotate(45deg)}
+  .burger.on span:nth-child(2){opacity:0}
+  .burger.on span:nth-child(3){transform:translateY(-7.4px) rotate(-45deg)}
+  .drawer{position:fixed;left:0;right:0;top:0;z-index:70;background:var(--navy);display:flex;flex-direction:column;
+          padding:94px 22px 26px;transform:translateY(-101%);transition:transform .35s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+  .drawer.on{transform:none;visibility:visible}
+  .drawer a{color:#fff;font-weight:800;font-size:22px;padding:14px 2px;border-bottom:1px solid rgba(255,255,255,.14)}
+  .drawer .btn{margin-top:20px;border-bottom:none;font-size:16px}
+  .drawer .dr-mail{border-bottom:none;font-size:14px;font-weight:600;color:#8fa5c6;text-align:center;padding-top:14px}
+  body.locked{overflow:hidden}
+
+  /* ================= HERO ================= */
+  .hero{position:relative;background:var(--navy);color:#fff;overflow:hidden;padding:66px 0 84px}
+  .hero .mesh{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(760px 480px at 10% -8%,rgba(22,102,237,.62),transparent 62%),
+               radial-gradient(720px 520px at 96% 2%,rgba(0,194,255,.34),transparent 62%),
+               radial-gradient(680px 520px at 56% 118%,rgba(74,144,255,.36),transparent 62%);
+    background-size:200% 200%;animation:drift 18s ease-in-out infinite}
+  @keyframes drift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  .hero .beams{position:absolute;inset:0;z-index:0;opacity:.5;pointer-events:none;
+    background-image:linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:64px 100%;
+    mask:radial-gradient(820px 560px at 45% 0%,#000,transparent 76%)}
+  #parts{position:absolute;inset:0;z-index:1;pointer-events:none}
+  .hero .in{position:relative;z-index:3;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+
+  .kill{display:inline-flex;align-items:center;gap:9px;font-family:'Geist Mono',monospace;font-size:11.5px;font-weight:600;
+        letter-spacing:.12em;text-transform:uppercase;color:var(--cyan-l);background:rgba(0,194,255,.1);
+        border:1px solid rgba(0,194,255,.3);padding:8px 14px;border-radius:999px}
+  .kill .d{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,194,255,.7)}70%{box-shadow:0 0 0 10px rgba(0,194,255,0)}100%{box-shadow:0 0 0 0 rgba(0,194,255,0)}}
+
+  h1{font-size:clamp(40px,6vw,80px);line-height:.98;letter-spacing:-.04em;font-weight:900;margin-top:20px}
+  h1 .strike{position:relative;white-space:nowrap;color:#7f93b4}
+  h1 .strike::after{content:"";position:absolute;left:-1%;right:-1%;top:52%;height:.075em;background:var(--cyan);border-radius:4px;
+        transform:scaleX(0);transform-origin:left;animation:cross .55s .8s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes cross{to{transform:scaleX(1)}}
+  h1 .rise{display:inline-block;opacity:0;animation:rise .6s 1.15s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .lede{font-size:19px;color:#b9c9e4;max-width:47ch;margin-top:20px;font-weight:500}
+  .hero-actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .tickerline{display:flex;align-items:center;gap:10px;margin-top:26px;font-size:14px;color:#a9bcd9;flex-wrap:wrap}
+  .tickerline b{color:#fff}
+  .tickerline .stars{color:#FFC53D}
+
+  /* live counter card */
+  .live{position:relative;z-index:3;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);
+        border-radius:24px;padding:22px;backdrop-filter:blur(14px);box-shadow:0 40px 90px -44px rgba(0,0,0,.85)}
+  .live .lh{display:flex;align-items:center;gap:10px;font-family:'Geist Mono',monospace;font-size:11px;color:#9fb6d8;letter-spacing:.08em}
+  .live .lh .dd{width:7px;height:7px;border-radius:50%;background:var(--cyan);animation:blink 1.1s infinite;flex:0 0 auto}
+  @keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+  .live .big{font-size:clamp(42px,6vw,62px);font-weight:900;letter-spacing:-.04em;line-height:1;margin-top:12px}
+  .live .cap{font-size:13px;color:#a9bcd9;font-weight:600;margin-top:4px}
+  .lrow{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;margin-top:9px;
+        background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);opacity:0;transform:translateY(8px)}
+  .lrow.show{opacity:1;transform:none;transition:opacity .45s,transform .45s}
+  .lrow .nm{font-size:13.5px;font-weight:700;flex:1;min-width:0}
+  .lrow .bar{width:74px;height:6px;border-radius:9px;background:rgba(255,255,255,.14);overflow:hidden;flex:0 0 auto}
+  .lrow .bar i{display:block;height:100%;background:var(--grad2);width:0;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+  .lrow .pr{font-family:'Geist Mono',monospace;font-size:13.5px;font-weight:600;min-width:42px;text-align:right}
+  .lrow.best{background:#fff;color:var(--navy);border-color:#fff}
+  .lrow.best .bar{background:rgba(22,102,237,.18)}
+  .lrow.best .tag{font-size:9.5px;font-weight:900;background:var(--grad);color:#fff;padding:3px 7px;border-radius:5px}
+  .live .foot{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:14px;font-size:11.5px;color:#8fa5c6}
+
+  /* ============ TICKER ============ */
+  .tick{background:var(--grad);padding:14px 0;overflow:hidden;border-top:1px solid rgba(255,255,255,.2)}
+  .tick .row{display:flex;gap:34px;white-space:nowrap;width:max-content;animation:scroll 22s linear infinite;align-items:center}
+  .tick span{font-size:17px;font-weight:900;color:#fff;letter-spacing:-.01em;display:inline-flex;align-items:center;gap:34px}
+  .tick .hm{width:17px;filter:brightness(0) invert(1);opacity:.85}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  section{padding:86px 0}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:11.5px;font-weight:600;
+          letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+  .kicker img{width:14px}
+  .h2{font-size:clamp(30px,4.7vw,56px);line-height:1.03;letter-spacing:-.035em;font-weight:900;color:var(--navy);margin-top:12px}
+  .h2 .gt{display:inline-block}
+  .sec-lede{font-size:17.5px;color:var(--muted);max-width:56ch;margin-top:14px;font-weight:500}
+  .center{margin:0 auto;text-align:center}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .75s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ============ DRAG SPLIT ============ */
+  .split{position:relative;margin-top:44px;border-radius:26px;overflow:hidden;border:1px solid var(--line);
+         box-shadow:0 40px 90px -50px rgba(6,21,48,.5);background:#F6F8FC;user-select:none}
+  .pane{padding:38px 34px;min-height:410px}
+  .pane h3{font-size:26px;font-weight:900;letter-spacing:-.025em}
+  .pane .tagm{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+  .pane ul{list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:13px}
+  .pane li{display:flex;gap:11px;font-size:15.5px;font-weight:600;align-items:flex-start}
+  .pane li .i{flex:0 0 auto;margin-top:3px}
+  .paneA{background:#EEF1F6;color:#5D6B80}
+  .paneA h3{color:#3E4A5C}.paneA .tagm{color:#8A97AA}
+  .paneA li .i{color:#AEB8C7}
+  .paneB{position:absolute;inset:0;background:var(--navy);color:#fff;
+         background-image:radial-gradient(560px 380px at 84% 8%,rgba(0,194,255,.3),transparent 62%),
+                          radial-gradient(560px 400px at 6% 96%,rgba(22,102,237,.5),transparent 62%)}
+  .paneB .tagm{color:var(--cyan-l)}
+  .paneB li .i{color:var(--cyan)}
+  .paneB .hm{position:absolute;right:-40px;bottom:-46px;width:220px;filter:brightness(0) invert(1);opacity:.09}
+  .divider{position:absolute;top:0;bottom:0;width:3px;background:var(--cyan);z-index:6;pointer-events:none;
+           box-shadow:0 0 22px rgba(0,194,255,.85)}
+  .knob{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;
+        background:#fff;color:var(--blue);display:grid;place-items:center;font-size:19px;font-weight:900;
+        box-shadow:0 12px 30px -8px rgba(6,21,48,.7)}
+  .srange{position:absolute;inset:0;z-index:8;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+  .splithint{text-align:center;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.1em;
+             text-transform:uppercase;color:var(--muted);margin-top:16px}
+
+  /* ============ REASONS ============ */
+  .reasons{margin-top:44px;border-top:1px solid var(--line)}
+  .rz{position:relative;border-bottom:1px solid var(--line);overflow:hidden;display:block;cursor:pointer}
+  .rz::before{content:"";position:absolute;inset:0;background:var(--grad);transform:translateY(101%);
+              transition:transform .42s cubic-bezier(.2,.8,.2,1);z-index:0}
+  .rz:hover::before,.rz.act::before{transform:none}
+  .rz:hover,.rz.act{color:#fff}
+  .rz .in{position:relative;z-index:2;display:grid;grid-template-columns:64px 1fr auto;gap:20px;align-items:center;padding:26px 6px}
+  .rz .n{font-family:'Geist Mono',monospace;font-size:13px;font-weight:600;color:var(--muted)}
+  .rz:hover .n,.rz.act .n{color:rgba(255,255,255,.75)}
+  .rz h4{font-size:clamp(19px,2.7vw,29px);font-weight:900;letter-spacing:-.025em;line-height:1.15}
+  .rz p{font-size:15px;color:var(--muted);margin-top:4px;font-weight:500;max-width:62ch}
+  .rz:hover p,.rz.act p{color:rgba(255,255,255,.9)}
+  .rz .go{font-size:22px;opacity:.4;transition:.25s}
+  .rz:hover .go,.rz.act .go{opacity:1;transform:translateX(5px)}
+
+  /* ============ WATCH ============ */
+  .watch{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .watch::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 420px at 88% 6%,rgba(0,194,255,.2),transparent 62%),radial-gradient(640px 440px at 6% 96%,rgba(22,102,237,.46),transparent 62%)}
+  .watch .in{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  .watch .kicker{color:var(--cyan-l)}
+  .watch .h2{color:#fff}
+  .watch .sec-lede{color:#b9c9e4}
+  .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:17px;
+        display:flex;gap:13px;align-items:flex-start;margin-bottom:12px;backdrop-filter:blur(8px);transition:.25s}
+  .card:hover{background:rgba(255,255,255,.11);transform:translateX(5px)}
+  .card .ic{width:38px;height:38px;border-radius:11px;background:var(--grad);display:grid;place-items:center;font-size:17px;flex:0 0 auto}
+  .card b{font-size:15.5px;display:block}
+  .card p{font-size:13.5px;color:#a9bcd9;margin-top:2px}
+  .card .wn{font-family:'Geist Mono',monospace;font-size:10.5px;color:#7e94b6;margin-left:auto;flex:0 0 auto}
+
+  /* ============ HARD ============ */
+  .hard{background:var(--ice)}
+  .hgrid{display:grid;grid-template-columns:1.02fr .98fr;gap:44px;align-items:center}
+  .hbox{background:#fff;border:2px solid var(--ice2);border-radius:24px;padding:32px;position:relative;overflow:hidden}
+  .hbox .hm{position:absolute;right:-34px;bottom:-40px;width:190px;opacity:.07}
+  .hbox h3{font-size:24px;font-weight:900;color:var(--navy);letter-spacing:-.02em;position:relative}
+  .hbox ul{list-style:none;margin-top:18px;display:flex;flex-direction:column;gap:11px;position:relative}
+  .hbox li{display:flex;gap:11px;font-size:15.5px;font-weight:600;color:#33405a}
+  .hbox li .i{color:var(--blue);flex:0 0 auto;margin-top:3px}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+  .chips>span{background:#fff;border:2px solid var(--ice2);border-radius:999px;padding:9px 15px;font-size:13.5px;
+        font-weight:800;color:var(--blue);transition:.2s}
+  .chips>span:hover{background:var(--grad);color:#fff;border-color:transparent;transform:translateY(-2px)}
+
+  /* REVIEWS */
+  .revs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
+  .rev{background:#fff;border:2px solid var(--line);border-radius:20px;padding:26px;transition:.25s}
+  .rev:hover{border-color:var(--blue);transform:translateY(-5px);box-shadow:0 26px 54px -32px rgba(22,102,237,.45)}
+  .rev .stars{color:#FFC53D;letter-spacing:2px;font-size:15px}
+  .rev p{font-size:16px;color:#2b3849;margin-top:11px;font-weight:500}
+  .rev .who{display:flex;align-items:center;gap:11px;margin-top:17px}
+  .rev .av{width:38px;height:38px;border-radius:11px;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:900;font-size:15px}
+  .rev .who b{display:block;font-size:14.5px;color:var(--navy)}
+  .rev .who span{font-size:12.5px;color:var(--muted)}
+
+  /* CTA */
+  .cta{position:relative;background:var(--navy);color:#fff;border-radius:28px;padding:70px 32px;text-align:center;overflow:hidden}
+  .cta::before{content:"";position:absolute;inset:0;background:radial-gradient(560px 340px at 22% -8%,rgba(0,194,255,.32),transparent 62%),radial-gradient(600px 340px at 84% 112%,rgba(22,102,237,.6),transparent 62%)}
+  .cta .hm{position:absolute;left:-46px;top:-46px;width:250px;filter:brightness(0) invert(1);opacity:.09}
+  .cta h2{position:relative;font-size:clamp(28px,4.1vw,50px);font-weight:900;letter-spacing:-.035em;line-height:1.05}
+  .cta p{position:relative;color:#b9c9e4;max-width:46ch;margin:14px auto 0;font-size:17.5px;font-weight:500}
+  .cta .acts{position:relative;display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap}
+
+  footer{padding:50px 0 28px;color:var(--muted);border-top:1px solid var(--line)}
+  .fgrid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:32px}
+  footer .logo{height:32px;margin-bottom:14px}
+  footer h5{color:var(--navy);font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:13px}
+  footer a{display:block;font-size:14.5px;margin-bottom:9px;color:var(--muted);overflow-wrap:anywhere}
+  footer a:hover{color:var(--blue)}
+  .fbot{border-top:1px solid var(--line);margin-top:34px;padding-top:22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px}
+  .disc{font-size:12px;color:#8b95a6;line-height:1.6;margin-top:14px}
+
+  /* ============ RESPONSIVE ============ */
+  .hero .in>*,.watch .in>*,.hgrid>*,.revs>*,.fgrid>*,.rz .in>*{min-width:0}
+  @media(max-width:1024px){
+    section{padding:64px 0}
+    .hero{padding:48px 0 64px}
+    .hero .in,.watch .in,.hgrid{grid-template-columns:1fr;gap:40px}
+    .lede{max-width:100%}
+    .pane{padding:30px 26px;min-height:auto}
+  }
+  @media(max-width:900px){
+    .links{display:none}
+    .burger{display:flex}
+    .nav-cta .btn.sm{display:none}
+  }
+  @media(max-width:760px){
+    .wrap,nav .in{padding-left:18px;padding-right:18px}
+    section{padding:54px 0}
+    .h2{font-size:clamp(26px,7.4vw,40px)}
+    .sec-lede{font-size:16px}
+    /* split becomes stacked panels (dragging a 2-col reveal is unusable this narrow) */
+    .split{border-radius:20px}
+    .paneB{position:static;inset:auto;clip-path:none!important}
+    .divider,.knob,.srange{display:none}
+    .splithint{display:none}
+    .pane{padding:24px 20px}
+    .pane h3{font-size:21px}
+    .rz .in{grid-template-columns:34px 1fr;gap:12px;padding:20px 2px}
+    .rz .go{display:none}
+    .rz h4{font-size:19px}
+    .tick span{font-size:15px;gap:24px}
+    .revs{grid-template-columns:1fr}
+    .rev,.hbox{padding:22px}
+    .cta{padding:50px 20px;border-radius:22px}
+    .fgrid{grid-template-columns:1fr 1fr;gap:26px}
+    .fbot{flex-direction:column}
+    .switcher{left:10px;right:auto;bottom:10px;padding:4px}
+    .switcher a{padding:6px 7px;font-size:11.5px}
+  }
+  @media(max-width:520px){
+    .hero-actions{width:100%}
+    .hero-actions .btn,.cta .acts .btn{width:100%}
+    .live{padding:18px;border-radius:20px}
+    .fgrid{grid-template-columns:1fr;text-align:center}
+    .drawer a{font-size:20px}
+  }
+  @media(hover:none){ .rev:hover,.card:hover,.chips>span:hover{transform:none} }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+    h1 .strike::after{transform:scaleX(1)} h1 .rise{opacity:1}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h2l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 4 5z"/></symbol>
+  <symbol id="chat" viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 4V6z"/></symbol>
+  <symbol id="bell" viewBox="0 0 24 24"><path d="M6 16V10a6 6 0 1 1 12 0v6l2 2H4zM10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="bolt" viewBox="0 0 24 24"><path d="M13 3L5 13h6l-1 8 8-10h-6z"/></symbol>
+  <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
+
+<div class="switcher">
+  <a href="index.html">1</a><a href="option-2.html">2</a><a href="option-3.html">3</a><a href="option-4.html">4</a><a href="option-9.html">9</a><a href="option-11.html" class="on">11</a><a href="option-12.html">12</a>
+</div>
+
+<nav>
+  <div class="in">
+    <a href="index.html"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+    <div class="links">
+      <a href="#compare">App vs. us</a><a href="#reasons">Why switch</a><a href="#watch">Rate watch</a><a href="#hard">Hard to insure</a>
+    </div>
+    <div class="nav-cta">
+      <a class="nav-tel" href="tel:+19155031207"><svg class="i"><use href="#phone"/></svg> 915-503-1207</a>
+      <a class="btn grad sm" href="#cta">Compare rates</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="drawer" id="drawer">
+  <a href="#compare">App vs. us</a>
+  <a href="#reasons">Why switch</a>
+  <a href="#watch">Rate watch</a>
+  <a href="#hard">Hard to insure</a>
+  <a class="btn grad" href="tel:+19155031207">📞 Call 915-503-1207</a>
+  <a class="dr-mail" href="mailto:contact@safehouseins.com">contact@safehouseins.com · Se habla español</a>
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="mesh"></div><div class="beams"></div><canvas id="parts"></canvas>
+  <div class="wrap in">
+    <div>
+      <span class="kill"><span class="d"></span> The app can't call you back</span>
+      <h1>Don't rent your rate<br><span class="strike">from an app.</span><br><span class="rise gt">Own it with us.</span></h1>
+      <p class="lede">Same one-minute comparison. Same live carrier rates. Except when something actually happens, a licensed agent in El Paso picks up — in English or Spanish.</p>
+      <div class="hero-actions">
+        <a class="btn grad" href="#cta">Compare my rates <svg class="i"><use href="#arrow"/></svg></a>
+        <a class="btn ghost" href="#compare">See the difference</a>
+      </div>
+      <div class="tickerline"><span class="stars">★★★★★</span> <b>5-star Google reviews</b> · <b>SR-22</b> same day · <b>Se habla español</b> · Free, always</div>
+    </div>
+
+    <div class="live">
+      <div class="lh"><span class="dd"></span> SAFE&nbsp;HOUSE&nbsp;·&nbsp;LIVE&nbsp;COMPARISON</div>
+      <div class="big gt" id="bignum">$0</div>
+      <div class="cap">estimated first-year savings on this sample profile *</div>
+      <div id="lrows">
+        <div class="lrow best"><span class="nm">Progressive</span><span class="bar"><i data-w="42"></i></span><span class="pr">$112</span><span class="tag">BEST</span></div>
+        <div class="lrow"><span class="nm">Geico</span><span class="bar"><i data-w="58"></i></span><span class="pr">$128</span></div>
+        <div class="lrow"><span class="nm">Lemonade</span><span class="bar"><i data-w="72"></i></span><span class="pr">$141</span></div>
+        <div class="lrow"><span class="nm">Alinsco</span><span class="bar"><i data-w="86"></i></span><span class="pr">$159</span></div>
+        <div class="lrow"><span class="nm">Commonwealth</span><span class="bar"><i data-w="96"></i></span><span class="pr">$166</span></div>
+      </div>
+      <div class="foot"><svg class="i"><use href="#shield"/></svg> 2019 Silverado · 79901 · full coverage · sample data</div>
+    </div>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="tick">
+  <div class="row">
+    <span>No phone trees <img class="hm" src="assets/safehouse-heart.png" alt=""> SR-22 same day <img class="hm" src="assets/safehouse-heart.png" alt=""> Se habla español <img class="hm" src="assets/safehouse-heart.png" alt=""> A real agent, every time <img class="hm" src="assets/safehouse-heart.png" alt=""> We re-shop at renewal <img class="hm" src="assets/safehouse-heart.png" alt=""></span>
+    <span>No phone trees <img class="hm" src="assets/safehouse-heart.png" alt=""> SR-22 same day <img class="hm" src="assets/safehouse-heart.png" alt=""> Se habla español <img class="hm" src="assets/safehouse-heart.png" alt=""> A real agent, every time <img class="hm" src="assets/safehouse-heart.png" alt=""> We re-shop at renewal <img class="hm" src="assets/safehouse-heart.png" alt=""></span>
+  </div>
+</div>
+
+<!-- DRAG SPLIT -->
+<section id="compare">
+  <div class="wrap">
+    <div class="reveal center" style="max-width:680px">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> Drag to compare</span>
+      <h2 class="h2">One is a download.<br><span class="gt">One is a person.</span></h2>
+      <p class="sec-lede center">Everything's identical until the day you need help. Drag the handle and see where the app stops.</p>
+    </div>
+
+    <div class="split reveal" id="split">
+      <div class="pane paneA">
+        <div class="tagm">Life with a quote app</div>
+        <h3>You're on your own from here.</h3>
+        <ul>
+          <li><svg class="i"><use href="#x"/></svg> Your record doesn't fit the algorithm → "no quotes available"</li>
+          <li><svg class="i"><use href="#x"/></svg> Need an SR-22 filed today? Not supported</li>
+          <li><svg class="i"><use href="#x"/></svg> Support is a chat window, in English, when it's staffed</li>
+          <li><svg class="i"><use href="#x"/></svg> Accident at 7am? You call the carrier and start explaining</li>
+          <li><svg class="i"><use href="#x"/></svg> Renewal creeps up and nobody tells you</li>
+          <li><svg class="i"><use href="#x"/></svg> Nobody knows your name, your truck or your file</li>
+        </ul>
+      </div>
+
+      <div class="pane paneB" id="paneB">
+        <img class="hm" src="assets/safehouse-heart.png" alt="">
+        <div class="tagm">Life with Safe House</div>
+        <h3>Somebody's already on it.</h3>
+        <ul>
+          <li><svg class="i"><use href="#check"/></svg> Tough record? That's the book we specialize in</li>
+          <li><svg class="i"><use href="#check"/></svg> SR-22 filed — often the same day</li>
+          <li><svg class="i"><use href="#check"/></svg> A licensed agent in El Paso, English or Spanish</li>
+          <li><svg class="i"><use href="#check"/></svg> Accident at 7am? One call and we walk you through it</li>
+          <li><svg class="i"><use href="#check"/></svg> We re-shop your rate at every renewal, on our own</li>
+          <li><svg class="i"><use href="#check"/></svg> Somebody who knows your name and your file</li>
+        </ul>
+      </div>
+
+      <div class="divider" id="divider"><span class="knob">⇄</span></div>
+      <input class="srange" id="srange" type="range" min="0" max="100" value="52" aria-label="Drag to compare the app experience with Safe House">
+    </div>
+    <p class="splithint">← drag the handle →</p>
+  </div>
+</section>
+
+<!-- REASONS -->
+<section id="reasons" style="padding-top:20px">
+  <div class="wrap">
+    <div class="reveal" style="max-width:680px">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> Why drivers leave the app</span>
+      <h2 class="h2">Fast is easy.<br><span class="gt">Showing up is hard.</span></h2>
+    </div>
+    <div class="reasons">
+      <div class="rz reveal"><div class="in"><span class="n">01</span><span><h4>"No quotes available."</h4><p>The three words every high-risk driver has read. An algorithm shrugs; we start working the carriers that say yes.</p></span><span class="go">→</span></div></div>
+      <div class="rz reveal"><div class="in"><span class="n">02</span><span><h4>Nobody speaks your language</h4><p>An English-only chatbot is not bilingual service. Every conversation here happens in English or Spanish, with the same agent.</p></span><span class="go">→</span></div></div>
+      <div class="rz reveal"><div class="in"><span class="n">03</span><span><h4>The handoff that never ends</h4><p>Apps pass you to the carrier and step out of the loop. We stay on your file — renewals, claims, ID cards, all of it.</p></span><span class="go">→</span></div></div>
+      <div class="rz reveal"><div class="in"><span class="n">04</span><span><h4>Silence at renewal</h4><p>Your premium drifts up and nobody re-checks. We re-shop it for you, and we'll tell you even when the answer is "stay."</p></span><span class="go">→</span></div></div>
+      <div class="rz reveal"><div class="in"><span class="n">05</span><span><h4>Nobody to look in the eye</h4><p>We're in El Paso. You can call us, text us, or walk in — and talk to the person who wrote your policy.</p></span><span class="go">→</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WATCH -->
+<section id="watch" class="watch">
+  <div class="wrap in">
+    <div class="reveal">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt="" style="filter:brightness(0) invert(1)"> Rate watch</span>
+      <h2 class="h2">The app forgets you<br>the second you install it.</h2>
+      <p class="sec-lede">We do the opposite. Every renewal, we re-run your profile across our carriers and tell you what we find — including when the honest answer is that you're already on the best option.</p>
+      <a class="btn cyan" href="#cta" style="margin-top:24px">Put my rate on watch <svg class="i"><use href="#arrow"/></svg></a>
+    </div>
+    <div class="reveal">
+      <div class="card"><span class="ic"><svg class="i"><use href="#down"/></svg></span><span><b>We found you a lower rate</b><p>Same coverage, different carrier. Want us to move it?</p></span><span class="wn">RENEWAL</span></div>
+      <div class="card"><span class="ic"><svg class="i"><use href="#shield"/></svg></span><span><b>You're still on the best option</b><p>We checked every carrier. Nothing beat it — no action needed.</p></span><span class="wn">6 MO</span></div>
+      <div class="card"><span class="ic"><svg class="i"><use href="#bolt"/></svg></span><span><b>New discount unlocked</b><p>Adding your home qualified you for a multi-policy discount.</p></span><span class="wn">NEW</span></div>
+      <div class="card"><span class="ic"><svg class="i"><use href="#globe"/></svg></span><span><b>Text your agent directly</b><p>No ticket number, no queue. English or Spanish.</p></span><span class="wn">ALWAYS</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HARD -->
+<section id="hard" class="hard">
+  <div class="wrap hgrid">
+    <div class="reveal">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> Turned down by the app?</span>
+      <h2 class="h2">Start where<br><span class="gt">they gave up.</span></h2>
+      <p class="sec-lede">Automated tools quit the moment your record stops fitting their boxes. That's the exact moment we get to work — honestly, and without the lecture.</p>
+      <div class="chips"><span>SR-22</span><span>High-risk</span><span>No license</span><span>Non-owner</span><span>Prior lapse</span><span>Multiple tickets</span><span>New driver</span></div>
+    </div>
+    <div class="hbox reveal">
+      <img class="hm" src="assets/safehouse-heart.png" alt="">
+      <h3>We'll find the carrier that says yes.</h3>
+      <ul>
+        <li><svg class="i"><use href="#check"/></svg> SR-22 filings, often the same day</li>
+        <li><svg class="i"><use href="#check"/></svg> Tickets, accidents and coverage lapses</li>
+        <li><svg class="i"><use href="#check"/></svg> Non-owner and no-license policies</li>
+        <li><svg class="i"><use href="#check"/></svg> Low down payments and flexible plans</li>
+      </ul>
+      <a class="btn grad full" href="tel:+19155031207" style="margin-top:22px;position:relative"><svg class="i"><use href="#phone"/></svg> Call 915-503-1207</a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="reveal center" style="max-width:640px">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> Reviews</span>
+      <h2 class="h2">They tried the app first.</h2>
+    </div>
+    <div class="revs">
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>"Took a few minutes and they actually saved me money. They cancelled my old policy for me too."</p><div class="who"><span class="av">M</span><span><b>Marcos T.</b><span>El Paso, TX · Google review</span></span></div></div>
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>"They found me coverage even with an SR-22, and a real person explained everything in Spanish."</p><div class="who"><span class="av">J</span><span><b>Jazmín R.</b><span>Las Cruces, NM · Google review</span></span></div></div>
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>"Insured my truck and my house in one call. They follow up — an app never did that for me."</p><div class="who"><span class="av">D</span><span><b>Diego M.</b><span>El Paso, TX · Google review</span></span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" style="padding-top:14px">
+  <div class="wrap"><div class="cta reveal">
+    <img class="hm" src="assets/safehouse-heart.png" alt="">
+    <h2>Keep the speed.<br>Get a human back.</h2>
+    <p>Free comparison, no obligation, and a licensed bilingual agent on the other end.</p>
+    <div class="acts">
+      <a class="btn cyan" href="tel:+19155031207">📞 Compare my rates</a>
+      <a class="btn white" href="mailto:contact@safehouseins.com">Email us instead</a>
+    </div>
+  </div></div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance">
+        <p style="font-size:14.5px;max-width:34ch">A licensed independent insurance agency in El Paso, Texas. We compare carriers — and we answer the phone. Se habla español.</p>
+        <p style="margin-top:14px;color:var(--navy);font-weight:800">915-503-1207</p>
+        <p style="font-size:14px"><a href="mailto:contact@safehouseins.com" style="display:inline">contact@safehouseins.com</a></p>
+      </div>
+      <div><h5>Insurance</h5><a href="#cta">Auto</a><a href="#cta">Home &amp; renters</a><a href="#cta">Commercial</a><a href="#cta">Life</a><a href="#cta">Bonds</a></div>
+      <div><h5>Compare</h5><a href="#compare">App vs. us</a><a href="#reasons">Why switch</a><a href="#watch">Rate watch</a><a href="#hard">Hard to insure</a></div>
+      <div><h5>Support</h5><a href="tel:+19155031207">Report a claim</a><a href="#cta">Request a quote</a><a href="mailto:contact@safehouseins.com">Service request</a></div>
+    </div>
+    <div class="fbot"><span>© 2026 Safe House Insurance. All rights reserved.</span><span>Privacy · Terms · Licensing</span></div>
+    <p class="disc">* Rates and savings shown are illustrative samples for layout purposes only — they are not a quote, an estimate of your savings, or a guarantee. Comparisons on this page describe the typical app-only quoting experience versus a licensed independent agency; individual providers and their features vary. Safe House Insurance is an independent insurance agency licensed in Texas and New Mexico (license #__________). Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy.</p>
+  </div>
+</footer>
+
+<script>
+  // ===== drawer =====
+  var burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
+  function setMenu(open){
+    if(open){var r=document.querySelector('nav').getBoundingClientRect();
+      drawer.style.paddingTop=Math.max(r.bottom+20,88)+'px';}
+    burger.classList.toggle('on',open);drawer.classList.toggle('on',open);
+    document.body.classList.toggle('locked',open);
+    burger.setAttribute('aria-expanded',open);
+    burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+  }
+  burger.addEventListener('click',function(){setMenu(!drawer.classList.contains('on'));});
+  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
+  addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
+  addEventListener('resize',function(){if(innerWidth>900)setMenu(false);});
+
+  // ===== floating heart particles (brand motif) =====
+  (function(){
+    var cv=document.getElementById('parts'),ctx=cv.getContext('2d'),img=new Image(),ready=false,parts=[];
+    img.src='assets/safehouse-heart.png';
+    img.onload=function(){ready=true;};
+    function size(){var h=cv.parentElement.getBoundingClientRect();cv.width=h.width;cv.height=h.height;}
+    size();addEventListener('resize',size);
+    for(var i=0;i<16;i++)parts.push({x:Math.random(),y:Math.random(),s:12+Math.random()*26,
+      v:.00035+Math.random()*.0007,o:.05+Math.random()*.10,r:Math.random()*6.28,vr:(Math.random()-.5)*.004});
+    function loop(){
+      ctx.clearRect(0,0,cv.width,cv.height);
+      if(ready){parts.forEach(function(p){
+        p.y-=p.v;p.r+=p.vr;if(p.y<-.1){p.y=1.1;p.x=Math.random();}
+        ctx.save();ctx.globalAlpha=p.o;ctx.translate(p.x*cv.width,p.y*cv.height);ctx.rotate(p.r);
+        ctx.drawImage(img,-p.s/2,-p.s/2,p.s,p.s);ctx.restore();});}
+      requestAnimationFrame(loop);
+    }
+    loop();
+  })();
+
+  // ===== live comparison reveal + counter =====
+  (function(){
+    var rows=[].slice.call(document.querySelectorAll('#lrows .lrow')),
+        bignum=document.getElementById('bignum'),ran=false;
+    function run(){
+      rows.forEach(function(r,i){
+        setTimeout(function(){
+          r.classList.add('show');
+          var bar=r.querySelector('.bar i'); if(bar) bar.style.width=bar.dataset.w+'%';
+        },200*i+220);
+      });
+      setTimeout(function(){
+        var t=648,n=0,s=t/40;
+        (function tick(){n+=s;if(n>=t){bignum.textContent='$'+t;return;}
+          bignum.textContent='$'+Math.floor(n);requestAnimationFrame(tick);})();
+      },200*rows.length+380);
+    }
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting&&!ran){ran=true;run();}});},{threshold:.3});
+    io.observe(document.querySelector('.live'));
+  })();
+
+  // ===== drag-to-compare split =====
+  (function(){
+    var range=document.getElementById('srange'),paneB=document.getElementById('paneB'),
+        divider=document.getElementById('divider');
+    function apply(v){
+      // reveal Safe House from the right; the app pane stays underneath
+      paneB.style.clipPath='inset(0 0 0 '+v+'%)';
+      divider.style.left=v+'%';
+    }
+    function upd(){apply(+range.value);}
+    range.addEventListener('input',upd);
+    apply(+range.value);
+    // nudge it on first scroll-in so the interaction is discoverable
+    var once=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(!e.isIntersecting)return; once.unobserve(e.target);
+      var v=+range.value,to=34,step=(v-to)/22;
+      (function anim(){v-=step;if((step>0&&v<=to)||(step<0&&v>=to)){range.value=to;apply(to);return;}
+        range.value=v;apply(v);requestAnimationFrame(anim);})();
+    });},{threshold:.4});
+    once.observe(document.getElementById('split'));
+  })();
+
+  // ===== reasons: tap to open on touch =====
+  document.querySelectorAll('.rz').forEach(function(r){
+    r.addEventListener('click',function(){
+      var was=r.classList.contains('act');
+      document.querySelectorAll('.rz').forEach(function(x){x.classList.remove('act');});
+      if(!was)r.classList.add('act');
+    });
+  });
+
+  // ===== reveal =====
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+</script>
+</body>
+</html>
