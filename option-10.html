@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1666ED">
+<title>Safe House Insurance — Your bilingual insurance co-pilot, El Paso TX</title>
+<meta name="description" content="Compare car insurance in about a minute with Safe House. Real bilingual agents in El Paso, TX, SR-22 and high-risk welcome, and we keep re-shopping your rate. Se habla español.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1666ED; --blue-d:#0F4FBF; --blue-dd:#0A3A8F; --blue-l:#4E90FF;
+    --amber:#FFB020; --amber-d:#B87800; --amber-w:#FFF6E4;
+    --ink:#101828; --navy:#0A2452; --muted:#5C6A80; --line:#E6EBF3; --wash:#F1F6FF; --paper:#fff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+       -webkit-font-smoothing:antialiased;line-height:1.58;overflow-x:hidden}
+  .dis{font-family:'Outfit',sans-serif}
+  a{text-decoration:none;color:inherit;-webkit-tap-highlight-color:transparent}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  svg.i{width:1em;height:1em;stroke:currentColor;stroke-width:1.9;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--blue);color:#fff;border:none;
+       border-radius:999px;padding:15px 26px;font-weight:600;font-size:15.5px;font-family:'Outfit',sans-serif;cursor:pointer;
+       transition:transform .18s,box-shadow .18s,background .18s;box-shadow:0 12px 28px -12px rgba(22,102,237,.62)}
+  .btn:hover{transform:translateY(-2px);background:var(--blue-d)}
+  .btn.amber{background:var(--amber);color:#3D2600;box-shadow:0 14px 30px -12px rgba(255,176,32,.75)}
+  .btn.amber:hover{background:#F2A413}
+  .btn.white{background:#fff;color:var(--blue-d);box-shadow:0 14px 30px -16px rgba(0,0,0,.36)}
+  .btn.line{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.55);box-shadow:none}
+  .btn.line:hover{background:rgba(255,255,255,.14)}
+  .btn.line-d{background:#fff;color:var(--navy);border:1.5px solid var(--line);box-shadow:none}
+  .btn.sm{padding:11px 19px;font-size:14.5px}
+  .btn.full{width:100%}
+
+  .switcher{position:fixed;right:16px;bottom:16px;z-index:200;display:flex;gap:3px;background:#fff;border:1px solid var(--line);
+            border-radius:999px;padding:5px;box-shadow:0 16px 34px -18px rgba(10,36,82,.4)}
+  .switcher a{font-size:12px;font-weight:700;padding:6px 9px;border-radius:999px;color:var(--muted)}
+  .switcher a.on{background:var(--blue);color:#fff}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav .in{max-width:1180px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  nav .logo{height:34px;display:block}
+  .links{display:flex;gap:24px;align-items:center}
+  .links a{font-family:'Outfit',sans-serif;font-weight:500;font-size:15.5px;color:#33405a;white-space:nowrap}
+  .links a:hover{color:var(--blue)}
+  .nav-cta{display:flex;gap:10px;align-items:center}
+  /* language toggle — our edge, made visible */
+  .lang{display:inline-flex;background:var(--wash);border:1px solid #d5e3fb;border-radius:999px;padding:3px;flex:0 0 auto}
+  .lang button{border:none;background:transparent;font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;
+        padding:6px 12px;border-radius:999px;cursor:pointer;color:#54628a;transition:.18s}
+  .lang button.on{background:var(--blue);color:#fff}
+  .burger{display:none;width:44px;height:44px;border-radius:12px;border:2px solid var(--line);background:#fff;cursor:pointer;
+          flex-direction:column;gap:5px;align-items:center;justify-content:center;padding:0}
+  .burger span{display:block;width:18px;height:2.4px;background:var(--navy);border-radius:2px;transition:transform .25s,opacity .2s}
+  .burger.on span:nth-child(1){transform:translateY(7.4px) rotate(45deg)}
+  .burger.on span:nth-child(2){opacity:0}
+  .burger.on span:nth-child(3){transform:translateY(-7.4px) rotate(-45deg)}
+  .drawer{position:fixed;left:0;right:0;top:0;z-index:70;background:#fff;display:flex;flex-direction:column;
+          padding:94px 22px 26px;transform:translateY(-101%);transition:transform .35s cubic-bezier(.2,.8,.2,1);
+          visibility:hidden;box-shadow:0 30px 60px -30px rgba(10,36,82,.35)}
+  .drawer.on{transform:none;visibility:visible}
+  .drawer a{font-family:'Outfit',sans-serif;font-weight:600;font-size:22px;padding:14px 2px;border-bottom:1px solid var(--line);color:var(--navy)}
+  .drawer .btn{margin-top:20px;border-bottom:none;font-size:16px}
+  .drawer .dr-mail{border-bottom:none;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:var(--muted);text-align:center;padding-top:14px}
+  body.locked{overflow:hidden}
+
+  /* HERO */
+  .hero{padding:44px 0 64px;background:linear-gradient(180deg,var(--wash),#fff 66%)}
+  .hero .in{display:grid;grid-template-columns:1.02fr .98fr;gap:46px;align-items:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #d5e3fb;color:var(--blue);
+        font-weight:700;font-size:13.5px;padding:8px 15px;border-radius:999px;font-family:'Outfit',sans-serif;
+        box-shadow:0 8px 20px -14px rgba(22,102,237,.5)}
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:blink 1.6s infinite}
+  @keyframes blink{0%,100%{opacity:.35}50%{opacity:1}}
+  h1{font-family:'Outfit',sans-serif;font-size:clamp(37px,5.2vw,64px);line-height:1.02;letter-spacing:-.035em;
+     font-weight:800;margin-top:18px;color:var(--navy)}
+  h1 mark{background:none;color:var(--blue)}
+  .lede{font-size:18.5px;color:var(--muted);max-width:45ch;margin-top:16px}
+  .prof{display:flex;align-items:center;gap:12px;margin-top:24px;flex-wrap:wrap}
+  .avs{display:flex}
+  .avs span{width:36px;height:36px;border-radius:50%;border:2.5px solid #fff;margin-left:-11px;background:var(--blue);
+        color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px;font-family:'Outfit',sans-serif}
+  .avs span:first-child{margin-left:0}
+  .prof .txt{font-size:14px;color:var(--muted)}
+  .prof .txt b{color:var(--navy)}
+  .prof .stars{color:var(--amber)}
+  .badges{display:flex;gap:8px;margin-top:22px;flex-wrap:wrap}
+  .badges>span{background:#fff;border:1px solid var(--line);border-radius:11px;padding:9px 13px;font-size:13px;font-weight:600;color:#3d4a60}
+  .badges>span b{color:var(--blue)}
+
+  /* ===== WIZARD ===== */
+  .wiz{background:linear-gradient(160deg,#1B6CF0,#0F4FBF 58%,#0A3A8F);border-radius:26px;padding:26px;color:#fff;
+       box-shadow:0 40px 90px -44px rgba(10,36,82,.8);position:relative;overflow:hidden}
+  .wiz .hm{position:absolute;right:-46px;top:-46px;width:210px;filter:brightness(0) invert(1);opacity:.09;pointer-events:none}
+  .wiz .top{display:flex;align-items:center;gap:11px;position:relative}
+  .wiz .top img{width:24px;filter:brightness(0) invert(1)}
+  .wiz .top b{font-family:'Outfit',sans-serif;font-size:16.5px;font-weight:600;display:block}
+  .wiz .top small{font-size:12px;color:#bcd6ff}
+  .bars{display:flex;gap:6px;margin:18px 0 20px;position:relative}
+  .bars i{flex:1;height:5px;border-radius:9px;background:rgba(255,255,255,.22);overflow:hidden}
+  .bars i.on{background:var(--amber)}
+  .step{display:none;position:relative}
+  .step.on{display:block;animation:sIn .38s cubic-bezier(.2,.8,.2,1)}
+  @keyframes sIn{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+  .step h4{font-family:'Outfit',sans-serif;font-size:21px;font-weight:600;letter-spacing:-.02em}
+  .step .hint{font-size:13.5px;color:#bcd6ff;margin-top:4px}
+  .fld{margin-top:16px}
+  .fld label{display:block;font-size:12.5px;font-weight:700;color:#cfe0ff;margin-bottom:6px;font-family:'Outfit',sans-serif}
+  .fld input,.fld select{width:100%;border:1.5px solid rgba(255,255,255,.24);border-radius:13px;padding:14px;
+        font-family:inherit;font-size:16px;font-weight:500;background:rgba(255,255,255,.1);color:#fff;outline:none;transition:.15s}
+  .fld input::placeholder{color:#9dbcf0}
+  .fld input:focus,.fld select:focus{border-color:var(--amber);background:rgba(255,255,255,.16)}
+  .fld select option{color:#101828}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .opt{border:1.5px solid rgba(255,255,255,.24);border-radius:13px;padding:13px;cursor:pointer;font-weight:600;font-size:14.5px;
+       background:rgba(255,255,255,.06);transition:.18s;text-align:left;color:#fff;font-family:inherit}
+  .opt small{display:block;font-weight:500;font-size:12px;color:#bcd6ff;margin-top:2px}
+  .opt.on{border-color:var(--amber);background:rgba(255,176,32,.2)}
+  .wnav{display:flex;gap:10px;margin-top:20px;align-items:center}
+  .wnav .back{background:transparent;border:none;color:#bcd6ff;font-family:'Outfit',sans-serif;font-weight:600;font-size:14.5px;cursor:pointer;padding:8px}
+  .wnav .btn{flex:1}
+  .wfoot{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:14px;font-size:12px;color:#bcd6ff;position:relative}
+
+  /* result step */
+  .res .rrow{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);
+        border-radius:13px;padding:12px;margin-top:9px}
+  .res .rrow.best{background:#fff;border-color:#fff;color:var(--navy)}
+  .res .rrow .nm{font-weight:700;font-size:14px;flex:1;min-width:0}
+  .res .rrow .pr{font-weight:700;font-size:15px;font-family:'Outfit',sans-serif}
+  .res .rrow .tag{font-size:9.5px;font-weight:800;background:var(--amber);color:#3D2600;padding:3px 7px;border-radius:5px}
+  .res .box{background:rgba(255,176,32,.16);border:1px solid rgba(255,176,32,.4);border-radius:14px;padding:14px;margin-top:14px;text-align:center}
+  .res .box b{display:block;font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--amber)}
+  .res .box small{font-size:11.5px;color:#e8d3a8}
+
+  /* SECTIONS */
+  section{padding:80px 0}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:700;
+          letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+  .kicker img{width:14px}
+  .h2{font-family:'Outfit',sans-serif;font-size:clamp(29px,4.3vw,50px);line-height:1.07;letter-spacing:-.03em;
+      font-weight:800;color:var(--navy);margin-top:12px}
+  .h2 mark{background:none;color:var(--blue)}
+  .sec-lede{font-size:17.5px;color:var(--muted);max-width:56ch;margin-top:14px}
+  .center{margin:0 auto;text-align:center}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .7s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* WHY cards */
+  .why{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+  .wc{background:#fff;border:2px solid var(--line);border-radius:22px;padding:28px;transition:.22s}
+  .wc:hover{border-color:var(--blue);transform:translateY(-5px);box-shadow:0 26px 54px -32px rgba(22,102,237,.42)}
+  .wc .ic{width:48px;height:48px;border-radius:14px;background:var(--wash);color:var(--blue);display:grid;place-items:center;font-size:22px}
+  .wc h4{font-family:'Outfit',sans-serif;font-size:20px;font-weight:600;color:var(--navy);margin-top:16px}
+  .wc p{color:var(--muted);font-size:15px;margin-top:7px}
+  .wc .no{margin-top:14px;font-size:13px;font-weight:600;color:#98a3b6;display:flex;gap:7px;align-items:flex-start}
+  .wc .no .i{flex:0 0 auto;margin-top:3px}
+
+  /* BAND (rate watch) */
+  .band{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .band::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 380px at 86% 8%,rgba(255,176,32,.18),transparent 62%),radial-gradient(600px 400px at 8% 96%,rgba(22,102,237,.42),transparent 62%)}
+  .band .in{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .band .kicker{color:var(--amber)}
+  .band .h2{color:#fff}.band .h2 mark{color:var(--amber)}
+  .band .sec-lede{color:#aec2de}
+  .tl{display:flex;flex-direction:column;gap:0}
+  .tl div{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+  .tl div:last-child{border-bottom:none}
+  .tl .d{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.1);display:grid;place-items:center;
+      font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;flex:0 0 auto}
+  .tl .on .d{background:var(--amber);color:#3D2600}
+  .tl b{font-family:'Outfit',sans-serif;font-size:16px;display:block;font-weight:600}
+  .tl p{font-size:14px;color:#a8bcd8}
+
+  /* HARD */
+  .hard{background:var(--amber-w);border-top:1px solid #f6e2bd;border-bottom:1px solid #f6e2bd}
+  .hard .in{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+  .hard .kicker{color:var(--amber-d)}
+  .hard .h2{color:#4A3000}
+  .hard .sec-lede{color:#6B5220}
+  .hard .card{background:#fff;border:1px solid #f2dcb4;border-radius:22px;padding:30px}
+  .hard .card h3{font-family:'Outfit',sans-serif;font-size:23px;font-weight:700;color:var(--navy)}
+  .hard ul{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:11px}
+  .hard li{display:flex;gap:11px;font-size:15.5px;font-weight:500;color:#33405a}
+  .hard li .i{color:var(--amber-d);flex:0 0 auto;margin-top:4px}
+  .hard .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .hard .chips>span{background:var(--amber-w);border:1px solid #f2dcb4;border-radius:999px;padding:8px 13px;font-size:13px;font-weight:700;color:var(--amber-d)}
+
+  /* REVIEWS */
+  .revs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
+  .rev{background:#fff;border:2px solid var(--line);border-radius:20px;padding:26px}
+  .rev .stars{color:var(--amber);letter-spacing:2px;font-size:15px}
+  .rev p{font-size:16px;color:#2b3849;margin-top:11px}
+  .rev .who{display:flex;align-items:center;gap:11px;margin-top:17px}
+  .rev .av{width:38px;height:38px;border-radius:11px;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:700;font-size:15px;font-family:'Outfit',sans-serif}
+  .rev .who b{display:block;font-size:14.5px;color:var(--navy)}
+  .rev .who span{font-size:12.5px;color:var(--muted)}
+
+  /* CTA */
+  .cta{position:relative;background:linear-gradient(160deg,#1B6CF0,#0F4FBF 55%,#0A3A8F);color:#fff;border-radius:26px;
+       padding:64px 32px;text-align:center;overflow:hidden}
+  .cta .hm{position:absolute;left:-40px;bottom:-50px;width:240px;filter:brightness(0) invert(1);opacity:.1}
+  .cta h2{position:relative;font-family:'Outfit',sans-serif;font-size:clamp(27px,3.8vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.1}
+  .cta p{position:relative;color:#cfe0fb;max-width:46ch;margin:14px auto 0;font-size:17.5px}
+  .cta .acts{position:relative;display:flex;gap:12px;justify-content:center;margin-top:26px;flex-wrap:wrap}
+
+  footer{padding:50px 0 28px;color:var(--muted);border-top:1px solid var(--line)}
+  .fgrid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:32px}
+  footer .logo{height:32px;margin-bottom:14px}
+  footer h5{color:var(--navy);font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:13px}
+  footer a{display:block;font-size:14.5px;margin-bottom:9px;color:var(--muted);overflow-wrap:anywhere}
+  footer a:hover{color:var(--blue)}
+  .fbot{border-top:1px solid var(--line);margin-top:34px;padding-top:22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px}
+  .disc{font-size:12px;color:#8b95a6;line-height:1.6;margin-top:14px}
+
+  /* ============ RESPONSIVE ============ */
+  .hero .in>*,.band .in>*,.hard .in>*,.why>*,.revs>*,.fgrid>*{min-width:0}
+  @media(max-width:1024px){
+    section{padding:60px 0}
+    .hero .in,.band .in,.hard .in{grid-template-columns:1fr;gap:38px}
+    .lede{max-width:100%}
+    .why{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:900px){
+    .links{display:none}
+    .burger{display:flex}
+    .nav-cta .btn.sm{display:none}
+  }
+  @media(max-width:760px){
+    .wrap,nav .in{padding-left:18px;padding-right:18px}
+    section{padding:52px 0}
+    .h2{font-size:clamp(26px,7.2vw,38px)}
+    .sec-lede{font-size:16px}
+    .wiz{padding:20px;border-radius:22px}
+    .opts{grid-template-columns:1fr}
+    .why,.revs{grid-template-columns:1fr}
+    .wc,.rev,.hard .card{padding:22px}
+    .cta{padding:48px 20px;border-radius:20px}
+    .fgrid{grid-template-columns:1fr 1fr;gap:26px}
+    .fbot{flex-direction:column}
+    .switcher{left:10px;right:auto;bottom:10px;padding:4px}
+    .switcher a{padding:6px 8px;font-size:11.5px}
+  }
+  @media(max-width:520px){
+    .badges span{font-size:12px;padding:8px 11px}
+    .cta .acts{width:100%}
+    .cta .acts .btn{width:100%}
+    .fgrid{grid-template-columns:1fr;text-align:center}
+    .drawer a{font-size:20px}
+    .lang button{padding:6px 10px;font-size:12.5px}
+  }
+  @media(hover:none){ .wc:hover{transform:none} }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h2l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 4 5z"/></symbol>
+  <symbol id="chat" viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 4V6z"/></symbol>
+  <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="bolt" viewBox="0 0 24 24"><path d="M13 3L5 13h6l-1 8 8-10h-6z"/></symbol>
+  <symbol id="bell" viewBox="0 0 24 24"><path d="M6 16V10a6 6 0 1 1 12 0v6l2 2H4zM10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
+
+<div class="switcher">
+  <a href="index.html">1</a><a href="option-2.html">2</a><a href="option-3.html">3</a><a href="option-4.html">4</a><a href="option-9.html">9</a><a href="option-10.html" class="on">10</a>
+</div>
+
+<nav>
+  <div class="in">
+    <a href="index.html"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+    <div class="links">
+      <a href="#why" data-en="Why us" data-es="Por qué">Why us</a>
+      <a href="#watch" data-en="Rate watch" data-es="Vigilancia">Rate watch</a>
+      <a href="#hard" data-en="Hard to insure" data-es="Casos difíciles">Hard to insure</a>
+      <a href="#reviews" data-en="Reviews" data-es="Reseñas">Reviews</a>
+    </div>
+    <div class="nav-cta">
+      <div class="lang" role="group" aria-label="Language">
+        <button id="btnEn" class="on" type="button">EN</button><button id="btnEs" type="button">ES</button>
+      </div>
+      <a class="btn sm" href="#quote" data-en="Get a quote" data-es="Cotizar">Get a quote</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="drawer" id="drawer">
+  <a href="#why" data-en="Why us" data-es="Por qué nosotros">Why us</a>
+  <a href="#watch" data-en="Rate watch" data-es="Vigilancia de tarifa">Rate watch</a>
+  <a href="#hard" data-en="Hard to insure" data-es="Casos difíciles">Hard to insure</a>
+  <a href="#reviews" data-en="Reviews" data-es="Reseñas">Reviews</a>
+  <a class="btn" href="tel:+19155031207">📞 915-503-1207</a>
+  <a class="dr-mail" href="mailto:contact@safehouseins.com">contact@safehouseins.com · Se habla español</a>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap in">
+    <div>
+      <span class="pill"><span class="dot"></span> <span data-en="El Paso, TX · Licensed in TX &amp; NM" data-es="El Paso, TX · Con licencia en TX y NM">El Paso, TX · Licensed in TX &amp; NM</span></span>
+      <h1 data-en-html="Your insurance co-pilot — <mark>and he speaks Spanish.</mark>" data-es-html="Tu copiloto de seguros — <mark>y habla tu idioma.</mark>">Your insurance co-pilot — <mark>and he speaks Spanish.</mark></h1>
+      <p class="lede" data-en="Compare your carriers in about a minute, let us handle the switch, and get a licensed agent in El Paso who actually picks up. Apps can't do that." data-es="Compara tus aseguradoras en un minuto, nosotros hacemos el cambio, y tienes un agente con licencia en El Paso que sí contesta. Eso una app no lo hace.">Compare your carriers in about a minute, let us handle the switch, and get a licensed agent in El Paso who actually picks up. Apps can't do that.</p>
+      <div class="prof">
+        <span class="avs"><span>M</span><span>J</span><span>D</span><span>+</span></span>
+        <span class="txt"><span class="stars">★★★★★</span> <b data-en="5-star Google reviews" data-es="Reseñas de 5 estrellas en Google">5-star Google reviews</b> <span data-en="from local drivers" data-es="de conductores locales">from local drivers</span></span>
+      </div>
+      <div class="badges">
+        <span>⚡ <b data-en="A minute" data-es="Un minuto">A minute</b> <span data-en="to compare" data-es="para comparar">to compare</span></span>
+        <span>📄 <b>SR-22</b> <span data-en="&amp; high-risk OK" data-es="y alto riesgo">&amp; high-risk OK</span></span>
+        <span>💸 <span data-en="Free, always" data-es="Gratis, siempre">Free, always</span></span>
+        <span>🤝 <span data-en="Real local agents" data-es="Agentes locales reales">Real local agents</span></span>
+      </div>
+    </div>
+
+    <!-- WIZARD -->
+    <div class="wiz" id="quote">
+      <img class="hm" src="assets/safehouse-heart.png" alt="">
+      <div class="top">
+        <img src="assets/safehouse-heart.png" alt="">
+        <span><b data-en="Compare your rate" data-es="Compara tu tarifa">Compare your rate</b><small data-en="Free · no obligation · no spam" data-es="Gratis · sin compromiso · sin spam">Free · no obligation · no spam</small></span>
+      </div>
+      <div class="bars"><i class="on"></i><i></i><i></i><i></i></div>
+
+      <!-- step 1 -->
+      <div class="step on" data-step="0">
+        <h4 data-en="Where do you park at night?" data-es="¿Dónde estacionas de noche?">Where do you park at night?</h4>
+        <p class="hint" data-en="Your ZIP tells us which carriers can cover you." data-es="Tu código postal nos dice qué aseguradoras te pueden cubrir.">Your ZIP tells us which carriers can cover you.</p>
+        <div class="fld"><label data-en="ZIP code" data-es="Código postal">ZIP code</label><input id="zip" value="79901" inputmode="numeric" maxlength="5"></div>
+        <div class="wnav"><a class="btn amber next" data-en="Continue" data-es="Continuar">Continue</a></div>
+        <p class="wfoot"><svg class="i"><use href="#lock"/></svg> <span data-en="We never sell your information." data-es="Nunca vendemos tu información.">We never sell your information.</span></p>
+      </div>
+
+      <!-- step 2 -->
+      <div class="step" data-step="1">
+        <h4 data-en="What are we insuring?" data-es="¿Qué vamos a asegurar?">What are we insuring?</h4>
+        <p class="hint" data-en="Year, make and model is plenty to start." data-es="Con año, marca y modelo es suficiente.">Year, make and model is plenty to start.</p>
+        <div class="fld"><label data-en="Vehicle" data-es="Vehículo">Vehicle</label><input id="veh" placeholder="2019 Chevy Silverado" data-en-ph="2019 Chevy Silverado" data-es-ph="2019 Chevy Silverado"></div>
+        <div class="wnav"><button class="back" data-en="Back" data-es="Atrás">Back</button><a class="btn amber next" data-en="Continue" data-es="Continuar">Continue</a></div>
+      </div>
+
+      <!-- step 3 -->
+      <div class="step" data-step="2">
+        <h4 data-en="How much coverage?" data-es="¿Cuánta cobertura?">How much coverage?</h4>
+        <p class="hint" data-en="Not sure? Pick one — your agent will fine-tune it." data-es="¿No estás seguro? Elige una, tu agente la ajusta.">Not sure? Pick one — your agent will fine-tune it.</p>
+        <div class="opts">
+          <button class="opt on" type="button" data-en-html="Liability only<small>State minimum</small>" data-es-html="Solo responsabilidad<small>Mínimo del estado</small>">Liability only<small>State minimum</small></button>
+          <button class="opt" type="button" data-en-html="Full coverage<small>Comp &amp; collision</small>" data-es-html="Cobertura amplia<small>Comp. y colisión</small>">Full coverage<small>Comp &amp; collision</small></button>
+          <button class="opt" type="button" data-en-html="I need an SR-22<small>We specialize</small>" data-es-html="Necesito SR-22<small>Es nuestra especialidad</small>">I need an SR-22<small>We specialize</small></button>
+          <button class="opt" type="button" data-en-html="Not sure yet<small>Help me choose</small>" data-es-html="Aún no sé<small>Ayúdenme a elegir</small>">Not sure yet<small>Help me choose</small></button>
+        </div>
+        <div class="wnav"><button class="back" data-en="Back" data-es="Atrás">Back</button><a class="btn amber next" data-en="See my options" data-es="Ver mis opciones">See my options</a></div>
+      </div>
+
+      <!-- step 4: result -->
+      <div class="step res" data-step="3">
+        <h4 data-en="Here's what we found" data-es="Esto es lo que encontramos">Here's what we found</h4>
+        <p class="hint" data-en="Sample rates shown — your real quote comes from your agent." data-es="Tarifas de muestra — tu cotización real la da tu agente.">Sample rates shown — your real quote comes from your agent.</p>
+        <div class="rrow best"><span class="nm">Progressive</span><span class="pr">$112/mo</span><span class="tag" data-en="BEST" data-es="MEJOR">BEST</span></div>
+        <div class="rrow"><span class="nm">Geico</span><span class="pr">$128/mo</span></div>
+        <div class="rrow"><span class="nm">Lemonade</span><span class="pr">$141/mo</span></div>
+        <div class="box"><b>$648</b><small data-en="estimated yearly savings (sample)" data-es="ahorro anual estimado (muestra)">estimated yearly savings (sample)</small></div>
+        <div class="wnav">
+          <button class="back" data-en="Start over" data-es="Reiniciar">Start over</button>
+          <a class="btn amber" href="tel:+19155031207" data-en="Claim this rate" data-es="Apartar esta tarifa">Claim this rate</a>
+        </div>
+        <p class="wfoot"><svg class="i"><use href="#phone"/></svg> 915-503-1207 · <span data-en="se habla español" data-es="we speak English too">se habla español</span></p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- WHY -->
+<section id="why">
+  <div class="wrap">
+    <div class="reveal center" style="max-width:660px">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> <span data-en="The difference" data-es="La diferencia">The difference</span></span>
+      <h2 class="h2" data-en-html="All the speed of an app.<br><mark>None of the dead ends.</mark>" data-es-html="Toda la rapidez de una app.<br><mark>Sin los callejones sin salida.</mark>">All the speed of an app.<br><mark>None of the dead ends.</mark></h2>
+      <p class="sec-lede center" data-en="We built the fast part. We just refused to remove the human." data-es="Construimos la parte rápida. Solo nos negamos a quitar a la persona.">We built the fast part. We just refused to remove the human.</p>
+    </div>
+    <div class="why">
+      <div class="wc reveal">
+        <div class="ic"><svg class="i"><use href="#globe"/></svg></div>
+        <h4 data-en="Fully bilingual" data-es="Totalmente bilingüe">Fully bilingual</h4>
+        <p data-en="Quote, buy, ask questions and file a claim in Spanish or English — with the same agent either way." data-es="Cotiza, compra, pregunta y reporta un reclamo en español o inglés — con el mismo agente.">Quote, buy, ask questions and file a claim in Spanish or English — with the same agent either way.</p>
+        <span class="no"><svg class="i"><use href="#x"/></svg> <span data-en="Most apps: English-only chat" data-es="Casi toda app: chat solo en inglés">Most apps: English-only chat</span></span>
+      </div>
+      <div class="wc reveal">
+        <div class="ic"><svg class="i"><use href="#shield"/></svg></div>
+        <h4 data-en="Hard cases welcome" data-es="Casos difíciles, bienvenidos">Hard cases welcome</h4>
+        <p data-en="SR-22, tickets, lapses, non-owner, no license. We work the carriers that specialize in your situation." data-es="SR-22, boletos, lapsos, sin dueño, sin licencia. Trabajamos las aseguradoras que se especializan en tu caso.">SR-22, tickets, lapses, non-owner, no license. We work the carriers that specialize in your situation.</p>
+        <span class="no"><svg class="i"><use href="#x"/></svg> <span data-en="Most apps: “no quotes available”" data-es="Casi toda app: “sin cotizaciones”">Most apps: “no quotes available”</span></span>
+      </div>
+      <div class="wc reveal">
+        <div class="ic"><svg class="i"><use href="#chat"/></svg></div>
+        <h4 data-en="A person, not a portal" data-es="Una persona, no un portal">A person, not a portal</h4>
+        <p data-en="A licensed agent in El Paso who knows your file — for renewals, claims and the weird questions." data-es="Un agente con licencia en El Paso que conoce tu expediente — renovaciones, reclamos y las preguntas raras.">A licensed agent in El Paso who knows your file — for renewals, claims and the weird questions.</p>
+        <span class="no"><svg class="i"><use href="#x"/></svg> <span data-en="Most apps: a link to the carrier" data-es="Casi toda app: un link a la aseguradora">Most apps: a link to the carrier</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RATE WATCH -->
+<section id="watch" class="band">
+  <div class="wrap in">
+    <div class="reveal">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt="" style="filter:brightness(0) invert(1)"> <span data-en="Rate watch" data-es="Vigilancia de tarifa">Rate watch</span></span>
+      <h2 class="h2" data-en-html="Your rate creeps up.<br><mark>We keep watching it.</mark>" data-es-html="Tu tarifa sube sola.<br><mark>Nosotros la vigilamos.</mark>">Your rate creeps up.<br><mark>We keep watching it.</mark></h2>
+      <p class="sec-lede" data-en="Most people overpay because nobody re-checks. At every renewal we re-run your profile across our carriers and tell you what we find — even when the honest answer is “stay where you are.”" data-es="La mayoría paga de más porque nadie vuelve a revisar. En cada renovación corremos tu perfil con nuestras aseguradoras y te decimos lo que encontramos — incluso si la respuesta honesta es “quédate donde estás”.">Most people overpay because nobody re-checks. At every renewal we re-run your profile across our carriers and tell you what we find — even when the honest answer is "stay where you are."</p>
+      <a class="btn amber" href="#quote" style="margin-top:24px" data-en="Start with a comparison" data-es="Empieza con una comparación">Start with a comparison</a>
+    </div>
+    <div class="tl reveal">
+      <div class="on"><span class="d">1</span><span><b data-en="Day one — we shop" data-es="Día uno — comparamos">Day one — we shop</b><p data-en="Every carrier we carry, side by side, ranked by price and coverage." data-es="Todas nuestras aseguradoras, lado a lado, por precio y cobertura.">Every carrier we carry, side by side, ranked by price and coverage.</p></span></div>
+      <div class="on"><span class="d">2</span><span><b data-en="We handle the switch" data-es="Hacemos el cambio">We handle the switch</b><p data-en="New policy bound, old one cancelled, no gap in coverage." data-es="Nueva póliza activa, la anterior cancelada, sin lapso de cobertura.">New policy bound, old one cancelled, no gap in coverage.</p></span></div>
+      <div class="on"><span class="d">3</span><span><b data-en="Renewal — we re-shop" data-es="Renovación — volvemos a comparar">Renewal — we re-shop</b><p data-en="If someone beats your rate for the same coverage, you hear it from us first." data-es="Si alguien mejora tu tarifa con la misma cobertura, te enteras por nosotros.">If someone beats your rate for the same coverage, you hear it from us first.</p></span></div>
+      <div><span class="d"><svg class="i"><use href="#bell"/></svg></span><span><b data-en="Whenever life changes" data-es="Cuando la vida cambia">Whenever life changes</b><p data-en="New car, new address, added a driver? One text and we re-run it." data-es="¿Carro nuevo, otra dirección, otro conductor? Un mensaje y lo corremos otra vez.">New car, new address, added a driver? One text and we re-run it.</p></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HARD -->
+<section id="hard" class="hard">
+  <div class="wrap in">
+    <div class="reveal">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> <span data-en="Turned down elsewhere?" data-es="¿Te rechazaron?">Turned down elsewhere?</span></span>
+      <h2 class="h2" data-en-html="The quotes an app<br>simply can't give you." data-es-html="Las cotizaciones que<br>una app no te puede dar.">The quotes an app<br>simply can't give you.</h2>
+      <p class="sec-lede" data-en="Automated tools quit the moment your record stops fitting their boxes. We start there — honestly, and without the lecture." data-es="Las herramientas automáticas se rinden cuando tu historial no cabe en sus casillas. Nosotros empezamos ahí — con honestidad y sin sermones.">Automated tools quit the moment your record stops fitting their boxes. We start there — honestly, and without the lecture.</p>
+      <div class="chips"><span>SR-22</span><span data-en="High-risk" data-es="Alto riesgo">High-risk</span><span data-en="No license" data-es="Sin licencia">No license</span><span data-en="Non-owner" data-es="Sin dueño">Non-owner</span><span data-en="Prior lapse" data-es="Lapso previo">Prior lapse</span><span data-en="Tickets" data-es="Boletos">Tickets</span></div>
+    </div>
+    <div class="card reveal">
+      <h3 data-en="We'll find the carrier that says yes." data-es="Encontramos la aseguradora que dice sí.">We'll find the carrier that says yes.</h3>
+      <ul>
+        <li><svg class="i"><use href="#check"/></svg> <span data-en="SR-22 filings, often the same day" data-es="Trámite de SR-22, muchas veces el mismo día">SR-22 filings, often the same day</span></li>
+        <li><svg class="i"><use href="#check"/></svg> <span data-en="Tickets, accidents and coverage lapses" data-es="Boletos, accidentes y lapsos de cobertura">Tickets, accidents and coverage lapses</span></li>
+        <li><svg class="i"><use href="#check"/></svg> <span data-en="Non-owner and no-license policies" data-es="Pólizas sin dueño y sin licencia">Non-owner and no-license policies</span></li>
+        <li><svg class="i"><use href="#check"/></svg> <span data-en="Low down payments and flexible plans" data-es="Enganches bajos y planes flexibles">Low down payments and flexible plans</span></li>
+      </ul>
+      <a class="btn full" href="tel:+19155031207" style="margin-top:20px"><svg class="i"><use href="#phone"/></svg> 915-503-1207</a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="reveal center" style="max-width:640px">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> <span data-en="Reviews" data-es="Reseñas">Reviews</span></span>
+      <h2 class="h2" data-en="Drivers who made the switch." data-es="Conductores que se cambiaron.">Drivers who made the switch.</h2>
+    </div>
+    <div class="revs">
+      <div class="rev reveal"><div class="stars">★★★★★</div><p data-en="&quot;Took a few minutes and they actually saved me money. They cancelled my old policy for me too.&quot;" data-es="«Tomó unos minutos y de verdad me ahorraron dinero. Hasta cancelaron mi póliza anterior.»">"Took a few minutes and they actually saved me money. They cancelled my old policy for me too."</p><div class="who"><span class="av">M</span><span><b>Marcos T.</b><span>El Paso, TX · Google</span></span></div></div>
+      <div class="rev reveal"><div class="stars">★★★★★</div><p data-en="&quot;They found me coverage even with an SR-22, and a real person explained everything in Spanish.&quot;" data-es="«Me encontraron cobertura incluso con SR-22, y una persona real me explicó todo en español.»">"They found me coverage even with an SR-22, and a real person explained everything in Spanish."</p><div class="who"><span class="av">J</span><span><b>Jazmín R.</b><span>Las Cruces, NM · Google</span></span></div></div>
+      <div class="rev reveal"><div class="stars">★★★★★</div><p data-en="&quot;Insured my truck and my house in one call. They follow up — an app never did that for me.&quot;" data-es="«Aseguré mi troca y mi casa en una llamada. Ellos dan seguimiento — eso una app nunca lo hizo.»">"Insured my truck and my house in one call. They follow up — an app never did that for me."</p><div class="who"><span class="av">D</span><span><b>Diego M.</b><span>El Paso, TX · Google</span></span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding-top:14px">
+  <div class="wrap"><div class="cta reveal">
+    <img class="hm" src="assets/safehouse-heart.png" alt="">
+    <h2 data-en-html="One minute now.<br>A year of not overpaying." data-es-html="Un minuto ahora.<br>Un año sin pagar de más.">One minute now.<br>A year of not overpaying.</h2>
+    <p data-en="Free comparison, no obligation, and a real bilingual agent on the other end." data-es="Comparación gratis, sin compromiso, y un agente bilingüe de verdad al otro lado.">Free comparison, no obligation, and a real bilingual agent on the other end.</p>
+    <div class="acts">
+      <a class="btn amber" href="#quote" data-en="Compare my rate" data-es="Comparar mi tarifa">Compare my rate</a>
+      <a class="btn line" href="tel:+19155031207">📞 915-503-1207</a>
+    </div>
+  </div></div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance">
+        <p style="font-size:14.5px;max-width:34ch" data-en="A licensed independent insurance agency in El Paso, Texas. Bilingual by default." data-es="Agencia de seguros independiente con licencia en El Paso, Texas. Bilingüe por defecto.">A licensed independent insurance agency in El Paso, Texas. Bilingual by default.</p>
+        <p style="margin-top:14px;color:var(--navy);font-weight:700">915-503-1207</p>
+        <p style="font-size:14px"><a href="mailto:contact@safehouseins.com" style="display:inline">contact@safehouseins.com</a></p>
+      </div>
+      <div><h5 data-en="Insurance" data-es="Seguros">Insurance</h5><a href="#quote" data-en="Auto" data-es="Auto">Auto</a><a href="#quote" data-en="Home &amp; renters" data-es="Casa e inquilinos">Home &amp; renters</a><a href="#quote" data-en="Commercial" data-es="Comercial">Commercial</a><a href="#quote" data-en="Life" data-es="Vida">Life</a><a href="#quote" data-en="Bonds" data-es="Fianzas">Bonds</a></div>
+      <div><h5 data-en="How we work" data-es="Cómo trabajamos">How we work</h5><a href="#why" data-en="Why us" data-es="Por qué nosotros">Why us</a><a href="#watch" data-en="Rate watch" data-es="Vigilancia de tarifa">Rate watch</a><a href="#hard" data-en="Hard to insure" data-es="Casos difíciles">Hard to insure</a><a href="#reviews" data-en="Reviews" data-es="Reseñas">Reviews</a></div>
+      <div><h5 data-en="Support" data-es="Soporte">Support</h5><a href="tel:+19155031207" data-en="Report a claim" data-es="Reportar un reclamo">Report a claim</a><a href="#quote" data-en="Request a quote" data-es="Pedir cotización">Request a quote</a><a href="mailto:contact@safehouseins.com" data-en="Service request" data-es="Solicitud de servicio">Service request</a></div>
+    </div>
+    <div class="fbot"><span>© 2026 Safe House Insurance.</span><span>Privacy · Terms · Licensing</span></div>
+    <p class="disc">Rates and savings shown in the comparison tool are illustrative samples for layout purposes only — they are not a quote, an estimate of your savings, or a guarantee. Safe House Insurance is an independent insurance agency licensed in Texas and New Mexico (license #__________). Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy. Carrier availability and eligibility vary by state and applicant.</p>
+  </div>
+</footer>
+
+<script>
+  // ===== drawer =====
+  var burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
+  function setMenu(open){
+    if(open){var r=document.querySelector('nav').getBoundingClientRect();
+      drawer.style.paddingTop=Math.max(r.bottom+20,88)+'px';}
+    burger.classList.toggle('on',open);drawer.classList.toggle('on',open);
+    document.body.classList.toggle('locked',open);
+    burger.setAttribute('aria-expanded',open);
+    burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+  }
+  burger.addEventListener('click',function(){setMenu(!drawer.classList.contains('on'));});
+  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
+  addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
+  addEventListener('resize',function(){if(innerWidth>900)setMenu(false);});
+
+  // ===== live language switch (our edge, as a feature) =====
+  var btnEn=document.getElementById('btnEn'),btnEs=document.getElementById('btnEs');
+  function setLang(l){
+    document.documentElement.lang=l;
+    btnEn.classList.toggle('on',l==='en');
+    btnEs.classList.toggle('on',l==='es');
+    document.querySelectorAll('[data-'+l+']').forEach(function(el){el.textContent=el.getAttribute('data-'+l);});
+    document.querySelectorAll('[data-'+l+'-html]').forEach(function(el){el.innerHTML=el.getAttribute('data-'+l+'-html');});
+    document.querySelectorAll('[data-'+l+'-ph]').forEach(function(el){el.setAttribute('placeholder',el.getAttribute('data-'+l+'-ph'));});
+  }
+  btnEn.addEventListener('click',function(){setLang('en');});
+  btnEs.addEventListener('click',function(){setLang('es');});
+
+  // ===== wizard =====
+  var steps=[].slice.call(document.querySelectorAll('.wiz .step')),
+      bars=[].slice.call(document.querySelectorAll('.bars i')),
+      cur=0;
+  function go(n){
+    cur=Math.max(0,Math.min(steps.length-1,n));
+    steps.forEach(function(s,i){s.classList.toggle('on',i===cur);});
+    bars.forEach(function(b,i){b.classList.toggle('on',i<=cur);});
+  }
+  document.querySelectorAll('.wiz .next').forEach(function(b){
+    b.addEventListener('click',function(e){e.preventDefault();go(cur+1);});
+  });
+  document.querySelectorAll('.wiz .back').forEach(function(b){
+    b.addEventListener('click',function(){ go(cur===steps.length-1?0:cur-1); });
+  });
+  document.querySelectorAll('.wiz .opt').forEach(function(o){
+    o.addEventListener('click',function(){
+      document.querySelectorAll('.wiz .opt').forEach(function(x){x.classList.remove('on');});
+      o.classList.add('on');
+    });
+  });
+
+  // ===== reveal =====
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+</script>
+</body>
+</html>
