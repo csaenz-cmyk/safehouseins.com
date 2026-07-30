@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--blue:#1666ED;--cyan:#00C2FF;--navy:#0B2148;--ink:#0E1726;--muted:#5C6A80;
+        --line:#E6ECF7;--ice:#F1F6FF;--ice2:#DEEBFF;--grad:linear-gradient(115deg,#1666ED,#00C2FF)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Figtree',sans-serif;color:var(--ink);background:#F5F8FE;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .w{padding:0 16px}
+  svg.i{width:1em;height:1em;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--grad);color:#fff;border:none;
+       border-radius:16px;padding:16px;font-weight:800;font-size:16.5px;width:100%;box-shadow:0 14px 28px -12px rgba(22,102,237,.65)}
+  .btn.out{background:#fff;color:var(--navy);border:2px solid var(--line);box-shadow:none}
+  .btn.wt{background:#fff;color:var(--blue);box-shadow:0 14px 28px -16px rgba(0,0,0,.4)}
+  .btn.gh{background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.4);box-shadow:none;color:#fff}
+  /* floating nav pill */
+  nav{margin:12px 16px 0;display:flex;align-items:center;justify-content:space-between;padding:9px 9px 9px 16px;
+      background:#fff;border-radius:999px;box-shadow:0 10px 26px -18px rgba(11,33,72,.5)}
+  nav img{height:27px}
+  .nb{display:flex;gap:7px}
+  .tel,.bg{width:38px;height:38px;border-radius:50%;display:grid;place-items:center}
+  .tel{background:var(--grad);color:#fff;font-size:16px}
+  .bg{background:var(--ice);flex-direction:column;gap:4px}
+  .bg i{display:block;width:14px;height:2.2px;background:var(--navy);border-radius:2px}
+  /* CARD STACK */
+  .card{background:#fff;border-radius:26px;padding:22px;margin:14px 16px;box-shadow:0 16px 40px -26px rgba(11,33,72,.4)}
+  .card.blue{background:linear-gradient(160deg,#1B6CF0,#0F4FBF 60%,#0A3A8F);color:#fff;position:relative;overflow:hidden}
+  .card.blue .pat{position:absolute;inset:0;opacity:.08;background-image:url("safehouse-heart.png");background-size:74px;filter:brightness(0) invert(1)}
+  .card.blue .in{position:relative}
+  .card.navy{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .card.navy::after{content:"";position:absolute;inset:0;background:radial-gradient(260px 170px at 88% 8%,rgba(0,194,255,.3),transparent 62%)}
+  /* hero card */
+  .pill{display:inline-flex;align-items:center;gap:7px;background:var(--ice);border:1px solid var(--ice2);color:var(--blue);
+        font-family:'Geist Mono',monospace;font-weight:600;font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+        padding:7px 12px;border-radius:999px}
+  .pill i{width:5px;height:5px;border-radius:50%;background:var(--cyan);display:block}
+  h1{font-size:38px;line-height:1.02;letter-spacing:-.035em;font-weight:900;color:var(--navy);margin-top:14px}
+  .rot{display:block;position:relative;height:1.1em;overflow:hidden;font-size:.95em}
+  .rot span{position:absolute;left:0;top:0;white-space:nowrap}
+  .lede{font-size:16px;color:var(--muted);margin-top:13px;font-weight:500}
+  .acts{margin-top:18px;display:flex;flex-direction:column;gap:9px}
+  .tl{display:flex;align-items:center;gap:7px;margin-top:16px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+  .tl b{color:var(--navy)}.tl .s{color:#F0A82C}
+  /* quote card */
+  .qt{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+  .qt img{width:22px}
+  .qt b{font-size:16px;color:var(--navy);display:block}
+  .qt small{font-size:11.5px;color:var(--muted)}
+  .fl{margin-top:12px}
+  .fl label{display:block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+  .fl .in{border:1.5px solid var(--line);border-radius:13px;padding:13px;font-size:15.5px;font-weight:600;color:#98a5bb;background:#FBFCFE}
+  .fl .in.f{color:var(--ink)}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  .priv{display:flex;gap:7px;font-size:11px;color:var(--muted);margin-top:11px;align-items:flex-start}
+  /* section head inside cards */
+  .k{display:inline-flex;align-items:center;gap:7px;font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;
+     letter-spacing:.11em;text-transform:uppercase;color:var(--blue)}
+  .k img{width:12px}
+  .card.navy .k,.card.blue .k{color:#8CE3FF}
+  h2{font-size:26px;line-height:1.08;letter-spacing:-.03em;font-weight:900;color:var(--navy);margin-top:8px}
+  .card.navy h2,.card.blue h2{color:#fff;position:relative}
+  .sl{font-size:15px;color:var(--muted);margin-top:9px;font-weight:500}
+  .card.navy .sl,.card.blue .sl{color:#b3c6e2;position:relative}
+  /* carriers strip */
+  .car{text-align:center;padding:6px 0 2px}
+  .car p{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+  .car .r{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:9px}
+  .car .r span{font-size:13.5px;font-weight:800;color:#93a2ba}
+  /* steps */
+  .sp{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .sp:last-child{border-bottom:none;padding-bottom:0}
+  .sp .n{width:32px;height:32px;border-radius:11px;background:var(--ice);color:var(--blue);display:grid;place-items:center;
+         font-weight:900;font-size:14px;flex:0 0 auto}
+  .sp b{font-size:16.5px;font-weight:800;color:var(--navy);display:block}
+  .sp p{font-size:14px;color:var(--muted);margin-top:2px;font-weight:500}
+  /* coverage grid inside card */
+  .cov{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+  .cv{background:var(--ice);border-radius:16px;padding:14px;min-height:100px;display:flex;flex-direction:column;justify-content:space-between}
+  .cv .ic{width:34px;height:34px;border-radius:10px;background:#fff;color:var(--blue);display:grid;place-items:center;font-size:17px}
+  .cv b{font-size:15.5px;font-weight:800;color:var(--navy);display:block;margin-top:10px}
+  .cv small{font-size:11.5px;color:var(--muted)}
+  .cv.f{grid-column:span 2;background:var(--grad);color:#fff;min-height:auto}
+  .cv.f .ic{background:rgba(255,255,255,.2);color:#fff}
+  .cv.f b{color:#fff}.cv.f small{color:rgba(255,255,255,.92)}
+  /* reviews */
+  .rv{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}
+  .rv:first-of-type{border-top:none;padding-top:0;margin-top:12px}
+  .rv .s{color:#F0A82C;letter-spacing:2px;font-size:13px}
+  .rv p{font-size:14.5px;margin-top:7px;font-weight:500;color:#2b3849}
+  .rv .who{display:flex;align-items:center;gap:9px;margin-top:10px}
+  .rv .av{width:30px;height:30px;border-radius:10px;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:900;font-size:12.5px}
+  .rv .who b{font-size:13px;color:var(--navy);display:block}
+  .rv .who span{font-size:11.5px;color:var(--muted)}
+  /* sticky bottom bar */
+  .sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(11,33,72,.95);backdrop-filter:blur(12px);
+          padding:10px 16px;display:flex;gap:9px;border-top:1px solid rgba(255,255,255,.14)}
+  .sticky a{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;border-radius:14px;padding:13px;
+            font-weight:800;font-size:15px;text-decoration:none}
+  .sticky .p{background:var(--grad);color:#fff}
+  .sticky .s2{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.3);flex:0 0 auto;padding:13px 16px}
+  footer{padding:18px 16px 92px;text-align:center}
+  footer img{height:26px}
+  footer p{font-size:12.5px;color:var(--muted);margin-top:9px}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute"><symbol id="car" viewBox="0 0 24 24"><path d="M3 13l1.6-4.2A2 2 0 0 1 6.5 7.5h11a2 2 0 0 1 1.9 1.3L21 13M4 13h16v4a1 1 0 0 1-1 1h-1.5M6.5 18H5a1 1 0 0 1-1-1v-4"/><circle cx="7.5" cy="18" r="1.6"/><circle cx="16.5" cy="18" r="1.6"/></symbol>
+<symbol id="home" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6M6 10v9h12v-9M10 19v-5h4v5"/></symbol>
+<symbol id="biz" viewBox="0 0 24 24"><path d="M4 20V8l7-4 7 4v12M4 20h16M9 20v-4h4v4"/></symbol>
+<symbol id="heart" viewBox="0 0 24 24"><path d="M12 20s-6.5-4.3-9-8C1.4 9.3 2.8 5.5 6.3 5.5c2.2 0 3.7 1.6 4.7 3 1-1.4 2.5-3 4.7-3 3.5 0 4.9 3.8 3.3 6.5-2.5 3.7-9 8-9 8z"/></symbol>
+<symbol id="doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+<symbol id="ph" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h2l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 4 5z"/></symbol>
+<symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="ar" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol></svg>
+
+<nav>
+  <img src="safehouse-logo.png" alt="">
+  <div class="nb"><span class="tel"><svg class="i"><use href="#ph"/></svg></span><span class="bg"><i></i><i></i><i></i></span></div>
+</nav>
+
+<!-- hero card -->
+<div class="card">
+  <span class="pill"><i></i> El Paso, TX · Licensed TX &amp; NM</span>
+  <h1>Real insurance for
+    <span class="rot"><span class="gt">SR-22 drivers.</span></span>
+  </h1>
+  <p class="lede">A licensed independent agency. Tell us what you need — we shop our carriers and bring you real options.</p>
+  <div class="acts">
+    <a class="btn">Get my free quote <svg class="i"><use href="#ar"/></svg></a>
+    <a class="btn out"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
+  </div>
+  <div class="tl"><span class="s">★★★★★</span> <b>5-star Google reviews</b> · <b>Se habla español</b></div>
+</div>
+
+<!-- quote card -->
+<div class="card">
+  <div class="qt"><img src="safehouse-heart.png" alt=""><span><b>Request your quote</b><small>Free · no obligation</small></span></div>
+  <div class="fl"><label>Full name</label><div class="in">Your name</div></div>
+  <div class="g2">
+    <div class="fl"><label>Phone</label><div class="in">(915) 000-0000</div></div>
+    <div class="fl"><label>ZIP</label><div class="in f">79901</div></div>
+  </div>
+  <div class="fl"><label>Coverage needed</label><div class="in f">Auto insurance</div></div>
+  <a class="btn" style="margin-top:14px">Send my request</a>
+  <p class="priv"><svg class="i" style="color:#1F9D63"><use href="#lock"/></svg> Used only to prepare your quote. We never sell your data.</p>
+</div>
+
+<!-- carriers -->
+<div class="card car">
+  <p>Carriers we shop for you</p>
+  <div class="r"><span>Progressive</span><span>Geico</span><span>Lemonade</span><span>Alinsco</span><span>Commonwealth</span></div>
+</div>
+
+<!-- steps card -->
+<div class="card">
+  <span class="k"><img src="safehouse-heart.png" alt=""> How it works</span>
+  <h2>Every step of the way.</h2>
+  <div style="margin-top:12px">
+    <div class="sp"><span class="n">1</span><span><b>Tell us what you need</b><p>A few details about you and what you're insuring.</p></span></div>
+    <div class="sp"><span class="n">2</span><span><b>We shop our carriers</b><p>We compare the companies we represent for your situation.</p></span></div>
+    <div class="sp"><span class="n">3</span><span><b>We call you with options</b><p>A licensed agent explains them, English or Spanish.</p></span></div>
+    <div class="sp"><span class="n">4</span><span><b>We stay with you</b><p>Renewals, claims, ID cards — same agent, same number.</p></span></div>
+  </div>
+</div>
+
+<!-- coverage card -->
+<div class="card">
+  <span class="k"><img src="safehouse-heart.png" alt=""> Coverage</span>
+  <h2>Under one roof.</h2>
+  <div class="cov">
+    <div class="cv f"><span class="ic"><svg class="i"><use href="#car"/></svg></span><b>Auto — our specialty</b><small>Full coverage · liability · SR-22 · non-owner · high-risk welcome</small></div>
+    <div class="cv"><span class="ic"><svg class="i"><use href="#home"/></svg></span><b>Home</b><small>Houses &amp; renters</small></div>
+    <div class="cv"><span class="ic"><svg class="i"><use href="#biz"/></svg></span><b>Commercial</b><small>Trucks &amp; liability</small></div>
+    <div class="cv"><span class="ic"><svg class="i"><use href="#heart"/></svg></span><b>Life</b><small>Term &amp; final expense</small></div>
+    <div class="cv"><span class="ic"><svg class="i"><use href="#doc"/></svg></span><b>Bonds</b><small>Surety &amp; permit</small></div>
+  </div>
+</div>
+
+<!-- bilingual blue card -->
+<div class="card blue">
+  <div class="pat"></div>
+  <div class="in">
+    <span class="k">🇲🇽 Bilingüe</span>
+    <h2>Todo en español.</h2>
+    <p class="sl">Cotiza, pregunta y resuelve con una persona de verdad, aquí en El Paso.</p>
+    <a class="btn wt" style="margin-top:16px"><svg class="i"><use href="#ph"/></svg> Llámanos: 915-503-1207</a>
+  </div>
+</div>
+
+<!-- reviews card -->
+<div class="card">
+  <span class="k"><img src="safehouse-heart.png" alt=""> Reviews</span>
+  <h2>What clients say.</h2>
+  <div class="rv"><div class="s">★★★★★</div><p>"They took the time to explain my coverage instead of just selling me something."</p><div class="who"><span class="av">M</span><span><b>Marcos T.</b><span>El Paso, TX · Google</span></span></div></div>
+  <div class="rv"><div class="s">★★★★★</div><p>"They found me coverage even with an SR-22, and explained everything in Spanish."</p><div class="who"><span class="av">J</span><span><b>Jazmín R.</b><span>Las Cruces, NM · Google</span></span></div></div>
+</div>
+
+<!-- closing navy card -->
+<div class="card navy">
+  <h2 style="position:relative">Let's get you covered.</h2>
+  <p class="sl">Free quote, no obligation, and a real local agent.</p>
+  <a class="btn wt" style="margin-top:16px;position:relative">Get my free quote</a>
+</div>
+
+<footer>
+  <img src="safehouse-logo.png" alt="">
+  <p>Licensed independent agency · El Paso, TX<br>915-503-1207 · contact@safehouseins.com</p>
+</footer>
+
+<div class="sticky">
+  <a class="p">Get my free quote</a>
+  <a class="s2"><svg class="i"><use href="#ph"/></svg></a>
+</div>
+</body></html>
