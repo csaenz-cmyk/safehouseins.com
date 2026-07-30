@@ -54,7 +54,7 @@
         background:#0b1a33 url("assets/hero-photo-mobile.jpg") center top / cover no-repeat}
   .hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
     background:linear-gradient(180deg,rgba(6,16,36,.46) 0%,rgba(6,16,36,.03) 22%,
-               rgba(6,16,36,.10) 48%,rgba(6,16,36,.52) 68%,rgba(6,16,36,.90) 93%,#061530 100%)}
+               rgba(6,16,36,.10) 48%,rgba(6,16,36,.52) 68%,rgba(6,16,36,.90) 100%)}
 
   header nav{position:absolute;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 22px}
   .logo{height:34px;filter:brightness(0) invert(1);display:block}
@@ -116,46 +116,43 @@
      by one scroll-progress value (see the JS at the bottom): the three giant lines slide
      in from alternating sides and unmask, the carrier names stream past behind them, and
      the payoff line + button arrive last. Transforms/opacity only, one rAF loop. */
-  .kin{position:relative;height:230vh;padding:0;background:var(--navy2);color:#fff}
+  .kin{position:relative;height:158vh;padding:0;background:#fff;color:var(--navy)}
   .kstage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;
       display:flex;flex-direction:column;justify-content:center;padding:0 18px}
-  .kglow{position:absolute;left:50%;top:46%;width:min(150vw,1100px);aspect-ratio:1;transform:translate(-50%,-50%) scale(.5);
-      background:radial-gradient(circle,rgba(22,102,237,.55) 0%,rgba(0,194,255,.14) 38%,transparent 66%);
-      opacity:.9;pointer-events:none;will-change:transform}
-  .kgrid{position:absolute;inset:0;pointer-events:none;opacity:.35;
-      background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
-                       linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
-      background-size:64px 64px;mask-image:radial-gradient(70% 60% at 50% 45%,#000,transparent)}
-  /* carrier names streaming behind the type */
-  .kmar{position:absolute;left:0;right:0;display:flex;gap:34px;white-space:nowrap;pointer-events:none;
-      font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
-      color:rgba(255,255,255,.20);will-change:transform}
-  .kmar.a{top:16%} .kmar.b{bottom:17%}
-  .kmar span{flex:0 0 auto;display:flex;align-items:center;gap:34px}
-  .kmar span::after{content:"◆";font-size:8px;color:rgba(0,194,255,.5)}
+  .kglow{position:absolute;left:50%;top:48%;width:min(130vw,900px);aspect-ratio:1;transform:translate(-50%,-50%) scale(.5);
+      background:radial-gradient(circle,rgba(22,102,237,.10) 0%,rgba(0,194,255,.05) 40%,transparent 66%);
+      pointer-events:none;will-change:transform}
+  .kgrid{position:absolute;inset:0;pointer-events:none;opacity:.6;
+      background-image:linear-gradient(rgba(22,102,237,.055) 1px,transparent 1px),
+                       linear-gradient(90deg,rgba(22,102,237,.055) 1px,transparent 1px);
+      background-size:58px 58px;mask-image:radial-gradient(70% 60% at 50% 45%,#000,transparent)}
+  .kmar{position:absolute;left:0;right:0;display:flex;gap:30px;white-space:nowrap;pointer-events:none;
+      font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+      color:#b9c6da;will-change:transform}
+  .kmar.a{top:15%} .kmar.b{bottom:16%}
+  .kmar span{flex:0 0 auto;display:flex;align-items:center;gap:30px}
+  .kmar span::after{content:"\25C6";font-size:8px;color:rgba(22,102,237,.35)}
 
   .klines{position:relative;z-index:2}
   .kl{transform-origin:left center}
-  .kl{display:block;font-size:clamp(38px,min(13vw,15.5vh),152px);line-height:1.02;letter-spacing:-.045em;font-weight:900;text-transform:uppercase;
-      white-space:nowrap;opacity:0;will-change:transform,clip-path;
+  .kl{display:block;font-size:clamp(36px,min(12vw,13.5vh),124px);line-height:1.08;letter-spacing:-.045em;font-weight:900;
+      text-transform:uppercase;white-space:nowrap;opacity:0;will-change:transform,clip-path;
       -webkit-clip-path:inset(0 0 104% 0);clip-path:inset(0 0 104% 0)}
   .kl:nth-child(2){margin-left:6%}
   .kl:nth-child(3){margin-left:11%}
-  .kl.hollow{color:transparent;-webkit-text-stroke:1.6px rgba(255,255,255,.62);
+  .kl.hollow{color:transparent;-webkit-text-stroke:1.5px rgba(10,33,72,.34);
       transition:color .55s ease,-webkit-text-stroke-color .55s ease}
-  .kl.hollow.lit{color:#fff;-webkit-text-stroke-color:rgba(255,255,255,0)}
-  .kl.fill{background:linear-gradient(100deg,#4E9BFF,#00E0FF 62%,#8FF0FF);
-      -webkit-background-clip:text;background-clip:text;color:transparent}
-  .kl i{font-style:normal;display:inline-block}
+  .kl.hollow.lit{color:var(--navy);-webkit-text-stroke-color:rgba(10,33,72,0)}
+  .kl.fill{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
   .keb{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
       font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-      color:#9fd0ff;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);
-      padding:7px 13px;border-radius:999px;margin-bottom:20px;opacity:0;will-change:transform}
-  .keb img{width:12px;filter:brightness(0) invert(1)}
-  .kpay{position:relative;z-index:2;margin-top:26px;max-width:40ch;opacity:0;will-change:transform}
-  .kpay p{font-size:16px;color:#c3d6f2;font-weight:500;line-height:1.55}
-  .kpay .btn{margin-top:18px}
-  .kbar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.10);z-index:3}
+      color:var(--blue-d);background:#fff;border:1px solid #D8E6FF;
+      padding:7px 13px;border-radius:999px;margin-bottom:18px;opacity:0;will-change:transform}
+  .keb img{width:12px}
+  .kpay{position:relative;z-index:2;margin-top:22px;max-width:40ch;opacity:0;will-change:transform}
+  .kpay p{font-size:15.5px;color:var(--muted);font-weight:500;line-height:1.55}
+  .kpay .btn{margin-top:16px}
+  .kbar{position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--line);z-index:3}
   .kbar i{display:block;height:100%;width:0;background:var(--grad)}
 
   /* ================= SECTIONS ================= */
@@ -168,10 +165,10 @@
   .rv{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .7s cubic-bezier(.2,.8,.2,1)}
   .rv.in{opacity:1;transform:none}
 
-  .car{background:var(--navy2);padding:26px 0 28px;text-align:center}
-  .car p{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#7f94b5}
+  .car{background:var(--ice);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;text-align:center}
+  .car p{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
   .car .r{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:12px}
-  .car .r span{font-size:15px;font-weight:800;color:rgba(255,255,255,.8)}
+  .car .r span{font-size:15px;font-weight:800;color:#93a2ba}
 
   .steps{margin-top:22px}
   .st{background:var(--ice);border-radius:20px;padding:20px;margin-top:11px;display:flex;gap:14px;align-items:flex-start}
@@ -254,23 +251,23 @@
     .hero{min-height:100vh;min-height:100svh;background:#0b1a33 url("assets/hero-photo.jpg") center 30% / cover no-repeat}
     .hbody{margin-top:auto;padding:0 40px 52px}
     .hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-      background:linear-gradient(180deg,rgba(6,16,36,.58) 0%,rgba(6,16,36,.05) 28%,rgba(6,16,36,.18) 56%,rgba(6,16,36,.84) 94%,#061530 100%)}
+      background:linear-gradient(180deg,rgba(6,16,36,.58) 0%,rgba(6,16,36,.05) 28%,rgba(6,16,36,.18) 56%,rgba(6,16,36,.82) 100%)}
     .links{display:flex}
     .burger{display:none}
     header nav{padding:24px 40px}
     .logo{height:38px}
     .hero{background-position:center 30%}
-    .kin{height:300vh}
+    .kin{height:205vh}
     .kstage{padding:0 40px}
     .klines{margin-left:2vw}
-    .kl:nth-child(2){margin-left:9%}
-    .kl:nth-child(3){margin-left:18%}
-    .kl.hollow{-webkit-text-stroke:2.4px rgba(255,255,255,.62)}
-    .keb{margin-bottom:26px}
-    .kpay{margin-top:34px;max-width:52ch}
-    .kpay p{font-size:18.5px}
-    .kmar{font-size:14px;gap:44px}
-    .kmar.a{top:4%} .kmar.b{bottom:5.5%}
+    .kl:nth-child(2){margin-left:8%}
+    .kl:nth-child(3){margin-left:16%}
+    .kl.hollow{-webkit-text-stroke:2px rgba(10,33,72,.34)}
+    .keb{margin-bottom:22px}
+    .kpay{margin-top:28px;max-width:52ch}
+    .kpay p{font-size:17.5px}
+    .kmar{font-size:13px;gap:40px}
+    .kmar.a{top:8%} .kmar.b{bottom:9%}
     .float{display:flex;margin:22px 40px 0;max-width:360px}
     .hbody{margin-top:auto}
     .hbody{padding:0 40px 52px;max-width:860px}
@@ -412,7 +409,7 @@
     <div class="kpay">
       <p>No app to download, no runaround. Just a licensed agent in El Paso who knows the carriers
          we represent — and who calls you back, in English or Spanish.</p>
-      <a class="btn wt" href="#quote">Start with one call <svg class="i"><use href="#ar"/></svg></a>
+      <a class="btn grad" href="#quote">Start with one call <svg class="i"><use href="#ar"/></svg></a>
     </div>
     <span class="kbar" aria-hidden="true"><i></i></span>
   </div>
@@ -586,7 +583,7 @@
         var lp=ease(cl((p-.06-i*.105)/.30)),
             drift=(1-lp)*amp*(i%2?1:-1),
             park=cl((p-.52)/.48),
-            float_=(park-.5)*2*(i%2?11:-11);     // gentle counter-drift once revealed
+            float_=(park-.5)*2*(i%2?5:-5);       // gentle counter-drift once revealed
         lines[i].style.opacity=(.05+.95*lp).toFixed(3);
         lines[i].style.transform='translate3d('+drift.toFixed(2)+'px,'+float_.toFixed(2)+'px,0)'
           +' scale('+(1+(1-lp)*.07).toFixed(4)+')'
