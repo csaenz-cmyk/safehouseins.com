@@ -15,7 +15,8 @@
 <link rel="icon" href="assets/safehouse-heart.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="assets/hero-photo.jpg">
+<link rel="preload" as="image" href="assets/hero-photo-mobile.jpg" media="(max-width:900px)">
+<link rel="preload" as="image" href="assets/hero-photo.jpg" media="(min-width:901px)">
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -48,7 +49,8 @@
 
   /* ================= HERO ================= */
   .hero{position:relative;min-height:94vh;min-height:94svh;display:flex;flex-direction:column;overflow:hidden;
-        background:#0b1a33 url("assets/hero-photo.jpg") 55% 42% / cover no-repeat}
+        background:#0b1a33 url("assets/hero-photo-mobile.jpg") 56% top / cover no-repeat}
+  @media(min-width:901px){ .hero{background-image:url("assets/hero-photo.jpg")} }
   .hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
     background:linear-gradient(180deg,rgba(6,16,36,.60) 0%,rgba(6,16,36,.08) 24%,rgba(6,16,36,.24) 52%,rgba(6,16,36,.82) 100%)}
 
@@ -92,17 +94,17 @@
   h1{font-size:clamp(38px,10vw,58px);line-height:1.0;letter-spacing:-.035em;font-weight:900;color:#fff;margin-top:16px;
      text-shadow:0 4px 26px rgba(0,0,0,.45)}
   .rot{display:block;position:relative;height:1.1em;overflow:hidden}
-  .rot span{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(88%);white-space:nowrap;
-      transition:opacity .22s linear,transform .5s cubic-bezier(.2,.8,.2,1)}
+  .rot span{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(70%);white-space:nowrap;
+      transition:opacity .3s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
   .rot span.on{opacity:1;transform:none}
-  .rot span.out{opacity:0;transform:translateY(-88%)}
+  .rot span.out{opacity:0;transform:translateY(-70%)}
   .hsub{font-size:16.5px;color:rgba(255,255,255,.95);margin-top:14px;max-width:34ch;font-weight:500;
       text-shadow:0 2px 14px rgba(0,0,0,.5)}
   .hacts{display:flex;flex-direction:column;gap:10px;margin-top:22px}
   .badges{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:18px}
   .bd{background:rgba(255,255,255,.95);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:9px;
       box-shadow:0 16px 32px -20px rgba(6,16,36,.7)}
-  .bd .ic{width:30px;height:30px;border-radius:10px;background:var(--ice);display:grid;place-items:center;flex:0 0 auto;font-size:15px}
+  .bd .ic{width:30px;height:30px;border-radius:10px;background:var(--ice);display:grid;place-items:center;flex:0 0 auto;font-size:15px;line-height:1}
   .bd .ic.st{color:#F0A82C}
   .bd b{display:block;font-size:12.5px;color:var(--navy);line-height:1.2;white-space:nowrap}
   .bd>span span{font-size:10.5px;color:var(--muted);font-weight:600;white-space:nowrap}
@@ -203,7 +205,7 @@
     .burger{display:none}
     header nav{padding:24px 40px}
     .logo{height:38px}
-    .hero{background-position:center 38%}
+    .hero{background-position:center 30%}
     .float{margin:22px 40px 0;max-width:360px}
     .hbody{padding:0 40px 60px;max-width:860px}
     h1{font-size:clamp(52px,5.2vw,74px)}
