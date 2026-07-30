@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0F4FBF">
+<title>Safe House Insurance — Your Family, Protected. El Paso, TX</title>
+<meta name="description" content="Safe House Insurance — a licensed, independent, family-run agency in El Paso, TX. Auto, home, commercial and life insurance, compared across trusted carriers. Se habla español.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1666ED; --blue-d:#0F4FBF; --blue-dd:#0B3B92; --sky:#EAF2FE; --sky2:#D8E8FE;
+    --ink:#111827; --navy:#0A2A5E; --muted:#5B6779;
+    --line:#E5EBF4; --paper:#FFFFFF; --gold:#C9932A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+       -webkit-font-smoothing:antialiased;line-height:1.62;overflow-x:hidden}
+  .serif{font-family:'Newsreader',Georgia,serif}
+  a{text-decoration:none;color:inherit;-webkit-tap-highlight-color:transparent}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 26px}
+  svg.i{width:1em;height:1em;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--blue);color:#fff;border:none;
+       border-radius:999px;padding:15px 28px;font-weight:600;font-size:15.5px;font-family:inherit;cursor:pointer;
+       transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 12px 26px -12px rgba(15,79,191,.6)}
+  .btn:hover{background:var(--blue-d);transform:translateY(-2px)}
+  .btn.white{background:#fff;color:var(--blue-d);box-shadow:0 14px 30px -14px rgba(0,0,0,.35)}
+  .btn.white:hover{background:#f2f7ff}
+  .btn.line{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.55);box-shadow:none}
+  .btn.line:hover{background:rgba(255,255,255,.14)}
+  .btn.line-d{background:#fff;color:var(--navy);border:1.5px solid var(--line);box-shadow:none}
+  .btn.line-d:hover{background:var(--sky)}
+  .btn.sm{padding:11px 19px;font-size:14px}
+  .btn.full{width:100%}
+
+  .switcher{position:fixed;right:16px;bottom:16px;z-index:200;display:flex;gap:3px;background:#fff;
+            border:1px solid var(--line);border-radius:999px;padding:5px;box-shadow:0 16px 34px -18px rgba(10,42,94,.4)}
+  .switcher a{font-size:12px;font-weight:600;padding:6px 9px;border-radius:999px;color:var(--muted)}
+  .switcher a.on{background:var(--blue-d);color:#fff}
+
+  /* NAV over the blue wall */
+  nav{position:absolute;top:0;left:0;right:0;z-index:80}
+  nav .in{max-width:1140px;margin:0 auto;padding:20px 26px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+  nav .logo{height:34px;filter:brightness(0) invert(1)}
+  .links{display:flex;gap:28px;align-items:center}
+  .links{gap:22px}
+  .links a{color:rgba(255,255,255,.92);font-weight:500;font-size:15px;white-space:nowrap}
+  .nav-tel{white-space:nowrap}
+  @media(max-width:1180px){.nav-tel{display:none}}
+  .links a:hover{color:#fff}
+  .nav-cta{display:flex;gap:12px;align-items:center}
+  .nav-tel{color:#fff;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:7px}
+  .burger{display:none;width:44px;height:44px;border-radius:12px;border:1.5px solid rgba(255,255,255,.45);
+          background:rgba(255,255,255,.12);cursor:pointer;flex-direction:column;gap:5px;align-items:center;justify-content:center;padding:0}
+  .burger span{display:block;width:18px;height:2px;background:#fff;border-radius:2px;transition:transform .25s,opacity .2s}
+  .burger.on span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.on span:nth-child(2){opacity:0}
+  .burger.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .drawer{position:fixed;left:0;right:0;top:0;z-index:70;background:var(--blue-dd);
+          display:flex;flex-direction:column;padding:96px 22px 26px;transform:translateY(-101%);
+          transition:transform .35s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+  .drawer.on{transform:none;visibility:visible}
+  .drawer a{color:#fff;font-family:'Newsreader',serif;font-weight:500;font-size:25px;padding:13px 2px;border-bottom:1px solid rgba(255,255,255,.18)}
+  .drawer .btn{margin-top:20px;border-bottom:none;font-family:'Inter',sans-serif;font-size:16px}
+  .drawer .dr-mail{border-bottom:none;font-family:'Inter',sans-serif;font-size:14px;color:#bcd6ff;text-align:center;padding-top:14px}
+  body.locked{overflow:hidden}
+
+  /* ============ THE BLUE WALL ============ */
+  .wall{position:relative;background:linear-gradient(165deg,#1B6CF0,#0F4FBF 52%,#0B3B92);
+        color:#fff;text-align:center;padding:118px 0 150px;overflow:hidden}
+  .wall .pattern{position:absolute;inset:0;opacity:.06;pointer-events:none;
+        background-image:url("assets/safehouse-heart.png");background-size:110px;background-repeat:repeat;
+        filter:brightness(0) invert(1)}
+  .wall .glowa{position:absolute;width:620px;height:620px;border-radius:50%;top:-260px;left:50%;transform:translateX(-50%);
+        background:radial-gradient(circle,rgba(255,255,255,.22),transparent 70%);pointer-events:none}
+  .wall .in{position:relative;z-index:3;max-width:820px;margin:0 auto;padding:0 26px}
+  .wall nav .in{max-width:1140px;padding:20px 26px}   /* nav must stay full width, not the 820px text column */
+  .wall .biglogo{width:min(520px,86vw);filter:brightness(0) invert(1);margin:0 auto;display:block}
+  .wall .tagline{font-family:'Newsreader',serif;font-weight:400;font-style:italic;font-size:clamp(19px,2.6vw,26px);
+        color:#dbe9ff;margin-top:18px;letter-spacing:.01em}
+  .wall h1{font-family:'Newsreader',serif;font-weight:500;font-size:clamp(30px,4.3vw,50px);line-height:1.16;
+        letter-spacing:-.02em;margin-top:30px}
+  .wall p.lede{font-size:18px;color:#cfe0fb;max-width:56ch;margin:16px auto 0}
+  .wall .acts{display:flex;gap:12px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+  .wall .trust{display:flex;gap:26px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:34px;
+        font-size:13.5px;color:#c6dcff}
+  .wall .trust b{color:#fff}
+  .wall .trust .sep{opacity:.4}
+  .wall .stars{color:#FFCE4D;letter-spacing:1px}
+
+  /* quote bar overlapping the wall */
+  .qbar{position:relative;z-index:5;margin-top:-72px}
+  .qbox{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;
+        box-shadow:0 36px 80px -40px rgba(10,42,94,.45)}
+  .qbox .t{display:flex;align-items:center;gap:11px;margin-bottom:16px}
+  .qbox .t img{width:24px}
+  .qbox .t b{font-size:17px;color:var(--navy);font-weight:600;display:block}
+  .qbox .t span{font-size:13px;color:var(--muted)}
+  .qgrid{display:grid;grid-template-columns:1.1fr 1fr 1fr auto;gap:12px;align-items:end}
+  .fld label{display:block;font-size:12.5px;font-weight:600;color:var(--navy);margin-bottom:6px}
+  .fld input,.fld select{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:13px 14px;
+        font-family:inherit;font-size:15.5px;font-weight:500;background:#fff;outline:none;transition:.15s;color:var(--ink)}
+  .fld input:focus,.fld select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,102,237,.13)}
+  .qbox .priv{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--muted);margin-top:14px}
+  .qbox .priv .i{color:#1F9D63;flex:0 0 auto;margin-top:2px}
+
+  /* CARRIERS */
+  .carriers{padding:44px 0 8px;text-align:center}
+  .carriers p{font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .clist{display:flex;justify-content:center;align-items:center;gap:42px;flex-wrap:wrap;margin-top:16px}
+  .clist span{font-size:19px;font-weight:700;color:#9aa8c0;transition:color .2s}
+  .clist span:hover{color:var(--navy)}
+
+  /* SECTIONS */
+  section{padding:80px 0}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+          text-transform:uppercase;color:var(--blue)}
+  .kicker img{width:14px}
+  .h2{font-family:'Newsreader',serif;font-weight:500;font-size:clamp(29px,4.1vw,46px);line-height:1.16;
+      letter-spacing:-.02em;color:var(--navy);margin-top:12px}
+  .h2 em{font-style:italic;color:var(--blue)}
+  .sec-lede{font-size:17.5px;color:var(--muted);max-width:56ch;margin-top:14px}
+  .center{margin:0 auto;text-align:center}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .7s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .hr-heart{display:flex;align-items:center;gap:14px;margin:0 auto;max-width:220px}
+  .hr-heart span{flex:1;height:1px;background:var(--line)}
+  .hr-heart img{width:20px;opacity:.85}
+
+  /* STORY */
+  .story{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .story .card{background:var(--sky);border:1px solid var(--sky2);border-radius:20px;padding:34px;position:relative;overflow:hidden}
+  .story .card img.m{position:absolute;right:-40px;bottom:-46px;width:220px;opacity:.12}
+  .story .card q{font-family:'Newsreader',serif;font-style:italic;font-size:22px;line-height:1.5;color:var(--navy);display:block;quotes:none;position:relative}
+  .story .card .by{font-size:13.5px;color:var(--muted);margin-top:16px;font-weight:600;position:relative}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+  .stats div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+  .stats b{display:block;font-family:'Newsreader',serif;font-size:26px;color:var(--blue);font-weight:600}
+  .stats span{font-size:12px;color:var(--muted)}
+
+  /* VALUES / ethics */
+  .values{background:var(--sky)}
+  .vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
+  .vc{background:#fff;border:1px solid var(--sky2);border-radius:18px;padding:28px;transition:.22s}
+  .vc:hover{box-shadow:0 24px 52px -32px rgba(10,42,94,.32);transform:translateY(-3px)}
+  .vc img{width:26px}
+  .vc h4{font-family:'Newsreader',serif;font-weight:600;font-size:21px;color:var(--navy);margin-top:14px}
+  .vc p{color:var(--muted);font-size:15px;margin-top:7px}
+
+  /* COVERAGE rows */
+  .rows{margin-top:42px;border-top:1px solid var(--line)}
+  .r{display:grid;grid-template-columns:56px 1fr 1.15fr auto;gap:22px;align-items:center;
+     padding:26px 6px;border-bottom:1px solid var(--line);transition:background .22s}
+  .r:hover{background:var(--sky)}
+  .r .ic{width:52px;height:52px;border-radius:14px;background:var(--sky);color:var(--blue);display:grid;place-items:center;font-size:24px}
+  .r:hover .ic{background:var(--blue);color:#fff}
+  .r h3{font-family:'Newsreader',serif;font-weight:600;font-size:25px;color:var(--navy)}
+  .r .tags{font-size:14px;color:var(--muted);margin-top:3px}
+  .r p{font-size:15px;color:var(--muted)}
+  .r .go{font-weight:600;font-size:14.5px;color:var(--blue);white-space:nowrap;display:inline-flex;align-items:center;gap:7px;transition:gap .2s}
+  .r:hover .go{gap:12px}
+
+  /* REVIEWS */
+  .revs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
+  .rev{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px}
+  .rev .stars{color:#F0A82C;letter-spacing:2px;font-size:15px}
+  .rev p{font-size:16px;color:#2f3a4c;margin-top:12px}
+  .rev .who{display:flex;align-items:center;gap:11px;margin-top:18px}
+  .rev .av{width:40px;height:40px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:700;font-size:15px}
+  .rev .who b{display:block;font-size:14.5px;color:var(--navy)}
+  .rev .who span{font-size:12.5px;color:var(--muted)}
+
+  /* CONTACT */
+  .contact{background:var(--sky)}
+  .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
+  .cbox{background:#fff;border:1px solid var(--sky2);border-radius:20px;padding:28px;box-shadow:0 26px 60px -38px rgba(10,42,94,.3)}
+  .cbox .row{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+  .cbox .row:last-of-type{border-bottom:none}
+  .cbox .ic{width:42px;height:42px;border-radius:12px;background:var(--sky);color:var(--blue);display:grid;place-items:center;font-size:19px;flex:0 0 auto}
+  .cbox b{display:block;font-size:16px;color:var(--navy)}
+  .cbox small{display:block;font-size:13px;color:var(--muted)}
+  .areas{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+  .areas span{background:#fff;border:1px solid var(--sky2);border-radius:999px;padding:9px 15px;font-size:13.5px;font-weight:600;color:#3d4859}
+
+  /* CLOSING WALL */
+  .closewall{position:relative;background:linear-gradient(165deg,#1B6CF0,#0F4FBF 55%,#0B3B92);color:#fff;
+             text-align:center;padding:82px 0;overflow:hidden}
+  .closewall .pattern{position:absolute;inset:0;opacity:.06;background-image:url("assets/safehouse-heart.png");
+             background-size:110px;filter:brightness(0) invert(1);pointer-events:none}
+  .closewall .in{position:relative;z-index:2;max-width:680px;margin:0 auto;padding:0 26px}
+  .closewall img.hm{width:52px;filter:brightness(0) invert(1);opacity:.95}
+  .closewall h2{font-family:'Newsreader',serif;font-weight:500;font-size:clamp(28px,3.9vw,44px);line-height:1.16;margin-top:18px;letter-spacing:-.02em}
+  .closewall p{color:#cfe0fb;font-size:17.5px;margin-top:14px}
+  .closewall .acts{display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap}
+
+  footer{background:#fff;padding:50px 0 28px;color:var(--muted);border-top:1px solid var(--line)}
+  .fgrid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:32px}
+  footer .logo{height:33px;margin-bottom:14px}
+  footer h5{color:var(--navy);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:13px}
+  footer a{display:block;font-size:14.5px;margin-bottom:9px;color:var(--muted)}
+  footer a:hover{color:var(--blue)}
+  .fbot{border-top:1px solid var(--line);margin-top:34px;padding-top:22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px}
+  .disc{font-size:12px;color:#8b95a6;line-height:1.6;margin-top:16px}
+
+  /* ============ RESPONSIVE ============ */
+  @media(max-width:1024px){
+    section{padding:62px 0}
+    .wall{padding:100px 0 132px}
+    .story,.cgrid{grid-template-columns:1fr;gap:34px}
+    .vgrid{grid-template-columns:1fr 1fr}
+    .qgrid{grid-template-columns:1fr 1fr;gap:12px}
+    .qgrid .btn{grid-column:span 2}
+    .r{grid-template-columns:52px 1fr auto;gap:16px}
+    .r p{display:none}
+  }
+  @media(max-width:900px){
+    .links{display:none}
+    .burger{display:flex}
+    .nav-tel{display:none}
+    .nav-cta .btn.sm{display:none}
+  }
+  @media(max-width:760px){
+    .wrap{padding:0 18px}
+    section{padding:52px 0}
+    .wall{padding:92px 0 120px}
+    .wall .biglogo{width:min(360px,80vw)}
+    .wall .tagline{font-size:17px}
+    .wall .trust{gap:8px;font-size:12.5px;flex-direction:column}
+    .wall .trust .sep{display:none}
+    .qbar{margin-top:-58px}
+    .qbox{padding:20px;border-radius:18px}
+    .h2{font-size:clamp(25px,6.4vw,34px)}
+    .sec-lede{font-size:16px}
+    .clist{gap:22px}.clist span{font-size:16px}
+    .vgrid,.revs{grid-template-columns:1fr}
+    .stats{grid-template-columns:1fr 1fr}
+    .story .card{padding:26px}
+    .story .card q{font-size:19px}
+    .r{grid-template-columns:44px 1fr;gap:14px;padding:20px 4px}
+    .r .ic{width:44px;height:44px;font-size:21px}
+    .r h3{font-size:21px}
+    .r .go{grid-column:2;justify-self:start;margin-top:6px}
+    .cbox,.vc,.rev{padding:22px}
+    .closewall{padding:64px 0}
+    .fgrid{grid-template-columns:1fr 1fr;gap:26px}
+    .fbot{flex-direction:column}
+    .switcher{left:10px;right:auto;bottom:10px;padding:4px}
+    .switcher a{padding:6px 8px;font-size:11.5px}
+  }
+  @media(max-width:520px){
+    .wall .acts,.closewall .acts{width:100%}
+    .wall .acts .btn,.closewall .acts .btn{width:100%}
+    .qgrid{grid-template-columns:1fr}
+    .qgrid .btn{grid-column:span 1}
+    .fgrid{grid-template-columns:1fr;text-align:center}
+    .drawer a{font-size:22px}
+  }
+  @media(hover:none){ .vc:hover{transform:none} .r:hover{background:transparent} .r:hover .ic{background:var(--sky);color:var(--blue)} }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+  }
+
+  .cgrid>*,.story>*,.vgrid>*,.revs>*,.fgrid>*,.rows .r>*{min-width:0}
+  .cbox b,.cbox small,footer a{overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="car" viewBox="0 0 24 24"><path d="M3 13l1.6-4.2A2 2 0 0 1 6.5 7.5h11a2 2 0 0 1 1.9 1.3L21 13M4 13h16v4a1 1 0 0 1-1 1h-1.5M6.5 18H5a1 1 0 0 1-1-1v-4"/><circle cx="7.5" cy="18" r="1.6"/><circle cx="16.5" cy="18" r="1.6"/></symbol>
+  <symbol id="home" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6M6 10v9h12v-9M10 19v-5h4v5"/></symbol>
+  <symbol id="biz" viewBox="0 0 24 24"><path d="M4 20V8l7-4 7 4v12M4 20h16M9 20v-4h4v4M8 11h.01M14 11h.01"/></symbol>
+  <symbol id="heartp" viewBox="0 0 24 24"><path d="M12 20s-6.5-4.3-9-8C1.4 9.3 2.8 5.5 6.3 5.5c2.2 0 3.7 1.6 4.7 3 1-1.4 2.5-3 4.7-3 3.5 0 4.9 3.8 3.3 6.5-2.5 3.7-9 8-9 8z"/></symbol>
+  <symbol id="doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></symbol>
+  <symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h2l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 4 5z"/></symbol>
+  <symbol id="mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
+
+<div class="switcher">
+  <a href="index.html">1</a><a href="option-2.html">2</a><a href="option-3.html">3</a><a href="option-4.html">4</a><a href="option-7.html">7</a><a href="option-8.html" class="on">8</a>
+</div>
+
+<!-- ============ THE BLUE WALL ============ -->
+<header class="wall">
+  <div class="pattern"></div>
+  <div class="glowa"></div>
+
+  <nav>
+    <div class="in">
+      <a href="index.html" aria-label="Safe House Insurance"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+      <div class="links"><a href="#about">About us</a><a href="#values">Our values</a><a href="#coverage">Coverage</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></div>
+      <div class="nav-cta">
+        <a class="nav-tel" href="tel:+19155031207"><svg class="i"><use href="#phone"/></svg> 915-503-1207</a>
+        <a class="btn white sm" href="#quote">Get a quote</a>
+        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+<div class="drawer" id="drawer">
+  <a href="#about">About us</a>
+  <a href="#values">Our values</a>
+  <a href="#coverage">Coverage</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#contact">Contact</a>
+  <a class="btn white" href="tel:+19155031207">📞 Call 915-503-1207</a>
+  <a class="dr-mail" href="mailto:contact@safehouseins.com">contact@safehouseins.com · Se habla español</a>
+</div>
+
+  <div class="in">
+    <img class="biglogo" src="assets/safehouse-logo.png" alt="Safe House Insurance">
+    <p class="tagline">The modern way to insure.</p>
+    <h1>Your family, your home, your work —<br>protected by people who live here too.</h1>
+    <p class="lede">A licensed, independent insurance agency in El Paso, Texas. We compare trusted carriers, explain your options honestly, and stay with you long after the policy is signed.</p>
+    <div class="acts">
+      <a class="btn white" href="#quote">Get my free quote</a>
+      <a class="btn line" href="tel:+19155031207"><svg class="i"><use href="#phone"/></svg> Talk to an agent</a>
+    </div>
+    <div class="trust">
+      <span><span class="stars">★★★★★</span> <b>5-star</b> Google reviews</span>
+      <span class="sep">·</span>
+      <span>Licensed in <b>Texas &amp; New Mexico</b></span>
+      <span class="sep">·</span>
+      <span><b>Se habla español</b></span>
+    </div>
+  </div>
+</header>
+
+<!-- QUOTE BAR -->
+<div class="qbar" id="quote">
+  <div class="wrap">
+    <div class="qbox">
+      <div class="t">
+        <img src="assets/safehouse-heart.png" alt="">
+        <span><b>Start your free quote</b><span>Takes about a minute · no obligation</span></span>
+      </div>
+      <div class="qgrid">
+        <div class="fld"><label>Full name</label><input placeholder="Your name" autocomplete="name"></div>
+        <div class="fld"><label>Phone</label><input placeholder="(915) 000-0000" inputmode="tel" autocomplete="tel"></div>
+        <div class="fld"><label>Coverage needed</label>
+          <select><option>Auto</option><option>Home or renters</option><option>Commercial</option><option>Life</option><option>Bonds</option><option>More than one</option></select>
+        </div>
+        <a class="btn" href="#contact">Request quote</a>
+      </div>
+      <p class="priv"><svg class="i"><use href="#lock"/></svg> Your information is used only to prepare your quote. We never sell or share your personal data.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CARRIERS -->
+<div class="carriers">
+  <div class="wrap">
+    <p>We compare these trusted carriers for you</p>
+    <div class="clist"><span>Progressive</span><span>Geico</span><span>Lemonade</span><span>Alinsco</span><span>Commonwealth</span></div>
+  </div>
+</div>
+
+<!-- ABOUT / STORY -->
+<section id="about">
+  <div class="wrap story">
+    <div class="reveal">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> Who we are</span>
+      <h2 class="h2">An agency built on <em>trust</em>, not on pressure.</h2>
+      <p class="sec-lede">Safe House Insurance was founded on a simple belief: people deserve to understand what they're buying. We're independent, which means we answer to you — not to a single insurance company's sales targets.</p>
+      <p class="sec-lede">We sit down with you, review what you actually need, and shop our carriers to find the right fit. If your current policy is already the best deal, we'll tell you that too.</p>
+      <div class="stats">
+        <div><b>TX · NM</b><span>Licensed</span></div>
+        <div><b>5★</b><span>Google rated</span></div>
+        <div><b>EN / ES</b><span>Bilingual team</span></div>
+      </div>
+    </div>
+    <div class="card reveal">
+      <img class="m" src="assets/safehouse-heart.png" alt="">
+      <q>We named it Safe House because that's the job — making sure the people and the things you've worked for are protected, and that you understand exactly how.</q>
+      <div class="by">— The Safe House Insurance team, El Paso, TX</div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES / ethics -->
+<section id="values" class="values">
+  <div class="wrap">
+    <div class="reveal center" style="max-width:640px">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> Our commitments</span>
+      <h2 class="h2">What you can <em>always</em> expect from us.</h2>
+      <p class="sec-lede center">No fine print, no pressure, no surprises. These are the standards we hold ourselves to on every policy we write.</p>
+    </div>
+    <div class="vgrid">
+      <div class="vc reveal"><img src="assets/safehouse-heart.png" alt=""><h4>Honest advice first</h4><p>We recommend what fits your situation — even when that means a smaller policy or staying with your current carrier.</p></div>
+      <div class="vc reveal"><img src="assets/safehouse-heart.png" alt=""><h4>Clear, plain language</h4><p>Limits, deductibles and exclusions explained before you sign, in English or Spanish. Ask us anything twice.</p></div>
+      <div class="vc reveal"><img src="assets/safehouse-heart.png" alt=""><h4>Your privacy respected</h4><p>Your information is used to prepare your quote. We never sell your data or pass your number to lead buyers.</p></div>
+      <div class="vc reveal"><img src="assets/safehouse-heart.png" alt=""><h4>Licensed and accountable</h4><p>Licensed in Texas and New Mexico, and fully accountable to the regulations that protect you as a consumer.</p></div>
+      <div class="vc reveal"><img src="assets/safehouse-heart.png" alt=""><h4>Everyone gets a fair shot</h4><p>High-risk record, SR-22, a lapse or no license? We'll look for the carrier that can say yes, respectfully.</p></div>
+      <div class="vc reveal"><img src="assets/safehouse-heart.png" alt=""><h4>We're here after the sale</h4><p>Claims, renewals, ID cards, questions. A real licensed agent who knows your file picks up the phone.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COVERAGE -->
+<section id="coverage">
+  <div class="wrap">
+    <div class="reveal center" style="max-width:640px">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> Coverage</span>
+      <h2 class="h2">Everything you need to <em>stay covered.</em></h2>
+    </div>
+    <div class="rows">
+      <a class="r reveal" href="#quote">
+        <span class="ic"><svg class="i"><use href="#car"/></svg></span>
+        <span><h3>Auto</h3><div class="tags">Full coverage · Liability · SR-22 · High-risk · Non-owner</div></span>
+        <p>Our specialty. We shop every carrier that fits your driving record and find the best available price.</p>
+        <span class="go">Get a quote <svg class="i"><use href="#arrow"/></svg></span>
+      </a>
+      <a class="r reveal" href="#quote">
+        <span class="ic"><svg class="i"><use href="#home"/></svg></span>
+        <span><h3>Home &amp; Renters</h3><div class="tags">Homeowners · Renters · Mobile homes</div></span>
+        <p>Protect your property, your belongings and your liability — and save when you bundle with auto.</p>
+        <span class="go">Get a quote <svg class="i"><use href="#arrow"/></svg></span>
+      </a>
+      <a class="r reveal" href="#quote">
+        <span class="ic"><svg class="i"><use href="#biz"/></svg></span>
+        <span><h3>Commercial</h3><div class="tags">Commercial auto · Fleets · General liability</div></span>
+        <p>Coverage that keeps your business running, from a single work truck to a full fleet.</p>
+        <span class="go">Get a quote <svg class="i"><use href="#arrow"/></svg></span>
+      </a>
+      <a class="r reveal" href="#quote">
+        <span class="ic"><svg class="i"><use href="#heartp"/></svg></span>
+        <span><h3>Life &amp; Final Expense</h3><div class="tags">Term life · Final expense</div></span>
+        <p>Affordable plans so the people you love aren't left with the bill.</p>
+        <span class="go">Get a quote <svg class="i"><use href="#arrow"/></svg></span>
+      </a>
+      <a class="r reveal" href="#quote">
+        <span class="ic"><svg class="i"><use href="#doc"/></svg></span>
+        <span><h3>Bonds</h3><div class="tags">Surety · License &amp; permit</div></span>
+        <p>The bonds contractors and small businesses need to stay compliant and keep working.</p>
+        <span class="go">Get a quote <svg class="i"><use href="#arrow"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" style="padding-top:20px">
+  <div class="wrap">
+    <div class="reveal center" style="max-width:640px">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> Client reviews</span>
+      <h2 class="h2">Our neighbors <em>say it better.</em></h2>
+      <p class="sec-lede center">Verified reviews from clients across El Paso and southern New Mexico.</p>
+    </div>
+    <div class="revs">
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>"They took the time to explain my coverage instead of just selling me something. I finally understand my policy."</p><div class="who"><span class="av">M</span><span><b>Marcos T.</b><span>El Paso, TX · Google review</span></span></div></div>
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>"They found me coverage even with an SR-22, and a real person walked me through everything in Spanish."</p><div class="who"><span class="av">J</span><span><b>Jazmín R.</b><span>Las Cruces, NM · Google review</span></span></div></div>
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>"Insured my truck and my house with one call. Professional, straightforward, and they actually follow up."</p><div class="who"><span class="av">D</span><span><b>Diego M.</b><span>El Paso, TX · Google review</span></span></div></div>
+    </div>
+    <p class="center" style="margin-top:30px"><a class="btn line-d" href="https://www.google.com/search?q=Safe+House+Insurance+El+Paso" target="_blank" rel="noopener">Read our Google reviews <svg class="i"><use href="#arrow"/></svg></a></p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap cgrid">
+    <div class="reveal">
+      <span class="kicker"><img src="assets/safehouse-heart.png" alt=""> Visit, call or write</span>
+      <h2 class="h2">We're <em>right here</em> in El Paso.</h2>
+      <p class="sec-lede">Licensed across Texas and New Mexico, serving the whole borderland region. Reach out however you like — a licensed agent will take care of you.</p>
+      <div class="areas">
+        <span>El Paso</span><span>Horizon City</span><span>Socorro</span><span>San Elizario</span><span>Clint</span><span>Fabens</span><span>Canutillo</span><span>Anthony</span><span>Las Cruces, NM</span><span>Sunland Park, NM</span><span>Santa Teresa, NM</span><span>Chaparral, NM</span>
+      </div>
+    </div>
+    <div class="cbox reveal">
+      <a class="row" href="tel:+19155031207"><span class="ic"><svg class="i"><use href="#phone"/></svg></span><span><b>915-503-1207</b><small>Call or text — se habla español</small></span></a>
+      <a class="row" href="mailto:contact@safehouseins.com"><span class="ic"><svg class="i"><use href="#mail"/></svg></span><span><b>contact@safehouseins.com</b><small>We reply the same business day</small></span></a>
+      <div class="row"><span class="ic"><svg class="i"><use href="#pin"/></svg></span><span><b>El Paso, Texas</b><small>[Add your street address]</small></span></div>
+      <div class="row"><span class="ic"><svg class="i"><use href="#clock"/></svg></span><span><b>Monday – Friday</b><small>[Confirm your office hours]</small></span></div>
+      <a class="btn full" href="#quote" style="margin-top:18px">Request a free quote</a>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING WALL -->
+<div class="closewall">
+  <div class="pattern"></div>
+  <div class="in">
+    <img class="hm" src="assets/safehouse-heart.png" alt="">
+    <h2>Let's make sure you're properly protected.</h2>
+    <p>A free, no-obligation review takes just a few minutes — and often saves you money.</p>
+    <div class="acts">
+      <a class="btn white" href="#quote">Get my free quote</a>
+      <a class="btn line" href="tel:+19155031207">📞 915-503-1207</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance">
+        <p style="font-size:14.5px;max-width:34ch">A licensed, independent insurance agency serving El Paso, Texas and southern New Mexico. Se habla español.</p>
+        <p style="margin-top:14px;color:var(--navy);font-weight:700">915-503-1207</p>
+        <p style="font-size:14px"><a href="mailto:contact@safehouseins.com" style="display:inline">contact@safehouseins.com</a></p>
+      </div>
+      <div><h5>Coverage</h5><a href="#coverage">Auto</a><a href="#coverage">Home &amp; renters</a><a href="#coverage">Commercial</a><a href="#coverage">Life</a><a href="#coverage">Bonds</a></div>
+      <div><h5>Agency</h5><a href="#about">About us</a><a href="#values">Our commitments</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></div>
+      <div><h5>Clients</h5><a href="#quote">Request a quote</a><a href="tel:+19155031207">Report a claim</a><a href="#contact">Service request</a><a href="#contact">Proof of insurance</a></div>
+    </div>
+    <div class="fbot"><span>© 2026 Safe House Insurance. All rights reserved.</span><span>Privacy Policy · Terms of Use · Licensing</span></div>
+    <p class="disc">Safe House Insurance is an independent insurance agency licensed in Texas and New Mexico (license #__________). Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy. Quotes are estimates and are not a guarantee of coverage or price. Carrier availability and eligibility vary by state and by applicant. This website is provided for general information only and does not constitute an offer of insurance or a contract.</p>
+  </div>
+</footer>
+
+<script>
+  var burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
+  function setMenu(open){
+    if(open){var r=document.querySelector('nav .in').getBoundingClientRect();
+      drawer.style.paddingTop=Math.max(r.bottom+20,90)+'px';}
+    burger.classList.toggle('on',open);drawer.classList.toggle('on',open);
+    document.body.classList.toggle('locked',open);
+    burger.setAttribute('aria-expanded',open);
+    burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+  }
+  burger.addEventListener('click',function(){setMenu(!drawer.classList.contains('on'));});
+  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
+  addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
+  addEventListener('resize',function(){if(innerWidth>900)setMenu(false);});
+
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+</script>
+</body>
+</html>
