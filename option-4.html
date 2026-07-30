@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1666ED">
 <title>Safe House Insurance — Option 4</title>
 <meta name="description" content="Safe House Insurance — premium, friendly, the modern way to insure. Auto, home & commercial in El Paso, TX. Already insured? We'll help you switch & save.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +21,7 @@
   html{scroll-behavior:smooth}
   body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:var(--cream) radial-gradient(900px 520px at 88% -4%, #DCEBFF, transparent 62%) no-repeat;-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
   .serif{font-family:'Fraunces',serif}.hand{font-family:'Caveat',cursive}.mono{font-family:'Geist Mono',monospace}.it{font-style:italic}
-  a{text-decoration:none;color:inherit}
+  a{text-decoration:none;color:inherit;-webkit-tap-highlight-color:transparent}
   .wrap{max-width:1160px;margin:0 auto;padding:0 26px}
 
   .btn{position:relative;display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border:none;border-radius:999px;padding:15px 27px;font-weight:700;font-size:15.5px;font-family:inherit;cursor:pointer;transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s,background .2s;box-shadow:0 16px 34px -16px rgba(21,21,29,.6);will-change:transform}
@@ -53,7 +54,7 @@
   .topbar a{color:#fff}.topbar .es{background:rgba(255,255,255,.12);padding:2px 10px;border-radius:999px}
   @media(max-width:760px){.topbar{font-size:11.5px;gap:10px}}
 
-  nav{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:16px 26px;background:rgba(243,248,255,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav{position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;padding:16px 26px;background:rgba(243,248,255,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
   nav .logo{height:30px}
   .links{display:flex;gap:26px;align-items:center}
   .links a{color:var(--ink2);font-weight:600;font-size:14.5px}.links a:hover{color:var(--blue)}
@@ -85,7 +86,9 @@
   .calc .row{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;font-size:14px;color:var(--muted);font-weight:600}
   .calc .cur{font-family:'Geist Mono',monospace;font-size:18px;color:var(--ink);font-weight:600}
   input[type=range]{-webkit-appearance:none;width:100%;height:8px;border-radius:99px;background:linear-gradient(90deg,var(--blue) 50%,var(--cream2) 50%);margin:12px 0 4px;outline:none}
+  input[type=range]{touch-action:pan-y}
   input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid var(--blue);box-shadow:0 6px 16px -4px rgba(22,102,237,.7);cursor:pointer}
+  input[type=range]::-moz-range-thumb{width:26px;height:26px;border:3px solid var(--blue);border-radius:50%;background:#fff;box-shadow:0 6px 16px -4px rgba(22,102,237,.7);cursor:pointer}
   .calc .result{margin-top:22px;background:linear-gradient(120deg,#EAF1FE,#fff);border:1px solid #dbe7fb;border-radius:20px;padding:20px;text-align:center}
   .calc .result .big{font-family:'Fraunces',serif;font-weight:600;font-size:46px;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
   .calc .result small{display:block;color:var(--muted);font-size:13px;margin-top:4px}
@@ -153,6 +156,95 @@
   footer .logo{height:26px}
 
   #confetti{position:fixed;inset:0;pointer-events:none;z-index:9999}
+
+  /* ===== mobile nav ===== */
+  .burger{display:none;width:44px;height:44px;border-radius:14px;border:1px solid var(--line);background:#fff;cursor:pointer;flex-direction:column;gap:5px;align-items:center;justify-content:center;padding:0}
+  .burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .2s}
+  .burger.on span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.on span:nth-child(2){opacity:0}
+  .burger.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .drawer{position:fixed;left:0;right:0;top:0;z-index:70;background:rgba(243,248,255,.98);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);
+          display:flex;flex-direction:column;padding:86px 22px 24px;transform:translateY(-101%);transition:transform .35s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+  .drawer.on{transform:none;visibility:visible}
+  .drawer a{font-family:'Fraunces',serif;font-size:25px;font-weight:600;padding:13px 2px;border-bottom:1px solid var(--line)}
+  .drawer .btn{margin-top:20px;justify-content:center;border-bottom:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:700}
+  body.locked{overflow:hidden}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:1024px){
+    section{padding:66px 0}
+    .cta{padding:62px 26px;border-radius:30px}
+    .switchgrid{margin-top:38px}
+  }
+  @media(max-width:980px){
+    .burger{display:flex}
+    nav{padding:12px 18px}
+    .hero{padding:34px 0 52px}
+    h1.hh{font-size:clamp(38px,9.2vw,64px)}
+    .lede{font-size:17px;margin-top:26px;max-width:100%}
+    .calc{padding:22px;border-radius:26px}
+    .hero .blob{filter:blur(60px);opacity:.42}
+    .scribble-note{display:none}
+  }
+  @media(max-width:760px){
+    .wrap{padding:0 18px}
+    section{padding:52px 0}
+    .h2{font-size:clamp(30px,7.8vw,44px)}
+    .sec-lede{font-size:16px}
+    .kicker{font-size:11px}
+    .topbar span:nth-child(4){display:none}
+    .topbar span:nth-child(2){max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .spark{display:none}
+    .marquee span{font-size:20px}
+    .marquee .row{gap:32px}
+    #coverage{margin:0 8px;border-radius:30px}
+    .tabs{margin-top:28px}
+    .panel{padding:22px;border-radius:24px;gap:18px}
+    .panel h3{font-size:26px}
+    .panel .art{min-height:150px}
+    .panel .art svg.i{width:62px!important}
+    .step{padding:24px}
+    .steps{gap:14px;margin-top:34px}
+    .switchgrid{gap:12px}
+    .scard{padding:20px}
+    .cta{padding:50px 20px;border-radius:26px}
+    .cta p{font-size:16px}
+    .cta .hand{font-size:24px}
+    .fbar{flex-direction:column;justify-content:center;text-align:center;gap:12px}
+    .switcher{left:10px;right:auto;bottom:10px;padding:5px;gap:4px}
+    .switcher a{font-size:12px;padding:7px 10px}
+  }
+  @media(max-width:620px){ .ey-es{display:none} }
+  @media(max-width:560px){
+    /* keep switch cards 2-up and compact instead of 5 tall stacked cards */
+    .switchgrid{grid-template-columns:1fr 1fr;gap:10px}
+    .switchgrid .scard:last-child{grid-column:span 2}
+    .scard{padding:16px 12px}
+    .scard .badge{width:38px;height:38px;border-radius:12px;font-size:18px}
+    .scard .pct{font-size:31px;margin-top:10px}
+    .scard .co{font-size:13px}
+    .scard .lbl{font-size:11px}
+  }
+  @media(max-width:520px){
+    h1.hh{font-size:clamp(33px,10.6vw,46px)}
+    .eyebrow{font-size:12px;padding:7px 13px}
+    .hero-actions{gap:10px;margin-top:26px}
+    .hero-actions .btn{width:100%;justify-content:center}
+    .calc .result .big{font-size:38px}
+    .calc h3{font-size:21px}
+    .tab{padding:10px 15px;font-size:14px}
+    .anno svg path{stroke-width:3}
+    .marquee span{font-size:18px}
+    .drawer a{font-size:22px}
+  }
+  /* touch devices: no sticky hover transforms */
+  @media(hover:none){
+    .scard:hover,.step:hover,.tab:hover{transform:none}
+    .step:hover .ico{transform:none}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  }
 </style>
 </head>
 <body>
@@ -184,8 +276,19 @@
   <nav>
     <a href="index.html"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
     <div class="links"><a href="#switch">Switch &amp; save</a><a href="#coverage">Coverage</a><a href="#how">How it works</a><a href="#cta">Contact</a></div>
-    <div class="nav-cta"><a class="btn blue sm magnetic" href="#cta">Get a quote</a></div>
+    <div class="nav-cta">
+      <a class="btn blue sm magnetic" href="#cta">Get a quote</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
+    </div>
   </nav>
+
+  <div class="drawer" id="drawer">
+    <a href="#switch">Switch &amp; save</a>
+    <a href="#coverage">Coverage</a>
+    <a href="#how">How it works</a>
+    <a href="#cta">Contact</a>
+    <a class="btn blue" href="tel:+19155031207">📞 Call 915-503-1207</a>
+  </div>
 
   <!-- HERO -->
   <header class="hero">
@@ -195,14 +298,14 @@
     <span class="spark" style="left:8%;top:70%;font-size:18px;animation-delay:-2s">✦</span>
     <div class="wrap hero-inner">
       <div>
-        <span class="eyebrow">💙 The modern way to insure · <b>se habla español</b></span>
+        <span class="eyebrow">💙 <span>The modern way to insure</span><span class="ey-es"> · <b>se habla español</b></span></span>
         <h1 class="hh">Insurance that's<br>actually
           <span class="anno circle" data-anno>simple
             <svg viewBox="0 0 240 90"><path d="M18,46 C18,18 70,12 120,12 C186,12 224,26 224,46 C224,70 168,80 120,80 C66,80 22,72 18,46"/></svg>
-            <span class="scribble-note" style="left:100%;top:-26px">we promise ✦</span>
+            <span class="scribble-note" style="left:auto;right:-6px;top:calc(100% - 6px);transform:rotate(-4deg)">we promise ✦</span>
           </span>.
         </h1>
-        <p class="lede">Auto, home &amp; commercial — compared across top carriers, quoted in <span class="anno uline" data-anno>60 seconds<svg viewBox="0 0 200 16" preserveAspectRatio="none"><path d="M4,9 C50,15 150,15 196,7"/></svg></span>, and handled with real, local care.</p>
+        <p class="lede">Auto, home &amp; commercial — compared across top carriers, quoted in <span class="anno uline" data-anno>60 seconds<svg viewBox="0 0 200 16" preserveAspectRatio="none"><path d="M4,9 C50,15 150,15 196,7"/></svg></span> and handled with real, local care.</p>
         <div class="hero-actions">
           <a class="btn blue magnetic" id="quoteBtn" href="#cta">Get my quote <svg class="i"><use href="#arrow"/></svg></a>
           <a class="btn line" href="#switch">Already insured? Switch</a>
@@ -334,14 +437,32 @@
     const id=t.dataset.tab;document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.dataset.panel===id));
   }));
 
+  // mobile drawer
+  const burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
+  function setMenu(open){
+    if(open){ // start the panel just below the (sticky) nav, whatever the scroll position is
+      const r=document.querySelector('nav').getBoundingClientRect();
+      drawer.style.paddingTop=Math.max(r.bottom+20,86)+'px';
+    }
+    burger.classList.toggle('on',open);drawer.classList.toggle('on',open);
+    document.body.classList.toggle('locked',open);burger.setAttribute('aria-expanded',open);
+    burger.setAttribute('aria-label',open?'Close menu':'Open menu');}
+  burger.addEventListener('click',()=>setMenu(!drawer.classList.contains('on')));
+  drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+  addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+  addEventListener('resize',()=>{if(innerWidth>980)setMenu(false)});
+
+  // pointer effects only on devices that really hover
+  const canHover=matchMedia('(hover: hover) and (pointer: fine)').matches;
+
   // magnetic buttons
-  document.querySelectorAll('.magnetic').forEach(b=>{
+  if(canHover) document.querySelectorAll('.magnetic').forEach(b=>{
     b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px, ${(e.clientY-r.top-r.height/2)*.35}px)`;});
     b.addEventListener('mouseleave',()=>b.style.transform='');
   });
 
   // 3D tilt
-  document.querySelectorAll('.tilt').forEach(c=>{
+  if(canHover) document.querySelectorAll('.tilt').forEach(c=>{
     c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const rx=((e.clientY-r.top)/r.height-.5)*-8;const ry=((e.clientX-r.left)/r.width-.5)*8;c.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`;});
     c.addEventListener('mouseleave',()=>c.style.transform='');
   });
