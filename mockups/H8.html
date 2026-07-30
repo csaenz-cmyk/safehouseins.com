@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>H8</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css"><style>
+.hero{position:relative;min-height:700px;overflow:hidden;background:#fff}
+.wedge{position:absolute;top:0;left:0;right:0;height:430px;background:var(--grad);
+       clip-path:polygon(0 0,100% 0,100% 74%,0 100%)}
+.wedge .pat{position:absolute;inset:0;opacity:.1;background-image:url("safehouse-heart.png");background-size:76px;filter:brightness(0) invert(1)}
+.top{position:relative;padding:0 22px;color:#fff}
+.eb{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.36);
+    font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;padding:7px 13px;
+    border-radius:999px;font-weight:600;margin-top:18px}
+h1{font-size:38px;line-height:1.03;letter-spacing:-.038em;font-weight:900;margin-top:14px}
+.sub{font-size:15.5px;color:rgba(255,255,255,.93);margin-top:12px;max-width:31ch}
+.card{position:relative;margin:36px 18px 0;background:#fff;border-radius:22px;padding:20px;
+      box-shadow:0 26px 56px -28px rgba(10,33,72,.5);border:1px solid var(--line)}
+.card .lb{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.card .rows{margin-top:12px}
+.rw{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--line)}
+.rw:last-child{border-bottom:none}
+.rw .ic{width:36px;height:36px;border-radius:11px;background:var(--ice);color:var(--blue);display:grid;place-items:center;font-size:17px;flex:0 0 auto}
+.rw b{font-size:15.5px;font-weight:800;color:var(--navy);flex:1}
+.rw .g{color:var(--blue);font-size:16px}
+.card .btn{margin-top:14px}
+.tr{text-align:center;margin-top:20px;padding:0 22px;font-size:12.5px;color:var(--muted);line-height:1.9}
+.tr b{color:var(--navy)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+<symbol id="ph" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h2l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 4 5z"/></symbol>
+<symbol id="ar" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="car" viewBox="0 0 24 24"><path d="M3 13l1.6-4.2A2 2 0 0 1 6.5 7.5h11a2 2 0 0 1 1.9 1.3L21 13M4 13h16v4a1 1 0 0 1-1 1h-1.5M6.5 18H5a1 1 0 0 1-1-1v-4"/><circle cx="7.5" cy="18" r="1.6"/><circle cx="16.5" cy="18" r="1.6"/></symbol>
+<symbol id="home" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6M6 10v9h12v-9M10 19v-5h4v5"/></symbol>
+<symbol id="biz" viewBox="0 0 24 24"><path d="M4 20V8l7-4 7 4v12M4 20h16M9 20v-4h4v4"/></symbol>
+<symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l4 4"/></symbol>
+<symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+</svg>
+<div class="nav" style="position:relative;z-index:3"><img src="safehouse-logo.png" alt="">
+<div class="nb"><span class="tel"><svg class="i"><use href="#ph"/></svg></span><span class="bg"><i></i><i></i><i></i></span></div></div>
+<div class="hero">
+  <div class="wedge"><div class="pat"></div></div>
+  <div class="top">
+    <span class="eb">Licensed TX &amp; NM · El Paso</span>
+    <h1>Coverage that<br>actually fits.</h1>
+    <p class="sub">We shop the carriers we represent and a licensed agent walks you through it.</p>
+  </div>
+  <div class="card">
+    <div class="lb">What do you need?</div>
+    <div class="rows">
+      <div class="rw"><span class="ic"><svg class="i"><use href="#car"/></svg></span><b>Auto &amp; SR-22</b><span class="g">→</span></div>
+      <div class="rw"><span class="ic"><svg class="i"><use href="#home"/></svg></span><b>Home &amp; renters</b><span class="g">→</span></div>
+      <div class="rw"><span class="ic"><svg class="i"><use href="#biz"/></svg></span><b>Commercial &amp; bonds</b><span class="g">→</span></div>
+    </div>
+    <div class="btn">Get my free quote</div>
+  </div>
+  <p class="tr"><span class="stars">★★★★★</span> <b>5-star Google reviews</b><br><b>Se habla español</b> · 915-503-1207</p>
+</div>
+</body></html>

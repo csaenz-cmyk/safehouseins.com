@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>H5</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css"><style>
+.hero{min-height:700px;display:flex;flex-direction:column}
+.half{padding:34px 22px;flex:1}
+.en{background:#fff}
+.es{background:var(--grad);color:#fff;position:relative;overflow:hidden}
+.es .pat{position:absolute;inset:0;opacity:.1;background-image:url("safehouse-heart.png");background-size:70px;filter:brightness(0) invert(1)}
+.es .in{position:relative}
+.lang{display:inline-flex;align-items:center;gap:7px;font-family:'Geist Mono',monospace;font-size:10px;font-weight:600;
+      letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.en .lang{background:var(--ice);color:var(--blue);border:1px solid var(--ice2)}
+.es .lang{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.34)}
+h2{font-size:31px;line-height:1.05;letter-spacing:-.032em;font-weight:900;margin-top:13px}
+.en h2{color:var(--navy)}
+.p{font-size:15px;margin-top:11px}
+.en .p{color:var(--muted)}.es .p{color:rgba(255,255,255,.93)}
+.a{margin-top:18px;display:flex;flex-direction:column;gap:9px}
+.tr{margin-top:16px;font-size:12.5px}
+.en .tr{color:var(--muted)}.es .tr{color:rgba(255,255,255,.9)}
+.en .tr b{color:var(--navy)}.es .tr b{color:#fff}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+<symbol id="ph" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h2l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 4 5z"/></symbol>
+<symbol id="ar" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="car" viewBox="0 0 24 24"><path d="M3 13l1.6-4.2A2 2 0 0 1 6.5 7.5h11a2 2 0 0 1 1.9 1.3L21 13M4 13h16v4a1 1 0 0 1-1 1h-1.5M6.5 18H5a1 1 0 0 1-1-1v-4"/><circle cx="7.5" cy="18" r="1.6"/><circle cx="16.5" cy="18" r="1.6"/></symbol>
+<symbol id="home" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6M6 10v9h12v-9M10 19v-5h4v5"/></symbol>
+<symbol id="biz" viewBox="0 0 24 24"><path d="M4 20V8l7-4 7 4v12M4 20h16M9 20v-4h4v4"/></symbol>
+<symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l4 4"/></symbol>
+<symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+</svg>
+<div class="nav"><img src="safehouse-logo.png" alt="Safe House Insurance">
+<div class="nb"><span class="tel"><svg class="i"><use href="#ph"/></svg></span><span class="bg"><i></i><i></i><i></i></span></div></div>
+<div class="hero">
+  <div class="half en">
+    <span class="lang">English</span>
+    <h2>Insurance handled by real, local people.</h2>
+    <p class="p">A licensed independent agency in El Paso. We shop our carriers and call you with real options.</p>
+    <div class="a"><div class="btn">Get my free quote <svg class="i"><use href="#ar"/></svg></div></div>
+    <p class="tr"><span class="stars">★★★★★</span> <b>5-star Google reviews</b> · Licensed TX &amp; NM</p>
+  </div>
+  <div class="half es">
+    <div class="pat"></div>
+    <div class="in">
+      <span class="lang">Español</span>
+      <h2>Seguros atendidos por gente de aquí.</h2>
+      <p class="p">Agencia independiente con licencia en El Paso. Comparamos nuestras aseguradoras y te llamamos con opciones reales.</p>
+      <div class="a"><div class="btn wt">Cotiza gratis <svg class="i"><use href="#ar"/></svg></div></div>
+      <p class="tr">📞 <b>915-503-1207</b> · Auto · Casa · Negocio</p>
+    </div>
+  </div>
+</div>
+</body></html>

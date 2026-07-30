@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>H4</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css"><style>
+.hero{padding:18px 0 0;background:linear-gradient(180deg,#fff,var(--ice));min-height:700px;position:relative;overflow:hidden}
+.tx{padding:0 22px}
+.eb{display:inline-block;background:#fff;border:1px solid var(--ice2);color:var(--blue);font-family:'Geist Mono',monospace;
+    font-size:10px;letter-spacing:.11em;text-transform:uppercase;padding:7px 13px;border-radius:999px;font-weight:600}
+h1{font-size:36px;line-height:1.04;letter-spacing:-.035em;font-weight:900;color:var(--navy);margin-top:14px}
+.sub{font-size:15.5px;color:var(--muted);margin-top:12px}
+.acts{margin-top:20px;display:flex;flex-direction:column;gap:10px}
+.tr{margin-top:16px;font-size:13px;color:var(--muted)}
+.tr b{color:var(--navy)}
+.art{margin-top:14px;position:relative;height:224px}
+.art svg{position:absolute;bottom:0;left:0;width:100%;height:224px}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+<symbol id="ph" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h2l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 4 5z"/></symbol>
+<symbol id="ar" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="car" viewBox="0 0 24 24"><path d="M3 13l1.6-4.2A2 2 0 0 1 6.5 7.5h11a2 2 0 0 1 1.9 1.3L21 13M4 13h16v4a1 1 0 0 1-1 1h-1.5M6.5 18H5a1 1 0 0 1-1-1v-4"/><circle cx="7.5" cy="18" r="1.6"/><circle cx="16.5" cy="18" r="1.6"/></symbol>
+<symbol id="home" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6M6 10v9h12v-9M10 19v-5h4v5"/></symbol>
+<symbol id="biz" viewBox="0 0 24 24"><path d="M4 20V8l7-4 7 4v12M4 20h16M9 20v-4h4v4"/></symbol>
+<symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l4 4"/></symbol>
+<symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+</svg>
+<div class="nav"><img src="safehouse-logo.png" alt="Safe House Insurance">
+<div class="nb"><span class="tel"><svg class="i"><use href="#ph"/></svg></span><span class="bg"><i></i><i></i><i></i></span></div></div>
+<div class="hero">
+  <div class="tx">
+    <span class="eb">Independent agency · El Paso, TX</span>
+    <h1>Your car, your home,<br>your work — covered.</h1>
+    <p class="sub">Tell us what you need. We shop the carriers we represent and bring you real options, in English or Spanish.</p>
+    <div class="acts">
+      <div class="btn">Get my free quote <svg class="i"><use href="#ar"/></svg></div>
+      <div class="btn out"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</div>
+    </div>
+    <p class="tr"><span class="stars">★★★★★</span> <b>5-star Google reviews</b> · <b>Se habla español</b></p>
+  </div>
+  <div class="art">
+    <svg viewBox="0 0 390 250" preserveAspectRatio="xMidYMax slice">
+      <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#1666ED"/><stop offset="1" stop-color="#00C2FF"/></linearGradient>
+        <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#DCEAFF"/><stop offset="1" stop-color="#EFF5FF"/></linearGradient></defs>
+      <!-- mountains (El Paso / Franklin range) -->
+      <path d="M0 176 L64 118 L108 156 L162 96 L226 158 L286 112 L340 158 L390 128 L390 250 L0 250 Z" fill="#CBDEFB"/>
+      <path d="M0 200 L58 158 L118 190 L186 142 L250 192 L318 152 L390 196 L390 250 L0 250 Z" fill="#AFCDF7"/>
+      <!-- ground -->
+      <rect x="0" y="206" width="390" height="44" fill="url(#g2)"/>
+      <!-- house -->
+      <g><path d="M52 206 L52 158 L92 130 L132 158 L132 206 Z" fill="url(#g1)"/>
+        <rect x="82" y="176" width="20" height="30" fill="#fff" opacity=".85" rx="2"/>
+        <path d="M46 160 L92 124 L138 160" stroke="#0A2148" stroke-width="7" fill="none" stroke-linecap="round"/></g>
+      <!-- car -->
+      <g transform="translate(178,150)">
+        <path d="M8 44 L18 20 A10 10 0 0 1 27 14 L79 14 A10 10 0 0 1 88 20 L98 44 Z" fill="#0A2148"/>
+        <path d="M26 40 L33 22 L73 22 L80 40 Z" fill="#8CE3FF"/>
+        <rect x="0" y="42" width="106" height="16" rx="8" fill="url(#g1)"/>
+        <circle cx="24" cy="60" r="10" fill="#0A2148"/><circle cx="24" cy="60" r="4" fill="#fff"/>
+        <circle cx="82" cy="60" r="10" fill="#0A2148"/><circle cx="82" cy="60" r="4" fill="#fff"/>
+      </g>
+      <!-- heart badge -->
+      <g transform="translate(300,120)"><circle cx="0" cy="0" r="30" fill="#fff"/>
+        <path d="M0 14 C-9 8 -16 2 -16 -5 C-16 -12 -10 -15 -5 -12 C-2 -10 0 -7 0 -7 C0 -7 2 -10 5 -12 C10 -15 16 -12 16 -5 C16 2 9 8 0 14 Z" fill="url(#g1)"/></g>
+    </svg>
+  </div>
+</div>
+</body></html>

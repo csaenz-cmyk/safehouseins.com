@@ -1,0 +1,35 @@
+:root{
+  --blue:#1666ED; --blue-d:#0F4FBF; --blue-dd:#0A3A8F; --cyan:#00C2FF;
+  --navy:#0A2148; --navy2:#061530; --ink:#0E1726; --muted:#5C6A80;
+  --line:#E5EBF6; --ice:#EFF5FF; --ice2:#DCEAFF;
+  --grad:linear-gradient(115deg,#1666ED,#00C2FF);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Figtree',system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.5;
+     -webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+svg.i{width:1em;height:1em;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--grad);color:#fff;border:none;
+     border-radius:14px;padding:16px;font-weight:800;font-size:16.5px;width:100%;font-family:inherit;
+     box-shadow:0 14px 28px -12px rgba(22,102,237,.65)}
+.btn.solid{background:var(--blue)}
+.btn.out{background:#fff;color:var(--navy);border:2px solid var(--line);box-shadow:none}
+.btn.wt{background:#fff;color:var(--blue);box-shadow:0 14px 28px -16px rgba(0,0,0,.4)}
+.btn.gh{background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.4);color:#fff;box-shadow:none}
+.btn.dark{background:var(--navy);color:#fff;box-shadow:0 14px 28px -14px rgba(10,33,72,.7)}
+.btn.pill{border-radius:999px}
+/* shared nav shells */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+.nav img{height:29px}
+.nav.dk img{filter:brightness(0) invert(1)}
+.nb{display:flex;gap:8px}
+.tel,.bg{width:41px;height:41px;border-radius:12px;display:grid;place-items:center}
+.tel{background:var(--grad);color:#fff;font-size:17px}
+.bg{border:2px solid var(--line);flex-direction:column;gap:4px}
+.bg i{display:block;width:16px;height:2.2px;background:var(--navy);border-radius:2px}
+.nav.dk .bg{border-color:rgba(255,255,255,.32);background:rgba(255,255,255,.1)}
+.nav.dk .bg i{background:#fff}
+.nav.dk .tel{background:#fff;color:var(--blue)}
+.stars{color:#FFC53D;letter-spacing:1px}
+.mono{font-family:'Geist Mono',monospace}
