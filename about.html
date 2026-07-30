@@ -24,8 +24,20 @@
     <nav>
       <a href="index.html"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
       <div class="links"><a href="auto.html">Auto</a><a href="home-insurance.html">Home</a><a href="commercial.html">Commercial</a><a href="about.html" class="active">About</a><a href="index.html#faq">FAQ</a></div>
-      <div class="nav-cta"><a class="signin" href="contact.html">Contact</a><a class="btn white sm" href="contact.html#quote">Get a quote</a></div>
+      <div class="nav-cta"><a class="signin" href="contact.html">Contact</a><a class="btn white sm" href="contact.html#quote">Get a quote</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button></div>
     </nav>
+
+  <div class="drawer" id="drawer">
+    <a href="index.html">Home</a>
+    <a href="auto.html">Auto</a>
+    <a href="home-insurance.html">Home insurance</a>
+    <a href="commercial.html">Commercial</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a class="btn white" href="tel:+19155031207">📞 Call 915-503-1207</a>
+    <a class="dr-mail" href="mailto:contact@safehouseins.com">contact@safehouseins.com · 🇲🇽 Se habla español</a>
+  </div>
+
     <div class="subhero-inner">
       <div class="crumbs"><a href="index.html">Home</a> / About</div>
       <h1>The modern way<br><span class="it">to insure.</span></h1>
@@ -108,5 +120,24 @@
     const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   </script>
+
+<script>
+  (function(){
+    var burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
+    if(!burger||!drawer)return;
+    function setMenu(open){
+      if(open){var r=document.querySelector('nav').getBoundingClientRect();
+        drawer.style.paddingTop=Math.max(r.bottom+20,90)+'px';}
+      burger.classList.toggle('on',open);drawer.classList.toggle('on',open);
+      document.body.classList.toggle('locked',open);
+      burger.setAttribute('aria-expanded',open);
+      burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+    }
+    burger.addEventListener('click',function(){setMenu(!drawer.classList.contains('on'));});
+    Array.prototype.forEach.call(drawer.querySelectorAll('a'),function(a){a.addEventListener('click',function(){setMenu(false);});});
+    addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
+    addEventListener('resize',function(){if(innerWidth>960)setMenu(false);});
+  })();
+</script>
 </body>
 </html>

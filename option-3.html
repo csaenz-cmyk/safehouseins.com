@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#070B14">
 <title>Safe House Insurance — Option 3</title>
 <meta name="description" content="Safe House Insurance — the modern way to insure. Auto, home & commercial in El Paso, TX. Already insured? We'll help you switch & save.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -150,6 +151,65 @@
   footer{background:var(--ink);color:#8e9bb3;padding:50px 0 30px}
   .fbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;border-top:1px solid rgba(255,255,255,.08);padding-top:24px;font-size:13.5px}
   footer .logo{height:26px;filter:brightness(0) invert(1)}
+
+  /* ================= MOBILE NAV + RESPONSIVE ================= */
+  .burger{display:none;width:44px;height:44px;border-radius:14px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.12);backdrop-filter:blur(8px);cursor:pointer;flex-direction:column;gap:5px;align-items:center;justify-content:center;padding:0}
+  .burger span{display:block;width:18px;height:2px;background:#fff;border-radius:2px;transition:transform .25s,opacity .2s}
+  .burger.on span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.on span:nth-child(2){opacity:0}
+  .burger.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .drawer{position:fixed;left:0;right:0;top:0;z-index:70;background:rgba(6,9,18,.97);backdrop-filter:blur(16px);
+          display:flex;flex-direction:column;padding:96px 22px 26px;transform:translateY(-101%);transition:transform .35s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+  .drawer.on{transform:none;visibility:visible}
+  .drawer a{color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:24px;padding:13px 2px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .drawer .btn{margin-top:20px;justify-content:center;border-bottom:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:16px}
+  .drawer .dr-mail{border-bottom:none;font-size:14px;font-weight:600;color:#8fa3c4;text-align:center;padding-top:14px;font-family:'Plus Jakarta Sans',sans-serif}
+  body.locked{overflow:hidden}
+  .hero-inner>*,.ai-grid>*,.switchgrid>*,.steps>*,.bento>*{min-width:0}
+
+  @media(max-width:1024px){ section{padding:64px 0} .hero{padding:120px 0 96px} }
+  @media(max-width:980px){
+    .burger{display:flex}
+    .topbar{display:none}
+    nav{position:fixed;top:0;z-index:80;padding:12px 16px;background:rgba(6,9,18,.74);backdrop-filter:blur(12px)}
+    .hero{padding:104px 0 84px}
+    h1.hh{font-size:clamp(40px,9.2vw,64px)}
+    .lede{font-size:17px}
+    .glass{padding:18px;border-radius:22px}
+    .sheet{border-radius:30px 30px 0 0}
+  }
+  @media(max-width:760px){
+    .wrap{padding:0 18px}
+    section{padding:52px 0}
+    .h2{font-size:clamp(30px,7.8vw,44px)}
+    .sec-lede{font-size:16px}
+    .qr{padding:11px;gap:8px}
+    .qr .nm{min-width:0;font-size:13px}
+    .qr .pr{font-size:14px}
+    .step,.cell{padding:24px}
+    .cell h4{font-size:24px}.cell.feat h4{font-size:30px}
+    .cta{padding:52px 20px;border-radius:26px}
+    #how{margin:0 8px;border-radius:30px}
+    .fbar{flex-direction:column;text-align:center;gap:12px}
+    .switcher{left:10px;right:auto;bottom:10px}
+    .avs{font-size:13px}
+  }
+  @media(max-width:560px){
+    /* compact 2-up switch cards instead of 5 tall stacked ones */
+    .switchgrid{grid-template-columns:1fr 1fr;gap:10px}
+    .switchgrid .scard:last-child{grid-column:span 2}
+    .scard{padding:16px 12px;text-align:center}
+    .scard .co{justify-content:center;font-size:12.5px}
+    .scard .pct{font-size:30px}
+    .scard .lbl{font-size:11px}
+    .hero-actions{width:100%}
+    .hero-actions .btn{width:100%;justify-content:center}
+    .drawer a{font-size:21px}
+  }
+  @media(hover:none){ .step:hover,.cell:hover,.scard:hover{transform:none} }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  }
 </style>
 </head>
 <body>
@@ -196,8 +256,18 @@
     <nav>
       <a href="index.html"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
       <div class="links"><a href="#switch">Switch &amp; save</a><a href="#how">How it works</a><a href="#coverage">Coverage</a><a href="#cta">Contact</a></div>
-      <div class="nav-cta"><a class="signin" href="#cta">Contact</a><a class="btn white sm magnetic" href="#cta">Get a quote</a></div>
+      <div class="nav-cta"><a class="signin" href="#cta">Contact</a><a class="btn white sm magnetic" href="#cta">Get a quote</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button></div>
     </nav>
+
+    <div class="drawer" id="drawer">
+      <a href="#switch">Switch &amp; save</a>
+      <a href="#how">How it works</a>
+      <a href="#coverage">Coverage</a>
+      <a href="#cta">Contact</a>
+      <a class="btn glow" href="tel:+19155031207" style="background:var(--grad2);color:#fff">📞 Call 915-503-1207</a>
+      <a class="dr-mail" href="mailto:contact@safehouseins.com">contact@safehouseins.com · 🇲🇽 Se habla español</a>
+    </div>
+
 
     <div class="wrap hero-inner">
       <div>
@@ -293,12 +363,26 @@
   const pr=document.getElementById('progress');
   addEventListener('scroll',()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight);pr.style.width=(p*100)+'%';},{passive:true});
 
+  // mobile drawer
+  const burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
+  function setMenu(open){
+    if(open){const r=document.querySelector('nav').getBoundingClientRect();
+      drawer.style.paddingTop=Math.max(r.bottom+20,90)+'px';}
+    burger.classList.toggle('on',open);drawer.classList.toggle('on',open);
+    document.body.classList.toggle('locked',open);
+    burger.setAttribute('aria-expanded',open);burger.setAttribute('aria-label',open?'Close menu':'Open menu');}
+  burger.addEventListener('click',()=>setMenu(!drawer.classList.contains('on')));
+  drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+  addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+  addEventListener('resize',()=>{if(innerWidth>980)setMenu(false)});
+  const canHover=matchMedia('(hover: hover) and (pointer: fine)').matches;
+
   // cursor glow + chip parallax in hero
   const hero=document.getElementById('hero'),glow=document.getElementById('glow'),chips=[...document.querySelectorAll('.chip')];
   // gentle idle float
   let t=0; (function idle(){t+=0.016; chips.forEach((c,i)=>{const d=+c.dataset.depth; c.style.setProperty('--fy', Math.sin(t+i)*d*1.2+'px');}); requestAnimationFrame(idle);})();
   chips.forEach(c=>c.style.transform='translateY(var(--fy,0))');
-  hero.addEventListener('mousemove',e=>{
+  if(canHover) hero.addEventListener('mousemove',e=>{
     const r=hero.getBoundingClientRect(),mx=(e.clientX-r.left)/r.width-.5,my=(e.clientY-r.top)/r.height-.5;
     glow.style.opacity=1; glow.style.left=(e.clientX-r.left)+'px'; glow.style.top=(e.clientY-r.top)+'px';
     chips.forEach(c=>{const d=+c.dataset.depth; c.style.transform=`translate(${mx*d*8}px, calc(var(--fy,0px) + ${my*d*8}px))`;});
@@ -306,7 +390,7 @@
   hero.addEventListener('mouseleave',()=>{glow.style.opacity=0;chips.forEach(c=>c.style.transform='translateY(var(--fy,0))');});
 
   // magnetic buttons
-  document.querySelectorAll('.magnetic').forEach(b=>{
+  if(canHover) document.querySelectorAll('.magnetic').forEach(b=>{
     b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px, ${(e.clientY-r.top-r.height/2)*.35}px)`;});
     b.addEventListener('mouseleave',()=>b.style.transform='');
   });

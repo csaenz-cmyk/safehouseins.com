@@ -232,3 +232,75 @@
   .covc:hover .ico{transform:rotate(-6deg) scale(1.08);background:var(--grad2)}
   .covc h4{font-size:20px;font-weight:800;margin-top:18px}
   .covc p{color:var(--muted);font-size:14.5px;margin-top:8px}
+
+
+  /* ================= MOBILE NAV + RESPONSIVE (shared) ================= */
+  .burger{display:none;width:44px;height:44px;border-radius:14px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.14);backdrop-filter:blur(8px);cursor:pointer;flex-direction:column;gap:5px;align-items:center;justify-content:center;padding:0}
+  .burger span{display:block;width:18px;height:2px;background:#fff;border-radius:2px;transition:transform .25s,opacity .2s}
+  .burger.on span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.on span:nth-child(2){opacity:0}
+  .burger.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .drawer{position:fixed;left:0;right:0;top:0;z-index:70;background:rgba(8,14,28,.97);backdrop-filter:blur(16px);
+          display:flex;flex-direction:column;padding:96px 22px 26px;transform:translateY(-101%);transition:transform .35s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+  .drawer.on{transform:none;visibility:visible}
+  .drawer a{color:#fff;font-weight:700;font-size:23px;padding:13px 2px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .drawer .btn{margin-top:20px;justify-content:center;border-bottom:none;font-size:16px}
+  .drawer .dr-mail{border-bottom:none;font-size:14px;font-weight:600;color:#9fb0cc;text-align:center;padding-top:14px}
+  body.locked{overflow:hidden}
+
+  /* grid children must be allowed to shrink (fixes min-content overflow) */
+  .split>*,.ai-grid>*,.cgrid>*,.hero-inner>*,.prods>*,.whygrid>*,.tests>*,.steps>*,.cov>*{min-width:0}
+
+  @media(max-width:1024px){
+    section{padding:70px 0}
+    .hero{padding:120px 0 150px}
+    .subhero{padding:120px 0 100px}
+  }
+  @media(max-width:960px){
+    .burger{display:flex}
+    .topbar{display:none}
+    nav{position:fixed;top:0;z-index:80;padding:12px 16px;background:rgba(8,14,28,.72);backdrop-filter:blur(12px)}
+    .hero{padding:110px 0 130px}
+    .subhero{padding:110px 0 90px}
+    h1.hero-h,.subhero h1{font-size:clamp(40px,9.4vw,64px)}
+    .lede,.subhero p{font-size:17px}
+    .quote,.chat{padding:20px;border-radius:22px}
+    .cta,.contact .ccard{border-radius:26px}
+  }
+  @media(max-width:760px){
+    .wrap{padding:0 18px}
+    section{padding:56px 0}
+    .h2{font-size:clamp(30px,7.8vw,44px)}
+    .sec-lede{font-size:16px}
+    .split{grid-template-columns:minmax(0,1fr);gap:26px}
+    .panel{padding:22px;border-radius:22px}
+    .scanner{padding:16px;border-radius:20px}
+    .qrow{padding:11px;gap:8px;border-radius:12px}
+    .qrow .name{min-width:0;font-size:13px}
+    .qrow .pr{min-width:auto;font-size:14px}
+    .prod,.step,.feat-c,.test,.covc{padding:24px}
+    .prod h4{font-size:27px}.prod.feat h4{font-size:33px}
+    .marquee span,.carriers span{font-size:18px}
+    .statgrid .st b{font-size:clamp(34px,9vw,46px)}
+    .cta{padding:52px 20px}
+    .faq summary{padding:18px;font-size:16px}
+    .faq .ans{padding:0 18px 18px;font-size:15px}
+    .fgrid{grid-template-columns:1fr;gap:26px;text-align:center}
+    .fgrid p{max-width:100%!important;margin-left:auto;margin-right:auto}
+    .fbot{flex-direction:column;text-align:center;gap:10px}
+    .cinfo a,.cinfo div{font-size:15px}
+    .area-chip{padding:9px 15px;font-size:14px}
+    .switcher{left:10px;right:auto;bottom:10px}
+  }
+  @media(max-width:520px){
+    .hero-actions{width:100%}
+    .hero-actions .btn,.subhero .hero-actions .btn{width:100%;justify-content:center}
+    .tests,.whygrid,.cov,.prods,.extra-prods{grid-template-columns:1fr}
+    .drawer a{font-size:21px}
+  }
+  @media(hover:none){
+    .step:hover,.prod:hover,.test:hover,.covc:hover,.feat-c:hover,.scard:hover{transform:none}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  }

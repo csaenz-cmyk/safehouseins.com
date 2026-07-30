@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1666ED">
 <title>Safe House Insurance — Option 2 (Bento / Interactive)</title>
 <meta name="description" content="Safe House Insurance — all your coverage, beautifully simple. Auto, home & commercial in El Paso, TX. The modern way to insure.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -142,6 +143,62 @@
   footer .logo{height:26px}
 
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}.reveal.in{opacity:1;transform:none}
+
+  /* ================= MOBILE NAV + RESPONSIVE ================= */
+  .burger{display:none;width:42px;height:42px;border-radius:13px;border:1px solid var(--line);background:#fff;cursor:pointer;flex-direction:column;gap:5px;align-items:center;justify-content:center;padding:0}
+  .burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .2s}
+  .burger.on span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.on span:nth-child(2){opacity:0}
+  .burger.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .drawer{position:fixed;left:0;right:0;top:0;z-index:70;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);
+          display:flex;flex-direction:column;padding:96px 22px 26px;transform:translateY(-101%);transition:transform .35s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+  .drawer.on{transform:none;visibility:visible}
+  .drawer a{font-family:'General Sans',sans-serif;font-weight:600;font-size:24px;padding:13px 2px;border-bottom:1px solid var(--line)}
+  .drawer .btn{margin-top:20px;justify-content:center;border-bottom:none;font-size:16px}
+  .drawer .dr-mail{border-bottom:none;font-size:14px;font-weight:600;color:var(--muted);text-align:center;padding-top:14px}
+  body.locked{overflow:hidden}
+  .bento>*,.prods>*,.tests>*{min-width:0}
+
+  @media(max-width:1024px){ section{padding:52px 0} }
+  @media(max-width:900px){
+    .burger{display:flex}
+    nav{position:fixed;top:0;left:0;right:0;max-width:100%;border-radius:0;border-left:none;border-right:none;border-top:none;padding:10px 14px;margin:0;z-index:80}
+    .hero{padding:104px 0 24px}
+    .tip{display:none}
+    .fan{transform:translateX(-50%) scale(.62)}
+    .fanwrap{height:320px;margin-top:16px}
+    .nav-cta .btn.white{display:none}
+  }
+  @media(max-width:760px){
+    .wrap{padding:0 18px}
+    section{padding:46px 0}
+    .hero h1{font-size:clamp(36px,8.6vw,58px)}
+    .hero .lede{font-size:17px}
+    .band .row span{font-size:26px;gap:22px}
+    .band .chip{width:42px;height:42px;font-size:20px}
+    .cell{padding:20px;border-radius:20px}
+    .cell h4{font-size:19px}
+    .slide{padding:28px;min-height:250px;border-radius:22px}
+    .carriers{gap:20px}.carriers span{font-size:18px}
+    .cta{padding:52px 20px;border-radius:26px}
+    .switcher{left:10px;right:auto;bottom:10px}
+    .fbar{flex-direction:column;text-align:center}
+  }
+  @media(max-width:560px){
+    .fan{transform:translateX(-50%) scale(.46)}
+    .fanwrap{height:262px}
+    .bento{grid-template-columns:1fr;grid-auto-rows:auto}
+    .c-wide{grid-column:span 1}
+    .c-tall{grid-row:span 1}
+    .cell{min-height:150px}
+    .hero-actions{width:100%}
+    .hero-actions .btn{width:100%;justify-content:center}
+    .drawer a{font-size:21px}
+  }
+  @media(hover:none){ .cell:hover,.test:hover,.step:hover{transform:none} }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  }
 </style>
 </head>
 <body>
@@ -156,8 +213,18 @@
   <nav>
     <a href="index.html"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
     <div class="links"><a href="#coverage">Coverage</a><a href="#why">Why us</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></div>
-    <div class="nav-cta"><a class="btn white" href="tel:+19155031207">📞 915-503-1207</a><a class="btn dark" href="#contact">Get a quote</a></div>
+    <div class="nav-cta"><a class="btn white" href="tel:+19155031207">📞 915-503-1207</a><a class="btn dark" href="#contact">Get a quote</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button></div>
   </nav>
+
+  <div class="drawer" id="drawer">
+    <a href="#coverage">Coverage</a>
+    <a href="#why">Why us</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Contact</a>
+    <a class="btn blue" href="tel:+19155031207">📞 Call 915-503-1207</a>
+    <a class="dr-mail" href="mailto:contact@safehouseins.com">contact@safehouseins.com · 🇲🇽 Se habla español</a>
+  </div>
+
 
   <!-- HERO -->
   <header class="hero">
@@ -298,21 +365,35 @@
   }
   // entrance
   requestAnimationFrame(()=>{ setTimeout(()=>{ fan.classList.add('show'); place(); document.querySelectorAll('.tip').forEach(t=>t.style.opacity=1); },150); });
-  // parallax
+  // parallax (pointer devices only)
+  const canHover=matchMedia('(hover: hover) and (pointer: fine)').matches;
   const fw=document.getElementById('fanwrap');
-  fw.addEventListener('mousemove',e=>{ if(!fan.classList.contains('show'))return; const r=fw.getBoundingClientRect(); const mx=((e.clientX-r.left)/r.width-.5)*2; const my=((e.clientY-r.top)/r.height-.5)*2; place(0,mx,my); });
+  if(canHover) fw.addEventListener('mousemove',e=>{ if(!fan.classList.contains('show'))return; const r=fw.getBoundingClientRect(); const mx=((e.clientX-r.left)/r.width-.5)*2; const my=((e.clientY-r.top)/r.height-.5)*2; place(0,mx,my); });
   fw.addEventListener('mouseleave',()=>place());
   // hover lift per card
-  cards.forEach(c=>{ c.addEventListener('mouseenter',()=>{ const x=+c.dataset.x,y=+c.dataset.y,r=+c.dataset.r; c.style.transform=`translate(${x}px, ${y-34}px) rotate(0deg) scale(1.07)`; });
+  if(canHover) cards.forEach(c=>{ c.addEventListener('mouseenter',()=>{ const x=+c.dataset.x,y=+c.dataset.y,r=+c.dataset.r; c.style.transform=`translate(${x}px, ${y-34}px) rotate(0deg) scale(1.07)`; });
     c.addEventListener('mouseleave',()=>place()); });
 
-  // CAROUSEL
+  // mobile drawer
+  const burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
+  function setMenu(open){
+    if(open){const r=document.querySelector('nav').getBoundingClientRect();
+      drawer.style.paddingTop=Math.max(r.bottom+20,90)+'px';}
+    burger.classList.toggle('on',open);drawer.classList.toggle('on',open);
+    document.body.classList.toggle('locked',open);
+    burger.setAttribute('aria-expanded',open);burger.setAttribute('aria-label',open?'Close menu':'Open menu');}
+  burger.addEventListener('click',()=>setMenu(!drawer.classList.contains('on')));
+  drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+  addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+  addEventListener('resize',()=>{if(innerWidth>900)setMenu(false)});
+
+  // CAROUSEL (offset-based so the flex gap can't drift the slides)
   const track=document.getElementById('track'); let ci=0; const slides=track.children.length;
-  function go(n){ ci=(n+slides)%slides; track.scrollTo({left:ci*track.clientWidth,behavior:'smooth'}); }
+  function go(n){ ci=(n+slides)%slides; track.scrollTo({left:track.children[ci].offsetLeft-track.offsetLeft,behavior:'smooth'}); }
   document.getElementById('next').onclick=()=>go(ci+1);
   document.getElementById('prev').onclick=()=>go(ci-1);
   setInterval(()=>go(ci+1),5000);
-  window.addEventListener('resize',()=>track.scrollTo({left:ci*track.clientWidth}));
+  window.addEventListener('resize',()=>track.scrollTo({left:track.children[ci].offsetLeft-track.offsetLeft}));
 
   // reveal
   const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14});
