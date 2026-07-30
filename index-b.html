@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A2148">
+<title>Safe House Insurance | Auto, Home &amp; Commercial in El Paso, TX</title>
+<!-- option B: animated line-art hero -->
+<meta name="description" content="Safe House Insurance is a licensed independent agency in El Paso, TX. We shop Progressive, Geico, Lemonade, Alinsco and Commonwealth for auto, home, commercial and life — and a licensed bilingual agent calls you with real options. SR-22 and high-risk welcome. Se habla español.">
+<link rel="canonical" href="https://safehouseins.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Safe House Insurance | El Paso, TX">
+<meta property="og:description" content="A licensed independent agency in El Paso. We shop our carriers and a bilingual agent calls you with real options. Se habla español.">
+<meta property="og:image" content="https://safehouseins.com/assets/hero-photo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/safehouse-heart.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="assets/art-auto.png">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1666ED; --blue-d:#0F4FBF; --cyan:#00C2FF; --cyan-l:#7FE0FF;
+    --navy:#0A2148; --navy2:#061530; --ink:#0E1726; --muted:#5C6A80;
+    --line:#E5EBF6; --ice:#EFF5FF; --ice2:#DCEAFF;
+    --grad:linear-gradient(115deg,#1666ED,#00C2FF);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Figtree',system-ui,-apple-system,sans-serif;color:var(--ink);background:#fff;line-height:1.55;
+       -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{text-decoration:none;color:inherit;-webkit-tap-highlight-color:transparent}
+  img{max-width:100%}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+  svg.i{width:1em;height:1em;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .gt{background:linear-gradient(100deg,#7FE0FF,#4A9CFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .gtd{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--blue);color:#fff;border:none;
+       border-radius:999px;padding:16px 30px;font-weight:800;font-size:16.5px;font-family:inherit;cursor:pointer;
+       transition:transform .18s,filter .18s;box-shadow:0 14px 30px -12px rgba(22,102,237,.8)}
+  .btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
+  .btn.grad{background:var(--grad)}
+  .btn.wt{background:#fff;color:var(--blue-d);box-shadow:0 14px 30px -16px rgba(0,0,0,.45)}
+  .btn.gh{background:rgba(255,255,255,.16);color:#fff;border:1.5px solid rgba(255,255,255,.42);box-shadow:none;backdrop-filter:blur(8px)}
+  .btn.out{background:#fff;color:var(--navy);border:2px solid var(--line);box-shadow:none}
+  .btn.full{width:100%}
+
+  /* ================= HERO (option B: animated line art) =================
+     The product illustrations sit on top and hand off to each other with a soft
+     left-to-right mask sweep, so each drawing looks like it is being inked in.
+     The headline word under them changes with the drawing. */
+  .hero{position:relative;overflow:hidden;padding-bottom:38px;
+    background:radial-gradient(130% 78% at 50% -6%,#E6F0FF 0%,#F5F9FF 44%,#fff 76%)}
+  .hero .mesh{position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(rgba(22,102,237,.06) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(22,102,237,.06) 1px,transparent 1px);
+    background-size:52px 52px;
+    -webkit-mask-image:radial-gradient(78% 62% at 50% 26%,#000,transparent);
+    mask-image:radial-gradient(78% 62% at 50% 26%,#000,transparent)}
+
+  header nav{position:relative;z-index:70;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 22px}
+  .logo{height:34px;display:block}
+  .links{display:none;gap:26px;align-items:center}
+  .links a{color:#2b3a52;font-weight:600;font-size:15px;white-space:nowrap}
+  .links a:hover{color:var(--blue)}
+  .navr{display:flex;gap:9px;align-items:center}
+  .tel{display:inline-flex;align-items:center;gap:8px;background:var(--grad);color:#fff;font-weight:800;font-size:14.5px;
+       padding:11px 17px;border-radius:999px;white-space:nowrap;box-shadow:0 12px 24px -14px rgba(22,102,237,.9)}
+  .burger{width:46px;height:46px;border-radius:14px;background:#fff;border:1.6px solid var(--line);
+      display:flex;flex-direction:column;gap:5px;align-items:center;justify-content:center;
+      flex:0 0 auto;cursor:pointer;padding:0}
+  .burger span{display:block;width:18px;height:2.2px;background:var(--navy);border-radius:2px;transition:transform .25s,opacity .2s}
+  .burger.on span:nth-child(1){transform:translateY(7.2px) rotate(45deg)}
+  .burger.on span:nth-child(2){opacity:0}
+  .burger.on span:nth-child(3){transform:translateY(-7.2px) rotate(-45deg)}
+  .drawer{position:fixed;left:0;right:0;top:0;z-index:60;background:var(--navy2);display:flex;flex-direction:column;
+      padding:96px 22px 26px;transform:translateY(-101%);transition:transform .35s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+  .drawer.on{transform:none;visibility:visible}
+  .drawer a{color:#fff;font-weight:800;font-size:22px;padding:14px 2px;border-bottom:1px solid rgba(255,255,255,.14)}
+  .drawer .btn{margin-top:20px;border-bottom:none;font-size:16px}
+  .drawer .dm{border-bottom:none;font-size:14px;font-weight:600;color:#93a9cc;text-align:center;padding-top:14px}
+  body.locked{overflow:hidden}
+
+  /* ---- the drawing stage ---- */
+  .stage{position:relative;z-index:5;margin-top:6px}
+  .paper{position:relative;width:110%;margin-left:-5%;aspect-ratio:1400/800;overflow:hidden}
+  .paper::before{content:"";position:absolute;left:50%;top:52%;translate:-50% -50%;
+      width:74%;aspect-ratio:1;border-radius:50%;pointer-events:none;
+      background:radial-gradient(circle,rgba(22,102,237,.13),rgba(0,194,255,.05) 46%,transparent 68%)}
+  .art{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;
+      transform:translateX(12px) scale(1.025);
+      -webkit-mask-image:linear-gradient(90deg,#000 40%,rgba(0,0,0,0) 58%);
+              mask-image:linear-gradient(90deg,#000 40%,rgba(0,0,0,0) 58%);
+      -webkit-mask-size:250% 100%;mask-size:250% 100%;
+      -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+      -webkit-mask-position:100% 0;mask-position:100% 0;
+      transition:opacity .3s ease,transform .95s cubic-bezier(.2,.8,.2,1),
+                 -webkit-mask-position 1.05s cubic-bezier(.42,.18,.58,.86),mask-position 1.05s cubic-bezier(.42,.18,.58,.86)}
+  .art.on{opacity:1;transform:none;-webkit-mask-position:0 0;mask-position:0 0}
+  /* the pen: a hairline that runs ahead of the ink */
+  .pen{position:absolute;top:8%;bottom:8%;width:2px;left:0;opacity:0;border-radius:2px;
+      background:linear-gradient(180deg,transparent,var(--blue),transparent);
+      box-shadow:0 0 14px 3px rgba(22,102,237,.45)}
+  .pen.go{animation:ink 1.05s cubic-bezier(.42,.18,.58,.86)}
+  @keyframes ink{0%{opacity:0;left:0}10%{opacity:1}88%{opacity:1}100%{opacity:0;left:100%}}
+
+  /* ---- product tabs, doubling as the carousel control ---- */
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;padding:0 22px;justify-content:center}
+  .tb{position:relative;flex:0 0 auto;border:1.6px solid var(--line);background:#fff;border-radius:999px;
+      padding:8px 13px;font-family:inherit;font-size:12px;font-weight:800;color:#63728a;cursor:pointer;
+      overflow:hidden;transition:color .25s,border-color .25s}
+  .tb.on{color:var(--blue-d);border-color:#BBD5FF}
+  .tb i{position:absolute;left:0;bottom:0;height:2.5px;width:0;background:var(--grad);border-radius:2px}
+  .tb.on i{animation:tick var(--dwell,4200ms) linear forwards}
+  @keyframes tick{from{width:0}to{width:100%}}
+
+  .hbody{position:relative;z-index:5;padding:24px 22px 0}
+  .eb{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;
+      letter-spacing:.12em;text-transform:uppercase;color:var(--blue-d);background:#fff;
+      border:1px solid #D8E6FF;padding:7px 13px;border-radius:999px}
+  h1{font-size:clamp(38px,10.2vw,58px);line-height:1.02;letter-spacing:-.035em;font-weight:900;color:var(--navy);margin-top:16px}
+  .rot{display:block;position:relative;height:1.12em;overflow:hidden}
+  .rot span{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(70%);white-space:nowrap;
+      transition:opacity .3s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
+  .rot span.on{opacity:1;transform:none}
+  .rot span.out{opacity:0;transform:translateY(-70%)}
+  .hsub{font-size:16.5px;color:#4a5a72;margin-top:14px;max-width:36ch;font-weight:500}
+  .hacts{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+  .badges{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:18px}
+  .bd{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:9px;
+      box-shadow:0 16px 30px -26px rgba(10,33,72,.6)}
+  .bd .ic{width:30px;height:30px;border-radius:10px;background:var(--ice);display:grid;place-items:center;flex:0 0 auto;font-size:15px;line-height:1}
+  .bd .ic.st{color:#F0A82C}
+  .bd b{display:block;font-size:12.5px;color:var(--navy);line-height:1.2;white-space:nowrap}
+  .bd>span span{font-size:10.5px;color:var(--muted);font-weight:600;white-space:nowrap}
+
+  /* ================= KINETIC SCROLL STATEMENT =================
+     A tall scroll track with a sticky, full-height stage. Everything inside is driven
+     by one scroll-progress value (see the JS at the bottom): the three giant lines slide
+     in from alternating sides and unmask, the carrier names stream past behind them, and
+     the payoff line + button arrive last. Transforms/opacity only, one rAF loop. */
+  .kin{position:relative;height:230vh;padding:0;background:var(--navy2);color:#fff}
+  .kstage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;
+      display:flex;flex-direction:column;justify-content:center;padding:0 18px}
+  .kglow{position:absolute;left:50%;top:46%;width:min(150vw,1100px);aspect-ratio:1;transform:translate(-50%,-50%) scale(.5);
+      background:radial-gradient(circle,rgba(22,102,237,.55) 0%,rgba(0,194,255,.14) 38%,transparent 66%);
+      opacity:.9;pointer-events:none;will-change:transform}
+  .kgrid{position:absolute;inset:0;pointer-events:none;opacity:.35;
+      background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+                       linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+      background-size:64px 64px;mask-image:radial-gradient(70% 60% at 50% 45%,#000,transparent)}
+  /* carrier names streaming behind the type */
+  .kmar{position:absolute;left:0;right:0;display:flex;gap:34px;white-space:nowrap;pointer-events:none;
+      font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+      color:rgba(255,255,255,.20);will-change:transform}
+  .kmar.a{top:16%} .kmar.b{bottom:17%}
+  .kmar span{flex:0 0 auto;display:flex;align-items:center;gap:34px}
+  .kmar span::after{content:"◆";font-size:8px;color:rgba(0,194,255,.5)}
+
+  .klines{position:relative;z-index:2}
+  .kl{transform-origin:left center}
+  .kl{display:block;font-size:clamp(38px,min(13vw,15.5vh),152px);line-height:1.02;letter-spacing:-.045em;font-weight:900;text-transform:uppercase;
+      white-space:nowrap;opacity:0;will-change:transform,clip-path;
+      -webkit-clip-path:inset(0 0 104% 0);clip-path:inset(0 0 104% 0)}
+  .kl:nth-child(2){margin-left:6%}
+  .kl:nth-child(3){margin-left:11%}
+  .kl.hollow{color:transparent;-webkit-text-stroke:1.6px rgba(255,255,255,.62);
+      transition:color .55s ease,-webkit-text-stroke-color .55s ease}
+  .kl.hollow.lit{color:#fff;-webkit-text-stroke-color:rgba(255,255,255,0)}
+  .kl.fill{background:linear-gradient(100deg,#4E9BFF,#00E0FF 62%,#8FF0FF);
+      -webkit-background-clip:text;background-clip:text;color:transparent}
+  .kl i{font-style:normal;display:inline-block}
+  .keb{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+      font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+      color:#9fd0ff;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);
+      padding:7px 13px;border-radius:999px;margin-bottom:20px;opacity:0;will-change:transform}
+  .keb img{width:12px;filter:brightness(0) invert(1)}
+  .kpay{position:relative;z-index:2;margin-top:26px;max-width:40ch;opacity:0;will-change:transform}
+  .kpay p{font-size:16px;color:#c3d6f2;font-weight:500;line-height:1.55}
+  .kpay .btn{margin-top:18px}
+  .kbar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.10);z-index:3}
+  .kbar i{display:block;height:100%;width:0;background:var(--grad)}
+
+  /* ================= SECTIONS ================= */
+  section{padding:56px 0}
+  .kick{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;
+      letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+  .kick img{width:13px}
+  h2{font-size:clamp(28px,6.6vw,44px);line-height:1.06;letter-spacing:-.032em;font-weight:900;color:var(--navy);margin-top:10px}
+  .sl{font-size:16px;color:var(--muted);margin-top:12px;font-weight:500}
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .7s cubic-bezier(.2,.8,.2,1)}
+  .rv.in{opacity:1;transform:none}
+
+  .car{background:var(--navy2);padding:26px 0 28px;text-align:center}
+  .car p{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#7f94b5}
+  .car .r{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+  .car .r span{font-size:15px;font-weight:800;color:rgba(255,255,255,.8)}
+
+  .steps{margin-top:22px}
+  .st{background:var(--ice);border-radius:20px;padding:20px;margin-top:11px;display:flex;gap:14px;align-items:flex-start}
+  .st .n{width:36px;height:36px;border-radius:12px;background:var(--grad);color:#fff;display:grid;place-items:center;
+      font-weight:900;font-size:15px;flex:0 0 auto}
+  .st b{font-size:17.5px;font-weight:800;color:var(--navy);display:block}
+  .st p{font-size:14.5px;color:var(--muted);margin-top:3px;font-weight:500}
+
+  .cov{display:grid;gap:11px;margin-top:20px}
+  .cc{border:2px solid var(--line);border-radius:20px;padding:20px;display:flex;gap:13px;align-items:center;transition:.22s}
+  .cc:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 22px 44px -28px rgba(22,102,237,.5)}
+  .cc.f{background:var(--navy);border-color:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .cc.f::after{content:"";position:absolute;inset:0;background:radial-gradient(240px 160px at 90% 8%,rgba(0,194,255,.32),transparent 62%)}
+  .cc .ic{width:46px;height:46px;border-radius:14px;background:var(--ice);color:var(--blue);display:grid;place-items:center;
+      font-size:21px;flex:0 0 auto;position:relative}
+  .cc.f .ic{background:rgba(255,255,255,.15);color:#fff}
+  .cc b{font-size:17.5px;font-weight:800;display:block;position:relative}
+  .cc small{font-size:13px;color:var(--muted);position:relative}
+  .cc.f small{color:#a9c3ea}
+  .cc .go{margin-left:auto;color:var(--blue);font-size:18px;position:relative;flex:0 0 auto}
+  .cc.f .go{color:var(--cyan-l)}
+
+  .why{background:var(--ice)}
+  .wg{display:grid;gap:11px;margin-top:20px}
+  .wc{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}
+  .wc .ic{width:42px;height:42px;border-radius:13px;background:var(--ice);color:var(--blue);display:grid;place-items:center;font-size:19px}
+  .wc b{display:block;font-size:16.5px;font-weight:800;color:var(--navy);margin-top:12px}
+  .wc p{font-size:14.5px;color:var(--muted);margin-top:5px;font-weight:500}
+
+  .revs{margin-top:20px}
+  .rw{background:#fff;border:2px solid var(--line);border-radius:20px;padding:20px;margin-top:11px}
+  .rw .s{color:#F0A82C;letter-spacing:2px;font-size:13.5px}
+  .rw p{font-size:15.5px;margin-top:9px;font-weight:500;color:#2b3849}
+  .rw .who{display:flex;align-items:center;gap:10px;margin-top:14px}
+  .rw .av{width:34px;height:34px;border-radius:11px;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:900;font-size:14px}
+  .rw .who b{font-size:14px;color:var(--navy);display:block}
+  .rw .who span{font-size:11.5px;color:var(--muted)}
+
+  .bil{background:var(--grad);color:#fff;padding:44px 0;text-align:center;position:relative;overflow:hidden}
+  .bil .pat{position:absolute;inset:0;opacity:.09;background-image:url("assets/safehouse-heart.png");background-size:80px;filter:brightness(0) invert(1)}
+  .bil .in{position:relative;padding:0 22px}
+  .bil h2{color:#fff}
+  .bil p{font-size:16px;margin-top:10px;color:rgba(255,255,255,.94);max-width:40ch;margin-left:auto;margin-right:auto}
+  .bil .btn{margin-top:18px}
+
+  /* quote form */
+  .qs{background:var(--navy2);color:#fff;position:relative;overflow:hidden}
+  .qs::before{content:"";position:absolute;inset:0;background:radial-gradient(340px 240px at 12% 0%,rgba(0,194,255,.24),transparent 62%),radial-gradient(360px 260px at 88% 106%,rgba(22,102,237,.5),transparent 62%)}
+  .qs .in{position:relative}
+  .qs h2{color:#fff}
+  .qs .sl{color:#b3c6e2}
+  .card{background:#fff;border-radius:24px;padding:22px;margin-top:22px;box-shadow:0 34px 70px -34px rgba(0,0,0,.6)}
+  .card .t{display:flex;align-items:center;gap:11px}
+  .card .t img{width:24px}
+  .card .t b{font-size:17px;color:var(--navy);display:block}
+  .card .t small{font-size:12px;color:var(--muted)}
+  .fl{margin-top:13px}
+  .fl label{display:block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .fl input,.fl select,.fl textarea{width:100%;border:2px solid var(--line);border-radius:14px;padding:14px;font-family:inherit;
+      font-size:16px;font-weight:600;color:var(--ink);background:#FBFCFE;outline:none;transition:.15s;-webkit-appearance:none}
+  .fl input:focus,.fl select:focus,.fl textarea:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(22,102,237,.12)}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .card .btn{margin-top:15px}
+  .priv{display:flex;gap:8px;font-size:11.5px;color:var(--muted);margin-top:12px;align-items:flex-start;font-weight:500}
+  .priv svg{color:#1F9D63;flex:0 0 auto;margin-top:2px}
+  .ci{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+  .ci a,.ci div{display:flex;gap:13px;align-items:center;color:#fff;font-weight:700;font-size:15.5px}
+  .ci .ic{width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.1);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+  .ci small{display:block;color:#8fa5c6;font-weight:500;font-size:12.5px}
+
+  footer{padding:34px 22px 40px;text-align:center;border-top:1px solid var(--line)}
+  footer .logo{height:30px;filter:none;margin:0 auto}
+  footer p{font-size:13px;color:var(--muted);margin-top:12px;line-height:1.8}
+  footer a{color:var(--blue);font-weight:700}
+  .disc{font-size:11px;color:#9aa5b6;margin-top:16px;line-height:1.6;max-width:62ch;margin-left:auto;margin-right:auto}
+
+  /* ===== desktop ===== */
+  @media(min-width:900px){
+    /* desktop: drawing on the left, copy on the right, both inside one frame */
+    .hero{min-height:92vh;min-height:92svh;display:flex;flex-direction:column;padding-bottom:40px}
+    .links{display:flex}
+    .burger{display:none}
+    header nav{padding:22px 40px}
+    .logo{height:38px}
+    .hin{flex:1;display:grid;grid-template-columns:.95fr 1.05fr;align-items:center;gap:30px;
+         width:100%;max-width:1260px;margin:0 auto;padding:0 40px}
+    .stage{margin-top:0;order:2}
+    .paper{width:104%;margin-left:-2%;aspect-ratio:1400/840}
+    .paper::before{width:88%}
+    .tabs{padding:0;justify-content:center;margin-top:10px}
+    .hbody{order:1;padding:0}
+    .kin{height:300vh}
+    .kstage{padding:0 40px}
+    .klines{margin-left:2vw}
+    .kl:nth-child(2){margin-left:9%}
+    .kl:nth-child(3){margin-left:18%}
+    .kl.hollow{-webkit-text-stroke:2.4px rgba(255,255,255,.62)}
+    .keb{margin-bottom:26px}
+    .kpay{margin-top:34px;max-width:52ch}
+    .kpay p{font-size:18.5px}
+    .kmar{font-size:14px;gap:44px}
+    .kmar.a{top:4%} .kmar.b{bottom:5.5%}
+    h1{font-size:clamp(46px,4.1vw,64px)}
+    .hsub{font-size:18.5px;max-width:40ch}
+    .hacts{flex-direction:row;align-items:center}
+    .hacts .btn{width:auto}
+    .badges{grid-template-columns:1fr 1fr;max-width:430px}
+    .tb{font-size:13.5px;padding:10px 18px}
+    section{padding:80px 0}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+    .st{margin-top:0;flex-direction:column}
+    .cov{grid-template-columns:1.4fr 1fr 1fr;gap:14px}
+    .cc{flex-direction:column;align-items:flex-start;min-height:200px}
+    .cc .go{margin-left:0;margin-top:auto}
+    .wg{grid-template-columns:repeat(3,1fr);gap:14px}
+    .revs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+    .rw{margin-top:0}
+    .qs .in{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+    .card{margin-top:0}
+    .card .g3{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  }
+  /* short desktop windows: tuck the streaming rows against the very edges */
+  @media(min-width:900px) and (max-height:830px){
+    .kmar.a{top:2%} .kmar.b{bottom:2.4%}
+    .kpay{margin-top:26px} .keb{margin-bottom:20px}
+  }
+  @media(hover:none){ .cc:hover{transform:none} }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+    /* no scroll choreography: show the statement as a normal, static section */
+    .kin{height:auto;padding:70px 0}
+    .kstage{position:static;height:auto;min-height:0}
+    .kl,.keb,.kpay{opacity:1!important;transform:none!important;-webkit-clip-path:none!important;clip-path:none!important}
+    .kmar,.kglow,.kbar{display:none}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="car" viewBox="0 0 24 24"><path d="M3 13l1.6-4.2A2 2 0 0 1 6.5 7.5h11a2 2 0 0 1 1.9 1.3L21 13M4 13h16v4a1 1 0 0 1-1 1h-1.5M6.5 18H5a1 1 0 0 1-1-1v-4"/><circle cx="7.5" cy="18" r="1.6"/><circle cx="16.5" cy="18" r="1.6"/></symbol>
+<symbol id="home" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6M6 10v9h12v-9M10 19v-5h4v5"/></symbol>
+<symbol id="biz" viewBox="0 0 24 24"><path d="M4 20V8l7-4 7 4v12M4 20h16M9 20v-4h4v4"/></symbol>
+<symbol id="heart" viewBox="0 0 24 24"><path d="M12 20s-6.5-4.3-9-8C1.4 9.3 2.8 5.5 6.3 5.5c2.2 0 3.7 1.6 4.7 3 1-1.4 2.5-3 4.7-3 3.5 0 4.9 3.8 3.3 6.5-2.5 3.7-9 8-9 8z"/></symbol>
+<symbol id="doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+<symbol id="ph" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h2l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 4 5z"/></symbol>
+<symbol id="mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+<symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+<symbol id="shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="hand" viewBox="0 0 24 24"><path d="M4 12V7a2 2 0 0 1 4 0v5M8 12V5a2 2 0 0 1 4 0v7M12 12V6a2 2 0 0 1 4 0v6M16 12v-3a2 2 0 0 1 4 0v7a6 6 0 0 1-6 6h-2a6 6 0 0 1-6-6v-3"/></symbol>
+<symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="ar" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <span class="mesh" aria-hidden="true"></span>
+  <nav>
+    <a href="/" aria-label="Safe House Insurance home"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+    <div class="links">
+      <a href="#how">How it works</a><a href="#coverage">Coverage</a><a href="#why">Why us</a><a href="#reviews">Reviews</a><a href="#quote">Get a quote</a>
+    </div>
+    <div class="navr">
+      <a class="tel" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> 915-503-1207</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="hin">
+    <div class="stage">
+      <div class="paper" id="paper">
+        <img class="art on" src="assets/art-auto.png" alt="Line drawing of a car on an El Paso highway" width="1400" height="800">
+        <img class="art" src="assets/art-commercial.png" alt="Line drawing of a semi truck on the highway" width="1400" height="800">
+        <img class="art" src="assets/art-home.png" alt="Line drawing of a house with a garage and trees" width="1400" height="800">
+        <img class="art" src="assets/art-roadside.png" alt="Line drawing of a tow truck" width="1400" height="800">
+        <span class="pen" id="pen" aria-hidden="true"></span>
+      </div>
+      <div class="tabs" id="tabs" role="tablist" aria-label="What we insure">
+        <button class="tb on" role="tab" aria-selected="true" data-i="0">Auto<i></i></button>
+        <button class="tb" role="tab" aria-selected="false" data-i="1">Commercial<i></i></button>
+        <button class="tb" role="tab" aria-selected="false" data-i="2">Home<i></i></button>
+        <button class="tb" role="tab" aria-selected="false" data-i="3">Tow trucks<i></i></button>
+      </div>
+    </div>
+
+    <div class="hbody">
+      <span class="eb">Licensed independent agency &middot; El Paso, TX</span>
+      <h1>Real insurance for
+        <span class="rot" id="rot">
+          <span class="on gtd">your car.</span>
+          <span class="gtd">your work truck.</span>
+          <span class="gtd">your home.</span>
+          <span class="gtd">your tow truck.</span>
+        </span>
+      </h1>
+      <p class="hsub">Tell us what you need. We shop the carriers we represent and a licensed agent calls you with real options &mdash; in English or Spanish.</p>
+      <div class="hacts">
+        <a class="btn grad" href="#quote">Get my free quote <svg class="i"><use href="#ar"/></svg></a>
+        <a class="btn out" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
+      </div>
+      <div class="badges">
+        <span class="bd"><span class="ic st">&#9733;</span><span><b>5-star reviews</b><span>on Google</span></span></span>
+        <span class="bd"><span class="ic">&#127474;&#127485;</span><span><b>Se habla espa&ntilde;ol</b><span>Bilingual team</span></span></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <a href="#how">How it works</a>
+  <a href="#coverage">Coverage</a>
+  <a href="#why">Why us</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#quote">Get a quote</a>
+  <a class="btn grad" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
+  <a class="dm" href="mailto:contact@safehouseins.com">contact@safehouseins.com · Se habla español</a>
+</div>
+
+<!-- carriers -->
+<div class="car">
+  <div class="wrap">
+    <p>Carriers we shop for you</p>
+    <div class="r"><span>Progressive</span><span>Geico</span><span>Lemonade</span><span>Alinsco</span><span>Commonwealth</span></div>
+  </div>
+</div>
+
+<!-- ================= KINETIC SCROLL STATEMENT ================= -->
+<section class="kin" id="kin" aria-label="One call. We shop. You pick.">
+  <div class="kstage">
+    <span class="kglow" aria-hidden="true"></span>
+    <span class="kgrid" aria-hidden="true"></span>
+    <div class="kmar a" aria-hidden="true">
+      <span>Progressive</span><span>Geico</span><span>Lemonade</span><span>Alinsco</span><span>Commonwealth</span>
+      <span>Progressive</span><span>Geico</span><span>Lemonade</span><span>Alinsco</span><span>Commonwealth</span>
+    </div>
+    <div class="kmar b" aria-hidden="true">
+      <span>Auto</span><span>Homeowners</span><span>Renters</span><span>SR-22</span><span>Commercial</span><span>Mobile home</span>
+      <span>Auto</span><span>Homeowners</span><span>Renters</span><span>SR-22</span><span>Commercial</span><span>Mobile home</span>
+    </div>
+
+    <span class="keb"><img src="assets/safehouse-heart.png" alt=""> The Safe House way</span>
+    <div class="klines">
+      <span class="kl">One call.</span>
+      <span class="kl hollow">We shop.</span>
+      <span class="kl fill">You pick.</span>
+    </div>
+    <div class="kpay">
+      <p>No app to download, no runaround. Just a licensed agent in El Paso who knows the carriers
+         we represent — and who calls you back, in English or Spanish.</p>
+      <a class="btn wt" href="#quote">Start with one call <svg class="i"><use href="#ar"/></svg></a>
+    </div>
+    <span class="kbar" aria-hidden="true"><i></i></span>
+  </div>
+</section>
+
+<!-- how -->
+<section id="how"><div class="wrap">
+  <div class="rv">
+    <span class="kick"><img src="assets/safehouse-heart.png" alt=""> How it works</span>
+    <h2>We do the legwork.</h2>
+    <p class="sl">You answer once. We handle the shopping, the paperwork and the follow-up.</p>
+  </div>
+  <div class="steps">
+    <div class="st rv"><span class="n">1</span><span><b>Tell us what you need</b><p>A few details about you and what you're insuring. No 20-field forms.</p></span></div>
+    <div class="st rv"><span class="n">2</span><span><b>We shop our carriers</b><p>We compare the companies we represent to fit your situation and your budget.</p></span></div>
+    <div class="st rv"><span class="n">3</span><span><b>A licensed agent calls you</b><p>We walk you through the options in plain language — then get you covered.</p></span></div>
+  </div>
+</div></section>
+
+<!-- coverage -->
+<section id="coverage" style="padding-top:0"><div class="wrap">
+  <div class="rv">
+    <span class="kick"><img src="assets/safehouse-heart.png" alt=""> Coverage</span>
+    <h2>Everything under one roof.</h2>
+  </div>
+  <div class="cov">
+    <a class="cc f rv" href="#quote"><span class="ic"><svg class="i"><use href="#car"/></svg></span><span><b>Auto</b><small>Full coverage · liability · SR-22 · non-owner · high-risk welcome</small></span><span class="go"><svg class="i"><use href="#ar"/></svg></span></a>
+    <a class="cc rv" href="#quote"><span class="ic"><svg class="i"><use href="#home"/></svg></span><span><b>Home &amp; renters</b><small>Houses, renters, mobile homes</small></span><span class="go"><svg class="i"><use href="#ar"/></svg></span></a>
+    <a class="cc rv" href="#quote"><span class="ic"><svg class="i"><use href="#biz"/></svg></span><span><b>Commercial</b><small>Work trucks, liability, fleets</small></span><span class="go"><svg class="i"><use href="#ar"/></svg></span></a>
+    <a class="cc rv" href="#quote"><span class="ic"><svg class="i"><use href="#heart"/></svg></span><span><b>Life</b><small>Term life &amp; final expense</small></span><span class="go"><svg class="i"><use href="#ar"/></svg></span></a>
+    <a class="cc rv" href="#quote"><span class="ic"><svg class="i"><use href="#doc"/></svg></span><span><b>Bonds</b><small>Surety, license &amp; permit bonds</small></span><span class="go"><svg class="i"><use href="#ar"/></svg></span></a>
+  </div>
+</div></section>
+
+<!-- why -->
+<section id="why" class="why"><div class="wrap">
+  <div class="rv">
+    <span class="kick"><img src="assets/safehouse-heart.png" alt=""> Why Safe House</span>
+    <h2>Independent means<br>we work for you.</h2>
+  </div>
+  <div class="wg">
+    <div class="wc rv"><span class="ic"><svg class="i"><use href="#hand"/></svg></span><b>Several carriers, one call</b><p>We're not tied to a single company, so we compare options and recommend what actually fits.</p></div>
+    <div class="wc rv"><span class="ic"><svg class="i"><use href="#globe"/></svg></span><b>Fully bilingual</b><p>Quote, buy, ask questions and report a claim in English or Spanish — with the same agent.</p></div>
+    <div class="wc rv"><span class="ic"><svg class="i"><use href="#shield"/></svg></span><b>Hard-to-insure welcome</b><p>SR-22, tickets, lapses, non-owner or no license — we work the carriers built for it.</p></div>
+    <div class="wc rv"><span class="ic"><svg class="i"><use href="#pin"/></svg></span><b>Local &amp; licensed</b><p>Based in El Paso and licensed across Texas and New Mexico. Neighbors, not a call center.</p></div>
+    <div class="wc rv"><span class="ic"><svg class="i"><use href="#lock"/></svg></span><b>Your privacy respected</b><p>Your details are used to prepare your quote. We never sell your data or hand out your number.</p></div>
+    <div class="wc rv"><span class="ic"><svg class="i"><use href="#ph"/></svg></span><b>We're here after the sale</b><p>Renewals, claims, ID cards and questions — a real licensed agent who knows your file.</p></div>
+  </div>
+</div></section>
+
+<!-- reviews -->
+<section id="reviews"><div class="wrap">
+  <div class="rv">
+    <span class="kick"><img src="assets/safehouse-heart.png" alt=""> Reviews</span>
+    <h2>What our clients say.</h2>
+    <p class="sl">Verified reviews from clients across El Paso and southern New Mexico.</p>
+  </div>
+  <div class="revs">
+    <div class="rw rv"><div class="s" aria-hidden="true">★★★★★</div><p>"They took the time to explain my coverage instead of just selling me something."</p><div class="who"><span class="av">M</span><span><b>Marcos T.</b><span>El Paso, TX · Google review</span></span></div></div>
+    <div class="rw rv"><div class="s" aria-hidden="true">★★★★★</div><p>"They found me coverage even with an SR-22, and a real person explained everything in Spanish."</p><div class="who"><span class="av">J</span><span><b>Jazmín R.</b><span>Las Cruces, NM · Google review</span></span></div></div>
+    <div class="rw rv"><div class="s" aria-hidden="true">★★★★★</div><p>"Insured my truck and my house with one call. Professional, and they follow up."</p><div class="who"><span class="av">D</span><span><b>Diego M.</b><span>El Paso, TX · Google review</span></span></div></div>
+  </div>
+</div></section>
+
+<!-- bilingual -->
+<div class="bil">
+  <div class="pat"></div>
+  <div class="in">
+    <h2>Todo en español.</h2>
+    <p>Cotiza, pregunta y resuelve con una persona de verdad, aquí en El Paso.</p>
+    <a class="btn wt" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Llámanos: 915-503-1207</a>
+  </div>
+</div>
+
+<!-- quote -->
+<section id="quote" class="qs"><div class="wrap in">
+  <div class="rv">
+    <span class="kick" style="color:var(--cyan-l)"><img src="assets/safehouse-heart.png" alt="" style="filter:brightness(0) invert(1)"> Free quote</span>
+    <h2>Let's find your coverage.</h2>
+    <p class="sl">Send us the basics and a licensed agent will get back to you with real options. No cost, no obligation.</p>
+    <div class="ci">
+      <a href="tel:+19155031207"><span class="ic"><svg class="i"><use href="#ph"/></svg></span><span>915-503-1207<small>Call or text us</small></span></a>
+      <a href="mailto:contact@safehouseins.com"><span class="ic"><svg class="i"><use href="#mail"/></svg></span><span>contact@safehouseins.com<small>We reply the same business day</small></span></a>
+      <div><span class="ic"><svg class="i"><use href="#pin"/></svg></span><span>El Paso, Texas<small>Serving Texas &amp; New Mexico</small></span></div>
+    </div>
+  </div>
+
+  <form class="card rv" id="quoteForm" novalidate>
+    <div class="t"><img src="assets/safehouse-heart.png" alt=""><span><b>Request your quote</b><small>No cost, no obligation</small></span></div>
+    <div class="g3">
+      <div class="fl"><label for="qn">Full name</label><input id="qn" name="name" placeholder="Your name" autocomplete="name" required></div>
+      <div class="fl"><label for="qp">Phone</label><input id="qp" name="phone" type="tel" placeholder="(915) 000-0000" inputmode="tel" autocomplete="tel" required></div>
+    </div>
+    <div class="g2">
+      <div class="fl"><label for="qe">Email</label><input id="qe" name="email" type="email" placeholder="you@email.com" inputmode="email" autocomplete="email"></div>
+      <div class="fl"><label for="qz">ZIP code</label><input id="qz" name="zip" placeholder="79901" inputmode="numeric" autocomplete="postal-code"></div>
+    </div>
+    <div class="fl"><label for="qc">What do you need?</label>
+      <select id="qc" name="coverage">
+        <option>Auto</option><option>Home or renters</option><option>Commercial</option>
+        <option>Life</option><option>Bonds</option><option>More than one</option>
+      </select>
+    </div>
+    <div class="fl"><label for="qm">Anything else? (optional)</label><input id="qm" name="notes" placeholder="Vehicle, SR-22, questions…"></div>
+    <button class="btn grad full" type="submit">Send my request</button>
+    <p class="priv"><svg class="i"><use href="#lock"/></svg> Used only to prepare your quote. We never sell or share your personal information.</p>
+    <p class="priv" id="formNote" style="display:none;color:var(--blue);font-weight:700"></p>
+  </form>
+</div></section>
+
+<footer>
+  <img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance">
+  <p>Licensed independent insurance agency · El Paso, Texas<br>
+    <a href="tel:+19155031207">915-503-1207</a> · <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a><br>
+    Se habla español</p>
+  <p class="disc">Safe House Insurance is an independent insurance agency licensed in Texas and New Mexico (license #__________). Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy. Quotes are estimates and are not a guarantee of coverage or price. Carrier availability and eligibility vary by state and by applicant. © 2026 Safe House Insurance.</p>
+</footer>
+
+<script>
+  // ===== mobile menu =====
+  var burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
+  function setMenu(open){
+    if(open){var r=document.querySelector('header nav').getBoundingClientRect();
+      drawer.style.paddingTop=Math.max(r.bottom+20,90)+'px';}
+    burger.classList.toggle('on',open); drawer.classList.toggle('on',open);
+    document.body.classList.toggle('locked',open);
+    burger.setAttribute('aria-expanded',open);
+    burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+  }
+  burger.addEventListener('click',function(){setMenu(!drawer.classList.contains('on'));});
+  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
+  addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
+  addEventListener('resize',function(){if(innerWidth>=900)setMenu(false);});
+
+  // ===== hero: the drawings, the headline word and the tabs all run off one index =====
+  (function(){
+    var arts=[].slice.call(document.querySelectorAll('.art')),
+        words=[].slice.call(document.getElementById('rot').children),
+        tabs=[].slice.call(document.querySelectorAll('.tb')),
+        pen=document.getElementById('pen'),
+        paper=document.getElementById('paper'),
+        DWELL=4200, i=0, timer=null,
+        still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+    function go(n,manual){
+      if(n===i) return;
+      var prev=i; i=(n+arts.length)%arts.length;
+      // the outgoing drawing fades first, the incoming one inks in behind it
+      arts[prev].classList.remove('on');
+      words[prev].classList.remove('on'); words[prev].classList.add('out');
+      tabs[prev].classList.remove('on'); tabs[prev].setAttribute('aria-selected','false');
+      setTimeout(function(){
+        arts[i].classList.add('on');
+        if(!still){ pen.classList.remove('go'); void pen.offsetWidth; pen.classList.add('go'); }
+      },manual?0:150);
+      words[i].classList.remove('out'); words[i].classList.add('on');
+      tabs[i].classList.add('on'); tabs[i].setAttribute('aria-selected','true');
+      setTimeout(function(){ words[prev].classList.remove('out'); },620);
+      start();
+    }
+    function start(){ if(still) return; clearInterval(timer); timer=setInterval(function(){go(i+1);},DWELL); }
+
+    tabs.forEach(function(t){ t.addEventListener('click',function(){ go(+t.dataset.i,true); }); });
+    // pause while the visitor is looking at it, and while the tab is in the background
+    paper.addEventListener('pointerenter',function(){clearInterval(timer);});
+    paper.addEventListener('pointerleave',start);
+    document.addEventListener('visibilitychange',function(){ document.hidden?clearInterval(timer):start(); });
+    // swipe on touch
+    var x0=null;
+    paper.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+    paper.addEventListener('touchend',function(e){
+      if(x0===null) return; var dx=e.changedTouches[0].clientX-x0; x0=null;
+      if(Math.abs(dx)>44) go(i+(dx<0?1:-1),true);
+    },{passive:true});
+    if(still){ arts[0].style.webkitMaskImage='none'; arts[0].style.maskImage='none'; }
+    start();
+  })();
+
+  // ===== kinetic statement: everything driven by one scroll-progress value =====
+  (function(){
+    var kin=document.getElementById('kin'); if(!kin) return;
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    var lines=[].slice.call(kin.querySelectorAll('.kl')),
+        mars=[].slice.call(kin.querySelectorAll('.kmar')),
+        glow=kin.querySelector('.kglow'), eb=kin.querySelector('.keb'),
+        pay=kin.querySelector('.kpay'), bar=kin.querySelector('.kbar i');
+    function cl(v){return v<0?0:(v>1?1:v);}
+    function ease(v){return 1-Math.pow(1-v,3);}
+    var ticking=false;
+    function paint(){
+      ticking=false;
+      var top=kin.getBoundingClientRect().top,
+          track=kin.offsetHeight-innerHeight,
+          p=cl(-top/(track||1)),
+          wide=innerWidth>=900,
+          amp=wide?140:52;                       // how far the lines fly in from
+      // intro chip
+      var e0=ease(cl(p/.10));
+      eb.style.opacity=e0;
+      eb.style.transform='translate3d(0,'+((1-e0)*16).toFixed(2)+'px,0)';
+      // three giant lines: staggered unmask + alternating slide, resting exactly on their indent
+      for(var i=0;i<lines.length;i++){
+        var lp=ease(cl((p-.06-i*.105)/.30)),
+            drift=(1-lp)*amp*(i%2?1:-1),
+            park=cl((p-.52)/.48),
+            float_=(park-.5)*2*(i%2?11:-11);     // gentle counter-drift once revealed
+        lines[i].style.opacity=(.05+.95*lp).toFixed(3);
+        lines[i].style.transform='translate3d('+drift.toFixed(2)+'px,'+float_.toFixed(2)+'px,0)'
+          +' scale('+(1+(1-lp)*.07).toFixed(4)+')'
+          +' skewY('+((1-lp)*(i%2?-2.6:2.6)).toFixed(2)+'deg)';
+        var hide=((1-lp)*104).toFixed(2)+'%';
+        lines[i].style.clipPath='inset(0 0 '+hide+' 0)';
+        lines[i].style.webkitClipPath='inset(0 0 '+hide+' 0)';
+      }
+      // carrier / coverage names stream past in opposite directions
+      var span=innerWidth*(wide?.55:.85);
+      mars[0].style.transform='translate3d('+(-p*span).toFixed(1)+'px,0,0)';
+      mars[1].style.transform='translate3d('+(-span*.6+p*span).toFixed(1)+'px,0,0)';
+      // glow breathes open with the type
+      var g=.5+ease(cl(p/.7))*.75;
+      glow.style.transform='translate(-50%,-50%) scale('+g.toFixed(3)+')';
+      glow.style.opacity=(.35+.55*ease(cl(p/.5))).toFixed(3);
+      // payoff arrives last
+      var e2=ease(cl((p-.52)/.24));
+      pay.style.opacity=e2;
+      pay.style.transform='translate3d(0,'+((1-e2)*24).toFixed(2)+'px,0)';
+      // the hollow middle line fills in as the payoff lands
+      lines[1].classList.toggle('lit',p>.66);
+      bar.style.width=(p*100).toFixed(2)+'%';
+    }
+    function onScroll(){ if(!ticking){ticking=true;requestAnimationFrame(paint);} }
+    addEventListener('scroll',onScroll,{passive:true});
+    addEventListener('resize',onScroll);
+    paint();
+  })();
+
+  // ===== reveal on scroll =====
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in'); io.unobserve(e.target);}});},{threshold:.14});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+
+  // ===== quote form (no backend yet: hands off to email so nothing is silently lost) =====
+  document.getElementById('quoteForm').addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var f=ev.target, note=document.getElementById('formNote');
+    if(!f.name.value.trim() || !f.phone.value.trim()){
+      note.textContent='Please add your name and phone so we can reach you.';
+      note.style.display='flex'; note.style.color='#C2410C'; return;
+    }
+    var body='Name: '+f.name.value+'\nPhone: '+f.phone.value+'\nEmail: '+f.email.value
+            +'\nZIP: '+f.zip.value+'\nCoverage: '+f.coverage.value+'\nNotes: '+f.notes.value;
+    note.textContent='Opening your email app to send the request…';
+    note.style.display='flex'; note.style.color='var(--blue)';
+    window.location.href='mailto:contact@safehouseins.com?subject='
+      +encodeURIComponent('Quote request — '+f.name.value)+'&body='+encodeURIComponent(body);
+  });
+</script>
+</body>
+</html>
