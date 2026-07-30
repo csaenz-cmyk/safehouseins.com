@@ -48,9 +48,10 @@
   .btn.full{width:100%}
 
   /* ================= HERO ================= */
+  /* mobile gets a portrait crop so none of its pixels are wasted on the cropped-away sides */
   .hero{position:relative;min-height:94vh;min-height:94svh;display:flex;flex-direction:column;overflow:hidden;
-        background:#0b1a33 url("assets/hero-photo-mobile.jpg") 56% top / cover no-repeat}
-  @media(min-width:901px){ .hero{background-image:url("assets/hero-photo.jpg")} }
+        background:#0b1a33 url("assets/hero-photo-mobile.jpg") center top / cover no-repeat}
+  @media(min-width:901px){ .hero{background-image:url("assets/hero-photo.jpg");background-position:center 30%} }
   .hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
     background:linear-gradient(180deg,rgba(6,16,36,.60) 0%,rgba(6,16,36,.08) 24%,rgba(6,16,36,.24) 52%,rgba(6,16,36,.82) 100%)}
 
@@ -77,8 +78,8 @@
   .drawer .dm{border-bottom:none;font-size:14px;font-weight:600;color:#93a9cc;text-align:center;padding-top:14px}
   body.locked{overflow:hidden}
 
-  .float{position:relative;z-index:15;margin:14px 22px 0;background:rgba(255,255,255,.96);border-radius:18px;padding:12px 14px;
-      display:flex;gap:11px;align-items:center;max-width:330px;box-shadow:0 22px 44px -22px rgba(6,16,36,.6);
+  .float{position:relative;z-index:15;margin:auto 22px 0;background:rgba(255,255,255,.96);border-radius:18px;padding:12px 14px;
+      display:none;gap:11px;align-items:center;max-width:330px;box-shadow:0 22px 44px -22px rgba(6,16,36,.6);
       animation:fin .7s .35s cubic-bezier(.2,.8,.2,1) both}
   @keyframes fin{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
   .float .av{width:40px;height:40px;border-radius:13px;background:var(--grad);display:grid;place-items:center;flex:0 0 auto}
@@ -87,7 +88,7 @@
   .float p{font-size:13px;font-weight:600;color:var(--navy);line-height:1.35;margin-top:2px}
   .float small{font-size:11px;color:var(--muted);font-weight:600}
 
-  .hbody{position:relative;z-index:15;margin-top:auto;padding:24px 22px 32px}
+  .hbody{position:relative;z-index:15;margin-top:auto;padding:18px 22px 32px}
   .eb{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;
       letter-spacing:.12em;text-transform:uppercase;color:#cfe4ff;background:rgba(255,255,255,.14);
       border:1px solid rgba(255,255,255,.28);padding:7px 13px;border-radius:999px;backdrop-filter:blur(6px)}
@@ -206,7 +207,8 @@
     header nav{padding:24px 40px}
     .logo{height:38px}
     .hero{background-position:center 30%}
-    .float{margin:22px 40px 0;max-width:360px}
+    .float{display:flex;margin:22px 40px 0;max-width:360px}
+    .hbody{margin-top:auto}
     .hbody{padding:0 40px 60px;max-width:860px}
     h1{font-size:clamp(52px,5.2vw,74px)}
     .hsub{font-size:19px;max-width:44ch}
