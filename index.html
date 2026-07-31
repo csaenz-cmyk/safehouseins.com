@@ -144,6 +144,82 @@
   .kbar{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--line);z-index:3}
   .kbar i{display:block;height:100%;width:0;background:var(--grad)}
 
+  /* ================= FLOW: sticky device, scroll-driven screens =================
+     ARCHITECTURE — everything here is data-free on purpose.
+
+       .flow            tall scroll track. Its height is 100svh (the stage) plus one
+                        --dwell per step, so the sticky stage scrubs for exactly
+                        steps x dwell pixels. --steps is written by the JS from the
+                        number of .fscreen elements found, so you never edit it.
+       .fstage          the sticky, viewport-tall stage. Nothing inside it scrolls.
+       .fcopy > .fstep  one text block per step, stacked on top of each other.
+       .pscreen>.fscreen one device screen per step, stacked the same way.
+       .fdots > .fdot   one dot per step; the active one fills as you scrub it.
+
+     TO ADD A STEP: add one <article class="fstep"> and one <div class="fscreen">,
+     in the same order, and add one <button class="fdot">. Nothing else — the JS
+     counts them, sizes the track and wires the dots on load.
+     The screens below are wireframe placeholders built from the .sk* primitives;
+     replace their innards with real UI or an <img> whenever you are ready. */
+  .flow{position:relative;background:var(--ice);--dwell:66svh;--steps:4;padding-top:56px}
+  .fhead{max-width:1180px;margin:0 auto;padding:0 22px 22px}
+  .ftrack{position:relative;height:calc(100svh + var(--steps) * var(--dwell))}
+  .fstage{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+  .fin{width:100%;max-width:1180px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:16px}
+  .fleft{width:100%;max-width:520px;display:flex;flex-direction:column;align-items:center;gap:16px}
+
+  /* --- the device --- */
+  .fphone{flex:0 0 auto}
+  .phone{position:relative;height:min(48svh,420px);aspect-ratio:9/19;border-radius:36px;background:#0B1220;padding:7px;
+      box-shadow:0 44px 70px -34px rgba(10,33,72,.6),0 2px 6px rgba(10,33,72,.14),0 0 0 1px rgba(255,255,255,.06) inset}
+  .pscreen{position:relative;width:100%;height:100%;border-radius:30px;overflow:hidden;background:#fff}
+  .pscreen::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:30px;
+      box-shadow:0 0 0 1px rgba(10,33,72,.06) inset}
+  .pnotch{position:absolute;top:13px;left:50%;transform:translateX(-50%);width:30%;height:15px;border-radius:99px;
+      background:#0B1220;z-index:6}
+
+  /* --- one screen per step --- */
+  .fscreen{position:absolute;inset:0;padding:40px 13px 14px;display:flex;flex-direction:column;gap:9px;
+      opacity:0;transform:translateY(16px) scale(.986);pointer-events:none;
+      transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .58s cubic-bezier(.2,.8,.2,1)}
+  .fscreen.on{opacity:1;transform:none;pointer-events:auto}
+
+  /* --- one copy block per step --- */
+  .fcopy{position:relative;width:100%;min-height:152px}
+  .fstep{position:absolute;inset:0;opacity:0;transform:translateY(16px);pointer-events:none;
+      transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .58s cubic-bezier(.2,.8,.2,1)}
+  .fstep.on{opacity:1;transform:none;pointer-events:auto}
+  .fstep .n{font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--blue-d)}
+  .fstep h3{font-size:clamp(23px,5.6vw,34px);line-height:1.1;letter-spacing:-.03em;font-weight:900;color:var(--navy);margin-top:8px}
+  .fstep p{font-size:15.5px;color:var(--muted);font-weight:500;margin-top:8px;max-width:44ch}
+
+  /* --- dots double as the scrub readout and as jump links --- */
+  .fdots{display:flex;gap:7px;align-items:center}
+  .fdot{width:9px;height:9px;padding:0;border:none;border-radius:99px;background:#CBD9EC;cursor:pointer;
+      position:relative;overflow:hidden;flex:0 0 auto;
+      transition:width .42s cubic-bezier(.2,.8,.2,1),background .3s}
+  .fdot.on{width:36px;background:#DCE7F8}
+  .fdot i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--grad);border-radius:99px}
+
+  /* --- wireframe primitives: the placeholder vocabulary --- */
+  .sk{background:#E9EFF9;border-radius:8px;display:block}
+  .sk.d{background:#DCE7F8}
+  .sk.b{background:var(--grad)}
+  .skbar{height:8px;border-radius:99px;background:#E9EFF9;display:block}
+  .skbar.d{background:#DCE7F8}
+  .skrow{display:flex;gap:8px;align-items:center;background:#fff;border:1px solid #EDF2FA;border-radius:13px;padding:8px}
+  .skrow .sq{width:26px;height:26px;border-radius:8px;background:#E9EFF9;flex:0 0 auto}
+  .skrow .gr{flex:1;display:flex;flex-direction:column;gap:5px}
+  .skcard{background:#F5F9FF;border:1px solid #EAF1FB;border-radius:15px;padding:11px;display:flex;flex-direction:column;gap:7px}
+  .skbtn{height:34px;border-radius:99px;background:var(--grad);flex:0 0 auto}
+  .skhead{display:flex;align-items:center;gap:8px;padding:0 2px 2px}
+  .skhead .dot{width:16px;height:16px;border-radius:99px;background:var(--grad);flex:0 0 auto}
+  .skbub{max-width:78%;padding:9px 11px;border-radius:14px;background:#F0F5FD;display:flex;flex-direction:column;gap:5px}
+  .skbub.me{align-self:flex-end;background:var(--grad)}
+  .skbub.me .skbar{background:rgba(255,255,255,.55)}
+  .skspacer{flex:1}
+
   /* ================= SECTIONS ================= */
   section{padding:56px 0}
   .kick{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;
@@ -247,6 +323,19 @@
     .logo{height:38px}
     .hero{background-position:center 30%}
     .kin{padding:64px 0 62px}
+    /* desktop: copy on the left, the device holds still on the right */
+    .flow{--dwell:74vh;padding-top:84px}
+    .fhead{padding:0 40px 10px}
+    .fin{display:grid;grid-template-columns:1fr auto;align-items:center;gap:60px;padding:0 40px;max-width:1120px}
+    .fleft{order:1;max-width:none;align-items:flex-start;gap:30px}
+    .fphone{order:2}
+    .fcopy{min-height:206px}
+    .phone{height:min(70vh,600px);border-radius:44px;padding:9px}
+    .pscreen,.pscreen::after{border-radius:36px}
+    .pnotch{top:16px;height:19px}
+    .fscreen{padding:48px 17px 18px;gap:11px}
+    .fstep p{font-size:17px}
+    .skbtn{height:42px}
     .kstage{padding:0 40px}
     .klines{margin-left:2vw}
     .kl:nth-child(2){margin-left:8%}
@@ -282,6 +371,11 @@
     *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
     /* no scroll choreography: show the statement plainly */
     .kl,.kpay p,.kpay .btn{opacity:1!important;transform:none!important;-webkit-clip-path:none!important;clip-path:none!important}
+    .ftrack{height:auto}
+    .fstage{position:static;height:auto;overflow:visible}
+    .fcopy{min-height:0}
+    .fstep{position:relative;inset:auto;opacity:1;transform:none!important;margin-top:22px}
+    .fstep:first-child{margin-top:0}
     .kmar,.kglow,.kbar{display:none}
   }
 </style>
@@ -382,6 +476,124 @@
       <a class="btn grad" href="#quote">Start with one call <svg class="i"><use href="#ar"/></svg></a>
     </div>
     <span class="kbar" aria-hidden="true"><i></i></span>
+  </div>
+</section>
+
+<!-- ================= FLOW: sticky device, scroll-driven screens =================
+     Placeholder content on purpose. To add a step: append one .fstep, one .fscreen
+     and one .fdot, keeping the same order in all three. The JS does the rest. -->
+<section class="flow" id="flow" aria-label="How it works, step by step">
+
+  <!-- scrolls past normally, then the stage below takes over -->
+  <div class="fhead rv">
+    <span class="kick">Placeholder eyebrow</span>
+    <h2>Section headline goes here.</h2>
+    <p class="sl">One line of supporting copy. Replace this whole block with the real heading.</p>
+  </div>
+
+  <div class="ftrack" id="ftrack">
+  <div class="fstage">
+    <div class="fin">
+
+      <!-- the device -->
+      <div class="fphone">
+        <div class="phone">
+          <span class="pnotch" aria-hidden="true"></span>
+          <div class="pscreen" id="pscreen">
+
+            <!-- screen 1 -->
+            <div class="fscreen on">
+              <div class="skhead"><span class="dot"></span><span class="skbar d" style="width:44%"></span></div>
+              <span class="skbar" style="width:70%"></span>
+              <div class="skcard"><span class="skbar d" style="width:38%"></span><span class="sk" style="height:30px"></span></div>
+              <div class="skcard"><span class="skbar d" style="width:52%"></span><span class="sk" style="height:30px"></span></div>
+              <div class="skcard"><span class="skbar d" style="width:30%"></span><span class="sk" style="height:30px"></span></div>
+              <span class="skspacer"></span>
+              <span class="skbtn"></span>
+            </div>
+
+            <!-- screen 2 -->
+            <div class="fscreen">
+              <div class="skhead"><span class="dot"></span><span class="skbar d" style="width:52%"></span></div>
+              <div class="skrow"><span class="sq"></span><span class="gr"><span class="skbar" style="width:66%"></span><span class="skbar d" style="width:38%"></span></span><span class="sk" style="width:30px;height:14px"></span></div>
+              <div class="skrow"><span class="sq"></span><span class="gr"><span class="skbar" style="width:54%"></span><span class="skbar d" style="width:44%"></span></span><span class="sk" style="width:30px;height:14px"></span></div>
+              <div class="skrow"><span class="sq"></span><span class="gr"><span class="skbar" style="width:72%"></span><span class="skbar d" style="width:32%"></span></span><span class="sk" style="width:30px;height:14px"></span></div>
+              <div class="skrow"><span class="sq"></span><span class="gr"><span class="skbar" style="width:60%"></span><span class="skbar d" style="width:40%"></span></span><span class="sk" style="width:30px;height:14px"></span></div>
+              <span class="skspacer"></span>
+              <span class="skbtn"></span>
+            </div>
+
+            <!-- screen 3 -->
+            <div class="fscreen">
+              <div class="skhead"><span class="dot"></span><span class="skbar d" style="width:40%"></span></div>
+              <div class="skcard" style="gap:9px">
+                <span class="skbar b" style="width:46%;height:11px"></span>
+                <span class="skbar" style="width:82%"></span>
+                <span class="skbar" style="width:64%"></span>
+              </div>
+              <div style="display:flex;gap:8px">
+                <div class="skcard" style="flex:1"><span class="skbar d" style="width:60%"></span><span class="sk" style="height:22px"></span></div>
+                <div class="skcard" style="flex:1"><span class="skbar d" style="width:70%"></span><span class="sk" style="height:22px"></span></div>
+              </div>
+              <div class="skcard"><span class="skbar d" style="width:48%"></span><span class="sk" style="height:26px"></span></div>
+              <span class="skspacer"></span>
+              <span class="skbtn"></span>
+            </div>
+
+            <!-- screen 4 -->
+            <div class="fscreen">
+              <div class="skhead"><span class="dot"></span><span class="skbar d" style="width:48%"></span></div>
+              <div class="skbub"><span class="skbar" style="width:120px"></span><span class="skbar" style="width:88px"></span></div>
+              <div class="skbub me"><span class="skbar" style="width:104px"></span></div>
+              <div class="skbub"><span class="skbar" style="width:132px"></span><span class="skbar" style="width:70px"></span></div>
+              <div class="skbub me"><span class="skbar" style="width:76px"></span><span class="skbar" style="width:118px"></span></div>
+              <span class="skspacer"></span>
+              <span class="sk" style="height:34px;border-radius:99px"></span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- the copy and the dots ride together in the left column -->
+      <div class="fleft">
+      <div class="fcopy">
+        <article class="fstep on">
+          <span class="n">Step 01</span>
+          <h3>Headline for step one</h3>
+          <p>One or two lines describing what happens here. Placeholder copy — replace this
+             block and the screen beside it with the real thing.</p>
+        </article>
+        <article class="fstep">
+          <span class="n">Step 02</span>
+          <h3>Headline for step two</h3>
+          <p>One or two lines describing what happens here. Placeholder copy — replace this
+             block and the screen beside it with the real thing.</p>
+        </article>
+        <article class="fstep">
+          <span class="n">Step 03</span>
+          <h3>Headline for step three</h3>
+          <p>One or two lines describing what happens here. Placeholder copy — replace this
+             block and the screen beside it with the real thing.</p>
+        </article>
+        <article class="fstep">
+          <span class="n">Step 04</span>
+          <h3>Headline for step four</h3>
+          <p>One or two lines describing what happens here. Placeholder copy — replace this
+             block and the screen beside it with the real thing.</p>
+        </article>
+      </div>
+
+      <div class="fdots" role="tablist" aria-label="Steps">
+        <button class="fdot on" role="tab" aria-selected="true"  aria-label="Step 1"><i></i></button>
+        <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 2"><i></i></button>
+        <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 3"><i></i></button>
+        <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 4"><i></i></button>
+      </div>
+      </div>
+
+    </div>
+  </div>
   </div>
 </section>
 
@@ -587,6 +799,67 @@
     function onScroll(){ if(!ticking){ticking=true;requestAnimationFrame(paint);} }
     addEventListener('scroll',onScroll,{passive:true});
     addEventListener('resize',onScroll);
+    paint();
+  })();
+
+  // ===== flow: one sticky device, the screens change with the scroll =====
+  // Reads the DOM, so adding a step is markup-only. Progress across the sticky
+  // track is split evenly between the steps; the fraction inside the current step
+  // drives the dot fill and a touch of parallax, so it reads as scrubbed, not timed.
+  (function(){
+    var flow=document.getElementById('flow'); if(!flow) return;
+    var track=document.getElementById('ftrack'),
+        stage=flow.querySelector('.fstage'),
+        screens=[].slice.call(flow.querySelectorAll('.fscreen')),
+        steps=[].slice.call(flow.querySelectorAll('.fstep')),
+        dots=[].slice.call(flow.querySelectorAll('.fdot')),
+        n=screens.length, cur=-1, ticking=false;
+    if(!n) return;
+    flow.style.setProperty('--steps',n);          // track length follows the step count
+    function cl(v){return v<0?0:(v>1?1:v);}
+
+    function show(i,local){
+      if(i!==cur){
+        cur=i;
+        for(var k=0;k<n;k++){
+          var on=k===i, below=k>i;
+          screens[k].classList.toggle('on',on);
+          steps[k].classList.toggle('on',on);
+          dots[k].classList.toggle('on',on);
+          dots[k].setAttribute('aria-selected',on);
+          if(!on){                                 // park the others above or below
+            screens[k].style.transform='translateY('+(below?16:-16)+'px) scale(.986)';
+            steps[k].style.transform='translateY('+(below?16:-16)+'px)';
+          }else{
+            screens[k].style.transform='';
+            steps[k].style.transform='';
+          }
+        }
+      }
+      for(var d=0;d<n;d++) dots[d].firstElementChild.style.width=(d===i?local*100:0).toFixed(1)+'%';
+      // a few pixels of drift inside the step so the scroll always feels connected
+      if(screens[i].classList.contains('on'))
+        screens[i].style.transform='translateY('+((local-.5)*-7).toFixed(2)+'px)';
+    }
+
+    function paint(){
+      ticking=false;
+      var scrub=track.offsetHeight-stage.offsetHeight;
+      var p=cl(-track.getBoundingClientRect().top/(scrub||1));
+      var raw=p*n, i=Math.min(Math.floor(raw),n-1);
+      show(i,cl(raw-i));
+    }
+    function onScroll(){ if(!ticking){ticking=true;requestAnimationFrame(paint);} }
+    addEventListener('scroll',onScroll,{passive:true});
+    addEventListener('resize',onScroll);
+
+    dots.forEach(function(d,i){
+      d.addEventListener('click',function(){
+        var scrub=track.offsetHeight-stage.offsetHeight,
+            y=track.getBoundingClientRect().top+scrollY;
+        scrollTo({top:y+(i+.5)*(scrub/n),behavior:'smooth'});
+      });
+    });
     paint();
   })();
 
