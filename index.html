@@ -144,77 +144,74 @@
   .kbar{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--line);z-index:3}
   .kbar i{display:block;height:100%;width:0;background:var(--grad)}
 
-  /* ================= FLOW: sticky device, scroll-driven screens =================
-     ARCHITECTURE — everything here is data-free on purpose.
+  /* ================= FLOW: swipeable step carousel =================
+     ARCHITECTURE
 
-       .flow            tall scroll track. Its height is 100svh (the stage) plus one
-                        --dwell per step, so the sticky stage scrubs for exactly
-                        steps x dwell pixels. --steps is written by the JS from the
-                        number of .fscreen elements found, so you never edit it.
-       .fstage          the sticky, viewport-tall stage. Nothing inside it scrolls.
-       .fcopy > .fstep  one text block per step, stacked on top of each other.
-       .pscreen>.fscreen one device screen per step, stacked the same way.
-       .fdots > .fdot   one dot per step; the active one fills as you scrub it.
+       .flow    the section: heading, rail, dots, CTA. Normal height, no scroll hijack.
+       .frail   a native horizontal scroll container with scroll-snap. This is the
+                whole interaction — touch swipe, trackpad, arrows and keyboard all
+                come free from the browser; the JS only reads scrollLeft to keep the
+                dots in sync and writes it when you click a dot or an arrow.
+       .fslide  one card per step: the device on top, the caption underneath. Slides
+                are narrower than the rail so the neighbours peek, which is what
+                tells you it can be swiped.
 
-     TO ADD A STEP: add one <article class="fstep"> and one <div class="fscreen">,
-     in the same order, and add one <button class="fdot">. Nothing else — the JS
-     counts them, sizes the track and wires the dots on load.
-     The screens below are wireframe placeholders built from the .sk* primitives;
-     replace their innards with real UI or an <img> whenever you are ready. */
-  .flow{position:relative;background:var(--ice);--dwell:66svh;--steps:4;padding-top:56px}
+     TO ADD A STEP: add one <article class="fslide"> and one <button class="fdot">.
+     The JS counts the slides on load; nothing is hard-coded. */
+  .flow{position:relative;background:var(--ice);padding:56px 0 60px;overflow:hidden}
   .fhead{max-width:1180px;margin:0 auto;padding:0 22px 22px}
-  .ftrack{position:relative;height:calc(100svh + var(--steps) * var(--dwell))}
-  .fstage{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
-  .fin{width:100%;max-width:1180px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:16px}
-  .fleft{width:100%;max-width:520px;display:flex;flex-direction:column;align-items:center;gap:16px}
+
+  .frail{display:flex;gap:0;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
+      scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;
+      padding:8px 0 14px;scroll-padding:0}
+  .frail::-webkit-scrollbar{display:none}
+  .fslide{flex:0 0 86vw;max-width:400px;scroll-snap-align:center;scroll-snap-stop:always;
+      display:flex;flex-direction:column;align-items:center;gap:14px;padding:0 9px;
+      opacity:.45;transform:scale(.94);transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,.8,.2,1)}
+  .fslide.on{opacity:1;transform:none}
+  .frail::before,.frail::after{content:"";flex:0 0 calc(50% - 43vw);pointer-events:none}
 
   /* --- the device --- */
-  .fphone{flex:0 0 auto}
-  .phone{position:relative;height:min(48svh,420px);aspect-ratio:9/19;border-radius:36px;background:#0B1220;padding:7px;
-      box-shadow:0 44px 70px -34px rgba(10,33,72,.6),0 2px 6px rgba(10,33,72,.14),0 0 0 1px rgba(255,255,255,.06) inset}
-  .pscreen{position:relative;width:100%;height:100%;border-radius:30px;overflow:hidden;background:#fff}
-  .pscreen::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:30px;
-      box-shadow:0 0 0 1px rgba(10,33,72,.06) inset}
-  .pnotch{position:absolute;top:13px;left:50%;transform:translateX(-50%);width:30%;height:15px;border-radius:99px;
+  .phone{position:relative;height:min(52svh,400px);aspect-ratio:9/19;border-radius:34px;background:#0B1220;padding:7px;
+      flex:0 0 auto;box-shadow:0 40px 64px -32px rgba(10,33,72,.6),0 2px 6px rgba(10,33,72,.14),0 0 0 1px rgba(255,255,255,.06) inset}
+  .pscreen{position:relative;width:100%;height:100%;border-radius:28px;overflow:hidden;background:#fff}
+  .pnotch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:30%;height:14px;border-radius:99px;
       background:#0B1220;z-index:6}
 
-  /* --- one screen per step --- */
-  .fscreen{position:absolute;inset:0;padding:40px 13px 14px;display:flex;flex-direction:column;gap:9px;
-      opacity:0;transform:translateY(16px) scale(.986);pointer-events:none;
-      transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .58s cubic-bezier(.2,.8,.2,1)}
-  .fscreen.on{opacity:1;transform:none;pointer-events:auto}
-
-  /* --- one copy block per step --- */
-  .fcopy{position:relative;width:100%;min-height:152px}
-  .fstep{position:absolute;inset:0;opacity:0;transform:translateY(16px);pointer-events:none;
-      transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .58s cubic-bezier(.2,.8,.2,1)}
-  .fstep.on{opacity:1;transform:none;pointer-events:auto}
-  .fstep .n{font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.14em;
+  /* --- the caption under each device --- */
+  .fcap{width:100%;background:#fff;border:1px solid #E4ECF9;border-radius:20px;padding:16px 17px 18px;
+      min-height:152px;box-shadow:0 18px 34px -28px rgba(10,33,72,.5)}
+  .fcap .n{font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.14em;
       text-transform:uppercase;color:var(--blue-d)}
-  .fstep h3{font-size:clamp(23px,5.6vw,34px);line-height:1.1;letter-spacing:-.03em;font-weight:900;color:var(--navy);margin-top:8px}
-  .fstep p{font-size:15.5px;color:var(--muted);font-weight:500;margin-top:8px;max-width:44ch}
+  .fcap h3{font-size:19px;line-height:1.15;letter-spacing:-.02em;font-weight:900;color:var(--navy);margin-top:7px}
+  .fcap p{font-size:14.5px;color:var(--muted);font-weight:500;margin-top:6px}
 
-  /* --- dots double as the scrub readout and as jump links --- */
+  /* --- controls --- */
+  .fnav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:6px}
+  .farr{width:42px;height:42px;border-radius:99px;border:1.6px solid #DCE7F8;background:#fff;color:var(--blue-d);
+      display:none;place-items:center;cursor:pointer;padding:0;flex:0 0 auto;transition:.2s}
+  .farr:hover{border-color:var(--blue);transform:translateY(-1px)}
+  .farr:disabled{opacity:.35;cursor:default;transform:none;border-color:#DCE7F8}
+  .farr svg{width:18px;height:18px}
+  .farr.p svg{transform:scaleX(-1)}
   .fdots{display:flex;gap:7px;align-items:center}
-  .fdot{width:9px;height:9px;padding:0;border:none;border-radius:99px;background:#CBD9EC;cursor:pointer;
-      position:relative;overflow:hidden;flex:0 0 auto;
-      transition:width .42s cubic-bezier(.2,.8,.2,1),background .3s}
-  .fdot.on{width:36px;background:#DCE7F8}
-  .fdot i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--grad);border-radius:99px}
+  .fdot{width:9px;height:9px;padding:0;border:none;border-radius:99px;background:#C2D3EA;cursor:pointer;
+      flex:0 0 auto;transition:width .4s cubic-bezier(.2,.8,.2,1),background .3s}
+  .fdot.on{width:30px;background:var(--grad)}
 
   .fnotes{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
   .fnotes span{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;color:var(--blue-d);
       background:#fff;border:1px solid #DCE7F8;border-radius:99px;padding:7px 12px;line-height:1.35}
   .fnotes span::before{content:"";width:6px;height:6px;border-radius:99px;background:var(--grad);flex:0 0 auto}
-  .facts{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
+  .facts{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:22px;padding:0 22px}
   .facts .btn{width:100%;max-width:340px}
   .fcall{font-size:14px;font-weight:700;color:var(--blue-d);border-bottom:1.5px solid #BBD5FF;padding-bottom:2px}
   .fcall:hover{color:var(--blue)}
 
   /* --- in-device UI. Everything is em-based off .pscreen so one font-size
          scales a whole screen between phone and desktop sizes. --- */
-  .pscreen{font-size:min(.95vh,8.3px);font-size:min(.95svh,8.3px);color:var(--navy)}
-  .fscreen{padding:4.4em 1.5em 1.5em;gap:.85em}
+  .pscreen{font-size:min(.98vh,7.9px);font-size:min(.98svh,7.9px);color:var(--navy)}
+  .fscreen{position:absolute;inset:0;display:flex;flex-direction:column;padding:4.4em 1.5em 1.5em;gap:.85em}
   .uh{display:flex;align-items:center;gap:.7em;padding-bottom:.35em}
   .uh b{font-size:1.15em;font-weight:800;letter-spacing:-.01em}
   .uh small{display:block;font-size:.92em;color:#8494ad;font-weight:600;margin-top:.1em}
@@ -388,30 +385,20 @@
     .hero{background-position:center 30%}
     .kin{padding:64px 0 62px}
     /* desktop: copy on the left, the device holds still on the right */
-    .flow{--dwell:74vh;padding-top:84px}
+    .flow{padding:88px 0 92px}
     .fhead{padding:0 40px 10px}
     .fnotes span{font-size:13px;padding:9px 15px}
-    .fin{display:grid;grid-template-columns:1fr auto;align-items:center;gap:60px;padding:0 40px;max-width:1120px}
-    .fleft{order:1;max-width:none;align-items:flex-start;gap:26px}
-    .facts{flex-direction:row;align-items:center;gap:20px;width:auto}
+    .fslide{flex:0 0 380px;max-width:380px;gap:18px;padding:0 11px}
+    .frail::before,.frail::after{flex:0 0 calc(50% - 190px)}
+    .phone{height:min(56vh,470px);border-radius:40px;padding:8px}
+    .pscreen{border-radius:33px;font-size:min(1.1vh,9.3px)}
+    .pnotch{top:14px;height:17px}
+    .fcap{padding:18px 20px 20px;min-height:158px;border-radius:22px}
+    .fcap h3{font-size:21px}
+    .fcap p{font-size:15.5px}
+    .farr{display:grid}
+    .facts{flex-direction:row;justify-content:center;gap:22px;margin-top:30px}
     .facts .btn{width:auto}
-    .fphone{order:2}
-    .fcopy{min-height:206px}
-    .phone{height:min(70vh,600px);border-radius:44px;padding:9px}
-    .pscreen,.pscreen::after{border-radius:36px}
-    .pnotch{top:16px;height:19px}
-    .pscreen{font-size:min(1.35vh,11.6px)}
-    .fstep p{font-size:17px}
-    .skbtn{height:42px}
-    .kstage{padding:0 40px}
-    .klines{margin-left:2vw}
-    .kl:nth-child(2){margin-left:8%}
-    .kl:nth-child(3){margin-left:16%}
-    .kl.hollow{-webkit-text-stroke:2px rgba(10,33,72,.34)}
-    .kpay{margin-top:28px;max-width:52ch}
-    .kpay p{font-size:17.5px}
-    .kmar{font-size:13px;gap:40px}
-    .kmar.a{top:22px} .kmar.b{bottom:22px}
     .float{display:flex;margin:22px 40px 0;max-width:360px}
     .hbody{margin-top:auto}
     .hbody{padding:0 40px 52px;max-width:860px}
@@ -438,11 +425,7 @@
     *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
     /* no scroll choreography: show the statement plainly */
     .kl,.kpay p,.kpay .btn{opacity:1!important;transform:none!important;-webkit-clip-path:none!important;clip-path:none!important}
-    .ftrack{height:auto}
-    .fstage{position:static;height:auto;overflow:visible}
-    .fcopy{min-height:0}
-    .fstep{position:relative;inset:auto;opacity:1;transform:none!important;margin-top:22px}
-    .fstep:first-child{margin-top:0}
+    .fslide{opacity:1!important;transform:none!important}
     .kmar,.kglow,.kbar{display:none}
   }
 </style>
@@ -546,10 +529,9 @@
   </div>
 </section>
 
-<!-- ================= FLOW: quote online, confirm with an agent =================
-     Five steps. Three parallel lists in the same order — one .fscreen (the phone),
-     one .fstep (the copy), one .fdot. To add a step, add one of each; the JS counts
-     the screens, grows the track and wires the dots on load. -->
+<!-- ================= FLOW: swipeable step carousel =================
+     One .fslide + one .fdot per step. Swipe, drag, arrows, dots or keyboard —
+     the rail is a native scroll container, the JS only keeps the dots in sync. -->
 <section class="flow" id="flow" aria-label="How Safe House works, step by step">
 
   <div class="fhead rv">
@@ -564,146 +546,153 @@
     </div>
   </div>
 
-  <div class="ftrack" id="ftrack">
-  <div class="fstage">
-    <div class="fin">
-
-      <div class="fphone">
-        <div class="phone">
-          <span class="pnotch" aria-hidden="true"></span>
-          <div class="pscreen">
-
-            <!-- 1 · online quote -->
-            <div class="fscreen on">
-              <div class="uh">
-                <span class="ulogo"><img src="assets/safehouse-heart.png" alt=""></span>
-                <b>Safe House</b><span class="ustep">Step 1 of 3</span>
-              </div>
-              <p class="ut">Tell us what you need</p>
-              <div class="uf"><span>ZIP code</span><b>79912</b></div>
-              <div class="uf"><span>What are you insuring?</span>
-                <div class="uchips"><i class="on">Auto</i><i>Home</i><i>Commercial</i></div>
-              </div>
-              <div class="uf"><span>Vehicle</span><b>2019 Toyota Camry<em class="caret"></em></b></div>
-              <div class="uf"><span>Coverage</span>
-                <div class="uchips"><i class="on">Full coverage</i><i>Liability</i></div>
-              </div>
-              <span class="uspacer"></span>
-              <span class="uprog"><i></i></span>
-              <span class="ubtn">See my options</span>
-            </div>
-
-            <!-- 2 · initial options -->
-            <div class="fscreen">
-              <div class="uh"><b>Your options</b><span class="utag">Initial estimate</span></div>
-              <span class="uspacer"></span>
-              <div class="uc"><span class="sq">P</span>
-                <span class="lt"><b>Progressive</b><small>Full coverage</small><small>$500 deductible</small></span>
-                <span class="rt"><b>$</b><small>/mo est.</small></span></div>
-              <div class="uc"><span class="sq">G</span>
-                <span class="lt"><b>Geico</b><small>Full coverage</small><small>$500 deductible</small></span>
-                <span class="rt"><b>$$</b><small>/mo est.</small></span></div>
-              <div class="uc"><span class="sq">A</span>
-                <span class="lt"><b>Alinsco</b><small>Liability &middot; SR-22 ok</small><small>$1,000 deductible</small></span>
-                <span class="rt"><b>$</b><small>/mo est.</small></span></div>
-              <span class="uspacer"></span>
-              <p class="unote">Estimates from what you entered. Your agent confirms the real numbers.</p>
-            </div>
-
-            <!-- 3 · the agent review, the step that matters -->
-            <div class="fscreen dk">
-              <div class="uh"><span class="uav">SH</span>
-                <span><b>Agent review</b><small>Licensed in TX &amp; NM</small></span></div>
-              <span class="uspacer"></span>
-              <div class="uk"><i>&#10003;</i>Driver information</div>
-              <div class="uk"><i>&#10003;</i>Vehicle details</div>
-              <div class="uk"><i>&#10003;</i>Available discounts</div>
-              <div class="uk"><i>&#10003;</i>Coverage limits</div>
-              <div class="uk live"><i></i>Carrier requirements</div>
-              <span class="uspacer"></span>
-              <p class="unote">A real person checks every line before anything is final.</p>
-            </div>
-
-            <!-- 4 · confirmed options by phone or text -->
-            <div class="fscreen">
-              <div class="uh"><span class="uav">SH</span>
-                <span><b>Safe House Insurance</b><small>Text message</small></span></div>
-              <span class="uspacer"></span>
-              <div class="ub in">Hi! We reviewed your quote and found updated options for you.
-                Would you like to go over them by phone or text?</div>
-              <div class="uc"><span class="sq">P</span>
-                <span class="lt"><b>Progressive</b><small>Reviewed &middot; full coverage</small></span>
-                <span class="rt"><b>$</b><small>/mo</small></span></div>
-              <div class="uc"><span class="sq">G</span>
-                <span class="lt"><b>Geico</b><small>Reviewed &middot; full coverage</small></span>
-                <span class="rt"><b>$$</b><small>/mo</small></span></div>
-              <div class="ub me">Text works &mdash; send them over</div>
-              <span class="utype" aria-hidden="true"><i></i><i></i><i></i></span>
-            </div>
-
-            <!-- 5 · choose and activate -->
-            <div class="fscreen ctr">
-              <span class="udone">&#10003;</span>
-              <p class="ut c">You&rsquo;re covered</p>
-              <div class="uk"><i>&#10003;</i>Option selected</div>
-              <div class="uk"><i>&#10003;</i>Information confirmed</div>
-              <div class="uk"><i>&#10003;</i>Policy active</div>
-              <div class="uk"><i>&#10003;</i>Documents sent</div>
-              <p class="unote c" style="margin-top:.5em">Activation is completed with a licensed agent by phone or text.</p>
-            </div>
-
-          </div>
+  <div class="frail" id="frail" tabindex="0" role="region" aria-label="Steps, swipe left or right">
+    <article class="fslide on" role="group" aria-roledescription="slide" aria-label="Step 01 of 5">
+      <div class="phone">
+        <span class="pnotch" aria-hidden="true"></span>
+        <div class="pscreen">
+      <div class="fscreen">
+                    <div class="uh">
+                      <span class="ulogo"><img src="assets/safehouse-heart.png" alt=""></span>
+                      <b>Safe House</b><span class="ustep">Step 1 of 3</span>
+                    </div>
+                    <p class="ut">Tell us what you need</p>
+                    <div class="uf"><span>ZIP code</span><b>79912</b></div>
+                    <div class="uf"><span>What are you insuring?</span>
+                      <div class="uchips"><i class="on">Auto</i><i>Home</i><i>Commercial</i></div>
+                    </div>
+                    <div class="uf"><span>Vehicle</span><b>2019 Toyota Camry<em class="caret"></em></b></div>
+                    <div class="uf"><span>Coverage</span>
+                      <div class="uchips"><i class="on">Full coverage</i><i>Liability</i></div>
+                    </div>
+                    <span class="uspacer"></span>
+                    <span class="uprog"><i></i></span>
+                    <span class="ubtn">See my options</span>
+                  </div>
         </div>
       </div>
-
-      <div class="fleft">
-        <div class="fcopy">
-          <article class="fstep on">
-            <span class="n">Step 01</span>
-            <h3>Get your online quote</h3>
-            <p>Tell us what you need and see initial insurance options online in just a few minutes.</p>
-          </article>
-          <article class="fstep">
-            <span class="n">Step 02</span>
-            <h3>See your initial options</h3>
-            <p>Review the options generated by the system based on the information you provided.</p>
-          </article>
-          <article class="fstep">
-            <span class="n">Step 03</span>
-            <h3>A licensed agent reviews everything</h3>
-            <p>Our team verifies your information, available discounts, carrier requirements and
-               coverage details.</p>
-          </article>
-          <article class="fstep">
-            <span class="n">Step 04</span>
-            <h3>Get your confirmed options</h3>
-            <p>Your agent contacts you by phone or text with the most accurate options available
-               for your situation.</p>
-          </article>
-          <article class="fstep">
-            <span class="n">Step 05</span>
-            <h3>Choose and activate your policy</h3>
-            <p>Once you choose the option that works for you, your agent helps finalize the
-               application and activate your coverage.</p>
-          </article>
-        </div>
-
-        <div class="fdots" role="tablist" aria-label="Steps">
-          <button class="fdot on" role="tab" aria-selected="true"  aria-label="Step 1"><i></i></button>
-          <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 2"><i></i></button>
-          <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 3"><i></i></button>
-          <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 4"><i></i></button>
-          <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 5"><i></i></button>
-        </div>
-
-        <div class="facts">
-          <a class="btn grad" href="#quote">Start my online quote <svg class="i"><use href="#ar"/></svg></a>
-          <a class="fcall" href="tel:+19155031207">Prefer to talk? Call 915-503-1207</a>
+      <div class="fcap">
+        <span class="n">Step 01</span>
+        <h3>Get your online quote</h3>
+        <p>Tell us what you need and see initial insurance options online in just a few minutes.</p>
+      </div>
+    </article>
+    <article class="fslide" role="group" aria-roledescription="slide" aria-label="Step 02 of 5">
+      <div class="phone">
+        <span class="pnotch" aria-hidden="true"></span>
+        <div class="pscreen">
+      <div class="fscreen">
+                    <div class="uh"><b>Your options</b><span class="utag">Initial estimate</span></div>
+                    <span class="uspacer"></span>
+                    <div class="uc"><span class="sq">P</span>
+                      <span class="lt"><b>Progressive</b><small>Full coverage</small><small>$500 deductible</small></span>
+                      <span class="rt"><b>$</b><small>/mo est.</small></span></div>
+                    <div class="uc"><span class="sq">G</span>
+                      <span class="lt"><b>Geico</b><small>Full coverage</small><small>$500 deductible</small></span>
+                      <span class="rt"><b>$$</b><small>/mo est.</small></span></div>
+                    <div class="uc"><span class="sq">A</span>
+                      <span class="lt"><b>Alinsco</b><small>Liability &middot; SR-22 ok</small><small>$1,000 deductible</small></span>
+                      <span class="rt"><b>$</b><small>/mo est.</small></span></div>
+                    <span class="uspacer"></span>
+                    <p class="unote">Estimates from what you entered. Your agent confirms the real numbers.</p>
+                  </div>
         </div>
       </div>
-
-    </div>
+      <div class="fcap">
+        <span class="n">Step 02</span>
+        <h3>See your initial options</h3>
+        <p>Review the options generated by the system based on the information you provided.</p>
+      </div>
+    </article>
+    <article class="fslide" role="group" aria-roledescription="slide" aria-label="Step 03 of 5">
+      <div class="phone">
+        <span class="pnotch" aria-hidden="true"></span>
+        <div class="pscreen">
+      <div class="fscreen dk">
+                    <div class="uh"><span class="uav">SH</span>
+                      <span><b>Agent review</b><small>Licensed in TX &amp; NM</small></span></div>
+                    <span class="uspacer"></span>
+                    <div class="uk"><i>&#10003;</i>Driver information</div>
+                    <div class="uk"><i>&#10003;</i>Vehicle details</div>
+                    <div class="uk"><i>&#10003;</i>Available discounts</div>
+                    <div class="uk"><i>&#10003;</i>Coverage limits</div>
+                    <div class="uk live"><i></i>Carrier requirements</div>
+                    <span class="uspacer"></span>
+                    <p class="unote">A real person checks every line before anything is final.</p>
+                  </div>
+        </div>
+      </div>
+      <div class="fcap">
+        <span class="n">Step 03</span>
+        <h3>A licensed agent reviews everything</h3>
+        <p>Our team verifies your information, available discounts, carrier requirements and coverage details.</p>
+      </div>
+    </article>
+    <article class="fslide" role="group" aria-roledescription="slide" aria-label="Step 04 of 5">
+      <div class="phone">
+        <span class="pnotch" aria-hidden="true"></span>
+        <div class="pscreen">
+      <div class="fscreen">
+                    <div class="uh"><span class="uav">SH</span>
+                      <span><b>Safe House Insurance</b><small>Text message</small></span></div>
+                    <span class="uspacer"></span>
+                    <div class="ub in">Hi! We reviewed your quote and found updated options for you.
+                      Would you like to go over them by phone or text?</div>
+                    <div class="uc"><span class="sq">P</span>
+                      <span class="lt"><b>Progressive</b><small>Reviewed &middot; full coverage</small></span>
+                      <span class="rt"><b>$</b><small>/mo</small></span></div>
+                    <div class="uc"><span class="sq">G</span>
+                      <span class="lt"><b>Geico</b><small>Reviewed &middot; full coverage</small></span>
+                      <span class="rt"><b>$$</b><small>/mo</small></span></div>
+                    <div class="ub me">Text works &mdash; send them over</div>
+                    <span class="utype" aria-hidden="true"><i></i><i></i><i></i></span>
+                  </div>
+        </div>
+      </div>
+      <div class="fcap">
+        <span class="n">Step 04</span>
+        <h3>Get your confirmed options</h3>
+        <p>Your agent contacts you by phone or text with the most accurate options available for your situation.</p>
+      </div>
+    </article>
+    <article class="fslide" role="group" aria-roledescription="slide" aria-label="Step 05 of 5">
+      <div class="phone">
+        <span class="pnotch" aria-hidden="true"></span>
+        <div class="pscreen">
+      <div class="fscreen ctr">
+                    <span class="udone">&#10003;</span>
+                    <p class="ut c">You&rsquo;re covered</p>
+                    <div class="uk"><i>&#10003;</i>Option selected</div>
+                    <div class="uk"><i>&#10003;</i>Information confirmed</div>
+                    <div class="uk"><i>&#10003;</i>Policy active</div>
+                    <div class="uk"><i>&#10003;</i>Documents sent</div>
+                    <p class="unote c" style="margin-top:.5em">Activation is completed with a licensed agent by phone or text.</p>
+                  </div>
+        </div>
+      </div>
+      <div class="fcap">
+        <span class="n">Step 05</span>
+        <h3>Choose and activate your policy</h3>
+        <p>Once you choose the option that works for you, your agent helps finalize the application and activate your coverage.</p>
+      </div>
+    </article>
   </div>
+
+  <div class="fnav">
+    <button class="farr p" id="fprev" aria-label="Previous step"><svg class="i"><use href="#ar"/></svg></button>
+    <div class="fdots" id="fdots" role="tablist" aria-label="Steps">
+      <button class="fdot on" role="tab" aria-selected="true"  aria-label="Step 1"></button>
+      <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 2"></button>
+      <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 3"></button>
+      <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 4"></button>
+      <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 5"></button>
+    </div>
+    <button class="farr n" id="fnext" aria-label="Next step"><svg class="i"><use href="#ar"/></svg></button>
+  </div>
+
+  <div class="facts">
+    <a class="btn grad" href="#quote">Start my online quote <svg class="i"><use href="#ar"/></svg></a>
+    <a class="fcall" href="tel:+19155031207">Prefer to talk? Call 915-503-1207</a>
   </div>
 </section>
 
@@ -912,65 +901,60 @@
     paint();
   })();
 
-  // ===== flow: one sticky device, the screens change with the scroll =====
-  // Reads the DOM, so adding a step is markup-only. Progress across the sticky
-  // track is split evenly between the steps; the fraction inside the current step
-  // drives the dot fill and a touch of parallax, so it reads as scrubbed, not timed.
+  // ===== flow: the rail is the interaction, the JS just follows it =====
   (function(){
-    var flow=document.getElementById('flow'); if(!flow) return;
-    var track=document.getElementById('ftrack'),
-        stage=flow.querySelector('.fstage'),
-        screens=[].slice.call(flow.querySelectorAll('.fscreen')),
-        steps=[].slice.call(flow.querySelectorAll('.fstep')),
-        dots=[].slice.call(flow.querySelectorAll('.fdot')),
-        n=screens.length, cur=-1, ticking=false;
+    var rail=document.getElementById('frail'); if(!rail) return;
+    var slides=[].slice.call(rail.querySelectorAll('.fslide')),
+        dots=[].slice.call(document.querySelectorAll('#fdots .fdot')),
+        prev=document.getElementById('fprev'), next=document.getElementById('fnext'),
+        n=slides.length, cur=-1, ticking=false;
     if(!n) return;
-    flow.style.setProperty('--steps',n);          // track length follows the step count
-    function cl(v){return v<0?0:(v>1?1:v);}
 
-    function show(i,local){
-      if(i!==cur){
-        cur=i;
-        for(var k=0;k<n;k++){
-          var on=k===i, below=k>i;
-          screens[k].classList.toggle('on',on);
-          steps[k].classList.toggle('on',on);
-          dots[k].classList.toggle('on',on);
-          dots[k].setAttribute('aria-selected',on);
-          if(!on){                                 // park the others above or below
-            screens[k].style.transform='translateY('+(below?16:-16)+'px) scale(.986)';
-            steps[k].style.transform='translateY('+(below?16:-16)+'px)';
-          }else{
-            screens[k].style.transform='';
-            steps[k].style.transform='';
-          }
-        }
+    function nearest(){                       // the slide whose centre is closest to the rail's
+      var mid=rail.scrollLeft+rail.clientWidth/2, best=0, d=1e9;
+      for(var i=0;i<n;i++){
+        var c=slides[i].offsetLeft+slides[i].offsetWidth/2, k=Math.abs(c-mid);
+        if(k<d){d=k;best=i;}
       }
-      for(var d=0;d<n;d++) dots[d].firstElementChild.style.width=(d===i?local*100:0).toFixed(1)+'%';
-      // a few pixels of drift inside the step so the scroll always feels connected
-      if(screens[i].classList.contains('on'))
-        screens[i].style.transform='translateY('+((local-.5)*-7).toFixed(2)+'px)';
+      return best;
     }
-
-    function paint(){
-      ticking=false;
-      var scrub=track.offsetHeight-stage.offsetHeight;
-      var p=cl(-track.getBoundingClientRect().top/(scrub||1));
-      var raw=p*n, i=Math.min(Math.floor(raw),n-1);
-      show(i,cl(raw-i));
+    function mark(i){
+      if(i===cur) return; cur=i;
+      for(var k=0;k<n;k++){
+        slides[k].classList.toggle('on',k===i);
+        dots[k].classList.toggle('on',k===i);
+        dots[k].setAttribute('aria-selected',k===i);
+      }
+      if(prev) prev.disabled=i===0;
+      if(next) next.disabled=i===n-1;
     }
-    function onScroll(){ if(!ticking){ticking=true;requestAnimationFrame(paint);} }
-    addEventListener('scroll',onScroll,{passive:true});
-    addEventListener('resize',onScroll);
-
-    dots.forEach(function(d,i){
-      d.addEventListener('click',function(){
-        var scrub=track.offsetHeight-stage.offsetHeight,
-            y=track.getBoundingClientRect().top+scrollY;
-        scrollTo({top:y+(i+.5)*(scrub/n),behavior:'smooth'});
-      });
+    function go(i){
+      i=Math.max(0,Math.min(n-1,i));
+      var c=slides[i].offsetLeft+slides[i].offsetWidth/2-rail.clientWidth/2;
+      rail.scrollTo({left:c,behavior:'smooth'});
+    }
+    rail.addEventListener('scroll',function(){
+      if(!ticking){ticking=true;requestAnimationFrame(function(){ticking=false;mark(nearest());});}
+    },{passive:true});
+    addEventListener('resize',function(){mark(nearest());});
+    dots.forEach(function(d,i){ d.addEventListener('click',function(){go(i);}); });
+    if(prev) prev.addEventListener('click',function(){go(cur-1);});
+    if(next) next.addEventListener('click',function(){go(cur+1);});
+    rail.addEventListener('keydown',function(e){
+      if(e.key==='ArrowRight'){e.preventDefault();go(cur+1);}
+      if(e.key==='ArrowLeft'){e.preventDefault();go(cur-1);}
     });
-    paint();
+    // drag with a mouse on desktop, where there is no swipe
+    var down=false,x0=0,l0=0;
+    rail.addEventListener('pointerdown',function(e){
+      if(e.pointerType==='touch') return;
+      down=true;x0=e.clientX;l0=rail.scrollLeft;rail.style.scrollSnapType='none';
+    });
+    addEventListener('pointermove',function(e){ if(down) rail.scrollLeft=l0-(e.clientX-x0); });
+    addEventListener('pointerup',function(){
+      if(!down) return; down=false; rail.style.scrollSnapType=''; go(nearest());
+    });
+    mark(0);
   })();
 
   // ===== reveal on scroll =====
