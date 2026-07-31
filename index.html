@@ -111,7 +111,7 @@
      by one scroll-progress value (see the JS at the bottom): the three giant lines slide
      in from alternating sides and unmask, the carrier names stream past behind them, and
      the payoff line + button arrive last. Transforms/opacity only, one rAF loop. */
-  .kin{position:relative;padding:58px 0 56px;background:#fff;color:var(--navy);overflow:hidden}
+  .kin{position:relative;padding:50px 0 44px;background:#fff;color:var(--navy);overflow:hidden}
   .kstage{display:flex;flex-direction:column;padding:0 22px;max-width:1180px;margin:0 auto}
   .kglow{position:absolute;left:50%;top:50%;width:min(120vw,860px);aspect-ratio:1;transform:translate(-50%,-50%) scale(.5);
       background:radial-gradient(circle,rgba(22,102,237,.10) 0%,rgba(0,194,255,.05) 40%,transparent 66%);
@@ -123,27 +123,22 @@
   .kmar{position:absolute;left:0;right:0;display:flex;gap:30px;white-space:nowrap;pointer-events:none;
       font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
       color:#c2cee0;will-change:transform}
-  .kmar.a{top:20px} .kmar.b{bottom:22px}
+  .kmar.a{top:16px} .kmar.b{bottom:16px}
   .kmar span{flex:0 0 auto;display:flex;align-items:center;gap:30px}
   .kmar span::after{content:"\25C6";font-size:8px;color:rgba(22,102,237,.32)}
 
   .klines{position:relative;z-index:2}
   .kl{transform-origin:left center}
   .kl{display:block;font-size:clamp(36px,12vw,116px);line-height:1.08;letter-spacing:-.045em;font-weight:900;
-      text-transform:uppercase;white-space:nowrap;opacity:0;will-change:transform,clip-path;
-      -webkit-clip-path:inset(0 0 104% 0);clip-path:inset(0 0 104% 0)}
+      text-transform:uppercase;white-space:nowrap;opacity:.15;will-change:transform,opacity}
   .kl:nth-child(2){margin-left:6%}
   .kl:nth-child(3){margin-left:11%}
   .kl.hollow{color:transparent;-webkit-text-stroke:1.5px rgba(10,33,72,.34);
       transition:color .55s ease,-webkit-text-stroke-color .55s ease}
   .kl.hollow.lit{color:var(--navy);-webkit-text-stroke-color:rgba(10,33,72,0)}
   .kl.fill{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .keb{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
-      font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-      color:var(--blue-d);background:#fff;border:1px solid #D8E6FF;
-      padding:7px 13px;border-radius:999px;margin-bottom:16px;opacity:0;will-change:transform}
-  .keb img{width:12px}
-  .kpay{position:relative;z-index:2;margin-top:20px;max-width:40ch;opacity:0;will-change:transform}
+  .kpay{position:relative;z-index:2;margin-top:18px;max-width:40ch}
+  .kpay p,.kpay .btn{opacity:.16;will-change:transform,opacity}
   .kpay p{font-size:15.5px;color:var(--muted);font-weight:500;line-height:1.55}
   .kpay .btn{margin-top:16px}
   .kbar{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--line);z-index:3}
@@ -251,17 +246,16 @@
     header nav{padding:24px 40px}
     .logo{height:38px}
     .hero{background-position:center 30%}
-    .kin{padding:74px 0 76px}
+    .kin{padding:64px 0 62px}
     .kstage{padding:0 40px}
     .klines{margin-left:2vw}
     .kl:nth-child(2){margin-left:8%}
     .kl:nth-child(3){margin-left:16%}
     .kl.hollow{-webkit-text-stroke:2px rgba(10,33,72,.34)}
-    .keb{margin-bottom:22px}
     .kpay{margin-top:28px;max-width:52ch}
     .kpay p{font-size:17.5px}
     .kmar{font-size:13px;gap:40px}
-    .kmar.a{top:26px} .kmar.b{bottom:30px}
+    .kmar.a{top:22px} .kmar.b{bottom:22px}
     .float{display:flex;margin:22px 40px 0;max-width:360px}
     .hbody{margin-top:auto}
     .hbody{padding:0 40px 52px;max-width:860px}
@@ -287,7 +281,7 @@
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
     /* no scroll choreography: show the statement plainly */
-    .kl,.keb,.kpay{opacity:1!important;transform:none!important;-webkit-clip-path:none!important;clip-path:none!important}
+    .kl,.kpay p,.kpay .btn{opacity:1!important;transform:none!important;-webkit-clip-path:none!important;clip-path:none!important}
     .kmar,.kglow,.kbar{display:none}
   }
 </style>
@@ -377,7 +371,6 @@
       <span>Auto</span><span>Homeowners</span><span>Renters</span><span>SR-22</span><span>Commercial</span><span>Mobile home</span>
     </div>
 
-    <span class="keb"><img src="assets/safehouse-heart.png" alt=""> The Safe House way</span>
     <div class="klines">
       <span class="kl">One call.</span>
       <span class="kl hollow">We shop.</span>
@@ -547,8 +540,9 @@
     if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
     var lines=[].slice.call(kin.querySelectorAll('.kl')),
         mars=[].slice.call(kin.querySelectorAll('.kmar')),
-        glow=kin.querySelector('.kglow'), eb=kin.querySelector('.keb'),
-        pay=kin.querySelector('.kpay'), bar=kin.querySelector('.kbar i');
+        glow=kin.querySelector('.kglow'),
+        copy=kin.querySelector('.kpay p'), cta=kin.querySelector('.kpay .btn'),
+        bar=kin.querySelector('.kbar i');
     function cl(v){return v<0?0:(v>1?1:v);}
     function ease(v){return 1-Math.pow(1-v,3);}
     var ticking=false;
@@ -560,24 +554,16 @@
       var r=kin.getBoundingClientRect(),
           p=cl((innerHeight-r.top)/(innerHeight||1)),
           wide=innerWidth>=900,
-          amp=wide?120:46;                       // how far the lines fly in from
-      // intro chip
-      var e0=ease(cl((p-.10)/.10));
-      eb.style.opacity=e0;
-      eb.style.transform='translate3d(0,'+((1-e0)*16).toFixed(2)+'px,0)';
+          amp=wide?54:22;                        // how far the lines drift in from
       // three giant lines: staggered unmask + alternating slide, resting exactly on their indent
       for(var i=0;i<lines.length;i++){
-        var lp=ease(cl((p-.18-i*.13)/.26)),
+        var lp=ease(cl((p-.10-i*.15)/.34)),
             drift=(1-lp)*amp*(i%2?1:-1),
-            park=cl((p-.40)/.60),
+            park=cl((p-.36)/.64),
             float_=(park-.5)*2*(i%2?5:-5);       // gentle counter-drift once revealed
-        lines[i].style.opacity=(.05+.95*lp).toFixed(3);
+        lines[i].style.opacity=(.15+.85*lp).toFixed(3);
         lines[i].style.transform='translate3d('+drift.toFixed(2)+'px,'+float_.toFixed(2)+'px,0)'
-          +' scale('+(1+(1-lp)*.07).toFixed(4)+')'
-          +' skewY('+((1-lp)*(i%2?-2.6:2.6)).toFixed(2)+'deg)';
-        var hide=((1-lp)*104).toFixed(2)+'%';
-        lines[i].style.clipPath='inset(0 0 '+hide+' 0)';
-        lines[i].style.webkitClipPath='inset(0 0 '+hide+' 0)';
+          +' scale('+(1+(1-lp)*.03).toFixed(4)+')';
       }
       // carrier / coverage names stream past in opposite directions
       var span=innerWidth*(wide?.55:.85);
@@ -587,12 +573,15 @@
       var g=.5+ease(cl(p/.7))*.75;
       glow.style.transform='translate(-50%,-50%) scale('+g.toFixed(3)+')';
       glow.style.opacity=(.35+.55*ease(cl(p/.5))).toFixed(3);
-      // payoff arrives last, landing as the section tops out
-      var e2=ease(cl((p-.70)/.28));
-      pay.style.opacity=e2;
-      pay.style.transform='translate3d(0,'+((1-e2)*24).toFixed(2)+'px,0)';
+      // the copy starts filling in while the last line is still arriving, and the
+      // button lands as the section tops out — no reserved-but-empty white gap
+      var e2=ease(cl((p-.46)/.32)), e3=ease(cl((p-.62)/.32));
+      copy.style.opacity=(.16+.84*e2).toFixed(3);
+      copy.style.transform='translate3d(0,'+((1-e2)*12).toFixed(2)+'px,0)';
+      cta.style.opacity=(.16+.84*e3).toFixed(3);
+      cta.style.transform='translate3d(0,'+((1-e3)*12).toFixed(2)+'px,0)';
       // the hollow middle line fills in as the payoff lands
-      lines[1].classList.toggle('lit',p>.76);
+      lines[1].classList.toggle('lit',p>.70);
       bar.style.width=(p*100).toFixed(2)+'%';
     }
     function onScroll(){ if(!ticking){ticking=true;requestAnimationFrame(paint);} }
