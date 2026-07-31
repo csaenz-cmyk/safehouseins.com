@@ -62,8 +62,6 @@
   .links a{color:rgba(255,255,255,.94);font-weight:600;font-size:15px;white-space:nowrap}
   .links a:hover{color:#fff}
   .navr{display:flex;gap:9px;align-items:center}
-  .tel{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.42);
-       backdrop-filter:blur(8px);color:#fff;font-weight:800;font-size:14.5px;padding:11px 17px;border-radius:999px;white-space:nowrap}
   .burger{width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.42);
       backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:5px;align-items:center;justify-content:center;
       flex:0 0 auto;cursor:pointer;padding:0}
@@ -90,10 +88,7 @@
   .float small{font-size:11px;color:var(--muted);font-weight:600}
 
   .hbody{position:relative;z-index:15;margin-top:auto;padding:0 22px 22px}
-  .eb{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;
-      letter-spacing:.12em;text-transform:uppercase;color:#cfe4ff;background:rgba(255,255,255,.14);
-      border:1px solid rgba(255,255,255,.28);padding:7px 13px;border-radius:999px;backdrop-filter:blur(6px)}
-  h1{font-size:clamp(38px,10vw,58px);line-height:1.0;letter-spacing:-.035em;font-weight:900;color:#fff;margin-top:16px;
+  h1{font-size:clamp(38px,10vw,58px);line-height:1.0;letter-spacing:-.035em;font-weight:900;color:#fff;
      text-shadow:0 4px 26px rgba(0,0,0,.45)}
   .rot{display:block;position:relative;height:1.1em;overflow:hidden}
   .rot span{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(70%);white-space:nowrap;
@@ -116,26 +111,25 @@
      by one scroll-progress value (see the JS at the bottom): the three giant lines slide
      in from alternating sides and unmask, the carrier names stream past behind them, and
      the payoff line + button arrive last. Transforms/opacity only, one rAF loop. */
-  .kin{position:relative;height:158vh;padding:0;background:#fff;color:var(--navy)}
-  .kstage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;
-      display:flex;flex-direction:column;justify-content:center;padding:0 18px}
-  .kglow{position:absolute;left:50%;top:48%;width:min(130vw,900px);aspect-ratio:1;transform:translate(-50%,-50%) scale(.5);
+  .kin{position:relative;padding:58px 0 56px;background:#fff;color:var(--navy);overflow:hidden}
+  .kstage{display:flex;flex-direction:column;padding:0 22px;max-width:1180px;margin:0 auto}
+  .kglow{position:absolute;left:50%;top:50%;width:min(120vw,860px);aspect-ratio:1;transform:translate(-50%,-50%) scale(.5);
       background:radial-gradient(circle,rgba(22,102,237,.10) 0%,rgba(0,194,255,.05) 40%,transparent 66%);
       pointer-events:none;will-change:transform}
   .kgrid{position:absolute;inset:0;pointer-events:none;opacity:.6;
       background-image:linear-gradient(rgba(22,102,237,.055) 1px,transparent 1px),
                        linear-gradient(90deg,rgba(22,102,237,.055) 1px,transparent 1px);
-      background-size:58px 58px;mask-image:radial-gradient(70% 60% at 50% 45%,#000,transparent)}
+      background-size:58px 58px;mask-image:radial-gradient(70% 66% at 50% 50%,#000,transparent)}
   .kmar{position:absolute;left:0;right:0;display:flex;gap:30px;white-space:nowrap;pointer-events:none;
       font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
-      color:#b9c6da;will-change:transform}
-  .kmar.a{top:15%} .kmar.b{bottom:16%}
+      color:#c2cee0;will-change:transform}
+  .kmar.a{top:20px} .kmar.b{bottom:22px}
   .kmar span{flex:0 0 auto;display:flex;align-items:center;gap:30px}
-  .kmar span::after{content:"\25C6";font-size:8px;color:rgba(22,102,237,.35)}
+  .kmar span::after{content:"\25C6";font-size:8px;color:rgba(22,102,237,.32)}
 
   .klines{position:relative;z-index:2}
   .kl{transform-origin:left center}
-  .kl{display:block;font-size:clamp(36px,min(12vw,13.5vh),124px);line-height:1.08;letter-spacing:-.045em;font-weight:900;
+  .kl{display:block;font-size:clamp(36px,12vw,116px);line-height:1.08;letter-spacing:-.045em;font-weight:900;
       text-transform:uppercase;white-space:nowrap;opacity:0;will-change:transform,clip-path;
       -webkit-clip-path:inset(0 0 104% 0);clip-path:inset(0 0 104% 0)}
   .kl:nth-child(2){margin-left:6%}
@@ -147,12 +141,12 @@
   .keb{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
       font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
       color:var(--blue-d);background:#fff;border:1px solid #D8E6FF;
-      padding:7px 13px;border-radius:999px;margin-bottom:18px;opacity:0;will-change:transform}
+      padding:7px 13px;border-radius:999px;margin-bottom:16px;opacity:0;will-change:transform}
   .keb img{width:12px}
-  .kpay{position:relative;z-index:2;margin-top:22px;max-width:40ch;opacity:0;will-change:transform}
+  .kpay{position:relative;z-index:2;margin-top:20px;max-width:40ch;opacity:0;will-change:transform}
   .kpay p{font-size:15.5px;color:var(--muted);font-weight:500;line-height:1.55}
   .kpay .btn{margin-top:16px}
-  .kbar{position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--line);z-index:3}
+  .kbar{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--line);z-index:3}
   .kbar i{display:block;height:100%;width:0;background:var(--grad)}
 
   /* ================= SECTIONS ================= */
@@ -257,7 +251,7 @@
     header nav{padding:24px 40px}
     .logo{height:38px}
     .hero{background-position:center 30%}
-    .kin{height:205vh}
+    .kin{padding:86px 0 84px}
     .kstage{padding:0 40px}
     .klines{margin-left:2vw}
     .kl:nth-child(2){margin-left:8%}
@@ -267,7 +261,7 @@
     .kpay{margin-top:28px;max-width:52ch}
     .kpay p{font-size:17.5px}
     .kmar{font-size:13px;gap:40px}
-    .kmar.a{top:8%} .kmar.b{bottom:9%}
+    .kmar.a{top:26px} .kmar.b{bottom:30px}
     .float{display:flex;margin:22px 40px 0;max-width:360px}
     .hbody{margin-top:auto}
     .hbody{padding:0 40px 52px;max-width:860px}
@@ -289,17 +283,10 @@
     .card{margin-top:0}
     .card .g3{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   }
-  /* short desktop windows: tuck the streaming rows against the very edges */
-  @media(min-width:900px) and (max-height:830px){
-    .kmar.a{top:2%} .kmar.b{bottom:2.4%}
-    .kpay{margin-top:26px} .keb{margin-bottom:20px}
-  }
   @media(hover:none){ .cc:hover{transform:none} }
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
-    /* no scroll choreography: show the statement as a normal, static section */
-    .kin{height:auto;padding:70px 0}
-    .kstage{position:static;height:auto;min-height:0}
+    /* no scroll choreography: show the statement plainly */
     .kl,.keb,.kpay{opacity:1!important;transform:none!important;-webkit-clip-path:none!important;clip-path:none!important}
     .kmar,.kglow,.kbar{display:none}
   }
@@ -331,7 +318,6 @@
       <a href="#how">How it works</a><a href="#coverage">Coverage</a><a href="#why">Why us</a><a href="#reviews">Reviews</a><a href="#quote">Get a quote</a>
     </div>
     <div class="navr">
-      <a class="tel" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> 915-503-1207</a>
       <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
     </div>
   </nav>
@@ -346,7 +332,6 @@
   </div>
 
   <div class="hbody">
-    <span class="eb">Licensed independent agency · El Paso, TX</span>
     <h1>Real insurance for
       <span class="rot" id="rot">
         <span class="on gt">new drivers.</span>
@@ -376,14 +361,6 @@
   <a href="#quote">Get a quote</a>
   <a class="btn grad" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
   <a class="dm" href="mailto:contact@safehouseins.com">contact@safehouseins.com · Se habla español</a>
-</div>
-
-<!-- carriers -->
-<div class="car">
-  <div class="wrap">
-    <p>Carriers we shop for you</p>
-    <div class="r"><span>Progressive</span><span>Geico</span><span>Lemonade</span><span>Alinsco</span><span>Commonwealth</span></div>
-  </div>
 </div>
 
 <!-- ================= KINETIC SCROLL STATEMENT ================= -->
@@ -443,6 +420,14 @@
     <a class="cc rv" href="#quote"><span class="ic"><svg class="i"><use href="#doc"/></svg></span><span><b>Bonds</b><small>Surety, license &amp; permit bonds</small></span><span class="go"><svg class="i"><use href="#ar"/></svg></span></a>
   </div>
 </div></section>
+
+<!-- carriers -->
+<div class="car">
+  <div class="wrap">
+    <p>Carriers we shop for you</p>
+    <div class="r"><span>Progressive</span><span>Geico</span><span>Lemonade</span><span>Alinsco</span><span>Commonwealth</span></div>
+  </div>
+</div>
 
 <!-- why -->
 <section id="why" class="why"><div class="wrap">
@@ -569,11 +554,12 @@
     var ticking=false;
     function paint(){
       ticking=false;
-      var top=kin.getBoundingClientRect().top,
-          track=kin.offsetHeight-innerHeight,
-          p=cl(-top/(track||1)),
+      // the section keeps its own space — progress is simply how far it has
+      // travelled into the viewport, so the page never gets held hostage
+      var r=kin.getBoundingClientRect(),
+          p=cl((innerHeight*.86-r.top)/(innerHeight*.55)),
           wide=innerWidth>=900,
-          amp=wide?140:52;                       // how far the lines fly in from
+          amp=wide?120:46;                       // how far the lines fly in from
       // intro chip
       var e0=ease(cl(p/.10));
       eb.style.opacity=e0;
