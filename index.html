@@ -251,7 +251,7 @@
     header nav{padding:24px 40px}
     .logo{height:38px}
     .hero{background-position:center 30%}
-    .kin{padding:86px 0 84px}
+    .kin{padding:74px 0 76px}
     .kstage{padding:0 40px}
     .klines{margin-left:2vw}
     .kl:nth-child(2){margin-left:8%}
@@ -554,21 +554,22 @@
     var ticking=false;
     function paint(){
       ticking=false;
-      // the section keeps its own space — progress is simply how far it has
-      // travelled into the viewport, so the page never gets held hostage
+      // progress spans the section's whole trip up the screen: 0 the moment its top
+      // touches the bottom of the viewport, 1 exactly when that top reaches the very
+      // top — so the scroll wheel really is the scrub bar, start to finish
       var r=kin.getBoundingClientRect(),
-          p=cl((innerHeight*.86-r.top)/(innerHeight*.55)),
+          p=cl((innerHeight-r.top)/(innerHeight||1)),
           wide=innerWidth>=900,
           amp=wide?120:46;                       // how far the lines fly in from
       // intro chip
-      var e0=ease(cl(p/.10));
+      var e0=ease(cl((p-.10)/.10));
       eb.style.opacity=e0;
       eb.style.transform='translate3d(0,'+((1-e0)*16).toFixed(2)+'px,0)';
       // three giant lines: staggered unmask + alternating slide, resting exactly on their indent
       for(var i=0;i<lines.length;i++){
-        var lp=ease(cl((p-.06-i*.105)/.30)),
+        var lp=ease(cl((p-.18-i*.13)/.26)),
             drift=(1-lp)*amp*(i%2?1:-1),
-            park=cl((p-.52)/.48),
+            park=cl((p-.40)/.60),
             float_=(park-.5)*2*(i%2?5:-5);       // gentle counter-drift once revealed
         lines[i].style.opacity=(.05+.95*lp).toFixed(3);
         lines[i].style.transform='translate3d('+drift.toFixed(2)+'px,'+float_.toFixed(2)+'px,0)'
@@ -586,12 +587,12 @@
       var g=.5+ease(cl(p/.7))*.75;
       glow.style.transform='translate(-50%,-50%) scale('+g.toFixed(3)+')';
       glow.style.opacity=(.35+.55*ease(cl(p/.5))).toFixed(3);
-      // payoff arrives last
-      var e2=ease(cl((p-.52)/.24));
+      // payoff arrives last, landing as the section tops out
+      var e2=ease(cl((p-.70)/.28));
       pay.style.opacity=e2;
       pay.style.transform='translate3d(0,'+((1-e2)*24).toFixed(2)+'px,0)';
       // the hollow middle line fills in as the payoff lands
-      lines[1].classList.toggle('lit',p>.66);
+      lines[1].classList.toggle('lit',p>.76);
       bar.style.width=(p*100).toFixed(2)+'%';
     }
     function onScroll(){ if(!ticking){ticking=true;requestAnimationFrame(paint);} }
