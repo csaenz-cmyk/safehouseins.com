@@ -202,23 +202,87 @@
   .fdot.on{width:36px;background:#DCE7F8}
   .fdot i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--grad);border-radius:99px}
 
-  /* --- wireframe primitives: the placeholder vocabulary --- */
-  .sk{background:#E9EFF9;border-radius:8px;display:block}
-  .sk.d{background:#DCE7F8}
-  .sk.b{background:var(--grad)}
-  .skbar{height:8px;border-radius:99px;background:#E9EFF9;display:block}
-  .skbar.d{background:#DCE7F8}
-  .skrow{display:flex;gap:8px;align-items:center;background:#fff;border:1px solid #EDF2FA;border-radius:13px;padding:8px}
-  .skrow .sq{width:26px;height:26px;border-radius:8px;background:#E9EFF9;flex:0 0 auto}
-  .skrow .gr{flex:1;display:flex;flex-direction:column;gap:5px}
-  .skcard{background:#F5F9FF;border:1px solid #EAF1FB;border-radius:15px;padding:11px;display:flex;flex-direction:column;gap:7px}
-  .skbtn{height:34px;border-radius:99px;background:var(--grad);flex:0 0 auto}
-  .skhead{display:flex;align-items:center;gap:8px;padding:0 2px 2px}
-  .skhead .dot{width:16px;height:16px;border-radius:99px;background:var(--grad);flex:0 0 auto}
-  .skbub{max-width:78%;padding:9px 11px;border-radius:14px;background:#F0F5FD;display:flex;flex-direction:column;gap:5px}
-  .skbub.me{align-self:flex-end;background:var(--grad)}
-  .skbub.me .skbar{background:rgba(255,255,255,.55)}
-  .skspacer{flex:1}
+  .fnotes{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .fnotes span{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;color:var(--blue-d);
+      background:#fff;border:1px solid #DCE7F8;border-radius:99px;padding:7px 12px;line-height:1.35}
+  .fnotes span::before{content:"";width:6px;height:6px;border-radius:99px;background:var(--grad);flex:0 0 auto}
+  .facts{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
+  .facts .btn{width:100%;max-width:340px}
+  .fcall{font-size:14px;font-weight:700;color:var(--blue-d);border-bottom:1.5px solid #BBD5FF;padding-bottom:2px}
+  .fcall:hover{color:var(--blue)}
+
+  /* --- in-device UI. Everything is em-based off .pscreen so one font-size
+         scales a whole screen between phone and desktop sizes. --- */
+  .pscreen{font-size:min(.95vh,8.3px);font-size:min(.95svh,8.3px);color:var(--navy)}
+  .fscreen{padding:4.4em 1.5em 1.5em;gap:.85em}
+  .uh{display:flex;align-items:center;gap:.7em;padding-bottom:.35em}
+  .uh b{font-size:1.15em;font-weight:800;letter-spacing:-.01em}
+  .uh small{display:block;font-size:.92em;color:#8494ad;font-weight:600;margin-top:.1em}
+  .ulogo{width:2em;height:2em;border-radius:.65em;background:var(--grad);display:grid;place-items:center;flex:0 0 auto}
+  .ulogo img{width:1.2em;filter:brightness(0) invert(1)}
+  .uav{width:2.3em;height:2.3em;border-radius:99px;background:var(--grad);color:#fff;display:grid;place-items:center;
+       font-size:.92em;font-weight:900;flex:0 0 auto;letter-spacing:.02em}
+  .ustep{margin-left:auto;font-size:.9em;font-weight:700;color:#93a3bb}
+  .utag{margin-left:auto;font-size:.85em;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
+        color:#9A6300;background:#FFF3DC;border:1px solid #FBE3B8;padding:.3em .6em;border-radius:99px;white-space:nowrap}
+  .ut{font-size:1.5em;font-weight:900;letter-spacing:-.02em;line-height:1.15}
+  .ut.c{text-align:center}
+
+  .uf{background:#F5F9FF;border:1px solid #E7EFFA;border-radius:.95em;padding:.7em .85em;display:block}
+  .uf>span{display:block;font-size:.92em;font-weight:700;color:#8494ad}
+  .uf>b{display:block;font-size:1.12em;font-weight:800;margin-top:.2em}
+  .caret{display:inline-block;width:.1em;height:1em;background:var(--blue);margin-left:.15em;vertical-align:-.15em;
+         animation:blink 1.1s steps(1,end) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .uchips{display:flex;gap:.4em;margin-top:.45em}
+  .uchips i{font-style:normal;font-size:.95em;font-weight:800;padding:.35em .7em;border-radius:99px;
+            background:#fff;border:1px solid #E7EFFA;color:#8494ad}
+  .uchips i.on{background:var(--grad);color:#fff;border-color:transparent}
+  .uprog{display:block;height:.42em;border-radius:99px;background:#E7EFFA;overflow:hidden}
+  .uprog i{display:block;height:100%;width:72%;background:var(--grad);border-radius:99px}
+  .ubtn{display:block;text-align:center;background:var(--grad);color:#fff;font-weight:800;font-size:1.05em;
+        padding:.85em;border-radius:99px}
+
+  .uc{display:flex;align-items:center;gap:.7em;background:#fff;border:1px solid #E7EFFA;border-radius:.95em;padding:.7em .8em;
+      box-shadow:0 .6em 1.2em -.9em rgba(10,33,72,.35)}
+  .uc .sq{width:2.1em;height:2.1em;border-radius:.55em;background:#EFF5FF;flex:0 0 auto;display:grid;place-items:center;
+          font-size:.95em;font-weight:900;color:var(--blue-d)}
+  .uc .lt{flex:1;min-width:0}
+  .uc .lt b{display:block;font-size:1.05em;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .uc .lt small{display:block;font-size:.86em;color:#8494ad;font-weight:600;margin-top:.08em;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .uc .rt{text-align:right;flex:0 0 auto}
+  .uc .rt b{display:block;font-size:1.25em;font-weight:900;color:var(--blue-d);letter-spacing:-.02em}
+  .uc .rt small{display:block;font-size:.82em;color:#93a3bb;font-weight:700}
+  .unote{font-size:.88em;line-height:1.4;color:#93a3bb;font-weight:600}
+  .unote.c{text-align:center}
+
+  /* the agent-review screen runs dark — it is the step that sets us apart */
+  .fscreen.dk{background:var(--navy2);color:#fff;margin:0;border-radius:0}
+  .fscreen.ctr{justify-content:center}
+  .fscreen.dk .uh b{color:#fff}
+  .fscreen.dk .unote{color:#8fa6c8}
+  .uk{display:flex;align-items:center;gap:.7em;background:#fff;border:1px solid #E7EFFA;border-radius:.8em;
+      padding:.62em .75em;font-size:1.02em;font-weight:700}
+  .fscreen.dk .uk{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.13);color:#fff}
+  .uk i{width:1.45em;height:1.45em;border-radius:99px;background:var(--grad);color:#fff;display:grid;place-items:center;
+        font-size:.85em;font-style:normal;font-weight:900;flex:0 0 auto}
+  .uk.live i{background:transparent;border:.16em solid rgba(255,255,255,.35);border-top-color:#7FE0FF;
+        animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .uk.live{color:#bcd3f0}
+
+  .ub{max-width:88%;padding:.7em .85em;border-radius:1.1em;font-size:1em;line-height:1.4;font-weight:600}
+  .ub.in{background:#F0F5FD;border-bottom-left-radius:.35em;color:#2b3849}
+  .ub.me{align-self:flex-end;background:var(--grad);color:#fff;border-bottom-right-radius:.35em}
+  .utype{display:flex;gap:.3em;align-items:center;padding:.55em .8em;background:#F0F5FD;border-radius:1.1em;
+         align-self:flex-start;border-bottom-left-radius:.35em}
+  .utype i{width:.45em;height:.45em;border-radius:99px;background:#a9bcd6;animation:bob 1.2s infinite}
+  .utype i:nth-child(2){animation-delay:.15s} .utype i:nth-child(3){animation-delay:.3s}
+  @keyframes bob{0%,60%,100%{opacity:.35;transform:translateY(0)}30%{opacity:1;transform:translateY(-.2em)}}
+  .udone{width:3.6em;height:3.6em;border-radius:99px;background:var(--grad);color:#fff;display:grid;place-items:center;
+         font-size:1.4em;font-weight:900;margin:.4em auto .1em;box-shadow:0 .8em 1.6em -.6em rgba(22,102,237,.7)}
+  .uspacer{flex:1}
 
   /* ================= SECTIONS ================= */
   section{padding:56px 0}
@@ -326,14 +390,17 @@
     /* desktop: copy on the left, the device holds still on the right */
     .flow{--dwell:74vh;padding-top:84px}
     .fhead{padding:0 40px 10px}
+    .fnotes span{font-size:13px;padding:9px 15px}
     .fin{display:grid;grid-template-columns:1fr auto;align-items:center;gap:60px;padding:0 40px;max-width:1120px}
-    .fleft{order:1;max-width:none;align-items:flex-start;gap:30px}
+    .fleft{order:1;max-width:none;align-items:flex-start;gap:26px}
+    .facts{flex-direction:row;align-items:center;gap:20px;width:auto}
+    .facts .btn{width:auto}
     .fphone{order:2}
     .fcopy{min-height:206px}
     .phone{height:min(70vh,600px);border-radius:44px;padding:9px}
     .pscreen,.pscreen::after{border-radius:36px}
     .pnotch{top:16px;height:19px}
-    .fscreen{padding:48px 17px 18px;gap:11px}
+    .pscreen{font-size:min(1.35vh,11.6px)}
     .fstep p{font-size:17px}
     .skbtn{height:42px}
     .kstage{padding:0 40px}
@@ -479,117 +546,160 @@
   </div>
 </section>
 
-<!-- ================= FLOW: sticky device, scroll-driven screens =================
-     Placeholder content on purpose. To add a step: append one .fstep, one .fscreen
-     and one .fdot, keeping the same order in all three. The JS does the rest. -->
-<section class="flow" id="flow" aria-label="How it works, step by step">
+<!-- ================= FLOW: quote online, confirm with an agent =================
+     Five steps. Three parallel lists in the same order — one .fscreen (the phone),
+     one .fstep (the copy), one .fdot. To add a step, add one of each; the JS counts
+     the screens, grows the track and wires the dots on load. -->
+<section class="flow" id="flow" aria-label="How Safe House works, step by step">
 
-  <!-- scrolls past normally, then the stage below takes over -->
   <div class="fhead rv">
-    <span class="kick">Placeholder eyebrow</span>
-    <h2>Section headline goes here.</h2>
-    <p class="sl">One line of supporting copy. Replace this whole block with the real heading.</p>
+    <span class="kick"><img src="assets/safehouse-heart.png" alt=""> How it works</span>
+    <h2>Quote online. Confirm with an expert.</h2>
+    <p class="sl">See your options in minutes, then review them with a licensed Safe House
+       agent before you choose.</p>
+    <div class="fnotes">
+      <span>Fast online quotes. Real human review.</span>
+      <span>Technology for speed. Licensed agents for accuracy.</span>
+      <span>See your options online. Confirm before you buy.</span>
+    </div>
   </div>
 
   <div class="ftrack" id="ftrack">
   <div class="fstage">
     <div class="fin">
 
-      <!-- the device -->
       <div class="fphone">
         <div class="phone">
           <span class="pnotch" aria-hidden="true"></span>
-          <div class="pscreen" id="pscreen">
+          <div class="pscreen">
 
-            <!-- screen 1 -->
+            <!-- 1 · online quote -->
             <div class="fscreen on">
-              <div class="skhead"><span class="dot"></span><span class="skbar d" style="width:44%"></span></div>
-              <span class="skbar" style="width:70%"></span>
-              <div class="skcard"><span class="skbar d" style="width:38%"></span><span class="sk" style="height:30px"></span></div>
-              <div class="skcard"><span class="skbar d" style="width:52%"></span><span class="sk" style="height:30px"></span></div>
-              <div class="skcard"><span class="skbar d" style="width:30%"></span><span class="sk" style="height:30px"></span></div>
-              <span class="skspacer"></span>
-              <span class="skbtn"></span>
-            </div>
-
-            <!-- screen 2 -->
-            <div class="fscreen">
-              <div class="skhead"><span class="dot"></span><span class="skbar d" style="width:52%"></span></div>
-              <div class="skrow"><span class="sq"></span><span class="gr"><span class="skbar" style="width:66%"></span><span class="skbar d" style="width:38%"></span></span><span class="sk" style="width:30px;height:14px"></span></div>
-              <div class="skrow"><span class="sq"></span><span class="gr"><span class="skbar" style="width:54%"></span><span class="skbar d" style="width:44%"></span></span><span class="sk" style="width:30px;height:14px"></span></div>
-              <div class="skrow"><span class="sq"></span><span class="gr"><span class="skbar" style="width:72%"></span><span class="skbar d" style="width:32%"></span></span><span class="sk" style="width:30px;height:14px"></span></div>
-              <div class="skrow"><span class="sq"></span><span class="gr"><span class="skbar" style="width:60%"></span><span class="skbar d" style="width:40%"></span></span><span class="sk" style="width:30px;height:14px"></span></div>
-              <span class="skspacer"></span>
-              <span class="skbtn"></span>
-            </div>
-
-            <!-- screen 3 -->
-            <div class="fscreen">
-              <div class="skhead"><span class="dot"></span><span class="skbar d" style="width:40%"></span></div>
-              <div class="skcard" style="gap:9px">
-                <span class="skbar b" style="width:46%;height:11px"></span>
-                <span class="skbar" style="width:82%"></span>
-                <span class="skbar" style="width:64%"></span>
+              <div class="uh">
+                <span class="ulogo"><img src="assets/safehouse-heart.png" alt=""></span>
+                <b>Safe House</b><span class="ustep">Step 1 of 3</span>
               </div>
-              <div style="display:flex;gap:8px">
-                <div class="skcard" style="flex:1"><span class="skbar d" style="width:60%"></span><span class="sk" style="height:22px"></span></div>
-                <div class="skcard" style="flex:1"><span class="skbar d" style="width:70%"></span><span class="sk" style="height:22px"></span></div>
+              <p class="ut">Tell us what you need</p>
+              <div class="uf"><span>ZIP code</span><b>79912</b></div>
+              <div class="uf"><span>What are you insuring?</span>
+                <div class="uchips"><i class="on">Auto</i><i>Home</i><i>Commercial</i></div>
               </div>
-              <div class="skcard"><span class="skbar d" style="width:48%"></span><span class="sk" style="height:26px"></span></div>
-              <span class="skspacer"></span>
-              <span class="skbtn"></span>
+              <div class="uf"><span>Vehicle</span><b>2019 Toyota Camry<em class="caret"></em></b></div>
+              <div class="uf"><span>Coverage</span>
+                <div class="uchips"><i class="on">Full coverage</i><i>Liability</i></div>
+              </div>
+              <span class="uspacer"></span>
+              <span class="uprog"><i></i></span>
+              <span class="ubtn">See my options</span>
             </div>
 
-            <!-- screen 4 -->
+            <!-- 2 · initial options -->
             <div class="fscreen">
-              <div class="skhead"><span class="dot"></span><span class="skbar d" style="width:48%"></span></div>
-              <div class="skbub"><span class="skbar" style="width:120px"></span><span class="skbar" style="width:88px"></span></div>
-              <div class="skbub me"><span class="skbar" style="width:104px"></span></div>
-              <div class="skbub"><span class="skbar" style="width:132px"></span><span class="skbar" style="width:70px"></span></div>
-              <div class="skbub me"><span class="skbar" style="width:76px"></span><span class="skbar" style="width:118px"></span></div>
-              <span class="skspacer"></span>
-              <span class="sk" style="height:34px;border-radius:99px"></span>
+              <div class="uh"><b>Your options</b><span class="utag">Initial estimate</span></div>
+              <span class="uspacer"></span>
+              <div class="uc"><span class="sq">P</span>
+                <span class="lt"><b>Progressive</b><small>Full coverage</small><small>$500 deductible</small></span>
+                <span class="rt"><b>$</b><small>/mo est.</small></span></div>
+              <div class="uc"><span class="sq">G</span>
+                <span class="lt"><b>Geico</b><small>Full coverage</small><small>$500 deductible</small></span>
+                <span class="rt"><b>$$</b><small>/mo est.</small></span></div>
+              <div class="uc"><span class="sq">A</span>
+                <span class="lt"><b>Alinsco</b><small>Liability &middot; SR-22 ok</small><small>$1,000 deductible</small></span>
+                <span class="rt"><b>$</b><small>/mo est.</small></span></div>
+              <span class="uspacer"></span>
+              <p class="unote">Estimates from what you entered. Your agent confirms the real numbers.</p>
+            </div>
+
+            <!-- 3 · the agent review, the step that matters -->
+            <div class="fscreen dk">
+              <div class="uh"><span class="uav">SH</span>
+                <span><b>Agent review</b><small>Licensed in TX &amp; NM</small></span></div>
+              <span class="uspacer"></span>
+              <div class="uk"><i>&#10003;</i>Driver information</div>
+              <div class="uk"><i>&#10003;</i>Vehicle details</div>
+              <div class="uk"><i>&#10003;</i>Available discounts</div>
+              <div class="uk"><i>&#10003;</i>Coverage limits</div>
+              <div class="uk live"><i></i>Carrier requirements</div>
+              <span class="uspacer"></span>
+              <p class="unote">A real person checks every line before anything is final.</p>
+            </div>
+
+            <!-- 4 · confirmed options by phone or text -->
+            <div class="fscreen">
+              <div class="uh"><span class="uav">SH</span>
+                <span><b>Safe House Insurance</b><small>Text message</small></span></div>
+              <span class="uspacer"></span>
+              <div class="ub in">Hi! We reviewed your quote and found updated options for you.
+                Would you like to go over them by phone or text?</div>
+              <div class="uc"><span class="sq">P</span>
+                <span class="lt"><b>Progressive</b><small>Reviewed &middot; full coverage</small></span>
+                <span class="rt"><b>$</b><small>/mo</small></span></div>
+              <div class="uc"><span class="sq">G</span>
+                <span class="lt"><b>Geico</b><small>Reviewed &middot; full coverage</small></span>
+                <span class="rt"><b>$$</b><small>/mo</small></span></div>
+              <div class="ub me">Text works &mdash; send them over</div>
+              <span class="utype" aria-hidden="true"><i></i><i></i><i></i></span>
+            </div>
+
+            <!-- 5 · choose and activate -->
+            <div class="fscreen ctr">
+              <span class="udone">&#10003;</span>
+              <p class="ut c">You&rsquo;re covered</p>
+              <div class="uk"><i>&#10003;</i>Option selected</div>
+              <div class="uk"><i>&#10003;</i>Information confirmed</div>
+              <div class="uk"><i>&#10003;</i>Policy active</div>
+              <div class="uk"><i>&#10003;</i>Documents sent</div>
+              <p class="unote c" style="margin-top:.5em">Activation is completed with a licensed agent by phone or text.</p>
             </div>
 
           </div>
         </div>
       </div>
 
-      <!-- the copy and the dots ride together in the left column -->
       <div class="fleft">
-      <div class="fcopy">
-        <article class="fstep on">
-          <span class="n">Step 01</span>
-          <h3>Headline for step one</h3>
-          <p>One or two lines describing what happens here. Placeholder copy — replace this
-             block and the screen beside it with the real thing.</p>
-        </article>
-        <article class="fstep">
-          <span class="n">Step 02</span>
-          <h3>Headline for step two</h3>
-          <p>One or two lines describing what happens here. Placeholder copy — replace this
-             block and the screen beside it with the real thing.</p>
-        </article>
-        <article class="fstep">
-          <span class="n">Step 03</span>
-          <h3>Headline for step three</h3>
-          <p>One or two lines describing what happens here. Placeholder copy — replace this
-             block and the screen beside it with the real thing.</p>
-        </article>
-        <article class="fstep">
-          <span class="n">Step 04</span>
-          <h3>Headline for step four</h3>
-          <p>One or two lines describing what happens here. Placeholder copy — replace this
-             block and the screen beside it with the real thing.</p>
-        </article>
-      </div>
+        <div class="fcopy">
+          <article class="fstep on">
+            <span class="n">Step 01</span>
+            <h3>Get your online quote</h3>
+            <p>Tell us what you need and see initial insurance options online in just a few minutes.</p>
+          </article>
+          <article class="fstep">
+            <span class="n">Step 02</span>
+            <h3>See your initial options</h3>
+            <p>Review the options generated by the system based on the information you provided.</p>
+          </article>
+          <article class="fstep">
+            <span class="n">Step 03</span>
+            <h3>A licensed agent reviews everything</h3>
+            <p>Our team verifies your information, available discounts, carrier requirements and
+               coverage details.</p>
+          </article>
+          <article class="fstep">
+            <span class="n">Step 04</span>
+            <h3>Get your confirmed options</h3>
+            <p>Your agent contacts you by phone or text with the most accurate options available
+               for your situation.</p>
+          </article>
+          <article class="fstep">
+            <span class="n">Step 05</span>
+            <h3>Choose and activate your policy</h3>
+            <p>Once you choose the option that works for you, your agent helps finalize the
+               application and activate your coverage.</p>
+          </article>
+        </div>
 
-      <div class="fdots" role="tablist" aria-label="Steps">
-        <button class="fdot on" role="tab" aria-selected="true"  aria-label="Step 1"><i></i></button>
-        <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 2"><i></i></button>
-        <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 3"><i></i></button>
-        <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 4"><i></i></button>
-      </div>
+        <div class="fdots" role="tablist" aria-label="Steps">
+          <button class="fdot on" role="tab" aria-selected="true"  aria-label="Step 1"><i></i></button>
+          <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 2"><i></i></button>
+          <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 3"><i></i></button>
+          <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 4"><i></i></button>
+          <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 5"><i></i></button>
+        </div>
+
+        <div class="facts">
+          <a class="btn grad" href="#quote">Start my online quote <svg class="i"><use href="#ar"/></svg></a>
+          <a class="fcall" href="tel:+19155031207">Prefer to talk? Call 915-503-1207</a>
+        </div>
       </div>
 
     </div>
