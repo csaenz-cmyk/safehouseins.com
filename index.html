@@ -132,63 +132,61 @@
   .kl.hollow.lit{color:var(--navy);-webkit-text-stroke-color:rgba(10,33,72,0)}
   .kl.fill{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
-  /* ================= FLOW: swipeable step carousel =================
+  /* ================= FLOW: step list + mockup =================
      ARCHITECTURE
 
-       .flow    the section: heading, rail, dots, CTA. Normal height, no scroll hijack.
-       .frail   a native horizontal scroll container with scroll-snap. This is the
-                whole interaction — touch swipe, trackpad, arrows and keyboard all
-                come free from the browser; the JS only reads scrollLeft to keep the
-                dots in sync and writes it when you click a dot or an arrow.
-       .fslide  one card per step: the device on top, the caption underneath. Slides
-                are narrower than the rail so the neighbours peek, which is what
-                tells you it can be swiped.
+       .fwrap   holds the two halves. Stacked on phones, two columns on desktop
+                with the mockup on the left and the list on the right.
+       .fstack  the mockups. On phones it is a native horizontal snap rail you can
+                swipe; on desktop the same images stack and cross-fade.
+       .flist   every step is always on screen. The active one opens its paragraph
+                and its left rule fills over --dwell, which is also how long before
+                it advances on its own.
 
-     TO ADD A STEP: add one <article class="fslide"> and one <button class="fdot">.
-     The JS counts the slides on load; nothing is hard-coded. */
-  .flow{position:relative;background:var(--ice);padding:56px 0 60px;overflow:hidden}
+     TO ADD A STEP: add one <img class="fshot"> and one <li class="fitem"> in the
+     same order. The JS counts them on load; nothing is hard-coded. */
+  .flow{position:relative;background:var(--ice);padding:56px 0 60px;overflow:hidden;--dwell:3400ms}
   .fhead{max-width:1180px;margin:0 auto;padding:0 22px 22px}
+  .fwrap{display:flex;flex-direction:column;gap:20px;max-width:1180px;margin:0 auto;padding:0 22px}
 
-  .frail{display:flex;gap:0;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
+  .fstack{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
       scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;
-      padding:8px 0 14px;scroll-padding:0}
-  .frail::-webkit-scrollbar{display:none}
-  .fslide{flex:0 0 88vw;max-width:420px;scroll-snap-align:center;scroll-snap-stop:always;
-      display:flex;flex-direction:column;align-items:center;gap:14px;padding:0 9px;
-      opacity:.45;transform:scale(.94);transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,.8,.2,1)}
-  .fslide.on{opacity:1;transform:none}
-  .frail::before,.frail::after{content:"";flex:0 0 calc(50% - 44vw);pointer-events:none}
+      margin:0 -22px;padding:6px 0 10px}
+  .fstack::-webkit-scrollbar{display:none}
+  .fstack::before,.fstack::after{content:"";flex:0 0 calc(50% - 43vw);pointer-events:none}
+  .fshot{flex:0 0 86vw;max-width:400px;scroll-snap-align:center;scroll-snap-stop:always;
+      height:min(46svh,380px);width:auto;object-fit:contain;
+      filter:drop-shadow(0 30px 40px rgba(10,33,72,.18));
+      opacity:.4;transform:scale(.93);
+      transition:opacity .5s cubic-bezier(.2,.8,.2,1),transform .5s cubic-bezier(.2,.8,.2,1)}
+  .fshot.on{opacity:1;transform:none}
 
-  /* --- the step mockups --- */
-  .fshot{display:block;height:min(50svh,410px);width:auto;max-width:100%;object-fit:contain;flex:0 0 auto;
-      filter:drop-shadow(0 34px 46px rgba(10,33,72,.20))}
-
-  /* --- the caption under each device --- */
-  .fcap{width:100%;background:#fff;border:1px solid #E4ECF9;border-radius:20px;padding:16px 17px 18px;
-      min-height:152px;box-shadow:0 18px 34px -28px rgba(10,33,72,.5)}
-  .fcap .n{font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.14em;
-      text-transform:uppercase;color:var(--blue-d)}
-  .fcap h3{font-size:19px;line-height:1.15;letter-spacing:-.02em;font-weight:900;color:var(--navy);margin-top:7px}
-  .fcap p{font-size:14.5px;color:var(--muted);font-weight:500;margin-top:6px}
-
-  /* --- controls --- */
-  .fnav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:6px}
-  .farr{width:42px;height:42px;border-radius:99px;border:1.6px solid #DCE7F8;background:#fff;color:var(--blue-d);
-      display:none;place-items:center;cursor:pointer;padding:0;flex:0 0 auto;transition:.2s}
-  .farr:hover{border-color:var(--blue);transform:translateY(-1px)}
-  .farr:disabled{opacity:.35;cursor:default;transform:none;border-color:#DCE7F8}
-  .farr svg{width:18px;height:18px}
-  .farr.p svg{transform:scaleX(-1)}
-  .fdots{display:flex;gap:7px;align-items:center}
-  .fdot{width:9px;height:9px;padding:0;border:none;border-radius:99px;background:#C2D3EA;cursor:pointer;
-      flex:0 0 auto;transition:width .4s cubic-bezier(.2,.8,.2,1),background .3s}
-  .fdot.on{width:30px;background:var(--grad)}
+  .flist{display:flex;flex-direction:column;list-style:none}
+  .fitem{position:relative;padding-left:16px;border-left:2px solid #DEE7F5}
+  .fitem::before{content:"";position:absolute;left:-2px;top:0;width:2px;height:0;
+      background:var(--grad);border-radius:2px}
+  .fitem.on::before{animation:frule var(--dwell) linear forwards}
+  .flow.hold .fitem.on::before{animation-play-state:paused}
+  @keyframes frule{to{height:100%}}
+  .fbtn{display:block;width:100%;text-align:left;background:none;border:none;padding:12px 0;
+      cursor:pointer;font-family:inherit}
+  .fbtn .ix{font-family:'Geist Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.14em;
+      text-transform:uppercase;color:#9fb2cc;transition:color .3s}
+  .fbtn b{display:block;font-size:17px;font-weight:800;letter-spacing:-.01em;color:#8496ae;
+      margin-top:4px;transition:color .3s}
+  .fitem.on .fbtn .ix{color:var(--blue-d)}
+  .fitem.on .fbtn b{color:var(--navy)}
+  .fbtn:hover b{color:var(--blue-d)}
+  .fdesc{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.8,.2,1)}
+  .fitem.on .fdesc{grid-template-rows:1fr}
+  .fdesc>span{overflow:hidden;display:block}
+  .fdesc p{font-size:14.5px;color:var(--muted);font-weight:500;line-height:1.5;padding-bottom:14px;max-width:46ch}
 
   .fnotes{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
   .fnotes span{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;color:var(--blue-d);
       background:#fff;border:1px solid #DCE7F8;border-radius:99px;padding:7px 12px;line-height:1.35}
   .fnotes span::before{content:"";width:6px;height:6px;border-radius:99px;background:var(--grad);flex:0 0 auto}
-  .facts{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:22px;padding:0 22px}
+  .facts{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:26px;padding:0 22px}
   .facts .btn{width:100%;max-width:340px}
   .fcall{font-size:14px;font-weight:700;color:var(--blue-d);border-bottom:1.5px solid #BBD5FF;padding-bottom:2px}
   .fcall:hover{color:var(--blue)}
@@ -341,18 +339,23 @@
     .ownlist{display:flex;justify-content:center;gap:14px 40px;margin-top:26px}
     .ownlist span{font-size:13px}
     .ownlist svg{width:24px;height:24px}
-    /* desktop: one step at a time — device on the left, words on the right */
-    .frail{padding:6px 0 20px}
-    .frail::before,.frail::after{flex:0 0 0;display:none}
-    .fslide{flex:0 0 100%;max-width:none;opacity:1;transform:none;
-        display:grid;grid-template-columns:auto minmax(0,470px);justify-content:center;
-        align-items:center;gap:64px;padding:0 40px}
-    .fshot{height:min(64vh,540px)}
-    .fcap{background:transparent;border:none;box-shadow:none;padding:0;min-height:0}
-    .fcap .n{font-size:11px}
-    .fcap h3{font-size:clamp(26px,2.3vw,34px);margin-top:10px}
-    .fcap p{font-size:17px;margin-top:12px}
-    .farr{display:grid}
+    /* desktop: the mockup holds the left, the list holds the right */
+    .flow{padding:88px 0 92px}
+    .fhead{padding:0 40px 10px}
+    .fnotes span{font-size:13px;padding:9px 15px}
+    .fwrap{display:grid;grid-template-columns:auto minmax(0,470px);justify-content:center;
+        align-items:center;gap:72px;padding:0 40px}
+    .fstack{display:block;position:relative;overflow:visible;margin:0;padding:0;
+        width:min(36vw,500px);height:min(62vh,520px)}
+    .fstack::before,.fstack::after{display:none}
+    .fshot{position:absolute;left:50%;top:50%;height:100%;max-width:100%;max-height:100%;
+        transform:translate(-50%,-50%) scale(.97);opacity:0;
+        filter:drop-shadow(0 40px 52px rgba(10,33,72,.22))}
+    .fshot.on{opacity:1;transform:translate(-50%,-50%)}
+    .fbtn{padding:15px 0}
+    .fbtn b{font-size:20px}
+    .fdesc p{font-size:16px;padding-bottom:17px}
+    .fitem{padding-left:20px}
     .facts{flex-direction:row;justify-content:center;gap:22px;margin-top:30px}
     .facts .btn{width:auto}
     .float{display:flex;margin:22px 40px 0;max-width:360px}
@@ -381,7 +384,9 @@
     *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
     /* no scroll choreography: show the statement plainly */
     .kl{opacity:1!important;transform:none!important;-webkit-clip-path:none!important;clip-path:none!important}
-    .fslide{opacity:1!important;transform:none!important}
+    .fshot{opacity:1!important;transform:none!important}
+    .fitem::before{animation:none!important;height:100%!important}
+    .fdesc{grid-template-rows:1fr!important}
   }
 </style>
 </head>
@@ -471,9 +476,9 @@
   </div>
 </section>
 
-<!-- ================= FLOW: swipeable step carousel =================
-     One .fslide + one .fdot per step. Swipe, drag, arrows, dots or keyboard —
-     the rail is a native scroll container, the JS only keeps the dots in sync. -->
+<!-- ================= FLOW: step list + mockup =================
+     One <img class="fshot"> and one <li class="fitem"> per step, same order.
+     Swipe the mockups on a phone, click any step on either. -->
 <section class="flow" id="flow" aria-label="How Safe House works, step by step">
 
   <div class="fhead rv">
@@ -488,59 +493,36 @@
     </div>
   </div>
 
-  <div class="frail" id="frail" tabindex="0" role="region" aria-label="Steps, swipe left or right">
-    <article class="fslide on" role="group" aria-roledescription="slide" aria-label="Step 01 of 5">
-      <img class="fshot" src="assets/step-1.webp" alt="Safe House app screen showing the vehicles and address you entered" width="1300" height="1300" loading="lazy">
-      <div class="fcap">
-        <span class="n">Step 01</span>
-        <h3>Get your online quote</h3>
-        <p>Tell us what you need and see initial insurance options online in just a few minutes.</p>
-      </div>
-    </article>
-    <article class="fslide" role="group" aria-roledescription="slide" aria-label="Step 02 of 5">
-      <img class="fshot" src="assets/step-2.webp" alt="Safe House app screen comparing carrier options" width="1300" height="1300" loading="lazy">
-      <div class="fcap">
-        <span class="n">Step 02</span>
-        <h3>See your initial options</h3>
-        <p>Review the options generated by the system based on the information you provided.</p>
-      </div>
-    </article>
-    <article class="fslide" role="group" aria-roledescription="slide" aria-label="Step 03 of 5">
+  <div class="fwrap">
+    <div class="fstack" id="fstack" role="region" aria-label="Step screens, swipe left or right">
+      <img class="fshot on" src="assets/step-1.webp" alt="Safe House app screen comparing carrier options" width="1300" height="1300" loading="lazy">
+      <img class="fshot" src="assets/step-2.webp" alt="Safe House app screen showing your vehicles and the discount found" width="1300" height="1300" loading="lazy">
       <img class="fshot" src="assets/step-3.webp" alt="Safe House app screen showing policy term and payment options" width="1300" height="1300" loading="lazy">
-      <div class="fcap">
-        <span class="n">Step 03</span>
-        <h3>A licensed agent reviews everything</h3>
-        <p>Our team verifies your information, available discounts, carrier requirements and coverage details.</p>
-      </div>
-    </article>
-    <article class="fslide" role="group" aria-roledescription="slide" aria-label="Step 04 of 5">
       <img class="fshot" src="assets/step-4.webp" alt="Safe House app screen confirming the switch is complete" width="1300" height="1300" loading="lazy">
-      <div class="fcap">
-        <span class="n">Step 04</span>
-        <h3>Get your confirmed options</h3>
-        <p>Your agent contacts you by phone or text with the most accurate options available for your situation.</p>
-      </div>
-    </article>
-    <article class="fslide" role="group" aria-roledescription="slide" aria-label="Step 05 of 5">
       <img class="fshot" src="assets/step-5.webp" alt="Text thread with a licensed Safe House agent sending the auto ID card" width="1300" height="1300" loading="lazy">
-      <div class="fcap">
-        <span class="n">Step 05</span>
-        <h3>Choose and activate your policy</h3>
-        <p>Once you choose the option that works for you, your agent helps finalize the application and activate your coverage.</p>
-      </div>
-    </article>
-  </div>
-
-  <div class="fnav">
-    <button class="farr p" id="fprev" aria-label="Previous step"><svg class="i"><use href="#ar"/></svg></button>
-    <div class="fdots" id="fdots" role="tablist" aria-label="Steps">
-      <button class="fdot on" role="tab" aria-selected="true"  aria-label="Step 1"></button>
-      <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 2"></button>
-      <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 3"></button>
-      <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 4"></button>
-      <button class="fdot"    role="tab" aria-selected="false" aria-label="Step 5"></button>
     </div>
-    <button class="farr n" id="fnext" aria-label="Next step"><svg class="i"><use href="#ar"/></svg></button>
+    <ol class="flist" id="flist">
+      <li class="fitem on">
+        <button class="fbtn" type="button" aria-expanded="true"><span class="ix">Step 01</span><b>Get your online quote</b></button>
+        <div class="fdesc"><span><p>Tell us what you need and see initial insurance options online in just a few minutes.</p></span></div>
+      </li>
+      <li class="fitem">
+        <button class="fbtn" type="button" aria-expanded="false"><span class="ix">Step 02</span><b>See your initial options</b></button>
+        <div class="fdesc"><span><p>Review the options generated by the system based on the information you provided.</p></span></div>
+      </li>
+      <li class="fitem">
+        <button class="fbtn" type="button" aria-expanded="false"><span class="ix">Step 03</span><b>A licensed agent reviews everything</b></button>
+        <div class="fdesc"><span><p>Our team verifies your information, available discounts, carrier requirements and coverage details.</p></span></div>
+      </li>
+      <li class="fitem">
+        <button class="fbtn" type="button" aria-expanded="false"><span class="ix">Step 04</span><b>Get your confirmed options</b></button>
+        <div class="fdesc"><span><p>Your agent contacts you by phone or text with the most accurate options available for your situation.</p></span></div>
+      </li>
+      <li class="fitem">
+        <button class="fbtn" type="button" aria-expanded="false"><span class="ix">Step 05</span><b>Choose and activate your policy</b></button>
+        <div class="fdesc"><span><p>Once you choose the option that works for you, your agent helps finalize the application and activate your coverage.</p></span></div>
+      </li>
+    </ol>
   </div>
 
   <div class="facts">
@@ -761,60 +743,71 @@
     paint();
   })();
 
-  // ===== flow: the rail is the interaction, the JS just follows it =====
+  // ===== flow: one index drives the mockup, the list and the auto-advance =====
   (function(){
-    var rail=document.getElementById('frail'); if(!rail) return;
-    var slides=[].slice.call(rail.querySelectorAll('.fslide')),
-        dots=[].slice.call(document.querySelectorAll('#fdots .fdot')),
-        prev=document.getElementById('fprev'), next=document.getElementById('fnext'),
-        n=slides.length, cur=-1, ticking=false;
-    if(!n) return;
+    var flow=document.getElementById('flow'); if(!flow) return;
+    var stack=document.getElementById('fstack'),
+        shots=[].slice.call(stack.querySelectorAll('.fshot')),
+        items=[].slice.call(document.querySelectorAll('#flist .fitem')),
+        btns=items.map(function(li){return li.querySelector('.fbtn');}),
+        n=shots.length, cur=0, timer=null, ticking=false, seen=false,
+        wide=matchMedia('(min-width:900px)'),
+        still=matchMedia('(prefers-reduced-motion:reduce)').matches,
+        DWELL=parseFloat(getComputedStyle(flow).getPropertyValue('--dwell'))||3400;
+    if(!n||items.length!==n) return;
 
-    function nearest(){                       // the slide whose centre is closest to the rail's
-      var mid=rail.scrollLeft+rail.clientWidth/2, best=0, d=1e9;
+    function mark(i){
+      if(i===cur) return;
+      cur=i;
+      for(var k=0;k<n;k++){
+        var on=k===i;
+        shots[k].classList.toggle('on',on);
+        items[k].classList.toggle('on',on);
+        btns[k].setAttribute('aria-expanded',on);
+      }
+      restart();                                  // the rule refills from the top
+    }
+    function restart(){
+      var el=items[cur];                          // retrigger the CSS timer bar
+      el.classList.remove('on'); void el.offsetWidth; el.classList.add('on');
+      if(timer){clearInterval(timer); timer=setInterval(next,DWELL);}
+    }
+    function next(){ go((cur+1)%n); }
+    function go(i){
+      if(wide.matches){ mark(i); }
+      else{                                       // on a phone the rail is the truth
+        var c=shots[i].offsetLeft+shots[i].offsetWidth/2-stack.clientWidth/2;
+        stack.scrollTo({left:c,behavior:'smooth'});
+      }
+    }
+    function nearest(){
+      var mid=stack.scrollLeft+stack.clientWidth/2, best=0, d=1e9;
       for(var i=0;i<n;i++){
-        var c=slides[i].offsetLeft+slides[i].offsetWidth/2, k=Math.abs(c-mid);
+        var c=shots[i].offsetLeft+shots[i].offsetWidth/2, k=Math.abs(c-mid);
         if(k<d){d=k;best=i;}
       }
       return best;
     }
-    function mark(i){
-      if(i===cur) return; cur=i;
-      for(var k=0;k<n;k++){
-        slides[k].classList.toggle('on',k===i);
-        dots[k].classList.toggle('on',k===i);
-        dots[k].setAttribute('aria-selected',k===i);
-      }
-      if(prev) prev.disabled=i===0;
-      if(next) next.disabled=i===n-1;
-    }
-    function go(i){
-      i=Math.max(0,Math.min(n-1,i));
-      var c=slides[i].offsetLeft+slides[i].offsetWidth/2-rail.clientWidth/2;
-      rail.scrollTo({left:c,behavior:'smooth'});
-    }
-    rail.addEventListener('scroll',function(){
+    stack.addEventListener('scroll',function(){
+      if(wide.matches) return;
       if(!ticking){ticking=true;requestAnimationFrame(function(){ticking=false;mark(nearest());});}
     },{passive:true});
-    addEventListener('resize',function(){mark(nearest());});
-    dots.forEach(function(d,i){ d.addEventListener('click',function(){go(i);}); });
-    if(prev) prev.addEventListener('click',function(){go(cur-1);});
-    if(next) next.addEventListener('click',function(){go(cur+1);});
-    rail.addEventListener('keydown',function(e){
-      if(e.key==='ArrowRight'){e.preventDefault();go(cur+1);}
-      if(e.key==='ArrowLeft'){e.preventDefault();go(cur-1);}
-    });
-    // drag with a mouse on desktop, where there is no swipe
-    var down=false,x0=0,l0=0;
-    rail.addEventListener('pointerdown',function(e){
-      if(e.pointerType==='touch') return;
-      down=true;x0=e.clientX;l0=rail.scrollLeft;rail.style.scrollSnapType='none';
-    });
-    addEventListener('pointermove',function(e){ if(down) rail.scrollLeft=l0-(e.clientX-x0); });
-    addEventListener('pointerup',function(){
-      if(!down) return; down=false; rail.style.scrollSnapType=''; go(nearest());
-    });
-    mark(0);
+
+    function play(){ if(still||timer) return; timer=setInterval(next,DWELL); flow.classList.remove('hold'); }
+    function pause(){ clearInterval(timer); timer=null; flow.classList.add('hold'); }
+
+    btns.forEach(function(b,i){ b.addEventListener('click',function(){ go(i); play(); }); });
+    flow.addEventListener('pointerenter',function(e){ if(e.pointerType!=='touch') pause(); });
+    flow.addEventListener('pointerleave',function(e){ if(e.pointerType!=='touch') play(); });
+    stack.addEventListener('touchstart',pause,{passive:true});
+    stack.addEventListener('touchend',function(){ setTimeout(play,900); },{passive:true});
+    document.addEventListener('visibilitychange',function(){ document.hidden?pause():(seen&&play()); });
+    wide.addEventListener('change',function(){ cur=-1; mark(0); if(!wide.matches) go(0); });
+
+    // only run while the section is actually on screen
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){ seen=e.isIntersecting; e.isIntersecting?play():pause(); });
+    },{threshold:.25}).observe(flow);
   })();
 
   // ===== reveal on scroll =====
