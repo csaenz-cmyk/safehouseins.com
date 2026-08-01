@@ -371,6 +371,22 @@
   .qbody p+p{padding-top:10px}
   .qbody a{color:var(--blue-d);font-weight:700}
 
+  /* ================= START BAND ================= */
+  .start{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;justify-content:center;
+      min-height:min(78svh,540px);text-align:center;padding:52px 22px;
+      background:#2a1a0e url("assets/start-mobile.jpg") 62% center / cover no-repeat}
+  .start::after{content:"";position:absolute;inset:0;z-index:-1;
+      background:linear-gradient(180deg,rgba(20,11,4,.62) 0%,rgba(20,11,4,.44) 42%,rgba(12,7,3,.80) 100%)}
+  .start .in{position:relative;max-width:640px}
+  .start h2{color:#fff;text-transform:uppercase;font-size:clamp(27px,7.4vw,44px);line-height:1.05;
+      letter-spacing:-.02em;text-shadow:0 3px 20px rgba(0,0,0,.55)}
+  .start p{color:rgba(255,255,255,.94);font-size:16.5px;font-weight:600;margin-top:14px;
+      text-shadow:0 2px 14px rgba(0,0,0,.6)}
+  .start .acts{display:flex;flex-direction:column;gap:10px;align-items:center;margin-top:24px}
+  .start .btn{width:100%;max-width:330px}
+  .start small{display:block;margin-top:16px;font-size:12.5px;color:rgba(255,255,255,.78);font-weight:600;
+      text-shadow:0 2px 10px rgba(0,0,0,.6)}
+
   /* ================= SECTIONS ================= */
   section{padding:56px 0}
   .kick{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;
@@ -385,73 +401,6 @@
   .car p{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
   .car .r{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:12px}
   .car .r span{font-size:15px;font-weight:800;color:#93a2ba}
-
-  .steps{margin-top:22px}
-  .st{background:var(--ice);border-radius:20px;padding:20px;margin-top:11px;display:flex;gap:14px;align-items:flex-start}
-  .st .n{width:36px;height:36px;border-radius:12px;background:var(--grad);color:#fff;display:grid;place-items:center;
-      font-weight:900;font-size:15px;flex:0 0 auto}
-  .st b{font-size:17.5px;font-weight:800;color:var(--navy);display:block}
-  .st p{font-size:14.5px;color:var(--muted);margin-top:3px;font-weight:500}
-
-  .cov{display:grid;gap:11px;margin-top:20px}
-  .cc{border:2px solid var(--line);border-radius:20px;padding:20px;display:flex;gap:13px;align-items:center;transition:.22s}
-  .cc:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 22px 44px -28px rgba(22,102,237,.5)}
-  .cc.f{background:var(--navy);border-color:var(--navy);color:#fff;position:relative;overflow:hidden}
-  .cc.f::after{content:"";position:absolute;inset:0;background:radial-gradient(240px 160px at 90% 8%,rgba(0,194,255,.32),transparent 62%)}
-  .cc .ic{width:46px;height:46px;border-radius:14px;background:var(--ice);color:var(--blue);display:grid;place-items:center;
-      font-size:21px;flex:0 0 auto;position:relative}
-  .cc.f .ic{background:rgba(255,255,255,.15);color:#fff}
-  .cc b{font-size:17.5px;font-weight:800;display:block;position:relative}
-  .cc small{font-size:13px;color:var(--muted);position:relative}
-  .cc.f small{color:#a9c3ea}
-  .cc .go{margin-left:auto;color:var(--blue);font-size:18px;position:relative;flex:0 0 auto}
-  .cc.f .go{color:var(--cyan-l)}
-
-  .why{background:var(--ice)}
-  .wg{display:grid;gap:11px;margin-top:20px}
-  .wc{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}
-  .wc .ic{width:42px;height:42px;border-radius:13px;background:var(--ice);color:var(--blue);display:grid;place-items:center;font-size:19px}
-  .wc b{display:block;font-size:16.5px;font-weight:800;color:var(--navy);margin-top:12px}
-  .wc p{font-size:14.5px;color:var(--muted);margin-top:5px;font-weight:500}
-
-
-  .bil{background:var(--grad);color:#fff;padding:44px 0;text-align:center;position:relative;overflow:hidden}
-  .bil .pat{position:absolute;inset:0;opacity:.09;background-image:url("assets/safehouse-heart.png");background-size:80px;filter:brightness(0) invert(1)}
-  .bil .in{position:relative;padding:0 22px}
-  .bil h2{color:#fff}
-  .bil p{font-size:16px;margin-top:10px;color:rgba(255,255,255,.94);max-width:40ch;margin-left:auto;margin-right:auto}
-  .bil .btn{margin-top:18px}
-
-  /* quote form */
-  .qs{background:var(--navy2);color:#fff;position:relative;overflow:hidden}
-  .qs::before{content:"";position:absolute;inset:0;background:radial-gradient(340px 240px at 12% 0%,rgba(0,194,255,.24),transparent 62%),radial-gradient(360px 260px at 88% 106%,rgba(22,102,237,.5),transparent 62%)}
-  .qs .in{position:relative}
-  .qs h2{color:#fff}
-  .qs .sl{color:#b3c6e2}
-  .card{background:#fff;border-radius:24px;padding:22px;margin-top:22px;box-shadow:0 34px 70px -34px rgba(0,0,0,.6)}
-  .card .t{display:flex;align-items:center;gap:11px}
-  .card .t img{width:24px}
-  .card .t b{font-size:17px;color:var(--navy);display:block}
-  .card .t small{font-size:12px;color:var(--muted)}
-  .fl{margin-top:13px}
-  .fl label{display:block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-  .fl input,.fl select,.fl textarea{width:100%;border:2px solid var(--line);border-radius:14px;padding:14px;font-family:inherit;
-      font-size:16px;font-weight:600;color:var(--ink);background:#FBFCFE;outline:none;transition:.15s;-webkit-appearance:none}
-  .fl input:focus,.fl select:focus,.fl textarea:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(22,102,237,.12)}
-  .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .card .btn{margin-top:15px}
-  .priv{display:flex;gap:8px;font-size:11.5px;color:var(--muted);margin-top:12px;align-items:flex-start;font-weight:500}
-  .priv svg{color:#1F9D63;flex:0 0 auto;margin-top:2px}
-  .ci{display:flex;flex-direction:column;gap:12px;margin-top:22px}
-  .ci a,.ci div{display:flex;gap:13px;align-items:center;color:#fff;font-weight:700;font-size:15.5px}
-  .ci .ic{width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.1);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
-  .ci small{display:block;color:#8fa5c6;font-weight:500;font-size:12.5px}
-
-  footer{padding:34px 22px 40px;text-align:center;border-top:1px solid var(--line)}
-  footer .logo{height:30px;filter:none;margin:0 auto}
-  footer p{font-size:13px;color:var(--muted);margin-top:12px;line-height:1.8}
-  footer a{color:var(--blue);font-weight:700}
-  .disc{font-size:11px;color:#9aa5b6;margin-top:16px;line-height:1.6;max-width:62ch;margin-left:auto;margin-right:auto}
 
   /* ===== desktop ===== */
   @media(min-width:900px){
@@ -533,17 +482,17 @@
     .hacts .btn{width:auto}
     .badges{position:absolute;right:40px;bottom:52px;grid-template-columns:1fr;margin-top:0;width:210px}
     section{padding:80px 0}
-    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
-    .st{margin-top:0;flex-direction:column}
-    .cov{grid-template-columns:1.4fr 1fr 1fr;gap:14px}
-    .cc{flex-direction:column;align-items:flex-start;min-height:200px}
-    .cc .go{margin-left:0;margin-top:auto}
-    .wg{grid-template-columns:repeat(3,1fr);gap:14px}
     .rgrid{grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
     .rq{padding:24px}
     .rq p{font-size:17.5px}
     .rq.wide{grid-column:span 2}
     .rvid.tall{grid-row:span 2}
+    .start{min-height:min(74vh,600px);padding:70px 40px;
+        background-image:url("assets/start.jpg");background-position:center 46%}
+    .start h2{font-size:clamp(38px,4.2vw,56px)}
+    .start p{font-size:19px;margin-top:16px}
+    .start .acts{flex-direction:row;justify-content:center;gap:14px;margin-top:30px}
+    .start .btn{width:auto}
     .faq{padding:80px 0 88px}
     .qq{font-size:17.5px;padding:20px 22px}
     .qbody p{font-size:16px;padding:0 22px 20px}
@@ -591,7 +540,7 @@
   <nav>
     <a href="/" aria-label="Safe House Insurance home"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
     <div class="links">
-      <a href="#how">How it works</a><a href="#coverage">Coverage</a><a href="#why">Why us</a><a href="#reviews">Reviews</a><a href="#quote">Get a quote</a>
+      <a href="#flow">How it works</a><a href="#agents">Our team</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a><a href="#quote">Get a quote</a>
     </div>
     <div class="navr">
       <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
@@ -630,10 +579,10 @@
 </header>
 
 <div class="drawer" id="drawer">
-  <a href="#how">How it works</a>
-  <a href="#coverage">Coverage</a>
-  <a href="#why">Why us</a>
+  <a href="#flow">How it works</a>
+  <a href="#agents">Our team</a>
   <a href="#reviews">Reviews</a>
+  <a href="#faq">FAQ</a>
   <a href="#quote">Get a quote</a>
   <a class="btn grad" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
   <a class="dm" href="mailto:contact@safehouseins.com">contact@safehouseins.com · Se habla español</a>
@@ -643,21 +592,21 @@
 <!-- ================= CATEGORY CARDS ================= -->
 <section class="cats" aria-label="What we insure">
   <div class="catr">
-    <a class="cat a" href="#coverage">
+    <a class="cat a" href="#quote">
       <span class="lb">Car insurance</span>
       <span class="bt">
         <p>Full coverage, liability and SR-22 &mdash; shopped across our carriers.</p>
         <span class="go"><svg class="i"><use href="#ar"/></svg></span>
       </span>
     </a>
-    <a class="cat b" href="#coverage">
+    <a class="cat b" href="#quote">
       <span class="lb">Commercial insurance</span>
       <span class="bt">
         <p>Work trucks, fleets and liability for El Paso businesses.</p>
         <span class="go"><svg class="i"><use href="#ar"/></svg></span>
       </span>
     </a>
-    <a class="cat c" href="#coverage">
+    <a class="cat c" href="#quote">
       <span class="lb">&amp; more</span>
       <span class="bt">
         <p>Home, renters, mobile home and life &mdash; one agent for all of it.</p>
@@ -813,58 +762,9 @@
   </div>
 </section>
 
-<!-- how -->
-<section id="how"><div class="wrap">
-  <div class="rv">
-    <span class="kick"><img src="assets/safehouse-heart.png" alt=""> How it works</span>
-    <h2>We do the legwork.</h2>
-    <p class="sl">You answer once. We handle the shopping, the paperwork and the follow-up.</p>
-  </div>
-  <div class="steps">
-    <div class="st rv"><span class="n">1</span><span><b>Tell us what you need</b><p>A few details about you and what you're insuring. No 20-field forms.</p></span></div>
-    <div class="st rv"><span class="n">2</span><span><b>We shop our carriers</b><p>We compare the companies we represent to fit your situation and your budget.</p></span></div>
-    <div class="st rv"><span class="n">3</span><span><b>A licensed agent calls you</b><p>We walk you through the options in plain language — then get you covered.</p></span></div>
-  </div>
-</div></section>
 
-<!-- coverage -->
-<section id="coverage" style="padding-top:0"><div class="wrap">
-  <div class="rv">
-    <span class="kick"><img src="assets/safehouse-heart.png" alt=""> Coverage</span>
-    <h2>Everything under one roof.</h2>
-  </div>
-  <div class="cov">
-    <a class="cc f rv" href="#quote"><span class="ic"><svg class="i"><use href="#car"/></svg></span><span><b>Auto</b><small>Full coverage · liability · SR-22 · non-owner · high-risk welcome</small></span><span class="go"><svg class="i"><use href="#ar"/></svg></span></a>
-    <a class="cc rv" href="#quote"><span class="ic"><svg class="i"><use href="#home"/></svg></span><span><b>Home &amp; renters</b><small>Houses, renters, mobile homes</small></span><span class="go"><svg class="i"><use href="#ar"/></svg></span></a>
-    <a class="cc rv" href="#quote"><span class="ic"><svg class="i"><use href="#biz"/></svg></span><span><b>Commercial</b><small>Work trucks, liability, fleets</small></span><span class="go"><svg class="i"><use href="#ar"/></svg></span></a>
-    <a class="cc rv" href="#quote"><span class="ic"><svg class="i"><use href="#heart"/></svg></span><span><b>Life</b><small>Term life &amp; final expense</small></span><span class="go"><svg class="i"><use href="#ar"/></svg></span></a>
-    <a class="cc rv" href="#quote"><span class="ic"><svg class="i"><use href="#doc"/></svg></span><span><b>Bonds</b><small>Surety, license &amp; permit bonds</small></span><span class="go"><svg class="i"><use href="#ar"/></svg></span></a>
-  </div>
-</div></section>
 
-<!-- carriers -->
-<div class="car">
-  <div class="wrap">
-    <p>Carriers we shop for you</p>
-    <div class="r"><span>Progressive</span><span>Geico</span><span>Lemonade</span><span>Alinsco</span><span>Commonwealth</span></div>
-  </div>
-</div>
 
-<!-- why -->
-<section id="why" class="why"><div class="wrap">
-  <div class="rv">
-    <span class="kick"><img src="assets/safehouse-heart.png" alt=""> Why Safe House</span>
-    <h2>Independent means<br>we work for you.</h2>
-  </div>
-  <div class="wg">
-    <div class="wc rv"><span class="ic"><svg class="i"><use href="#hand"/></svg></span><b>Several carriers, one call</b><p>We're not tied to a single company, so we compare options and recommend what actually fits.</p></div>
-    <div class="wc rv"><span class="ic"><svg class="i"><use href="#globe"/></svg></span><b>Fully bilingual</b><p>Quote, buy, ask questions and report a claim in English or Spanish — with the same agent.</p></div>
-    <div class="wc rv"><span class="ic"><svg class="i"><use href="#shield"/></svg></span><b>Hard-to-insure welcome</b><p>SR-22, tickets, lapses, non-owner or no license — we work the carriers built for it.</p></div>
-    <div class="wc rv"><span class="ic"><svg class="i"><use href="#pin"/></svg></span><b>Local &amp; licensed</b><p>Based in El Paso and licensed across Texas and New Mexico. Neighbors, not a call center.</p></div>
-    <div class="wc rv"><span class="ic"><svg class="i"><use href="#lock"/></svg></span><b>Your privacy respected</b><p>Your details are used to prepare your quote. We never sell your data or hand out your number.</p></div>
-    <div class="wc rv"><span class="ic"><svg class="i"><use href="#ph"/></svg></span><b>We're here after the sale</b><p>Renewals, claims, ID cards and questions — a real licensed agent who knows your file.</p></div>
-  </div>
-</div></section>
 
 <!-- reviews -->
 <section id="reviews"><div class="wrap">
@@ -996,6 +896,20 @@
   </div>
 </div></section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Safe House Insurance?", "acceptedAnswer": {"@type": "Answer", "text": "We are an independent insurance agency based in El Paso, Texas, licensed in Texas and New Mexico. Independent means we do not work for one company — we shop the carriers we represent and bring you the options."}}, {"@type": "Question", "name": "Can I buy a policy right here on the website?", "acceptedAnswer": {"@type": "Answer", "text": "Not yet. You can start your quote online and see initial options in a few minutes, but a licensed agent reviews everything and finalizes the policy with you by phone or text. Nothing is activated without a person on our side confirming it."}}, {"@type": "Question", "name": "Are the prices I see online final?", "acceptedAnswer": {"@type": "Answer", "text": "No. They are initial estimates based on what you enter. Your final price depends on verification, the discounts you actually qualify for and each carrier's underwriting. Your agent confirms the real numbers before you decide."}}, {"@type": "Question", "name": "Which insurance companies do you shop?", "acceptedAnswer": {"@type": "Answer", "text": "Progressive, Geico, Lemonade, Alinsco and Commonwealth, among others. Carrier availability and eligibility vary by state and by applicant."}}, {"@type": "Question", "name": "What can you insure for me?", "acceptedAnswer": {"@type": "Answer", "text": "Auto, homeowners, renters, mobile home, commercial and work trucks, and life. If you own more than one thing, one agent can handle all of it."}}, {"@type": "Question", "name": "Do you write SR-22 and high-risk policies?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Tickets, accidents, a lapse in coverage or an SR-22 requirement are all things we work with regularly. Tell your agent up front so they shop the right carriers the first time."}}, {"@type": "Question", "name": "¿Hablan español?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Todo el equipo es bilingüe. Puedes cotizar, preguntar y resolver en español, por teléfono o por mensaje, con una persona de verdad aquí en El Paso."}}, {"@type": "Question", "name": "Does it cost anything to get a quote?", "acceptedAnswer": {"@type": "Answer", "text": "No. Quoting is free and there is no obligation. If nothing we find fits you better than what you have, we will tell you that."}}, {"@type": "Question", "name": "How soon can my coverage start?", "acceptedAnswer": {"@type": "Answer", "text": "Most quotes come back the same day. When coverage actually starts depends on the carrier and on what they need from you — your agent tells you exactly what is missing and how soon it can be active."}}]}</script>
+
+<!-- ================= START BAND ================= -->
+<section class="start" aria-label="Start your quote">
+  <div class="in rv">
+    <h2>Start your quote<br>in a few minutes</h2>
+    <p>Tell us what you need online. A licensed agent takes it from there &mdash; by phone
+       or text, in English or Spanish.</p>
+    <div class="acts">
+      <a class="btn grad" href="#quote">Get my free quote <svg class="i"><use href="#ar"/></svg></a>
+      <a class="btn gh" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
+    </div>
+    <small>Free, no obligation &middot; Se habla espa&ntilde;ol</small>
+  </div>
+</section>
 
 <!-- quote -->
 <section id="quote" class="qs"><div class="wrap in">
