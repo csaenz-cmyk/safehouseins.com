@@ -43,14 +43,15 @@
   .qcard{position:relative;background:#fff;border-radius:24px;padding:30px 20px 26px;overflow:hidden;
       box-shadow:0 34px 60px -40px rgba(10,33,72,.55),0 1px 0 rgba(10,33,72,.04)}
   .bar{position:absolute;top:0;left:0;right:0;height:5px;background:var(--ice)}
-  .bar i{display:block;height:100%;width:33%;background:var(--grad);border-radius:0 99px 99px 0;
+  .bar i{display:block;height:100%;width:0;background:var(--grad);border-radius:0 99px 99px 0;
       transition:width .5s cubic-bezier(.2,.8,.2,1)}
   .step{display:none}
   .step.on{display:block;animation:stepin .45s cubic-bezier(.2,.8,.2,1) both}
   @keyframes stepin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
   .hi{text-align:center;font-size:14.5px;color:var(--muted);font-weight:600}
-  .qcard h1{text-align:center;font-size:clamp(23px,6.2vw,30px);line-height:1.18;letter-spacing:-.025em;
+  .qcard h1{text-align:center;font-size:clamp(22px,5.8vw,29px);line-height:1.18;letter-spacing:-.025em;
       font-weight:900;color:var(--navy);margin-top:6px}
+  .sub{text-align:center;font-size:14px;color:var(--muted);font-weight:500;margin-top:8px}
 
   .opts{display:flex;flex-direction:column;gap:10px;margin-top:22px}
   .opt{display:flex;align-items:center;gap:12px;border:2px solid var(--line);border-radius:16px;
@@ -69,13 +70,37 @@
   .opt.on .rd::after,.opt:has(input:checked) .rd::after{content:"";position:absolute;inset:4px;border-radius:99px;background:#fff}
   .opt input:focus-visible ~ .rd{outline:3px solid rgba(22,102,237,.35);outline-offset:3px}
 
+  /* compact pill choices for yes/no and short lists */
+  .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .pill{position:relative}
+  .pill input{position:absolute;opacity:0;pointer-events:none}
+  .pill span{display:block;border:2px solid var(--line);border-radius:99px;padding:10px 16px;cursor:pointer;
+      font-size:14.5px;font-weight:800;color:var(--navy);background:#fff;transition:.2s}
+  .pill input:checked ~ span{border-color:var(--blue);background:var(--grad);color:#fff}
+  .pill input:focus-visible ~ span{outline:3px solid rgba(22,102,237,.35);outline-offset:2px}
+
   .fl{margin-top:14px}
   .fl label{display:block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
       color:var(--muted);margin-bottom:6px}
-  .fl input,.fl textarea{width:100%;border:2px solid var(--line);border-radius:14px;padding:14px;
-      font-family:inherit;font-size:16px;background:#FAFCFF;color:var(--ink)}
-  .fl input:focus,.fl textarea:focus{border-color:var(--blue);background:#fff;outline:none}
+  .fl label .opt2{text-transform:none;font-weight:600;color:#9fb0c6}
+  .fl input,.fl select,.fl textarea{width:100%;border:2px solid var(--line);border-radius:14px;padding:14px;
+      font-family:inherit;font-size:16px;background:#FAFCFF;color:var(--ink);-webkit-appearance:none;appearance:none}
+  .fl select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235C6A80' stroke-width='2.4' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>");
+      background-repeat:no-repeat;background-position:right 14px center;background-size:17px;padding-right:42px}
+  .fl input:focus,.fl select:focus,.fl textarea:focus{border-color:var(--blue);background:#fff;outline:none}
   .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+
+  /* repeatable blocks: vehicles and drivers */
+  .blk{border:2px solid var(--line);border-radius:18px;padding:14px;margin-top:12px;background:#FCFDFF}
+  .blk .bt{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .blk .bt b{font-size:13px;font-family:'Geist Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-d)}
+  .blk .rm{background:none;border:none;color:#C2410C;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;padding:2px}
+  .addbtn{width:100%;margin-top:12px;border:2px dashed #CBD9EC;background:#fff;border-radius:16px;padding:13px;
+      color:var(--blue-d);font-weight:800;font-size:14.5px;cursor:pointer;font-family:inherit;transition:.2s}
+  .addbtn:hover{border-color:var(--blue);background:#F7FBFF}
+  .addbtn:disabled{opacity:.4;cursor:not-allowed}
+
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--grad);color:#fff;
       border:none;border-radius:99px;padding:17px 28px;font-weight:800;font-size:16.5px;font-family:inherit;
       cursor:pointer;width:100%;margin-top:20px;box-shadow:0 16px 30px -14px rgba(22,102,237,.85);
@@ -85,12 +110,36 @@
   .btn.ghost{background:#fff;color:var(--navy);border:2px solid var(--line);box-shadow:none}
   .note{display:flex;gap:9px;font-size:12px;color:var(--muted);margin-top:14px;align-items:flex-start;font-weight:600}
   .note svg{color:#1F9D63;flex:0 0 auto;margin-top:2px;width:15px;height:15px}
+  .err{display:none;gap:9px;font-size:13px;color:#C2410C;margin-top:14px;align-items:flex-start;font-weight:700}
 
   .trust{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin-top:16px}
   .trust b{display:flex;align-items:center;gap:8px;font-size:14.5px;color:var(--navy);font-weight:800}
   .trust b svg{color:var(--blue);width:16px;height:16px}
   .trust p{font-size:12.5px;color:var(--muted);margin-top:7px;font-weight:500;line-height:1.55}
-  .trust a{color:var(--blue-d);font-weight:700}
+
+  /* rating + results */
+  .rating{text-align:center;padding:22px 0 6px}
+  .spin{width:56px;height:56px;border-radius:99px;margin:0 auto;border:5px solid var(--ice);
+      border-top-color:var(--blue);animation:sp 1s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .rating p{font-size:15px;color:var(--muted);font-weight:600;margin-top:16px}
+  .rating .who{font-size:13px;color:#9fb0c6;font-weight:600;margin-top:6px}
+
+  .rlist{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+  .rcard{border:2px solid var(--line);border-radius:18px;padding:14px;display:flex;align-items:center;gap:12px;background:#fff}
+  .rcard.best{border-color:var(--blue);background:#F7FBFF}
+  .rcard .lg{width:44px;height:44px;border-radius:13px;background:var(--ice);color:var(--blue-d);display:grid;
+      place-items:center;font-weight:900;font-size:16px;flex:0 0 auto}
+  .rcard .mid{flex:1;min-width:0}
+  .rcard .mid b{display:block;font-size:16px;font-weight:800;color:var(--navy)}
+  .rcard .mid small{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:1px}
+  .rcard .pr{text-align:right;flex:0 0 auto}
+  .rcard .pr b{display:block;font-size:20px;font-weight:900;color:var(--navy);letter-spacing:-.02em}
+  .rcard .pr small{display:block;font-size:11px;color:var(--muted);font-weight:700}
+  .tag{display:inline-block;font-family:'Geist Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.12em;
+      text-transform:uppercase;color:#9A6300;background:#FFF3DC;border:1px solid #FBE3B8;padding:4px 9px;
+      border-radius:99px;margin-top:14px}
+  .estnote{font-size:12px;color:var(--muted);font-weight:600;line-height:1.55;margin-top:12px}
 
   .done{text-align:center;padding:8px 0 4px}
   .done .tick{width:64px;height:64px;border-radius:99px;background:var(--grad);color:#fff;display:grid;
@@ -140,72 +189,148 @@
 <div class="qwrap">
   <div class="crumb">
     <button class="back" id="back" type="button" aria-label="Go back"><svg class="i"><use href="#ar"/></svg></button>
-    <span id="crumb">Step 1 of 2</span><span class="sp"></span>
+    <span id="crumb">Step 1</span><span class="sp"></span>
   </div>
 
-  <form class="qcard" id="qform" novalidate>
+  <form class="qcard" id="qform" novalidate autocomplete="on">
     <span class="bar" aria-hidden="true"><i id="bar"></i></span>
 
-    <!-- STEP 1 -->
-    <section class="step on" id="s1">
+    <!-- ============ 1 · what are we insuring ============ -->
+    <section class="step on" data-step="type">
       <p class="hi">Hi there &mdash; nice to meet you.</p>
       <h1>What are we insuring today?</h1>
       <div class="opts" role="radiogroup" aria-label="Type of insurance">
-        <label class="opt">
-          <input type="radio" name="type" autocomplete="off" value="car">
+        <label class="opt"><input type="radio" name="type" autocomplete="off" value="car">
           <span class="ic"><svg class="i"><use href="#car"/></svg></span>
-          <span class="tx"><b>Car</b><small>Full coverage or liability</small></span>
-          <span class="rd" aria-hidden="true"></span>
-        </label>
-        <label class="opt">
-          <input type="radio" name="type" autocomplete="off" value="home">
+          <span class="tx"><b>Car</b><small>Full coverage or liability</small></span><span class="rd"></span></label>
+        <label class="opt"><input type="radio" name="type" autocomplete="off" value="home">
           <span class="ic"><svg class="i"><use href="#home"/></svg></span>
-          <span class="tx"><b>Home</b><small>Houses and mobile homes</small></span>
-          <span class="rd" aria-hidden="true"></span>
-        </label>
-        <label class="opt">
-          <input type="radio" name="type" autocomplete="off" value="commercial">
+          <span class="tx"><b>Home</b><small>Houses and mobile homes</small></span><span class="rd"></span></label>
+        <label class="opt"><input type="radio" name="type" autocomplete="off" value="commercial">
           <span class="ic"><svg class="i"><use href="#truck"/></svg></span>
-          <span class="tx"><b>Commercial vehicle</b><small>Work trucks and fleets</small></span>
-          <span class="rd" aria-hidden="true"></span>
-        </label>
-        <label class="opt">
-          <input type="radio" name="type" autocomplete="off" value="moto">
+          <span class="tx"><b>Commercial vehicle</b><small>Work trucks and fleets</small></span><span class="rd"></span></label>
+        <label class="opt"><input type="radio" name="type" autocomplete="off" value="moto">
           <span class="ic"><svg class="i"><use href="#moto"/></svg></span>
-          <span class="tx"><b>Motorcycle</b><small>Street, cruiser or off-road</small></span>
-          <span class="rd" aria-hidden="true"></span>
-        </label>
-        <label class="opt">
-          <input type="radio" name="type" autocomplete="off" value="renters">
+          <span class="tx"><b>Motorcycle</b><small>Street, cruiser or off-road</small></span><span class="rd"></span></label>
+        <label class="opt"><input type="radio" name="type" autocomplete="off" value="renters">
           <span class="ic"><svg class="i"><use href="#apt"/></svg></span>
-          <span class="tx"><b>Renters</b><small>Apartments and rentals</small></span>
-          <span class="rd" aria-hidden="true"></span>
-        </label>
+          <span class="tx"><b>Renters</b><small>Apartments and rentals</small></span><span class="rd"></span></label>
       </div>
-      <button class="btn" id="next" type="button" disabled>Continue <svg class="i"><use href="#ar"/></svg></button>
+      <button class="btn" data-next type="button" disabled>Continue <svg class="i"><use href="#ar"/></svg></button>
     </section>
 
-    <!-- STEP 2 -->
-    <section class="step" id="s2">
-      <p class="hi" id="pick">Great choice.</p>
-      <h1>How should we reach you?</h1>
+    <!-- ============ 2 · where + current insurance (auto only) ============ -->
+    <section class="step" data-step="where">
+      <h1>Where do you keep the car?</h1>
+      <p class="sub">Rates change block by block, so the ZIP matters.</p>
+      <div class="fl"><label for="zip">ZIP code</label>
+        <input id="zip" name="zip" placeholder="79912" inputmode="numeric" maxlength="5" autocomplete="postal-code"></div>
+      <div class="fl"><label>Do you have car insurance right now?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="insured" value="yes" autocomplete="off"><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="insured" value="no" autocomplete="off"><span>No</span></label>
+          <label class="pill"><input type="radio" name="insured" value="lapsed" autocomplete="off"><span>It lapsed</span></label>
+        </div>
+      </div>
+      <div class="fl" id="yrsWrap" style="display:none"><label for="yrs">How long have you been continuously insured?</label>
+        <select id="yrs" name="years"><option value="">Choose one</option>
+          <option>Less than 6 months</option><option>6 months to 1 year</option>
+          <option>1 to 3 years</option><option>3 to 5 years</option><option>5+ years</option></select></div>
+      <p class="err" id="e-where"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ============ 3 · vehicles ============ -->
+    <section class="step" data-step="vehicles">
+      <h1>Which vehicles?</h1>
+      <p class="sub">A VIN gets the most accurate rate, but the year, make and model work too.</p>
+      <div id="vehList"></div>
+      <button class="addbtn" id="addVeh" type="button">+ Add another vehicle</button>
+      <p class="err" id="e-vehicles"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ============ 4 · drivers ============ -->
+    <section class="step" data-step="drivers">
+      <h1>Who drives them?</h1>
+      <p class="sub">Every licensed driver in the household counts, even the ones who rarely drive.</p>
+      <div id="drvList"></div>
+      <button class="addbtn" id="addDrv" type="button">+ Add another driver</button>
+      <p class="err" id="e-drivers"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ============ 5 · coverage ============ -->
+    <section class="step" data-step="coverage">
+      <h1>How much coverage?</h1>
+      <p class="sub">Not sure? Pick what sounds right &mdash; your agent will sanity-check it with you.</p>
+      <div class="fl"><label for="liab">Liability limits</label>
+        <select id="liab" name="liability">
+          <option value="30/60/25">30/60/25 &mdash; Texas minimum</option>
+          <option value="50/100/50">50/100/50</option>
+          <option value="100/300/100" selected>100/300/100 &mdash; most common</option>
+          <option value="250/500/100">250/500/100</option>
+        </select></div>
+      <div class="fl"><label>Do you want comprehensive and collision?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="fullcov" value="yes" autocomplete="off" checked><span>Yes, full coverage</span></label>
+          <label class="pill"><input type="radio" name="fullcov" value="no" autocomplete="off"><span>Liability only</span></label>
+        </div></div>
+      <div class="g2" id="dedWrap">
+        <div class="fl"><label for="dcomp">Comprehensive deductible</label>
+          <select id="dcomp" name="compded"><option>$250</option><option selected>$500</option><option>$1,000</option></select></div>
+        <div class="fl"><label for="dcoll">Collision deductible</label>
+          <select id="dcoll" name="collded"><option>$250</option><option selected>$500</option><option>$1,000</option></select></div>
+      </div>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ============ 6 · contact ============ -->
+    <section class="step" data-step="contact">
+      <h1>Where do we send it?</h1>
+      <p class="sub">We need a way to reach you before anything can be bound.</p>
       <div class="g2">
-        <div class="fl"><label for="fn">First name</label><input id="fn" name="name" placeholder="Your name" autocomplete="given-name" required></div>
-        <div class="fl"><label for="fz">ZIP code</label><input id="fz" name="zip" placeholder="79901" inputmode="numeric" autocomplete="postal-code" required></div>
+        <div class="fl"><label for="cfn">First name</label><input id="cfn" name="first" placeholder="Your name" autocomplete="given-name"></div>
+        <div class="fl"><label for="cln">Last name</label><input id="cln" name="last" placeholder="Last name" autocomplete="family-name"></div>
       </div>
-      <div class="fl"><label for="fp">Phone</label><input id="fp" name="phone" type="tel" placeholder="(915) 000-0000" inputmode="tel" autocomplete="tel" required></div>
-      <div class="fl"><label for="fe">Email <span style="text-transform:none;font-weight:600">(optional)</span></label><input id="fe" name="email" type="email" placeholder="you@email.com" inputmode="email" autocomplete="email"></div>
-      <div class="fl"><label for="fx">Anything we should know? <span style="text-transform:none;font-weight:600">(optional)</span></label><textarea id="fx" name="notes" rows="3" placeholder="Vehicle, SR-22, current carrier&hellip;"></textarea></div>
-      <p class="note" id="err" style="display:none"></p>
-      <button class="btn" id="send" type="submit">Send my request <svg class="i"><use href="#ar"/></svg></button>
-      <p class="note"><svg class="i"><use href="#lock"/></svg> Free and no obligation. A licensed agent reviews it and gets back to you &mdash; nothing is bound or purchased here.</p>
+      <div class="fl"><label for="cph">Phone</label><input id="cph" name="phone" type="tel" placeholder="(915) 000-0000" inputmode="tel" autocomplete="tel"></div>
+      <div class="fl"><label for="cem">Email <span class="opt2">(optional)</span></label><input id="cem" name="email" type="email" placeholder="you@email.com" inputmode="email" autocomplete="email"></div>
+      <div class="fl"><label for="cnt">Anything we should know? <span class="opt2">(optional)</span></label>
+        <textarea id="cnt" name="notes" rows="3" placeholder="SR-22, tickets, current carrier&hellip;"></textarea></div>
+      <p class="err" id="e-contact"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" id="submit" type="submit">See my options <svg class="i"><use href="#ar"/></svg></button>
+      <p class="note"><svg class="i"><use href="#lock"/></svg> Free and no obligation. A licensed agent reviews everything before any policy is issued &mdash; nothing is bound on this page.</p>
     </section>
 
-    <!-- STEP 3 -->
-    <section class="step done" id="s3">
+    <!-- ============ 7 · rating ============ -->
+    <section class="step" data-step="rating">
+      <div class="rating">
+        <span class="spin" aria-hidden="true"></span>
+        <h1>Checking your options</h1>
+        <p id="ratingMsg">Sending your details to the carriers we represent&hellip;</p>
+        <p class="who">This usually takes a few seconds.</p>
+      </div>
+    </section>
+
+    <!-- ============ 8 · results ============ -->
+    <section class="step" data-step="results">
+      <h1>Your initial options</h1>
+      <p class="sub">Estimates based on what you entered.</p>
+      <span class="tag">Initial estimate</span>
+      <div class="rlist" id="rlist"></div>
+      <p class="estnote">These are initial estimates from the carriers we represent, not final prices. A licensed
+        Safe House agent verifies your information, the discounts you qualify for and each carrier&rsquo;s
+        requirements, then confirms the real numbers with you before anything is issued.</p>
+      <a class="btn" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Talk to an agent now</a>
+      <a class="btn ghost" href="index.html">Back to the site</a>
+    </section>
+
+    <!-- ============ 9 · sent ============ -->
+    <section class="step done" data-step="done">
       <span class="tick">&#10003;</span>
-      <h1>We got it.</h1>
-      <p>A licensed Safe House agent will get back to you with real options &mdash; in English or Spanish. If you would rather not wait, call us.</p>
+      <h1 id="doneH">We got it.</h1>
+      <p id="doneP">A licensed Safe House agent will get back to you with real options &mdash; in English or Spanish.
+         If you would rather not wait, call us.</p>
       <a class="btn" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
       <a class="btn ghost" href="index.html">Back to the site</a>
     </section>
@@ -219,67 +344,281 @@
 </div>
 
 <script>
-  (function(){
-    var form=document.getElementById('qform'),
-        steps=[document.getElementById('s1'),document.getElementById('s2'),document.getElementById('s3')],
-        bar=document.getElementById('bar'), crumb=document.getElementById('crumb'),
-        back=document.getElementById('back'), next=document.getElementById('next'),
-        pick=document.getElementById('pick'), err=document.getElementById('err'),
-        radios=[].slice.call(form.querySelectorAll('input[name=type]')),
-        LABEL={car:'Car',home:'Home',commercial:'Commercial vehicle',moto:'Motorcycle',renters:'Renters'},
-        i=0;
+/* ---------------------------------------------------------------------------
+   Safe House quote flow.
 
-    function go(n){
-      i=n;
-      steps.forEach(function(s,k){ s.classList.toggle('on',k===n); });
-      bar.style.width=[33,66,100][n]+'%';
-      crumb.textContent=n<2?('Step '+(n+1)+' of 2'):'All done';
-      back.style.visibility=n===2?'hidden':'visible';
-      window.scrollTo({top:0,behavior:'smooth'});
-      history.replaceState(null,'','#step'+(n+1));
-    }
-    function chosen(){ var r=radios.filter(function(x){return x.checked;})[0]; return r?r.value:''; }
+   The page never talks to TurboRater directly — an API key in a browser is a
+   key anyone can read and spend. It POSTs one normalized object to our own
+   endpoint, which rates with TurboRater and writes the lead to the AMS.
 
-    function paint(){ radios.forEach(function(r){ r.closest('.opt').classList.toggle('on',r.checked); }); }
-    radios.forEach(function(r){ r.addEventListener('change',function(){ next.disabled=!chosen(); paint(); }); });
-    next.addEventListener('click',function(){
-      if(!chosen()) return;
-      pick.textContent=LABEL[chosen()]+' it is.';
-      go(1);
-    });
-    back.addEventListener('click',function(){ i>0?go(i-1):(location.href='index.html'); });
+     endpoint : window.SAFEHOUSE_API + '/quote'   (contract in docs/quote-api.md)
+     request  : { type, zip, insured, years, vehicles[], drivers[], coverage, contact }
+     response : { quoteId, rates:[{carrier, monthly, term, down, best}] }
 
-    // deep link: quote.html?type=car lands straight on the right option.
-    // Re-applied on pageshow because the browser restores form state after parse
-    // and would otherwise wipe the preselection on a back/forward or a repeat visit.
-    function preselect(){
-      var t=new URLSearchParams(location.search).get('type');
-      if(!t||!LABEL[t]) return;
-      var r=radios.filter(function(x){return x.value===t;})[0];
-      if(r&&!chosen()){ r.checked=true; }
-      next.disabled=!chosen(); paint();
-    }
-    preselect();
-    addEventListener('pageshow',preselect);
+   Set window.SAFEHOUSE_API before this script to point at the AMS backend.
+   With no endpoint configured the flow still works end to end: the answers go
+   out by email exactly as they do today and the visitor lands on "we got it" —
+   never on invented prices.
+--------------------------------------------------------------------------- */
+(function(){
+  var API=(window.SAFEHOUSE_API||'').replace(/\/$/,'');
+  var form=document.getElementById('qform'),
+      steps=[].slice.call(form.querySelectorAll('.step')),
+      bar=document.getElementById('bar'), crumb=document.getElementById('crumb'),
+      back=document.getElementById('back'),
+      LABEL={car:'Car',home:'Home',commercial:'Commercial vehicle',moto:'Motorcycle',renters:'Renters'},
+      AUTO=['type','where','vehicles','drivers','coverage','contact'],
+      SHORT=['type','contact'],
+      flow=SHORT, at=0, veh=0, drv=0;
 
-    // no backend yet — hand off to email so nothing is silently lost
-    form.addEventListener('submit',function(ev){
-      ev.preventDefault();
-      var f=form, need=[f.name,f.phone,f.zip];
-      if(need.some(function(x){return !x.value.trim();})){
-        err.textContent='Please add your name, phone and ZIP so we can reach you.';
-        err.style.display='flex'; err.style.color='#C2410C'; return;
+  var YEARS='<option value="">Year</option>';
+  for(var y=2027;y>=1990;y--) YEARS+='<option>'+y+'</option>';
+  var STATES='<option value="">State</option>'+
+    'TX,NM,AZ,CA,CO,NV,OK,LA,AR,KS,UT,Other'.split(',')
+      .map(function(s){return '<option>'+s+'</option>';}).join('');
+
+  /* ---------- repeatable blocks ---------- */
+  function vehicleBlock(n){
+    return '<div class="blk" data-veh>'
+      +'<div class="bt"><b>Vehicle '+n+'</b>'+(n>1?'<button class="rm" type="button" data-rm>Remove</button>':'')+'</div>'
+      +'<div class="fl"><label>VIN <span class="opt2">(optional, most accurate)</span></label>'
+        +'<input data-f="vin" placeholder="1HGCM82633A004352" maxlength="17" autocomplete="off"></div>'
+      +'<div class="g3">'
+        +'<div class="fl"><label>Year</label><select data-f="year">'+YEARS+'</select></div>'
+        +'<div class="fl"><label>Make</label><input data-f="make" placeholder="Toyota"></div>'
+        +'<div class="fl"><label>Model</label><input data-f="model" placeholder="Camry"></div>'
+      +'</div>'
+      +'<div class="g2">'
+        +'<div class="fl"><label>Mainly used for</label><select data-f="use">'
+          +'<option>Commuting to work</option><option>Pleasure</option><option>Business</option><option>Rideshare</option></select></div>'
+        +'<div class="fl"><label>Miles per year</label><select data-f="miles">'
+          +'<option>Under 7,500</option><option selected>7,500 - 12,000</option><option>12,000 - 20,000</option><option>Over 20,000</option></select></div>'
+      +'</div>'
+      +'<div class="fl"><label>Do you own it?</label><select data-f="own">'
+        +'<option>Owned outright</option><option>Financed</option><option>Leased</option></select></div>'
+    +'</div>';
+  }
+  function driverBlock(n){
+    return '<div class="blk" data-drv>'
+      +'<div class="bt"><b>Driver '+n+'</b>'+(n>1?'<button class="rm" type="button" data-rm>Remove</button>':'')+'</div>'
+      +'<div class="g2">'
+        +'<div class="fl"><label>First name</label><input data-f="first" autocomplete="off"></div>'
+        +'<div class="fl"><label>Last name</label><input data-f="last" autocomplete="off"></div>'
+      +'</div>'
+      +'<div class="g2">'
+        +'<div class="fl"><label>Date of birth</label><input data-f="dob" type="date" autocomplete="off"></div>'
+        +'<div class="fl"><label>License state</label><select data-f="lstate">'+STATES+'</select></div>'
+      +'</div>'
+      +'<div class="g2">'
+        +'<div class="fl"><label>Marital status</label><select data-f="marital">'
+          +'<option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select></div>'
+        +'<div class="fl"><label>Gender</label><select data-f="gender">'
+          +'<option>Female</option><option>Male</option><option>Not listed</option></select></div>'
+      +'</div>'
+      +'<div class="fl"><label>Tickets or accidents in the last 3 years?</label><select data-f="incidents">'
+        +'<option>None</option><option>1</option><option>2</option><option>3 or more</option></select></div>'
+    +'</div>';
+  }
+  function addVeh(){ veh++; document.getElementById('vehList').insertAdjacentHTML('beforeend',vehicleBlock(veh));
+    document.getElementById('addVeh').disabled=veh>=4; }
+  function addDrv(){ drv++; document.getElementById('drvList').insertAdjacentHTML('beforeend',driverBlock(drv));
+    document.getElementById('addDrv').disabled=drv>=4; }
+  document.getElementById('addVeh').addEventListener('click',addVeh);
+  document.getElementById('addDrv').addEventListener('click',addDrv);
+  form.addEventListener('click',function(e){
+    var rm=e.target.closest('[data-rm]'); if(!rm) return;
+    var blk=rm.closest('.blk'), isVeh=blk.hasAttribute('data-veh');
+    blk.remove();
+    if(isVeh){ veh--; document.getElementById('addVeh').disabled=false; }
+    else { drv--; document.getElementById('addDrv').disabled=false; }
+    [].slice.call(document.querySelectorAll('#vehList .blk')).forEach(function(b,i){ b.querySelector('b').textContent='Vehicle '+(i+1); });
+    [].slice.call(document.querySelectorAll('#drvList .blk')).forEach(function(b,i){ b.querySelector('b').textContent='Driver '+(i+1); });
+  });
+
+  /* ---------- navigation ---------- */
+  function stepEl(name){ return steps.filter(function(s){return s.dataset.step===name;})[0]; }
+  function show(name){
+    steps.forEach(function(s){ s.classList.toggle('on',s.dataset.step===name); });
+    var i=flow.indexOf(name);
+    if(i>-1){ at=i; bar.style.width=Math.round(((i+1)/flow.length)*100)+'%';
+      crumb.textContent='Step '+(i+1)+' of '+flow.length; back.style.visibility='visible'; }
+    else { bar.style.width='100%'; crumb.textContent=name==='rating'?'Working on it':'All done';
+      back.style.visibility='hidden'; }
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function chosenType(){ var r=form.querySelector('input[name=type]:checked'); return r?r.value:''; }
+  function setFlow(){ flow=chosenType()==='car'?AUTO:SHORT; }
+
+  function fail(id,msg){ var p=document.getElementById(id); if(!p) return false;
+    p.querySelector('span').textContent=msg; p.style.display='flex'; return false; }
+  function clear(id){ var p=document.getElementById(id); if(p) p.style.display='none'; }
+
+  function valid(name){
+    if(name==='type') return !!chosenType();
+    if(name==='where'){ clear('e-where');
+      if(!/^\d{5}$/.test(document.getElementById('zip').value.trim()))
+        return fail('e-where','Please enter a 5-digit ZIP code.');
+      if(!form.querySelector('input[name=insured]:checked'))
+        return fail('e-where','Let us know if you are insured right now.');
+      return true; }
+    if(name==='vehicles'){ clear('e-vehicles');
+      var bs=[].slice.call(document.querySelectorAll('#vehList .blk'));
+      for(var i=0;i<bs.length;i++){
+        var vin=bs[i].querySelector('[data-f=vin]').value.trim(),
+            yr=bs[i].querySelector('[data-f=year]').value,
+            mk=bs[i].querySelector('[data-f=make]').value.trim();
+        if(!vin && !(yr&&mk)) return fail('e-vehicles','Add a VIN, or at least the year and make of vehicle '+(i+1)+'.');
       }
-      err.style.display='none';
-      var body='Insurance type: '+LABEL[chosen()]
-        +'\nName: '+f.name.value+'\nPhone: '+f.phone.value+'\nZIP: '+f.zip.value
-        +'\nEmail: '+f.email.value+'\nNotes: '+f.notes.value;
-      location.href='mailto:contact@safehouseins.com?subject='
-        +encodeURIComponent('Quote request \u2014 '+LABEL[chosen()]+' \u2014 '+f.name.value)
-        +'&body='+encodeURIComponent(body);
-      go(2);
+      return true; }
+    if(name==='drivers'){ clear('e-drivers');
+      var ds=[].slice.call(document.querySelectorAll('#drvList .blk'));
+      for(var j=0;j<ds.length;j++){
+        if(!ds[j].querySelector('[data-f=first]').value.trim() || !ds[j].querySelector('[data-f=dob]').value)
+          return fail('e-drivers','Driver '+(j+1)+' needs a first name and a date of birth.');
+      }
+      return true; }
+    if(name==='contact'){ clear('e-contact');
+      if(!document.getElementById('cfn').value.trim()) return fail('e-contact','Please add your first name.');
+      if(document.getElementById('cph').value.replace(/\D/g,'').length<10)
+        return fail('e-contact','Please add a phone number we can reach you at.');
+      return true; }
+    return true;
+  }
+
+  form.addEventListener('click',function(e){
+    var b=e.target.closest('[data-next]'); if(!b) return;
+    var cur=b.closest('.step').dataset.step;
+    if(!valid(cur)) return;
+    if(cur==='type'){ setFlow(); if(flow===AUTO){ if(!veh) addVeh(); if(!drv) addDrv(); } }
+    var i=flow.indexOf(cur);
+    show(i<flow.length-1?flow[i+1]:'contact');
+  });
+  back.addEventListener('click',function(){ at>0?show(flow[at-1]):(location.href='index.html'); });
+
+  form.querySelectorAll('input[name=type]').forEach(function(r){
+    r.addEventListener('change',function(){
+      form.querySelectorAll('.opt').forEach(function(o){ o.classList.toggle('on',!!o.querySelector('input:checked')); });
+      stepEl('type').querySelector('[data-next]').disabled=!chosenType();
     });
-  })();
+  });
+  form.querySelectorAll('input[name=insured]').forEach(function(r){
+    r.addEventListener('change',function(){
+      document.getElementById('yrsWrap').style.display=(r.value==='yes'&&r.checked)?'block':'none';
+    });
+  });
+  form.querySelectorAll('input[name=fullcov]').forEach(function(r){
+    r.addEventListener('change',function(){
+      document.getElementById('dedWrap').style.display=
+        form.querySelector('input[name=fullcov]:checked').value==='yes'?'grid':'none';
+    });
+  });
+
+  /* ---------- collect ---------- */
+  function grab(sel){ return [].slice.call(document.querySelectorAll(sel)).map(function(b){
+    var o={}; [].slice.call(b.querySelectorAll('[data-f]')).forEach(function(f){
+      o[f.dataset.f]=(f.value||'').trim(); }); return o; }); }
+  function payload(){
+    var ins=form.querySelector('input[name=insured]:checked');
+    return {
+      type:chosenType(),
+      zip:document.getElementById('zip').value.trim(),
+      insured:ins?ins.value:'',
+      years:document.getElementById('yrs').value,
+      vehicles:grab('#vehList .blk'),
+      drivers:grab('#drvList .blk'),
+      coverage:{
+        liability:document.getElementById('liab').value,
+        full:(form.querySelector('input[name=fullcov]:checked')||{}).value==='yes',
+        compDeductible:document.getElementById('dcomp').value,
+        collDeductible:document.getElementById('dcoll').value
+      },
+      contact:{
+        first:document.getElementById('cfn').value.trim(),
+        last:document.getElementById('cln').value.trim(),
+        phone:document.getElementById('cph').value.trim(),
+        email:document.getElementById('cem').value.trim(),
+        notes:document.getElementById('cnt').value.trim()
+      },
+      source:'safehouseins.com/quote',
+      submittedAt:new Date().toISOString()
+    };
+  }
+  function mailto(p){
+    var b='Insurance type: '+LABEL[p.type]
+      +'\nName: '+p.contact.first+' '+p.contact.last
+      +'\nPhone: '+p.contact.phone+'\nEmail: '+p.contact.email
+      +(p.zip?'\nZIP: '+p.zip:'')
+      +(p.insured?'\nCurrently insured: '+p.insured+(p.years?' ('+p.years+')':''):'')
+      +(p.vehicles.length?'\n\nVehicles:\n'+p.vehicles.map(function(v,i){
+          return '  '+(i+1)+'. '+[v.year,v.make,v.model].filter(Boolean).join(' ')
+            +(v.vin?' VIN '+v.vin:'')+' - '+v.use+' - '+v.miles+' - '+v.own; }).join('\n'):'')
+      +(p.drivers.length?'\n\nDrivers:\n'+p.drivers.map(function(d,i){
+          return '  '+(i+1)+'. '+d.first+' '+d.last+' - DOB '+d.dob+' - '+d.lstate
+            +' - '+d.marital+' - incidents: '+d.incidents; }).join('\n'):'')
+      +(p.type==='car'?'\n\nCoverage: '+p.coverage.liability
+          +(p.coverage.full?' - full coverage - comp '+p.coverage.compDeductible+' / coll '+p.coverage.collDeductible
+                           :' - liability only'):'')
+      +(p.contact.notes?'\n\nNotes: '+p.contact.notes:'');
+    location.href='mailto:contact@safehouseins.com?subject='
+      +encodeURIComponent('Quote request - '+LABEL[p.type]+' - '+p.contact.first+' '+p.contact.last)
+      +'&body='+encodeURIComponent(b);
+  }
+
+  /* ---------- results ---------- */
+  function money(n){ return '$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0}); }
+  function render(rates){
+    document.getElementById('rlist').innerHTML=rates.map(function(r,i){
+      var sub=[r.term,r.down?('down '+money(r.down)):''].filter(Boolean).join(' · ');
+      return '<div class="rcard'+(r.best||i===0?' best':'')+'">'
+        +'<span class="lg">'+String(r.carrier||'?').charAt(0)+'</span>'
+        +'<span class="mid"><b>'+(r.carrier||'Carrier')+'</b><small>'+sub+'</small></span>'
+        +'<span class="pr"><b>'+money(r.monthly)+'</b><small>/mo est.</small></span></div>';
+    }).join('');
+  }
+
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    if(!valid('contact')) return;
+    var p=payload();
+
+    // no backend wired yet, or anything other than auto: hand off by email
+    if(!API || p.type!=='car'){ mailto(p); show('done'); return; }
+
+    show('rating');
+    var ctrl=new AbortController(), t=setTimeout(function(){ctrl.abort();},25000);
+    fetch(API+'/quote',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(p),signal:ctrl.signal})
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(d){
+        clearTimeout(t);
+        if(d&&d.rates&&d.rates.length){ render(d.rates); show('results'); }
+        else{
+          document.getElementById('doneH').textContent='We got your request.';
+          document.getElementById('doneP').textContent='No carrier came back with an instant rate for this one, which happens with some situations. A licensed agent is picking it up and will call or text you with real options.';
+          show('done');
+        }
+      })
+      .catch(function(){
+        clearTimeout(t);
+        mailto(p);            // never invent prices — fall back to the honest path
+        show('done');
+      });
+  });
+
+  /* ---------- deep link ---------- */
+  function preselect(){
+    var t=new URLSearchParams(location.search).get('type');
+    if(!t||!LABEL[t]) return;
+    var r=form.querySelector('input[name=type][value="'+t+'"]');
+    if(r&&!chosenType()) r.checked=true;
+    form.querySelectorAll('.opt').forEach(function(o){ o.classList.toggle('on',!!o.querySelector('input:checked')); });
+    stepEl('type').querySelector('[data-next]').disabled=!chosenType();
+    setFlow();
+  }
+  preselect();
+  addEventListener('pageshow',preselect);
+  show('type');
+})();
 </script>
 </body>
 </html>
