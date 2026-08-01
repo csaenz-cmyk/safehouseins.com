@@ -886,33 +886,42 @@
     },2600);
   })();
 
-  // ===== kinetic statement: three lines that ink in as the section rides up =====
+  // ===== kinetic statement: the lines fly across the screen as you scroll =====
+  // Each line starts a full screen-width off to one side — left, right, left — and
+  // is carried in by the scroll. A faint ghost of it sweeps across first and darkens
+  // as it lands. Nothing settles for good: a slow counter-drift runs the whole way,
+  // so the block is never frozen while the section is on screen.
   (function(){
     var kin=document.getElementById('kin'); if(!kin) return;
     if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
     var lines=[].slice.call(kin.querySelectorAll('.kl')), glow=kin.querySelector('.kglow'), ticking=false;
     function cl(v){return v<0?0:(v>1?1:v);}
-    function ease(v){return 1-Math.pow(1-v,3);}
+    function outCubic(v){return 1-Math.pow(1-v,3);}
+    function outBack(v){var c=1.35;return 1+(c+1)*Math.pow(v-1,3)+c*Math.pow(v-1,2);}  // a little snap on the last line
+
     function paint(){
       ticking=false;
       // 0 the moment the section's top touches the bottom of the viewport,
       // 1 exactly when that top reaches the very top of the screen
       var r=kin.getBoundingClientRect(),
           p=cl((innerHeight-r.top)/(innerHeight||1)),
-          amp=innerWidth>=900?54:22;
+          A=innerWidth*1.05;                       // start a full screen off to the side
       for(var i=0;i<lines.length;i++){
-        var lp=ease(cl((p-.16-i*.18)/.30)),
-            park=cl((p-.42)/.58),
-            drift=(1-lp)*amp*(i%2?1:-1),
-            float_=(park-.5)*2*(i%2?5:-5);
-        lines[i].style.opacity=(.15+.85*lp).toFixed(3);
-        lines[i].style.transform='translate3d('+drift.toFixed(2)+'px,'+float_.toFixed(2)+'px,0)'
-          +' scale('+(1+(1-lp)*.03).toFixed(4)+')';
+        var dir=i%2?1:-1,                          // left, right, left
+            t0=.20+i*.13, span=.46,
+            raw=cl((p-t0)/span),
+            arrive=i===2?outBack(raw):outCubic(raw),
+            drift=(.5-p)*34,                       // never fully parks
+            x=dir*A*(1-arrive)+dir*drift,
+            ty=(1-raw)*(i%2?9:-9);
+        lines[i].style.opacity=(.12+.88*outCubic(raw)).toFixed(3);
+        lines[i].style.transform='translate3d('+x.toFixed(1)+'px,'+ty.toFixed(2)+'px,0)'
+          +' scaleX('+(1+(1-raw)*.045).toFixed(4)+')';
       }
-      lines[1].classList.toggle('lit',p>.80);
-      var g=.5+ease(cl(p/.7))*.75;
+      lines[1].classList.toggle('lit',p>.86);
+      var g=.5+outCubic(cl(p/.7))*.75;
       glow.style.transform='translate(-50%,-50%) scale('+g.toFixed(3)+')';
-      glow.style.opacity=(.35+.55*ease(cl(p/.5))).toFixed(3);
+      glow.style.opacity=(.3+.6*outCubic(cl(p/.5))).toFixed(3);
     }
     function onScroll(){ if(!ticking){ticking=true;requestAnimationFrame(paint);} }
     addEventListener('scroll',onScroll,{passive:true});
