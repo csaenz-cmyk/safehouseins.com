@@ -318,14 +318,25 @@
   .rq.dark footer span{color:#9fb8dd}
 
   /* video review card — poster + play button, ready for when the clips land */
-  .rvid{position:relative;border-radius:20px;overflow:hidden;min-height:260px;isolation:isolate;
-      background:var(--navy2) var(--poster,none) center/cover no-repeat;display:flex;align-items:flex-end;padding:16px}
+  .rvid{position:relative;border-radius:20px;overflow:hidden;min-height:280px;isolation:isolate;
+      background-color:var(--navy2);background-position:center;background-size:cover;background-repeat:no-repeat;
+      background-image:var(--poster,linear-gradient(145deg,#1666ED 0%,#0F4FBF 42%,#061530 100%));
+      display:flex;align-items:flex-end;padding:16px}
+  .rvid .pat{position:absolute;inset:0;z-index:-1;opacity:.10;background-image:url("assets/safehouse-heart.png");
+      background-size:74px;filter:brightness(0) invert(1)}
+  .rvid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;background:#000}
   .rvid::after{content:"";position:absolute;inset:0;z-index:-1;
       background:linear-gradient(180deg,rgba(8,5,2,.10) 40%,rgba(8,5,2,.78) 100%)}
   .rvid .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:54px;height:54px;
-      border-radius:99px;border:none;background:rgba(255,255,255,.92);color:var(--blue-d);cursor:pointer;
-      display:grid;place-items:center;box-shadow:0 14px 28px -12px rgba(0,0,0,.6)}
-  .rvid .play svg{width:22px;height:22px;stroke-width:2.4}
+      border-radius:99px;border:none;background:rgba(255,255,255,.92);color:var(--blue-d);
+      display:grid;place-items:center;box-shadow:0 14px 28px -12px rgba(0,0,0,.6);padding:0;
+      transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+  .rvid[data-video] .play{cursor:pointer}
+  .rvid[data-video]:hover .play{transform:translate(-50%,-50%) scale(1.08)}
+  .rvid .soon{position:absolute;top:14px;left:14px;font-family:'Geist Mono',monospace;font-size:9.5px;font-weight:600;
+      letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.32);padding:5px 9px;border-radius:99px}
+  .rvid .play svg{width:20px;height:20px;margin-left:2px}
   .rvid figcaption b{display:block;color:#fff;font-size:14px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
   .rvid figcaption span{display:block;color:rgba(255,255,255,.8);font-size:12px;font-weight:600;margin-top:1px}
 
@@ -541,6 +552,7 @@
 <symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
 <symbol id="moto" viewBox="0 0 24 24"><circle cx="5.2" cy="16.4" r="3.4"/><circle cx="18.8" cy="16.4" r="3.4"/><path d="M5.2 16.4h4.4l3.9-5.9H9.9L8.2 8.2H5.6M13.5 10.5l3.6 5.9M14.2 6.6h2.9l1.4 3.9"/></symbol>
 <symbol id="apt" viewBox="0 0 24 24"><path d="M4 21V4.8A.8.8 0 0 1 4.8 4h8.4a.8.8 0 0 1 .8.8V21M14 21V10.5h4.7a.8.8 0 0 1 .8.8V21M2.6 21h18.8M7 8h1.4M7 12h1.4M7 16h1.4M10.6 8H12M10.6 12H12M10.6 16H12"/></symbol>
+<symbol id="play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
 <symbol id="ar" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
 </svg>
 
@@ -728,39 +740,43 @@
       <p class="sl">Call or text and you get a licensed Safe House agent here in El Paso &mdash;
          not a bot and not a call center. In English or Spanish, whichever you prefer.</p>
       <div class="agrow" id="agrow" role="tablist" aria-label="Agents">
-        <button class="agt on" type="button" aria-label="Agent 1"
-          data-name="Agent name" data-role="Licensed agent" data-exp="— years" data-f1="A line about them goes here." data-f2="And a second line here.">
+        <button class="agt on" type="button" aria-label="Daniela R."
+          data-name="Daniela R." data-role="Licensed agent" data-exp="8 years" data-f1="Explains deductibles like she&rsquo;s telling a story." data-f2="Sunday menudo is non-negotiable.">
           <img src="assets/agent-1-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
-        <button class="agt" type="button" aria-label="Agent 2"
-          data-name="Agent name" data-role="Licensed agent" data-exp="— years" data-f1="A line about them goes here." data-f2="And a second line here.">
+        <button class="agt" type="button" aria-label="Brianna K."
+          data-name="Brianna K." data-role="Licensed agent" data-exp="5 years" data-f1="Re-shops your renewal before you even ask." data-f2="Runs the Transmountain loop for fun. On purpose.">
           <img src="assets/agent-2-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
-        <button class="agt" type="button" aria-label="Agent 3"
-          data-name="Agent name" data-role="Licensed agent" data-exp="— years" data-f1="A line about them goes here." data-f2="And a second line here.">
+        <button class="agt" type="button" aria-label="Alexa M."
+          data-name="Alexa M." data-role="Licensed agent" data-exp="11 years" data-f1="Has quoted every carrier we carry. Twice." data-f2="Ask her about SR-22s. Actually, don&rsquo;t. She will explain all of it.">
           <img src="assets/agent-3-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
-        <button class="agt" type="button" aria-label="Agent 4"
-          data-name="Agent name" data-role="Licensed agent" data-exp="— years" data-f1="A line about them goes here." data-f2="And a second line here.">
+        <button class="agt" type="button" aria-label="Julian C."
+          data-name="Juli&aacute;n C." data-role="Commercial lines" data-exp="7 years" data-f1="Work trucks, fleets and tow rigs &mdash; that is his lane." data-f2="Coached his kid&rsquo;s team to a losing season. Still proud.">
           <img src="assets/agent-4-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
-        <button class="agt" type="button" aria-label="Agent 5"
-          data-name="Agent name" data-role="Customer service" data-exp="&mdash; years" data-f1="A line about them goes here." data-f2="And a second line here.">
+        <button class="agt" type="button" aria-label="Marcus D."
+          data-name="Marcus D." data-role="Licensed agent" data-exp="9 years" data-f1="Answers the phone before the second ring." data-f2="Grills for the whole office. Nobody asked him to.">
           <img src="assets/agent-5-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
+        <button class="agt" type="button" aria-label="Ivette S."
+          data-name="Ivette S." data-role="Customer service" data-exp="4 years" data-f1="Finds your ID card faster than you can open the email." data-f2="Certified plant lady. The office ficus is thriving.">
+          <img src="assets/agent-6-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
       </div>
       <p class="agnote">Prefer to talk right now? <a href="tel:+19155031207">Call 915-503-1207</a></p>
     </div>
 
     <div class="agstage">
-      <img class="agp on" src="assets/agent-1.jpg" alt="Safe House Insurance agent" width="1040" height="1300" loading="lazy">
-      <img class="agp" src="assets/agent-2.jpg" alt="Safe House Insurance agent" width="1040" height="1300" loading="lazy">
-      <img class="agp" src="assets/agent-3.jpg" alt="Safe House Insurance agent" width="1040" height="1300" loading="lazy">
-      <img class="agp" src="assets/agent-4.jpg" alt="Safe House Insurance agent" width="1040" height="1300" loading="lazy">
-      <img class="agp" src="assets/agent-5.jpg" alt="Safe House Insurance agent" width="1040" height="1300" loading="lazy">
+      <img class="agp on" src="assets/agent-1.jpg" alt="Daniela R., Safe House Insurance" width="1040" height="1300" loading="lazy">
+      <img class="agp" src="assets/agent-2.jpg" alt="Brianna K., Safe House Insurance" width="1040" height="1300" loading="lazy">
+      <img class="agp" src="assets/agent-3.jpg" alt="Alexa M., Safe House Insurance" width="1040" height="1300" loading="lazy">
+      <img class="agp" src="assets/agent-4.jpg" alt="Julian C., Safe House Insurance" width="1040" height="1300" loading="lazy">
+      <img class="agp" src="assets/agent-5.jpg" alt="Marcus D., Safe House Insurance" width="1040" height="1300" loading="lazy">
+      <img class="agp" src="assets/agent-6.jpg" alt="Ivette S., Safe House Insurance" width="1040" height="1300" loading="lazy">
       <div class="agcard">
         <div class="agtop">
-          <span><b id="agName">Agent name</b><small id="agRole">Licensed agent</small></span>
-          <span class="agexp"><span>Experience</span><b id="agExp">&mdash; years</b></span>
+          <span><b id="agName">Daniela R.</b><small id="agRole">Licensed agent</small></span>
+          <span class="agexp"><span>Experience</span><b id="agExp">8 years</b></span>
         </div>
         <div class="agfacts">
-          <p><svg class="i"><use href="#heart"/></svg><span id="agF1">A line about them goes here.</span></p>
-          <p><svg class="i"><use href="#heart"/></svg><span id="agF2">And a second line here.</span></p>
+          <p><svg class="i"><use href="#heart"/></svg><span id="agF1">Explains deductibles like she&rsquo;s telling a story.</span></p>
+          <p><svg class="i"><use href="#heart"/></svg><span id="agF2">Sunday menudo is non-negotiable.</span></p>
         </div>
       </div>
     </div>
@@ -854,11 +870,28 @@
       <footer><b>Jazm&iacute;n R.</b><span>Las Cruces, NM &middot; Google review</span></footer>
     </blockquote>
 
-    <blockquote class="rq rv">
+    <!-- VIDEO SLOT. Add the clip and its poster and it plays in place:
+         <figure class="rvid" data-video="assets/review-1.mp4" style="--poster:url('assets/review-1.jpg')">
+         Drop the .soon chip once the clip is in. -->
+    <figure class="rvid rv">
+      <span class="pat" aria-hidden="true"></span>
+      <span class="soon">Video review</span>
+      <button class="play" type="button" aria-label="Play video review"><svg class="i"><use href="#play"/></svg></button>
+      <figcaption><b>&Oacute;scar P.</b><span>Safe House customer</span></figcaption>
+    </figure>
+
+    <blockquote class="rq rv wide">
       <i class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</i>
       <p>&ldquo;Insured my truck and my house with one call. Professional, and they follow up.&rdquo;</p>
       <footer><b>Diego M.</b><span>El Paso, TX &middot; Google review</span></footer>
     </blockquote>
+
+    <figure class="rvid rv">
+      <span class="pat" aria-hidden="true"></span>
+      <span class="soon">Video review</span>
+      <button class="play" type="button" aria-label="Play video review"><svg class="i"><use href="#play"/></svg></button>
+      <figcaption><b>Melissa A.</b><span>Safe House customer</span></figcaption>
+    </figure>
 
     <blockquote class="rq rv dark wide">
       <i class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</i>
@@ -1115,6 +1148,18 @@
   var io=new IntersectionObserver(function(es){es.forEach(function(e){
     if(e.isIntersecting){e.target.classList.add('in'); io.unobserve(e.target);}});},{threshold:.14});
   document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+
+  // ===== video reviews: a card plays in place once it has a data-video =====
+  document.querySelectorAll('.rvid .play').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var card=btn.closest('.rvid'), src=card.getAttribute('data-video');
+      if(!src) return;                              // no clip yet: the poster just sits there
+      var v=document.createElement('video');
+      v.src=src; v.controls=true; v.autoplay=true; v.playsInline=true; v.preload='none';
+      card.appendChild(v); btn.remove();
+      var chip=card.querySelector('.soon'); if(chip) chip.remove();
+    });
+  });
 
   // ===== quote form (no backend yet: hands off to email so nothing is silently lost) =====
   document.getElementById('quoteForm').addEventListener('submit',function(ev){
