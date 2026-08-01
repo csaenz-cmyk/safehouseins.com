@@ -347,7 +347,7 @@
   /* ================= FAQ =================
      One <div class="qa"> per question. The answer animates open with the
      grid-rows trick, and only one stays open at a time. */
-  .faq{background:#fff;padding:52px 0 58px}
+  .faq{background:#fff;padding:52px 0 34px}
   .faq .in{max-width:820px;margin:0 auto;padding:0 22px}
   .faq .rhead{margin-bottom:0}
   .qalist{margin-top:24px;display:flex;flex-direction:column;gap:9px}
@@ -372,20 +372,23 @@
   .qbody a{color:var(--blue-d);font-weight:700}
 
   /* ================= START BAND ================= */
-  .start{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;justify-content:center;
-      min-height:min(78svh,540px);text-align:center;padding:52px 22px;
-      background:#2a1a0e url("assets/start-mobile.jpg") 62% center / cover no-repeat}
-  .start::after{content:"";position:absolute;inset:0;z-index:-1;
-      background:linear-gradient(180deg,rgba(20,11,4,.62) 0%,rgba(20,11,4,.44) 42%,rgba(12,7,3,.80) 100%)}
-  .start .in{position:relative;max-width:640px}
-  .start h2{color:#fff;text-transform:uppercase;font-size:clamp(27px,7.4vw,44px);line-height:1.05;
-      letter-spacing:-.02em;text-shadow:0 3px 20px rgba(0,0,0,.55)}
-  .start p{color:rgba(255,255,255,.94);font-size:16.5px;font-weight:600;margin-top:14px;
-      text-shadow:0 2px 14px rgba(0,0,0,.6)}
-  .start .acts{display:flex;flex-direction:column;gap:10px;align-items:center;margin-top:24px}
-  .start .btn{width:100%;max-width:330px}
-  .start small{display:block;margin-top:16px;font-size:12.5px;color:rgba(255,255,255,.78);font-weight:600;
-      text-shadow:0 2px 10px rgba(0,0,0,.6)}
+  .start{background:#fff;padding:6px 0 26px}
+  .startcard{position:relative;overflow:hidden;isolation:isolate;border-radius:26px;
+      display:flex;align-items:center;justify-content:center;text-align:center;
+      min-height:min(72svh,520px);padding:46px 20px;
+      background:#2a1a0e url("assets/start-mobile.jpg") 62% center / cover no-repeat;
+      box-shadow:0 30px 56px -34px rgba(10,33,72,.6)}
+  .startcard::after{content:"";position:absolute;inset:0;z-index:-1;
+      background:linear-gradient(180deg,rgba(18,10,4,.66) 0%,rgba(18,10,4,.52) 46%,rgba(10,6,3,.84) 100%)}
+  .startcard .in{position:relative;max-width:420px;width:100%}
+  .startcard h2{color:#fff;text-transform:uppercase;font-size:clamp(24px,6.5vw,42px);line-height:1.06;
+      letter-spacing:-.02em;text-shadow:0 3px 20px rgba(0,0,0,.6)}
+  .startcard p{color:rgba(255,255,255,.95);font-size:15px;font-weight:600;margin-top:13px;max-width:330px;margin-left:auto;margin-right:auto;
+      text-shadow:0 2px 14px rgba(0,0,0,.7)}
+  .startcard .acts{display:flex;flex-direction:column;gap:10px;align-items:center;margin-top:24px}
+  .startcard .btn{width:100%;max-width:300px}
+  .startcard small{display:block;margin-top:16px;font-size:12.5px;color:rgba(255,255,255,.82);font-weight:600;
+      text-shadow:0 2px 10px rgba(0,0,0,.7)}
 
   /* ================= SECTIONS ================= */
   section{padding:56px 0}
@@ -401,6 +404,44 @@
   .car p{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
   .car .r{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:12px}
   .car .r span{font-size:15px;font-weight:800;color:#93a2ba}
+
+  .bil{background:var(--grad);color:#fff;padding:44px 0;text-align:center;position:relative;overflow:hidden}
+  .bil .pat{position:absolute;inset:0;opacity:.09;background-image:url("assets/safehouse-heart.png");background-size:80px;filter:brightness(0) invert(1)}
+  .bil .in{position:relative;padding:0 22px}
+  .bil h2{color:#fff}
+  .bil p{font-size:16px;margin-top:10px;color:rgba(255,255,255,.94);max-width:40ch;margin-left:auto;margin-right:auto}
+  .bil .btn{margin-top:18px}
+
+  /* quote form */
+  .qs{background:var(--navy2);color:#fff;position:relative;overflow:hidden}
+  .qs::before{content:"";position:absolute;inset:0;background:radial-gradient(340px 240px at 12% 0%,rgba(0,194,255,.24),transparent 62%),radial-gradient(360px 260px at 88% 106%,rgba(22,102,237,.5),transparent 62%)}
+  .qs .in{position:relative}
+  .qs h2{color:#fff}
+  .qs .sl{color:#b3c6e2}
+  .card{background:#fff;border-radius:24px;padding:22px;margin-top:22px;box-shadow:0 34px 70px -34px rgba(0,0,0,.6)}
+  .card .t{display:flex;align-items:center;gap:11px}
+  .card .t img{width:24px}
+  .card .t b{font-size:17px;color:var(--navy);display:block}
+  .card .t small{font-size:12px;color:var(--muted)}
+  .fl{margin-top:13px}
+  .fl label{display:block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .fl input,.fl select,.fl textarea{width:100%;border:2px solid var(--line);border-radius:14px;padding:14px;font-family:inherit;
+      font-size:16px;font-weight:600;color:var(--ink);background:#FBFCFE;outline:none;transition:.15s;-webkit-appearance:none}
+  .fl input:focus,.fl select:focus,.fl textarea:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(22,102,237,.12)}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .card .btn{margin-top:15px}
+  .priv{display:flex;gap:8px;font-size:11.5px;color:var(--muted);margin-top:12px;align-items:flex-start;font-weight:500}
+  .priv svg{color:#1F9D63;flex:0 0 auto;margin-top:2px}
+  .ci{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+  .ci a,.ci div{display:flex;gap:13px;align-items:center;color:#fff;font-weight:700;font-size:15.5px}
+  .ci .ic{width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.1);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+  .ci small{display:block;color:#8fa5c6;font-weight:500;font-size:12.5px}
+
+  footer{padding:34px 22px 40px;text-align:center;border-top:1px solid var(--line)}
+  footer .logo{height:30px;filter:none;margin:0 auto}
+  footer p{font-size:13px;color:var(--muted);margin-top:12px;line-height:1.8}
+  footer a{color:var(--blue);font-weight:700}
+  .disc{font-size:11px;color:#9aa5b6;margin-top:16px;line-height:1.6;max-width:62ch;margin-left:auto;margin-right:auto}
 
   /* ===== desktop ===== */
   @media(min-width:900px){
@@ -487,12 +528,15 @@
     .rq p{font-size:17.5px}
     .rq.wide{grid-column:span 2}
     .rvid.tall{grid-row:span 2}
-    .start{min-height:min(74vh,600px);padding:70px 40px;
+    .start{padding:14px 0 40px}
+    .startcard{min-height:min(70vh,560px);padding:64px 40px;border-radius:34px;
         background-image:url("assets/start.jpg");background-position:center 46%}
-    .start h2{font-size:clamp(38px,4.2vw,56px)}
-    .start p{font-size:19px;margin-top:16px}
-    .start .acts{flex-direction:row;justify-content:center;gap:14px;margin-top:30px}
-    .start .btn{width:auto}
+    .startcard .in{max-width:640px}
+    .startcard p{max-width:520px}
+    .startcard h2{font-size:clamp(36px,4vw,54px)}
+    .startcard p{font-size:18.5px;margin-top:16px}
+    .startcard .acts{flex-direction:row;justify-content:center;gap:14px;margin-top:30px}
+    .startcard .btn{width:auto}
     .faq{padding:80px 0 88px}
     .qq{font-size:17.5px;padding:20px 22px}
     .qbody p{font-size:16px;padding:0 22px 20px}
@@ -898,8 +942,9 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Safe House Insurance?", "acceptedAnswer": {"@type": "Answer", "text": "We are an independent insurance agency based in El Paso, Texas, licensed in Texas and New Mexico. Independent means we do not work for one company — we shop the carriers we represent and bring you the options."}}, {"@type": "Question", "name": "Can I buy a policy right here on the website?", "acceptedAnswer": {"@type": "Answer", "text": "Not yet. You can start your quote online and see initial options in a few minutes, but a licensed agent reviews everything and finalizes the policy with you by phone or text. Nothing is activated without a person on our side confirming it."}}, {"@type": "Question", "name": "Are the prices I see online final?", "acceptedAnswer": {"@type": "Answer", "text": "No. They are initial estimates based on what you enter. Your final price depends on verification, the discounts you actually qualify for and each carrier's underwriting. Your agent confirms the real numbers before you decide."}}, {"@type": "Question", "name": "Which insurance companies do you shop?", "acceptedAnswer": {"@type": "Answer", "text": "Progressive, Geico, Lemonade, Alinsco and Commonwealth, among others. Carrier availability and eligibility vary by state and by applicant."}}, {"@type": "Question", "name": "What can you insure for me?", "acceptedAnswer": {"@type": "Answer", "text": "Auto, homeowners, renters, mobile home, commercial and work trucks, and life. If you own more than one thing, one agent can handle all of it."}}, {"@type": "Question", "name": "Do you write SR-22 and high-risk policies?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Tickets, accidents, a lapse in coverage or an SR-22 requirement are all things we work with regularly. Tell your agent up front so they shop the right carriers the first time."}}, {"@type": "Question", "name": "¿Hablan español?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Todo el equipo es bilingüe. Puedes cotizar, preguntar y resolver en español, por teléfono o por mensaje, con una persona de verdad aquí en El Paso."}}, {"@type": "Question", "name": "Does it cost anything to get a quote?", "acceptedAnswer": {"@type": "Answer", "text": "No. Quoting is free and there is no obligation. If nothing we find fits you better than what you have, we will tell you that."}}, {"@type": "Question", "name": "How soon can my coverage start?", "acceptedAnswer": {"@type": "Answer", "text": "Most quotes come back the same day. When coverage actually starts depends on the carrier and on what they need from you — your agent tells you exactly what is missing and how soon it can be active."}}]}</script>
 
 <!-- ================= START BAND ================= -->
-<section class="start" aria-label="Start your quote">
-  <div class="in rv">
+<section class="start" aria-label="Start your quote"><div class="wrap">
+  <div class="startcard">
+   <div class="in rv">
     <h2>Start your quote<br>in a few minutes</h2>
     <p>Tell us what you need online. A licensed agent takes it from there &mdash; by phone
        or text, in English or Spanish.</p>
@@ -908,8 +953,9 @@
       <a class="btn gh" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
     </div>
     <small>Free, no obligation &middot; Se habla espa&ntilde;ol</small>
+   </div>
   </div>
-</section>
+</div></section>
 
 <!-- quote -->
 <section id="quote" class="qs"><div class="wrap in">
