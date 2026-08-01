@@ -107,7 +107,7 @@
   .bd>span span{font-size:10.5px;color:var(--muted);font-weight:600;white-space:nowrap}
 
   /* ================= CATEGORY CARDS ================= */
-  .cats{background:#fff;padding:40px 0 18px}
+  .cats{background:#fff;padding:24px 0 10px}
   .catr{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:22px;scrollbar-width:none;
       -webkit-overflow-scrolling:touch;padding:0 22px 6px}
   .catr::-webkit-scrollbar{display:none}
@@ -136,7 +136,7 @@
      by one scroll-progress value (see the JS at the bottom): the three giant lines slide
      in from alternating sides and unmask, the carrier names stream past behind them, and
      the payoff line + button arrive last. Transforms/opacity only, one rAF loop. */
-  .kin{position:relative;padding:58px 0 60px;background:#fff;color:var(--navy);overflow:hidden}
+  .kin{position:relative;padding:28px 0 48px;background:#fff;color:var(--navy);overflow:hidden}
   .kstage{display:flex;flex-direction:column;padding:0 22px;max-width:1180px;margin:0 auto}
   .kglow{position:absolute;left:50%;top:50%;width:min(120vw,860px);aspect-ratio:1;transform:translate(-50%,-50%) scale(.5);
       background:radial-gradient(circle,rgba(22,102,237,.10) 0%,rgba(0,194,255,.05) 40%,transparent 66%);
@@ -344,14 +344,14 @@
     header nav{padding:24px 40px}
     .logo{height:38px}
     .hero{background-position:center 30%}
-    .cats{padding:56px 0 26px}
+    .cats{padding:38px 0 16px}
     .catr{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;overflow:visible;
         max-width:1180px;margin:0 auto;padding:0 40px}
     .cat{flex:none;max-width:none;padding:24px}
     .cat .lb{font-size:13.5px}
     .cat p{font-size:19px;max-width:16ch}
     .cat .go{width:48px;height:48px}
-    .kin{padding:84px 0 88px}
+    .kin{padding:44px 0 76px}
     .kl{font-size:min(8.4vw,104px)}
     .klines{margin-left:2vw}
     .kl:nth-child(2){margin-left:16%}
@@ -777,11 +777,13 @@
       // 0 the moment the section's top touches the bottom of the viewport,
       // 1 exactly when that top reaches the very top of the screen
       var r=kin.getBoundingClientRect(),
-          p=cl((innerHeight-r.top)/(innerHeight||1)),
+          // 1 by the time the section's top is a quarter of the way up the screen,
+          // so the words are already there when you are looking at them
+          p=cl((innerHeight-r.top)/(innerHeight*.75||1)),
           A=innerWidth*1.05;                       // start a full screen off to the side
       for(var i=0;i<lines.length;i++){
         var dir=i%2?1:-1,                          // left, right, left
-            t0=.20+i*.13, span=.46,
+            t0=.12+i*.15, span=.42,
             raw=cl((p-t0)/span),
             arrive=i===2?outBack(raw):outCubic(raw),
             drift=(.5-p)*34,                       // never fully parks
@@ -791,7 +793,7 @@
         lines[i].style.transform='translate3d('+x.toFixed(1)+'px,'+ty.toFixed(2)+'px,0)'
           +' scaleX('+(1+(1-raw)*.045).toFixed(4)+')';
       }
-      lines[1].classList.toggle('lit',p>.86);
+      lines[1].classList.toggle('lit',p>.90);
       var g=.5+outCubic(cl(p/.7))*.75;
       glow.style.transform='translate(-50%,-50%) scale('+g.toFixed(3)+')';
       glow.style.opacity=(.3+.6*outCubic(cl(p/.5))).toFixed(3);
