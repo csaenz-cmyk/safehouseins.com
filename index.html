@@ -111,7 +111,7 @@
      by one scroll-progress value (see the JS at the bottom): the three giant lines slide
      in from alternating sides and unmask, the carrier names stream past behind them, and
      the payoff line + button arrive last. Transforms/opacity only, one rAF loop. */
-  .kin{position:relative;padding:50px 0 44px;background:#fff;color:var(--navy);overflow:hidden}
+  .kin{position:relative;padding:44px 0 40px;background:#fff;color:var(--navy);overflow:hidden}
   .kstage{display:flex;flex-direction:column;padding:0 22px;max-width:1180px;margin:0 auto}
   .kglow{position:absolute;left:50%;top:50%;width:min(120vw,860px);aspect-ratio:1;transform:translate(-50%,-50%) scale(.5);
       background:radial-gradient(circle,rgba(22,102,237,.10) 0%,rgba(0,194,255,.05) 40%,transparent 66%);
@@ -129,7 +129,7 @@
 
   .klines{position:relative;z-index:2}
   .kl{transform-origin:left center}
-  .kl{display:block;font-size:clamp(36px,12vw,116px);line-height:1.08;letter-spacing:-.045em;font-weight:900;
+  .kl{display:block;font-size:clamp(34px,10vw,92px);line-height:1.1;letter-spacing:-.045em;font-weight:900;
       text-transform:uppercase;white-space:nowrap;opacity:.15;will-change:transform,opacity}
   .kl:nth-child(2){margin-left:6%}
   .kl:nth-child(3){margin-left:11%}
@@ -410,7 +410,16 @@
     header nav{padding:24px 40px}
     .logo{height:38px}
     .hero{background-position:center 30%}
-    .kin{padding:64px 0 62px}
+    .kin{padding:56px 0 54px}
+    .kl{font-size:min(8.4vw,104px)}
+    .klines{margin-left:2vw}
+    .kl:nth-child(2){margin-left:16%}
+    .kl:nth-child(3){margin-left:31%}
+    .kl.hollow{-webkit-text-stroke:2px rgba(10,33,72,.34)}
+    .kpay{margin-top:28px;max-width:52ch}
+    .kpay p{font-size:17.5px}
+    .kmar{font-size:13px;gap:40px}
+    .kmar.a{top:22px} .kmar.b{bottom:22px}
     /* desktop: copy on the left, the device holds still on the right */
     .flow{padding:88px 0 92px}
     .fhead{padding:0 40px 10px}
