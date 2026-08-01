@@ -281,6 +281,33 @@
          font-size:1.4em;font-weight:900;margin:.4em auto .1em;box-shadow:0 .8em 1.6em -.6em rgba(22,102,237,.7)}
   .uspacer{flex:1}
 
+
+  /* ================= OWNERSHIP CARD ================= */
+  .own{padding:0 0 8px}
+  .owncard{position:relative;border-radius:26px;overflow:hidden;isolation:isolate;
+      height:min(72svh,520px);display:flex;flex-direction:column;justify-content:flex-end;
+      background:#2a1a10 url("assets/own-mobile.jpg") 46% 44% / cover no-repeat;
+      box-shadow:0 34px 60px -34px rgba(10,33,72,.55)}
+  .owncard::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+      background:linear-gradient(180deg,rgba(28,16,6,.34) 0%,rgba(28,16,6,0) 24%,
+                 rgba(18,11,5,.40) 52%,rgba(12,7,3,.72) 76%,rgba(10,6,3,.88) 100%)}
+  .ownbub{position:absolute;z-index:3;top:16px;left:14px;right:14px;max-width:300px;
+      display:flex;gap:9px;align-items:center;background:rgba(255,255,255,.97);border-radius:16px;
+      padding:10px 12px;box-shadow:0 18px 34px -20px rgba(20,12,6,.7);
+      animation:ownin .7s .25s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes ownin{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+  .ownbub .av{width:34px;height:34px;border-radius:11px;background:var(--grad);display:grid;place-items:center;flex:0 0 auto}
+  .ownbub .av img{width:18px;filter:brightness(0) invert(1)}
+  .ownbub p{font-size:12.5px;font-weight:600;color:var(--navy);line-height:1.35}
+  .ownin{position:relative;z-index:2;padding:0 18px 20px;text-align:center}
+  .ownin h2{font-size:clamp(23px,6.4vw,34px);line-height:1.06;letter-spacing:-.02em;font-weight:900;
+      color:#fff;text-transform:uppercase;text-shadow:0 3px 18px rgba(0,0,0,.5)}
+  .ownin .btn{margin-top:16px}
+  .ownlist{display:grid;grid-template-columns:repeat(2,auto);justify-content:center;gap:13px 26px;margin-top:20px}
+  .ownlist span{display:inline-flex;align-items:center;gap:7px;color:#fff;font-size:11.5px;font-weight:800;
+      letter-spacing:.08em;text-transform:uppercase;text-shadow:0 2px 10px rgba(0,0,0,.55)}
+  .ownlist svg{width:19px;height:19px;stroke-width:1.7}
+
   /* ================= SECTIONS ================= */
   section{padding:56px 0}
   .kick{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;
@@ -388,6 +415,16 @@
     .flow{padding:88px 0 92px}
     .fhead{padding:0 40px 10px}
     .fnotes span{font-size:13px;padding:9px 15px}
+    .own{padding:0 0 16px}
+    .owncard{height:auto;aspect-ratio:2000/1600;border-radius:32px;
+        background-image:url("assets/own.jpg");background-position:center 45%}
+    .ownbub{top:28px;left:28px;right:auto;max-width:330px;padding:12px 15px;border-radius:18px}
+    .ownbub p{font-size:14px}
+    .ownin{padding:0 40px 44px}
+    .ownin h2{font-size:clamp(34px,3.6vw,52px)}
+    .ownlist{display:flex;justify-content:center;gap:14px 40px;margin-top:26px}
+    .ownlist span{font-size:13px}
+    .ownlist svg{width:24px;height:24px}
     .fslide{flex:0 0 380px;max-width:380px;gap:18px;padding:0 11px}
     .frail::before,.frail::after{flex:0 0 calc(50% - 190px)}
     .phone{height:min(56vh,470px);border-radius:40px;padding:8px}
@@ -445,6 +482,8 @@
 <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
 <symbol id="hand" viewBox="0 0 24 24"><path d="M4 12V7a2 2 0 0 1 4 0v5M8 12V5a2 2 0 0 1 4 0v7M12 12V6a2 2 0 0 1 4 0v6M16 12v-3a2 2 0 0 1 4 0v7a6 6 0 0 1-6 6h-2a6 6 0 0 1-6-6v-3"/></symbol>
 <symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="moto" viewBox="0 0 24 24"><circle cx="5.2" cy="16.4" r="3.4"/><circle cx="18.8" cy="16.4" r="3.4"/><path d="M5.2 16.4h4.4l3.9-5.9H9.9L8.2 8.2H5.6M13.5 10.5l3.6 5.9M14.2 6.6h2.9l1.4 3.9"/></symbol>
+<symbol id="apt" viewBox="0 0 24 24"><path d="M4 21V4.8A.8.8 0 0 1 4.8 4h8.4a.8.8 0 0 1 .8.8V21M14 21V10.5h4.7a.8.8 0 0 1 .8.8V21M2.6 21h18.8M7 8h1.4M7 12h1.4M7 16h1.4M10.6 8H12M10.6 12H12M10.6 16H12"/></symbol>
 <symbol id="ar" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
 </svg>
 
@@ -695,6 +734,26 @@
     <a class="fcall" href="tel:+19155031207">Prefer to talk? Call 915-503-1207</a>
   </div>
 </section>
+
+<!-- ================= OWNERSHIP CARD ================= -->
+<section class="own"><div class="wrap">
+  <div class="owncard rv">
+    <div class="ownbub">
+      <span class="av"><img src="assets/safehouse-heart.png" alt=""></span>
+      <p>Renewal coming up? We&rsquo;ll re-shop it and text you the options.</p>
+    </div>
+    <div class="ownin">
+      <h2>One agency for everything you own</h2>
+      <a class="btn grad" href="#quote">Get my free quote <svg class="i"><use href="#ar"/></svg></a>
+      <div class="ownlist">
+        <span><svg class="i"><use href="#car"/></svg> Car</span>
+        <span><svg class="i"><use href="#moto"/></svg> Motorcycle</span>
+        <span><svg class="i"><use href="#home"/></svg> Home</span>
+        <span><svg class="i"><use href="#apt"/></svg> Renters</span>
+      </div>
+    </div>
+  </div>
+</div></section>
 
 <!-- how -->
 <section id="how"><div class="wrap">
