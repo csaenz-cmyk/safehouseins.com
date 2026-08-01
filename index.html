@@ -242,6 +242,42 @@
       letter-spacing:.08em;text-transform:uppercase;text-shadow:0 2px 10px rgba(0,0,0,.55)}
   .ownlist svg{width:19px;height:19px;stroke-width:1.7}
 
+  /* ================= AGENTS =================
+     One <img class="agp"> and one <button class="agt"> per agent, same order.
+     The panel copy lives in data- attributes on the thumb, so swapping a person
+     is one line of markup. The JS counts them on load. */
+  .agents{background:#fff;padding:52px 0 56px}
+  .agin{max-width:1180px;margin:0 auto;padding:0 22px}
+  .agin h2{margin-top:10px}
+  .agstage{position:relative;margin-top:24px;border-radius:24px;overflow:hidden;
+      aspect-ratio:1040/1300;max-width:430px;background:#e9eef7;
+      box-shadow:0 30px 54px -34px rgba(10,33,72,.55)}
+  .agp{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
+      transform:scale(1.03);transition:opacity .55s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
+  .agp.on{opacity:1;transform:none}
+  .agcard{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;border-radius:18px;padding:14px 16px;
+      background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      border:1px solid rgba(255,255,255,.7);box-shadow:0 18px 34px -24px rgba(10,33,72,.6)}
+  .agtop{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+  .agtop b{display:block;font-size:18px;font-weight:900;color:var(--navy);letter-spacing:-.01em}
+  .agtop small{display:block;font-size:12.5px;color:var(--blue-d);font-weight:700;margin-top:1px}
+  .agexp{text-align:right;flex:0 0 auto}
+  .agexp span{display:block;font-size:10.5px;font-family:'Geist Mono',monospace;letter-spacing:.1em;
+      text-transform:uppercase;color:#93a3bb;font-weight:600}
+  .agexp b{font-size:13.5px;color:var(--navy);font-weight:800;margin-top:2px}
+  .agfacts{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+  .agfacts p{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:#42506a;font-weight:600;line-height:1.35}
+  .agfacts p svg{width:14px;height:14px;color:var(--blue);flex:0 0 auto;margin-top:2px;stroke-width:2.4}
+  .agrow{display:flex;gap:10px;margin-top:16px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+  .agrow::-webkit-scrollbar{display:none}
+  .agt{width:60px;height:60px;border-radius:16px;padding:0;border:2px solid transparent;background:none;
+      cursor:pointer;flex:0 0 auto;overflow:hidden;opacity:.55;transition:.28s;position:relative}
+  .agt img{width:100%;height:100%;object-fit:cover;display:block;border-radius:14px}
+  .agt.on{opacity:1;border-color:var(--blue);box-shadow:0 8px 18px -10px rgba(22,102,237,.8)}
+  .agt:hover{opacity:1}
+  .agnote{font-size:12.5px;color:var(--muted);font-weight:600;margin-top:14px}
+  .agnote a{color:var(--blue-d);font-weight:700}
+
   /* ================= SECTIONS ================= */
   section{padding:56px 0}
   .kick{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:600;
@@ -361,6 +397,14 @@
     .flow{padding:88px 0 92px}
     .fhead{padding:0 40px 10px}
     .fnotes span{font-size:13px;padding:9px 15px}
+    .agents{padding:80px 0 84px}
+    .agin{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:64px;padding:0 40px}
+    .agtext{max-width:52ch}
+    .agstage{margin-top:0;width:min(34vw,420px);max-width:none}
+    .agrow{margin-top:18px}
+    .agt{width:66px;height:66px}
+    .agcard{left:14px;right:14px;bottom:14px;padding:16px 18px}
+    .agtop b{font-size:20px}
     .own{padding:0 0 16px}
     .owncard{height:auto;aspect-ratio:2000/1600;border-radius:32px;
         background-image:url("assets/own.jpg");background-position:center 45%}
@@ -609,6 +653,50 @@
     </div>
   </div>
 </div></section>
+
+<!-- ================= AGENTS ================= -->
+<section class="agents" id="agents" aria-label="Meet the agents">
+  <div class="agin">
+    <div class="agtext rv">
+      <span class="kick"><img src="assets/safehouse-heart.png" alt=""> Our team</span>
+      <h2>Expert advice when you need it.</h2>
+      <p class="sl">Call or text and you get a licensed Safe House agent here in El Paso &mdash;
+         not a bot and not a call center. In English or Spanish, whichever you prefer.</p>
+      <div class="agrow" id="agrow" role="tablist" aria-label="Agents">
+        <button class="agt on" type="button" aria-label="Agent 1"
+          data-name="Agent name" data-role="Licensed agent" data-exp="— years" data-f1="A line about them goes here." data-f2="And a second line here.">
+          <img src="assets/agent-1-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
+        <button class="agt" type="button" aria-label="Agent 2"
+          data-name="Agent name" data-role="Licensed agent" data-exp="— years" data-f1="A line about them goes here." data-f2="And a second line here.">
+          <img src="assets/agent-2-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
+        <button class="agt" type="button" aria-label="Agent 3"
+          data-name="Agent name" data-role="Licensed agent" data-exp="— years" data-f1="A line about them goes here." data-f2="And a second line here.">
+          <img src="assets/agent-3-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
+        <button class="agt" type="button" aria-label="Agent 4"
+          data-name="Agent name" data-role="Licensed agent" data-exp="— years" data-f1="A line about them goes here." data-f2="And a second line here.">
+          <img src="assets/agent-4-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
+      </div>
+      <p class="agnote">Prefer to talk right now? <a href="tel:+19155031207">Call 915-503-1207</a></p>
+    </div>
+
+    <div class="agstage">
+      <img class="agp on" src="assets/agent-1.jpg" alt="Safe House Insurance agent" width="1040" height="1300" loading="lazy">
+      <img class="agp" src="assets/agent-2.jpg" alt="Safe House Insurance agent" width="1040" height="1300" loading="lazy">
+      <img class="agp" src="assets/agent-3.jpg" alt="Safe House Insurance agent" width="1040" height="1300" loading="lazy">
+      <img class="agp" src="assets/agent-4.jpg" alt="Safe House Insurance agent" width="1040" height="1300" loading="lazy">
+      <div class="agcard">
+        <div class="agtop">
+          <span><b id="agName">Agent name</b><small id="agRole">Licensed agent</small></span>
+          <span class="agexp"><span>Experience</span><b id="agExp">&mdash; years</b></span>
+        </div>
+        <div class="agfacts">
+          <p><svg class="i"><use href="#heart"/></svg><span id="agF1">A line about them goes here.</span></p>
+          <p><svg class="i"><use href="#heart"/></svg><span id="agF2">And a second line here.</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- how -->
 <section id="how"><div class="wrap">
@@ -869,6 +957,42 @@
     new IntersectionObserver(function(es){
       es.forEach(function(e){ seen=e.isIntersecting; e.isIntersecting?play():pause(); });
     },{threshold:.25}).observe(flow);
+  })();
+
+  // ===== agents: thumbnails swap the portrait and the panel =====
+  (function(){
+    var row=document.getElementById('agrow'); if(!row) return;
+    var thumbs=[].slice.call(row.querySelectorAll('.agt')),
+        shots=[].slice.call(document.querySelectorAll('.agp')),
+        f={name:document.getElementById('agName'),role:document.getElementById('agRole'),
+           exp:document.getElementById('agExp'),f1:document.getElementById('agF1'),f2:document.getElementById('agF2')},
+        n=thumbs.length, cur=-1, timer=null,
+        still=matchMedia('(prefers-reduced-motion:reduce)').matches, DWELL=5200;
+    if(!n||shots.length!==n) return;
+
+    function show(i){
+      if(i===cur) return; cur=i;
+      var d=thumbs[i].dataset;
+      for(var k=0;k<n;k++){
+        thumbs[k].classList.toggle('on',k===i);
+        shots[k].classList.toggle('on',k===i);
+        thumbs[k].setAttribute('aria-selected',k===i);
+      }
+      f.name.textContent=d.name; f.role.textContent=d.role; f.exp.textContent=d.exp;
+      f.f1.textContent=d.f1;     f.f2.textContent=d.f2;
+    }
+    function play(){ if(still||timer) return; timer=setInterval(function(){show((cur+1)%n);},DWELL); }
+    function pause(){ clearInterval(timer); timer=null; }
+
+    thumbs.forEach(function(t,i){ t.addEventListener('click',function(){ show(i); pause(); play(); }); });
+    var sec=document.getElementById('agents');
+    sec.addEventListener('pointerenter',function(e){ if(e.pointerType!=='touch') pause(); });
+    sec.addEventListener('pointerleave',function(e){ if(e.pointerType!=='touch') play(); });
+    document.addEventListener('visibilitychange',function(){ document.hidden&&pause(); });
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){ e.isIntersecting?play():pause(); });
+    },{threshold:.3}).observe(sec);
+    show(0);
   })();
 
   // ===== reveal on scroll =====
