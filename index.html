@@ -111,7 +111,7 @@
      by one scroll-progress value (see the JS at the bottom): the three giant lines slide
      in from alternating sides and unmask, the carrier names stream past behind them, and
      the payoff line + button arrive last. Transforms/opacity only, one rAF loop. */
-  .kin{position:relative;padding:44px 0 40px;background:#fff;color:var(--navy);overflow:hidden}
+  .kin{position:relative;padding:58px 0 60px;background:#fff;color:var(--navy);overflow:hidden}
   .kstage{display:flex;flex-direction:column;padding:0 22px;max-width:1180px;margin:0 auto}
   .kglow{position:absolute;left:50%;top:50%;width:min(120vw,860px);aspect-ratio:1;transform:translate(-50%,-50%) scale(.5);
       background:radial-gradient(circle,rgba(22,102,237,.10) 0%,rgba(0,194,255,.05) 40%,transparent 66%);
@@ -120,12 +120,6 @@
       background-image:linear-gradient(rgba(22,102,237,.055) 1px,transparent 1px),
                        linear-gradient(90deg,rgba(22,102,237,.055) 1px,transparent 1px);
       background-size:58px 58px;mask-image:radial-gradient(70% 66% at 50% 50%,#000,transparent)}
-  .kmar{position:absolute;left:0;right:0;display:flex;gap:30px;white-space:nowrap;pointer-events:none;
-      font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
-      color:#c2cee0;will-change:transform}
-  .kmar.a{top:16px} .kmar.b{bottom:16px}
-  .kmar span{flex:0 0 auto;display:flex;align-items:center;gap:30px}
-  .kmar span::after{content:"\25C6";font-size:8px;color:rgba(22,102,237,.32)}
 
   .klines{position:relative;z-index:2}
   .kl{transform-origin:left center}
@@ -137,12 +131,6 @@
       transition:color .55s ease,-webkit-text-stroke-color .55s ease}
   .kl.hollow.lit{color:var(--navy);-webkit-text-stroke-color:rgba(10,33,72,0)}
   .kl.fill{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .kpay{position:relative;z-index:2;margin-top:18px;max-width:40ch}
-  .kpay p,.kpay .btn{opacity:.16;will-change:transform,opacity}
-  .kpay p{font-size:15.5px;color:var(--muted);font-weight:500;line-height:1.55}
-  .kpay .btn{margin-top:16px}
-  .kbar{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--line);z-index:3}
-  .kbar i{display:block;height:100%;width:0;background:var(--grad)}
 
   /* ================= FLOW: swipeable step carousel =================
      ARCHITECTURE
@@ -410,16 +398,12 @@
     header nav{padding:24px 40px}
     .logo{height:38px}
     .hero{background-position:center 30%}
-    .kin{padding:56px 0 54px}
+    .kin{padding:84px 0 88px}
     .kl{font-size:min(8.4vw,104px)}
     .klines{margin-left:2vw}
     .kl:nth-child(2){margin-left:16%}
     .kl:nth-child(3){margin-left:31%}
     .kl.hollow{-webkit-text-stroke:2px rgba(10,33,72,.34)}
-    .kpay{margin-top:28px;max-width:52ch}
-    .kpay p{font-size:17.5px}
-    .kmar{font-size:13px;gap:40px}
-    .kmar.a{top:22px} .kmar.b{bottom:22px}
     /* desktop: copy on the left, the device holds still on the right */
     .flow{padding:88px 0 92px}
     .fhead{padding:0 40px 10px}
@@ -434,14 +418,19 @@
     .ownlist{display:flex;justify-content:center;gap:14px 40px;margin-top:26px}
     .ownlist span{font-size:13px}
     .ownlist svg{width:24px;height:24px}
-    .fslide{flex:0 0 380px;max-width:380px;gap:18px;padding:0 11px}
-    .frail::before,.frail::after{flex:0 0 calc(50% - 190px)}
-    .phone{height:min(56vh,470px);border-radius:40px;padding:8px}
-    .pscreen{border-radius:33px;font-size:min(1.1vh,9.3px)}
-    .pnotch{top:14px;height:17px}
-    .fcap{padding:18px 20px 20px;min-height:158px;border-radius:22px}
-    .fcap h3{font-size:21px}
-    .fcap p{font-size:15.5px}
+    /* desktop: one step at a time — device on the left, words on the right */
+    .frail{padding:6px 0 20px}
+    .frail::before,.frail::after{flex:0 0 0;display:none}
+    .fslide{flex:0 0 100%;max-width:none;opacity:1;transform:none;
+        display:grid;grid-template-columns:auto minmax(0,470px);justify-content:center;
+        align-items:center;gap:64px;padding:0 40px}
+    .phone{height:min(62vh,520px);border-radius:42px;padding:8px}
+    .pscreen{border-radius:35px;font-size:min(1.22vh,10.3px)}
+    .pnotch{top:15px;height:18px}
+    .fcap{background:transparent;border:none;box-shadow:none;padding:0;min-height:0}
+    .fcap .n{font-size:11px}
+    .fcap h3{font-size:clamp(26px,2.3vw,34px);margin-top:10px}
+    .fcap p{font-size:17px;margin-top:12px}
     .farr{display:grid}
     .facts{flex-direction:row;justify-content:center;gap:22px;margin-top:30px}
     .facts .btn{width:auto}
@@ -470,9 +459,8 @@
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
     /* no scroll choreography: show the statement plainly */
-    .kl,.kpay p,.kpay .btn{opacity:1!important;transform:none!important;-webkit-clip-path:none!important;clip-path:none!important}
+    .kl{opacity:1!important;transform:none!important;-webkit-clip-path:none!important;clip-path:none!important}
     .fslide{opacity:1!important;transform:none!important}
-    .kmar,.kglow,.kbar{display:none}
   }
 </style>
 </head>
@@ -554,26 +542,11 @@
   <div class="kstage">
     <span class="kglow" aria-hidden="true"></span>
     <span class="kgrid" aria-hidden="true"></span>
-    <div class="kmar a" aria-hidden="true">
-      <span>Progressive</span><span>Geico</span><span>Lemonade</span><span>Alinsco</span><span>Commonwealth</span>
-      <span>Progressive</span><span>Geico</span><span>Lemonade</span><span>Alinsco</span><span>Commonwealth</span>
-    </div>
-    <div class="kmar b" aria-hidden="true">
-      <span>Auto</span><span>Homeowners</span><span>Renters</span><span>SR-22</span><span>Commercial</span><span>Mobile home</span>
-      <span>Auto</span><span>Homeowners</span><span>Renters</span><span>SR-22</span><span>Commercial</span><span>Mobile home</span>
-    </div>
-
     <div class="klines">
       <span class="kl">One call.</span>
       <span class="kl hollow">We shop.</span>
       <span class="kl fill">You pick.</span>
     </div>
-    <div class="kpay">
-      <p>No app to download, no runaround. Just a licensed agent in El Paso who knows the carriers
-         we represent — and who calls you back, in English or Spanish.</p>
-      <a class="btn grad" href="#quote">Start with one call <svg class="i"><use href="#ar"/></svg></a>
-    </div>
-    <span class="kbar" aria-hidden="true"><i></i></span>
   </div>
 </section>
 
@@ -913,55 +886,33 @@
     },2600);
   })();
 
-  // ===== kinetic statement: everything driven by one scroll-progress value =====
+  // ===== kinetic statement: three lines that ink in as the section rides up =====
   (function(){
     var kin=document.getElementById('kin'); if(!kin) return;
     if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-    var lines=[].slice.call(kin.querySelectorAll('.kl')),
-        mars=[].slice.call(kin.querySelectorAll('.kmar')),
-        glow=kin.querySelector('.kglow'),
-        copy=kin.querySelector('.kpay p'), cta=kin.querySelector('.kpay .btn'),
-        bar=kin.querySelector('.kbar i');
+    var lines=[].slice.call(kin.querySelectorAll('.kl')), glow=kin.querySelector('.kglow'), ticking=false;
     function cl(v){return v<0?0:(v>1?1:v);}
     function ease(v){return 1-Math.pow(1-v,3);}
-    var ticking=false;
     function paint(){
       ticking=false;
-      // progress spans the section's whole trip up the screen: 0 the moment its top
-      // touches the bottom of the viewport, 1 exactly when that top reaches the very
-      // top — so the scroll wheel really is the scrub bar, start to finish
+      // 0 the moment the section's top touches the bottom of the viewport,
+      // 1 exactly when that top reaches the very top of the screen
       var r=kin.getBoundingClientRect(),
           p=cl((innerHeight-r.top)/(innerHeight||1)),
-          wide=innerWidth>=900,
-          amp=wide?54:22;                        // how far the lines drift in from
-      // three giant lines: staggered unmask + alternating slide, resting exactly on their indent
+          amp=innerWidth>=900?54:22;
       for(var i=0;i<lines.length;i++){
-        var lp=ease(cl((p-.10-i*.15)/.34)),
+        var lp=ease(cl((p-.16-i*.18)/.30)),
+            park=cl((p-.42)/.58),
             drift=(1-lp)*amp*(i%2?1:-1),
-            park=cl((p-.36)/.64),
-            float_=(park-.5)*2*(i%2?5:-5);       // gentle counter-drift once revealed
+            float_=(park-.5)*2*(i%2?5:-5);
         lines[i].style.opacity=(.15+.85*lp).toFixed(3);
         lines[i].style.transform='translate3d('+drift.toFixed(2)+'px,'+float_.toFixed(2)+'px,0)'
           +' scale('+(1+(1-lp)*.03).toFixed(4)+')';
       }
-      // carrier / coverage names stream past in opposite directions
-      var span=innerWidth*(wide?.55:.85);
-      mars[0].style.transform='translate3d('+(-p*span).toFixed(1)+'px,0,0)';
-      mars[1].style.transform='translate3d('+(-span*.6+p*span).toFixed(1)+'px,0,0)';
-      // glow breathes open with the type
+      lines[1].classList.toggle('lit',p>.80);
       var g=.5+ease(cl(p/.7))*.75;
       glow.style.transform='translate(-50%,-50%) scale('+g.toFixed(3)+')';
       glow.style.opacity=(.35+.55*ease(cl(p/.5))).toFixed(3);
-      // the copy starts filling in while the last line is still arriving, and the
-      // button lands as the section tops out — no reserved-but-empty white gap
-      var e2=ease(cl((p-.46)/.32)), e3=ease(cl((p-.62)/.32));
-      copy.style.opacity=(.16+.84*e2).toFixed(3);
-      copy.style.transform='translate3d(0,'+((1-e2)*12).toFixed(2)+'px,0)';
-      cta.style.opacity=(.16+.84*e3).toFixed(3);
-      cta.style.transform='translate3d(0,'+((1-e3)*12).toFixed(2)+'px,0)';
-      // the hollow middle line fills in as the payoff lands
-      lines[1].classList.toggle('lit',p>.70);
-      bar.style.width=(p*100).toFixed(2)+'%';
     }
     function onScroll(){ if(!ticking){ticking=true;requestAnimationFrame(paint);} }
     addEventListener('scroll',onScroll,{passive:true});
