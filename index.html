@@ -225,7 +225,8 @@
   .fnotes span{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;color:var(--blue-d);
       background:#fff;border:1px solid #DCE7F8;border-radius:99px;padding:7px 12px;line-height:1.35}
   .fnotes span::before{content:"";width:6px;height:6px;border-radius:99px;background:var(--grad);flex:0 0 auto}
-  .facts{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:26px;padding:0 22px}
+  .fright{display:contents}
+  .facts{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:26px}
   .facts .btn{width:100%;max-width:340px}
   .fcall{font-size:14px;font-weight:700;color:var(--blue-d);border-bottom:1.5px solid #BBD5FF;padding-bottom:2px}
   .fcall:hover{color:var(--blue)}
@@ -456,12 +457,13 @@
     .logo{height:38px}
     .hero{background-position:center 30%}
     .cats{padding:38px 0 16px}
-    .catr{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;overflow:visible;
-        max-width:1180px;margin:0 auto;padding:0 40px}
-    .cat{flex:none;max-width:none;padding:24px}
-    .cat .lb{font-size:13.5px}
-    .cat p{font-size:19px;max-width:16ch}
-    .cat .go{width:48px;height:48px}
+    .catr{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;overflow:visible;
+        max-width:1720px;margin:0 auto;padding:0 24px}
+    .cat{flex:none;max-width:none;padding:28px;border-radius:26px}
+    .cat .lb{font-size:15px;letter-spacing:.1em}
+    .cat p{font-size:clamp(19px,1.55vw,25px);max-width:17ch;line-height:1.24}
+    .cat .go{width:54px;height:54px}
+    .cat .go svg{width:22px;height:22px}
     .kin{padding:44px 0 76px}
     .kl{font-size:min(8.4vw,104px)}
     .klines{margin-left:2vw}
@@ -494,8 +496,13 @@
     .flow{padding:88px 0 92px}
     .fhead{padding:0 40px 10px}
     .fnotes span{font-size:13px;padding:9px 15px}
-    .fwrap{display:grid;grid-template-columns:auto minmax(0,470px);justify-content:center;
+    .fwrap{display:grid;grid-template-columns:auto minmax(0,480px);justify-content:center;
         align-items:center;gap:72px;padding:0 40px}
+    .fright{display:block}
+    .facts{flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-items:center;gap:16px 20px;margin-top:30px;padding:0}
+    .facts .btn{white-space:nowrap;padding:16px 26px}
+    .fcall{white-space:nowrap}
+    .facts .btn{width:auto}
     .fstack{display:block;position:relative;overflow:visible;margin:0;padding:0;
         width:min(36vw,500px);height:min(62vh,520px)}
     .fstack::before,.fstack::after{display:none}
@@ -512,9 +519,7 @@
     .fbtn b{font-size:20px}
     .fdesc p{font-size:16px;padding-bottom:17px}
     .fitem{padding-left:20px}
-    .facts{flex-direction:row;justify-content:center;gap:22px;margin-top:30px}
-    .facts .btn{width:auto}
-    .float{display:flex;margin:22px 40px 0;max-width:360px}
+    .float{display:flex;margin:104px 40px 0;max-width:360px}
     .hbody{margin-top:auto}
     .hbody{padding:0 40px 52px;max-width:860px}
     h1{font-size:clamp(52px,5.2vw,74px)}
@@ -697,6 +702,7 @@
       <img class="fshot" src="assets/step-4.webp" alt="Safe House app screen confirming the switch is complete" width="1300" height="1300" loading="lazy">
       <img class="fshot" src="assets/step-5.webp" alt="Text thread with a licensed Safe House agent sending the auto ID card" width="1300" height="1300" loading="lazy">
     </div>
+    <div class="fright">
     <ol class="flist" id="flist">
       <li class="fitem on">
         <button class="fbtn" type="button" aria-expanded="true"><span class="ix">Step 01</span><b>Get your online quote</b></button>
@@ -726,11 +732,11 @@
       <button class="fdot" tabindex="-1"><i></i></button>
       <button class="fdot" tabindex="-1"><i></i></button>
     </div>
-  </div>
-
-  <div class="facts">
-    <a class="btn grad" href="quote.html">Start my online quote <svg class="i"><use href="#ar"/></svg></a>
-    <a class="fcall" href="tel:+19155031207">Prefer to talk? Call 915-503-1207</a>
+    <div class="facts">
+      <a class="btn grad" href="quote.html">Start my online quote <svg class="i"><use href="#ar"/></svg></a>
+      <a class="fcall" href="tel:+19155031207">Prefer to talk? Call 915-503-1207</a>
+    </div>
+    </div>
   </div>
 </section>
 
