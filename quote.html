@@ -101,6 +101,26 @@
   .addbtn:hover{border-color:var(--blue);background:#F7FBFF}
   .addbtn:disabled{opacity:.4;cursor:not-allowed}
 
+  .lookcard{border:2px solid #DCE7F8;background:#F7FBFF;border-radius:18px;padding:16px;margin-top:18px}
+  .lookcard .lt{display:flex;align-items:center;gap:10px}
+  .lookcard .lt .ic{width:38px;height:38px;border-radius:12px;background:var(--grad);color:#fff;
+      display:grid;place-items:center;flex:0 0 auto;font-size:18px}
+  .lookcard .lt b{font-size:15.5px;font-weight:800;color:var(--navy);display:block}
+  .lookcard .lt small{display:block;font-size:12.5px;color:var(--muted);font-weight:600}
+  .consent{display:flex;gap:11px;align-items:flex-start;margin-top:16px;cursor:pointer}
+  .consent input{width:22px;height:22px;flex:0 0 auto;margin-top:1px;accent-color:var(--blue)}
+  .consent span{font-size:12.5px;line-height:1.5;color:var(--muted);font-weight:600}
+  .skip{display:block;text-align:center;margin-top:14px;font-size:14px;font-weight:800;color:var(--blue-d);
+      background:none;border:none;cursor:pointer;font-family:inherit;width:100%;padding:8px}
+  .skip:hover{color:var(--blue)}
+  .found{display:inline-flex;align-items:center;gap:6px;font-family:'Geist Mono',monospace;font-size:9px;
+      font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#0F7B4A;background:#E4F7EE;
+      border:1px solid #BCEBD5;padding:4px 8px;border-radius:99px;margin-left:8px}
+  .looking{display:none;text-align:center;padding:14px 0 4px}
+  .looking.on{display:block}
+  .looking .spin{width:34px;height:34px;border-width:4px}
+  .looking p{font-size:13.5px;color:var(--muted);font-weight:600;margin-top:10px}
+
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--grad);color:#fff;
       border:none;border-radius:99px;padding:17px 28px;font-weight:800;font-size:16.5px;font-family:inherit;
       cursor:pointer;width:100%;margin-top:20px;box-shadow:0 16px 30px -14px rgba(22,102,237,.85);
@@ -240,7 +260,41 @@
       <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
     </section>
 
-    <!-- ============ 3 · vehicles ============ -->
+    <!-- ============ 3 · look up what is already on record ============ -->
+    <section class="step" data-step="lookup">
+      <h1>Want us to look it up?</h1>
+      <p class="sub">With your address and date of birth we can pull the vehicles and drivers already
+         on record, so you do not have to type them in.</p>
+
+      <div class="lookcard">
+        <div class="lt"><span class="ic"><svg class="i"><use href="#shield"/></svg></span>
+          <span><b>Faster and more accurate</b><small>You can edit or remove anything we find.</small></span></div>
+      </div>
+
+      <div class="fl"><label for="addr">Street address</label>
+        <input id="addr" name="address" placeholder="1234 Mesa St" autocomplete="street-address"></div>
+      <div class="g2">
+        <div class="fl"><label for="city">City</label><input id="city" name="city" placeholder="El Paso" autocomplete="address-level2"></div>
+        <div class="fl"><label for="st">State</label><select id="st" name="state"></select></div>
+      </div>
+      <div class="g2">
+        <div class="fl"><label for="lfn">First name</label><input id="lfn" placeholder="Your name" autocomplete="given-name"></div>
+        <div class="fl"><label for="lln">Last name</label><input id="lln" placeholder="Last name" autocomplete="family-name"></div>
+      </div>
+      <div class="fl"><label for="ldob">Date of birth</label><input id="ldob" type="date" autocomplete="bday"></div>
+
+      <label class="consent"><input type="checkbox" id="consent">
+        <span>I authorize Safe House Insurance to obtain reports about me and my household from consumer
+        reporting agencies for the purpose of preparing this quote. This is not a credit check and does
+        not affect my credit score.</span></label>
+
+      <p class="err" id="e-lookup"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <div class="looking" id="looking"><span class="spin"></span><p>Checking the records&hellip;</p></div>
+      <button class="btn" id="runLookup" type="button">Find my vehicles and drivers <svg class="i"><use href="#ar"/></svg></button>
+      <button class="skip" id="skipLookup" type="button">Skip &mdash; I&rsquo;ll enter it myself</button>
+    </section>
+
+    <!-- ============ 4 · vehicles ============ -->
     <section class="step" data-step="vehicles">
       <h1>Which vehicles?</h1>
       <p class="sub">A VIN gets the most accurate rate, but the year, make and model work too.</p>
@@ -367,26 +421,32 @@
       bar=document.getElementById('bar'), crumb=document.getElementById('crumb'),
       back=document.getElementById('back'),
       LABEL={car:'Car',home:'Home',commercial:'Commercial vehicle',moto:'Motorcycle',renters:'Renters'},
-      AUTO=['type','where','vehicles','drivers','coverage','contact'],
+      AUTO_FULL=['type','where','lookup','vehicles','drivers','coverage','contact'],
+      AUTO_PLAIN=['type','where','vehicles','drivers','coverage','contact'],
+      AUTO=API?AUTO_FULL:AUTO_PLAIN,
       SHORT=['type','contact'],
       flow=SHORT, at=0, veh=0, drv=0;
 
   var YEARS='<option value="">Year</option>';
   for(var y=2027;y>=1990;y--) YEARS+='<option>'+y+'</option>';
+  document.getElementById('st').innerHTML='<option value="">State</option>'+
+    'TX,NM,AZ,CA,CO,NV,OK,LA,AR,KS,UT,Other'.split(',').map(function(x){return '<option>'+x+'</option>';}).join('');
   var STATES='<option value="">State</option>'+
     'TX,NM,AZ,CA,CO,NV,OK,LA,AR,KS,UT,Other'.split(',')
       .map(function(s){return '<option>'+s+'</option>';}).join('');
 
   /* ---------- repeatable blocks ---------- */
-  function vehicleBlock(n){
+  function vehicleBlock(n,v){
+    v=v||{};
+    var found=v.__found?'<span class="found">Found</span>':'';
     return '<div class="blk" data-veh>'
-      +'<div class="bt"><b>Vehicle '+n+'</b>'+(n>1?'<button class="rm" type="button" data-rm>Remove</button>':'')+'</div>'
+      +'<div class="bt"><b>Vehicle '+n+found+'</b>'+(n>1?'<button class="rm" type="button" data-rm>Remove</button>':'')+'</div>'
       +'<div class="fl"><label>VIN <span class="opt2">(optional, most accurate)</span></label>'
-        +'<input data-f="vin" placeholder="1HGCM82633A004352" maxlength="17" autocomplete="off"></div>'
+        +'<input data-f="vin" value="'+esc(v.vin)+'" placeholder="1HGCM82633A004352" maxlength="17" autocomplete="off"></div>'
       +'<div class="g3">'
-        +'<div class="fl"><label>Year</label><select data-f="year">'+YEARS+'</select></div>'
-        +'<div class="fl"><label>Make</label><input data-f="make" placeholder="Toyota"></div>'
-        +'<div class="fl"><label>Model</label><input data-f="model" placeholder="Camry"></div>'
+        +'<div class="fl"><label>Year</label><select data-f="year">'+sel(YEARS,v.year)+'</select></div>'
+        +'<div class="fl"><label>Make</label><input data-f="make" value="'+esc(v.make)+'" placeholder="Toyota"></div>'
+        +'<div class="fl"><label>Model</label><input data-f="model" value="'+esc(v.model)+'" placeholder="Camry"></div>'
       +'</div>'
       +'<div class="g2">'
         +'<div class="fl"><label>Mainly used for</label><select data-f="use">'
@@ -398,16 +458,18 @@
         +'<option>Owned outright</option><option>Financed</option><option>Leased</option></select></div>'
     +'</div>';
   }
-  function driverBlock(n){
+  function driverBlock(n,d){
+    d=d||{};
+    var found=d.__found?'<span class="found">Found</span>':'';
     return '<div class="blk" data-drv>'
-      +'<div class="bt"><b>Driver '+n+'</b>'+(n>1?'<button class="rm" type="button" data-rm>Remove</button>':'')+'</div>'
+      +'<div class="bt"><b>Driver '+n+found+'</b>'+(n>1?'<button class="rm" type="button" data-rm>Remove</button>':'')+'</div>'
       +'<div class="g2">'
-        +'<div class="fl"><label>First name</label><input data-f="first" autocomplete="off"></div>'
-        +'<div class="fl"><label>Last name</label><input data-f="last" autocomplete="off"></div>'
+        +'<div class="fl"><label>First name</label><input data-f="first" value="'+esc(d.first)+'" autocomplete="off"></div>'
+        +'<div class="fl"><label>Last name</label><input data-f="last" value="'+esc(d.last)+'" autocomplete="off"></div>'
       +'</div>'
       +'<div class="g2">'
-        +'<div class="fl"><label>Date of birth</label><input data-f="dob" type="date" autocomplete="off"></div>'
-        +'<div class="fl"><label>License state</label><select data-f="lstate">'+STATES+'</select></div>'
+        +'<div class="fl"><label>Date of birth</label><input data-f="dob" type="date" value="'+esc(d.dob)+'" autocomplete="off"></div>'
+        +'<div class="fl"><label>License state</label><select data-f="lstate">'+sel(STATES,d.lstate)+'</select></div>'
       +'</div>'
       +'<div class="g2">'
         +'<div class="fl"><label>Marital status</label><select data-f="marital">'
@@ -419,12 +481,16 @@
         +'<option>None</option><option>1</option><option>2</option><option>3 or more</option></select></div>'
     +'</div>';
   }
-  function addVeh(){ veh++; document.getElementById('vehList').insertAdjacentHTML('beforeend',vehicleBlock(veh));
+  function esc(v){ return String(v==null?'':v).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function sel(html,val){ if(!val) return html;
+    return html.replace('<option>'+esc(val)+'</option>','<option selected>'+esc(val)+'</option>'); }
+  function addVeh(v){ veh++; document.getElementById('vehList').insertAdjacentHTML('beforeend',vehicleBlock(veh,v));
     document.getElementById('addVeh').disabled=veh>=4; }
-  function addDrv(){ drv++; document.getElementById('drvList').insertAdjacentHTML('beforeend',driverBlock(drv));
+  function addDrv(d){ drv++; document.getElementById('drvList').insertAdjacentHTML('beforeend',driverBlock(drv,d));
     document.getElementById('addDrv').disabled=drv>=4; }
-  document.getElementById('addVeh').addEventListener('click',addVeh);
-  document.getElementById('addDrv').addEventListener('click',addDrv);
+  document.getElementById('addVeh').addEventListener('click',function(){addVeh();});
+  document.getElementById('addDrv').addEventListener('click',function(){addDrv();});
   form.addEventListener('click',function(e){
     var rm=e.target.closest('[data-rm]'); if(!rm) return;
     var blk=rm.closest('.blk'), isVeh=blk.hasAttribute('data-veh');
@@ -461,6 +527,7 @@
       if(!form.querySelector('input[name=insured]:checked'))
         return fail('e-where','Let us know if you are insured right now.');
       return true; }
+    if(name==='lookup') return true;          // optional by design
     if(name==='vehicles'){ clear('e-vehicles');
       var bs=[].slice.call(document.querySelectorAll('#vehList .blk'));
       for(var i=0;i<bs.length;i++){
@@ -489,7 +556,8 @@
     var b=e.target.closest('[data-next]'); if(!b) return;
     var cur=b.closest('.step').dataset.step;
     if(!valid(cur)) return;
-    if(cur==='type'){ setFlow(); if(flow===AUTO){ if(!veh) addVeh(); if(!drv) addDrv(); } }
+    if(cur==='type'){ setFlow(); }
+    if(cur==='where'&&flow.indexOf('lookup')===-1){ if(!veh) addVeh(); if(!drv) addDrv(); }
     var i=flow.indexOf(cur);
     show(i<flow.length-1?flow[i+1]:'contact');
   });
@@ -511,6 +579,50 @@
       document.getElementById('dedWrap').style.display=
         form.querySelector('input[name=fullcov]:checked').value==='yes'?'grid':'none';
     });
+  });
+
+  /* ---------- prefill lookup ----------
+     Household vehicles and drivers come from consumer reporting agencies, which
+     means two things: the call only ever happens server-side, and it only happens
+     after the visitor ticks the authorization box. Skipping is always one tap. */
+  var didLookup=false;
+  function goVehicles(){ if(!veh) addVeh(); if(!drv) addDrv(); show('vehicles'); }
+  var skipBtn=document.getElementById('skipLookup'), runBtn=document.getElementById('runLookup');
+  if(skipBtn) skipBtn.addEventListener('click',goVehicles);
+  if(runBtn) runBtn.addEventListener('click',function(){
+    clear('e-lookup');
+    var addr=document.getElementById('addr').value.trim(),
+        city=document.getElementById('city').value.trim(),
+        st=document.getElementById('st').value,
+        fn=document.getElementById('lfn').value.trim(),
+        ln=document.getElementById('lln').value.trim(),
+        dob=document.getElementById('ldob').value,
+        ok=document.getElementById('consent').checked;
+    if(!addr||!city||!st) return fail('e-lookup','We need the street address, city and state to look it up.');
+    if(!fn||!ln||!dob) return fail('e-lookup','Add your name and date of birth so we look up the right household.');
+    if(!ok) return fail('e-lookup','Please authorize the lookup, or skip it and type everything in.');
+
+    document.getElementById('looking').classList.add('on');
+    runBtn.disabled=true;
+    var ctrl=new AbortController(), t=setTimeout(function(){ctrl.abort();},20000);
+    fetch(API+'/prefill',{method:'POST',headers:{'Content-Type':'application/json'},signal:ctrl.signal,
+      body:JSON.stringify({address:addr,city:city,state:st,zip:document.getElementById('zip').value.trim(),
+        first:fn,last:ln,dob:dob,consent:true,consentAt:new Date().toISOString()})})
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(d){
+        clearTimeout(t);
+        (d.vehicles||[]).slice(0,4).forEach(function(v){ v.__found=true; addVeh(v); });
+        (d.drivers ||[]).slice(0,4).forEach(function(x){ x.__found=true; addDrv(x); });
+        didLookup=!!((d.vehicles||[]).length||(d.drivers||[]).length);
+        goVehicles();
+      })
+      .catch(function(){
+        clearTimeout(t);
+        // Nothing came back. Not an error the visitor needs to read about — just
+        // drop them into the blank form.
+        goVehicles();
+      })
+      .then(function(){ document.getElementById('looking').classList.remove('on'); runBtn.disabled=false; });
   });
 
   /* ---------- collect ---------- */
@@ -539,6 +651,7 @@
         email:document.getElementById('cem').value.trim(),
         notes:document.getElementById('cnt').value.trim()
       },
+      prefillUsed:didLookup,
       source:'safehouseins.com/quote',
       submittedAt:new Date().toISOString()
     };

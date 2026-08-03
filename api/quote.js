@@ -27,6 +27,18 @@ const CONFIG = {
     agencyId: process.env.TURBORATER_AGENCY|| '',
     timeoutMs: 20000
   },
+  prefill: {
+    // >>> FILL FROM YOUR PREFILL VENDOR <<<
+    // Household vehicles and drivers come from a consumer reporting agency.
+    // The usual routes are LexisNexis Risk Solutions (Auto Data Prefill),
+    // Verisk, or TransUnion — and ITC already resells prefill inside
+    // TurboRater, which is almost certainly the cheapest door for you.
+    // See docs/quote-api.md before wiring this up: it is FCRA-regulated data
+    // and there are conditions attached to pulling it.
+    baseUrl: process.env.PREFILL_URL || '',
+    apiKey:  process.env.PREFILL_KEY || '',
+    timeoutMs: 15000
+  },
   ams: {
     saveUrl: process.env.AMS_LEAD_URL || '',   // where the lead is written
     token:   process.env.AMS_TOKEN    || ''
@@ -144,6 +156,83 @@ function money(s) {
 }
 
 /* ------------------------------------------------------------------ *
+ * 2b. prefill — what is already on record for this household
+ *
+ * Called before rating, from its own endpoint, and only ever after the
+ * visitor ticked the authorization box on the page. Refuse without it: this
+ * is consumer report data and consent is not decoration.
+ * ------------------------------------------------------------------ */
+async function handlePrefill(q) {
+  if (!q || q.consent !== true) {
+    return { status: 400, body: { error: 'consent-required' } };
+  }
+  if (!q.address || !q.city || !q.state || !q.first || !q.last || !q.dob) {
+    return { status: 400, body: { error: 'incomplete' } };
+  }
+
+  const cfg = CONFIG.prefill;
+  if (!cfg.baseUrl || !cfg.apiKey) {
+    // Not wired yet. Empty is a valid answer — the page just shows a blank form.
+    return { status: 200, body: { vehicles: [], drivers: [], reason: 'prefill-not-configured' } };
+  }
+
+  // Log that consent was given, with a timestamp. If a regulator ever asks who
+  // authorized a report and when, this is the answer.
+  console.log('[prefill] authorized', {
+    at: q.consentAt || new Date().toISOString(),
+    subject: `${q.last}, ${q.first}`.slice(0, 60),
+    zip: q.zip
+  });
+
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), cfg.timeoutMs);
+  try {
+    const res = await fetch(cfg.baseUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // >>> the vendor specifies this header <<<
+        'Authorization': `Bearer ${cfg.apiKey}`
+      },
+      body: JSON.stringify({
+        // >>> and these field names <<<
+        firstName: q.first, lastName: q.last, dateOfBirth: q.dob,
+        address: { line1: q.address, city: q.city, state: q.state, zip: q.zip }
+      }),
+      signal: ctrl.signal
+    });
+    if (!res.ok) throw new Error(`prefill HTTP ${res.status}`);
+    return { status: 200, body: fromPrefill(await res.json()) };
+  } catch (err) {
+    console.error('[prefill] lookup failed', err.message);
+    // Never surface this to the visitor as an error. A blank form is fine.
+    return { status: 200, body: { vehicles: [], drivers: [], reason: 'lookup-failed' } };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/** vendor response -> the shape quote.html drops into its form */
+function fromPrefill(raw) {
+  const veh = raw?.vehicles || raw?.Vehicles || [];
+  const drv = raw?.drivers  || raw?.Drivers  || [];
+  return {
+    vehicles: veh.slice(0, 4).map(v => ({
+      vin:   v.vin || v.VIN || '',
+      year:  String(v.year || v.modelYear || ''),
+      make:  v.make || '',
+      model: v.model || ''
+    })).filter(v => v.vin || (v.year && v.make)),
+    drivers: drv.slice(0, 4).map(d => ({
+      first:  d.firstName || d.first || '',
+      last:   d.lastName  || d.last  || '',
+      dob:    d.dateOfBirth || d.dob || '',
+      lstate: d.licenseState || d.state || ''
+    })).filter(d => d.first)
+  };
+}
+
+/* ------------------------------------------------------------------ *
  * 3. write the lead to the AMS
  *
  * Fire and forget on purpose: a slow or down AMS must never cost the
@@ -221,6 +310,10 @@ async function express(req, res) {
   const out = await handleQuote(req.body);
   res.status(out.status).json(out.body);
 }
+async function expressPrefill(req, res) {
+  const out = await handlePrefill(req.body);
+  res.status(out.status).json(out.body);
+}
 
 /* Fetch-API style (Workers, Deno, Bun, Next route handlers) */
 async function fetchHandler(request) {
@@ -232,4 +325,4 @@ async function fetchHandler(request) {
   });
 }
 
-module.exports = { handleQuote, express, fetchHandler, rateWithTurboRater, toTurboRater, fromTurboRater, validate };
+module.exports = { handleQuote, handlePrefill, express, expressPrefill, fetchHandler, fromPrefill, rateWithTurboRater, toTurboRater, fromTurboRater, validate };
