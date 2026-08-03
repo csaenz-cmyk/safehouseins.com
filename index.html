@@ -305,41 +305,39 @@
   .rbadge small{display:block;font-size:11.5px;color:var(--muted);font-weight:600;margin-top:2px}
 
   .rgrid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:26px}
-  .rq{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;
+  .rq{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;
       display:flex;flex-direction:column;box-shadow:0 18px 34px -30px rgba(10,33,72,.5)}
-  .rq .s{color:#F0A82C;letter-spacing:2px;font-size:13px;font-style:normal}
-  .rq p{font-size:16px;line-height:1.45;font-weight:600;color:#26334a;margin-top:10px;flex:1}
-  .rq footer{margin-top:14px}
-  .rq footer b{display:block;font-size:14px;font-weight:800;color:var(--navy);letter-spacing:.04em;text-transform:uppercase}
-  .rq footer span{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:2px}
+  .rq .s{color:#F0A82C;letter-spacing:2px;font-size:12.5px;font-style:normal}
+  .rq p{font-size:15.5px;line-height:1.42;font-weight:600;color:#26334a;margin-top:9px;flex:1}
+  .rq footer{margin-top:16px}
+  .rq footer b{display:block;font-size:13px;font-weight:800;color:var(--navy);letter-spacing:.05em;text-transform:uppercase}
+  .rq footer span{display:block;font-size:11.5px;color:var(--muted);font-weight:600;margin-top:2px}
   .rq.tint{background:var(--ice);border-color:#DCE7F8}
-  .rq.dark{background:var(--navy);border-color:var(--navy);color:#fff}
+  .rq.dark{background:var(--navy);border-color:var(--navy)}
   .rq.dark p{color:#fff}
   .rq.dark footer b{color:#fff}
   .rq.dark footer span{color:#9fb8dd}
 
-  /* video review card — poster + play button, ready for when the clips land */
-  .rvid{position:relative;border-radius:20px;overflow:hidden;min-height:280px;isolation:isolate;
+  /* video review card — poster + play, ready for when the clips land */
+  .rvid{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:1/1.02;isolation:isolate;
       background-color:var(--navy2);background-position:center;background-size:cover;background-repeat:no-repeat;
       background-image:var(--poster,linear-gradient(145deg,#1666ED 0%,#0F4FBF 42%,#061530 100%));
       display:flex;align-items:flex-end;padding:16px}
   .rvid .pat{position:absolute;inset:0;z-index:-1;opacity:.10;background-image:url("assets/safehouse-heart.png");
       background-size:74px;filter:brightness(0) invert(1)}
   .rvid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;background:#000}
-  .rvid::after{content:"";position:absolute;inset:0;z-index:-1;
-      background:linear-gradient(180deg,rgba(8,5,2,.10) 40%,rgba(8,5,2,.78) 100%)}
-  .rvid .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:54px;height:54px;
+  .rvid .play{position:absolute;left:14px;top:14px;width:46px;height:46px;
       border-radius:99px;border:none;background:rgba(255,255,255,.92);color:var(--blue-d);
-      display:grid;place-items:center;box-shadow:0 14px 28px -12px rgba(0,0,0,.6);padding:0;
+      display:grid;place-items:center;box-shadow:0 12px 24px -10px rgba(0,0,0,.6);padding:0;
       transition:transform .25s cubic-bezier(.2,.8,.2,1)}
   .rvid[data-video] .play{cursor:pointer}
-  .rvid[data-video]:hover .play{transform:translate(-50%,-50%) scale(1.08)}
-  .rvid .soon{position:absolute;top:14px;left:14px;font-family:'Geist Mono',monospace;font-size:9.5px;font-weight:600;
+  .rvid[data-video]:hover .play{transform:scale(1.08)}
+  .rvid .play svg{width:18px;height:18px;margin-left:2px}
+  .rvid .soon{position:absolute;top:24px;left:70px;font-family:'Geist Mono',monospace;font-size:9px;font-weight:600;
       letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.18);
-      border:1px solid rgba(255,255,255,.32);padding:5px 9px;border-radius:99px}
-  .rvid .play svg{width:20px;height:20px;margin-left:2px}
-  .rvid figcaption b{display:block;color:#fff;font-size:14px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
-  .rvid figcaption span{display:block;color:rgba(255,255,255,.8);font-size:12px;font-weight:600;margin-top:1px}
+      border:1px solid rgba(255,255,255,.32);padding:4px 8px;border-radius:99px}
+  .rvid figcaption b{display:block;color:#fff;font-size:13px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+  .rvid figcaption span{display:block;color:rgba(255,255,255,.8);font-size:11.5px;font-weight:600;margin-top:1px}
 
   .rmore{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:22px;
       font-size:14.5px;font-weight:800;color:var(--blue-d)}
@@ -406,42 +404,11 @@
   .car .r{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:12px}
   .car .r span{font-size:15px;font-weight:800;color:#93a2ba}
 
-  .bil{background:var(--grad);color:#fff;padding:44px 0;text-align:center;position:relative;overflow:hidden}
-  .bil .pat{position:absolute;inset:0;opacity:.09;background-image:url("assets/safehouse-heart.png");background-size:80px;filter:brightness(0) invert(1)}
-  .bil .in{position:relative;padding:0 22px}
-  .bil h2{color:#fff}
-  .bil p{font-size:16px;margin-top:10px;color:rgba(255,255,255,.94);max-width:40ch;margin-left:auto;margin-right:auto}
-  .bil .btn{margin-top:18px}
 
-  /* quote form */
-  .qs{background:var(--navy2);color:#fff;position:relative;overflow:hidden}
-  .qs::before{content:"";position:absolute;inset:0;background:radial-gradient(340px 240px at 12% 0%,rgba(0,194,255,.24),transparent 62%),radial-gradient(360px 260px at 88% 106%,rgba(22,102,237,.5),transparent 62%)}
-  .qs .in{position:relative}
-  .qs h2{color:#fff}
-  .qs .sl{color:#b3c6e2}
-  .card{background:#fff;border-radius:24px;padding:22px;margin-top:22px;box-shadow:0 34px 70px -34px rgba(0,0,0,.6)}
-  .card .t{display:flex;align-items:center;gap:11px}
-  .card .t img{width:24px}
-  .card .t b{font-size:17px;color:var(--navy);display:block}
-  .card .t small{font-size:12px;color:var(--muted)}
-  .fl{margin-top:13px}
-  .fl label{display:block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-  .fl input,.fl select,.fl textarea{width:100%;border:2px solid var(--line);border-radius:14px;padding:14px;font-family:inherit;
-      font-size:16px;font-weight:600;color:var(--ink);background:#FBFCFE;outline:none;transition:.15s;-webkit-appearance:none}
-  .fl input:focus,.fl select:focus,.fl textarea:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(22,102,237,.12)}
-  .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .card .btn{margin-top:15px}
-  .priv{display:flex;gap:8px;font-size:11.5px;color:var(--muted);margin-top:12px;align-items:flex-start;font-weight:500}
-  .priv svg{color:#1F9D63;flex:0 0 auto;margin-top:2px}
-  .ci{display:flex;flex-direction:column;gap:12px;margin-top:22px}
-  .ci a,.ci div{display:flex;gap:13px;align-items:center;color:#fff;font-weight:700;font-size:15.5px}
-  .ci .ic{width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.1);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
-  .ci small{display:block;color:#8fa5c6;font-weight:500;font-size:12.5px}
-
-  footer{padding:34px 22px 40px;text-align:center;border-top:1px solid var(--line)}
-  footer .logo{height:30px;filter:none;margin:0 auto}
-  footer p{font-size:13px;color:var(--muted);margin-top:12px;line-height:1.8}
-  footer a{color:var(--blue);font-weight:700}
+  body>footer{padding:34px 22px 40px;text-align:center;border-top:1px solid var(--line)}
+  body>footer .logo{height:30px;filter:none;margin:0 auto}
+  body>footer p{font-size:13px;color:var(--muted);margin-top:12px;line-height:1.8}
+  body>footer a{color:var(--blue);font-weight:700}
   .disc{font-size:11px;color:#9aa5b6;margin-top:16px;line-height:1.6;max-width:62ch;margin-left:auto;margin-right:auto}
 
   /* ===== desktop ===== */
@@ -528,11 +495,16 @@
     .hacts .btn{width:auto}
     .badges{position:absolute;right:40px;bottom:52px;grid-template-columns:1fr;margin-top:0;width:210px}
     section{padding:80px 0}
-    .rgrid{grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
-    .rq{padding:24px}
-    .rq p{font-size:17.5px}
+    .rgrid{grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+    .rq{padding:22px}
+    .rq p{font-size:16.5px}
+    .rq footer b{font-size:13.5px}
     .rq.wide{grid-column:span 2}
-    .rvid.tall{grid-row:span 2}
+    .rvid.wide{grid-column:span 2;aspect-ratio:auto}
+    .rvid .play{left:16px;top:16px;width:52px;height:52px}
+    .rvid .play svg{width:20px;height:20px}
+    .rvid .soon{top:28px;left:78px}
+    .rvid figcaption b{font-size:14px}
     .start{padding:14px 0 40px}
     .startcard{min-height:min(70vh,560px);padding:64px 40px;border-radius:34px;
         background-image:url("assets/start.jpg");background-position:center 46%}
@@ -547,9 +519,6 @@
     .qbody p{font-size:16px;padding:0 22px 20px}
     .rbadge{gap:12px}
     .rbadge b{font-size:18px}
-    .qs .in{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
-    .card{margin-top:0}
-    .card .g3{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   }
   @media(hover:none){ .cc:hover{transform:none} }
   @media(prefers-reduced-motion:reduce){
@@ -838,18 +807,6 @@
          <figcaption><b>Name</b><span>Safe House customer</span></figcaption>
        </figure>                                                                    -->
   <div class="rgrid">
-    <blockquote class="rq rv">
-      <i class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</i>
-      <p>&ldquo;They took the time to explain my coverage instead of just selling me something.&rdquo;</p>
-      <footer><b>Marcos T.</b><span>El Paso, TX &middot; Google review</span></footer>
-    </blockquote>
-
-    <blockquote class="rq rv tint">
-      <i class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</i>
-      <p>&ldquo;They found me coverage even with an SR-22, and a real person explained everything in Spanish.&rdquo;</p>
-      <footer><b>Jazm&iacute;n R.</b><span>Las Cruces, NM &middot; Google review</span></footer>
-    </blockquote>
-
     <!-- VIDEO SLOT. Add the clip and its poster and it plays in place:
          <figure class="rvid" data-video="assets/review-1.mp4" style="--poster:url('assets/review-1.jpg')">
          Drop the .soon chip once the clip is in. -->
@@ -860,18 +817,18 @@
       <figcaption><b>&Oacute;scar P.</b><span>Safe House customer</span></figcaption>
     </figure>
 
-    <blockquote class="rq rv wide">
-      <i class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</i>
-      <p>&ldquo;Insured my truck and my house with one call. Professional, and they follow up.&rdquo;</p>
-      <footer><b>Diego M.</b><span>El Paso, TX &middot; Google review</span></footer>
-    </blockquote>
-
     <figure class="rvid rv">
       <span class="pat" aria-hidden="true"></span>
       <span class="soon">Video review</span>
       <button class="play" type="button" aria-label="Play video review"><svg class="i"><use href="#play"/></svg></button>
       <figcaption><b>Melissa A.</b><span>Safe House customer</span></figcaption>
     </figure>
+
+    <blockquote class="rq rv wide">
+      <i class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</i>
+      <p>&ldquo;They found me coverage even with an SR-22, and a real person explained everything in Spanish.&rdquo;</p>
+      <footer><b>Jazm&iacute;n R.</b><span>Las Cruces, NM &middot; Google review</span></footer>
+    </blockquote>
 
     <blockquote class="rq rv dark wide">
       <i class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</i>
@@ -881,8 +838,14 @@
 
     <blockquote class="rq rv">
       <i class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</i>
-      <p>&ldquo;My renewal went up, they re-shopped it and called me back the same week.&rdquo;</p>
-      <footer><b>Andr&eacute;s L.</b><span>El Paso, TX &middot; Google review</span></footer>
+      <p>&ldquo;They took the time to explain my coverage instead of just selling me something.&rdquo;</p>
+      <footer><b>Marcos T.</b><span>El Paso, TX &middot; Google review</span></footer>
+    </blockquote>
+
+    <blockquote class="rq rv tint">
+      <i class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</i>
+      <p>&ldquo;Insured my truck and my house with one call. Professional, and they follow up.&rdquo;</p>
+      <footer><b>Diego M.</b><span>El Paso, TX &middot; Google review</span></footer>
     </blockquote>
   </div>
 
@@ -890,14 +853,6 @@
     Read all our Google reviews <svg class="i"><use href="#ar"/></svg></a>
 </div></section>
 
-<!-- bilingual -->
-<div class="bil">
-  <div class="pat"></div>
-  <div class="in">
-    <h2>Todo en español.</h2>
-    <p>Cotiza, pregunta y resuelve con una persona de verdad, aquí en El Paso.</p>
-    <a class="btn wt" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Llámanos: 915-503-1207</a>
-  </div>
 </div>
 
 <!-- ================= FAQ ================= -->
@@ -963,41 +918,6 @@
   </div>
 </div></section>
 
-<!-- quote -->
-<section id="quote" class="qs"><div class="wrap in">
-  <div class="rv">
-    <span class="kick" style="color:var(--cyan-l)"><img src="assets/safehouse-heart.png" alt="" style="filter:brightness(0) invert(1)"> Free quote</span>
-    <h2>Let's find your coverage.</h2>
-    <p class="sl">Send us the basics and a licensed agent will get back to you with real options. No cost, no obligation.</p>
-    <div class="ci">
-      <a href="tel:+19155031207"><span class="ic"><svg class="i"><use href="#ph"/></svg></span><span>915-503-1207<small>Call or text us</small></span></a>
-      <a href="mailto:contact@safehouseins.com"><span class="ic"><svg class="i"><use href="#mail"/></svg></span><span>contact@safehouseins.com<small>We reply the same business day</small></span></a>
-      <div><span class="ic"><svg class="i"><use href="#pin"/></svg></span><span>El Paso, Texas<small>Serving Texas &amp; New Mexico</small></span></div>
-    </div>
-  </div>
-
-  <form class="card rv" id="quoteForm" novalidate>
-    <div class="t"><img src="assets/safehouse-heart.png" alt=""><span><b>Request your quote</b><small>No cost, no obligation</small></span></div>
-    <div class="g3">
-      <div class="fl"><label for="qn">Full name</label><input id="qn" name="name" placeholder="Your name" autocomplete="name" required></div>
-      <div class="fl"><label for="qp">Phone</label><input id="qp" name="phone" type="tel" placeholder="(915) 000-0000" inputmode="tel" autocomplete="tel" required></div>
-    </div>
-    <div class="g2">
-      <div class="fl"><label for="qe">Email</label><input id="qe" name="email" type="email" placeholder="you@email.com" inputmode="email" autocomplete="email"></div>
-      <div class="fl"><label for="qz">ZIP code</label><input id="qz" name="zip" placeholder="79901" inputmode="numeric" autocomplete="postal-code"></div>
-    </div>
-    <div class="fl"><label for="qc">What do you need?</label>
-      <select id="qc" name="coverage">
-        <option>Auto</option><option>Home or renters</option><option>Commercial</option>
-        <option>Life</option><option>Bonds</option><option>More than one</option>
-      </select>
-    </div>
-    <div class="fl"><label for="qm">Anything else? (optional)</label><input id="qm" name="notes" placeholder="Vehicle, SR-22, questions…"></div>
-    <button class="btn grad full" type="submit">Send my request</button>
-    <p class="priv"><svg class="i"><use href="#lock"/></svg> Used only to prepare your quote. We never sell or share your personal information.</p>
-    <p class="priv" id="formNote" style="display:none;color:var(--blue);font-weight:700"></p>
-  </form>
-</div></section>
 
 <footer>
   <img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance">
@@ -1222,20 +1142,6 @@
   })();
 
   // ===== quote form (no backend yet: hands off to email so nothing is silently lost) =====
-  document.getElementById('quoteForm').addEventListener('submit',function(ev){
-    ev.preventDefault();
-    var f=ev.target, note=document.getElementById('formNote');
-    if(!f.name.value.trim() || !f.phone.value.trim()){
-      note.textContent='Please add your name and phone so we can reach you.';
-      note.style.display='flex'; note.style.color='#C2410C'; return;
-    }
-    var body='Name: '+f.name.value+'\nPhone: '+f.phone.value+'\nEmail: '+f.email.value
-            +'\nZIP: '+f.zip.value+'\nCoverage: '+f.coverage.value+'\nNotes: '+f.notes.value;
-    note.textContent='Opening your email app to send the request…';
-    note.style.display='flex'; note.style.color='var(--blue)';
-    window.location.href='mailto:contact@safehouseins.com?subject='
-      +encodeURIComponent('Quote request — '+f.name.value)+'&body='+encodeURIComponent(body);
-  });
 </script>
 </body>
 </html>
