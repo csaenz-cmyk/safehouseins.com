@@ -159,7 +159,10 @@
   .tag{display:inline-block;font-family:'Geist Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.12em;
       text-transform:uppercase;color:#9A6300;background:#FFF3DC;border:1px solid #FBE3B8;padding:4px 9px;
       border-radius:99px;margin-top:14px}
-  .estnote{font-size:12px;color:var(--muted);font-weight:600;line-height:1.55;margin-top:12px}
+  .estnote{font-size:12.5px;color:var(--muted);font-weight:600;line-height:1.55;margin-top:12px}
+  .agentnote{display:flex;gap:10px;align-items:flex-start;background:#F5F9FF;border:1px solid #DCE7F8;
+      border-radius:14px;padding:13px 14px;color:var(--navy);margin-top:12px}
+  .agentnote svg{color:var(--blue);flex:0 0 auto;margin-top:2px;width:15px;height:15px}
 
   .done{text-align:center;padding:8px 0 4px}
   .done .tick{width:64px;height:64px;border-radius:99px;background:var(--grad);color:#fff;display:grid;
@@ -362,19 +365,19 @@
         <span class="spin" aria-hidden="true"></span>
         <h1>Checking your options</h1>
         <p id="ratingMsg">Sending your details to the carriers we represent&hellip;</p>
-        <p class="who">This usually takes a few seconds.</p>
+        <p class="who">Real carriers, real rates &mdash; this takes up to a minute.</p>
       </div>
     </section>
 
     <!-- ============ 8 · results ============ -->
     <section class="step" data-step="results">
       <h1>Your initial options</h1>
-      <p class="sub">Estimates based on what you entered.</p>
-      <span class="tag">Initial estimate</span>
+      <span class="tag">Subject to verification</span>
       <div class="rlist" id="rlist"></div>
-      <p class="estnote">These are initial estimates from the carriers we represent, not final prices. A licensed
-        Safe House agent verifies your information, the discounts you qualify for and each carrier&rsquo;s
-        requirements, then confirms the real numbers with you before anything is issued.</p>
+      <p class="estnote" id="note1">Prices are based on the information you provided and are subject to
+        verification of your driving history.</p>
+      <p class="estnote agentnote" id="note2"><svg class="i"><use href="#ph"/></svg><span>An agent will text or
+        call you shortly to confirm every discount was applied &mdash; and to check whether you qualify for more.</span></p>
       <a class="btn" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Talk to an agent now</a>
       <a class="btn ghost" href="index.html">Back to the site</a>
     </section>
@@ -473,12 +476,10 @@
       +'</div>'
       +'<div class="g2">'
         +'<div class="fl"><label>Marital status</label><select data-f="marital">'
-          +'<option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select></div>'
+          +sel('<option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option>',d.marital)+'</select></div>'
         +'<div class="fl"><label>Gender</label><select data-f="gender">'
-          +'<option>Female</option><option>Male</option><option>Not listed</option></select></div>'
+          +sel('<option>Female</option><option>Male</option>',d.gender)+'</select></div>'
       +'</div>'
-      +'<div class="fl"><label>Tickets or accidents in the last 3 years?</label><select data-f="incidents">'
-        +'<option>None</option><option>1</option><option>2</option><option>3 or more</option></select></div>'
     +'</div>';
   }
   function esc(v){ return String(v==null?'':v).replace(/[&<>"]/g,function(c){
@@ -629,20 +630,53 @@
   function grab(sel){ return [].slice.call(document.querySelectorAll(sel)).map(function(b){
     var o={}; [].slice.call(b.querySelectorAll('[data-f]')).forEach(function(f){
       o[f.dataset.f]=(f.value||'').trim(); }); return o; }); }
-  function payload(){
+  function mailto(p){
+    var b='Insurance type: '+LABEL[p.type]
+      +'\nName: '+p.contact.first+' '+p.contact.last
+      +'\nPhone: '+p.contact.phone+'\nEmail: '+p.contact.email
+      +(p.zip?'\nZIP: '+p.zip:'')
+      +(p.currentlyInsured?'\nCurrently insured: '+p.currentlyInsured+(p.yearsInsured?' ('+p.yearsInsured+')':''):'')
+      +(p.vehicles.length?'\n\nVehicles:\n'+p.vehicles.map(function(v,i){
+          return '  '+(i+1)+'. '+[v.year,v.make,v.model].filter(Boolean).join(' ')
+            +(v.vin?' VIN '+v.vin:'')+' - '+v.use+' - '+v.miles+' - '+v.own; }).join('\n'):'')
+      +(p.drivers.length?'\n\nDrivers:\n'+p.drivers.map(function(d,i){
+          return '  '+(i+1)+'. '+d.first+' '+d.last+' - DOB '+d.dob+' - '+d.lstate
+            +' - '+d.marital; }).join('\n'):'')
+      +(p.type==='car'?'\n\nCoverage: '+p.coverage.liability
+          +(p.coverage.fullCoverage==='yes'?' - full coverage - comp '+p.coverage.comprehensiveDeductible
+              +' / coll '+p.coverage.collisionDeductible:' - liability only'):'')
+      +(p.contact.notes?'\n\nNotes: '+p.contact.notes:'');
+    location.href='mailto:contact@safehouseins.com?subject='
+      +encodeURIComponent('Quote request - '+LABEL[p.type]+' - '+p.contact.first+' '+p.contact.last)
+      +'&body='+encodeURIComponent(b);
+  }
+
+  /* ---------- results ---------- */
+  function money(n){ return '$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0}); }
+
+  /* ---------- one place that shapes the payload ----------
+     Values go out exactly as the form captured them — "Married", "100/300/100",
+     "$500", "2019". The AMS translates them into the rating engine's enums,
+     because one value outside an enum takes down the whole quote and the AMS is
+     the side that knows the vocabulary. Field names live here and nowhere else,
+     so aligning to docs/public-quote-api.md is a single-function edit. */
+  function toAms(){
     var ins=form.querySelector('input[name=insured]:checked');
     return {
       type:chosenType(),
       zip:document.getElementById('zip').value.trim(),
-      insured:ins?ins.value:'',
-      years:document.getElementById('yrs').value,
+      address:document.getElementById('addr').value.trim(),
+      city:document.getElementById('city').value.trim(),
+      state:document.getElementById('st').value,
+      currentlyInsured:ins?ins.value:'',
+      yearsInsured:document.getElementById('yrs').value,
       vehicles:grab('#vehList .blk'),
       drivers:grab('#drvList .blk'),
       coverage:{
         liability:document.getElementById('liab').value,
-        full:(form.querySelector('input[name=fullcov]:checked')||{}).value==='yes',
-        compDeductible:document.getElementById('dcomp').value,
-        collDeductible:document.getElementById('dcoll').value
+        fullCoverage:(form.querySelector('input[name=fullcov]:checked')||{}).value,
+        comprehensiveDeductible:document.getElementById('dcomp').value,
+        collisionDeductible:document.getElementById('dcoll').value
       },
       contact:{
         first:document.getElementById('cfn').value.trim(),
@@ -656,66 +690,81 @@
       submittedAt:new Date().toISOString()
     };
   }
-  function mailto(p){
-    var b='Insurance type: '+LABEL[p.type]
-      +'\nName: '+p.contact.first+' '+p.contact.last
-      +'\nPhone: '+p.contact.phone+'\nEmail: '+p.contact.email
-      +(p.zip?'\nZIP: '+p.zip:'')
-      +(p.insured?'\nCurrently insured: '+p.insured+(p.years?' ('+p.years+')':''):'')
-      +(p.vehicles.length?'\n\nVehicles:\n'+p.vehicles.map(function(v,i){
-          return '  '+(i+1)+'. '+[v.year,v.make,v.model].filter(Boolean).join(' ')
-            +(v.vin?' VIN '+v.vin:'')+' - '+v.use+' - '+v.miles+' - '+v.own; }).join('\n'):'')
-      +(p.drivers.length?'\n\nDrivers:\n'+p.drivers.map(function(d,i){
-          return '  '+(i+1)+'. '+d.first+' '+d.last+' - DOB '+d.dob+' - '+d.lstate
-            +' - '+d.marital+' - incidents: '+d.incidents; }).join('\n'):'')
-      +(p.type==='car'?'\n\nCoverage: '+p.coverage.liability
-          +(p.coverage.full?' - full coverage - comp '+p.coverage.compDeductible+' / coll '+p.coverage.collDeductible
-                           :' - liability only'):'')
-      +(p.contact.notes?'\n\nNotes: '+p.contact.notes:'');
-    location.href='mailto:contact@safehouseins.com?subject='
-      +encodeURIComponent('Quote request - '+LABEL[p.type]+' - '+p.contact.first+' '+p.contact.last)
-      +'&body='+encodeURIComponent(b);
-  }
 
-  /* ---------- results ---------- */
-  function money(n){ return '$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0}); }
-  function render(rates){
+  /* ---------- rating: submit, then poll ----------
+     Rating runs in two phases and can take the better part of a minute, so the
+     answer never comes back on the POST. First poll at 8s, then every 4s, and
+     stop at 60s. A 202 at any point means the quote did not come back — the lead
+     is already saved on the AMS side, so we hand it to an agent and never show a
+     price we do not have. */
+  var POLL_FIRST=8000, POLL_EVERY=4000, GIVE_UP=60000;
+  var MSGS=['Sending your details to the carriers we represent\u2026',
+            'The carriers are running your numbers\u2026',
+            'Almost there \u2014 gathering the last few\u2026'];
+
+  function toAgent(){
+    document.getElementById('doneH').textContent='An agent is taking it from here.';
+    document.getElementById('doneP').textContent='We have got your request. A licensed Safe House agent will '
+      +'text or call you shortly with your options \u2014 in English or Spanish.';
+    show('done');
+  }
+  function results(rates){
+    // the AMS returns them cheapest first; render in the order given
     document.getElementById('rlist').innerHTML=rates.map(function(r,i){
-      var sub=[r.term,r.down?('down '+money(r.down)):''].filter(Boolean).join(' · ');
-      return '<div class="rcard'+(r.best||i===0?' best':'')+'">'
+      var sub=[r.term,r.down?('down '+money(r.down)):''].filter(Boolean).join(' \u00b7 ');
+      return '<div class="rcard'+(i===0?' best':'')+'">'
         +'<span class="lg">'+String(r.carrier||'?').charAt(0)+'</span>'
         +'<span class="mid"><b>'+(r.carrier||'Carrier')+'</b><small>'+sub+'</small></span>'
-        +'<span class="pr"><b>'+money(r.monthly)+'</b><small>/mo est.</small></span></div>';
+        +'<span class="pr"><b>'+money(r.monthly)+'</b><small>/mo</small></span></div>';
     }).join('');
+    show('results');
   }
 
   form.addEventListener('submit',function(ev){
     ev.preventDefault();
     if(!valid('contact')) return;
-    var p=payload();
+    var p=toAms();
 
-    // no backend wired yet, or anything other than auto: hand off by email
+    // no backend wired, or a line we do not rate online: hand off by email
     if(!API || p.type!=='car'){ mailto(p); show('done'); return; }
 
     show('rating');
-    var ctrl=new AbortController(), t=setTimeout(function(){ctrl.abort();},25000);
-    fetch(API+'/quote',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(p),signal:ctrl.signal})
-      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-      .then(function(d){
-        clearTimeout(t);
-        if(d&&d.rates&&d.rates.length){ render(d.rates); show('results'); }
-        else{
-          document.getElementById('doneH').textContent='We got your request.';
-          document.getElementById('doneP').textContent='No carrier came back with an instant rate for this one, which happens with some situations. A licensed agent is picking it up and will call or text you with real options.';
-          show('done');
-        }
+    var started=Date.now(), msgAt=0, msgTimer=setInterval(function(){
+      msgAt=Math.min(msgAt+1,MSGS.length-1);
+      document.getElementById('ratingMsg').textContent=MSGS[msgAt];
+    },14000);
+    function stop(){ clearInterval(msgTimer); }
+
+    fetch(API+'/quote',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
+      .then(function(r){
+        if(r.status===202){ stop(); toAgent(); return null; }   // saved, but no quote
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        return r.json();
       })
-      .catch(function(){
-        clearTimeout(t);
-        mailto(p);            // never invent prices — fall back to the honest path
-        show('done');
-      });
+      .then(function(d){
+        if(!d) return;
+        if(d.rates && d.rates.length){ stop(); results(d.rates); return; }
+        if(!d.quoteId){ stop(); toAgent(); return; }
+        setTimeout(function(){ poll(d.quoteId); },POLL_FIRST);
+      })
+      .catch(function(){ stop(); mailto(p); toAgent(); });
+
+    function poll(id){
+      if(Date.now()-started>GIVE_UP){ stop(); toAgent(); return; }
+      fetch(API+'/quote/'+encodeURIComponent(id),{headers:{'Accept':'application/json'}})
+        .then(function(r){
+          if(r.status===202){ stop(); toAgent(); return null; }
+          if(!r.ok) throw new Error('HTTP '+r.status);
+          return r.json();
+        })
+        .then(function(d){
+          if(!d) return;
+          if(d.rates && d.rates.length){ stop(); results(d.rates); return; }
+          if(d.status==='failed'){ stop(); toAgent(); return; }
+          setTimeout(function(){ poll(id); },POLL_EVERY);
+        })
+        .catch(function(){ setTimeout(function(){ poll(id); },POLL_EVERY); });
+    }
   });
 
   /* ---------- deep link ---------- */
