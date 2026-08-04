@@ -929,14 +929,25 @@
     fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
       .then(function(r){
         if(r.status===202){ stop(); toAgent(); return null; }   // saved, no quote
-        return r.json().then(function(d){
-          if(r.status===400){                                    // our payload is wrong
-            console.error('[quote] AMS rejected the payload',d.fields||d);
-            throw new Error('rejected');
-          }
+        return r.json().catch(function(){return {};}).then(function(d){
+          // Every one of these ends on the agent screen, so name it in the
+          // console — otherwise a config problem is indistinguishable from a
+          // carrier that did not answer.
+          if(r.status===403) console.error('[quote] The bridge rejected this origin ('
+            +location.origin+'). Add it to the allowed list on the AMS side.');
+          if(r.status===503) console.error('[quote] The bridge is up but quote intake is '
+            +'not configured — PUBLIC_QUOTE_SECRET is missing on the AMS.',d.error||'');
+          if(r.status===401) console.error('[quote] The bridge reached the AMS but was not '
+            +'authorised — check PUBLIC_QUOTE_SECRET matches on both sides.');
+          if(r.status===400) console.error('[quote] The AMS rejected the payload',d.fields||d);
           if(!r.ok) throw new Error('HTTP '+r.status);
           return d;
         });
+      })
+      .catch(function(e){
+        if(e && e.name==='TypeError') console.error('[quote] The request never left the '
+          +'browser — almost always CORS. Check the bridge allows '+location.origin+'.');
+        throw e;
       })
       .then(function(d){
         if(!d) return;
