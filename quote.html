@@ -93,6 +93,8 @@
 
   /* repeatable blocks: vehicles and drivers */
   .blk{border:2px solid var(--line);border-radius:18px;padding:14px;margin-top:12px;background:#FCFDFF}
+  .blk .fl select,.blk .fl input{font-size:15px;padding:13px 12px}
+  .blk .fl select{padding-right:30px;background-position:right 9px center;background-size:15px}
   .blk .bt{display:flex;align-items:center;justify-content:space-between;gap:10px}
   .blk .bt b{font-size:13px;font-family:'Geist Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-d)}
   .blk .rm{background:none;border:none;color:#C2410C;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;padding:2px}
@@ -101,6 +103,14 @@
   .addbtn:hover{border-color:var(--blue);background:#F7FBFF}
   .addbtn:disabled{opacity:.4;cursor:not-allowed}
 
+  .vinst{display:none;align-items:center;gap:8px;margin-top:8px;font-size:12.5px;font-weight:700}
+  .vinst.on{display:flex}
+  .vinst.busy{color:var(--muted)}
+  .vinst.ok{color:#0F7B4A}
+  .vinst.no{color:#9A6300}
+  .vinst .dot{width:14px;height:14px;border-radius:99px;border:2.5px solid #DCE7F8;border-top-color:var(--blue);
+      animation:sp .9s linear infinite;flex:0 0 auto}
+  .vinst.ok .dot,.vinst.no .dot{animation:none;border:none;width:auto;height:auto;font-size:13px}
   .lookcard{border:2px solid #DCE7F8;background:#F7FBFF;border-radius:18px;padding:16px;margin-top:18px}
   .lookcard .lt{display:flex;align-items:center;gap:10px}
   .lookcard .lt .ic{width:38px;height:38px;border-radius:12px;background:var(--grad);color:#fff;
@@ -434,9 +444,22 @@
   for(var y=2027;y>=1990;y--) YEARS+='<option>'+y+'</option>';
   document.getElementById('st').innerHTML='<option value="">State</option>'+
     'TX,NM,AZ,CA,CO,NV,OK,LA,AR,KS,UT,Other'.split(',').map(function(x){return '<option>'+x+'</option>';}).join('');
-  var STATES='<option value="">State</option>'+
-    'TX,NM,AZ,CA,CO,NV,OK,LA,AR,KS,UT,Other'.split(',')
-      .map(function(s){return '<option>'+s+'</option>';}).join('');
+  var US_STATES=('AL,AK,AZ,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,'
+    +'MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY').split(',');
+  var STATES='<option value="">State</option>'
+    +US_STATES.map(function(s){return '<option>'+s+'</option>';}).join('')
+    +'<option>Outside the U.S.</option>';
+
+  // Plain-language licence types. The AMS maps these onto the engine's enum —
+  // CONFIRM the list against docs/public-quote-api.md before go-live, because one
+  // value outside the enum takes the whole quote down.
+  var LTYPES=['U.S. driver\u2019s license','Foreign driver\u2019s license',
+              'International driver\u2019s license','Learner permit',
+              'Matr\u00edcula consular','Passport','No license'];
+  var LTYPE='<option value="">Choose one</option>'
+    +LTYPES.map(function(s){return '<option>'+s+'</option>';}).join('');
+  // the state question only makes sense for a U.S.-issued document
+  function needsState(t){ return t==='U.S. driver\u2019s license'||t==='Learner permit'; }
 
   /* ---------- repeatable blocks ---------- */
   function vehicleBlock(n,v){
@@ -445,7 +468,8 @@
     return '<div class="blk" data-veh>'
       +'<div class="bt"><b>Vehicle '+n+found+'</b>'+(n>1?'<button class="rm" type="button" data-rm>Remove</button>':'')+'</div>'
       +'<div class="fl"><label>VIN <span class="opt2">(optional, most accurate)</span></label>'
-        +'<input data-f="vin" value="'+esc(v.vin)+'" placeholder="1HGCM82633A004352" maxlength="17" autocomplete="off"></div>'
+        +'<input data-f="vin" value="'+esc(v.vin)+'" placeholder="1HGCM82633A004352" maxlength="17" autocomplete="off">'
+        +'<span class="vinst"><span class="dot"></span><span class="tx"></span></span></div>'
       +'<div class="g3">'
         +'<div class="fl"><label>Year</label><select data-f="year">'+sel(YEARS,v.year)+'</select></div>'
         +'<div class="fl"><label>Make</label><input data-f="make" value="'+esc(v.make)+'" placeholder="Toyota"></div>'
@@ -472,14 +496,14 @@
       +'</div>'
       +'<div class="g2">'
         +'<div class="fl"><label>Date of birth</label><input data-f="dob" type="date" value="'+esc(d.dob)+'" autocomplete="off"></div>'
-        +'<div class="fl"><label>License state</label><select data-f="lstate">'+sel(STATES,d.lstate)+'</select></div>'
-      +'</div>'
-      +'<div class="g2">'
-        +'<div class="fl"><label>Marital status</label><select data-f="marital">'
-          +sel('<option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option>',d.marital)+'</select></div>'
         +'<div class="fl"><label>Gender</label><select data-f="gender">'
           +sel('<option>Female</option><option>Male</option>',d.gender)+'</select></div>'
       +'</div>'
+      +'<div class="fl"><label>License type</label><select data-f="ltype">'+sel(LTYPE,d.ltype)+'</select></div>'
+      +'<div class="fl lstwrap"'+(needsState(d.ltype)?'':' style="display:none"')+'>'
+        +'<label>License state</label><select data-f="lstate">'+sel(STATES,d.lstate)+'</select></div>'
+      +'<div class="fl"><label>Marital status</label><select data-f="marital">'
+        +sel('<option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option>',d.marital)+'</select></div>'
     +'</div>';
   }
   function esc(v){ return String(v==null?'':v).replace(/[&<>"]/g,function(c){
@@ -487,8 +511,10 @@
   function sel(html,val){ if(!val) return html;
     return html.replace('<option>'+esc(val)+'</option>','<option selected>'+esc(val)+'</option>'); }
   function addVeh(v){ veh++; document.getElementById('vehList').insertAdjacentHTML('beforeend',vehicleBlock(veh,v));
+    wireVin(document.querySelector('#vehList .blk:last-child'));
     document.getElementById('addVeh').disabled=veh>=4; }
   function addDrv(d){ drv++; document.getElementById('drvList').insertAdjacentHTML('beforeend',driverBlock(drv,d));
+    wireLicense(document.querySelector('#drvList .blk:last-child'));
     document.getElementById('addDrv').disabled=drv>=4; }
   document.getElementById('addVeh').addEventListener('click',function(){addVeh();});
   document.getElementById('addDrv').addEventListener('click',function(){addDrv();});
@@ -501,6 +527,84 @@
     [].slice.call(document.querySelectorAll('#vehList .blk')).forEach(function(b,i){ b.querySelector('b').textContent='Vehicle '+(i+1); });
     [].slice.call(document.querySelectorAll('#drvList .blk')).forEach(function(b,i){ b.querySelector('b').textContent='Driver '+(i+1); });
   });
+
+  /* ---------- VIN decode ----------
+     Free public API from NHTSA (vPIC) — no key, CORS-enabled, and the same
+     database the industry uses for year/make/model. If the AMS exposes its own
+     decoder we prefer that; otherwise we go straight to NHTSA. Every failure
+     path is silent: the visitor just types the year, make and model themselves,
+     which is what they would have done anyway. */
+  var VIN_RE=/^[A-HJ-NPR-Z0-9]{17}$/i;          // no I, O or Q in a real VIN
+  var vinCache={};
+
+  function vinStatus(blk,kind,text){
+    var el=blk.querySelector('.vinst');
+    el.className='vinst on '+kind;
+    el.querySelector('.dot').textContent=kind==='ok'?'\u2713':(kind==='no'?'\u2013':'');
+    el.querySelector('.tx').textContent=text;
+    if(!kind) el.className='vinst';
+  }
+  function vinClear(blk){ blk.querySelector('.vinst').className='vinst'; }
+
+  function decodeVin(vin){
+    if(vinCache[vin]) return Promise.resolve(vinCache[vin]);
+    var url = API ? API+'/vin/'+encodeURIComponent(vin)
+                  : 'https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/'+encodeURIComponent(vin)+'?format=json';
+    var ctrl=new AbortController(), t=setTimeout(function(){ctrl.abort();},8000);
+    return fetch(url,{signal:ctrl.signal})
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(d){
+        clearTimeout(t);
+        // accept either our own shape or NHTSA's
+        var row = d && d.Results && d.Results[0] ? d.Results[0] : d;
+        var out = {
+          year:  String(row.ModelYear || row.year  || '').trim(),
+          make:  title(row.Make      || row.make  || ''),
+          model: title(row.Model     || row.model || '')
+        };
+        if(!out.year && !out.make) throw new Error('no match');
+        vinCache[vin]=out;
+        return out;
+      })
+      .catch(function(e){ clearTimeout(t); throw e; });
+  }
+  function title(s){
+    return String(s||'').toLowerCase().replace(/\b[a-z]/g,function(c){return c.toUpperCase();}).trim();
+  }
+
+  function wireVin(blk){
+    var input=blk.querySelector('[data-f=vin]'), timer=null;
+    input.addEventListener('input',function(){
+      var vin=input.value.trim().toUpperCase();
+      input.value=vin;
+      clearTimeout(timer);
+      if(vin.length<17){ vinClear(blk); return; }
+      if(!VIN_RE.test(vin)){ vinStatus(blk,'no','That does not look like a VIN \u2014 fill in the year and make instead.'); return; }
+      timer=setTimeout(function(){
+        vinStatus(blk,'busy','Looking up this VIN\u2026');
+        decodeVin(vin).then(function(v){
+          var y=blk.querySelector('[data-f=year]'), mk=blk.querySelector('[data-f=make]'), md=blk.querySelector('[data-f=model]');
+          if(v.year && [].slice.call(y.options).some(function(o){return o.value===v.year||o.text===v.year;})) y.value=v.year;
+          if(v.make)  mk.value=v.make;
+          if(v.model) md.value=v.model;
+          vinStatus(blk,'ok',[v.year,v.make,v.model].filter(Boolean).join(' '));
+        }).catch(function(){
+          vinStatus(blk,'no','Could not read that VIN \u2014 the year and make below will do.');
+        });
+      },350);
+    });
+  }
+
+  /* the licence-state question only applies to a U.S.-issued document */
+  function wireLicense(blk){
+    var t=blk.querySelector('[data-f=ltype]'), wrap=blk.querySelector('.lstwrap');
+    if(!t||!wrap) return;
+    t.addEventListener('change',function(){
+      var on=needsState(t.value);
+      wrap.style.display=on?'block':'none';
+      if(!on) wrap.querySelector('[data-f=lstate]').value='';
+    });
+  }
 
   /* ---------- navigation ---------- */
   function stepEl(name){ return steps.filter(function(s){return s.dataset.step===name;})[0]; }

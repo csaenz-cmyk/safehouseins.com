@@ -71,7 +71,8 @@ AMS contract is a single-function edit.
                  "use": "Commuting to work", "miles": "7,500 - 12,000",
                  "own": "Financed" }],
   "drivers":  [{ "first": "Carlos", "last": "Saenz", "dob": "1987-09-07",
-                 "lstate": "TX", "marital": "Married", "gender": "Male" }],
+                 "ltype": "U.S. driver's license", "lstate": "TX",
+                 "marital": "Married", "gender": "Male" }],
   "coverage": { "liability": "100/300/100", "fullCoverage": "yes",
                 "comprehensiveDeductible": "$500", "collisionDeductible": "$500" },
   "contact":  { "first": "", "last": "", "phone": "", "email": "", "notes": "" },
@@ -92,6 +93,49 @@ one line in `toAms()` or one `<option>` list:
 | `"30/60"` | `"100/300/100"` | Two numbers or three? The option list changes with the answer. |
 | `"Husband"` | `"Married"` | Is that marital status, or a separate relationship-to-insured field the form does not have yet? |
 | `"$1,000"` | `"$1,000"` | Already matches. |
+
+## VIN decode
+
+Type a full VIN and the year, make and model fill themselves in. The lookup
+runs against `{API}/vin/{vin}` when the AMS is configured, and falls back to
+NHTSA's free public vPIC decoder — no key, CORS-enabled, the same database the
+industry uses — when it is not.
+
+Every failure is silent. A VIN shorter than 17 characters, one containing I, O
+or Q, a decoder that is down, a timeout past 8s, or a VIN with no match: the
+visitor sees a quiet grey line and types the year and make themselves, which is
+what they would have done anyway. Nothing blocks and nothing errors.
+
+**Not tested against the live NHTSA endpoint** — this container has no outbound
+network. The request shape and the response parsing are verified against a mock
+of their documented format, and the code accepts either `{ Results: [...] }`
+or a flat `{ ModelYear, Make, Model }`, so an AMS-side decoder can answer in
+either shape. Worth one real VIN through it on staging.
+
+## License type
+
+The driver block asks for a license type, because a border market is full of
+drivers whose document is not a Texas license:
+
+| Option shown |
+|---|
+| U.S. driver's license |
+| Foreign driver's license |
+| International driver's license |
+| Learner permit |
+| Matrícula consular |
+| Passport |
+| No license |
+
+**Confirm this list against the engine's enum before go-live.** I wrote the
+labels in plain language, not from TurboRater's value list, and one value
+outside an enum takes the whole quote down. It is one `<option>` list in
+`quote.html` — the `LTYPES` array.
+
+The license state question only appears for a U.S. license or a learner
+permit; picking anything else hides it and clears the value, so a foreign
+document can never carry a Texas state code into the quote. The state list is
+all 50 states plus DC plus "Outside the U.S.".
 
 ## What the form never asks
 
