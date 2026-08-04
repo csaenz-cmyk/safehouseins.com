@@ -11,6 +11,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- ===================================================================
+     Point this at the quote hop and real carrier prices show up here.
+     Until it has a value the flow still works end to end: the answers go
+     out by email and the visitor lands on "an agent is taking it" —
+     never on a price we did not receive.
+
+       window.SAFEHOUSE_API = 'https://safehouse-quote.<sub>.workers.dev';
+
+     Optional:
+       window.SAFEHOUSE_PREFILL = true;      // household lookup step
+       window.SAFEHOUSE_VIN_API = '/api/vin' // otherwise NHTSA's free decoder
+     =================================================================== -->
+<script>
+  // ?? so a value injected earlier (server-side, another tag) is never clobbered
+  window.SAFEHOUSE_API     = window.SAFEHOUSE_API     ?? '';
+  window.SAFEHOUSE_PREFILL = window.SAFEHOUSE_PREFILL ?? false;
+</script>
 <style>
   :root{
     --blue:#1666ED; --blue-d:#0F4FBF; --cyan:#00C2FF;
@@ -320,7 +337,7 @@
     <!-- ============ 4 · drivers ============ -->
     <section class="step" data-step="drivers">
       <h1>Who drives them?</h1>
-      <p class="sub">Every licensed driver in the household counts, even the ones who rarely drive.</p>
+      <p class="sub">Every licensed driver in the household counts, even the ones who rarely drive. The license or ID number is what the carriers rate on.</p>
       <div id="drvList"></div>
       <button class="addbtn" id="addDrv" type="button">+ Add another driver</button>
       <p class="err" id="e-drivers"><svg class="i"><use href="#shield"/></svg><span></span></p>
@@ -508,6 +525,10 @@
       +'<div class="fl"><label>License type</label><select data-f="ltype">'+sel(LTYPE,d.ltype)+'</select></div>'
       +'<div class="fl lstwrap"'+(needsState(d.ltype)?'':' style="display:none"')+'>'
         +'<label>License state</label><select data-f="lstate">'+sel(STATES,d.lstate)+'</select></div>'
+      +'<div class="fl lnumwrap"'+(d.ltype==='No license'?' style="display:none"':'')+'>'
+        +'<label>License or ID number</label>'
+        +'<input data-f="lnum" value="'+esc(d.lnum)+'" placeholder="38348855" autocomplete="off" '
+        +'inputmode="text" maxlength="25"></div>'
       +'<div class="fl"><label>Marital status</label><select data-f="marital">'
         +sel('<option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option><option>Separated</option>',d.marital)+'</select></div>'
       +(n>1?'<div class="fl"><label>Relationship to you</label><select data-f="relationship">'+sel(REL,d.relationship)+'</select></div>':'')
@@ -608,10 +629,14 @@
   function wireLicense(blk){
     var t=blk.querySelector('[data-f=ltype]'), wrap=blk.querySelector('.lstwrap');
     if(!t||!wrap) return;
+    var num=blk.querySelector('.lnumwrap');
     t.addEventListener('change',function(){
       var on=needsState(t.value);
       wrap.style.display=on?'block':'none';
       if(!on) wrap.querySelector('[data-f=lstate]').value='';
+      var hasDoc=t.value && t.value!=='No license';
+      if(num){ num.style.display=hasDoc?'block':'none';
+               if(!hasDoc) num.querySelector('[data-f=lnum]').value=''; }
     });
   }
 
@@ -656,6 +681,10 @@
       for(var j=0;j<ds.length;j++){
         if(!ds[j].querySelector('[data-f=first]').value.trim() || !ds[j].querySelector('[data-f=dob]').value)
           return fail('e-drivers','Driver '+(j+1)+' needs a first name and a date of birth.');
+        var lt=ds[j].querySelector('[data-f=ltype]').value;
+        if(!lt) return fail('e-drivers','Pick the license type for driver '+(j+1)+'.');
+        if(lt!=='No license' && !ds[j].querySelector('[data-f=lnum]').value.trim())
+          return fail('e-drivers','Add the license or ID number for driver '+(j+1)+' \u2014 the carriers rate on it.');
       }
       return true; }
     if(name==='contact'){ clear('e-contact');

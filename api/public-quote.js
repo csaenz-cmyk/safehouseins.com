@@ -63,6 +63,7 @@ function toContract(q) {
       // driver 1 is forced to Insured on the AMS side, so only send it after that
       ...(i > 0 && d.relationship ? { relationship: d.relationship } : {}),
       // not in the contract, but useful in the agent's callback drawer
+      ...(d.lnum   ? { licenseNumber: d.lnum } : {}),
       ...(d.ltype  ? { licenseType:  d.ltype  } : {}),
       ...(d.lstate ? { licenseState: d.lstate } : {})
     })),

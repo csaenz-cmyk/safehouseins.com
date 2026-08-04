@@ -31,6 +31,36 @@ Point the page at the website's own backend:
 Unset, the flow still works: the answers go out by email and the visitor lands
 on "an agent is taking it". It never shows a price.
 
+## Turning real prices on
+
+The page is finished. What is missing is the hop and the secret — until one
+exists, every submission correctly lands on "an agent is taking it", because a
+price that did not come from a carrier is not a price.
+
+**`api/worker.js` is a deployable Cloudflare Worker.** Egress is fine here: the
+Zywave denylist applies to TurboRater, which this never touches — it only talks
+to the AMS.
+
+```
+npx wrangler deploy api/worker.js --name safehouse-quote
+npx wrangler secret put PUBLIC_QUOTE_SECRET --name safehouse-quote
+```
+
+Then one line at the top of `quote.html`:
+
+```js
+window.SAFEHOUSE_API = 'https://safehouse-quote.<sub>.workers.dev';
+```
+
+`api/public-quote.js` is the same logic as a plain module if the hop belongs
+somewhere else — Vercel, Netlify, or the AMS host itself.
+
+**The alternative worth considering:** have the AMS expose a browser-callable
+route of its own — origin-restricted to safehouseins.com, rate-limited, adding
+the secret internally. Then there is no hop, no second deploy and no secret
+outside the AMS. It is maybe twenty lines on that side, and it is the cleaner
+end state. The Worker exists so you are not blocked on it.
+
 ## Environment
 
 | Variable | Where | Purpose |
@@ -55,13 +85,14 @@ Values go out as the form captured them. The two places the shapes differ:
 | `vehicles[].miles: "7,500 - 12,000"` | `annualMiles: 12000` | upper bound of the band |
 | `drivers[].marital` | `maritalStatus` | |
 | `drivers[].relationship` | `relationship` | **only sent from driver 2 on** — driver 1 is forced to Insured |
+| `drivers[].lnum` | `licenseNumber` | required unless the driver has no document |
 | `drivers[].ltype/lstate` | `licenseType/licenseState` | not in the contract; carried for the agent's callback drawer |
 
 Dates go out ISO from the native date input. `toIsoDate` reads both, so the
 input stays native and there is no typo risk.
 
-We do not collect `licenseNumber`. Add it to the driver block if the agents want
-it in the seed.
+The licence or ID number is required for every driver who has a document —
+a licence, a matrícula, a passport. Picking "No license" hides and clears it.
 
 ## The seam
 
