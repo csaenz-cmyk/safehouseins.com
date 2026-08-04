@@ -436,7 +436,8 @@
       LABEL={car:'Car',home:'Home',commercial:'Commercial vehicle',moto:'Motorcycle',renters:'Renters'},
       AUTO_FULL=['type','where','lookup','vehicles','drivers','coverage','contact'],
       AUTO_PLAIN=['type','where','vehicles','drivers','coverage','contact'],
-      AUTO=API?AUTO_FULL:AUTO_PLAIN,
+      // the lookup step only exists once a prefill endpoint does
+      AUTO=(API&&window.SAFEHOUSE_PREFILL)?AUTO_FULL:AUTO_PLAIN,
       SHORT=['type','contact'],
       flow=SHORT, at=0, veh=0, drv=0;
 
@@ -456,6 +457,11 @@
   var LTYPES=['U.S. driver\u2019s license','Foreign driver\u2019s license',
               'International driver\u2019s license','Learner permit',
               'Matr\u00edcula consular','Passport','No license'];
+  // Relationship to the primary insured — a SEPARATE field from marital status.
+  // Only asked from driver 2 on: the AMS forces driver 1 to Insured regardless.
+  var RELS=['Spouse','Child','Parent','Sibling','Other relative','Other'];
+  var REL='<option value="">Choose one</option>'
+    +RELS.map(function(s){return '<option>'+s+'</option>';}).join('');
   var LTYPE='<option value="">Choose one</option>'
     +LTYPES.map(function(s){return '<option>'+s+'</option>';}).join('');
   // the state question only makes sense for a U.S.-issued document
@@ -503,7 +509,8 @@
       +'<div class="fl lstwrap"'+(needsState(d.ltype)?'':' style="display:none"')+'>'
         +'<label>License state</label><select data-f="lstate">'+sel(STATES,d.lstate)+'</select></div>'
       +'<div class="fl"><label>Marital status</label><select data-f="marital">'
-        +sel('<option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option>',d.marital)+'</select></div>'
+        +sel('<option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option><option>Separated</option>',d.marital)+'</select></div>'
+      +(n>1?'<div class="fl"><label>Relationship to you</label><select data-f="relationship">'+sel(REL,d.relationship)+'</select></div>':'')
     +'</div>';
   }
   function esc(v){ return String(v==null?'':v).replace(/[&<>"]/g,function(c){
@@ -548,8 +555,10 @@
 
   function decodeVin(vin){
     if(vinCache[vin]) return Promise.resolve(vinCache[vin]);
-    var url = API ? API+'/vin/'+encodeURIComponent(vin)
-                  : 'https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/'+encodeURIComponent(vin)+'?format=json';
+    // NHTSA's free public decoder unless a VIN endpoint is explicitly configured
+    var url = window.SAFEHOUSE_VIN_API
+      ? String(window.SAFEHOUSE_VIN_API).replace(/\/$/,'')+'/'+encodeURIComponent(vin)
+      : 'https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/'+encodeURIComponent(vin)+'?format=json';
     var ctrl=new AbortController(), t=setTimeout(function(){ctrl.abort();},8000);
     return fetch(url,{signal:ctrl.signal})
       .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
@@ -756,7 +765,6 @@
   }
 
   /* ---------- results ---------- */
-  function money(n){ return '$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0}); }
 
   /* ---------- one place that shapes the payload ----------
      Values go out exactly as the form captured them — "Married", "100/300/100",
@@ -813,15 +821,23 @@
     show('done');
   }
   function results(rates){
-    // the AMS returns them cheapest first; render in the order given
+    // Cheapest first from the AMS; rendered in the order given, never re-sorted.
+    // The premium is a term total, not a monthly figure — it is shown as the
+    // carrier returned it rather than divided into something we made up.
     document.getElementById('rlist').innerHTML=rates.map(function(r,i){
-      var sub=[r.term,r.down?('down '+money(r.down)):''].filter(Boolean).join(' \u00b7 ');
+      var down=(r.downPayment!=null)?('down '+money(r.downPayment)):'';
+      var sub=[r.term,down].filter(Boolean).join(' \u00b7 ');
       return '<div class="rcard'+(i===0?' best':'')+'">'
         +'<span class="lg">'+String(r.carrier||'?').charAt(0)+'</span>'
         +'<span class="mid"><b>'+(r.carrier||'Carrier')+'</b><small>'+sub+'</small></span>'
-        +'<span class="pr"><b>'+money(r.monthly)+'</b><small>/mo</small></span></div>';
+        +'<span class="pr"><b>'+money(r.premium)+'</b><small>'+(r.term||'total')+'</small></span></div>';
     }).join('');
     show('results');
+  }
+  function money(n){
+    var v=Number(n);
+    if(!isFinite(v)) return '\u2014';
+    return '$'+v.toLocaleString('en-US',{minimumFractionDigits:v%1?2:0,maximumFractionDigits:2});
   }
 
   form.addEventListener('submit',function(ev){
@@ -841,21 +857,33 @@
 
     fetch(API+'/quote',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
       .then(function(r){
-        if(r.status===202){ stop(); toAgent(); return null; }   // saved, but no quote
-        if(!r.ok) throw new Error('HTTP '+r.status);
-        return r.json();
+        if(r.status===202){ stop(); toAgent(); return null; }   // saved, no quote
+        return r.json().then(function(d){
+          if(r.status===400){                                    // our payload is wrong
+            console.error('[quote] AMS rejected the payload',d.fields||d);
+            throw new Error('rejected');
+          }
+          if(!r.ok) throw new Error('HTTP '+r.status);
+          return d;
+        });
       })
       .then(function(d){
         if(!d) return;
+        if(d.ok===false){ stop(); toAgent(); return; }
+        audit(d,p);
         if(d.rates && d.rates.length){ stop(); results(d.rates); return; }
         if(!d.quoteId){ stop(); toAgent(); return; }
-        setTimeout(function(){ poll(d.quoteId); },POLL_FIRST);
+        setTimeout(function(){ poll(d.quoteId,d.clientId); },
+                   Number(d.pollAfterMs)||POLL_FIRST);
+        pollEvery=Number(d.pollEveryMs)||POLL_EVERY;
       })
       .catch(function(){ stop(); mailto(p); toAgent(); });
 
-    function poll(id){
+    var pollEvery=POLL_EVERY;
+    function poll(id,clientId){
       if(Date.now()-started>GIVE_UP){ stop(); toAgent(); return; }
-      fetch(API+'/quote/'+encodeURIComponent(id),{headers:{'Accept':'application/json'}})
+      fetch(API+'/quote/'+encodeURIComponent(id)+'?clientId='+encodeURIComponent(clientId||''),
+            {headers:{'Accept':'application/json'}})
         .then(function(r){
           if(r.status===202){ stop(); toAgent(); return null; }
           if(!r.ok) throw new Error('HTTP '+r.status);
@@ -863,13 +891,33 @@
         })
         .then(function(d){
           if(!d) return;
+          if(d.ok===false||d.status==='failed'){ stop(); toAgent(); return; }
           if(d.rates && d.rates.length){ stop(); results(d.rates); return; }
-          if(d.status==='failed'){ stop(); toAgent(); return; }
-          setTimeout(function(){ poll(id); },POLL_EVERY);
+          setTimeout(function(){ poll(id,clientId); },pollEvery);
         })
-        .catch(function(){ setTimeout(function(){ poll(id); },POLL_EVERY); });
+        .catch(function(){ setTimeout(function(){ poll(id,clientId); },pollEvery); });
     }
   });
+
+  /* Integration checks the AMS asked for. A warning means a real price went out
+     for the wrong coverage — which looks fine on screen, so it has to be loud. */
+  function audit(d,sent){
+    if(d.warnings && d.warnings.length){
+      console.error('[quote] AMS WARNINGS — fix before launch:',d.warnings);
+    }
+    if(d.ratedCoverage){
+      var asked=(sent.coverage||{}).liability||'';
+      var nums=asked.split('/').map(function(x){return String(parseInt(x,10)*1000);});
+      var bi=String(d.ratedCoverage.bi||'');
+      var ok=!nums[0]||bi===nums[0]+'/'+nums[1];
+      console[ok?'log':'error']('[quote] ratedCoverage',
+        {asked:asked,rated:d.ratedCoverage,matches:ok});
+      if(!ok) console.error('[quote] The visitor picked '+asked+' but the carriers were '
+        +'quoted '+bi+'. The limit did not parse.');
+    }
+    window.__quote={quoteId:d.quoteId,clientId:d.clientId,
+      ratedCoverage:d.ratedCoverage,warnings:d.warnings||[]};
+  }
 
   /* ---------- deep link ---------- */
   function preselect(){
