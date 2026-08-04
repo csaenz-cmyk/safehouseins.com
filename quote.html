@@ -12,12 +12,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <!-- ===================================================================
-     Point this at the quote hop and real carrier prices show up here.
-     Until it has a value the flow still works end to end: the answers go
-     out by email and the visitor lands on "an agent is taking it" —
-     never on a price we did not receive.
+     SAFEHOUSE_API is the AMS bridge. It mirrors /public-quote:
 
-       window.SAFEHOUSE_API = 'https://safehouse-quote.<sub>.workers.dev';
+       POST {API}                    submit
+       GET  {API}?id=&clientId=      poll
+
+     The bridge adds x-site-secret internally, so nothing secret is here.
+     Blank it out and the flow still works end to end — the answers go out
+     by email and the visitor lands on "an agent is taking it", never on a
+     price we did not receive.
 
      Optional:
        window.SAFEHOUSE_PREFILL = true;      // household lookup step
@@ -25,7 +28,7 @@
      =================================================================== -->
 <script>
   // ?? so a value injected earlier (server-side, another tag) is never clobbered
-  window.SAFEHOUSE_API     = window.SAFEHOUSE_API     ?? '';
+  window.SAFEHOUSE_API     = window.SAFEHOUSE_API     ?? 'https://agentlogin.safehouseins.com/public-quote-bridge';
   window.SAFEHOUSE_PREFILL = window.SAFEHOUSE_PREFILL ?? false;
 </script>
 <style>
@@ -748,7 +751,7 @@
     document.getElementById('looking').classList.add('on');
     runBtn.disabled=true;
     var ctrl=new AbortController(), t=setTimeout(function(){ctrl.abort();},20000);
-    fetch(API+'/prefill',{method:'POST',headers:{'Content-Type':'application/json'},signal:ctrl.signal,
+    fetch((window.SAFEHOUSE_PREFILL_API||API+'/prefill'),{method:'POST',headers:{'Content-Type':'application/json'},signal:ctrl.signal,
       body:JSON.stringify({address:addr,city:city,state:st,zip:document.getElementById('zip').value.trim(),
         first:fn,last:ln,dob:dob,consent:true,consentAt:new Date().toISOString()})})
       .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
@@ -773,23 +776,29 @@
     var o={}; [].slice.call(b.querySelectorAll('[data-f]')).forEach(function(f){
       o[f.dataset.f]=(f.value||'').trim(); }); return o; }); }
   function mailto(p){
-    var b='Insurance type: '+LABEL[p.type]
-      +'\nName: '+p.contact.first+' '+p.contact.last
-      +'\nPhone: '+p.contact.phone+'\nEmail: '+p.contact.email
+    var b='Insurance type: Car'
+      +'\nName: '+p.firstName+' '+p.lastName
+      +'\nPhone: '+p.phone+'\nEmail: '+p.email
+      +(p.street?'\nAddress: '+p.street+', '+p.city:'')
       +(p.zip?'\nZIP: '+p.zip:'')
-      +(p.currentlyInsured?'\nCurrently insured: '+p.currentlyInsured+(p.yearsInsured?' ('+p.yearsInsured+')':''):'')
+      +'\nCurrently insured: '+(p.hasPriorInsurance?'yes':'no')
+      +(p.priorMonths?' ('+p.priorMonths+' months)':'')
       +(p.vehicles.length?'\n\nVehicles:\n'+p.vehicles.map(function(v,i){
           return '  '+(i+1)+'. '+[v.year,v.make,v.model].filter(Boolean).join(' ')
-            +(v.vin?' VIN '+v.vin:'')+' - '+v.use+' - '+v.miles+' - '+v.own; }).join('\n'):'')
+            +(v.vin?' VIN '+v.vin:'')+' - '+v.usage
+            +(v.annualMiles?' - '+v.annualMiles+' mi/yr':''); }).join('\n'):'')
       +(p.drivers.length?'\n\nDrivers:\n'+p.drivers.map(function(d,i){
-          return '  '+(i+1)+'. '+d.first+' '+d.last+' - DOB '+d.dob+' - '+d.lstate
-            +' - '+d.marital; }).join('\n'):'')
-      +(p.type==='car'?'\n\nCoverage: '+p.coverage.liability
-          +(p.coverage.fullCoverage==='yes'?' - full coverage - comp '+p.coverage.comprehensiveDeductible
-              +' / coll '+p.coverage.collisionDeductible:' - liability only'):'')
-      +(p.contact.notes?'\n\nNotes: '+p.contact.notes:'');
+          return '  '+(i+1)+'. '+d.firstName+' '+d.lastName+' - DOB '+d.dob
+            +' - '+(d.licenseType||'')+(d.licenseState?' '+d.licenseState:'')
+            +(d.licenseNumber?' #'+d.licenseNumber:'')
+            +' - '+d.maritalStatus+(d.relationship?' - '+d.relationship:''); }).join('\n'):'')
+      +'\n\nCoverage: '+p.biLimit
+      +(p.vehicles[0]&&p.vehicles[0].comprehensive==='None'
+          ?' - liability only'
+          :' - comp '+(p.vehicles[0]||{}).comprehensive+' / coll '+(p.vehicles[0]||{}).collision)
+      +(p.notes?'\n\nNotes: '+p.notes:'');
     location.href='mailto:contact@safehouseins.com?subject='
-      +encodeURIComponent('Quote request - '+LABEL[p.type]+' - '+p.contact.first+' '+p.contact.last)
+      +encodeURIComponent('Quote request - Car - '+p.firstName+' '+p.lastName)
       +'&body='+encodeURIComponent(b);
   }
 
@@ -801,35 +810,68 @@
      because one value outside an enum takes down the whole quote and the AMS is
      the side that knows the vocabulary. Field names live here and nowhere else,
      so aligning to docs/public-quote-api.md is a single-function edit. */
+  var PRIOR_MONTHS={'Less than 6 months':3,'6 months to 1 year':9,
+                    '1 to 3 years':24,'3 to 5 years':48,'5+ years':60};
+
+  /** "7,500 - 12,000" -> 12000. A band's upper bound is the honest read. */
+  function annualMiles(s){
+    var n=String(s||'').replace(/,/g,'').match(/\d+/g);
+    return n?Number(n[n.length-1]):null;
+  }
+
+  /* ---------- the payload, in the AMS contract's own shape ----------
+     The bridge adds x-site-secret and forwards; it does not translate. So this
+     emits exactly what /public-quote documents — no renaming anywhere else.
+     Values stay as the form captured them ("Married", "100/300/100", "$500");
+     the AMS maps those onto the engine's enums, because it is the side that
+     knows the vocabulary and one bad value fails every carrier at once. */
   function toAms(){
-    var ins=form.querySelector('input[name=insured]:checked');
-    return {
-      type:chosenType(),
-      zip:document.getElementById('zip').value.trim(),
-      address:document.getElementById('addr').value.trim(),
-      city:document.getElementById('city').value.trim(),
-      state:document.getElementById('st').value,
-      currentlyInsured:ins?ins.value:'',
-      yearsInsured:document.getElementById('yrs').value,
-      vehicles:grab('#vehList .blk'),
-      drivers:grab('#drvList .blk'),
-      coverage:{
-        liability:document.getElementById('liab').value,
-        fullCoverage:(form.querySelector('input[name=fullcov]:checked')||{}).value,
-        comprehensiveDeductible:document.getElementById('dcomp').value,
-        collisionDeductible:document.getElementById('dcoll').value
-      },
-      contact:{
-        first:document.getElementById('cfn').value.trim(),
-        last:document.getElementById('cln').value.trim(),
-        phone:document.getElementById('cph').value.trim(),
-        email:document.getElementById('cem').value.trim(),
-        notes:document.getElementById('cnt').value.trim()
-      },
-      prefillUsed:didLookup,
-      source:'safehouseins.com/quote',
-      submittedAt:new Date().toISOString()
-    };
+    var ins=form.querySelector('input[name=insured]:checked'),
+        liab=document.getElementById('liab').value,
+        full=(form.querySelector('input[name=fullcov]:checked')||{}).value==='yes',
+        comp=full?document.getElementById('dcomp').value:'None',
+        coll=full?document.getElementById('dcoll').value:'None',
+        years=document.getElementById('yrs').value,
+        p={
+          firstName:document.getElementById('cfn').value.trim(),
+          lastName: document.getElementById('cln').value.trim(),
+          phone:    document.getElementById('cph').value.trim(),
+          email:    document.getElementById('cem').value.trim(),
+          street:   document.getElementById('addr').value.trim(),
+          city:     document.getElementById('city').value.trim(),
+          zip:      document.getElementById('zip').value.trim(),
+
+          hasPriorInsurance: ins?ins.value==='yes':false,
+          biLimit: liab,
+
+          drivers: grab('#drvList .blk').map(function(d,i){
+            var o={firstName:d.first,lastName:d.last,dob:d.dob,
+                   gender:d.gender,maritalStatus:d.marital};
+            // driver 1 is forced to Insured on the AMS side
+            if(i>0 && d.relationship) o.relationship=d.relationship;
+            if(d.lnum)   o.licenseNumber=d.lnum;
+            if(d.ltype)  o.licenseType=d.ltype;      // extra, for the callback drawer
+            if(d.lstate) o.licenseState=d.lstate;
+            return o;
+          }),
+
+          vehicles: grab('#vehList .blk').map(function(v){
+            var o={usage:v.use,comprehensive:comp,collision:coll};
+            if(v.vin)   o.vin=v.vin;
+            if(v.year)  o.year=Number(v.year)||v.year;
+            if(v.make)  o.make=v.make;
+            if(v.model) o.model=v.model;
+            var m=annualMiles(v.miles); if(m) o.annualMiles=m;
+            return o;
+          }),
+
+          source:'safehouseins.com/quote',
+          notes: document.getElementById('cnt').value.trim(),
+          prefillUsed: didLookup,
+          submittedAt: new Date().toISOString()
+        };
+    if(PRIOR_MONTHS[years]) p.priorMonths=PRIOR_MONTHS[years];
+    return p;
   }
 
   /* ---------- rating: submit, then poll ----------
@@ -875,7 +917,7 @@
     var p=toAms();
 
     // no backend wired, or a line we do not rate online: hand off by email
-    if(!API || p.type!=='car'){ mailto(p); show('done'); return; }
+    if(!API || chosenType()!=='car'){ shortMail(); show('done'); return; }
 
     show('rating');
     var started=Date.now(), msgAt=0, msgTimer=setInterval(function(){
@@ -884,7 +926,7 @@
     },14000);
     function stop(){ clearInterval(msgTimer); }
 
-    fetch(API+'/quote',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
       .then(function(r){
         if(r.status===202){ stop(); toAgent(); return null; }   // saved, no quote
         return r.json().then(function(d){
@@ -911,7 +953,7 @@
     var pollEvery=POLL_EVERY;
     function poll(id,clientId){
       if(Date.now()-started>GIVE_UP){ stop(); toAgent(); return; }
-      fetch(API+'/quote/'+encodeURIComponent(id)+'?clientId='+encodeURIComponent(clientId||''),
+      fetch(API+'?id='+encodeURIComponent(id)+'&clientId='+encodeURIComponent(clientId||''),
             {headers:{'Accept':'application/json'}})
         .then(function(r){
           if(r.status===202){ stop(); toAgent(); return null; }
@@ -928,6 +970,19 @@
     }
   });
 
+  /* Home, commercial, motorcycle and renters are not rated online — the short
+     path never builds an auto payload, it just emails what it has. */
+  function shortMail(){
+    var b='Insurance type: '+LABEL[chosenType()]
+      +'\nName: '+document.getElementById('cfn').value+' '+document.getElementById('cln').value
+      +'\nPhone: '+document.getElementById('cph').value
+      +'\nEmail: '+document.getElementById('cem').value
+      +(document.getElementById('cnt').value?'\n\nNotes: '+document.getElementById('cnt').value:'');
+    location.href='mailto:contact@safehouseins.com?subject='
+      +encodeURIComponent('Quote request - '+LABEL[chosenType()]+' - '+document.getElementById('cfn').value)
+      +'&body='+encodeURIComponent(b);
+  }
+
   /* Integration checks the AMS asked for. A warning means a real price went out
      for the wrong coverage — which looks fine on screen, so it has to be loud. */
   function audit(d,sent){
@@ -935,7 +990,7 @@
       console.error('[quote] AMS WARNINGS — fix before launch:',d.warnings);
     }
     if(d.ratedCoverage){
-      var asked=(sent.coverage||{}).liability||'';
+      var asked=sent.biLimit||'';
       var nums=asked.split('/').map(function(x){return String(parseInt(x,10)*1000);});
       var bi=String(d.ratedCoverage.bi||'');
       var ok=!nums[0]||bi===nums[0]+'/'+nums[1];

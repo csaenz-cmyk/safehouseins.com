@@ -7,66 +7,55 @@ at once, and the two-phase ~50s run. None of that is reimplemented here.
 The canonical contract is `docs/public-quote-api.md` in the AMS repo. This file
 covers the website's side of it.
 
-## Why there is a server hop
+## The bridge
 
-The AMS requires `x-site-secret`, and that secret cannot live in a page — a key
-reachable from the browser is a key anyone can read and spend. So:
-
-```
-browser (quote.html)  ->  website backend  ->  AMS /public-quote
-        POST /api/quote      adds x-site-secret
-        GET  /api/quote/:id?clientId=
-```
-
-`api/public-quote.js` is that hop. It holds the secret, renames fields onto the
-contract, and forwards. No rating, no carrier logic, no enum guessing — the AMS
-translates wording, so nothing here tries to be clever about values.
-
-Point the page at the website's own backend:
-
-```html
-<script>window.SAFEHOUSE_API = '/api';</script>
-```
-
-Unset, the flow still works: the answers go out by email and the visitor lands
-on "an agent is taking it". It never shows a price.
-
-## Turning real prices on
-
-The page is finished. What is missing is the hop and the secret — until one
-exists, every submission correctly lands on "an agent is taking it", because a
-price that did not come from a carrier is not a price.
-
-**`api/worker.js` is a deployable Cloudflare Worker.** Egress is fine here: the
-Zywave denylist applies to TurboRater, which this never touches — it only talks
-to the AMS.
+The AMS exposes `/public-quote-bridge`. It adds `x-site-secret` internally and
+forwards to `/public-quote`, so nothing secret is in the page.
 
 ```
-npx wrangler deploy api/worker.js --name safehouse-quote
-npx wrangler secret put PUBLIC_QUOTE_SECRET --name safehouse-quote
+POST https://agentlogin.safehouseins.com/public-quote-bridge
+GET  https://agentlogin.safehouseins.com/public-quote-bridge?id=&clientId=
 ```
 
-Then one line at the top of `quote.html`:
+Set at the top of `quote.html`:
 
 ```js
-window.SAFEHOUSE_API = 'https://safehouse-quote.<sub>.workers.dev';
+window.SAFEHOUSE_API = 'https://agentlogin.safehouseins.com/public-quote-bridge';
 ```
 
-`api/public-quote.js` is the same logic as a plain module if the hop belongs
-somewhere else — Vercel, Netlify, or the AMS host itself.
+Blank it and the flow still works end to end — the answers go out by email and
+the visitor lands on "an agent is taking it", never on a price we did not
+receive.
 
-**The alternative worth considering:** have the AMS expose a browser-callable
-route of its own — origin-restricted to safehouseins.com, rate-limited, adding
-the secret internally. Then there is no hop, no second deploy and no secret
-outside the AMS. It is maybe twenty lines on that side, and it is the cleaner
-end state. The Worker exists so you are not blocked on it.
+**The browser sends the contract shape directly.** The bridge is a
+pass-through, so `toAms()` in `quote.html` emits exactly what `/public-quote`
+documents — `firstName`, `biLimit`, `usage`, `maritalStatus`, `licenseNumber`.
+Nothing renames fields anywhere else. If the bridge also renames, take that out;
+it would double-map.
 
-## Environment
+### Three things to check on the bridge
 
-| Variable | Where | Purpose |
-|---|---|---|
-| `PUBLIC_QUOTE_SECRET` | website backend only | `x-site-secret` |
-| `AMS_PUBLIC_QUOTE_URL` | website backend | defaults to `https://agentlogin.safehouseins.com/public-quote` |
+1. **CORS.** The browser calls `agentlogin.safehouseins.com` from a different
+   origin, so the bridge has to answer the preflight and send
+   `Access-Control-Allow-Origin`. For the live site that is
+   `https://safehouseins.com` and `https://www.safehouseins.com`. **For testing
+   from the preview link, add `https://raw.githack.com`** — without it the
+   request is blocked before it leaves the browser and the page falls back to
+   the agent screen, which looks exactly like a rating failure.
+2. **GET.** The poll shape `?id=&clientId=` mirrors `/public-quote` in the
+   contract. Confirm the bridge forwards GET as well as POST — if it only takes
+   POST, every quote will time out at 60s and land on the agent screen.
+3. **Status pass-through.** 202 and 400 have to reach the browser as 202 and
+   400. If the bridge turns a 202 into a 200 with an empty body the page still
+   behaves (no price, agent screen), but the reason is lost.
+
+### Testing it
+
+Open the quote page, run a quote, watch the network tab:
+
+- `POST …/public-quote-bridge` → `{ ok: true, quoteId, clientId, pollAfterMs, ratedCoverage }`
+- `GET  …/public-quote-bridge?id=…&clientId=…` starting 8s later, every 4s
+- `window.__quote` in the console holds the quoteId, the ratedCoverage and any warnings
 
 ## What the browser sends, and what the hop renames
 
