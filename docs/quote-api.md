@@ -132,7 +132,7 @@ is how you tell them apart:
 | *"was not authorised"* (401) | the secret does not match between bridge and AMS |
 | *"The AMS rejected the payload"* (400) | our fields are wrong; the message names them |
 | 202, no message | the AMS could not rate. The lead is saved. **Correct behaviour** |
-| polls for 60s then stops | rating never finished, or GET is not being forwarded |
+| *"Gave up after 95s"* | rating never finished, or GET is not being forwarded. The line reports how many polls ran and the last status |
 
 ### Testing it
 
@@ -145,6 +145,20 @@ Run a quote with DevTools open:
 ## What the form never asks
 
 Violations, accidents, tickets, SSN, licence images, payment details.
+
+## Address suggestions
+
+The street field suggests as you type and fills city, state and ZIP on pick.
+Default provider is Photon (OpenStreetMap) — free, no key, cross-origin allowed.
+Point `window.SAFEHOUSE_ADDR_API` at Google Places or Smarty for US
+street-level accuracy worth paying for.
+
+It only ever suggests. Nothing is blocked, the field stays free text, and a
+provider that is slow or down changes nothing on screen. It also refuses to
+write a state we are not licensed in, so a New York result cannot overwrite TX.
+
+**Not tested against the live Photon endpoint** — no outbound network in this
+container. Verified against a mock of their documented response shape.
 
 ## Optional steps, off by default
 

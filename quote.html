@@ -131,6 +131,16 @@
   .vinst .dot{width:14px;height:14px;border-radius:99px;border:2.5px solid #DCE7F8;border-top-color:var(--blue);
       animation:sp .9s linear infinite;flex:0 0 auto}
   .vinst.ok .dot,.vinst.no .dot{animation:none;border:none;width:auto;height:auto;font-size:13px}
+  .acwrap{position:relative}
+  .aclist{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:20;background:#fff;
+      border:1px solid #DCE7F8;border-radius:14px;box-shadow:0 22px 40px -22px rgba(10,33,72,.55);
+      overflow:hidden;display:none}
+  .aclist.on{display:block}
+  .aclist button{display:block;width:100%;text-align:left;background:none;border:none;cursor:pointer;
+      font-family:inherit;font-size:14.5px;color:var(--navy);padding:12px 14px;line-height:1.35}
+  .aclist button+button{border-top:1px solid #F0F5FD}
+  .aclist button:hover,.aclist button.hi{background:#F5F9FF}
+  .aclist button small{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:1px}
   .lookcard{border:2px solid #DCE7F8;background:#F7FBFF;border-radius:18px;padding:16px;margin-top:18px}
   .lookcard .lt{display:flex;align-items:center;gap:10px}
   .lookcard .lt .ic{width:38px;height:38px;border-radius:12px;background:var(--grad);color:#fff;
@@ -172,6 +182,16 @@
   .spin{width:56px;height:56px;border-radius:99px;margin:0 auto;border:5px solid var(--ice);
       border-top-color:var(--blue);animation:sp 1s linear infinite}
   @keyframes sp{to{transform:rotate(360deg)}}
+  /* the wait is ~a minute, so it gets the mark rather than a generic spinner */
+  .mark{position:relative;width:104px;height:104px;margin:0 auto;display:grid;place-items:center}
+  .mark img{width:50px;position:relative;z-index:2;animation:beat 2.1s ease-in-out infinite}
+  .mark .ring{position:absolute;inset:0;border-radius:99px;border:3px solid var(--ice);
+      border-top-color:var(--blue);border-right-color:var(--cyan);animation:sp 1.5s cubic-bezier(.6,.1,.4,.9) infinite}
+  .mark .halo{position:absolute;inset:10px;border-radius:99px;background:var(--grad);opacity:.14;
+      animation:halo 2.1s ease-in-out infinite}
+  @keyframes beat{0%,100%{transform:scale(1)}18%{transform:scale(1.13)}32%{transform:scale(1)}
+                  48%{transform:scale(1.08)}62%{transform:scale(1)}}
+  @keyframes halo{0%,100%{transform:scale(.86);opacity:.10}22%{transform:scale(1.06);opacity:.24}}
   .rating p{font-size:15px;color:var(--muted);font-weight:600;margin-top:16px}
   .rating .who{font-size:13px;color:#9fb0c6;font-weight:600;margin-top:6px}
 
@@ -280,12 +300,16 @@
     <section class="step" data-step="address">
       <h1>Where do you keep the car?</h1>
       <p class="sub">Rates change block by block, so the address matters.</p>
-      <div class="fl"><label for="addr">Street address</label>
-        <input id="addr" name="address" placeholder="9852 Minuteman St" autocomplete="street-address"></div>
+      <div class="fl acwrap"><label for="addr">Street address</label>
+        <input id="addr" name="address" placeholder="Start typing your address…"
+               autocomplete="street-address" role="combobox" aria-expanded="false" aria-autocomplete="list">
+        <div class="aclist" id="aclist" role="listbox"></div></div>
       <div class="g2">
         <div class="fl"><label for="city">City</label>
           <input id="city" name="city" placeholder="El Paso" autocomplete="address-level2"></div>
-        <div class="fl"><label for="st">State</label><select id="st" name="state"></select></div>
+        <div class="fl"><label for="st">State</label>
+          <select id="st" name="state"><option value="">State</option>
+            <option>TX</option><option>NM</option></select></div>
       </div>
       <div class="fl"><label for="zip">ZIP code</label>
         <input id="zip" name="zip" placeholder="79924" inputmode="numeric" maxlength="5" autocomplete="postal-code"></div>
@@ -419,10 +443,13 @@
     <!-- ============ 7 · rating ============ -->
     <section class="step" data-step="rating">
       <div class="rating">
-        <span class="spin" aria-hidden="true"></span>
+        <span class="mark" aria-hidden="true">
+          <span class="ring"></span><span class="halo"></span>
+          <img src="assets/safehouse-heart.png" alt="">
+        </span>
         <h1>Checking your options</h1>
         <p id="ratingMsg">Sending your details to the carriers we represent&hellip;</p>
-        <p class="who">Real carriers, real rates &mdash; this takes up to a minute.</p>
+        <p class="who">Real carriers, real rates &mdash; this can take a minute or two.</p>
       </div>
     </section>
 
@@ -491,8 +518,6 @@
 
   var YEARS='<option value="">Year</option>';
   for(var y=2027;y>=1990;y--) YEARS+='<option>'+y+'</option>';
-  document.getElementById('st').innerHTML='<option value="">State</option>'+
-    'TX,NM,AZ,CA,CO,NV,OK,LA,AR,KS,UT,Other'.split(',').map(function(x){return '<option>'+x+'</option>';}).join('');
   var US_STATES=('AL,AK,AZ,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,'
     +'MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY').split(',');
   var STATES='<option value="">State</option>'
@@ -677,6 +702,88 @@
     });
   }
 
+  /* ---------- address suggestions ----------
+     Photon (OpenStreetMap) is free, needs no key and allows cross-origin calls,
+     which is why it is the default. Point window.SAFEHOUSE_ADDR_API somewhere
+     else — Google Places, Smarty — when you want US street-level accuracy worth
+     paying for.
+
+     It only ever suggests. Typing is never blocked, the field stays free text,
+     and if the service is slow or down nothing changes on screen. An address
+     the visitor typed themselves beats one a mediocre geocoder guessed. */
+  (function(){
+    var input=document.getElementById('addr'), list=document.getElementById('aclist');
+    if(!input||!list) return;
+    var timer=null, items=[], hi=-1, lastQ='';
+
+    function close(){ list.classList.remove('on'); list.innerHTML=''; hi=-1;
+      input.setAttribute('aria-expanded','false'); }
+    function pick(f){
+      input.value=[f.number,f.street].filter(Boolean).join(' ').trim()||f.line1;
+      if(f.city)  document.getElementById('city').value=f.city;
+      if(f.zip)   document.getElementById('zip').value=f.zip;
+      if(f.state && ['TX','NM'].indexOf(f.state)>-1) document.getElementById('st').value=f.state;
+      close();
+    }
+    function render(){
+      list.innerHTML=items.map(function(f,i){
+        return '<button type="button" data-i="'+i+'" role="option">'+esc(f.line1)
+          +'<small>'+esc(f.line2)+'</small></button>';
+      }).join('');
+      list.classList.toggle('on',items.length>0);
+      input.setAttribute('aria-expanded',items.length>0?'true':'false');
+    }
+    list.addEventListener('click',function(e){
+      var b=e.target.closest('button[data-i]'); if(b) pick(items[+b.dataset.i]);
+    });
+    input.addEventListener('keydown',function(e){
+      if(!items.length) return;
+      if(e.key==='ArrowDown'||e.key==='ArrowUp'){
+        e.preventDefault();
+        hi=(hi+(e.key==='ArrowDown'?1:-1)+items.length)%items.length;
+        [].slice.call(list.children).forEach(function(b,i){ b.classList.toggle('hi',i===hi); });
+      } else if(e.key==='Enter'&&hi>-1){ e.preventDefault(); pick(items[hi]); }
+      else if(e.key==='Escape'){ close(); }
+    });
+    document.addEventListener('click',function(e){ if(!e.target.closest('.acwrap')) close(); });
+
+    input.addEventListener('input',function(){
+      var q=input.value.trim();
+      clearTimeout(timer);
+      if(q.length<4){ close(); return; }
+      if(q===lastQ) return;
+      timer=setTimeout(function(){ lastQ=q; search(q); },320);
+    });
+
+    function search(q){
+      var base=window.SAFEHOUSE_ADDR_API
+        ||'https://photon.komoot.io/api/?limit=5&lang=en&lat=31.76&lon=-106.49&q=';
+      var ctrl=new AbortController(), t=setTimeout(function(){ctrl.abort();},5000);
+      fetch(base+encodeURIComponent(q),{signal:ctrl.signal})
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+        .then(function(d){
+          clearTimeout(t);
+          items=((d&&d.features)||[]).map(function(f){
+            var p=f.properties||{};
+            return {
+              number:p.housenumber||'', street:p.street||p.name||'',
+              city:p.city||p.town||p.village||'', state:stateAbbr(p.state),
+              zip:p.postcode||'',
+              line1:[p.housenumber,p.street||p.name].filter(Boolean).join(' ')||p.name||'',
+              line2:[p.city||p.town,stateAbbr(p.state),p.postcode].filter(Boolean).join(', ')
+            };
+          }).filter(function(f){ return f.line1; });
+          render();
+        })
+        .catch(function(){ clearTimeout(t); close(); });   // silent: just keep typing
+    }
+    function stateAbbr(s){
+      if(!s) return '';
+      var m={'Texas':'TX','New Mexico':'NM'};
+      return m[s]||(s.length===2?s.toUpperCase():'');
+    }
+  })();
+
   /* ---------- navigation ---------- */
   function stepEl(name){ return steps.filter(function(s){return s.dataset.step===name;})[0]; }
   function show(name){
@@ -703,7 +810,7 @@
       if(!document.getElementById('city').value.trim())
         return fail('e-address','Please add the city.');
       if(!document.getElementById('st').value)
-        return fail('e-address','Please pick the state.');
+        return fail('e-address','Please pick the state \u2014 we are licensed in Texas and New Mexico.');
       if(!/^\d{5}$/.test(document.getElementById('zip').value.trim()))
         return fail('e-address','Please enter a 5-digit ZIP code.');
       // Never defaulted. Left blank the AMS rates as a renter, so a homeowner
@@ -944,9 +1051,14 @@
      stop at 60s. A 202 at any point means the quote did not come back — the lead
      is already saved on the AMS side, so we hand it to an agent and never show a
      price we do not have. */
-  var POLL_FIRST=8000, POLL_EVERY=4000, GIVE_UP=60000;
+  var POLL_FIRST=8000, POLL_EVERY=4000;
+  // The AMS documents rating as two-phase and ~50s. A flat 60s deadline left
+  // ten seconds of headroom, so a slower-than-typical run gave up on a quote
+  // that was still coming. The deadline now follows expectReadyMs.
+  var GIVE_UP=95000, GIVE_UP_MIN=90000, GIVE_UP_MAX=150000;
   var MSGS=['Sending your details to the carriers we represent\u2026',
             'The carriers are running your numbers\u2026',
+            'Still going \u2014 some carriers take longer than others\u2026',
             'Almost there \u2014 gathering the last few\u2026'];
 
   // On the live site the visitor sees the agent screen and nothing else. On a
@@ -1052,6 +1164,8 @@
         if(d.rates && d.rates.length){ stop(); results(d.rates); return; }
         if(!d.quoteId){ stop(); note('The bridge answered 200 with no quoteId and no rates: '
           +JSON.stringify(d).slice(0,200)); toAgent(); return; }
+        var expect=Number(d.expectReadyMs)||50000;
+        GIVE_UP=Math.min(GIVE_UP_MAX,Math.max(GIVE_UP_MIN,expect+45000));
         setTimeout(function(){ poll(d.quoteId,d.clientId); },
                    Number(d.pollAfterMs)||POLL_FIRST);
         pollEvery=Number(d.pollEveryMs)||POLL_EVERY;
@@ -1062,7 +1176,7 @@
     function poll(id,clientId){
       polls++;
       if(Date.now()-started>GIVE_UP){ stop();
-        note('Gave up after 60s. '+polls+' polls, last status "'+lastStatus+'". '
+        note('Gave up after '+Math.round(GIVE_UP/1000)+'s. '+polls+' polls, last status "'+lastStatus+'". '
             +'Either rating never finished or the bridge is not forwarding GET.');
         toAgent(); return; }
       fetch(API+'?id='+encodeURIComponent(id)+'&clientId='+encodeURIComponent(clientId||''),
