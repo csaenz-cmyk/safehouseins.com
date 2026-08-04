@@ -194,6 +194,10 @@
       border-radius:14px;padding:13px 14px;color:var(--navy);margin-top:12px}
   .agentnote svg{color:var(--blue);flex:0 0 auto;margin-top:2px;width:15px;height:15px}
 
+  .diag{margin-top:18px;padding:12px 14px;border-radius:12px;background:#FFF7ED;border:1px solid #FCD9A8;
+      font-family:'Geist Mono',monospace;font-size:11.5px;line-height:1.55;color:#8A4B00;text-align:left;
+      word-break:break-word}
+  .diag b{display:block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#B4700F;margin-bottom:5px}
   .done{text-align:center;padding:8px 0 4px}
   .done .tick{width:64px;height:64px;border-radius:99px;background:var(--grad);color:#fff;display:grid;
       place-items:center;margin:0 auto;font-size:28px;font-weight:900;
@@ -443,6 +447,7 @@
          If you would rather not wait, call us.</p>
       <a class="btn" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
       <a class="btn ghost" href="index.html">Back to the site</a>
+      <p class="diag" id="diag" style="display:none"><b>Diagnostic &middot; not shown on the live site</b><span></span></p>
     </section>
   </form>
 
@@ -944,11 +949,26 @@
             'The carriers are running your numbers\u2026',
             'Almost there \u2014 gathering the last few\u2026'];
 
+  // On the live site the visitor sees the agent screen and nothing else. On a
+  // preview host — or with ?debug=1 — the same screen also shows why, so a
+  // screenshot is enough to diagnose without opening devtools.
+  var lastReason='';
+  function note(reason){ lastReason=reason; }
+  function showDiag(){
+    var el=document.getElementById('diag'); if(!el||!lastReason) return;
+    var host=location.hostname,
+        preview=host===''||host==='localhost'||/githack\.com$/.test(host)||/\.pages\.dev$/.test(host),
+        forced=new URLSearchParams(location.search).get('debug')==='1';
+    if(!preview&&!forced) return;
+    el.querySelector('span').textContent=lastReason;
+    el.style.display='block';
+  }
+
   function toAgent(){
     document.getElementById('doneH').textContent='An agent is taking it from here.';
     document.getElementById('doneP').textContent='We have got your request. A licensed Safe House agent will '
       +'text or call you shortly with your options \u2014 in English or Spanish.';
-    show('done');
+    show('done'); showDiag();
   }
   function results(rates){
     // Cheapest first from the AMS; rendered in the order given, never re-sorted.
@@ -987,11 +1007,24 @@
 
     fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
       .then(function(r){
-        if(r.status===202){ stop(); toAgent(); return null; }   // saved, no quote
+        if(r.status===202){ stop();
+          note('202 from the bridge — the AMS saved the lead but could not rate. '
+              +'This is the expected screen for that. Nothing is wrong with the site.');
+          toAgent(); return null; }
         return r.json().catch(function(){return {};}).then(function(d){
           // Every one of these ends on the agent screen, so name it in the
           // console — otherwise a config problem is indistinguishable from a
           // carrier that did not answer.
+          if(r.status===403) note('403 — the bridge rejected this origin ('+location.origin
+            +'). Add it to the allowed list on the AMS side.');
+          if(r.status===503) note('503 — the bridge is up but quote intake is not configured '
+            +'(PUBLIC_QUOTE_SECRET missing on the AMS).');
+          if(r.status===401) note('401 — the bridge reached the AMS but was not authorised. '
+            +'The secret does not match on both sides.');
+          if(r.status===400) note('400 — the AMS rejected the payload: '
+            +JSON.stringify(d.fields||d.error||d));
+          if(!r.ok&&[400,401,403,503].indexOf(r.status)===-1)
+            note('HTTP '+r.status+' from the bridge: '+JSON.stringify(d).slice(0,200));
           if(r.status===403) console.error('[quote] The bridge rejected this origin ('
             +location.origin+'). Add it to the allowed list on the AMS side.');
           if(r.status===503) console.error('[quote] The bridge is up but quote intake is '
@@ -1004,35 +1037,48 @@
         });
       })
       .catch(function(e){
-        if(e && e.name==='TypeError') console.error('[quote] The request never left the '
-          +'browser — almost always CORS. Check the bridge allows '+location.origin+'.');
+        if(e && e.name==='TypeError'){
+          note('The request never left the browser — almost always CORS. '
+              +'Check the bridge allows '+location.origin+'.');
+          console.error('[quote] The request never left the '
+            +'browser — almost always CORS. Check the bridge allows '+location.origin+'.');
+        }
         throw e;
       })
       .then(function(d){
         if(!d) return;
-        if(d.ok===false){ stop(); toAgent(); return; }
+        if(d.ok===false){ stop(); note('ok:false from the bridge: '+(d.error||'no reason given')); toAgent(); return; }
         audit(d,p);
         if(d.rates && d.rates.length){ stop(); results(d.rates); return; }
-        if(!d.quoteId){ stop(); toAgent(); return; }
+        if(!d.quoteId){ stop(); note('The bridge answered 200 with no quoteId and no rates: '
+          +JSON.stringify(d).slice(0,200)); toAgent(); return; }
         setTimeout(function(){ poll(d.quoteId,d.clientId); },
                    Number(d.pollAfterMs)||POLL_FIRST);
         pollEvery=Number(d.pollEveryMs)||POLL_EVERY;
       })
       .catch(function(){ stop(); mailto(p); toAgent(); });
 
-    var pollEvery=POLL_EVERY;
+    var pollEvery=POLL_EVERY, polls=0, lastStatus='none';
     function poll(id,clientId){
-      if(Date.now()-started>GIVE_UP){ stop(); toAgent(); return; }
+      polls++;
+      if(Date.now()-started>GIVE_UP){ stop();
+        note('Gave up after 60s. '+polls+' polls, last status "'+lastStatus+'". '
+            +'Either rating never finished or the bridge is not forwarding GET.');
+        toAgent(); return; }
       fetch(API+'?id='+encodeURIComponent(id)+'&clientId='+encodeURIComponent(clientId||''),
             {headers:{'Accept':'application/json'}})
         .then(function(r){
-          if(r.status===202){ stop(); toAgent(); return null; }
+          if(r.status===202){ stop();
+            note('202 while polling — the AMS could not finish rating. The lead is saved.');
+            toAgent(); return null; }
           if(!r.ok) throw new Error('HTTP '+r.status);
           return r.json();
         })
         .then(function(d){
           if(!d) return;
-          if(d.ok===false||d.status==='failed'){ stop(); toAgent(); return; }
+          lastStatus=d.status||(d.ok===false?'ok:false':'200');
+          if(d.ok===false||d.status==='failed'){ stop();
+            note('Polling ended in failure: '+(d.error||d.status)); toAgent(); return; }
           if(d.rates && d.rates.length){ stop(); results(d.rates); return; }
           setTimeout(function(){ poll(id,clientId); },pollEvery);
         })
