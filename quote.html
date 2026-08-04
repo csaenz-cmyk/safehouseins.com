@@ -272,44 +272,66 @@
       <button class="btn" data-next type="button" disabled>Continue <svg class="i"><use href="#ar"/></svg></button>
     </section>
 
-    <!-- ============ 2 · where + current insurance (auto only) ============ -->
-    <section class="step" data-step="where">
+    <!-- ============ 2 · where the car lives ============ -->
+    <section class="step" data-step="address">
       <h1>Where do you keep the car?</h1>
-      <p class="sub">Rates change block by block, so the ZIP matters.</p>
+      <p class="sub">Rates change block by block, so the address matters.</p>
+      <div class="fl"><label for="addr">Street address</label>
+        <input id="addr" name="address" placeholder="9852 Minuteman St" autocomplete="street-address"></div>
+      <div class="g2">
+        <div class="fl"><label for="city">City</label>
+          <input id="city" name="city" placeholder="El Paso" autocomplete="address-level2"></div>
+        <div class="fl"><label for="st">State</label><select id="st" name="state"></select></div>
+      </div>
       <div class="fl"><label for="zip">ZIP code</label>
-        <input id="zip" name="zip" placeholder="79912" inputmode="numeric" maxlength="5" autocomplete="postal-code"></div>
-      <div class="fl"><label>Do you have car insurance right now?</label>
+        <input id="zip" name="zip" placeholder="79924" inputmode="numeric" maxlength="5" autocomplete="postal-code"></div>
+      <div class="fl"><label for="res">Do you own or rent?</label>
+        <select id="res" name="residence">
+          <option>Own a home</option><option>Own a condo</option>
+          <option>Rent</option><option>Live with family</option>
+        </select></div>
+      <p class="err" id="e-address"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ============ 3 · current insurance ============ -->
+    <section class="step" data-step="current">
+      <h1>Are you insured right now?</h1>
+      <p class="sub">Continuous coverage is one of the biggest discounts there is.</p>
+      <div class="fl"><label>Do you have car insurance today?</label>
         <div class="pills">
           <label class="pill"><input type="radio" name="insured" value="yes" autocomplete="off"><span>Yes</span></label>
           <label class="pill"><input type="radio" name="insured" value="no" autocomplete="off"><span>No</span></label>
           <label class="pill"><input type="radio" name="insured" value="lapsed" autocomplete="off"><span>It lapsed</span></label>
         </div>
       </div>
-      <div class="fl" id="yrsWrap" style="display:none"><label for="yrs">How long have you been continuously insured?</label>
-        <select id="yrs" name="years"><option value="">Choose one</option>
-          <option>Less than 6 months</option><option>6 months to 1 year</option>
-          <option>1 to 3 years</option><option>3 to 5 years</option><option>5+ years</option></select></div>
-      <p class="err" id="e-where"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <div id="priorWrap" style="display:none">
+        <div class="fl"><label for="yrs">How long have you been continuously insured?</label>
+          <select id="yrs" name="years"><option value="">Choose one</option>
+            <option>Less than 6 months</option><option>6 months to 1 year</option>
+            <option>1 to 3 years</option><option>3 to 5 years</option><option>5+ years</option></select></div>
+        <div class="g2">
+          <div class="fl"><label for="pcar">Current carrier <span class="opt2">(optional)</span></label>
+            <input id="pcar" name="priorCarrier" placeholder="Progressive" autocomplete="off"></div>
+          <div class="fl"><label for="pexp">Renews on <span class="opt2">(optional)</span></label>
+            <input id="pexp" name="priorExpiration" type="date" autocomplete="off"></div>
+        </div>
+      </div>
+      <p class="err" id="e-current"><svg class="i"><use href="#shield"/></svg><span></span></p>
       <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
     </section>
 
     <!-- ============ 3 · look up what is already on record ============ -->
     <section class="step" data-step="lookup">
       <h1>Want us to look it up?</h1>
-      <p class="sub">With your address and date of birth we can pull the vehicles and drivers already
-         on record, so you do not have to type them in.</p>
+      <p class="sub">With the address you just gave us and your date of birth we can pull the
+         vehicles and drivers already on record, so you do not have to type them in.</p>
 
       <div class="lookcard">
         <div class="lt"><span class="ic"><svg class="i"><use href="#shield"/></svg></span>
           <span><b>Faster and more accurate</b><small>You can edit or remove anything we find.</small></span></div>
       </div>
 
-      <div class="fl"><label for="addr">Street address</label>
-        <input id="addr" name="address" placeholder="1234 Mesa St" autocomplete="street-address"></div>
-      <div class="g2">
-        <div class="fl"><label for="city">City</label><input id="city" name="city" placeholder="El Paso" autocomplete="address-level2"></div>
-        <div class="fl"><label for="st">State</label><select id="st" name="state"></select></div>
-      </div>
       <div class="g2">
         <div class="fl"><label for="lfn">First name</label><input id="lfn" placeholder="Your name" autocomplete="given-name"></div>
         <div class="fl"><label for="lln">Last name</label><input id="lln" placeholder="Last name" autocomplete="family-name"></div>
@@ -454,8 +476,8 @@
       bar=document.getElementById('bar'), crumb=document.getElementById('crumb'),
       back=document.getElementById('back'),
       LABEL={car:'Car',home:'Home',commercial:'Commercial vehicle',moto:'Motorcycle',renters:'Renters'},
-      AUTO_FULL=['type','where','lookup','vehicles','drivers','coverage','contact'],
-      AUTO_PLAIN=['type','where','vehicles','drivers','coverage','contact'],
+      AUTO_FULL=['type','address','current','lookup','vehicles','drivers','coverage','contact'],
+      AUTO_PLAIN=['type','address','current','vehicles','drivers','coverage','contact'],
       // the lookup step only exists once a prefill endpoint does
       AUTO=(API&&window.SAFEHOUSE_PREFILL)?AUTO_FULL:AUTO_PLAIN,
       SHORT=['type','contact'],
@@ -479,6 +501,11 @@
               'Matr\u00edcula consular','Passport','No license'];
   // Relationship to the primary insured — a SEPARATE field from marital status.
   // Only asked from driver 2 on: the AMS forces driver 1 to Insured regardless.
+  var OCCS=['Student','Homemaker','Retired','Military','Professional / office',
+            'Skilled trade','Driver / transport','Healthcare','Education',
+            'Self-employed','Other'];
+  var OCC='<option value="">Choose one</option>'
+    +OCCS.map(function(s){return '<option>'+s+'</option>';}).join('');
   var RELS=['Spouse','Child','Parent','Sibling','Other relative','Other'];
   var REL='<option value="">Choose one</option>'
     +RELS.map(function(s){return '<option>'+s+'</option>';}).join('');
@@ -532,6 +559,7 @@
         +'<label>License or ID number</label>'
         +'<input data-f="lnum" value="'+esc(d.lnum)+'" placeholder="38348855" autocomplete="off" '
         +'inputmode="text" maxlength="25"></div>'
+      +'<div class="fl"><label>Occupation</label><select data-f="occupation">'+sel(OCC,d.occupation)+'</select></div>'
       +'<div class="fl"><label>Marital status</label><select data-f="marital">'
         +sel('<option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option><option>Separated</option>',d.marital)+'</select></div>'
       +(n>1?'<div class="fl"><label>Relationship to you</label><select data-f="relationship">'+sel(REL,d.relationship)+'</select></div>':'')
@@ -663,11 +691,19 @@
 
   function valid(name){
     if(name==='type') return !!chosenType();
-    if(name==='where'){ clear('e-where');
+    if(name==='address'){ clear('e-address');
+      if(!document.getElementById('addr').value.trim())
+        return fail('e-address','We need the street address \u2014 rates change block by block.');
+      if(!document.getElementById('city').value.trim())
+        return fail('e-address','Please add the city.');
+      if(!document.getElementById('st').value)
+        return fail('e-address','Please pick the state.');
       if(!/^\d{5}$/.test(document.getElementById('zip').value.trim()))
-        return fail('e-where','Please enter a 5-digit ZIP code.');
+        return fail('e-address','Please enter a 5-digit ZIP code.');
+      return true; }
+    if(name==='current'){ clear('e-current');
       if(!form.querySelector('input[name=insured]:checked'))
-        return fail('e-where','Let us know if you are insured right now.');
+        return fail('e-current','Let us know if you are insured right now.');
       return true; }
     if(name==='lookup') return true;          // optional by design
     if(name==='vehicles'){ clear('e-vehicles');
@@ -703,7 +739,15 @@
     var cur=b.closest('.step').dataset.step;
     if(!valid(cur)) return;
     if(cur==='type'){ setFlow(); }
-    if(cur==='where'&&flow.indexOf('lookup')===-1){ if(!veh) addVeh(); if(!drv) addDrv(); }
+    if(cur==='current'&&flow.indexOf('lookup')===-1){ if(!veh) addVeh(); if(!drv) addDrv(); }
+    if(cur==='coverage'){                       // do not ask the name twice
+      var d1=document.querySelector('#drvList .blk');
+      if(d1){
+        var cf=document.getElementById('cfn'), cl=document.getElementById('cln');
+        if(!cf.value) cf.value=d1.querySelector('[data-f=first]').value;
+        if(!cl.value) cl.value=d1.querySelector('[data-f=last]').value;
+      }
+    }
     var i=flow.indexOf(cur);
     show(i<flow.length-1?flow[i+1]:'contact');
   });
@@ -717,7 +761,7 @@
   });
   form.querySelectorAll('input[name=insured]').forEach(function(r){
     r.addEventListener('change',function(){
-      document.getElementById('yrsWrap').style.display=(r.value==='yes'&&r.checked)?'block':'none';
+      document.getElementById('priorWrap').style.display=(r.value==='yes'&&r.checked)?'block':'none';
     });
   });
   form.querySelectorAll('input[name=fullcov]').forEach(function(r){
@@ -744,7 +788,6 @@
         ln=document.getElementById('lln').value.trim(),
         dob=document.getElementById('ldob').value,
         ok=document.getElementById('consent').checked;
-    if(!addr||!city||!st) return fail('e-lookup','We need the street address, city and state to look it up.');
     if(!fn||!ln||!dob) return fail('e-lookup','Add your name and date of birth so we look up the right household.');
     if(!ok) return fail('e-lookup','Please authorize the lookup, or skip it and type everything in.');
 
@@ -779,10 +822,13 @@
     var b='Insurance type: Car'
       +'\nName: '+p.firstName+' '+p.lastName
       +'\nPhone: '+p.phone+'\nEmail: '+p.email
-      +(p.street?'\nAddress: '+p.street+', '+p.city:'')
+      +(p.street?'\nAddress: '+p.street+', '+p.city+' '+(p.state||''):'')
+      +(p.residenceType?'\nResidence: '+p.residenceType:'')
       +(p.zip?'\nZIP: '+p.zip:'')
       +'\nCurrently insured: '+(p.hasPriorInsurance?'yes':'no')
       +(p.priorMonths?' ('+p.priorMonths+' months)':'')
+      +(p.priorCarrier?'\nCurrent carrier: '+p.priorCarrier:'')
+      +(p.priorExpiration?'\nRenews: '+p.priorExpiration:'')
       +(p.vehicles.length?'\n\nVehicles:\n'+p.vehicles.map(function(v,i){
           return '  '+(i+1)+'. '+[v.year,v.make,v.model].filter(Boolean).join(' ')
             +(v.vin?' VIN '+v.vin:'')+' - '+v.usage
@@ -791,7 +837,8 @@
           return '  '+(i+1)+'. '+d.firstName+' '+d.lastName+' - DOB '+d.dob
             +' - '+(d.licenseType||'')+(d.licenseState?' '+d.licenseState:'')
             +(d.licenseNumber?' #'+d.licenseNumber:'')
-            +' - '+d.maritalStatus+(d.relationship?' - '+d.relationship:''); }).join('\n'):'')
+            +' - '+d.maritalStatus+(d.occupation?' - '+d.occupation:'')
+            +(d.relationship?' - '+d.relationship:''); }).join('\n'):'')
       +'\n\nCoverage: '+p.biLimit
       +(p.vehicles[0]&&p.vehicles[0].comprehensive==='None'
           ?' - liability only'
@@ -839,7 +886,9 @@
           email:    document.getElementById('cem').value.trim(),
           street:   document.getElementById('addr').value.trim(),
           city:     document.getElementById('city').value.trim(),
+          state:    document.getElementById('st').value,
           zip:      document.getElementById('zip').value.trim(),
+          residenceType: document.getElementById('res').value,
 
           hasPriorInsurance: ins?ins.value==='yes':false,
           biLimit: liab,
@@ -847,6 +896,7 @@
           drivers: grab('#drvList .blk').map(function(d,i){
             var o={firstName:d.first,lastName:d.last,dob:d.dob,
                    gender:d.gender,maritalStatus:d.marital};
+            if(d.occupation) o.occupation=d.occupation;
             // driver 1 is forced to Insured on the AMS side
             if(i>0 && d.relationship) o.relationship=d.relationship;
             if(d.lnum)   o.licenseNumber=d.lnum;
@@ -871,6 +921,10 @@
           submittedAt: new Date().toISOString()
         };
     if(PRIOR_MONTHS[years]) p.priorMonths=PRIOR_MONTHS[years];
+    var pc=document.getElementById('pcar').value.trim(),
+        pe=document.getElementById('pexp').value;
+    if(pc) p.priorCarrier=pc;
+    if(pe) p.priorExpiration=pe;
     return p;
   }
 

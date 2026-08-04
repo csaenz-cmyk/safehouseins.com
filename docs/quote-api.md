@@ -52,13 +52,17 @@ anywhere else — no hop, no adapter, one function.
 ```jsonc
 {
   "firstName": "", "lastName": "", "phone": "", "email": "",
-  "street": "", "city": "", "zip": "79924",
+  "street": "", "city": "", "state": "TX", "zip": "79924",
+  "residenceType": "Rent",           // Own a home | Own a condo | Rent | Live with family
   "hasPriorInsurance": true,
   "priorMonths": 24,                 // from "1 to 3 years"; omitted if unknown
+  "priorCarrier": "Progressive",     // optional
+  "priorExpiration": "2026-03-20",   // optional
   "biLimit": "100/300/100",          // combined; the AMS reads PD from slot 3
   "drivers": [{
     "firstName": "", "lastName": "", "dob": "1998-04-12",
     "gender": "Male", "maritalStatus": "Single",
+    "occupation": "Professional / office",
     "relationship": "Spouse",        // driver 2 onward only
     "licenseNumber": "38348855",
     "licenseType": "U.S. driver's license",   // extra, for the callback drawer
@@ -79,6 +83,14 @@ anywhere else — no hop, no adapter, one function.
 Values stay as the form captured them — `"Married"`, `"100/300/100"`, `"$500"`.
 The AMS maps them onto the engine's enums, because it is the side that knows the
 vocabulary and one bad value fails every carrier at once.
+
+### Fields the AMS may not map yet
+
+`residenceType` and `occupation` are both real discount factors and both are
+now collected, but neither is in the contract's field list. They will ride
+along and show up in the callback drawer either way. **For them to affect the
+rate the AMS has to map them** onto the engine's homeowner and occupation
+enums — worth a line on that side.
 
 ## Reading a failure
 
