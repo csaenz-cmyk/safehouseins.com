@@ -287,8 +287,9 @@
         <input id="zip" name="zip" placeholder="79924" inputmode="numeric" maxlength="5" autocomplete="postal-code"></div>
       <div class="fl"><label for="res">Do you own or rent?</label>
         <select id="res" name="residence">
-          <option>Own a home</option><option>Own a condo</option>
-          <option>Rent</option><option>Live with family</option>
+          <option value="">Choose one</option>
+          <option>Own a home</option><option>Own a condo</option><option>Own a mobile home</option>
+          <option>Rent a house</option><option>Rent</option><option>Live with family</option>
         </select></div>
       <p class="err" id="e-address"><svg class="i"><use href="#shield"/></svg><span></span></p>
       <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
@@ -700,6 +701,10 @@
         return fail('e-address','Please pick the state.');
       if(!/^\d{5}$/.test(document.getElementById('zip').value.trim()))
         return fail('e-address','Please enter a 5-digit ZIP code.');
+      // Never defaulted. Left blank the AMS rates as a renter, so a homeowner
+      // would silently lose the discount and see a price that is too high.
+      if(!document.getElementById('res').value)
+        return fail('e-address','Let us know if you own or rent \u2014 it changes the price.');
       return true; }
     if(name==='current'){ clear('e-current');
       if(!form.querySelector('input[name=insured]:checked'))

@@ -84,13 +84,38 @@ Values stay as the form captured them — `"Married"`, `"100/300/100"`, `"$500"`
 The AMS maps them onto the engine's enums, because it is the side that knows the
 vocabulary and one bad value fails every carrier at once.
 
-### Fields the AMS may not map yet
+### residenceType and occupation
 
-`residenceType` and `occupation` are both real discount factors and both are
-now collected, but neither is in the contract's field list. They will ride
-along and show up in the callback drawer either way. **For them to affect the
-rate the AMS has to map them** onto the engine's homeowner and occupation
-enums — worth a line on that side.
+Both are mapped on the AMS side now — `residenceType` to
+`ResidencyStatus`/`ResidencyType`/`PropertyInsurance` at request level,
+`occupation` to `IndustryOccupation` per driver.
+
+**`residenceType` is never defaulted.** The select opens on "Choose one" and the
+step will not advance without an answer, because the failure is silent in both
+directions: omit it and the AMS rates the visitor as a renter, so a homeowner
+sees a price higher than they should; default it to "Own a home" and a renter
+gets quoted a discount they do not have — a price the agency cannot honour.
+Neither of those looks wrong on screen.
+
+Values sent, all accepted by the AMS mapping:
+
+```
+Own a home · Own a condo · Own a mobile home · Rent a house · Rent · Live with family
+```
+
+**The eleven occupation strings this form emits — confirm each maps to a real
+catalogue role rather than falling through to `Other`:**
+
+```
+Student · Homemaker · Retired · Military · Professional / office
+Skilled trade · Driver / transport · Healthcare · Education
+Self-employed · Other
+```
+
+`Other` is a valid enum member, so an unmapped value costs precision, not the
+quote. But "Skilled trade", "Professional / office" and "Driver / transport"
+are this form's wording, not the catalogue's — worth checking they land
+somewhere real.
 
 ## Reading a failure
 
