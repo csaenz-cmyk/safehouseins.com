@@ -131,7 +131,8 @@ is how you tell them apart:
 | *"quote intake is not configured"* (503) | `PUBLIC_QUOTE_SECRET` is not set on the AMS |
 | *"was not authorised"* (401) | the secret does not match between bridge and AMS |
 | *"The AMS rejected the payload"* (400) | our fields are wrong; the message names them |
-| 202, no message | the AMS could not rate. The lead is saved. **Correct behaviour** |
+| 202 | the AMS could not rate. The lead is saved. **Correct behaviour.** The reason it gives is shown in the panel and left on `window.__quote202` |
+| 202, *"VIN required"* | the visitor skipped the VIN. Nothing to fix — see below |
 | *"Gave up after 95s"* | rating never finished, or GET is not being forwarded. The line reports how many polls ran and the last status |
 
 ### Testing it
@@ -141,6 +142,44 @@ Run a quote with DevTools open:
 - `POST …/public-quote-bridge` → `{ ok: true, quoteId, clientId, pollAfterMs, ratedCoverage }`
 - `GET  …/public-quote-bridge?id=…&clientId=…` starting 8s later, every 4s
 - `window.__quote` holds the quoteId, the ratedCoverage and any warnings
+- `window.__quote202` holds the whole body of a 202, when one comes back
+
+## The VIN decides whether prices appear
+
+The live rating contract requires a VIN (10 characters minimum). Without one
+the AMS saves the lead and answers **202** with
+`reason: "VIN required for instant online prices — an agent will quote it"`.
+That is a complete, correct outcome — the visitor simply sees the agent screen
+instead of prices.
+
+So the vehicles step pushes for the VIN without ever demanding it:
+
+- the label says it is what gets prices on screen, and a hint says where to
+  find it on the car
+- a VIN that decodes fills in year, make and model, and the hint disappears
+- leaving it blank stops the visitor **once**, with a note saying what they
+  give up, and lets the next press through
+
+Blocking would be worse than a slow quote: a visitor who cannot find their VIN
+would leave with nothing, and the lead is worth more than the price on screen.
+
+## What a rate looks like
+
+```jsonc
+{
+  "carrier": "GAINSCO EFT",
+  "premium": 1185.50,        // term total, never a monthly figure
+  "downPayment": 203.61,
+  "installment": 201.38,     // optional — only when the carrier states a plan
+  "payments": 5,             // optional — how many instalments follow
+  "term": "6 months"
+}
+```
+
+One row per carrier, cheapest first. The page renders them in the order given
+and never re-sorts or de-duplicates. `installment` and `payments` are shown as
+*"then 5 × $201.38"* only when both are present and sane; a monthly figure is
+never derived by dividing the term total.
 
 ## What the form never asks
 

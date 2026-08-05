@@ -103,6 +103,9 @@
   .fl label{display:block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
       color:var(--muted);margin-bottom:6px}
   .fl label .opt2{text-transform:none;font-weight:600;color:#9fb0c6}
+  .fl .hint{display:block;font-size:12px;color:#9fb0c6;font-weight:600;margin-top:6px;line-height:1.4}
+  /* once the VIN decodes, the where-to-find-it hint has done its job */
+  .fl:has(.vinst.ok) .hint{display:none}
   .fl input,.fl select,.fl textarea{width:100%;border:2px solid var(--line);border-radius:14px;padding:14px;
       font-family:inherit;font-size:16px;background:#FAFCFF;color:var(--ink);-webkit-appearance:none;appearance:none}
   .fl select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235C6A80' stroke-width='2.4' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>");
@@ -171,6 +174,11 @@
   .note{display:flex;gap:9px;font-size:12px;color:var(--muted);margin-top:14px;align-items:flex-start;font-weight:600}
   .note svg{color:#1F9D63;flex:0 0 auto;margin-top:2px;width:15px;height:15px}
   .err{display:none;gap:9px;font-size:13px;color:#C2410C;margin-top:14px;align-items:flex-start;font-weight:700}
+  /* Not an error — the visitor may carry on. It says what they give up by
+     doing so, which is the price on screen, and then gets out of the way. */
+  .warn{display:none;gap:9px;font-size:13px;color:#8A5A00;background:#FFF8E8;border:1px solid #F5D98B;
+        border-radius:14px;padding:12px 13px;margin-top:14px;align-items:flex-start;font-weight:700;line-height:1.45}
+  .warn .i{flex:0 0 auto;margin-top:1px}
 
   .trust{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin-top:16px}
   .trust b{display:flex;align-items:center;gap:8px;font-size:14.5px;color:var(--navy);font-weight:800}
@@ -198,12 +206,17 @@
   .rlist{display:flex;flex-direction:column;gap:10px;margin-top:18px}
   .rcard{border:2px solid var(--line);border-radius:18px;padding:14px;display:flex;align-items:center;gap:12px;background:#fff}
   .rcard.best{border-color:var(--blue);background:#F7FBFF}
-  .rcard .lg{width:44px;height:44px;border-radius:13px;background:var(--ice);color:var(--blue-d);display:grid;
-      place-items:center;font-weight:900;font-size:16px;flex:0 0 auto}
+  .rcard .lg{width:38px;height:38px;border-radius:12px;background:var(--ice);color:var(--blue-d);display:grid;
+      place-items:center;font-weight:900;font-size:15px;flex:0 0 auto}
   .rcard .mid{flex:1;min-width:0}
-  .rcard .mid b{display:block;font-size:16px;font-weight:800;color:var(--navy)}
-  .rcard .mid small{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:1px}
-  .rcard .pr{text-align:right;flex:0 0 auto}
+  /* Carrier names run long — "Progressive Insurance", "Kemper Auto | BVP" —
+     and the price column must never be the thing that gives way. */
+  .rcard .mid b{display:block;font-size:15px;font-weight:800;color:var(--navy);line-height:1.25}
+  .rcard .mid small{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:2px}
+  .rcard .tagbest{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.09em;
+      text-transform:uppercase;color:var(--blue-d);background:#E4F0FF;border-radius:99px;
+      padding:3px 8px;margin-bottom:5px}
+  .rcard .pr{text-align:right;flex:0 0 auto;white-space:nowrap}
   .rcard .pr b{display:block;font-size:20px;font-weight:900;color:var(--navy);letter-spacing:-.02em}
   .rcard .pr small{display:block;font-size:11px;color:var(--muted);font-weight:700}
   .tag{display:inline-block;font-family:'Geist Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.12em;
@@ -381,10 +394,12 @@
     <!-- ============ 4 · vehicles ============ -->
     <section class="step" data-step="vehicles">
       <h1>Which vehicles?</h1>
-      <p class="sub">A VIN gets the most accurate rate, but the year, make and model work too.</p>
+      <p class="sub">With the VIN we can show you real prices on the next screen. Without it we can
+        still take your request, but an agent has to call you with the numbers instead.</p>
       <div id="vehList"></div>
       <button class="addbtn" id="addVeh" type="button">+ Add another vehicle</button>
       <p class="err" id="e-vehicles"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <p class="warn" id="w-vehicles"><svg class="i"><use href="#shield"/></svg><span></span></p>
       <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
     </section>
 
@@ -551,19 +566,27 @@
     var found=v.__found?'<span class="found">Found</span>':'';
     return '<div class="blk" data-veh>'
       +'<div class="bt"><b>Vehicle '+n+found+'</b>'+(n>1?'<button class="rm" type="button" data-rm>Remove</button>':'')+'</div>'
-      +'<div class="fl"><label>VIN <span class="opt2">(optional, most accurate)</span></label>'
+      +'<div class="fl"><label>VIN <span class="opt2">(this is what gets you prices on screen)</span></label>'
         +'<input data-f="vin" value="'+esc(v.vin)+'" placeholder="1HGCM82633A004352" maxlength="17" autocomplete="off">'
-        +'<span class="vinst"><span class="dot"></span><span class="tx"></span></span></div>'
+        +'<span class="vinst"><span class="dot"></span><span class="tx"></span></span>'
+        +'<span class="hint">17 characters — on your insurance card, the driver’s door frame, '
+        +'or the bottom corner of the windshield.</span></div>'
       +'<div class="g3">'
         +'<div class="fl"><label>Year</label><select data-f="year">'+sel(YEARS,v.year)+'</select></div>'
         +'<div class="fl"><label>Make</label><input data-f="make" value="'+esc(v.make)+'" placeholder="Toyota"></div>'
         +'<div class="fl"><label>Model</label><input data-f="model" value="'+esc(v.model)+'" placeholder="Camry"></div>'
       +'</div>'
       +'<div class="g2">'
+        // The value is what the AMS rates on and must not change; the label is
+        // only what has to fit on a phone.
         +'<div class="fl"><label>Mainly used for</label><select data-f="use">'
-          +'<option>Commuting to work</option><option>Pleasure</option><option>Business</option><option>Rideshare</option></select></div>'
+          +'<option value="Commuting to work">Commuting</option><option>Pleasure</option>'
+          +'<option>Business</option><option>Rideshare</option></select></div>'
         +'<div class="fl"><label>Miles per year</label><select data-f="miles">'
-          +'<option>Under 7,500</option><option selected>7,500 - 12,000</option><option>12,000 - 20,000</option><option>Over 20,000</option></select></div>'
+          +'<option value="Under 7,500">Under 7,500</option>'
+          +'<option value="7,500 - 12,000" selected>7,500 \u2013 12k</option>'
+          +'<option value="12,000 - 20,000">12k \u2013 20k</option>'
+          +'<option value="Over 20,000">Over 20k</option></select></div>'
       +'</div>'
       +'<div class="fl"><label>Do you own it?</label><select data-f="own">'
         +'<option>Owned outright</option><option>Financed</option><option>Leased</option></select></div>'
@@ -828,6 +851,12 @@
   function fail(id,msg){ var p=document.getElementById(id); if(!p) return false;
     p.querySelector('span').textContent=msg; p.style.display='flex'; return false; }
   function clear(id){ var p=document.getElementById(id); if(p) p.style.display='none'; }
+  // Same shape as fail(), different meaning: it stops the visitor once so they
+  // can read it, not until they change something.
+  function warn(id,msg){ var p=document.getElementById(id); if(!p) return true;
+    p.querySelector('span').textContent=msg; p.style.display='flex';
+    p.scrollIntoView({block:'center',behavior:'smooth'}); return false; }
+  var vinNudged=false;
 
   function valid(name){
     if(name==='type') return !!chosenType();
@@ -851,13 +880,26 @@
       return true; }
     if(name==='lookup') return true;          // optional by design
     if(name==='vehicles'){ clear('e-vehicles');
-      var bs=[].slice.call(document.querySelectorAll('#vehList .blk'));
+      var bs=[].slice.call(document.querySelectorAll('#vehList .blk')), noVin=[];
       for(var i=0;i<bs.length;i++){
         var vin=bs[i].querySelector('[data-f=vin]').value.trim(),
             yr=bs[i].querySelector('[data-f=year]').value,
             mk=bs[i].querySelector('[data-f=make]').value.trim();
         if(!vin && !(yr&&mk)) return fail('e-vehicles','Add a VIN, or at least the year and make of vehicle '+(i+1)+'.');
+        if(!vin) noVin.push(i+1);
       }
+      // The rating engine needs a VIN to return a price. Without one the lead
+      // is still saved and an agent still calls — but the visitor never sees a
+      // number, so say that once, plainly, and then let them through. Blocking
+      // here would cost the lead outright, which is worse than a slower quote.
+      if(noVin.length && !vinNudged){
+        vinNudged=true;
+        return warn('w-vehicles', (noVin.length===bs.length&&bs.length===1
+            ? 'Without the VIN we can’t show you prices on screen — an agent will call you with them instead. '
+            : 'Vehicle '+noVin.join(' and ')+' has no VIN, so we can’t price it on screen — an agent will call with the numbers. ')
+          +'Press Continue again to go ahead anyway.');
+      }
+      clear('w-vehicles');
       return true; }
     if(name==='drivers'){ clear('e-drivers');
       var ds=[].slice.call(document.querySelectorAll('#drvList .blk'));
@@ -1134,16 +1176,24 @@
     show('done'); showDiag();
   }
   function results(rates){
-    // Cheapest first from the AMS; rendered in the order given, never re-sorted.
+    // Cheapest first from the AMS, one row per carrier, rendered in the order
+    // given and never re-sorted.
     // The premium is a term total, not a monthly figure — it is shown as the
     // carrier returned it rather than divided into something we made up.
     document.getElementById('rlist').innerHTML=rates.map(function(r,i){
-      var down=(r.downPayment!=null)?('down '+money(r.downPayment)):'';
-      var sub=[r.term,down].filter(Boolean).join(' \u00b7 ');
+      // The term sits under the price, so it is not repeated here.
+      var sub=(r.downPayment!=null)?('down '+money(r.downPayment)):'';
+      // Only when the carrier states its own plan. We never invent one by
+      // dividing the term total into months.
+      var n=Number(r.payments), plan='';
+      if(isFinite(n)&&n>0&&r.installment!=null)
+        plan='<small>then '+n+' \u00d7 '+money(r.installment)+'</small>';
       return '<div class="rcard'+(i===0?' best':'')+'">'
-        +'<span class="lg">'+String(r.carrier||'?').charAt(0)+'</span>'
-        +'<span class="mid"><b>'+(r.carrier||'Carrier')+'</b><small>'+sub+'</small></span>'
-        +'<span class="pr"><b>'+money(r.premium)+'</b><small>'+(r.term||'total')+'</small></span></div>';
+        +'<span class="lg">'+esc(String(r.carrier||'?').charAt(0))+'</span>'
+        +'<span class="mid">'+(i===0?'<span class="tagbest">Lowest</span>':'')
+        +'<b>'+esc(r.carrier||'Carrier')+'</b>'
+        +(sub?'<small>'+esc(sub)+'</small>':'')+plan+'</span>'
+        +'<span class="pr"><b>'+money(r.premium)+'</b><small>'+esc(r.term||'total')+'</small></span></div>';
     }).join('');
     show('results');
   }
