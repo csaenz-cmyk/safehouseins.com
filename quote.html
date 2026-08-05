@@ -301,7 +301,7 @@
       <h1>Where do you keep the car?</h1>
       <p class="sub">Rates change block by block, so the address matters.</p>
       <div class="fl acwrap"><label for="addr">Street address</label>
-        <input id="addr" name="address" placeholder="Start typing your address…"
+        <input id="addr" name="address" placeholder="Start typing — e.g. 12426 Paseo Rojo"
                autocomplete="street-address" role="combobox" aria-expanded="false" aria-autocomplete="list">
         <div class="aclist" id="aclist" role="listbox"></div></div>
       <div class="g2">
@@ -750,37 +750,64 @@
     input.addEventListener('input',function(){
       var q=input.value.trim();
       clearTimeout(timer);
-      if(q.length<4){ close(); return; }
+      // A bare house number matches postcodes the world over, so wait until
+      // there is a street name to go on.
+      if(q.length<5||(q.match(/[a-z]/gi)||[]).length<3){ close(); return; }
       if(q===lastQ) return;
       timer=setTimeout(function(){ lastQ=q; search(q); },320);
     });
 
+    /* Texas plus New Mexico, the only two states we can write in. The bbox is
+       the hard filter Photon applies server-side; the state check in the
+       filter below catches whatever leaks in from the corners of the box that
+       are neither Texas nor New Mexico (Oklahoma, Arizona, Mexico). */
+    var BBOX='-109.06,25.83,-93.50,37.01';
+    var STRICT='https://photon.komoot.io/api/?limit=8&lang=en&bbox='+BBOX
+             +'&layer=house&layer=street&lat=31.76&lon=-106.49&q=';
+    var PLAIN ='https://photon.komoot.io/api/?limit=15&lang=en&lat=31.76&lon=-106.49&q=';
+    var narrow=true;   // flipped off for good if the server refuses bbox/layer
+
     function search(q){
-      var base=window.SAFEHOUSE_ADDR_API
-        ||'https://photon.komoot.io/api/?limit=5&lang=en&lat=31.76&lon=-106.49&q=';
+      var custom=window.SAFEHOUSE_ADDR_API;
+      var base=custom||(narrow?STRICT:PLAIN);
       var ctrl=new AbortController(), t=setTimeout(function(){ctrl.abort();},5000);
       fetch(base+encodeURIComponent(q),{signal:ctrl.signal})
-        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+        .then(function(r){
+          // Some Photon builds reject bbox or layer outright. Drop them once and
+          // keep going — the Texas/New Mexico filter below is the real gate, the
+          // query parameters only save the server some work.
+          if(!r.ok){
+            if(!custom && narrow && r.status>=400 && r.status<500){
+              narrow=false; lastQ=''; search(q); return null;
+            }
+            throw 0;
+          }
+          return r.json();
+        })
         .then(function(d){
           clearTimeout(t);
+          if(d===null) return;                       // the retry above owns it
           items=((d&&d.features)||[]).map(function(f){
-            var p=f.properties||{};
+            var p=f.properties||{}, st=stateAbbr(p.state);
             return {
               number:p.housenumber||'', street:p.street||p.name||'',
-              city:p.city||p.town||p.village||'', state:stateAbbr(p.state),
+              city:p.city||p.town||p.village||'', state:st,
               zip:p.postcode||'',
               line1:[p.housenumber,p.street||p.name].filter(Boolean).join(' ')||p.name||'',
-              line2:[p.city||p.town,stateAbbr(p.state),p.postcode].filter(Boolean).join(', ')
+              line2:[p.city||p.town||p.village,st,p.postcode].filter(Boolean).join(', ')
             };
-          }).filter(function(f){ return f.line1; });
+          }).filter(function(f){
+            // a real street in a state we are licensed in, nothing else
+            return f.line1 && f.city && (f.state==='TX'||f.state==='NM');
+          }).slice(0,5);
           render();
         })
         .catch(function(){ clearTimeout(t); close(); });   // silent: just keep typing
     }
     function stateAbbr(s){
       if(!s) return '';
-      var m={'Texas':'TX','New Mexico':'NM'};
-      return m[s]||(s.length===2?s.toUpperCase():'');
+      var m={'Texas':'TX','New Mexico':'NM','TX':'TX','NM':'NM'};
+      return m[s]||'';   // anything else is a state we cannot write in
     }
   })();
 
