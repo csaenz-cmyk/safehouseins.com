@@ -1,0 +1,28 @@
+Thank you for giving us the opportunity, {{firstName}}.
+
+We shopped your quote across the carriers we represent. Here is what came
+back -- and what happens next.
+
+YOUR QUOTE NUMBER: {{quoteId}}
+
+SOME OF THE PRICES WE FOUND
+{{rateRowsText}}
+
+Six-month policies. Prices are based on the information you gave us.
+
+THESE PRICES ARE NOT FINAL.
+They are subject to verification and can change. We still need to run your
+driving record and apply every discount you qualify for.
+
+You will get a second email with your real prices, and a licensed agent will
+contact you to go through them -- in English or Spanish.
+
+Would rather not wait? Call {{agentPhone}} and we will pull up {{quoteId}}.
+
+--
+We use what you sent only to prepare your quote. The only people who contact
+you are licensed Safe House agents -- we do not sell your details or hand your
+number to anyone else.
+
+Safe House Insurance - El Paso, TX - {{agentPhone}}
+(c) {{year}} Safe House Insurance. Nothing here binds coverage.

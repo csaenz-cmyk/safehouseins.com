@@ -104,6 +104,7 @@
       color:var(--muted);margin-bottom:6px}
   .fl label .opt2{text-transform:none;font-weight:600;color:#9fb0c6}
   .fl .hint{display:block;font-size:12px;color:#9fb0c6;font-weight:600;margin-top:6px;line-height:1.4}
+  .aclist .actip{display:block;padding:13px 14px;font-size:13px;color:var(--muted);font-weight:600}
   /* once the VIN decodes, the where-to-find-it hint has done its job */
   .fl:has(.vinst.ok) .hint{display:none}
   .fl input,.fl select,.fl textarea{width:100%;border:2px solid var(--line);border-radius:14px;padding:14px;
@@ -656,8 +657,21 @@
         +'or the bottom corner of the windshield.</span></div>'
       +'<div class="g3">'
         +'<div class="fl"><label>Year</label><select data-f="year">'+sel(YEARS,v.year)+'</select></div>'
-        +'<div class="fl"><label>Make</label><input data-f="make" value="'+esc(v.make)+'" placeholder="Toyota"></div>'
-        +'<div class="fl"><label>Model</label><input data-f="model" value="'+esc(v.model)+'" placeholder="Camry"></div>'
+        +'<div class="fl"><label>Make</label><select class="mkSel">'
+          +'<option value="">Choose</option>'
+          +MAKES.map(function(m){return '<option>'+esc(m)+'</option>';}).join('')
+          +'<option value="__other">Other</option></select></div>'
+        +'<div class="fl"><label>Model</label><select class="mdSel" disabled>'
+          +'<option value="">Choose</option></select></div>'
+      +'</div>'
+      /* The free-text boxes get their own full-width row. Inside the
+         three-column grid a model name had about a third of a phone to live
+         in, and "Civic Type R" came out as "Civic Typ". */
+      +'<div class="g2 othwrap">'
+        +'<div class="fl mkOth" style="display:none"><label>Make</label>'
+          +'<input class="mkTxt" data-f="make" value="'+esc(v.make)+'" placeholder="e.g. Isuzu"></div>'
+        +'<div class="fl mdOth" style="display:none"><label>Model</label>'
+          +'<input class="mdTxt" data-f="model" value="'+esc(v.model)+'" placeholder="e.g. Rodeo"></div>'
       +'</div>'
       +'<div class="g2">'
         // The value is what the AMS rates on and must not change; the label is
@@ -707,6 +721,7 @@
   function sel(html,val){ if(!val) return html;
     return html.replace('<option>'+esc(val)+'</option>','<option selected>'+esc(val)+'</option>'); }
   function addVeh(v){ veh++; document.getElementById('vehList').insertAdjacentHTML('beforeend',vehicleBlock(veh,v));
+    wireCar(document.querySelector('#vehList .blk:last-child'));
     wireVin(document.querySelector('#vehList .blk:last-child'));
     document.getElementById('addVeh').disabled=veh>=4; }
   function addDrv(d){ drv++; document.getElementById('drvList').insertAdjacentHTML('beforeend',driverBlock(drv,d));
@@ -730,6 +745,54 @@
      decoder we prefer that; otherwise we go straight to NHTSA. Every failure
      path is silent: the visitor just types the year, make and model themselves,
      which is what they would have done anyway. */
+  /* Makes and models sold in the United States. Only ever a convenience:
+     the VIN is still the accurate route, and 'Other' takes free text so a
+     car missing from this list is never a dead end. */
+  var CARS={
+    'Acura':          'CL,ILX,Integra,MDX,RDX,RL,RLX,RSX,TL,TLX,TSX,ZDX',
+    'Alfa Romeo':     '4C,Giulia,Stelvio,Tonale',
+    'Audi':           'A3,A4,A5,A6,A7,A8,e-tron,Q3,Q4 e-tron,Q5,Q7,Q8,RS3,RS5,S3,S4,S5,TT',
+    'BMW':            '128i,228i,230i,320i,328i,330i,335i,340i,428i,430i,435i,440i,528i,530i,535i,540i,550i,740i,750i,i3,i4,i5,i7,iX,M2,M3,M4,M5,X1,X2,X3,X4,X5,X6,X7,Z4',
+    'Buick':          'Cascada,Enclave,Encore,Encore GX,Envision,Envista,LaCrosse,Lucerne,Regal,Verano',
+    'Cadillac':       'ATS,CT4,CT5,CT6,CTS,DTS,Escalade,Escalade ESV,LYRIQ,SRX,STS,XT4,XT5,XT6,XTS',
+    'Chevrolet':      'Avalanche,Blazer,Bolt EUV,Bolt EV,Camaro,Captiva,Cavalier,Cobalt,Colorado,Corvette,Cruze,Equinox,Express,HHR,Impala,Malibu,Monte Carlo,Silverado 1500,Silverado 2500HD,Silverado 3500HD,Sonic,Spark,Suburban,Tahoe,Trailblazer,Traverse,Trax,Uplander,Volt',
+    'Chrysler':       '200,300,Aspen,Pacifica,PT Cruiser,Sebring,Town & Country,Voyager',
+    'Dodge':          'Avenger,Caliber,Challenger,Charger,Dakota,Dart,Durango,Grand Caravan,Hornet,Journey,Magnum,Neon,Nitro,Ram 1500,Ram 2500,Ram 3500,Stratus,Viper',
+    'Fiat':           '124 Spider,500,500L,500X',
+    'Ford':           'Bronco,Bronco Sport,C-Max,EcoSport,Edge,Escape,Excursion,Expedition,Explorer,F-150,F-250,F-350,Fiesta,Five Hundred,Flex,Focus,Fusion,Maverick,Mustang,Mustang Mach-E,Ranger,Taurus,Transit,Transit Connect',
+    'GMC':            'Acadia,Canyon,Envoy,Hummer EV,Savana,Sierra 1500,Sierra 2500HD,Sierra 3500HD,Terrain,Yukon,Yukon XL',
+    'Genesis':        'G70,G80,G90,GV60,GV70,GV80',
+    'Honda':          'Accord,Civic,Clarity,CR-V,CR-Z,Crosstour,Element,Fit,HR-V,Insight,Odyssey,Passport,Pilot,Prologue,Ridgeline,S2000',
+    'Hyundai':        'Accent,Azera,Elantra,Elantra N,Genesis Coupe,Ioniq,Ioniq 5,Ioniq 6,Kona,Palisade,Santa Cruz,Santa Fe,Sonata,Tucson,Veloster,Venue,Veracruz',
+    'Infiniti':       'EX35,FX35,FX45,G35,G37,JX35,M35,M37,Q50,Q60,Q70,QX30,QX50,QX55,QX56,QX60,QX70,QX80',
+    'Jaguar':         'E-Pace,F-Pace,F-Type,I-Pace,XE,XF,XJ,XK',
+    'Jeep':           'Cherokee,Commander,Compass,Gladiator,Grand Cherokee,Grand Wagoneer,Liberty,Patriot,Renegade,Wagoneer,Wrangler,Wrangler Unlimited',
+    'Kia':            'Cadenza,Carnival,EV6,EV9,Forte,K5,K900,Niro,Optima,Rio,Sedona,Seltos,Sorento,Soul,Sportage,Stinger,Telluride',
+    'Land Rover':     'Defender,Discovery,Discovery Sport,LR2,LR3,LR4,Range Rover,Range Rover Evoque,Range Rover Sport,Range Rover Velar',
+    'Lexus':          'CT200h,ES,GS,GX,IS,LC,LS,LX,NX,RC,RX,RZ,TX,UX',
+    'Lincoln':        'Aviator,Continental,Corsair,MKC,MKS,MKT,MKX,MKZ,Nautilus,Navigator,Town Car',
+    'Maserati':       'Ghibli,Grecale,GranTurismo,Levante,Quattroporte',
+    'Mazda':          'CX-3,CX-30,CX-5,CX-50,CX-7,CX-9,CX-90,Mazda2,Mazda3,Mazda5,Mazda6,MX-5 Miata,MX-30,Tribute',
+    'Mercedes-Benz':  'A-Class,C-Class,CLA,CLS,E-Class,EQB,EQE,EQS,G-Class,GLA,GLB,GLC,GLE,GLK,GLS,ML-Class,S-Class,SL,SLK,Sprinter',
+    'Mercury':        'Grand Marquis,Mariner,Milan,Montego,Mountaineer,Sable',
+    'Mini':           'Clubman,Convertible,Cooper,Countryman,Hardtop,Paceman',
+    'Mitsubishi':     'Eclipse,Eclipse Cross,Endeavor,Galant,Lancer,Mirage,Outlander,Outlander Sport',
+    'Nissan':         '370Z,Altima,Ariya,Armada,Cube,Frontier,GT-R,Juke,Kicks,Leaf,Maxima,Murano,NV200,Pathfinder,Quest,Rogue,Rogue Sport,Sentra,Titan,Versa,Xterra,Z',
+    'Polestar':       'Polestar 2,Polestar 3',
+    'Pontiac':        'G5,G6,G8,Grand Am,Grand Prix,Solstice,Torrent,Vibe',
+    'Porsche':        '718 Boxster,718 Cayman,911,Cayenne,Macan,Panamera,Taycan',
+    'Ram':            '1500,2500,3500,ProMaster,ProMaster City',
+    'Saturn':         'Aura,Ion,Outlook,Sky,Vue',
+    'Scion':          'FR-S,iA,iM,tC,xB,xD',
+    'Subaru':         'Ascent,BRZ,Crosstrek,Forester,Impreza,Legacy,Outback,Solterra,Tribeca,WRX',
+    'Suzuki':         'Forenza,Grand Vitara,Kizashi,SX4',
+    'Tesla':          'Cybertruck,Model 3,Model S,Model X,Model Y',
+    'Toyota':         '4Runner,86,Avalon,C-HR,Camry,Corolla,Corolla Cross,Crown,FJ Cruiser,GR86,Grand Highlander,Highlander,Land Cruiser,Matrix,Mirai,Prius,Prius C,Prius V,RAV4,Sequoia,Sienna,Solara,Supra,Tacoma,Tundra,Venza,Yaris',
+    'Volkswagen':     'Arteon,Atlas,Atlas Cross Sport,Beetle,CC,Eos,Golf,GTI,ID.4,Jetta,Passat,Routan,Taos,Tiguan,Touareg',
+    'Volvo':          'C40,S40,S60,S80,S90,V60,V90,XC40,XC60,XC70,XC90',
+  };
+  var MAKES=Object.keys(CARS).sort();
+
   var VIN_RE=/^[A-HJ-NPR-Z0-9]{17}$/i;          // no I, O or Q in a real VIN
   var vinCache={};
 
@@ -770,6 +833,61 @@
     return String(s||'').toLowerCase().replace(/\b[a-z]/g,function(c){return c.toUpperCase();}).trim();
   }
 
+  /* Make and model are two selects backed by the catalogue, with a free-text
+     box behind "Other". The text inputs carry data-f, so grab() keeps reading
+     one value per field no matter which route the visitor took — and the VIN
+     decoder keeps writing to the same place. */
+  function wireCar(blk){
+    var mkSel=blk.querySelector('.mkSel'), mkTxt=blk.querySelector('.mkTxt'),
+        mdSel=blk.querySelector('.mdSel'), mdTxt=blk.querySelector('.mdTxt'),
+        mkOth=blk.querySelector('.mkOth'), mdOth=blk.querySelector('.mdOth');
+    if(!mkSel) return;
+    function showMk(on){ mkOth.style.display=on?'block':'none'; }
+    function showMd(on){ mdOth.style.display=on?'block':'none'; }
+
+    function fillModels(make,keep){
+      var list=CARS[make]?CARS[make].split(','):[];
+      mdSel.innerHTML='<option value="">Choose</option>'
+        +list.map(function(m){return '<option>'+esc(m)+'</option>';}).join('')
+        +'<option value="__other">Other</option>';
+      mdSel.disabled=!list.length;
+      if(keep && list.indexOf(keep)>-1){ mdSel.value=keep; mdTxt.value=keep; showMd(false); }
+      else if(keep){ mdSel.value='__other'; mdTxt.value=keep; showMd(true); }
+      else { mdTxt.value=''; showMd(false); }
+    }
+
+    mkSel.addEventListener('change',function(){
+      var v=mkSel.value;
+      if(v==='__other'){
+        showMk(true); mkTxt.value=''; mkTxt.focus();
+        // no catalogue for a make we do not know, so the model is free text too
+        mdSel.innerHTML='<option value="">Choose</option><option value="__other">Other</option>';
+        mdSel.disabled=true; mdSel.value='';
+        showMd(true); mdTxt.value='';
+      } else {
+        showMk(false); mkTxt.value=v;
+        fillModels(v,'');
+      }
+    });
+    mdSel.addEventListener('change',function(){
+      var v=mdSel.value;
+      if(v==='__other'){ showMd(true); mdTxt.value=''; mdTxt.focus(); }
+      else { showMd(false); mdTxt.value=v; }
+    });
+
+    // whatever the VIN decoded, or a value carried over from prefill
+    blk.__setCar=function(make,model){
+      if(!make) return;
+      var known=MAKES.filter(function(m){return m.toLowerCase()===String(make).toLowerCase();})[0];
+      if(known){ mkSel.value=known; showMk(false); mkTxt.value=known;
+                 fillModels(known,model||''); }
+      else { mkSel.value='__other'; showMk(true); mkTxt.value=make;
+             mdSel.disabled=true; mdSel.value='';
+             showMd(true); mdTxt.value=model||''; }
+    };
+    if(mkTxt.value) blk.__setCar(mkTxt.value, mdTxt.value);
+  }
+
   function wireVin(blk){
     var input=blk.querySelector('[data-f=vin]'), timer=null;
     input.addEventListener('input',function(){
@@ -781,10 +899,11 @@
       timer=setTimeout(function(){
         vinStatus(blk,'busy','Looking up this VIN\u2026');
         decodeVin(vin).then(function(v){
-          var y=blk.querySelector('[data-f=year]'), mk=blk.querySelector('[data-f=make]'), md=blk.querySelector('[data-f=model]');
+          var y=blk.querySelector('[data-f=year]');
           if(v.year && [].slice.call(y.options).some(function(o){return o.value===v.year||o.text===v.year;})) y.value=v.year;
-          if(v.make)  mk.value=v.make;
-          if(v.model) md.value=v.model;
+          // routes through the selects, so a decoded make lands on the list
+          // when we know it and in the free-text box when we do not
+          if(blk.__setCar) blk.__setCar(v.make,v.model);
           vinStatus(blk,'ok',[v.year,v.make,v.model].filter(Boolean).join(' '));
         }).catch(function(){
           vinStatus(blk,'no','Could not read that VIN \u2014 the year and make below will do.');
@@ -865,14 +984,29 @@
     }
 
     input.addEventListener('input',function(){
-      var q=input.value.trim(), parts=splitNum(q);
+      var q=input.value.trim(), parts=splitNum(q),
+          letters=parts.rest.replace(/[^A-Za-z]/g,'').length;
       clearTimeout(timer);
-      // Nothing to search until there is a piece of street name. A house
-      // number on its own is not a question any geocoder can answer.
-      if(parts.rest.replace(/[^A-Za-z]/g,'').length<3){ close(); return; }
+      // A house number on its own is not a question any geocoder can answer,
+      // but going silent reads as broken. Say what is missing instead.
+      if(letters<3){
+        if(/^\d{2,}\s*$/.test(q)) tip('Now the street name \u2014 e.g. '+q.trim()+' Sunny Slope');
+        else if(parts.num && letters>0) tip('Keep typing the street name\u2026');
+        else close();
+        return;
+      }
       if(q===lastQ) return;
       timer=setTimeout(function(){ lastQ=q; num=parts.num; search(parts.rest); },320);
     });
+
+    /* Not a suggestion — a line telling the visitor what the field is waiting
+       for. It carries no data-i, so the click handler ignores it. */
+    function tip(text){
+      items=[]; hi=-1; lastQ='';
+      list.innerHTML='<span class="actip">'+esc(text)+'</span>';
+      list.classList.add('on');
+      input.setAttribute('aria-expanded','false');
+    }
 
     /* Texas plus New Mexico, the only two states we can write in. The bbox is
        the hard filter Photon applies server-side; the state check in the
@@ -1317,21 +1451,31 @@
     if(w.length>1 && /^(THE|A|AN)$/.test(w[0])) w.shift();
     return w[0]||s;
   }
-  function sixMonthBest(rates){
-    var out=[], at={};
-    (rates||[]).forEach(function(r){
+  function sixMonth(rates){
+    return (rates||[]).filter(function(r){
       var m=termMonths(r.term);
-      if(m!==null && m!==6) return;            // a term we can name, and it is not ours
+      if(m!==null && m!==6) return false;      // a term we can name, and it is not ours
       // Number(null) is 0, so a missing premium would render as "$0" and sort
       // straight to the top as the cheapest option on the page.
-      if(r.premium===null||r.premium===undefined||r.premium==='') return;
+      if(r.premium===null||r.premium===undefined||r.premium==='') return false;
       var p=Number(r.premium);
-      if(!isFinite(p)||p<=0) return;           // nothing to show or compare
-      var k=company(r.carrier);
-      if(!(k in at)){ at[k]=out.length; out.push(r); return; }
-      if(p<Number(out[at[k]].premium)) out[at[k]]=r;
+      return isFinite(p)&&p>0;                 // nothing to show or compare
     });
-    return out.sort(function(a,b){ return Number(a.premium)-Number(b.premium); });
+  }
+  /* One row per company, cheapest by whichever number the list is about.
+     This runs INSIDE each tab, never across both: most carriers sell a
+     pay-in-full program and an instalment program, and deduplicating before
+     the split threw the instalment one away every time the up-front price was
+     lower — which it nearly always is. That is why the monthly tab had two
+     rows and the pay-in-full tab had ten. */
+  function bestPerCompany(list,field){
+    var out=[], at={};
+    list.forEach(function(r){
+      var k=company(r.carrier), v=Number(r[field]);
+      if(!(k in at)){ at[k]=out.length; out.push(r); return; }
+      if(v<Number(out[at[k]][field])) out[at[k]]=r;
+    });
+    return out.sort(function(a,b){ return Number(a[field])-Number(b[field]); });
   }
 
   /* A carrier that offers instalments and a carrier that wants the whole
@@ -1345,7 +1489,7 @@
   var PLANS={monthly:[],full:[]}, chosenRate=null, payTab='monthly';
 
   function results(rates){
-    var list=sixMonthBest(rates);
+    var list=sixMonth(rates);
     // Filtering must never leave an empty price list on screen. If nothing
     // six-month came back, this is a quote an agent has to work.
     if(!list.length){
@@ -1354,10 +1498,8 @@
       console.warn('[quote] no six-month rates in',rates);
       toAgent(); return;
     }
-    PLANS.monthly=list.filter(isMonthly)
-      .sort(function(a,b){ return Number(a.installment)-Number(b.installment); });
-    PLANS.full=list.filter(function(r){ return !isMonthly(r); })
-      .sort(function(a,b){ return Number(a.premium)-Number(b.premium); });
+    PLANS.monthly=bestPerCompany(list.filter(isMonthly),'installment');
+    PLANS.full   =bestPerCompany(list.filter(function(r){ return !isMonthly(r); }),'premium');
 
     // Open on the tab that actually has something in it.
     payTab=PLANS.monthly.length?'monthly':'full';

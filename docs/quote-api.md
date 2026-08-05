@@ -215,6 +215,13 @@ what made the first real list unreadable. So the results screen has two tabs:
   is printed underneath so the true cost is never hidden.
 - **Pay in full** — everything else. The big number is the term premium.
 
+**Deduplication happens inside each tab, never across both.** Most carriers
+sell a pay-in-full program and an instalment program. Collapsing to one row per
+company before the split threw the instalment one away every time the up-front
+price was lower — which it nearly always is — so the monthly tab showed two
+carriers while pay-in-full showed ten. A company that sells both now appears in
+both.
+
 A tab with nothing in it is disabled, and the screen opens on whichever tab has
 rows. Switching tabs clears any selection, because the number the visitor was
 looking at means something different on the other side.
@@ -242,6 +249,20 @@ carrier, premium, downPayment, installment, payments, term}`.
 
 Violations, accidents, tickets, SSN, licence images, payment details.
 
+## Make and model
+
+Two selects backed by a catalogue of 41 makes and ~500 models sold in the US,
+for the visitor who does not have the VIN handy. Both carry an **Other** option
+that opens a free-text box, so a car missing from the list is never a dead end.
+
+The text inputs are the ones carrying `data-f`, so `grab()` reads one value per
+field whichever route was taken. The VIN decoder writes through the same path:
+a make we stock selects it and loads its models; one we do not stock lands in
+the free-text box with the model beside it.
+
+The catalogue is a convenience, not a source of truth — the VIN is still the
+accurate route, and the AMS receives whatever string ends up in the field.
+
 ## Address suggestions
 
 The street field suggests as you type and fills city, state and ZIP on pick.
@@ -257,11 +278,15 @@ Searches are confined to Texas and New Mexico by a bounding box, and anything
 that leaks in from the corners of the box — Oklahoma, Arizona, Chihuahua — is
 dropped by a state check on the way to the list.
 
-**Three characters is the whole threshold, digits included.** An earlier
-version demanded three letters to stop a bare number matching postcodes
-worldwide; the bounding box already does that, and the rule broke every Texas
-and New Mexico address, which all start with the house number. Typing "8747"
-must search.
+**The house number never reaches the geocoder.** OpenStreetMap has very few
+address points in the United States but excellent street coverage, so sending
+"4474 S" matches the digits against road names and answers "County Road 4474".
+The number is split off, the street alone is searched, and the number is put
+back on the row and in the field when the visitor picks.
+
+Because a house number on its own cannot be searched, typing one shows a line
+saying what the field is waiting for — *"Now the street name — e.g. 8747 Sunny
+Slope"* — rather than going silent, which reads as broken.
 
 Two requests at most, and only when the first finds nothing:
 
