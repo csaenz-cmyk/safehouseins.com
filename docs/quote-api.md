@@ -176,10 +176,33 @@ would leave with nothing, and the lead is worth more than the price on screen.
 }
 ```
 
-One row per carrier, cheapest first. The page renders them in the order given
-and never re-sorts or de-duplicates. `installment` and `payments` are shown as
-*"then 5 × $201.38"* only when both are present and sane; a monthly figure is
-never derived by dividing the term total.
+`installment` and `payments` are shown as *"then 5 × $201.38"* only when both
+are present and above zero; a monthly figure is never derived by dividing the
+term total. When `downPayment` equals `premium` the row reads *"paid in full"*
+instead of repeating the number.
+
+### What reaches the screen
+
+The engine returns every program a carrier sells — one month, three, six,
+pay-in-full, five-pay, EFT — and a raw list is not comparable: a $74 one-month
+sits above a $262 six-month and reads as the better deal. So `results()`
+narrows it:
+
+1. **Six-month terms only.** A rate is dropped when its `term` parses to a
+   number that is not 6. A term we cannot parse is kept — we only exclude what
+   we can positively identify.
+2. **A premium that is missing, zero or non-numeric is dropped.** `Number(null)`
+   is `0`, which would otherwise render as *"$0"* and sort to the top as the
+   cheapest option on the page.
+3. **One row per company, its cheapest.** The first meaningful word of
+   `carrier` identifies the company; everything after it names the product, so
+   "Apollo Monthly", "Apollo Select 1 MO" and "Apollo Newstar 6 MO" collapse to
+   one Apollo row. A leading "The"/"A"/"An" is skipped.
+4. **Sorted by premium, ascending**, since filtering can disturb the order the
+   AMS sent.
+
+If that leaves nothing, the visitor goes to the agent screen with a reason in
+the panel. An empty price list is never rendered.
 
 ## What the form never asks
 
@@ -195,6 +218,27 @@ street-level accuracy worth paying for.
 It only ever suggests. Nothing is blocked, the field stays free text, and a
 provider that is slow or down changes nothing on screen. It also refuses to
 write a state we are not licensed in, so a New York result cannot overwrite TX.
+
+Searches are confined to Texas and New Mexico by a bounding box, and anything
+that leaks in from the corners of the box — Oklahoma, Arizona, Chihuahua — is
+dropped by a state check on the way to the list.
+
+**Three characters is the whole threshold, digits included.** An earlier
+version demanded three letters to stop a bare number matching postcodes
+worldwide; the bounding box already does that, and the rule broke every Texas
+and New Mexico address, which all start with the house number. Typing "8747"
+must search.
+
+Two requests at most, and only when the first finds nothing:
+
+1. `layer=house&layer=street` within the box — precise, and what almost every
+   query needs.
+2. the same box with no layer filter. Address points are patchy in OSM, so a
+   house number that simply is not mapped finds nothing under `layer=house`;
+   this still turns up the street, which is enough to pick and correct.
+
+If the server rejects `bbox` or `layer` outright (4xx), both are dropped for
+the rest of the session and the state check carries the restriction alone.
 
 **Not tested against the live Photon endpoint** — no outbound network in this
 container. Verified against a mock of their documented response shape.

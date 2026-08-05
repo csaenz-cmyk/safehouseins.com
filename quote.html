@@ -472,6 +472,7 @@
     <section class="step" data-step="results">
       <h1>Your initial options</h1>
       <span class="tag">Subject to verification</span>
+      <p class="sub">Six-month policies, one per carrier &mdash; lowest first.</p>
       <div class="rlist" id="rlist"></div>
       <p class="estnote" id="note1">Prices are based on the information you provided and are subject to
         verification of your driving history.</p>
@@ -773,9 +774,11 @@
     input.addEventListener('input',function(){
       var q=input.value.trim();
       clearTimeout(timer);
-      // A bare house number matches postcodes the world over, so wait until
-      // there is a street name to go on.
-      if(q.length<5||(q.match(/[a-z]/gi)||[]).length<3){ close(); return; }
+      // Texas and New Mexico addresses start with the house number, so the
+      // first thing typed is almost always digits. Requiring letters here
+      // meant "8747" returned nothing — the bbox already keeps the results
+      // inside the two states, which is what the letters were guarding.
+      if(q.length<3){ close(); return; }
       if(q===lastQ) return;
       timer=setTimeout(function(){ lastQ=q; search(q); },320);
     });
@@ -785,14 +788,19 @@
        filter below catches whatever leaks in from the corners of the box that
        are neither Texas nor New Mexico (Oklahoma, Arizona, Mexico). */
     var BBOX='-109.06,25.83,-93.50,37.01';
-    var STRICT='https://photon.komoot.io/api/?limit=8&lang=en&bbox='+BBOX
-             +'&layer=house&layer=street&lat=31.76&lon=-106.49&q=';
+    var HOUSES='https://photon.komoot.io/api/?limit=8&lang=en&bbox='+BBOX
+              +'&layer=house&layer=street&lat=31.76&lon=-106.49&q=';
+    // Same box, no layer filter. Address points are patchy in OSM, so a house
+    // number that is simply not mapped finds nothing under layer=house — this
+    // still turns up the street, which is enough to pick and correct.
+    var WIDE  ='https://photon.komoot.io/api/?limit=15&lang=en&bbox='+BBOX
+              +'&lat=31.76&lon=-106.49&q=';
     var PLAIN ='https://photon.komoot.io/api/?limit=15&lang=en&lat=31.76&lon=-106.49&q=';
     var narrow=true;   // flipped off for good if the server refuses bbox/layer
 
-    function search(q){
+    function search(q,wide){
       var custom=window.SAFEHOUSE_ADDR_API;
-      var base=custom||(narrow?STRICT:PLAIN);
+      var base=custom||(!narrow?PLAIN:(wide?WIDE:HOUSES));
       var ctrl=new AbortController(), t=setTimeout(function(){ctrl.abort();},5000);
       fetch(base+encodeURIComponent(q),{signal:ctrl.signal})
         .then(function(r){
@@ -801,7 +809,7 @@
           // query parameters only save the server some work.
           if(!r.ok){
             if(!custom && narrow && r.status>=400 && r.status<500){
-              narrow=false; lastQ=''; search(q); return null;
+              narrow=false; search(q); return null;
             }
             throw 0;
           }
@@ -823,6 +831,10 @@
             // a real street in a state we are licensed in, nothing else
             return f.line1 && f.city && (f.state==='TX'||f.state==='NM');
           }).slice(0,5);
+          // Nothing under layer=house usually means the address point is not
+          // mapped, not that the address is wrong. Ask once more without the
+          // layer filter before telling the visitor there is nothing.
+          if(!items.length && !wide && !custom && narrow){ search(q,true); return; }
           render();
         })
         .catch(function(){ clearTimeout(t); close(); });   // silent: just keep typing
@@ -1175,25 +1187,70 @@
       +'text or call you shortly with your options \u2014 in English or Spanish.';
     show('done'); showDiag();
   }
+  /* ---------- one line per company, six-month terms only ----------
+     The engine returns every program a carrier sells: one month, three, six,
+     pay-in-full, five-pay, EFT. Shown raw that is a wall of numbers the
+     visitor cannot compare — a $74 one-month sits above a $262 six-month and
+     looks like the better deal. So anything we can positively identify as a
+     term other than six months is dropped, and each company keeps only its
+     cheapest remaining program. */
+  function termMonths(t){ var m=String(t||'').match(/\d+/); return m?Number(m[0]):null; }
+  function termText(t){ var m=termMonths(t);
+    return m?(m===1?'1 month':m+' months'):(t||'total'); }
+
+  /* "Apollo Monthly", "Apollo Select 1 MO" and "Apollo Newstar 1 MO" are three
+     programs from one company. The first meaningful word is what identifies
+     the company; everything after it names the product. */
+  function company(name){
+    var s=String(name||'').split('|')[0].replace(/[^A-Za-z0-9 ]+/g,' ').trim().toUpperCase();
+    var w=s.split(/\s+/).filter(Boolean);
+    if(w.length>1 && /^(THE|A|AN)$/.test(w[0])) w.shift();
+    return w[0]||s;
+  }
+  function sixMonthBest(rates){
+    var out=[], at={};
+    (rates||[]).forEach(function(r){
+      var m=termMonths(r.term);
+      if(m!==null && m!==6) return;            // a term we can name, and it is not ours
+      // Number(null) is 0, so a missing premium would render as "$0" and sort
+      // straight to the top as the cheapest option on the page.
+      if(r.premium===null||r.premium===undefined||r.premium==='') return;
+      var p=Number(r.premium);
+      if(!isFinite(p)||p<=0) return;           // nothing to show or compare
+      var k=company(r.carrier);
+      if(!(k in at)){ at[k]=out.length; out.push(r); return; }
+      if(p<Number(out[at[k]].premium)) out[at[k]]=r;
+    });
+    return out.sort(function(a,b){ return Number(a.premium)-Number(b.premium); });
+  }
+
   function results(rates){
-    // Cheapest first from the AMS, one row per carrier, rendered in the order
-    // given and never re-sorted.
+    var list=sixMonthBest(rates);
+    // Filtering must never leave an empty price list on screen. If nothing
+    // six-month came back, this is a quote an agent has to work.
+    if(!list.length){
+      note('The AMS returned '+((rates||[]).length)+' rate(s), none of them a six-month '
+          +'term with a usable premium. Nothing was shown.');
+      console.warn('[quote] no six-month rates in',rates);
+      toAgent(); return;
+    }
     // The premium is a term total, not a monthly figure — it is shown as the
     // carrier returned it rather than divided into something we made up.
-    document.getElementById('rlist').innerHTML=rates.map(function(r,i){
+    document.getElementById('rlist').innerHTML=list.map(function(r,i){
       // The term sits under the price, so it is not repeated here.
-      var sub=(r.downPayment!=null)?('down '+money(r.downPayment)):'';
+      var pf=(r.downPayment!=null)&&Math.abs(Number(r.downPayment)-Number(r.premium))<0.01;
+      var sub=pf?'paid in full':((r.downPayment!=null)?('down '+money(r.downPayment)):'');
       // Only when the carrier states its own plan. We never invent one by
       // dividing the term total into months.
-      var n=Number(r.payments), plan='';
-      if(isFinite(n)&&n>0&&r.installment!=null)
-        plan='<small>then '+n+' \u00d7 '+money(r.installment)+'</small>';
+      var n=Number(r.payments), inst=Number(r.installment), plan='';
+      if(!pf && isFinite(n) && n>0 && isFinite(inst) && inst>0)
+        plan='<small>then '+n+' \u00d7 '+money(inst)+'</small>';
       return '<div class="rcard'+(i===0?' best':'')+'">'
         +'<span class="lg">'+esc(String(r.carrier||'?').charAt(0))+'</span>'
         +'<span class="mid">'+(i===0?'<span class="tagbest">Lowest</span>':'')
         +'<b>'+esc(r.carrier||'Carrier')+'</b>'
         +(sub?'<small>'+esc(sub)+'</small>':'')+plan+'</span>'
-        +'<span class="pr"><b>'+money(r.premium)+'</b><small>'+esc(r.term||'total')+'</small></span></div>';
+        +'<span class="pr"><b>'+money(r.premium)+'</b><small>'+esc(termText(r.term))+'</small></span></div>';
     }).join('');
     show('results');
   }
