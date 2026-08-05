@@ -1093,6 +1093,30 @@
   // screenshot is enough to diagnose without opening devtools.
   var lastReason='';
   function note(reason){ lastReason=reason; }
+
+  /* Pull whatever the AMS said out of a body whose exact shape we do not
+     control. A 202 is only actionable if it carries a reason, so take the
+     first field that looks like one and fall back to the whole body. */
+  function why(d){
+    if(!d||typeof d!=='object') return '';
+    var keys=['reason','error','message','detail','ratingError'], txt='';
+    for(var i=0;i<keys.length&&!txt;i++){
+      var v=d[keys[i]];
+      if(typeof v==='string'&&v) txt=v;
+      else if(v&&typeof v==='object') txt=JSON.stringify(v);
+    }
+    if(!txt&&d.warnings&&d.warnings.length) txt=d.warnings.join('; ');
+    if(!txt){
+      // nothing named a reason — show the body minus the fields we already know
+      var rest={};
+      for(var k in d) if(['ok','status','quoteId','clientId'].indexOf(k)===-1) rest[k]=d[k];
+      var s=JSON.stringify(rest);
+      if(s&&s!=='{}') txt=s;
+    }
+    var id=d.quoteId||d.leadId||d.clientId;
+    return (txt?' AMS says: '+String(txt).slice(0,220)+'.':' The AMS gave no reason.')
+         + (id?' Ref '+id+'.':'');
+  }
   function showDiag(){
     var el=document.getElementById('diag'); if(!el||!lastReason) return;
     var host=location.hostname,
@@ -1147,9 +1171,16 @@
     fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
       .then(function(r){
         if(r.status===202){ stop();
-          note('202 from the bridge — the AMS saved the lead but could not rate. '
-              +'This is the expected screen for that. Nothing is wrong with the site.');
-          toAgent(); return null; }
+          // The AMS explains itself in the body. Read it — without the reason a
+          // 202 is indistinguishable from every other 202, and the person who
+          // has to fix it is on the other side of the bridge.
+          return r.json().catch(function(){return {};}).then(function(d){
+            note('202 from the bridge — the AMS saved the lead but could not rate.'
+                +why(d)+' Nothing is wrong with the site; the fix is on the AMS side.');
+            console.error('[quote] 202 from the AMS — lead saved, rating failed.',d);
+            window.__quote202=d;
+            toAgent(); return null;
+          }); }
         return r.json().catch(function(){return {};}).then(function(d){
           // Every one of these ends on the agent screen, so name it in the
           // console — otherwise a config problem is indistinguishable from a
@@ -1210,8 +1241,12 @@
             {headers:{'Accept':'application/json'}})
         .then(function(r){
           if(r.status===202){ stop();
-            note('202 while polling — the AMS could not finish rating. The lead is saved.');
-            toAgent(); return null; }
+            return r.json().catch(function(){return {};}).then(function(d){
+              note('202 while polling — the AMS could not finish rating. The lead is saved.'+why(d));
+              console.error('[quote] 202 while polling.',d);
+              window.__quote202=d;
+              toAgent(); return null;
+            }); }
           if(!r.ok) throw new Error('HTTP '+r.status);
           return r.json();
         })
