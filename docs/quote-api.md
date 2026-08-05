@@ -204,6 +204,40 @@ narrows it:
 If that leaves nothing, the visitor goes to the agent screen with a reason in
 the panel. An empty price list is never rendered.
 
+### Two lists, never one
+
+A carrier wanting $91.68 down and five payments of $89.17 and a carrier wanting
+$310.50 today are not comparable numbers, and stacking them in one column is
+what made the first real list unreadable. So the results screen has two tabs:
+
+- **Pay monthly** — rates where `payments > 0` and `installment > 0`. The big
+  number is the carrier's own instalment, sorted ascending; the six-month total
+  is printed underneath so the true cost is never hidden.
+- **Pay in full** — everything else. The big number is the term premium.
+
+A tab with nothing in it is disabled, and the screen opens on whichever tab has
+rows. Switching tabs clears any selection, because the number the visitor was
+looking at means something different on the other side.
+
+### Choosing, and what happens after
+
+Tapping a row selects it; the button below names the choice and the price.
+From there: **confirm** (the plan repeated back, plus an orange notice that the
+price is not final and an agent will call to apply discounts and run the
+driving record) and then **picked**, which shows the AMS `quoteId` as the quote
+number.
+
+Email is required at the contact step — that is where the quote is sent.
+
+**The AMS has no endpoint for recording which option the visitor chose.** The
+selection is put on `window.__chosen` and logged, nothing more. It is
+deliberately not POSTed anywhere: the only documented POST creates a quote, and
+sending a selection to it would create a duplicate lead. The lead itself was
+saved when the quote was submitted, so an agent still calls either way — they
+just do not yet know which carrier was picked. **This needs an endpoint on the
+AMS side**, something like `POST /public-quote/select` taking `{quoteId,
+carrier, premium, downPayment, installment, payments, term}`.
+
 ## What the form never asks
 
 Violations, accidents, tickets, SSN, licence images, payment details.

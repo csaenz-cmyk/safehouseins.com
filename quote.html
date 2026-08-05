@@ -203,20 +203,63 @@
   .rating p{font-size:15px;color:var(--muted);font-weight:600;margin-top:16px}
   .rating .who{font-size:13px;color:#9fb0c6;font-weight:600;margin-top:6px}
 
-  .rlist{display:flex;flex-direction:column;gap:10px;margin-top:18px}
-  .rcard{border:2px solid var(--line);border-radius:18px;padding:14px;display:flex;align-items:center;gap:12px;background:#fff}
+  /* how you want to pay — two lists, never mixed in one column */
+  .segs{display:flex;gap:6px;background:var(--ice);border-radius:99px;padding:5px;margin-top:18px}
+  .seg{flex:1;border:0;background:transparent;border-radius:99px;padding:10px 8px;font:inherit;
+       font-size:14px;font-weight:800;color:var(--muted);cursor:pointer;transition:.18s}
+  .seg.on{background:#fff;color:var(--navy);box-shadow:0 2px 8px rgba(16,42,77,.10)}
+  .seg:disabled{opacity:.4;cursor:not-allowed}
+  .rempty{font-size:13.5px;color:var(--muted);font-weight:600;text-align:center;
+          padding:22px 12px;line-height:1.5}
+
+  .rlist{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+  /* A button, so the whole row is one tap on a phone. Two rows: the carrier
+     name gets the full width beside the logo instead of fighting the price
+     for it — "Bluefire - Aggressive Select" wrapped to three lines otherwise. */
+  .rcard{width:100%;text-align:left;font:inherit;cursor:pointer;
+      border:2px solid var(--line);border-radius:18px;padding:13px 14px;background:#fff;
+      display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:3px 11px;align-items:center;
+      grid-template-areas:"lg name chk" "lg meta price"}
+  .rcard:hover{border-color:#CBDCF4}
   .rcard.best{border-color:var(--blue);background:#F7FBFF}
-  .rcard .lg{width:38px;height:38px;border-radius:12px;background:var(--ice);color:var(--blue-d);display:grid;
-      place-items:center;font-weight:900;font-size:15px;flex:0 0 auto}
-  .rcard .mid{flex:1;min-width:0}
-  /* Carrier names run long — "Progressive Insurance", "Kemper Auto | BVP" —
-     and the price column must never be the thing that gives way. */
-  .rcard .mid b{display:block;font-size:15px;font-weight:800;color:var(--navy);line-height:1.25}
-  .rcard .mid small{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:2px}
+  .rcard.sel{border-color:var(--blue);background:#F2F8FF;box-shadow:0 0 0 4px rgba(31,122,255,.13)}
+  .rcard .chk{grid-area:chk;width:22px;height:22px;border-radius:99px;border:2px solid var(--line);
+      display:grid;place-items:center;color:#fff;font-size:12px;font-weight:900;align-self:start}
+  .rcard.sel .chk{background:var(--blue);border-color:var(--blue)}
+  .buy{margin-top:16px}
+  .buy:disabled{background:#E7EEF8;color:#9fb0c6;box-shadow:none;cursor:not-allowed}
+
+  /* the chosen plan, repeated back so the visitor knows what they picked */
+  .chosen{border:2px solid var(--blue);background:#F7FBFF;border-radius:18px;padding:15px;margin-top:16px}
+  .chosen b.co{display:block;font-size:17px;font-weight:900;color:var(--navy)}
+  .chosen .big{font-size:28px;font-weight:900;color:var(--navy);letter-spacing:-.02em;margin-top:6px}
+  .chosen .big span{font-size:14px;font-weight:700;color:var(--muted);letter-spacing:0}
+  .chosen ul{list-style:none;margin-top:10px;border-top:1px solid #DCE9FA;padding-top:10px}
+  .chosen li{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;font-weight:700;
+      color:var(--muted);padding:3px 0}
+  .chosen li b{color:var(--navy);font-weight:800}
+
+  /* the one thing on the page that must not be missed */
+  .onote{border:1px solid #F5C97B;background:#FFF6E6;border-radius:18px;padding:15px;margin-top:16px}
+  .onote b{display:block;font-size:15px;font-weight:900;color:#7A4E00;margin-bottom:5px}
+  .onote p{font-size:13.5px;line-height:1.55;color:#8A5A00;font-weight:600}
+
+  .qnum{border:2px dashed #CBDCF4;border-radius:18px;padding:14px;margin-top:16px;text-align:center}
+  .qnum small{display:block;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--muted)}
+  .qnum b{display:block;font-size:22px;font-weight:900;color:var(--navy);margin-top:4px;
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all}
+  .rcard .lg{grid-area:lg;width:38px;height:38px;border-radius:12px;background:var(--ice);
+      color:var(--blue-d);display:grid;place-items:center;font-weight:900;font-size:15px}
+  .rcard .nm{grid-area:name;min-width:0}
+  .rcard .nm b{display:block;font-size:15px;font-weight:800;color:var(--navy);line-height:1.25}
+  .rcard .meta{grid-area:meta;min-width:0}
+  .rcard .meta small{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;
+      line-height:1.35}
   .rcard .tagbest{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.09em;
       text-transform:uppercase;color:var(--blue-d);background:#E4F0FF;border-radius:99px;
-      padding:3px 8px;margin-bottom:5px}
-  .rcard .pr{text-align:right;flex:0 0 auto;white-space:nowrap}
+      padding:2px 7px;margin-bottom:3px}
+  .rcard .pr{grid-area:price;text-align:right;white-space:nowrap;align-self:end}
   .rcard .pr b{display:block;font-size:20px;font-weight:900;color:var(--navy);letter-spacing:-.02em}
   .rcard .pr small{display:block;font-size:11px;color:var(--muted);font-weight:700}
   .tag{display:inline-block;font-family:'Geist Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.12em;
@@ -447,7 +490,7 @@
         <div class="fl"><label for="cln">Last name</label><input id="cln" name="last" placeholder="Last name" autocomplete="family-name"></div>
       </div>
       <div class="fl"><label for="cph">Phone</label><input id="cph" name="phone" type="tel" placeholder="(915) 000-0000" inputmode="tel" autocomplete="tel"></div>
-      <div class="fl"><label for="cem">Email <span class="opt2">(optional)</span></label><input id="cem" name="email" type="email" placeholder="you@email.com" inputmode="email" autocomplete="email"></div>
+      <div class="fl"><label for="cem">Email <span class="opt2">(we send your quote here)</span></label><input id="cem" name="email" type="email" placeholder="you@email.com" inputmode="email" autocomplete="email"></div>
       <div class="fl"><label for="cnt">Anything we should know? <span class="opt2">(optional)</span></label>
         <textarea id="cnt" name="notes" rows="3" placeholder="SR-22, tickets, current carrier&hellip;"></textarea></div>
       <p class="err" id="e-contact"><svg class="i"><use href="#shield"/></svg><span></span></p>
@@ -472,13 +515,52 @@
     <section class="step" data-step="results">
       <h1>Your initial options</h1>
       <span class="tag">Subject to verification</span>
-      <p class="sub">Six-month policies, one per carrier &mdash; lowest first.</p>
+      <p class="sub">Six-month policies, one price per company &mdash; lowest first.</p>
+
+      <div class="segs" id="paytabs" role="tablist" aria-label="How you want to pay">
+        <button class="seg on" type="button" data-pay="monthly" role="tab" aria-selected="true">Pay monthly</button>
+        <button class="seg" type="button" data-pay="full" role="tab" aria-selected="false">Pay in full</button>
+      </div>
+
       <div class="rlist" id="rlist"></div>
+      <p class="rempty" id="rempty" style="display:none"></p>
+
+      <button class="btn buy" id="buy" type="button" disabled>Pick an option above</button>
+
       <p class="estnote" id="note1">Prices are based on the information you provided and are subject to
         verification of your driving history.</p>
       <p class="estnote agentnote" id="note2"><svg class="i"><use href="#ph"/></svg><span>An agent will text or
         call you shortly to confirm every discount was applied &mdash; and to check whether you qualify for more.</span></p>
-      <a class="btn" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Talk to an agent now</a>
+      <a class="btn ghost" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Talk to an agent instead</a>
+    </section>
+
+    <!-- ============ 8b &middot; confirm the choice ============ -->
+    <section class="step" data-step="confirm">
+      <h1>Confirm your choice</h1>
+      <p class="sub">Nothing is charged here and no policy starts yet.</p>
+      <div class="chosen" id="chosen"></div>
+      <div class="onote">
+        <b>This price is not final yet.</b>
+        <p>A licensed Safe House agent will text or call you shortly to apply every discount you
+          qualify for and to run your driving record. Your final price can change once that is done
+          &mdash; most often it goes down.</p>
+      </div>
+      <p class="err" id="e-confirm"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" id="confirmBtn" type="button">Send this to my agent
+        <svg class="i"><use href="#ar"/></svg></button>
+      <button class="btn ghost" id="backOpts" type="button">Back to the options</button>
+    </section>
+
+    <!-- ============ 8c &middot; picked ============ -->
+    <section class="step done" data-step="picked">
+      <span class="tick">&#10003;</span>
+      <h1>You are all set.</h1>
+      <p id="pickedP">We sent your quote to your email and an agent is picking it up now.</p>
+      <div class="qnum"><small>Your quote number</small><b id="qid">&mdash;</b></div>
+      <div class="chosen" id="chosen2"></div>
+      <p class="estnote agentnote"><svg class="i"><use href="#ph"/></svg><span>Keep your phone handy &mdash;
+        an agent will text or call you shortly to confirm discounts and finish your quote.</span></p>
+      <a class="btn" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
       <a class="btn ghost" href="index.html">Back to the site</a>
     </section>
 
@@ -738,7 +820,7 @@
   (function(){
     var input=document.getElementById('addr'), list=document.getElementById('aclist');
     if(!input||!list) return;
-    var timer=null, items=[], hi=-1, lastQ='';
+    var timer=null, items=[], hi=-1, lastQ='', num='';
 
     function close(){ list.classList.remove('on'); list.innerHTML=''; hi=-1;
       input.setAttribute('aria-expanded','false'); }
@@ -771,16 +853,25 @@
     });
     document.addEventListener('click',function(e){ if(!e.target.closest('.acwrap')) close(); });
 
+    /* "8747 Sunny Slope" -> {num:"8747", rest:"Sunny Slope"}
+       OpenStreetMap has very few address points in the United States but
+       excellent street coverage, so sending the house number to the geocoder
+       does not find the house — it matches the digits against road names and
+       answers "County Road 4474". The number never goes to the server. We
+       search the street, and put the number back when the visitor picks. */
+    function splitNum(q){
+      var m=String(q).match(/^\s*(\d+[A-Za-z]?)[\s,]+(.*)$/);
+      return m?{num:m[1],rest:m[2].trim()}:{num:'',rest:String(q).trim()};
+    }
+
     input.addEventListener('input',function(){
-      var q=input.value.trim();
+      var q=input.value.trim(), parts=splitNum(q);
       clearTimeout(timer);
-      // Texas and New Mexico addresses start with the house number, so the
-      // first thing typed is almost always digits. Requiring letters here
-      // meant "8747" returned nothing — the bbox already keeps the results
-      // inside the two states, which is what the letters were guarding.
-      if(q.length<3){ close(); return; }
+      // Nothing to search until there is a piece of street name. A house
+      // number on its own is not a question any geocoder can answer.
+      if(parts.rest.replace(/[^A-Za-z]/g,'').length<3){ close(); return; }
       if(q===lastQ) return;
-      timer=setTimeout(function(){ lastQ=q; search(q); },320);
+      timer=setTimeout(function(){ lastQ=q; num=parts.num; search(parts.rest); },320);
     });
 
     /* Texas plus New Mexico, the only two states we can write in. The bbox is
@@ -820,16 +911,27 @@
           if(d===null) return;                       // the retry above owns it
           items=((d&&d.features)||[]).map(function(f){
             var p=f.properties||{}, st=stateAbbr(p.state);
+            // The visitor's own house number wins over anything the geocoder
+            // attached — they know their address, it is only the street,
+            // city, state and ZIP we are looking up.
+            var n=num||p.housenumber||'', street=p.street||p.name||'';
             return {
-              number:p.housenumber||'', street:p.street||p.name||'',
+              number:n, street:street,
               city:p.city||p.town||p.village||'', state:st,
               zip:p.postcode||'',
-              line1:[p.housenumber,p.street||p.name].filter(Boolean).join(' ')||p.name||'',
+              line1:[n,street].filter(Boolean).join(' '),
               line2:[p.city||p.town||p.village,st,p.postcode].filter(Boolean).join(', ')
             };
           }).filter(function(f){
             // a real street in a state we are licensed in, nothing else
-            return f.line1 && f.city && (f.state==='TX'||f.state==='NM');
+            return f.street && f.city && (f.state==='TX'||f.state==='NM');
+          });
+          // One row per street: the same street often comes back as several
+          // segments, which reads as five identical suggestions.
+          var seen={};
+          items=items.filter(function(f){
+            var k=(f.line1+'|'+f.line2).toLowerCase();
+            if(seen[k]) return false; seen[k]=1; return true;
           }).slice(0,5);
           // Nothing under layer=house usually means the address point is not
           // mapped, not that the address is wrong. Ask once more without the
@@ -853,7 +955,9 @@
     var i=flow.indexOf(name);
     if(i>-1){ at=i; bar.style.width=Math.round(((i+1)/flow.length)*100)+'%';
       crumb.textContent='Step '+(i+1)+' of '+flow.length; back.style.visibility='visible'; }
-    else { bar.style.width='100%'; crumb.textContent=name==='rating'?'Working on it':'All done';
+    else { bar.style.width='100%';
+      crumb.textContent={rating:'Working on it',results:'Your options',
+                         confirm:'Almost there'}[name]||'All done';
       back.style.visibility='hidden'; }
     window.scrollTo({top:0,behavior:'smooth'});
   }
@@ -928,6 +1032,12 @@
       if(!document.getElementById('cfn').value.trim()) return fail('e-contact','Please add your first name.');
       if(document.getElementById('cph').value.replace(/\D/g,'').length<10)
         return fail('e-contact','Please add a phone number we can reach you at.');
+      // The quote is emailed, so this is no longer optional. Deliberately loose:
+      // a regex that argues with real addresses turns away real customers.
+      var em=document.getElementById('cem').value.trim();
+      if(!em) return fail('e-contact','We need your email \u2014 that is where your quote gets sent.');
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em))
+        return fail('e-contact','That email looks incomplete \u2014 please check it.');
       return true; }
     return true;
   }
@@ -1224,6 +1334,16 @@
     return out.sort(function(a,b){ return Number(a.premium)-Number(b.premium); });
   }
 
+  /* A carrier that offers instalments and a carrier that wants the whole
+     six months up front are not comparable numbers, and mixing them in one
+     column is what made the first list unreadable. Two lists, one tab each,
+     and each list sorted by the number that tab is about. */
+  function isMonthly(r){
+    var n=Number(r.payments), inst=Number(r.installment);
+    return isFinite(n)&&n>0&&isFinite(inst)&&inst>0;
+  }
+  var PLANS={monthly:[],full:[]}, chosenRate=null, payTab='monthly';
+
   function results(rates){
     var list=sixMonthBest(rates);
     // Filtering must never leave an empty price list on screen. If nothing
@@ -1234,25 +1354,140 @@
       console.warn('[quote] no six-month rates in',rates);
       toAgent(); return;
     }
-    // The premium is a term total, not a monthly figure — it is shown as the
-    // carrier returned it rather than divided into something we made up.
-    document.getElementById('rlist').innerHTML=list.map(function(r,i){
-      // The term sits under the price, so it is not repeated here.
-      var pf=(r.downPayment!=null)&&Math.abs(Number(r.downPayment)-Number(r.premium))<0.01;
-      var sub=pf?'paid in full':((r.downPayment!=null)?('down '+money(r.downPayment)):'');
-      // Only when the carrier states its own plan. We never invent one by
-      // dividing the term total into months.
-      var n=Number(r.payments), inst=Number(r.installment), plan='';
-      if(!pf && isFinite(n) && n>0 && isFinite(inst) && inst>0)
-        plan='<small>then '+n+' \u00d7 '+money(inst)+'</small>';
-      return '<div class="rcard'+(i===0?' best':'')+'">'
-        +'<span class="lg">'+esc(String(r.carrier||'?').charAt(0))+'</span>'
-        +'<span class="mid">'+(i===0?'<span class="tagbest">Lowest</span>':'')
-        +'<b>'+esc(r.carrier||'Carrier')+'</b>'
-        +(sub?'<small>'+esc(sub)+'</small>':'')+plan+'</span>'
-        +'<span class="pr"><b>'+money(r.premium)+'</b><small>'+esc(termText(r.term))+'</small></span></div>';
-    }).join('');
+    PLANS.monthly=list.filter(isMonthly)
+      .sort(function(a,b){ return Number(a.installment)-Number(b.installment); });
+    PLANS.full=list.filter(function(r){ return !isMonthly(r); })
+      .sort(function(a,b){ return Number(a.premium)-Number(b.premium); });
+
+    // Open on the tab that actually has something in it.
+    payTab=PLANS.monthly.length?'monthly':'full';
+    [].slice.call(document.querySelectorAll('#paytabs .seg')).forEach(function(b){
+      var k=b.dataset.pay;
+      b.disabled=!PLANS[k].length;
+      b.classList.toggle('on',k===payTab);
+      b.setAttribute('aria-selected',k===payTab?'true':'false');
+    });
+    chosenRate=null;
+    renderPlans();
     show('results');
+  }
+
+  function renderPlans(){
+    var rows=PLANS[payTab], el=document.getElementById('rlist'),
+        empty=document.getElementById('rempty');
+    if(!rows.length){
+      el.innerHTML='';
+      empty.textContent=payTab==='monthly'
+        ? 'None of these carriers offered a monthly plan on this quote. The pay-in-full prices are on the other tab.'
+        : 'None of these carriers offered a single up-front payment. The monthly plans are on the other tab.';
+      empty.style.display='block';
+    } else {
+      empty.style.display='none';
+      // The premium is a term total, never a monthly figure we made up. In the
+      // monthly tab the big number is the carrier's own instalment.
+      el.innerHTML=rows.map(function(r,i){
+        var sel=chosenRate&&chosenRate.__k===key(r);
+        var big, sub, foot;
+        if(payTab==='monthly'){
+          var n=Number(r.payments);
+          big=money(r.installment); foot='per month';
+          sub=money(r.downPayment)+' down, then '+n+(n===1?' payment':' payments');
+        } else {
+          big=money(r.premium); foot=termText(r.term);
+          sub='one payment, nothing due later';
+        }
+        return '<button type="button" class="rcard'+(i===0?' best':'')+(sel?' sel':'')
+          +'" data-i="'+i+'">'
+          +'<span class="lg">'+esc(String(r.carrier||'?').charAt(0))+'</span>'
+          +'<span class="nm">'+(i===0?'<span class="tagbest">Lowest</span>':'')
+          +'<b>'+esc(r.carrier||'Carrier')+'</b></span>'
+          +'<span class="chk">✓</span>'
+          +'<span class="meta"><small>'+esc(sub)+'</small>'
+          +(payTab==='monthly'?'<small>'+esc('6-month total '+money(r.premium))+'</small>':'')
+          +'</span>'
+          +'<span class="pr"><b>'+big+'</b><small>'+esc(foot)+'</small></span>'
+          +'</button>';
+      }).join('');
+    }
+    updateBuy();
+  }
+  function key(r){ return (r.carrier||'')+'|'+r.premium+'|'+r.installment+'|'+r.payments; }
+
+  function updateBuy(){
+    var b=document.getElementById('buy');
+    if(!chosenRate){ b.disabled=true; b.textContent='Pick an option above'; return; }
+    b.disabled=false;
+    b.textContent='Purchase '+(chosenRate.carrier||'this option')
+      +' — '+(payTab==='monthly'?money(chosenRate.installment)+'/mo':money(chosenRate.premium));
+  }
+
+  document.getElementById('paytabs').addEventListener('click',function(e){
+    var b=e.target.closest('.seg'); if(!b||b.disabled) return;
+    payTab=b.dataset.pay;
+    [].slice.call(this.querySelectorAll('.seg')).forEach(function(x){
+      x.classList.toggle('on',x===b);
+      x.setAttribute('aria-selected',x===b?'true':'false');
+    });
+    chosenRate=null;              // the price means something different per tab
+    renderPlans();
+  });
+
+  document.getElementById('rlist').addEventListener('click',function(e){
+    var b=e.target.closest('.rcard'); if(!b) return;
+    var r=PLANS[payTab][+b.dataset.i]; if(!r) return;
+    chosenRate=r; chosenRate.__k=key(r);
+    [].slice.call(this.querySelectorAll('.rcard')).forEach(function(c){
+      c.classList.toggle('sel',c===b);
+    });
+    updateBuy();
+    document.getElementById('buy').scrollIntoView({block:'nearest',behavior:'smooth'});
+  });
+
+  document.getElementById('buy').addEventListener('click',function(){
+    if(!chosenRate) return;
+    document.getElementById('chosen').innerHTML=chosenHtml(chosenRate);
+    show('confirm');
+  });
+  document.getElementById('backOpts').addEventListener('click',function(){ show('results'); });
+
+  document.getElementById('confirmBtn').addEventListener('click',function(){
+    if(!chosenRate) return;
+    var q=(window.__quote&&window.__quote.quoteId)||'';
+    document.getElementById('qid').textContent=q||'pending — an agent has your details';
+    document.getElementById('chosen2').innerHTML=chosenHtml(chosenRate);
+    var em=document.getElementById('cem').value.trim();
+    document.getElementById('pickedP').textContent = em
+      ? 'We are sending this quote to '+em+' and an agent is picking it up now.'
+      : 'An agent is picking this up now.';
+    // The AMS has no endpoint for recording a choice yet, so the selection
+    // lives here and in the console until it does. The lead itself was saved
+    // the moment the quote was submitted — nothing is lost either way.
+    window.__chosen={quoteId:q,plan:payTab,carrier:chosenRate.carrier,
+                     premium:chosenRate.premium,downPayment:chosenRate.downPayment,
+                     installment:chosenRate.installment,payments:chosenRate.payments,
+                     term:chosenRate.term,email:em};
+    console.log('[quote] visitor chose',window.__chosen);
+    show('picked');
+  });
+
+  function chosenHtml(r){
+    var rows=[];
+    if(payTab==='monthly'){
+      var n=Number(r.payments);
+      rows.push(['Due today',money(r.downPayment)]);
+      rows.push(['Then',n+(n===1?' payment of ':' payments of ')+money(r.installment)]);
+      rows.push(['Six-month total',money(r.premium)]);
+    } else {
+      rows.push(['Due today',money(r.premium)]);
+      rows.push(['Then','nothing — paid in full']);
+    }
+    rows.push(['Term',termText(r.term)]);
+    return '<b class="co">'+esc(r.carrier||'Carrier')+'</b>'
+      +'<div class="big">'+(payTab==='monthly'?money(r.installment)+' <span>per month</span>'
+                                              :money(r.premium)+' <span>paid in full</span>')+'</div>'
+      +'<ul>'+rows.map(function(x){
+          return '<li><span>'+esc(x[0])+'</span><b>'+esc(String(x[1]))+'</b></li>'; }).join('')
+      +'</ul>';
   }
   function money(n){
     var v=Number(n);
