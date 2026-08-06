@@ -3,32 +3,31 @@
 Two pages and one checkbox. This is what TCR reviewers open, and the reasons
 each piece is shaped the way it is.
 
-## ⚠️ Four values must be filled before this goes live
+## The agency details
 
-They are on the page right now as highlighted `[[ ]]` markers, deliberately
-visible so they cannot ship by accident. **They were not guessed**: TCR
-cross-checks them against the 10DLC brand registration, so anything invented
-here fails the application rather than passing it.
+Supplied by the agency, and they must keep matching the IRS SS-4 — TCR
+cross-checks them against the 10DLC brand registration, so a mismatch fails the
+application:
 
-| Marker | What it needs |
+| Field | Value |
 |---|---|
-| `[[LEGAL ENTITY NAME]]` | exactly as on the IRS SS-4 — e.g. "Safe House Insurance LLC" |
-| `[[FULL STREET ADDRESS]]` | exactly as on the SS-4, appears twice per page |
-| `[[ZIP]]` | the ZIP on the SS-4 |
+| Legal entity | Safe House Insurance LLC |
+| Address | 6065 Montana Ave Ste C8, El Paso, TX 79925 |
 
-They appear in `privacy.html` and `sms-terms.html`. Both files are generated
-from one script, so edit the values in one place:
+They live in one place, `FILL` at the top of `tools/genlegal.py`. Change them
+there and regenerate — never edit the two HTML files by hand, or they drift:
 
 ```
-python3 tools/genlegal.py    # rewrites both pages
+python3 tools/genlegal.py    # rewrites privacy.html and sms-terms.html
 ```
 
-The effective date is set to **August 6, 2026** in both languages. Change it if
-the pages go live on a different day.
+The effective date is **August 6, 2026** in both languages. Change it if the
+pages go live on a different day.
 
 **Have a Texas-licensed attorney review both pages before publishing.** An
 insurance agency is a "financial institution" under Gramm-Leach-Bliley, which
-adds its own privacy-notice rules on top of what the carriers require.
+adds its own privacy-notice rules on top of what the carriers require. This is
+still the one open item.
 
 ## The pages
 

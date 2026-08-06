@@ -4,21 +4,19 @@ import html, re, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Values the agency has not given us. They must match the IRS SS-4 exactly,
-# because TCR cross-checks them against the 10DLC brand registration — so they
-# are marked, not guessed.
+# These must match the IRS SS-4 exactly — TCR cross-checks them against the
+# 10DLC brand registration, so they are the agency's own values, never guessed.
 FILL = {
-  'ENTITY': 'Safe House Insurance [[LEGAL ENTITY NAME — see note below]]',
-  'ADDR':   '[[FULL STREET ADDRESS]]',
-  'ZIP':    '[[ZIP]]',
+  'ENTITY': 'Safe House Insurance LLC',
+  'ADDR':   '6065 Montana Ave Ste C8',
+  'ZIP':    '79925',
 }
 EFFECTIVE_EN = 'August 6, 2026'
 EFFECTIVE_ES = '6 de agosto de 2026'
 
 def fill(s):
-    s = s.replace('{{ENTITY}}', '<mark class="fill">'+FILL['ENTITY']+'</mark>')
-    s = s.replace('{{ADDR}}',   '<mark class="fill">'+FILL['ADDR']+'</mark>')
-    s = s.replace('{{ZIP}}',    '<mark class="fill">'+FILL['ZIP']+'</mark>')
+    for k, v in FILL.items():
+        s = s.replace('{{'+k+'}}', v)
     return s
 
 HEAD = """<!doctype html>
