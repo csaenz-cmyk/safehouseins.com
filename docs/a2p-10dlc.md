@@ -1,0 +1,117 @@
+# A2P 10DLC — what the website side does
+
+Two pages and one checkbox. This is what TCR reviewers open, and the reasons
+each piece is shaped the way it is.
+
+## ⚠️ Four values must be filled before this goes live
+
+They are on the page right now as highlighted `[[ ]]` markers, deliberately
+visible so they cannot ship by accident. **They were not guessed**: TCR
+cross-checks them against the 10DLC brand registration, so anything invented
+here fails the application rather than passing it.
+
+| Marker | What it needs |
+|---|---|
+| `[[LEGAL ENTITY NAME]]` | exactly as on the IRS SS-4 — e.g. "Safe House Insurance LLC" |
+| `[[FULL STREET ADDRESS]]` | exactly as on the SS-4, appears twice per page |
+| `[[ZIP]]` | the ZIP on the SS-4 |
+
+They appear in `privacy.html` and `sms-terms.html`. Both files are generated
+from one script, so edit the values in one place:
+
+```
+python3 tools/genlegal.py    # rewrites both pages
+```
+
+The effective date is set to **August 6, 2026** in both languages. Change it if
+the pages go live on a different day.
+
+**Have a Texas-licensed attorney review both pages before publishing.** An
+insurance agency is a "financial institution" under Gramm-Leach-Bliley, which
+adds its own privacy-notice rules on top of what the carriers require.
+
+## The pages
+
+- `privacy.html` → `/privacy`
+- `sms-terms.html` → `/sms-terms`
+
+Both are bilingual with **English and Spanish visible on the same page**, one
+after the other, not behind a toggle. A language switcher that hides one side
+would put the checked sentences inside `display:none`, where a reviewer's
+Ctrl-F does not reach. The pills at the top jump between the two.
+
+Static HTML, no login, no script needed to read them.
+
+### URL note
+
+The site is GitHub Pages, which serves `privacy.html` at `/privacy`. If the
+host is ever changed to something that does not strip `.html`, these become
+`/privacy.html` and the registration needs the same treatment — or add a
+redirect. Worth re-checking on the live domain before submitting.
+
+## The consent checkbox
+
+On the contact step of the quote flow. Four things about it are load-bearing:
+
+1. **It is its own control.** Nothing else is bundled into that label — no
+   terms-of-service acceptance, no marketing opt-in. One checkbox, one consent.
+2. **It starts unchecked**, and there is no code path that checks it for the
+   visitor.
+3. **It is not required.** `valid('contact')` never looks at it. The line under
+   it says so out loud: *"Optional — you will get your quote either way."*
+4. **The wording is the checklist's**, including "Message and data rates may
+   apply", "Message frequency varies", "Reply STOP to opt out, HELP for help",
+   and links to both pages.
+
+## What reaches the AMS
+
+Four fields on the quote payload, on **every** submission:
+
+```jsonc
+{
+  "smsConsent": true,                     // or false — always present
+  "smsConsentAt": "2026-08-06T18:22:41.117Z",   // null when false
+  "smsConsentSource": "safehouseins.com/quote",
+  "smsConsentText": "I agree to receive text messages from Safe House Insurance about my quote and my policy at the number provided. Message and data rates may apply. Message frequency varies. Reply STOP to opt out, HELP for help."
+}
+```
+
+`smsConsent: false` is sent rather than omitted. A missing field is
+indistinguishable from a decline, and the point of the record is being able to
+show which one it was.
+
+`smsConsentText` carries the exact wording the person saw. If the label is ever
+reworded, old records still show what was actually agreed to — which is the
+question that gets asked in a complaint.
+
+The same information rides on the mailto fallback, so a quote that never
+reaches the AMS still carries its consent record.
+
+### For the AMS side
+
+**Store all four fields.** The proof of consent is the timestamp plus the
+wording, not the boolean on its own.
+
+**Honour it.** `smsConsent: false` means do not text that number from an
+automated flow. An agent replying to a person who texted the agency first is a
+different thing, and is covered.
+
+## The checklist, line by line
+
+| TCR checks | Where |
+|---|---|
+| `/privacy` and `/sms-terms` reachable without login | static HTML, no auth anywhere on the site |
+| Linked from the footer of every page | all nine pages, verified in a browser |
+| "No mobile information will be shared…" on **both** pages | present verbatim, English and Spanish |
+| Separate, unchecked consent box on every form taking a phone number | the quote flow is the only such form |
+| Label wording | taken from the checklist, unedited |
+| Form submits with the box unchecked | verified end to end |
+| Consent state sent to the AMS | four fields above |
+| Site does not claim SMS consent is required | the note under the box says the opposite |
+
+Verified in a browser: every page links both documents, all three English
+sentences are present as **visible** text on both pages (checked through
+`innerText`, so anything hidden would fail), the box starts unchecked and
+non-required with exactly one input in its label, the form reaches the results
+screen with the box untouched, and the payload carries `false`/`null` when
+unchecked and `true` plus an ISO timestamp and the full wording when checked.

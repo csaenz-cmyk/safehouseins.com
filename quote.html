@@ -185,6 +185,23 @@
   .trust b{display:flex;align-items:center;gap:8px;font-size:14.5px;color:var(--navy);font-weight:800}
   .trust b svg{color:var(--blue);width:16px;height:16px}
   .trust p{font-size:12.5px;color:var(--muted);margin-top:7px;font-weight:500;line-height:1.55}
+  /* the SMS consent — its own control, nothing else bundled into it */
+  .consent{display:flex;gap:11px;align-items:flex-start;margin-top:20px;cursor:pointer;
+      border:1.5px solid var(--line);border-radius:16px;padding:14px 15px;background:#fff}
+  .consent:hover{border-color:#CBDCF4}
+  .consent input{position:absolute;opacity:0;width:0;height:0}
+  .consent .box{flex:0 0 auto;width:22px;height:22px;border:2px solid #C6D4E8;border-radius:7px;
+      margin-top:1px;display:grid;place-items:center;transition:.15s}
+  .consent .box::after{content:'\2713';color:#fff;font-size:14px;font-weight:900;opacity:0;transition:.15s}
+  .consent input:checked+.box{background:var(--blue);border-color:var(--blue)}
+  .consent input:checked+.box::after{opacity:1}
+  .consent input:focus-visible+.box{outline:3px solid #BBD6FF;outline-offset:2px}
+  .consent .tx{font-size:12.8px;line-height:1.55;color:var(--muted);font-weight:600}
+  .consent .tx a{color:var(--blue);font-weight:800}
+  .consent-note{font-size:12px;color:#9fb0c6;font-weight:700;margin-top:7px;text-align:center}
+  .legal{text-align:center;margin-top:16px;font-size:12.5px;font-weight:700;color:#9fb0c6}
+  .legal a{color:var(--blue);text-decoration:none}
+  .legal a:hover{text-decoration:underline}
 
   /* rating + results */
   .rating{text-align:center;padding:22px 0 6px}
@@ -494,6 +511,20 @@
       <div class="fl"><label for="cem">Email <span class="opt2">(we send your quote here)</span></label><input id="cem" name="email" type="email" placeholder="you@email.com" inputmode="email" autocomplete="email"></div>
       <div class="fl"><label for="cnt">Anything we should know? <span class="opt2">(optional)</span></label>
         <textarea id="cnt" name="notes" rows="3" placeholder="SR-22, tickets, current carrier&hellip;"></textarea></div>
+      <!-- A2P 10DLC: this consent stands on its own, starts unchecked, and is
+           never required to submit. Bundling it with anything else, or
+           pre-checking it, is what gets a campaign rejected. -->
+      <label class="consent" for="sms">
+        <input type="checkbox" id="sms" name="smsConsent" value="yes">
+        <span class="box" aria-hidden="true"></span>
+        <span class="tx">I agree to receive text messages from Safe House Insurance about my quote
+          and my policy at the number provided. Message and data rates may apply. Message frequency
+          varies. Reply STOP to opt out, HELP for help. See our
+          <a href="sms-terms.html" target="_blank" rel="noopener">SMS Terms</a> and
+          <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+      </label>
+      <p class="consent-note">Optional &mdash; you will get your quote either way.</p>
+
       <p class="err" id="e-contact"><svg class="i"><use href="#shield"/></svg><span></span></p>
       <button class="btn" id="submit" type="submit">See my options <svg class="i"><use href="#ar"/></svg></button>
       <p class="note"><svg class="i"><use href="#lock"/></svg> Free and no obligation. A licensed agent reviews everything before any policy is issued &mdash; nothing is bound on this page.</p>
@@ -582,6 +613,10 @@
     <p>We use what you send only to prepare your quote. The only people who contact you are licensed
        Safe House agents &mdash; we do not sell your details or hand your number to anyone else.</p>
   </div>
+
+  <p class="legal"><a href="privacy.html">Privacy Policy</a> &middot;
+     <a href="sms-terms.html">SMS Terms</a> &middot;
+     <a href="index.html">Back to safehouseins.com</a></p>
 </div>
 
 <script>
@@ -1267,6 +1302,7 @@
       +(p.street?'\nAddress: '+p.street+', '+p.city+' '+(p.state||''):'')
       +(p.residenceType?'\nResidence: '+p.residenceType:'')
       +(p.zip?'\nZIP: '+p.zip:'')
+      +'\nSMS consent: '+(p.smsConsent?('YES at '+p.smsConsentAt):'NO')
       +'\nCurrently insured: '+(p.hasPriorInsurance?'yes':'no')
       +(p.priorMonths?' ('+p.priorMonths+' months)':'')
       +(p.priorCarrier?'\nCurrent carrier: '+p.priorCarrier:'')
@@ -1314,6 +1350,12 @@
      Values stay as the form captured them ("Married", "100/300/100", "$500");
      the AMS maps those onto the engine's enums, because it is the side that
      knows the vocabulary and one bad value fails every carrier at once. */
+  /* The wording shown next to the checkbox, kept beside the code that sends it
+     so the record and the screen can never drift apart. */
+  var SMS_CONSENT_TEXT='I agree to receive text messages from Safe House Insurance about my quote '
+    +'and my policy at the number provided. Message and data rates may apply. Message frequency '
+    +'varies. Reply STOP to opt out, HELP for help.';
+
   function toAms(){
     var ins=form.querySelector('input[name=insured]:checked'),
         liab=document.getElementById('liab').value,
@@ -1362,6 +1404,15 @@
           prefillUsed: didLookup,
           submittedAt: new Date().toISOString()
         };
+    /* A2P 10DLC proof of consent. Sent on every quote, true or false, so the
+       agency can show who agreed and who did not — a missing field would be
+       indistinguishable from a decline. The exact wording travels with it,
+       because what matters later is what the person actually agreed to. */
+    var sms=document.getElementById('sms');
+    p.smsConsent = !!(sms && sms.checked);
+    p.smsConsentAt = p.smsConsent ? new Date().toISOString() : null;
+    p.smsConsentSource = 'safehouseins.com/quote';
+    p.smsConsentText = p.smsConsent ? SMS_CONSENT_TEXT : null;
     if(PRIOR_MONTHS[years]) p.priorMonths=PRIOR_MONTHS[years];
     var pc=document.getElementById('pcar').value.trim(),
         pe=document.getElementById('pexp').value;
@@ -1749,10 +1800,13 @@
   /* Home, commercial, motorcycle and renters are not rated online — the short
      path never builds an auto payload, it just emails what it has. */
   function shortMail(){
+    var sc=document.getElementById('sms');
     var b='Insurance type: '+LABEL[chosenType()]
       +'\nName: '+document.getElementById('cfn').value+' '+document.getElementById('cln').value
       +'\nPhone: '+document.getElementById('cph').value
       +'\nEmail: '+document.getElementById('cem').value
+      // carried here too, so a fallback never loses the consent record
+      +'\nSMS consent: '+(sc&&sc.checked?('YES at '+new Date().toISOString()):'NO')
       +(document.getElementById('cnt').value?'\n\nNotes: '+document.getElementById('cnt').value:'');
     location.href='mailto:contact@safehouseins.com?subject='
       +encodeURIComponent('Quote request - '+LABEL[chosenType()]+' - '+document.getElementById('cfn').value)
