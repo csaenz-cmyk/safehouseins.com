@@ -210,10 +210,26 @@ A carrier wanting $91.68 down and five payments of $89.17 and a carrier wanting
 $310.50 today are not comparable numbers, and stacking them in one column is
 what made the first real list unreadable. So the results screen has two tabs:
 
-- **Pay monthly** — rates where `payments > 0` and `installment > 0`. The big
-  number is the carrier's own instalment, sorted ascending; the six-month total
-  is printed underneath so the true cost is never hidden.
+- **Pay monthly** — rates with **two or more** instalments and a positive
+  `installment`. The big number is the carrier's own instalment, sorted
+  ascending; the six-month total is printed underneath so the true cost is
+  never hidden.
 - **Pay in full** — everything else. The big number is the term premium.
+
+`payments: 1` is **not** a payment plan. A single instalment is the whole
+premium due at once, and it was rendering as *"$2,301.50 per month"*, which
+reads as a monthly price and is not one.
+
+**Both tabs list every company.** A carrier that did not quote the payment type
+a tab is about still appears in it, below a divider, showing what it *did*
+quote and saying so. The visitor compares the same set of companies either way,
+and no monthly figure is ever invented by dividing a term total — if a carrier
+did not offer instalments, the page says that rather than making a number up.
+
+Each row carries its own kind, not the tab's, so a single-payment carrier
+listed under "Pay monthly" is priced, confirmed and recorded as a single
+payment. Rows are copied per tab; tagging the shared object would let the
+second tab overwrite the first's label.
 
 **Deduplication happens inside each tab, never across both.** Most carriers
 sell a pay-in-full program and an instalment program. Collapsing to one row per

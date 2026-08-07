@@ -229,6 +229,11 @@
   .seg:disabled{opacity:.4;cursor:not-allowed}
   .rempty{font-size:13.5px;color:var(--muted);font-weight:600;text-align:center;
           padding:22px 12px;line-height:1.5}
+  /* where the carriers that did not quote this payment type begin */
+  .rsplit{display:flex;align-items:center;gap:10px;margin:18px 2px 4px;font-size:11.5px;
+      font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:#9fb0c6;line-height:1.4}
+  .rsplit::before,.rsplit::after{content:'';flex:1;height:1px;background:var(--line)}
+  .rcard.other{background:#FBFCFE}
 
   .rlist{display:flex;flex-direction:column;gap:10px;margin-top:14px}
   /* A button, so the whole row is one tap on a phone. Two rows: the carrier
@@ -1533,11 +1538,45 @@
      six months up front are not comparable numbers, and mixing them in one
      column is what made the first list unreadable. Two lists, one tab each,
      and each list sorted by the number that tab is about. */
+  /* Two or more instalments is a payment plan. One "instalment" is the whole
+     premium due at once — a carrier quoting payments:1 has quoted pay-in-full,
+     and showing it as "$2,301.50 per month" was wrong. */
   function isMonthly(r){
     var n=Number(r.payments), inst=Number(r.installment);
-    return isFinite(n)&&n>0&&isFinite(inst)&&inst>0;
+    return isFinite(n)&&n>=2&&isFinite(inst)&&inst>0;
   }
   var PLANS={monthly:[],full:[]}, chosenRate=null, payTab='monthly';
+
+  /* Both tabs list every company. A carrier that did not quote the payment
+     type a tab is about still appears there, showing what it did quote and
+     saying so — that way the visitor compares the same set of companies either
+     way, and no monthly figure is ever invented by dividing a term total. */
+  function buildTabs(list){
+    var mBest=bestPerCompany(list.filter(isMonthly),'installment'),
+        fBest=bestPerCompany(list.filter(function(r){ return !isMonthly(r); }),'premium');
+
+    function index(rows){
+      var m={}; rows.forEach(function(r){ m[company(r.carrier)]=r; }); return m;
+    }
+    // A row can belong to both tabs, so each tab gets its own copy. Tagging the
+    // shared object instead would let the second tab overwrite the first's.
+    function tag(r,kind,other){
+      var c={}; for(var k in r) c[k]=r[k];
+      c.__kind=kind; c.__other=!!other; return c;
+    }
+    function build(primary,primaryKind,others,otherKind){
+      var have=index(primary);
+      var rows=primary.map(function(r){ return tag(r,primaryKind,false); });
+      var extra=[];
+      others.forEach(function(r){
+        if(!(company(r.carrier) in have)) extra.push(tag(r,otherKind,true));
+      });
+      extra.sort(function(a,b){ return Number(a.premium)-Number(b.premium); });
+      return rows.concat(extra);
+    }
+    PLANS.monthly=build(mBest,'monthly',fBest,'full');
+    PLANS.full   =build(fBest,'full',mBest,'monthly');
+  }
 
   function results(rates){
     var list=sixMonth(rates);
@@ -1549,8 +1588,7 @@
       console.warn('[quote] no six-month rates in',rates);
       toAgent(); return;
     }
-    PLANS.monthly=bestPerCompany(list.filter(isMonthly),'installment');
-    PLANS.full   =bestPerCompany(list.filter(function(r){ return !isMonthly(r); }),'premium');
+    buildTabs(list);
 
     // Open on the tab that actually has something in it.
     payTab=PLANS.monthly.length?'monthly':'full';
@@ -1570,48 +1608,64 @@
         empty=document.getElementById('rempty');
     if(!rows.length){
       el.innerHTML='';
-      empty.textContent=payTab==='monthly'
-        ? 'None of these carriers offered a monthly plan on this quote. The pay-in-full prices are on the other tab.'
-        : 'None of these carriers offered a single up-front payment. The monthly plans are on the other tab.';
+      empty.textContent='No prices came back for this quote. An agent is picking it up.';
       empty.style.display='block';
     } else {
       empty.style.display='none';
-      // The premium is a term total, never a monthly figure we made up. In the
-      // monthly tab the big number is the carrier's own instalment.
-      el.innerHTML=rows.map(function(r,i){
-        var sel=chosenRate&&chosenRate.__k===key(r);
-        var big, sub, foot;
-        if(payTab==='monthly'){
-          var n=Number(r.payments);
-          big=money(r.installment); foot='per month';
-          sub=money(r.downPayment)+' down, then '+n+(n===1?' payment':' payments');
-        } else {
-          big=money(r.premium); foot=termText(r.term);
-          sub='one payment, nothing due later';
+      var shownDivider=false, html='';
+      rows.forEach(function(r,i){
+        // once, where the carriers that did not quote this payment type begin
+        if(r.__other && !shownDivider){
+          shownDivider=true;
+          html+='<p class="rsplit">'+(payTab==='monthly'
+            ? 'These carriers did not offer a payment plan &mdash; single payment only'
+            : 'These carriers did not offer a single payment &mdash; payment plan only')+'</p>';
         }
-        return '<button type="button" class="rcard'+(i===0?' best':'')+(sel?' sel':'')
-          +'" data-i="'+i+'">'
-          +'<span class="lg">'+esc(String(r.carrier||'?').charAt(0))+'</span>'
-          +'<span class="nm">'+(i===0?'<span class="tagbest">Lowest</span>':'')
-          +'<b>'+esc(r.carrier||'Carrier')+'</b></span>'
-          +'<span class="chk">✓</span>'
-          +'<span class="meta"><small>'+esc(sub)+'</small>'
-          +(payTab==='monthly'?'<small>'+esc('6-month total '+money(r.premium))+'</small>':'')
-          +'</span>'
-          +'<span class="pr"><b>'+big+'</b><small>'+esc(foot)+'</small></span>'
-          +'</button>';
-      }).join('');
+        html+=rateCard(r,i,i===0);
+      });
+      el.innerHTML=html;
     }
     updateBuy();
   }
+
+  /* The card is drawn from the row's own kind, not from the tab it is sitting
+     in, so a pay-in-full carrier listed under "Pay monthly" still reads as a
+     single payment rather than being dressed up as a monthly one. */
+  function rateCard(r,i,best){
+    var sel=chosenRate&&chosenRate.__k===key(r), lines=[];
+    var big, foot;
+    if(r.__kind==='monthly'){
+      var n=Number(r.payments);
+      big=money(r.installment); foot='per month';
+      lines.push(money(r.downPayment)+' down, then '+n+' payments');
+      lines.push('6-month total '+money(r.premium));
+    } else {
+      big=money(r.premium); foot=termText(r.term);
+      lines.push('one payment, nothing due later');
+    }
+    return '<button type="button" class="rcard'+(best?' best':'')+(sel?' sel':'')
+      +(r.__other?' other':'')+'" data-i="'+i+'">'
+      +'<span class="lg">'+esc(String(r.carrier||'?').charAt(0))+'</span>'
+      +'<span class="nm">'+(best?'<span class="tagbest">Lowest</span>':'')
+      +'<b>'+esc(r.carrier||'Carrier')+'</b></span>'
+      +'<span class="chk">✓</span>'
+      +'<span class="meta">'+lines.map(function(t){
+          return '<small>'+esc(t)+'</small>'; }).join('')+'</span>'
+      +'<span class="pr"><b>'+big+'</b><small>'+esc(foot)+'</small></span>'
+      +'</button>';
+  }
+
   function key(r){ return (r.carrier||'')+'|'+r.premium+'|'+r.installment+'|'+r.payments; }
 
   function updateBuy(){
     var b=document.getElementById('buy');
     if(!chosenRate){ b.disabled=true; b.textContent='Pick an option above'; return; }
     b.disabled=false;
+    // the row's own kind, not the tab's — a single-payment carrier listed under
+    // "Pay monthly" must not have "/mo" stuck on its price
     b.textContent='Purchase '+(chosenRate.carrier||'this option')
-      +' — '+(payTab==='monthly'?money(chosenRate.installment)+'/mo':money(chosenRate.premium));
+      +' — '+(chosenRate.__kind==='monthly'?money(chosenRate.installment)+'/mo'
+                                           :money(chosenRate.premium));
   }
 
   document.getElementById('paytabs').addEventListener('click',function(e){
@@ -1655,7 +1709,7 @@
     // The AMS has no endpoint for recording a choice yet, so the selection
     // lives here and in the console until it does. The lead itself was saved
     // the moment the quote was submitted — nothing is lost either way.
-    window.__chosen={quoteId:q,plan:payTab,carrier:chosenRate.carrier,
+    window.__chosen={quoteId:q,plan:chosenRate.__kind,carrier:chosenRate.carrier,
                      premium:chosenRate.premium,downPayment:chosenRate.downPayment,
                      installment:chosenRate.installment,payments:chosenRate.payments,
                      term:chosenRate.term,email:em};
@@ -1665,7 +1719,7 @@
 
   function chosenHtml(r){
     var rows=[];
-    if(payTab==='monthly'){
+    if(r.__kind==='monthly'){
       var n=Number(r.payments);
       rows.push(['Due today',money(r.downPayment)]);
       rows.push(['Then',n+(n===1?' payment of ':' payments of ')+money(r.installment)]);
@@ -1676,8 +1730,8 @@
     }
     rows.push(['Term',termText(r.term)]);
     return '<b class="co">'+esc(r.carrier||'Carrier')+'</b>'
-      +'<div class="big">'+(payTab==='monthly'?money(r.installment)+' <span>per month</span>'
-                                              :money(r.premium)+' <span>paid in full</span>')+'</div>'
+      +'<div class="big">'+(r.__kind==='monthly'?money(r.installment)+' <span>per month</span>'
+                                                :money(r.premium)+' <span>paid in full</span>')+'</div>'
       +'<ul>'+rows.map(function(x){
           return '<li><span>'+esc(x[0])+'</span><b>'+esc(String(x[1]))+'</b></li>'; }).join('')
       +'</ul>';
