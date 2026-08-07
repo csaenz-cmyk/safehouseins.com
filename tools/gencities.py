@@ -313,6 +313,271 @@ def para_road(slug, name, county, st):
        "carry the old assumption.</p>"),
     ])
 
+
+# ------------------------------------------------------- interactive blocks ---
+def limits_chart(st, name):
+    """Liability tiers as bars. Every number is statutory or a standard tier —
+    nothing modelled, nothing averaged."""
+    d = STATE[st]
+    tiers = [(d['min'], 'State minimum', True),
+             ('50/100/50', 'A step up', False),
+             ('100/300/100', 'What most agents suggest', False),
+             ('250/500/100', 'If you have assets to protect', False)]
+    rows = []
+    for lim, label, is_min in tiers:
+        a, b, c = [int(x) for x in lim.split('/')]
+        w = min(100, b / 5)          # per-accident bodily injury drives the bar
+        rows.append(
+          '<div class="bar' + (' min' if is_min else '') + '">'
+          '<div class="bl"><b>' + lim + '</b><small>' + label + '</small></div>'
+          '<div class="btrack"><i style="width:' + str(round(w)) + '%"></i></div>'
+          '<div class="bv">$' + format(b * 1000, ',d') + '<small>per accident</small></div>'
+          '</div>')
+    return ("<h2>What the limits actually mean</h2>"
+      "<p>Liability is written as three numbers. The first is the most the policy pays for injury "
+      "to any one person, the second is the most for everyone hurt in one accident, and the third "
+      "is property damage. " + d['name'] + " requires <strong>" + d['min'] + "</strong>; these are "
+      "the tiers above it.</p>"
+      "<div class=\"bars\">" + ''.join(rows) + "</div>"
+      "<p class=\"cap\">Bars compare the per-accident bodily injury limit. Anything above the line "
+      "is a choice, not a requirement &mdash; and the premium difference between the first row and "
+      "the third is usually smaller than people assume.</p>")
+
+def calculator(st, name):
+    d = STATE[st]
+    a, b, c = [int(x) for x in d['min'].split('/')]
+    return ("<h2>What would the state minimum leave you paying?</h2>"
+      "<p>Put in two numbers and see it. This is arithmetic against "
+      "" + d['name'] + "'s actual limits &mdash; not a rate quote, and nothing is sent anywhere.</p>"
+      "<div class=\"calc\" data-bi=\"" + str(b) + "\" data-pd=\"" + str(c) + "\">"
+        "<div class=\"cin\">"
+          "<label>What is your car worth today?"
+            "<span class=\"pre\">$<input type=\"number\" class=\"cv\" value=\"18000\" min=\"0\" step=\"500\"></span>"
+          "</label>"
+          "<label>What could you lose if you were sued? <small>Savings, equity, wages</small>"
+            "<span class=\"pre\">$<input type=\"number\" class=\"as\" value=\"60000\" min=\"0\" step=\"5000\"></span>"
+          "</label>"
+        "</div>"
+        "<div class=\"cout\">"
+          "<div class=\"crow\"><b>Their car, if you total it</b>"
+            "<span class=\"cnum pd\"></span><small class=\"cnote pdn\"></small></div>"
+          "<div class=\"crow\"><b>Injuries, if you are sued</b>"
+            "<span class=\"cnum bi\"></span><small class=\"cnote bin\"></small></div>"
+          "<div class=\"crow\"><b>Your own car, on liability only</b>"
+            "<span class=\"cnum ow\"></span><small class=\"cnote own\"></small></div>"
+        "</div>"
+        "<p class=\"cap\">Liability pays for damage you do to other people. It never pays for your "
+        "own vehicle &mdash; that is collision and comprehensive, and it is the line most people "
+        "get wrong.</p>"
+      "</div>")
+
+def factors(st, name):
+    yours = [('Your driving record', 'The single biggest thing you control. Violations age out.'),
+             ('Coverage and deductible', 'Higher deductible, lower premium &mdash; if you can cover it.'),
+             ('Annual mileage', 'Estimating high costs money every month.'),
+             ('Continuous coverage', 'A gap is expensive. Even a short one.'),
+             ('Discounts you claim', 'Multi-policy, good student, paid-in-full, telematics.')]
+    theirs = [('Where the car is parked overnight', 'Rated by address, not by city.'),
+              ('The vehicle itself', 'Repair cost and theft rate, not sticker price.'),
+              ('Who else is on the policy', 'Every driver in the household counts.'),
+              ('The carrier&rsquo;s appetite', 'Two companies can be hundreds apart on the same risk.')]
+    def col(title, sub, rows, kind):
+        return ('<div class="fcol ' + kind + '"><h3>' + title + '</h3><p class="fsub">' + sub + '</p><ul>'
+                + ''.join('<li><b>' + t + '</b><span>' + x + '</span></li>' for t, x in rows)
+                + '</ul></div>')
+    return ("<h2>What moves your price in " + name + "</h2>"
+      "<p>Carriers weigh these differently, which is the whole reason one company can be cheapest "
+      "for you and a different one cheapest for your neighbour.</p>"
+      "<div class=\"fgrid2\">"
+      + col('You control these', 'Worth working on', yours, 'good')
+      + col('You do not control these', 'Worth shopping around', theirs, 'meh')
+      + "</div>")
+
+def faq(st, name, tags):
+    d = STATE[st]
+    a, b, c = [int(x) for x in d['min'].split('/')]
+    P = lambda k, opts: pick(name + k, opts)
+
+    qs = [
+      ("How much is car insurance in " + name + ", " + d['abbr'] + "?",
+       P('a1', [
+        "<p>Anyone quoting one figure for a whole city is guessing. Two households on the same "
+        "street pay very differently depending on the vehicle, the record, the mileage and who else "
+        "is on the policy &mdash; and carriers disagree with each other on all four.</p>"
+        "<p>What we can tell you is the spread. Running a quote in " + name + " through every "
+        "carrier we represent, the gap between cheapest and dearest is routinely wide enough to "
+        "matter. That is the number worth finding, and it takes a few minutes.</p>",
+
+        "<p>There is no average that helps you. A city-wide figure mixes a 19-year-old on a "
+        "financed truck with a retiree on a paid-off sedan, and your quote will look like neither "
+        "of them.</p>"
+        "<p>The number that matters is the range across carriers for <em>your</em> details, in "
+        "" + name + ", today. We can have it back to you in a few minutes, and it costs nothing to "
+        "find out.</p>"]) ),
+
+      ("What is the cheapest car insurance in " + name + "?",
+       P('a2', [
+        "<p>No company is cheapest for everyone here, and any page that names one is selling you "
+        "something. The cheapest carrier for a 45-year-old with a clean record and a paid-off sedan "
+        "is frequently not the cheapest for a 22-year-old with a financed truck, or for a household "
+        "with a recent claim.</p>"
+        "<p>The only honest answer is the one you get by asking all of them at once, which is what "
+        "an independent agency is for.</p>",
+
+        "<p>It changes by driver, which is why the question does not have a fixed answer. Carriers "
+        "each have an appetite &mdash; one wants clean records and newer cars, another is "
+        "comfortable with a violation or a lapse &mdash; and the winner in " + name + " swaps "
+        "depending on which of those you are.</p>"
+        "<p>We shop the whole shelf rather than defending one company's number, and we are paid the "
+        "same whichever you pick.</p>"]) ),
+
+      ("Which is the best insurance company in " + name + "?",
+       P('a3', [
+        "<p>Best depends on what you are optimising for. Cheapest today is not the same as best at "
+        "paying a claim, and neither is the same as the one that will still want your business "
+        "after an accident.</p>"
+        "<p>We are appointed with a shelf of carriers rather than employed by one, so we can tell "
+        "you which is genuinely good for your situation instead of defending a single answer.</p>",
+
+        "<p>Three different questions hide inside that one: who is cheapest, who handles a claim "
+        "well, and who will keep you after you file one. They rarely have the same answer.</p>"
+        "<p>Tell us which matters most to you and we will say so plainly &mdash; including when the "
+        "cheapest quote on the screen is not the one we would put our own family on.</p>"]) ),
+
+      ("Why is car insurance so expensive in " + name + "?",
+       P('a4', [
+        "<p>Most of it is not about you. Premiums in any area are pushed up by how often claims are "
+        "filed nearby, how many drivers around you are uninsured, what repairs cost locally, and "
+        "weather. None of that is in your control, and all of it lands in your quote.</p>"
+        "<p>What you do control: your deductible, your mileage estimate, keeping coverage "
+        "continuous, and whether every discount you qualify for is actually applied. That last one "
+        "is missed more than anything else, because most discounts are opt-in.</p>",
+
+        "<p>Your premium is partly your record and largely your surroundings &mdash; local claim "
+        "frequency, uninsured drivers, repair costs, theft and weather. That is why a spotless "
+        "driver can still be quoted more in one place than another.</p>"
+        "<p>The lever that actually works is comparison. Carriers weigh those local risks very "
+        "differently, so the same clean record in " + name + " can be priced hundreds apart "
+        "depending on who is looking at it.</p>"]) ),
+
+      ("Does my ZIP code change my rate in " + name + "?",
+       P('a5', [
+        "<p>Yes &mdash; carriers rate on the address where the car is parked overnight, not on the "
+        "city. Two addresses a few miles apart in " + name + " can be quoted differently on "
+        "identical drivers and identical cars.</p>"
+        "<p>It also means a move is a reason to re-shop, even a short one. The company that was "
+        "cheapest at your old address is not automatically cheapest at the new one.</p>",
+
+        "<p>It does, and more than most people expect. The garaging address &mdash; where the "
+        "vehicle sits overnight &mdash; feeds theft rates, claim frequency and repair costs into "
+        "the quote, and those vary block to block, not just city to city.</p>"
+        "<p>If you have moved within " + name + " recently and simply let the policy renew, that is "
+        "worth ten minutes of our time and possibly some of your money.</p>"]) ),
+
+      ("What is the minimum car insurance required in " + d['name'] + "?",
+       P('a6', [
+        "<p>" + d['name'] + " requires at least <strong>" + d['min'] + "</strong>: $"
+        + format(a*1000, ',d') + " for injury to one person, $" + format(b*1000, ',d')
+        + " per accident, and $" + format(c*1000, ',d') + " for property damage.</p>"
+        "<p>That is what makes you legal. It is not what makes you covered &mdash; it pays nothing "
+        "toward your own vehicle, and $" + format(c*1000, ',d') + " does not replace a late-model "
+        "truck. The calculator above runs it on your own numbers.</p>",
+
+        "<p>The legal floor is <strong>" + d['min'] + "</strong> in liability &mdash; $"
+        + format(a*1000, ',d') + " per injured person, $" + format(b*1000, ',d') + " per accident, "
+        "$" + format(c*1000, ',d') + " for the property you damage.</p>"
+        "<p>Read those numbers against what is actually on the road. $" + format(c*1000, ',d')
+        + " is the whole budget for someone else's vehicle, and none of the three does anything for "
+        "yours. Scroll up and put your own figures in.</p>"]) ),
+
+      ("How can I lower my car insurance in " + name + "?",
+       P('a7', [
+        "<p>Roughly in order of how much they move the number: shop it across carriers instead of "
+        "renewing, raise your deductible to a figure you could genuinely cover tomorrow, correct an "
+        "inflated mileage estimate, bundle if you have a home or renters policy, and make sure "
+        "every discount is actually on the policy.</p>"
+        "<p>Do not lower it by dropping to the state minimum without doing the arithmetic. That is "
+        "not saving money, it is moving risk onto yourself.</p>",
+
+        "<p>The biggest single win is usually the least exciting one: getting the same coverage "
+        "quoted by every carrier rather than letting it renew. After that &mdash; a deductible you "
+        "can actually afford, an honest mileage figure, bundling, and auditing the discounts.</p>"
+        "<p>What we would not do is cut liability to the legal minimum to hit a number. Check the "
+        "calculator above and see what that trade really costs.</p>"]) ),
+
+      ("Do I need full coverage?",
+       P('a8', [
+        "<p>&ldquo;Full coverage&rdquo; is not a real product &mdash; it is shorthand for liability "
+        "plus collision plus comprehensive. If your car is financed or leased, the lender requires "
+        "the last two. If it is paid off, it is a judgement call.</p>"
+        "<p>The rough test: if writing a cheque for the car's full value tomorrow would not "
+        "seriously hurt, liability-only can make sense. If it would, it does not.</p>",
+
+        "<p>There is no policy called full coverage. What people mean is liability plus collision "
+        "plus comprehensive &mdash; the two that pay for <em>your</em> car. A lienholder will "
+        "insist on them; once the car is yours outright, it becomes a decision.</p>"
+        "<p>Ask it this way: if the car were gone tomorrow, could you replace it out of pocket "
+        "without it hurting? That answer is the coverage answer.</p>"]) ),
+    ]
+
+    if 'border' in tags:
+        qs.append(("Can I get insured with a foreign licence or a matr&iacute;cula?",
+          P('b1', [
+           "<p>Yes. A foreign licence, a matr&iacute;cula consular or a passport is workable "
+           "&mdash; it narrows which carriers will write you, it does not rule them out. We place "
+           "drivers on those documents regularly in " + name + ".</p>"
+           "<p>Being turned down by one company tells you about that company's appetite, not about "
+           "whether you can be insured.</p>",
+
+           "<p>It is an ordinary situation here, not an obstacle. Some carriers write drivers on a "
+           "foreign licence or a matr&iacute;cula without blinking and some will not touch it "
+           "&mdash; knowing which is which is most of what an agency is for.</p>"
+           "<p>If you have already been refused somewhere, bring that with you. It changes nothing "
+           "about where else you can be placed.</p>"]) ))
+        qs.append(("Does my US policy cover me in Mexico?",
+          P('b2', [
+           "<p>No. Your US policy stops at the border, and Mexican coverage does not follow you "
+           "back into " + name + " either. If you cross with any regularity, say so when you quote "
+           "&mdash; some carriers handle it cleanly and some will not.</p>",
+
+           "<p>It does not. Coverage ends at the bridge in both directions, which is why a "
+           "separate Mexican policy exists at all. Tell us how often you cross from " + name + " "
+           "and we will steer you to carriers that are comfortable with it.</p>"]) ))
+
+    if 'spanish' in tags:
+        qs.append(("&iquest;Puedo hacer todo esto en espa&ntilde;ol?",
+          P('c1', [
+           "<p>S&iacute;. Un agente con licencia le explica su cotizaci&oacute;n, su deducible y lo "
+           "que firma en espa&ntilde;ol, sin traductor y sin prisa. "
+           "<a href=\"tel:+19155031207\">915-503-1207</a> o "
+           "<a href=\"sms:+19155943777\">915-594-3777</a>.</p>",
+
+           "<p>Claro que s&iacute;. La mitad de nuestras conversaciones empiezan en espa&ntilde;ol "
+           "y las atiende una persona con licencia, no una traducci&oacute;n autom&aacute;tica. "
+           "Ll&aacute;menos al <a href=\"tel:+19155031207\">915-503-1207</a> o escr&iacute;banos al "
+           "<a href=\"sms:+19155943777\">915-594-3777</a>.</p>"]) ))
+
+    items = ''.join(
+      '<details class="qa"><summary>' + q + '</summary><div class="qb">' + a2 + '</div></details>'
+      for q, a2 in qs)
+    return ("<h2>Questions people ask about " + name + "</h2><div class=\"faqs\">" + items + "</div>",
+            qs)
+
+def faq_schema(qs):
+    import json
+    import re as _re
+    def plain(h):
+        t = _re.sub(r'<[^>]+>', ' ', h)
+        t = t.replace('&mdash;', '—').replace('&ldquo;', '"').replace('&rdquo;', '"')
+        t = t.replace('&rsquo;', "'").replace('&iacute;', 'í').replace('&ntilde;', 'ñ')
+        t = t.replace('&iquest;', '¿').replace('&aacute;', 'á').replace('&oacute;', 'ó')
+        t = t.replace('&eacute;', 'é').replace('&uacute;', 'ú').replace('&amp;', '&')
+        return _re.sub(r'\s+', ' ', t).strip()
+    data = {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+        {"@type":"Question","name":plain(q),
+         "acceptedAnswer":{"@type":"Answer","text":plain(a)}} for q, a in qs]}
+    return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + '</script>'
+
 SECTIONS = [
   ('border',     para_border),
   ('rgv',        para_rgv),
@@ -431,6 +696,7 @@ def city_page(slug, name, county, tags, nb, st):
     desc = ('Compare car insurance in ' + name + ', ' + d['abbr'] + ' across the carriers Safe House '
             'Insurance represents. Licensed, local, bilingual. Free quote in a few minutes.')
 
+    faq_html, faq_qs = faq(st, name, tags)
     body = [para_road(slug, name, county, st)]
     for tag, fn in SECTIONS:
         if tag in tags:
@@ -440,7 +706,8 @@ def city_page(slug, name, county, tags, nb, st):
     head = rewrite(shell.head(title, desc), 3)
     head = head.replace('</head>',
         '<link rel="canonical" href="' + url + '">\n'
-        + schema(name, county, st, url) + '\n' + breadcrumb(name, st, url) + '\n</head>')
+        + schema(name, county, st, url) + '\n' + breadcrumb(name, st, url) + '\n'
+        + faq_schema(faq_qs) + '\n</head>')
 
     page = head + """
 <header class="pg"><div class="wrap">
@@ -466,6 +733,23 @@ def city_page(slug, name, county, tags, nb, st):
 
 """ + ''.join('<section class="blk"><div class="wrap narrow">' + b + '</div></section>\n'
               for b in body) + """
+
+<section class="blk tint"><div class="wrap narrow">
+  """ + limits_chart(st, name) + """
+</div></section>
+
+<section class="blk"><div class="wrap narrow">
+  """ + calculator(st, name) + """
+</div></section>
+
+<section class="blk tint"><div class="wrap">
+  <div class="narrow">""" + factors(st, name).split('<div class="fgrid2">')[0] + """</div>
+  <div class="fgrid2">""" + factors(st, name).split('<div class="fgrid2">')[1] + """
+</div></section>
+
+<section class="blk"><div class="wrap narrow">
+  """ + faq_html + """
+</div></section>
 
 <section class="blk tint"><div class="wrap narrow">
   <h2>How a quote here actually works</h2>
@@ -564,11 +848,77 @@ EXTRA_CSS = """
   .cty b{display:block;font-size:15.5px;font-weight:900;color:var(--navy)}
   .cty small{display:block;font-size:12.5px;color:var(--muted);font-weight:700;margin-top:2px}
   .blk .chips span a{font-weight:800}
+  /* ---- liability tiers ---- */
+  .bars{display:grid;gap:10px;margin-top:24px}
+  .bar{display:grid;grid-template-columns:1fr;gap:8px;border:1.5px solid var(--line);
+       border-radius:16px;padding:14px 16px;background:#fff}
+  @media(min-width:620px){ .bar{grid-template-columns:150px 1fr 130px;align-items:center;gap:16px} }
+  .bar.min{border-color:#F5C97B;background:#FFFBF3}
+  .bar .bl b{display:block;font-size:16px;font-weight:900;color:var(--navy)}
+  .bar .bl small{display:block;font-size:12.5px;color:var(--muted);font-weight:700}
+  .bar .btrack{height:12px;border-radius:99px;background:var(--ice2);overflow:hidden}
+  .bar .btrack i{display:block;height:100%;border-radius:99px;background:var(--grad)}
+  .bar.min .btrack i{background:#E8A33D}
+  .bar .bv{font-size:15px;font-weight:900;color:var(--navy);text-align:left}
+  @media(min-width:620px){ .bar .bv{text-align:right} }
+  .bar .bv small{display:block;font-size:11.5px;color:var(--muted);font-weight:700}
+  .cap{font-size:13px;color:#9fb0c6;font-weight:600;margin-top:14px;line-height:1.6}
+
+  /* ---- exposure calculator ---- */
+  .calc{border:1.5px solid var(--line);border-radius:20px;padding:20px;background:#fff;margin-top:22px}
+  .calc .cin{display:grid;gap:14px}
+  @media(min-width:620px){ .calc .cin{grid-template-columns:1fr 1fr;gap:18px} }
+  .calc label{display:block;font-size:13.5px;font-weight:800;color:var(--navy)}
+  .calc label small{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:2px}
+  .calc .pre{display:flex;align-items:center;gap:6px;margin-top:8px;border:1.5px solid var(--line);
+      border-radius:13px;padding:11px 13px;font-weight:800;color:var(--muted)}
+  .calc .pre:focus-within{border-color:var(--blue);box-shadow:0 0 0 4px rgba(22,102,237,.13)}
+  .calc input{width:100%;border:0;outline:none;font:inherit;font-size:16px;font-weight:800;
+      color:var(--ink);background:transparent}
+  .calc .cout{display:grid;gap:10px;margin-top:20px}
+  .calc .crow{display:grid;grid-template-columns:1fr auto;gap:4px 14px;align-items:baseline;
+      border-top:1px solid var(--line);padding-top:12px}
+  .calc .crow b{font-size:15px;font-weight:800;color:var(--navy)}
+  .calc .cnum{font-size:20px;font-weight:900;color:#0F7B4A;text-align:right;white-space:nowrap}
+  .calc .cnum.gap{color:#C2410C}
+  .calc .cnote{grid-column:1/-1;font-size:13px;color:var(--muted);font-weight:600;line-height:1.5}
+
+  /* ---- rating factors ---- */
+  .fgrid2{display:grid;gap:14px;margin-top:24px}
+  @media(min-width:760px){ .fgrid2{grid-template-columns:1fr 1fr} }
+  .fcol{border:1.5px solid var(--line);border-radius:20px;padding:20px;background:#fff}
+  .fcol.good{border-color:#BBE3CC;background:#F5FCF8}
+  .fcol.meh{border-color:var(--ice2);background:var(--ice)}
+  .fcol .fsub{font-size:13px;color:var(--muted);font-weight:700;margin-top:2px}
+  .fcol ul{list-style:none;margin:16px 0 0}
+  .fcol li{padding:10px 0;border-top:1px solid rgba(10,33,72,.08)}
+  .fcol li:first-child{border-top:0;padding-top:0}
+  .fcol li b{display:block;font-size:14.5px;font-weight:800;color:var(--navy)}
+  .fcol li span{display:block;font-size:13px;color:var(--muted);font-weight:600;margin-top:2px}
+
+  /* ---- FAQ ---- */
+  .faqs{margin-top:22px;border-top:1px solid var(--line)}
+  .qa{border-bottom:1px solid var(--line)}
+  .qa summary{list-style:none;cursor:pointer;padding:18px 34px 18px 0;position:relative;
+      font-size:16.5px;font-weight:800;color:var(--navy);line-height:1.35}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary::after{content:"";position:absolute;right:6px;top:24px;width:10px;height:10px;
+      border-right:2.5px solid var(--blue);border-bottom:2.5px solid var(--blue);
+      transform:rotate(45deg);transition:.2s}
+  .qa[open] summary::after{transform:rotate(-135deg);top:28px}
+  .qa .qb{padding:0 0 18px}
+  .qa .qb p{font-size:15.5px;margin-top:0}
+  .qa .qb p+p{margin-top:12px}
+
 </style>
 """
 
+CALC_JS = "\n<script>\n(function(){\n  // Arithmetic against this state's statutory limits and whatever the visitor\n  // types. No rate data, no lookups, nothing leaves the page.\n  var box = document.querySelector('.calc');\n  if (!box) return;\n  var BI = +box.dataset.bi * 1000;      // per-accident bodily injury\n  var PD = +box.dataset.pd * 1000;      // property damage\n  var cv = box.querySelector('.cv'), as = box.querySelector('.as');\n\n  function money(n){\n    return '$' + Math.max(0, Math.round(n)).toLocaleString('en-US');\n  }\n  function set(sel, noteSel, value, gap, note){\n    var el = box.querySelector(sel);\n    el.textContent = value;\n    el.classList.toggle('gap', gap);\n    box.querySelector(noteSel).innerHTML = note;\n  }\n  function run(){\n    var car = Math.max(0, +cv.value || 0);\n    var net = Math.max(0, +as.value || 0);\n\n    // their car: the minimum pays PD, you pay whatever is above it\n    var overPD = car - PD;\n    set('.pd', '.pdn',\n        overPD > 0 ? money(overPD) + ' short' : 'Covered',\n        overPD > 0,\n        overPD > 0\n          ? 'A car like yours at ' + money(car) + ' is ' + money(overPD) + ' more than the '\n            + money(PD) + ' the state minimum pays. The rest comes from you.'\n          : 'The ' + money(PD) + ' minimum would cover a vehicle at ' + money(car)\n            + '. It would not cover a newer or larger one.');\n\n    // injuries: everything you own sits behind the per-accident limit\n    set('.bi', '.bin',\n        money(net) + ' exposed',\n        net > 0,\n        'The minimum stops at ' + money(BI) + ' per accident. A serious injury claim can run past '\n        + 'that, and what you told us you could lose &mdash; ' + money(net) + ' &mdash; is what sits '\n        + 'behind it.');\n\n    // your own car: liability pays nothing toward it, ever\n    set('.ow', '.own',\n        money(car) + ' on you',\n        car > 0,\n        'Liability pays nothing toward your own vehicle. Without collision and comprehensive, the '\n        + 'full ' + money(car) + ' is yours &mdash; in a wreck you caused, a theft, hail or flood.');\n  }\n  cv.addEventListener('input', run);\n  as.addEventListener('input', run);\n  run();\n})();\n</script>\n"
+
 def write(path, content):
     content = content.replace('</head>', EXTRA_CSS + '</head>')
+    if '<div class="calc"' in content:
+        content = content.replace('</body>', CALC_JS + '</body>')
     full = os.path.join(ROOT, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
     open(full, 'w', encoding='utf-8').write(content)
