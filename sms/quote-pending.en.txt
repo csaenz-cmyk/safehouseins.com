@@ -1,0 +1,1 @@
+Safe House Insurance: {{greeting}}we have your request {{quoteId}}. An agent is working it now and will call you shortly with prices. Reply STOP to opt out, HELP for help.

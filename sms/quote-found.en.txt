@@ -1,0 +1,1 @@
+Safe House Insurance: {{greeting}}your quote {{quoteId}} is ready. {{carriers}} carriers from {{bestPrice}}/mo. Details emailed to you. An agent will confirm your discounts. Reply STOP to opt out, HELP for help.
