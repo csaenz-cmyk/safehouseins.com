@@ -72,6 +72,51 @@ Page order, which is deliberate — it walks from "what do you drive" to
 10. FAQ
 11. Final CTA (plus a sticky quote bar on phones)
 
+## How a city page is put together
+
+Same split as the brand pages — design in one file, content in another:
+
+```
+tools/citykit.py     the design system: CSS, JS, and every component
+                     (hero, trust bar, intent picker, local factor cards,
+                     ZIP selector, state minimums, area explorer, independent
+                     agency block, quote process, reviews, local team, FAQ,
+                     final CTA, sticky mobile bar). Knows no city by name.
+tools/cityscape.py   nine stylised location scenes, seeded per city
+tools/states.py      statutory minimums and required-offer coverages, once
+                     per state rather than once per page
+tools/places.py      the per-city content, and the derivation for cities
+                     without a hand-written entry
+tools/gencities.py   assembles; also still holds the tag-driven local prose
+```
+
+**A component omits itself when its data is missing.** A town where we cannot
+name the neighbourhoods without guessing gets no area explorer, and one where
+we have no ZIP list gets no ZIP selector. Short pages are the correct outcome,
+not a gap to pad — see the rules section below.
+
+Two tiers of city:
+
+- **Hand-written** (`PLACES` in `places.py`) — El Paso, Houston, Dallas,
+  Austin, San Antonio, Fort Worth, Albuquerque, Las Cruces, Santa Fe. Real
+  ZIPs, named neighbourhoods, written local considerations, city FAQs.
+- **Derived** (`places.derive()`) — everything else. Content comes from things
+  already established and checked: the corridor fact in `cities.ROADS`, the
+  city's tags, and its county. No invented local colour.
+
+Promoting a derived city to hand-written is just adding a `PLACES` entry.
+
+### Local presence is a factual claim
+
+`presence='office'` renders "We have an office in X" and unlocks the local
+team section. It is set for El Paso alone, because 6065 Montana Ave is the
+only office there is. Everywhere else is `'serving'`, which renders "Serving
+drivers throughout X".
+
+This mattered: before the rebuild, every city page carried the hardcoded
+sentence "a licensed agent **here in El Paso**" — including Houston and
+Dallas. Do not reintroduce a presence claim as free text.
+
 ## Adding a make
 
 Two files. First a row in `MAKES` in `tools/makes.py`:
@@ -156,7 +201,12 @@ python3 tools/dupcheck.py           # exits non-zero if any pair is at 70%+
 Two traps worth knowing about, both of which have already been walked into:
 
 - A new section with only **one** variant pushes every pair sharing its tags
-  straight over the line. `discount_audit` and `deductible_calc` were added
+  straight over the line. The city rebuild hit this hard: the shared
+  components are most of the words on a small-town page, so with no variants
+  in them 121 of 129 cities needed a redraw and three could not clear at all.
+  Giving the intent cards, the process steps and the state-minimum intro two
+  or three drafts each, and restoring the tag-driven local prose that the
+  rebuild had dropped, took it to 13 redraws and no failures. `discount_audit` and `deductible_calc` were added
   that way and took 374 city pairs over 70% before anyone measured.
 - `city_page()` must **not** set `SALT` itself. It did briefly, which pinned
   every redraw to the same draw and made the loop silently do nothing.

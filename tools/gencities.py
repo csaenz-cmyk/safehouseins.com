@@ -920,6 +920,38 @@ def find_photo(ident):
     return None
 
 # ---------------------------------------------------------- the new layout ---
+
+def local_prose(slug, name, county, tags, st):
+    """The tag-driven local writing the old pages carried, restyled as cards.
+
+    This is the section that makes a small-town page worth indexing: it is
+    written per tag with the city and county named in it, and every block has
+    two or three drafts. Dropping it in the rebuild is what pushed a dozen
+    same-tag pairs back over the duplicate-content line.
+    """
+    blocks = [para_road(slug, name, county, st)]
+    for tag, fn in SECTIONS:
+        if tag in tags:
+            blocks.append(fn(name, st))
+    blocks = [b for b in blocks if b]
+    if not blocks:
+        return ''
+    cards = []
+    for b in blocks:
+        m = re.match(r'\s*<h2>(.*?)</h2>(.*)', b, re.S)
+        if m:
+            cards.append('<article class="pblock rv"><h3>' + m.group(1) + '</h3>'
+                         + m.group(2) + '</article>')
+        else:
+            cards.append('<article class="pblock rv">' + b + '</article>')
+    return ('<section class="sec"><div class="wrap">'
+      '<div class="shead rv"><span class="eyebrow">' + html.escape(name) + '</span>'
+      '<h2>' + pick(name + 'lph', [
+        'What comes up when we quote drivers in ' + html.escape(name),
+        'Insurance in ' + html.escape(name) + ', in practical terms',
+        'The ' + html.escape(name) + ' details worth knowing before you quote']) + '</h2></div>'
+      '<div class="pblocks">' + ''.join(cards) + '</div></div></section>')
+
 def city_page_v2(slug, name, county, tags, nb, st, place):
     """The rebuilt city page, for cities with real local content in places.py.
 
@@ -935,13 +967,15 @@ def city_page_v2(slug, name, county, tags, nb, st, place):
     ident = st + '-' + slug
 
     title = 'Car insurance in ' + name + ', ' + d['abbr']
+    # Search results cut descriptions off around 160 characters, so these are
+    # written to fit with the longest city name on the list.
     desc = pick(name + 'v2d', [
       'Compare car insurance in ' + name + ' across the companies Safe House represents. '
-      'Local coverage questions answered, and a free quote in a few minutes.',
-      'Car insurance for ' + name + ' drivers from Safe House, an independent agency. Several '
-      'carriers, one form, and a licensed agent to go through it with you.',
-      'Insurance in ' + name + ', ' + d['abbr'] + '? Safe House shops multiple companies at once, '
-      'in English or Spanish, and a licensed agent reviews it before anything is issued.',
+      'Free quote in minutes, licensed agents, English or Spanish.',
+      'Car insurance for ' + name + ' drivers from Safe House, an independent agency. '
+      'Several carriers, one form, and an agent to go through it with you.',
+      'Insurance in ' + name + ', ' + d['abbr'] + '? Safe House shops several companies at '
+      'once and a licensed agent reviews it before anything is issued.',
     ])
     assert len(html.unescape(desc)) <= 160, (slug, len(desc))
 
@@ -962,18 +996,20 @@ def city_page_v2(slug, name, county, tags, nb, st, place):
     head = head.replace('<body>', '<body class="bp">')
 
     presence = place.get('presence', 'serving')
+    seed = SALT[0] + st + slug   # varies with the redraw loop
     parts = [
       CK.hero(name, d['abbr'], st, d['name'], place, up, ident, find_photo(ident)),
       BK.trustbar(),
-      CK.intents(place, name, up),
+      CK.intents(place, name, up, seed),
       CK.factors(place, name),
+      local_prose(slug, name, county, tags, st),
       CK.zips(place, name, up),
-      CK.minimums(st, name, up),
+      CK.minimums(st, name, up, seed),
       CK.areas(place, name, up),
       CK.independent(name, presence, up, len(name) % 3),
-      CK.process(up),
+      CK.process(up, seed),
       CK.localteam(name, presence, up),
-      CK.reviews(name),
+      CK.reviews(name, seed),
       '<section class="sec"><div class="wrap narrow">'
       '<div class="shead rv" style="max-width:none"><span class="eyebrow">FAQ</span>'
       '<h2>Car insurance questions from ' + name + ' drivers</h2></div>'
@@ -1333,9 +1369,9 @@ def build_city(slug, name, county, tags, nb, st, seen):
     """
     for attempt in range(MAX_REDRAW):
         SALT[0] = st + ':' + ('' if attempt == 0 else str(attempt) + ':')
-        place = PL.get(st, slug)
-        page = (city_page_v2(slug, name, county, tags, nb, st, place) if place
-                else city_page(slug, name, county, tags, nb, st))
+        place = PL.get(st, slug) or PL.derive(st, slug, name, county, tags,
+                                              cities.ROADS.get(slug))
+        page = city_page_v2(slug, name, county, tags, nb, st, place)
         sh = _shingles(page)
         worst = max((( _overlap(sh, o), k) for k, o in seen.items()), default=(0.0, None))
         if worst[0] < LIMIT:

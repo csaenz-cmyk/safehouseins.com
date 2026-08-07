@@ -46,10 +46,25 @@ STATES = {
 def get(state_slug):
     return STATES[state_slug]
 
-def minimum_note(state_slug):
-    """One honest sentence about what the minimum is and is not."""
+def minimum_note(state_slug, seed=''):
+    """One honest sentence about what the minimum is and is not. Several drafts,
+    because this block appears on every page in the state."""
     d = STATES[state_slug]
-    return ('The legal floor in ' + d['name'] + ' is <strong>' + d['short'] + '</strong>. It is a '
-            'floor written into law, not a recommendation from anybody &mdash; and the third '
-            'number is what it would pay toward the other driver&rsquo;s vehicle, which is worth '
-            'comparing against what vehicles actually cost to replace.')
+    opts = [
+      'The legal floor in ' + d['name'] + ' is <strong>' + d['short'] + '</strong>. It is a floor '
+      'written into law, not a recommendation from anybody &mdash; and the third number is what it '
+      'would pay toward the other driver&rsquo;s vehicle, which is worth comparing against what '
+      'vehicles actually cost to replace.',
+
+      'Everyone in ' + d['name'] + ' has seen <strong>' + d['short'] + '</strong> written somewhere '
+      'and very few have been told what it means. Injury to one person, injury to everyone in the '
+      'accident, then damage to property &mdash; in that order, in thousands of dollars.',
+
+      d['name'] + ' will let you drive on <strong>' + d['short'] + '</strong>. That figure is set '
+      'by statute rather than by anything to do with what a hospital stay or a replacement vehicle '
+      'costs today, which is the whole reason it is worth looking at what sits above it.',
+    ]
+    h = 0
+    for ch in str(seed):
+        h = (h * 131 + ord(ch)) & 0xFFFFFFFF
+    return opts[h % len(opts)]

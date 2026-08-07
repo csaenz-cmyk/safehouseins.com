@@ -30,6 +30,19 @@ TEXT = BK.TEXT
 def _e(s):
     return html.escape(str(s), quote=False)
 
+def pick(seed, options):
+    """Stable choice per city.
+
+    The shared components are most of the words on a small-town page, so if
+    they never vary, two towns with the same tags come out reading the same —
+    which is the doorway-page pattern these pages exist to avoid. Every shared
+    block therefore has several drafts and each city draws one.
+    """
+    h = 0
+    for ch in str(seed):
+        h = (h * 131 + ord(ch)) & 0xFFFFFFFF
+    return options[h % len(options)]
+
 # --------------------------------------------------------------------- CSS ---
 CSS = """
   /* ============ city page ============ */
@@ -269,7 +282,7 @@ def hero(city, abbr, state_slug, state_name, place, up, ident, photo=None):
         + ('<div class="cchips">' + chip_html + '</div>' if chip_html else '') +
       '</div></div>' + credit_html + '</header>')
 
-def intents(place, city, up):
+def intents(place, city, up, seed=''):
     keys = place.get('intents') or []
     if not keys:
         return ''
@@ -279,7 +292,8 @@ def intents(place, city, up):
         row = P.INTENTS.get(k)
         if not row:
             continue
-        icon, title, body, cta = row
+        icon, title, bodies, cta = row
+        body = pick(str(seed) + k, bodies) if isinstance(bodies, (list, tuple)) else bodies
         cards.append('<button class="intent" type="button" aria-expanded="false" '
           'aria-controls="ia' + str(i) + '"><span class="ic">'
           + BK.ICON.get(icon, BK.ICON['shield']) + '</span><b>' + title + '</b></button>')
@@ -291,9 +305,14 @@ def intents(place, city, up):
     return ('<section class="sec tint"><div class="wrap">'
       '<div class="shead rv"><span class="eyebrow">Start here</span>'
       '<h2>What do you need help with?</h2>'
-      '<p>Pick the one that sounds like you. Every route ends in the same place &mdash; a quote '
-      'shopped across the carriers we represent &mdash; but the thing to watch out for is '
-      'different in each case.</p></div>'
+      '<p>' + pick(str(seed) + 'ihead', [
+        'Pick the one that sounds like you. Every route ends in the same place &mdash; a quote '
+        'shopped across the carriers we represent &mdash; but the thing to watch out for is '
+        'different in each case.',
+        'Different starting points, same finish: your details in front of several insurance '
+        'companies at once. What changes is which part of it is worth paying attention to.',
+        'Most people arrive here for one of these reasons. Choose yours and we will tell you the '
+        'part that actually matters before you fill anything in.']) + '</p></div>'
       '<div class="intents">' + ''.join(cards) + '</div>'
       + ''.join(answers) + '</div></section>')
 
@@ -350,7 +369,7 @@ def areas(place, city, up):
                 for n, b in ar)
       + '</div></div></section>')
 
-def minimums(state_slug, city, up):
+def minimums(state_slug, city, up, seed=''):
     d = ST.get(state_slug)
     cards = ''.join(
       '<div class="minc rv"><span class="big">$' + n + '<small>K</small></span>'
@@ -360,7 +379,7 @@ def minimums(state_slug, city, up):
     return ('<section class="sec tint"><div class="wrap">'
       '<div class="shead rv"><span class="eyebrow">' + _e(d['name']) + ' law</span>'
       '<h2>' + _e(d['name']) + ' minimum auto liability coverage</h2>'
-      '<p>' + ST.minimum_note(state_slug) + '</p></div>'
+      '<p>' + ST.minimum_note(state_slug, seed) + '</p></div>'
       '<div class="mins">' + cards + '</div>'
       '<div class="minmore rv"><div><b>Minimum coverage is not necessarily the right coverage.</b>'
       '<p>These are the limits that keep you legal, not the limits that keep you whole. We can put '
@@ -396,43 +415,60 @@ def independent(city, presence, up, variant=0):
       '<div class="indie rv">' + lead + '</div>'
       '</div></section>')
 
-FLOW = [
-  ('Tell us about yourself', 'The basic driver and vehicle details. No social security number, no '
-   'photo of your licence, no payment details on the form.'),
-  ('Compare available options', 'We shop the insurance companies we represent and the prices come '
-   'back to you side by side, monthly and paid-in-full.'),
-  ('Talk with Safe House', 'A licensed agent verifies the pricing, the discounts you qualify for '
-   'and the coverage itself. This is the step that catches the mistakes.'),
-  ('Activate your policy', 'When you are ready, we help you finish. Final pricing and discounts '
-   'are confirmed with an agent by phone or text before anything is issued.'),
+FLOWS = [
+  [('Tell us about yourself', 'The basic driver and vehicle details. No social security number, no '
+    'photo of your licence, no payment details on the form.'),
+   ('Compare available options', 'We shop the insurance companies we represent and the prices come '
+    'back to you side by side, monthly and paid-in-full.'),
+   ('Talk with Safe House', 'A licensed agent verifies the pricing, the discounts you qualify for '
+    'and the coverage itself. This is the step that catches the mistakes.'),
+   ('Activate your policy', 'When you are ready, we help you finish. Final pricing and discounts '
+    'are confirmed with an agent by phone or text before anything is issued.')],
+
+  [('Give us the basics', 'Who is driving, what they drive, and where it is kept. That is the '
+    'whole form &mdash; no licence photos and no card details.'),
+   ('We put it to the market', 'The same details go to every company we hold an appointment with, '
+    'at the same time, and their answers come back to one screen.'),
+   ('An agent checks the work', 'Discounts you qualify for, coverage that actually fits, and the '
+    'final number. Prices online are marked subject to verification for a reason.'),
+   ('Put it in force', 'When the coverage is right, we help you finish it. Confirmation happens '
+    'with a person by phone or text, not silently on a screen.')],
 ]
 
-def process(up):
+def process(up, seed=''):
     return ('<section class="sec"><div class="wrap">'
       '<div class="shead rv"><span class="eyebrow">How it works</span>'
       '<h2>Getting insured doesn&rsquo;t need to be complicated.</h2>'
-      '<p>Four steps. The quote happens online; the last mile happens with a person, because that '
-      'is where discounts and coverage questions actually get sorted out.</p></div>'
+      '<p>' + pick(str(seed) + 'fh', [
+        'Four steps. The quote happens online; the last mile happens with a person, because that '
+        'is where discounts and coverage questions actually get sorted out.',
+        'The comparison is the easy part and it happens on this site. The part that needs a human '
+        'is making sure the coverage is right before anything is issued.']) + '</p></div>'
       '<div class="flow">'
       + ''.join('<div class="fstep rv"><span class="n">' + str(i + 1) + '</span><b>' + t + '</b>'
-                '<p>' + b + '</p></div>' for i, (t, b) in enumerate(FLOW))
+                '<p>' + b + '</p></div>' for i, (t, b) in enumerate(pick(str(seed) + 'flow', FLOWS)))
       + '</div>'
       '<div class="acts"><a class="btn" href="' + up + 'quote.html">Start my quote &rarr;</a>'
       '<a class="btn ghost" href="tel:+1' + CALL.replace('-', '') + '">Talk to an agent</a></div>'
       '</div></section>')
 
-def reviews(city):
+def reviews(city, seed=''):
     """Deliberately a placeholder. Inventing reviews, names or a star rating on
     an insurance page is fraud, so the component exists and stays empty until
     real review data is wired in."""
     return ('<section class="sec tint"><div class="wrap narrow">'
       '<div class="shead rv" style="max-width:none"><span class="eyebrow">Reviews</span>'
       '<h2>What drivers say</h2></div>'
-      '<div class="revs rv"><b>Our customer reviews are not published here yet.</b>'
-      '<p>We would rather show you nothing than show you something we made up. Real reviews from '
-      '' + _e(city) + ' customers will appear here once the review feed is connected &mdash; in '
-      'the meantime, ask us for references and we will put you in touch.</p></div>'
-      '</div></section>')
+      + pick(str(seed) + 'rev', [
+        '<div class="revs rv"><b>Our customer reviews are not published here yet.</b>'
+        '<p>We would rather show you nothing than show you something we made up. Real reviews from '
+        + _e(city) + ' customers will appear here once the review feed is connected &mdash; in the '
+        'meantime, ask us for references and we will put you in touch.</p></div>',
+        '<div class="revs rv"><b>No reviews on this page yet &mdash; on purpose.</b>'
+        '<p>Inventing testimonials would be the easiest thing on this site to do and the worst. '
+        'When our real customer reviews are wired up they will appear here. Until then, ask and we '
+        'will point you at people who have actually used us.</p></div>'])
+      + '</div></section>')
 
 def localteam(city, presence, up):
     """Only rendered where there is a real local team to show."""
