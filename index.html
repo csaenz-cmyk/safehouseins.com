@@ -507,6 +507,16 @@
     .start{padding:14px 0 40px}
     .startcard{min-height:min(70vh,560px);padding:64px 40px;border-radius:34px;
         background-image:url("assets/start.jpg");background-position:center 46%}
+
+    /* ---- wall to wall ----
+       These two panels are photographs, and a photograph boxed to 1180px in a
+       1920px window reads as a card sitting on a page rather than a scene the
+       page is standing in. They break out of .wrap and go nearly edge to edge,
+       and they get wide rather than tall: 2000/1600 is almost square, which is
+       what made them look like boxes. */
+    .own .wrap,.start .wrap{max-width:none;padding:0 26px}
+    .owncard{aspect-ratio:auto;height:min(74vh,640px);background-position:center 42%}
+    .startcard{min-height:min(64vh,520px)}
     .startcard .in{max-width:640px}
     .startcard p{max-width:520px}
     .startcard h2{font-size:clamp(36px,4vw,54px)}

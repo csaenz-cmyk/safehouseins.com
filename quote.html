@@ -48,7 +48,10 @@
 
   .qhead{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 20px;
       max-width:720px;margin:0 auto}
-  .qhead img{height:30px;display:block}
+  /* The mark carries the whole brand on this page — there is no nav, no
+     hero, nothing else. At 30px it read as a favicon. */
+  .qhead img{height:44px;display:block}
+  @media(min-width:760px){ .qhead{padding:22px 34px} .qhead img{height:56px} }
   .qhead .help{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:800;color:var(--blue-d)}
 
   .qwrap{max-width:560px;margin:0 auto;padding:0 18px 40px}
@@ -277,6 +280,9 @@
       font-family:ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all}
   .rcard .lg{grid-area:lg;width:38px;height:38px;border-radius:12px;background:var(--ice);
       color:var(--blue-d);display:grid;place-items:center;font-weight:900;font-size:15px}
+  /* a real carrier mark sits on white, since most are drawn for a light ground */
+  .rcard .lgimg{background:#fff;border:1px solid var(--line);padding:3px}
+  .rcard .lgimg img{width:100%;height:100%;object-fit:contain;display:block}
   .rcard .nm{grid-area:name;min-width:0}
   .rcard .nm b{display:block;font-size:15px;font-weight:800;color:var(--navy);line-height:1.25}
   .rcard .meta{grid-area:meta;min-width:0}
@@ -1643,7 +1649,7 @@
     }
     return '<button type="button" class="rcard'+(best?' best':'')+(sel?' sel':'')
       +(r.__other?' other':'')+'" data-i="'+i+'">'
-      +'<span class="lg">'+esc(String(r.carrier||'?').charAt(0))+'</span>'
+      +carrierMark(r.carrier)
       +'<span class="nm">'+(best?'<span class="tagbest">Lowest</span>':'')
       +'<b>'+esc(r.carrier||'Carrier')+'</b></span>'
       +'<span class="chk">✓</span>'
@@ -1654,6 +1660,23 @@
   }
 
   function key(r){ return (r.carrier||'')+'|'+r.premium+'|'+r.installment+'|'+r.payments; }
+
+  /* ---------- carrier marks ----------
+     Drop a file in assets/carriers/ and add one line below. The key is exactly
+     what company() returns for that carrier's name, so "Progressive Insurance",
+     "Progressive Monthly" and "Progressive EFT" all resolve to the same mark.
+     Anything not listed falls back to the initial, which is what lets this be
+     filled in one carrier at a time instead of all or nothing. */
+  var CARRIER_LOGO = {
+    // 'PROGRESSIVE': 'progressive.webp',
+    // 'GAINSCO':     'gainsco.webp',
+    // 'KEMPER':      'kemper.webp',
+  };
+  function carrierMark(name){
+    var f = CARRIER_LOGO[company(name)];
+    if(!f) return '<span class="lg">'+esc(String(name||'?').charAt(0))+'</span>';
+    return '<span class="lg lgimg"><img src="assets/carriers/'+esc(f)+'" alt="" loading="lazy"></span>';
+  }
 
   function updateBuy(){
     var b=document.getElementById('buy');
