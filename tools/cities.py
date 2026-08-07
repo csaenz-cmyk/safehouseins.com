@@ -1,0 +1,252 @@
+"""The city list behind the local landing pages.
+
+Each row is (slug, name, county, tags, neighbours).
+
+`tags` decides which of the written sections a page gets, and it is the reason
+these are not doorway pages: a border city page argues about Mexican policies
+and foreign licences, an oil-basin page argues about work trucks and commute
+mileage, a coastal page argues about wind and flood. Two cities with the same
+tags still differ by county, by state minimums and by who they link to.
+
+Nothing here is a statistic. Counties, state minimum limits and which cities sit
+on the river are all checkable facts. Average premiums, population counts and
+"drivers in Dallas save $X" are not in this file on purpose — inventing them
+would be the fastest way to make the whole set worthless.
+
+Only Texas and New Mexico appear, because those are the two licences the agency
+holds. A landing page for a city we cannot write in is a page that wastes the
+visitor's time.
+"""
+
+TX_MIN = '30/60/25'   # $30k per person, $60k per accident, $25k property damage
+NM_MIN = '25/50/10'   # $25k per person, $50k per accident, $10k property damage
+
+# tags: metro, border, rgv, oil, coastal, university, plains, mountain, military,
+#       dfw, houston-metro, spanish (majority Spanish-speaking households)
+TEXAS = [
+  # --- the five he named, then the rest of the state's largest ---
+  ('houston',        'Houston',        'Harris',          ['metro','houston-metro','spanish'],
+     ['pasadena','sugar-land','baytown','san-antonio']),
+  ('san-antonio',    'San Antonio',    'Bexar',           ['metro','spanish','military'],
+     ['austin','new-braunfels','laredo','houston']),
+  ('dallas',         'Dallas',         'Dallas',          ['metro','dfw','spanish'],
+     ['fort-worth','garland','irving','plano']),
+  ('austin',         'Austin',         'Travis',          ['metro','university'],
+     ['round-rock','san-antonio','georgetown','waco']),
+  ('el-paso',        'El Paso',        'El Paso',         ['metro','border','spanish','mountain','military'],
+     ['socorro','horizon-city','san-elizario','las-cruces']),
+  ('fort-worth',     'Fort Worth',     'Tarrant',         ['metro','dfw'],
+     ['dallas','arlington','grand-prairie','denton']),
+  ('arlington',      'Arlington',      'Tarrant',         ['metro','dfw','university'],
+     ['fort-worth','grand-prairie','dallas','irving']),
+  ('corpus-christi', 'Corpus Christi', 'Nueces',          ['coastal','spanish','metro'],
+     ['brownsville','victoria','san-antonio','laredo']),
+  ('plano',          'Plano',          'Collin',          ['metro','dfw'],
+     ['dallas','garland','irving','mckinney']),
+  ('laredo',         'Laredo',         'Webb',            ['border','spanish','metro'],
+     ['eagle-pass','rio-grande-city','san-antonio','mcallen']),
+  ('lubbock',        'Lubbock',        'Lubbock',         ['plains','university'],
+     ['amarillo','midland','odessa','abilene']),
+  ('garland',        'Garland',        'Dallas',          ['metro','dfw','spanish'],
+     ['dallas','plano','irving','mesquite']),
+  ('irving',         'Irving',         'Dallas',          ['metro','dfw','spanish'],
+     ['dallas','grand-prairie','arlington','garland']),
+  ('amarillo',       'Amarillo',       'Potter',          ['plains'],
+     ['lubbock','odessa','midland','clovis']),
+  ('grand-prairie',  'Grand Prairie',  'Dallas',          ['metro','dfw','spanish'],
+     ['arlington','irving','fort-worth','dallas']),
+
+  # --- the border, river to river ---
+  ('brownsville',    'Brownsville',    'Cameron',         ['border','rgv','spanish','coastal'],
+     ['harlingen','mcallen','weslaco','corpus-christi']),
+  ('mcallen',        'McAllen',        'Hidalgo',         ['border','rgv','spanish'],
+     ['edinburg','mission','pharr','brownsville']),
+  ('edinburg',       'Edinburg',       'Hidalgo',         ['rgv','spanish','university'],
+     ['mcallen','pharr','mission','weslaco']),
+  ('mission',        'Mission',        'Hidalgo',         ['border','rgv','spanish'],
+     ['mcallen','edinburg','pharr','rio-grande-city']),
+  ('pharr',          'Pharr',          'Hidalgo',         ['border','rgv','spanish'],
+     ['mcallen','edinburg','weslaco','mission']),
+  ('harlingen',      'Harlingen',      'Cameron',         ['rgv','spanish'],
+     ['brownsville','weslaco','mcallen','pharr']),
+  ('weslaco',        'Weslaco',        'Hidalgo',         ['rgv','spanish'],
+     ['harlingen','pharr','mcallen','brownsville']),
+  ('rio-grande-city','Rio Grande City','Starr',           ['border','rgv','spanish'],
+     ['mission','mcallen','laredo','edinburg']),
+  ('eagle-pass',     'Eagle Pass',     'Maverick',        ['border','spanish'],
+     ['del-rio','laredo','san-antonio','uvalde']),
+  ('del-rio',        'Del Rio',        'Val Verde',       ['border','spanish','military'],
+     ['eagle-pass','uvalde','san-angelo','laredo']),
+  ('uvalde',         'Uvalde',         'Uvalde',          ['spanish'],
+     ['eagle-pass','del-rio','san-antonio','laredo']),
+  ('socorro',        'Socorro',        'El Paso',         ['border','spanish'],
+     ['el-paso','san-elizario','horizon-city','fabens']),
+  ('horizon-city',   'Horizon City',   'El Paso',         ['border','spanish'],
+     ['el-paso','socorro','san-elizario','fabens']),
+  ('san-elizario',   'San Elizario',   'El Paso',         ['border','spanish'],
+     ['socorro','el-paso','fabens','horizon-city']),
+  ('fabens',         'Fabens',         'El Paso',         ['border','spanish'],
+     ['san-elizario','socorro','el-paso','horizon-city']),
+  ('anthony',        'Anthony',        'El Paso',         ['border','spanish'],
+     ['el-paso','sunland-park','las-cruces','socorro']),
+
+  # --- the rest of the Spanish-speaking map and the big secondary markets ---
+  ('odessa',         'Odessa',         'Ector',           ['oil','spanish'],
+     ['midland','lubbock','san-angelo','amarillo']),
+  ('midland',        'Midland',        'Midland',         ['oil'],
+     ['odessa','lubbock','san-angelo','amarillo']),
+  ('san-angelo',     'San Angelo',     'Tom Green',       ['plains','military'],
+     ['midland','odessa','abilene','del-rio']),
+  ('abilene',        'Abilene',        'Taylor',          ['plains','military'],
+     ['lubbock','san-angelo','fort-worth','midland']),
+  ('waco',           'Waco',           'McLennan',        ['university'],
+     ['austin','killeen','fort-worth','temple']),
+  ('killeen',        'Killeen',        'Bell',            ['military'],
+     ['temple','waco','austin','georgetown']),
+  ('temple',         'Temple',         'Bell',            ['military'],
+     ['killeen','waco','austin','georgetown']),
+  ('pasadena',       'Pasadena',       'Harris',          ['houston-metro','spanish'],
+     ['houston','baytown','sugar-land','galveston']),
+  ('baytown',        'Baytown',        'Harris',          ['houston-metro','coastal'],
+     ['houston','pasadena','galveston','beaumont']),
+  ('sugar-land',     'Sugar Land',     'Fort Bend',       ['houston-metro'],
+     ['houston','pasadena','baytown','galveston']),
+  ('galveston',      'Galveston',      'Galveston',       ['coastal'],
+     ['houston','baytown','pasadena','beaumont']),
+  ('beaumont',       'Beaumont',       'Jefferson',       ['coastal'],
+     ['baytown','houston','galveston','pasadena']),
+  ('victoria',       'Victoria',       'Victoria',        ['coastal'],
+     ['corpus-christi','houston','san-antonio','galveston']),
+  ('new-braunfels',  'New Braunfels',  'Comal',           ['university'],
+     ['san-antonio','austin','georgetown','round-rock']),
+  ('round-rock',     'Round Rock',     'Williamson',      ['metro'],
+     ['austin','georgetown','waco','san-antonio']),
+  ('georgetown',     'Georgetown',     'Williamson',      ['metro'],
+     ['round-rock','austin','killeen','temple']),
+  ('denton',         'Denton',         'Denton',          ['dfw','university'],
+     ['fort-worth','dallas','plano','mckinney']),
+  ('mckinney',       'McKinney',       'Collin',          ['dfw'],
+     ['plano','dallas','denton','garland']),
+  ('mesquite',       'Mesquite',       'Dallas',          ['dfw','spanish'],
+     ['garland','dallas','irving','plano']),
+  ('tyler',          'Tyler',          'Smith',           ['plains'],
+     ['dallas','waco','beaumont','fort-worth']),
+]
+
+NEW_MEXICO = [
+  ('albuquerque',  'Albuquerque',  'Bernalillo',  ['metro','spanish','mountain','university'],
+     ['rio-rancho','santa-fe','los-lunas','belen']),
+  ('las-cruces',   'Las Cruces',   'Doña Ana',    ['metro','border','spanish','university'],
+     ['sunland-park','anthony-nm','deming','el-paso-tx']),
+  ('rio-rancho',   'Rio Rancho',   'Sandoval',    ['metro'],
+     ['albuquerque','santa-fe','los-lunas','belen']),
+  ('santa-fe',     'Santa Fe',     'Santa Fe',    ['mountain','spanish'],
+     ['albuquerque','rio-rancho','espanola','los-lunas']),
+  ('roswell',      'Roswell',      'Chaves',      ['plains'],
+     ['carlsbad','hobbs','clovis','alamogordo']),
+  ('farmington',   'Farmington',   'San Juan',    ['plains','oil'],
+     ['albuquerque','gallup','santa-fe','rio-rancho']),
+  ('clovis',       'Clovis',       'Curry',       ['plains','military'],
+     ['roswell','hobbs','carlsbad','amarillo-tx']),
+  ('hobbs',        'Hobbs',        'Lea',         ['oil'],
+     ['carlsbad','roswell','clovis','odessa-tx']),
+  ('alamogordo',   'Alamogordo',   'Otero',       ['military','mountain'],
+     ['las-cruces','roswell','carlsbad','el-paso-tx']),
+  ('carlsbad',     'Carlsbad',     'Eddy',        ['oil'],
+     ['hobbs','roswell','alamogordo','clovis']),
+  ('sunland-park', 'Sunland Park', 'Doña Ana',    ['border','spanish'],
+     ['las-cruces','anthony-nm','deming','el-paso-tx']),
+  ('deming',       'Deming',       'Luna',        ['border','spanish'],
+     ['las-cruces','sunland-park','silver-city','alamogordo']),
+  ('espanola',     'Española',    'Rio Arriba',  ['mountain','spanish'],
+     ['santa-fe','albuquerque','rio-rancho','taos']),
+  ('gallup',       'Gallup',       'McKinley',    ['plains'],
+     ['farmington','albuquerque','grants','rio-rancho']),
+  ('los-lunas',    'Los Lunas',    'Valencia',    ['metro','spanish'],
+     ['albuquerque','belen','rio-rancho','santa-fe']),
+]
+
+# Referenced as neighbours but not worth their own page yet. Linking to a page
+# that does not exist is worse than not linking, so these resolve to the hub.
+ALIASES = {
+  'el-paso-tx': ('texas', 'el-paso', 'El Paso, TX'),
+  'amarillo-tx': ('texas', 'amarillo', 'Amarillo, TX'),
+  'odessa-tx': ('texas', 'odessa', 'Odessa, TX'),
+  'anthony-nm': ('texas', 'anthony', 'Anthony'),
+}
+SKIP = {'belen','taos','grants','silver-city'}
+
+
+# One checkable fact per city, used to give every page a paragraph nothing else
+# has. Roads and geography only — no populations, no averages, nothing that
+# would need a citation we cannot give.
+ROADS = {
+  # Texas
+  'houston':        'I-45, I-10 and the 610 loop',
+  'san-antonio':    'I-35, I-10 and Loop 410',
+  'dallas':         'I-35E, I-30 and the 635 loop',
+  'austin':         'I-35 straight through the middle of town',
+  'el-paso':        'I-10, running the length of the city',
+  'fort-worth':     'I-35W, I-30 and I-20',
+  'arlington':      'I-30 and I-20, with the stadium traffic between them',
+  'corpus-christi': 'I-37 down from San Antonio',
+  'plano':          'US-75, the Central Expressway',
+  'laredo':         'the southern end of I-35',
+  'lubbock':        'I-27 and the Loop 289 ring',
+  'garland':        'I-635 and the President George Bush Turnpike',
+  'irving':         'SH-183 and I-635, with DFW airport on the doorstep',
+  'amarillo':       'I-40 crossing I-27',
+  'grand-prairie':  'I-30 and SH-161',
+  'brownsville':    'US-77 and I-69E',
+  'mcallen':        'US-83 and I-2, the Expressway',
+  'edinburg':       'US-281',
+  'mission':        'US-83 and I-2',
+  'pharr':          'US-281 meeting I-2',
+  'harlingen':      'US-77 and I-69E crossing I-2',
+  'weslaco':        'US-83 and I-2',
+  'rio-grande-city':'US-83, hard against the river',
+  'eagle-pass':     'US-57 and US-277',
+  'del-rio':        'US-90 and US-277',
+  'uvalde':         'US-90 crossing US-83',
+  'socorro':        'the I-10 corridor southeast of El Paso',
+  'horizon-city':   'the I-10 corridor east of El Paso',
+  'san-elizario':   'the river road below the I-10 corridor',
+  'fabens':         'I-10, well down the valley from El Paso',
+  'anthony':        'I-10 at the New Mexico state line',
+  'odessa':         'I-20 through the Permian Basin',
+  'midland':        'I-20 through the Permian Basin',
+  'san-angelo':     'US-87 and US-67',
+  'abilene':        'I-20',
+  'waco':           'I-35 between Dallas and Austin',
+  'killeen':        'US-190 and I-14, next to Fort Cavazos',
+  'temple':         'I-35',
+  'pasadena':       'SH-225 and Beltway 8, along the ship channel',
+  'baytown':        'I-10 east of Houston',
+  'sugar-land':     'US-59 and I-69',
+  'galveston':      'the southern end of I-45, out on the island',
+  'beaumont':       'I-10 near the Louisiana line',
+  'victoria':       'US-59 crossing US-77',
+  'new-braunfels':  'I-35 between San Antonio and Austin',
+  'round-rock':     'I-35 north of Austin',
+  'georgetown':     'I-35 at the top of the Austin corridor',
+  'denton':         'the point where I-35 splits into I-35E and I-35W',
+  'mckinney':       'US-75',
+  'mesquite':       'I-635, I-30 and US-80',
+  'tyler':          'US-69 and Loop 323',
+  # New Mexico
+  'albuquerque':    'the crossing of I-25 and I-40',
+  'las-cruces':     'the crossing of I-10 and I-25',
+  'rio-rancho':     'US-550 above Albuquerque',
+  'santa-fe':       'I-25 at the top of the Rio Grande corridor',
+  'roswell':        'US-285 crossing US-70',
+  'farmington':     'US-64 and US-550 in the Four Corners',
+  'clovis':         'US-60 and US-84 near the Texas line',
+  'hobbs':          'US-62 and US-180 on the Texas line',
+  'alamogordo':     'US-54 and US-70 below the Sacramentos',
+  'carlsbad':       'US-285 and US-62',
+  'sunland-park':   'the state line, tucked between El Paso and the river',
+  'deming':         'I-10 west of Las Cruces',
+  'espanola':       'US-84 and US-285 north of Santa Fe',
+  'gallup':         'I-40 near the Arizona line',
+  'los-lunas':      'I-25 below Albuquerque',
+}
