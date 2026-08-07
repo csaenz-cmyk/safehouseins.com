@@ -36,6 +36,7 @@ L = {
   ('Escape', 'suv', 'Compact SUV', []),
   ('Mustang', 'sports', 'Sports car', ['perf']),
   ('Mustang Mach-E', 'suv', 'Electric SUV', ['ev']),
+  ('Edge', 'suv', 'Mid-size SUV', []),
   ('Transit', 'van', 'Cargo and passenger van', ['work']),
 ]),
 
@@ -50,7 +51,11 @@ L = {
   ('Trailblazer', 'suv', 'Subcompact SUV', []),
   ('Trax', 'suv', 'Subcompact SUV', []),
   ('Malibu', 'sedan', 'Mid-size sedan', []),
+  ('Camaro', 'sports', 'Sports car', ['perf']),
   ('Corvette', 'sports', 'Sports car', ['perf', 'value']),
+  ('Equinox EV', 'suv', 'Electric SUV', ['ev']),
+  ('Blazer EV', 'suv', 'Electric SUV', ['ev']),
+  ('Silverado EV', 'truck', 'Electric pickup', ['ev', 'work']),
   ('Express', 'van', 'Cargo and passenger van', ['work']),
 ]),
 
@@ -63,6 +68,7 @@ L = {
   ('Acadia', 'suv', 'Three-row SUV', []),
   ('Terrain', 'suv', 'Compact SUV', []),
   ('Hummer EV', 'truck', 'Electric pickup', ['ev', 'offroad']),
+  ('Sierra EV', 'truck', 'Electric pickup', ['ev', 'work']),
   ('Savana', 'van', 'Cargo and passenger van', ['work']),
 ]),
 
@@ -90,12 +96,14 @@ L = {
   ('Durango', 'suv', 'Three-row SUV', ['perf']),
   ('Hornet', 'suv', 'Compact SUV', []),
   ('Journey', 'suv', 'Mid-size SUV', ['old']),
+  ('Grand Caravan', 'minivan', 'Minivan', ['old']),
 ]),
 
 'chrysler': dict(accent='#2F4E6E', models=[
   ('Pacifica', 'minivan', 'Minivan', []),
   ('Voyager', 'minivan', 'Minivan', []),
   ('300', 'sedan', 'Full-size sedan', ['old']),
+  ('Town & Country', 'minivan', 'Minivan', ['old']),
 ]),
 
 'cadillac': dict(accent='#6E2639', models=[
@@ -182,6 +190,7 @@ L = {
   ('Armada', 'suv-large', 'Full-size SUV', []),
   ('Frontier', 'truck', 'Mid-size pickup', ['work']),
   ('Titan', 'truck', 'Full-size pickup', ['work']),
+  ('Maxima', 'sedan', 'Full-size sedan', ['old']),
   ('Leaf', 'hatch', 'Electric hatchback', ['ev']),
   ('Ariya', 'suv', 'Electric SUV', ['ev']),
   ('Z', 'sports', 'Sports car', ['perf']),
@@ -266,6 +275,7 @@ L = {
   ('Telluride', 'suv-large', 'Three-row SUV', []),
   ('Seltos', 'suv', 'Subcompact SUV', []),
   ('Soul', 'hatch', 'Compact hatchback', []),
+  ('Forte', 'sedan', 'Compact sedan', []),
   ('K4', 'sedan', 'Compact sedan', []),
   ('K5', 'sedan', 'Mid-size sedan', []),
   ('Carnival', 'minivan', 'Minivan', []),
@@ -521,6 +531,7 @@ L = {
   ('Trooper', 'suv', 'Full-size SUV', ['old', 'offroad']),
   ('Ascender', 'suv', 'Mid-size SUV', ['old']),
   ('Amigo', 'suv', 'Compact SUV', ['old', 'offroad']),
+  ('i-Series', 'truck', 'Mid-size pickup', ['old', 'work']),
 ]),
 
 'saab': dict(accent='#3F5A6B', models=[

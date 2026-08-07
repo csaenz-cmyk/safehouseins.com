@@ -537,8 +537,8 @@ def faq(st, name, tags):
         "each have an appetite &mdash; one wants clean records and newer cars, another is "
         "comfortable with a violation or a lapse &mdash; and the winner in " + name + " swaps "
         "depending on which of those you are.</p>"
-        "<p>We shop the whole shelf rather than defending one company's number, and we are paid the "
-        "same whichever you pick.</p>"]) ),
+        "<p>We shop the whole shelf rather than defending one company's number, which is the "
+        "difference between an agency and a carrier.</p>"]) ),
 
       ("Which is the best insurance company in " + name + "?",
        P('a3', [
@@ -824,9 +824,9 @@ def intro(name, county, st, tags):
       "in " + name + ", we do not have one answer to defend &mdash; we send your details to every "
       "carrier we represent and show you all of it.</p>",
 
-      "<p>Safe House Insurance is independent and licensed in " + d['name'] + ", which is a way of "
-      "saying we get paid the same whichever company you end up with. There is no version of this "
-      "where steering you costs you money and earns us more.</p>",
+      "<p>Safe House Insurance is an independent agency licensed in " + d['name'] + " &mdash; not "
+      "one insurance company. That is what lets us compare available options from several carriers "
+      "we represent instead of showing you a single company's quote.</p>",
     ])
     place = pick(county, [
       "<p>" + name + " sits in " + county + " County. Rates here are set by your garaging address, "

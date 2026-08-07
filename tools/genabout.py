@@ -49,9 +49,9 @@ BODY = """
      better, you would have to make the call again. And again.</p>
   <p>Safe House is appointed with a shelf of carriers instead of employed by one. When you ask us
      for a price, your information goes to all of them at once and they come back with their own
-     numbers. We show you what came back. <strong>We are paid the same either way</strong>, which is
-     the part that matters: there is no version of this where steering you costs you money and earns
-     us more.</p>
+     numbers. We show you what came back. <strong>We are an independent agency, not an insurance
+     company</strong>, which is the part that matters: we have no house brand to protect and no
+     single carrier&rsquo;s number to defend.</p>
   <p>It also means we do not have to say goodbye when a carrier changes its mind about you. Rates
      move, appetites shift, a company that wanted your business last year stops writing your class
      this year. When that happens we re-shop it. You keep the same agency; the policy behind you
