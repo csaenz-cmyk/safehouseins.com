@@ -1,144 +1,314 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Safe House Insurance — El Paso, TX</title>
-<meta name="description" content="Safe House Insurance is a local, independent, bilingual agency in El Paso, TX. The modern way to insure — big-tech simple, hometown human. Serving Texas & New Mexico.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>About us · Safe House Insurance</title>
+<meta name="description" content="Safe House Insurance is an independent, bilingual agency in El Paso, Texas, licensed in Texas and New Mexico. How we work and why.">
+<link rel="icon" href="assets/safehouse-heart.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--blue:#1666ED;--blue-d:#0F4FBF;--cyan:#00C2FF;--navy:#0A2148;--ink:#0E1726;
+        --muted:#5C6A80;--line:#E5EBF6;--ice:#EFF5FF;--ice2:#DCEAFF;
+        --grad:linear-gradient(115deg,#1666ED,#00C2FF)}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  body{font-family:'Figtree',system-ui,-apple-system,sans-serif;color:var(--ink);
+       background:#fff;-webkit-font-smoothing:antialiased;line-height:1.6}
+  img{max-width:100%;display:block}
+  a{color:var(--blue);font-weight:700;text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+  .narrow{max-width:760px;margin:0 auto}
+
+  nav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.93);
+      backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:70px}
+  nav .logo{height:38px}
+  nav .nl{display:none;gap:24px;align-items:center}
+  nav .nl a{font-size:14.5px;font-weight:700;color:var(--ink)}
+  nav .cta{background:var(--grad);color:#fff;border-radius:99px;padding:10px 20px;
+      font-size:14.5px;font-weight:800;white-space:nowrap}
+  nav .cta:hover{text-decoration:none}
+  @media(min-width:900px){ nav .nl{display:flex} nav .logo{height:44px} }
+
+  header.pg{background:linear-gradient(180deg,var(--ice),#fff);padding:52px 0 40px;
+      border-bottom:1px solid var(--line)}
+  header.pg .kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:900;
+      letter-spacing:.12em;text-transform:uppercase;color:var(--blue-d);
+      background:#fff;border:1.5px solid var(--ice2);border-radius:99px;padding:7px 15px}
+  header.pg h1{font-size:clamp(30px,6vw,54px);font-weight:900;letter-spacing:-.03em;
+      color:var(--navy);line-height:1.08;margin-top:18px}
+  header.pg p{font-size:clamp(16px,2.2vw,19.5px);color:var(--muted);font-weight:600;
+      margin-top:16px;max-width:640px}
+
+  section.blk{padding:52px 0}
+  section.blk.tint{background:var(--ice)}
+  h2{font-size:clamp(24px,3.6vw,36px);font-weight:900;letter-spacing:-.025em;color:var(--navy);
+     line-height:1.12}
+  h3{font-size:19px;font-weight:900;color:var(--navy);margin-bottom:6px}
+  p.lead{font-size:17px;color:var(--muted);font-weight:600;margin-top:14px}
+  section.blk p{font-size:16px;color:#25344b;margin-top:14px}
+  section.blk ul{margin:14px 0 0 20px}
+  section.blk li{font-size:16px;color:#25344b;margin:7px 0}
+  strong{font-weight:800;color:var(--navy)}
+
+  .grid{display:grid;gap:14px;margin-top:26px}
+  @media(min-width:760px){ .grid.c2{grid-template-columns:1fr 1fr}
+                           .grid.c3{grid-template-columns:repeat(3,1fr)} }
+  .card{border:1.5px solid var(--line);border-radius:20px;padding:22px;background:#fff}
+  .card p{font-size:15px;margin-top:8px;color:var(--muted);font-weight:600}
+  .card .n{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;
+      background:var(--ice);color:var(--blue-d);font-weight:900;font-size:15px;margin-bottom:12px}
+
+  .people{display:grid;gap:12px;margin-top:26px}
+  @media(min-width:680px){ .people{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:1000px){ .people{grid-template-columns:repeat(3,1fr)} }
+  .person{display:flex;gap:14px;align-items:center;border:1.5px solid var(--line);
+      border-radius:18px;padding:14px;background:#fff}
+  .person img{width:62px;height:62px;border-radius:16px;object-fit:cover;flex:0 0 auto}
+  .person b{display:block;font-size:16px;font-weight:900;color:var(--navy)}
+  .person small{display:block;font-size:13px;color:var(--muted);font-weight:700;margin-top:2px}
+  .person em{display:block;font-size:12.5px;color:#9fb0c6;font-weight:700;font-style:normal;margin-top:3px}
+
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+  .chips span{font-size:13.5px;font-weight:800;color:var(--navy);background:#fff;
+      border:1.5px solid var(--line);border-radius:99px;padding:8px 15px}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      background:var(--grad);color:#fff;border:0;border-radius:99px;padding:15px 28px;
+      font:inherit;font-size:16px;font-weight:800;cursor:pointer;
+      box-shadow:0 18px 34px -18px rgba(22,102,237,.9)}
+  .btn:hover{text-decoration:none;filter:brightness(1.05)}
+  .btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line);box-shadow:none}
+  .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+
+  footer{background:var(--navy);color:#fff;padding:48px 0 34px;margin-top:10px}
+  footer a{color:#fff}
+  footer .fgrid{display:grid;gap:30px}
+  @media(min-width:820px){ footer .fgrid{grid-template-columns:1.2fr 1fr 1fr} }
+  footer .flogo{height:34px;filter:brightness(0) invert(1)}
+  footer h5{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+      color:#8FB4F0;margin-bottom:14px}
+  footer .ways{display:grid;gap:14px}
+  footer .way{display:flex;gap:11px;align-items:flex-start}
+  footer .way .ic{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.12);
+      display:grid;place-items:center;flex:0 0 auto;font-size:15px}
+  footer .way b{display:block;font-size:12.5px;font-weight:900;letter-spacing:.06em;
+      text-transform:uppercase;color:#8FB4F0}
+  footer .way a{display:block;font-size:17px;font-weight:800;margin-top:2px}
+  footer .way small{display:block;font-size:12.5px;color:#A8C2E8;font-weight:600;margin-top:2px}
+  footer .links{display:grid;gap:9px}
+  footer .links a{font-size:14.5px;font-weight:700;color:#DCE9FA}
+  footer .tag{font-size:14px;color:#A8C2E8;font-weight:600;margin-top:14px;max-width:34ch}
+  footer .fbot{border-top:1px solid rgba(255,255,255,.14);margin-top:34px;padding-top:20px}
+  footer .fbot p{font-size:12px;color:#8FA6C8;line-height:1.7}
+  footer .fbot .lg{display:flex;gap:8px;flex-wrap:wrap;font-size:13.5px;font-weight:800;margin-bottom:12px}
+</style>
 </head>
 <body>
-  <div class="topbar">
-    <span>📞 Call or text <a href="tel:+19155031207">915-503-1207</a></span>
-    <span>✉️ <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></span>
-    <span class="es">🇲🇽 Se habla español</span>
-    <span>El Paso, TX · Serving TX &amp; NM</span>
-  </div>
 
-  <header class="subhero">
-    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
-    <div class="hearts" id="hearts"></div>
-    <nav>
-      <a href="index.html"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
-      <div class="links"><a href="auto.html">Auto</a><a href="home-insurance.html">Home</a><a href="commercial.html">Commercial</a><a href="about.html" class="active">About</a><a href="index.html#faq">FAQ</a></div>
-      <div class="nav-cta"><a class="signin" href="contact.html">Contact</a><a class="btn white sm" href="contact.html#quote">Get a quote</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button></div>
-    </nav>
-
-  <div class="drawer" id="drawer">
-    <a href="index.html">Home</a>
-    <a href="auto.html">Auto</a>
-    <a href="home-insurance.html">Home insurance</a>
-    <a href="commercial.html">Commercial</a>
+<nav><div class="wrap">
+  <a href="index.html" aria-label="Safe House Insurance home"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+  <div class="nl">
     <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a class="btn white" href="tel:+19155031207">📞 Call 915-503-1207</a>
-    <a class="dr-mail" href="mailto:contact@safehouseins.com">contact@safehouseins.com · 🇲🇽 Se habla español</a>
+    <a href="careers.html">Careers</a>
+    <a href="index.html#faq">FAQ</a>
+  </div>
+  <a class="cta" href="quote.html">Get my free quote</a>
+</div></nav>
+
+<header class="pg"><div class="wrap">
+  <span class="kick">About us</span>
+  <h1>We are the agency,<br>not the insurance company.</h1>
+  <p>That distinction is the whole business. An insurance company has one product to sell you.
+     We have sixteen, and no reason to prefer any of them except the one that fits you.</p>
+</div></header>
+
+<section class="blk"><div class="wrap narrow">
+  <h2>What an independent agency actually is</h2>
+  <p>If you call Progressive, you get Progressive's price. If it is high that day &mdash; because of
+     your ZIP code, your vehicle, a ticket from two years ago, or simply because their rates went up
+     last quarter &mdash; that is the price you get. To find out whether anyone else would have done
+     better, you would have to make the call again. And again.</p>
+  <p>Safe House is appointed with a shelf of carriers instead of employed by one. When you ask us
+     for a price, your information goes to all of them at once and they come back with their own
+     numbers. We show you what came back. <strong>We are paid the same either way</strong>, which is
+     the part that matters: there is no version of this where steering you costs you money and earns
+     us more.</p>
+  <p>It also means we do not have to say goodbye when a carrier changes its mind about you. Rates
+     move, appetites shift, a company that wanted your business last year stops writing your class
+     this year. When that happens we re-shop it. You keep the same agency; the policy behind you
+     changes.</p>
+</div></section>
+
+<section class="blk tint"><div class="wrap">
+  <div class="narrow">
+    <h2>Why we work the way we do</h2>
+    <p class="lead">Three things about insurance in our part of the world shaped how this agency runs.</p>
+  </div>
+  <div class="grid c3">
+    <div class="card"><span class="n">1</span>
+      <h3>Most people never re-shop</h3>
+      <p>A policy renews quietly and the price creeps. Nobody sends a letter saying another carrier
+         would now be cheaper. Somebody has to go look, and that is a job, not a feature.</p></div>
+    <div class="card"><span class="n">2</span>
+      <h3>The language is the barrier, not the price</h3>
+      <p>Deductible, endorsement, SR-22, non-owner, stated amount. People sign things they do not
+         follow because asking felt like admitting something. Every agent here explains in English
+         or Spanish, whichever the conversation started in.</p></div>
+    <div class="card"><span class="n">3</span>
+      <h3>Border life is not standard</h3>
+      <p>A foreign licence, a matr&iacute;cula, a first policy at 19, a work truck and a family car
+         on one household. National call centres treat those as edge cases. Here they are Tuesday.</p></div>
+  </div>
+</div></section>
+
+<section class="blk"><div class="wrap narrow">
+  <h2>One call. We shop. You pick.</h2>
+  <p>The process is deliberately short, because the long version is where people give up.</p>
+  <ul>
+    <li><strong>You tell us once.</strong> Online in a few minutes, or on the phone if you would
+        rather talk. We do not ask for anything a carrier will not ask for.</li>
+    <li><strong>We shop it.</strong> Your details go to every carrier that writes your situation,
+        at the same time, and the prices come back to us.</li>
+    <li><strong>You pick.</strong> A licensed agent goes through the options with you, applies the
+        discounts you qualify for, and answers the question underneath the question &mdash; which is
+        usually <em>what happens if something actually goes wrong</em>.</li>
+  </ul>
+  <p>Nothing binds on a screen. A licensed person reviews every policy before it is issued, because
+     an online form cannot tell that the address you typed is a rental, or that the truck in the
+     driveway is used for work.</p>
+</div></section>
+
+<section class="blk tint"><div class="wrap">
+  <div class="narrow">
+    <h2>The people you actually get</h2>
+    <p class="lead">Five of us, in El Paso, with more than 35 years of licensed
+       experience between the agents. Call or text and you reach one of them &mdash; not a bot, not a
+       queue in another time zone.</p>
+  </div>
+  <div class="people">
+      <div class="person"><img src="assets/agent-2-t.jpg" alt="" width="240" height="240" loading="lazy"><span><b>Alexa M.</b><small>Licensed agent</small><em>11 years in insurance</em></span></div>
+      <div class="person"><img src="assets/agent-4-t.jpg" alt="" width="240" height="240" loading="lazy"><span><b>Marcus D.</b><small>Licensed agent</small><em>9 years in insurance</em></span></div>
+      <div class="person"><img src="assets/agent-1-t.jpg" alt="" width="240" height="240" loading="lazy"><span><b>Daniela R.</b><small>Licensed agent</small><em>8 years in insurance</em></span></div>
+      <div class="person"><img src="assets/agent-3-t.jpg" alt="" width="240" height="240" loading="lazy"><span><b>Julián C.</b><small>Commercial lines</small><em>7 years in insurance</em></span></div>
+      <div class="person"><img src="assets/agent-5-t.jpg" alt="" width="240" height="240" loading="lazy"><span><b>Ivette S.</b><small>Customer service</small><em>4 years in insurance</em></span></div>
+  </div>
+</div></section>
+
+<section class="blk"><div class="wrap narrow">
+  <h2>Where we are, and who we can help</h2>
+  <p>We are at <strong>6065 Montana Ave Ste C8, El Paso, Texas</strong>, and we are licensed in
+     <strong>Texas and New Mexico</strong>. Those two licences are the honest boundary of what we can
+     sell &mdash; not a marketing region. If you are outside them, we will tell you so rather than
+     take your information.</p>
+  <p>Inside them, distance does not matter. We write policies in El Paso and Las Cruces because that
+     is home, and in Houston, Austin and Albuquerque because a phone works the same everywhere.</p>
+  <div class="chips">
+    <span>Car</span><span>Home</span><span>Renters</span><span>Motorcycle</span>
+    <span>Commercial vehicles</span><span>Work trucks and fleets</span><span>Life</span><span>Bonds</span>
+  </div>
+</div></section>
+
+<section class="blk tint"><div class="wrap narrow">
+  <h2>The carriers we shop</h2>
+  <p>Appointments change &mdash; carriers open and close their appetite by state, by class, sometimes
+     by month. This is who we work with today:</p>
+  <div class="chips">
+    <span>Progressive</span><span>GEICO</span><span>Allstate</span><span>State Farm</span><span>Nationwide</span><span>Safeco</span><span>Kemper</span><span>GAINSCO</span><span>Bristol West</span><span>Dairyland</span><span>Acacia</span><span>Bluefire</span><span>Alinsco</span><span>Commonwealth</span><span>Apollo</span><span>Connect</span>
+  </div>
+  <p>If none of them wants your risk at a price that makes sense, we say that too. An agency that
+     can only ever find you a yes is not shopping.</p>
+</div></section>
+
+<section class="blk"><div class="wrap">
+  <div class="narrow">
+    <h2>What we do not do</h2>
+    <p class="lead">Worth being specific about, because plenty of sites that look like this one do
+       the opposite.</p>
+  </div>
+  <div class="grid c2">
+    <div class="card">
+      <h3>We do not sell your information</h3>
+      <p>You are not a lead being resold to four other agencies. What you send us is used to quote
+         and service your policy. The only people who call you are Safe House agents.</p></div>
+    <div class="card">
+      <h3>We do not text you without permission</h3>
+      <p>The box on our quote form is unchecked and stays unchecked unless you tick it, and you get
+         your quote either way. Reply STOP at any time and it stops.</p></div>
+    <div class="card">
+      <h3>We do not quote a price we cannot stand behind</h3>
+      <p>Online prices are what the carriers returned for what you told us. They are marked as
+         subject to verification because your driving record still has to be run &mdash; and after
+         that, the number more often goes down than up.</p></div>
+    <div class="card">
+      <h3>We do not disappear after the sale</h3>
+      <p>Payments, endorsements, ID cards, claims, the renewal a year later. The agency that sold
+         it to you is the agency that answers the phone about it.</p></div>
+  </div>
+</div></section>
+
+<section class="blk tint"><div class="wrap narrow">
+  <h2>Come work with us</h2>
+  <p>We are always hiring, and we are not precious about where you started. If you are licensed, or
+     willing to become licensed, and you can look after a person in English or Spanish, we would like
+     to see your resume.</p>
+  <div class="acts">
+    <a class="btn" href="careers.html">See careers</a>
+    <a class="btn ghost" href="quote.html">Get my free quote</a>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div>
+      <img class="flogo" src="assets/safehouse-logo.png" alt="Safe House Insurance">
+      <p class="tag">One agency for everything you own. Licensed in Texas and New Mexico,
+         based in El Paso. Se habla espa&ntilde;ol.</p>
+    </div>
+
+    <div>
+      <h5>Reach us</h5>
+      <div class="ways">
+        <div class="way"><span class="ic" aria-hidden="true">&#9742;</span>
+          <span><b>Call</b><a href="tel:+19155031207">915-503-1207</a>
+          <small>A licensed agent, not a call centre</small></span></div>
+        <div class="way"><span class="ic" aria-hidden="true">&#128172;</span>
+          <span><b>Text</b><a href="sms:+19155943777">915-594-3777</a>
+          <small>Different number &mdash; this one receives texts</small></span></div>
+        <div class="way"><span class="ic" aria-hidden="true">&#9993;</span>
+          <span><b>Email</b><a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a>
+          <small>Documents, questions, anything</small></span></div>
+      </div>
+    </div>
+
+    <div>
+      <h5>Company</h5>
+      <div class="links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About us</a>
+        <a href="careers.html">Careers</a>
+        <a href="quote.html">Get a quote</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="sms-terms.html">SMS Terms</a>
+      </div>
+    </div>
   </div>
 
-    <div class="subhero-inner">
-      <div class="crumbs"><a href="index.html">Home</a> / About</div>
-      <h1>The modern way<br><span class="it">to insure.</span></h1>
-      <p>We're a local, independent El Paso agency on a mission to make insurance simple, fast and actually friendly — in English or Spanish.</p>
-    </div>
-  </header>
+  <div class="fbot">
+    <p class="lg"><a href="privacy.html">Privacy Policy</a> &middot;
+       <a href="sms-terms.html">SMS Terms</a></p>
+    <p>Safe House Insurance LLC &middot; 6065 Montana Ave Ste C8, El Paso, TX 79925<br>
+      Independent insurance agency licensed in Texas and New Mexico. Coverage is subject to carrier
+      approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy.
+      Quotes are estimates and are not a guarantee of coverage or price.
+      &copy; 2026 Safe House Insurance.</p>
+  </div>
+</div></footer>
 
-  <section>
-    <div class="wrap split">
-      <div class="prose reveal">
-        <span class="kicker">Our story</span>
-        <h3>Big-tech simple. Hometown human.</h3>
-        <p>Safe House Insurance was built on a simple idea: insurance shouldn't be slow, confusing or impersonal. We pair modern tools — real-time carrier comparison and an effortless online experience — with something the big apps can't offer: real, local, bilingual people who pick up the phone.</p>
-        <p>As an independent agency, we don't work for one insurance company. We work for you. That means we shop top carriers like Progressive, Geico, Lemonade, Alinsco and Commonwealth to find the coverage and price that fit your life — including drivers and families other agencies turn away.</p>
-      </div>
-      <div class="panel grad reveal">
-        <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:32px;color:#fff">What we believe</h3>
-        <ul class="checklist" style="margin-top:18px">
-          <li style="color:#fff">Insurance should take minutes, not days</li>
-          <li style="color:#fff">Everyone deserves a fair shot at coverage</li>
-          <li style="color:#fff">Technology should feel human</li>
-          <li style="color:#fff">Your language, your way — siempre</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="why">
-    <div class="wrap">
-      <div class="reveal center" style="max-width:660px"><span class="kicker">Why Safe House</span><h2 class="h2">A different kind <span class="it grad-text">of agency.</span></h2></div>
-      <div class="whygrid">
-        <div class="feat-c reveal"><div class="ico">🤝</div><h4>Independent</h4><p>We compare top carriers to find your best price — not whatever one insurer is selling.</p></div>
-        <div class="feat-c reveal"><div class="ico">🇲🇽</div><h4>Bilingual</h4><p>Quote and get help in English or Spanish, from a team that knows the border.</p></div>
-        <div class="feat-c reveal"><div class="ico">🛡️</div><h4>Specialists</h4><p>High-risk, SR-22, non-owner or no license? We find carriers that say yes.</p></div>
-        <div class="feat-c reveal"><div class="ico">⚡</div><h4>Modern</h4><p>Quote, buy and manage online — backed by TurboRater's real-time rating.</p></div>
-        <div class="feat-c reveal"><div class="ico">📍</div><h4>Local</h4><p>Proudly based in El Paso and licensed across Texas and New Mexico.</p></div>
-        <div class="feat-c reveal"><div class="ico">💙</div><h4>Human</h4><p>Real people who answer, explain and have your back when it matters.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section style="padding:80px 0">
-    <div class="wrap">
-      <div class="reveal center" style="max-width:660px"><span class="kicker">Service area</span><h2 class="h2">Proudly local to <span class="it grad-text">El Paso &amp; beyond.</span></h2></div>
-      <div class="reveal" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:840px;margin:40px auto 0">
-        <span class="area-chip">El Paso, TX</span><span class="area-chip">Horizon City</span><span class="area-chip">Socorro</span><span class="area-chip">San Elizario</span><span class="area-chip">Clint</span><span class="area-chip">Fabens</span><span class="area-chip">Canutillo</span><span class="area-chip">Anthony</span><span class="area-chip">Las Cruces, NM</span><span class="area-chip">Sunland Park, NM</span><span class="area-chip">Santa Teresa, NM</span><span class="area-chip">Chaparral, NM</span>
-      </div>
-    </div>
-  </section>
-
-  <section style="padding-top:10px"><div class="wrap"><div class="cta reveal">
-    <img class="heartbg" src="assets/safehouse-heart.png" alt="">
-    <h2 class="h2">Insure the <span class="it">modern way.</span></h2>
-    <p>Join your El Paso neighbors who made the switch. Free quote, no obligation.</p>
-    <a class="btn white" href="contact.html#quote">Get my quote →</a>
-  </div></div></section>
-
-  <footer>
-    <div class="wrap">
-      <div class="fgrid">
-        <div>
-          <img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance">
-          <p style="max-width:36ch;font-size:14.5px">The modern way to insure. Auto, home, commercial &amp; life — compared, bought and managed in El Paso, TX.</p>
-          <p style="margin-top:14px;color:#fff;font-weight:800">📞 915-503-1207</p>
-          <p style="font-size:13.5px;margin-top:4px"><a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></p>
-          <p style="font-size:13px;margin-top:4px">🇲🇽 Se habla español</p>
-        </div>
-        <div><h5>Insurance</h5><a href="auto.html">Auto</a><a href="home-insurance.html">Home</a><a href="commercial.html">Commercial</a><a href="contact.html">Life</a><a href="contact.html">Bonds</a></div>
-        <div><h5>Company</h5><a href="index.html#how">How it works</a><a href="index.html#ai">Technology</a><a href="about.html">About</a><a href="index.html#faq">FAQ</a><a href="contact.html">Contact</a></div>
-        <div><h5>Account</h5><a href="#">Sign in</a><a href="contact.html#quote">Get a quote</a><a href="#">Manage policy</a><a href="#">File a claim</a></div>
-      </div>
-      <div class="fbot"><span>© 2026 Safe House Insurance · El Paso, TX</span><span>Licensing</span></div>
-    </div>
-    <p class="disclaimer">Safe House Insurance is an independent insurance agency licensed in Texas and New Mexico [license #__________]. Coverage is subject to carrier approval, underwriting guidelines, and policy terms, conditions and exclusions. Quotes and savings vary by individual circumstances and are not guaranteed. Carrier availability varies by state and eligibility. This website is for general information only and does not constitute an offer of insurance.</p>
-    <p class="flegal"><a href="privacy.html">Privacy Policy</a> &middot; <a href="sms-terms.html">SMS Terms</a></p>
-  </footer>
-
-  <script>
-    const hc=document.getElementById('hearts');
-    if(hc){for(let i=0;i<7;i++){const im=document.createElement('img');im.src='assets/safehouse-heart.png';const s=20+Math.random()*40;im.style.width=s+'px';im.style.left=(Math.random()*100)+'%';im.style.bottom=(-10-Math.random()*20)+'%';im.style.animationDuration=(13+Math.random()*12)+'s';im.style.animationDelay=(-Math.random()*15)+'s';hc.appendChild(im);}}
-    const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-  </script>
-
-<script>
-  (function(){
-    var burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
-    if(!burger||!drawer)return;
-    function setMenu(open){
-      if(open){var r=document.querySelector('nav').getBoundingClientRect();
-        drawer.style.paddingTop=Math.max(r.bottom+20,90)+'px';}
-      burger.classList.toggle('on',open);drawer.classList.toggle('on',open);
-      document.body.classList.toggle('locked',open);
-      burger.setAttribute('aria-expanded',open);
-      burger.setAttribute('aria-label',open?'Close menu':'Open menu');
-    }
-    burger.addEventListener('click',function(){setMenu(!drawer.classList.contains('on'));});
-    Array.prototype.forEach.call(drawer.querySelectorAll('a'),function(a){a.addEventListener('click',function(){setMenu(false);});});
-    addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
-    addEventListener('resize',function(){if(innerWidth>960)setMenu(false);});
-  })();
-</script>
 </body>
 </html>

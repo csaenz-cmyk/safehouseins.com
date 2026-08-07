@@ -1,3 +1,5 @@
 # Preview/build artifacts
 safehouse-site.zip
 *.zip
+
+__pycache__/
