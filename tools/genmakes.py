@@ -27,17 +27,26 @@ def load_models():
 
 MODELS = load_models()
 
+SALT = ['']   # owned by build_make; see pick()
+
 def pick(key, options):
+    """Stable draft choice per make, salted so a page can be redrawn.
+
+    Two makes carrying the same tags can draw the same draft block after block
+    by coincidence and come out reading like each other. The salt lets the
+    build loop draw again until the page is genuinely different from every page
+    already written, without anyone hand-tuning variant counts.
+    """
     h = 0
-    for ch in key:
+    for ch in SALT[0] + key:
         h = (h * 131 + ord(ch)) & 0xFFFFFFFF
     return options[h % len(options)]
 
 # ------------------------------------------------------------- copy blocks ---
 def para_luxury(n):
     return pick(n + 'lux', [
-      ("<h2>Why a " + n + " costs more to repair than to buy</h2>"
-       "<p>The sticker price is the smaller half of the story. What moves a luxury premium is the "
+      ("<h2>The repair bill, not the sticker, drives a " + n + " premium</h2>"
+       "<p>What the car cost is the smaller half of the story. What moves a luxury premium is the "
        "repair bill: adaptive headlights that cost more than a whole bumper on a mainstream car, "
        "radar and camera modules built into panels that used to be plain metal, and a shorter list "
        "of shops certified to touch any of it.</p>"
@@ -134,14 +143,33 @@ def para_offroad(n):
     ])
 
 def para_discontinued(n, note):
-    return ("<h2>Insuring a " + n + " that is no longer built</h2>"
-      "<p>" + n + " is not sold new in the US any more, so every one on the road has some age on it "
-      "&mdash; and that changes the arithmetic rather than the availability. Coverage is "
-      "straightforward; the question is how much of it is worth buying.</p>"
-      "<p>The test is the one in the calculator below. Once the most a collision policy could ever "
-      "pay you gets close to what the coverage costs, liability-only starts to make sense. Parts "
-      "availability matters too: a long repair on a discontinued model can outlast the rental "
-      "coverage on the policy.</p>")
+    return pick(n + 'disc', [
+      ("<h2>Insuring a " + n + " that is no longer built</h2>"
+       "<p>" + n + " is not sold new in the US any more, so every one on the road has some age on it "
+       "&mdash; and that changes the arithmetic rather than the availability. Coverage is "
+       "straightforward; the question is how much of it is worth buying.</p>"
+       "<p>The test is the one in the calculator below. Once the most a collision policy could ever "
+       "pay you gets close to what the coverage costs, liability-only starts to make sense. Parts "
+       "availability matters too: a long repair on a discontinued model can outlast the rental "
+       "coverage on the policy.</p>"),
+
+      ("<h2>A discontinued badge is not a coverage problem</h2>"
+       "<p>People assume a dead brand is hard to insure. It is not &mdash; carriers rate the vehicle "
+       "in front of them, and a " + n + " has a year, a body style and a repair cost like anything "
+       "else. What actually changes is the value, and value is what decides how much coverage is "
+       "worth carrying.</p>"
+       "<p>Two things are worth asking before you pay for collision on one: what would it cost to "
+       "replace, and how long would the shop wait on a part. A repair that drags on past the rental "
+       "allowance is a cost the policy never shows you up front.</p>"),
+
+      ("<h2>What age actually does to a " + n + " policy</h2>"
+       "<p>Liability does not care how old the car is &mdash; the damage you do to someone else is "
+       "the same either way, which is why the limits matter just as much on a twenty-year-old " + n +
+       " as on a new one. Collision and comprehensive are the parts that age out.</p>"
+       "<p>Run the numbers below before renewing them out of habit. If the ceiling on what the "
+       "coverage could ever pay has drifted close to what you are paying for it, that money buys "
+       "more as higher liability limits than as collision on a car worth very little.</p>"),
+    ])
 
 def para_repair(n):
     return pick(n + 'rep', [
@@ -151,6 +179,22 @@ def para_repair(n):
        "existed on a car from fifteen years ago, and all of it is now in the estimate.</p>"
        "<p>It is the main reason the same driver can get very different numbers from two carriers "
        "on the same " + n + ".</p>"),
+
+      ("<h2>The parts bill behind a " + n + " quote</h2>"
+       "<p>A carrier is not guessing when it prices a " + n + " higher than something that looks "
+       "similar on the road. It is looking at what the shop charges: how many hours a panel takes, "
+       "whether the shop needs separate certification to touch the structure, and how many "
+       "electronics have to be recalibrated afterwards.</p>"
+       "<p>A bumper on a modern car is rarely just a bumper. Behind it sit the sensors that run the "
+       "cruise control and the emergency braking, and putting those back into calibration is a line "
+       "on the estimate all by itself.</p>"),
+
+      ("<h2>Why the repair estimate drives the premium</h2>"
+       "<p>Premium follows expected claim cost, and on a " + n + " the expensive part is the "
+       "repair, not the frequency. The same dent that is a straightforward job on an older steel "
+       "car turns into certified tooling, specialist labour and a longer rental on a newer one.</p>"
+       "<p>Which is also why shopping it matters here more than on a cheap car. Carriers use "
+       "different repair-cost data and land in very different places on the same vehicle.</p>"),
     ])
 
 def para_theft(n):
@@ -162,7 +206,36 @@ def para_theft(n):
       "any manufacturer anti-theft update applies to your vehicle, and ask your carrier whether "
       "having it done changes your rate. Sometimes it does.</p>")
 
+def para_exotic(n):
+    return pick(n + 'exo', [
+      ("<h2>Why a " + n + " is usually not a standard policy</h2>"
+       "<p>Most personal auto carriers will not write a " + n + " at all, and the ones that do "
+       "rarely do it on their ordinary product. These go to specialty markets, and they are "
+       "written on <b>agreed value</b> rather than actual cash value &mdash; you and the carrier "
+       "settle on the number in advance, in writing, and that is what gets paid.</p>"
+       "<p>That matters more here than anywhere else. Actual cash value on a car this rare is an "
+       "argument waiting to happen; agreed value is a figure already signed.</p>"),
+
+      ("<h2>Agreed value, and why it is the whole conversation</h2>"
+       "<p>On an ordinary car the insurer decides what it was worth after the accident. On a "
+       "<b>" + n + "</b> that is the wrong way round &mdash; there is no lot full of comparable "
+       "sales to point at. Specialty policies fix the figure up front, and the appraisal that "
+       "supports it is worth keeping current.</p>"
+       "<p>A value agreed four years ago on a car that has appreciated is a claim you will not "
+       "enjoy.</p>"),
+    ])
+
+def para_exotic_use(n):
+    return ("<h2>Mileage, storage and who else drives it</h2>"
+      "<p>Specialty policies for a " + n + " often come with conditions an everyday policy does "
+      "not have: an annual mileage cap, a requirement that it is garaged, sometimes a named list "
+      "of who may drive it. Those conditions are what make the premium reasonable, and breaking "
+      "them quietly is how a claim gets denied.</p>"
+      "<p>If it is genuinely your daily driver, say so at the quote. It changes which market it "
+      "goes to, and it is far cheaper to disclose than to discover.</p>")
+
 SECTIONS = [
+  ('exotic',        lambda n, x: para_exotic(n)),
   ('ev',            lambda n, x: para_ev(n)),
   ('truck',         lambda n, x: para_truck(n)),
   ('luxury',        lambda n, x: para_luxury(n)),
@@ -170,6 +243,7 @@ SECTIONS = [
   ('offroad',       lambda n, x: para_offroad(n)),
   ('economy',       lambda n, x: para_economy(n)),
   ('big-repair',    lambda n, x: para_repair(n)),
+  ('exotic',        lambda n, x: para_exotic_use(n)),
 ]
 
 # --------------------------------------------------------------- interactive ---
@@ -342,7 +416,7 @@ def make_page(slug, name, parent, origin, tags, note):
             body.append(fn(name, tags))
     if 'discontinued' in tags:
         body.insert(0, para_discontinued(name, note))
-    if not any(t in tags for t in ('ev', 'luxury')):
+    if not any(t in tags for t in ('ev', 'luxury', 'exotic')):
         body.append(para_theft(name))
 
     head = rewrite(shell.head(title, desc), 2)
@@ -385,9 +459,8 @@ def make_page(slug, name, parent, origin, tags, note):
 """ + ''.join('<section class="blk' + (' tint' if i % 2 == 0 else '') + '"><div class="wrap narrow">'
               + b + '</div></section>\n' for i, b in enumerate(body)) + """
 
-<section class="blk tint"><div class="wrap narrow">
-  """ + (model_picker(slug, name) or '') + """
-</div></section>
+""" + (('<section class="blk tint"><div class="wrap narrow">'
+        + model_picker(slug, name) + '</div></section>') if model_picker(slug, name) else '') + """
 
 <section class="blk"><div class="wrap narrow">
   """ + drop_collision(name) + """
@@ -415,8 +488,11 @@ def hub():
     for slug, name, parent, origin, tags, note in M.MAKES:
         key = 'No longer sold new in the US' if 'discontinued' in tags else origin
         groups.setdefault(key, []).append((slug, name, parent))
-    order = ['American','Japanese','Korean','German','Swedish','British','Italian',
+    order = ['American','Japanese','Korean','German','Swedish','British','Italian','Vietnamese',
              'No longer sold new in the US']
+    # anything with an origin nobody thought to list still gets a heading rather
+    # than disappearing off the hub without a word
+    order += [g for g in sorted(groups) if g not in order]
     out = []
     for g in order:
         if g not in groups:
@@ -571,14 +647,54 @@ def write(path, content):
     open(full, 'w', encoding='utf-8').write(content)
     return len(content)
 
+LIMIT = 0.68          # a little under the 70% dupcheck.py fails at
+SHINGLE = 8
+MAX_REDRAW = 24
+
+def _shingles(page_html):
+    s = page_html
+    for pat in (r'(?s)<head.*?</head>', r'(?s)<footer.*?</footer>', r'(?s)<script.*?</script>'):
+        s = re.sub(pat, '', s)
+    s = re.sub(r'<[^>]+>', ' ', s)
+    w = re.findall(r"[a-z']+", html.unescape(s).lower())
+    return set(tuple(w[i:i + SHINGLE]) for i in range(len(w) - SHINGLE + 1))
+
+def build_make(row, seen):
+    """Draw a make page that does not read like one already written.
+
+    Deterministic — same MAKES list, same salt sequence, same pages every run.
+    Adding a make can change the draw of later makes, which is fine and is the
+    point: the alternative is a set of pages Google reads as one page.
+    """
+    slug, name, parent, origin, tags, note = row
+    for attempt in range(MAX_REDRAW):
+        SALT[0] = '' if attempt == 0 else str(attempt) + ':'
+        page = make_page(slug, name, parent, origin, tags, note)
+        sh = _shingles(page)
+        worst = max(((len(sh & o) / len(sh | o) if (sh | o) else 0.0, k)
+                     for k, o in seen.items()), default=(0.0, None))
+        if worst[0] < LIMIT:
+            seen[slug] = sh
+            return page, attempt
+    seen[slug] = sh
+    print('  WARN ' + slug + ' still ' + str(round(worst[0] * 100)) + '% like ' + str(worst[1])
+          + ' after ' + str(MAX_REDRAW) + ' redraws')
+    return page, MAX_REDRAW
+
 if __name__ == '__main__':
     print('models loaded from quote.html:', len(MODELS), 'makes')
     total, n, urls = 0, 0, []
-    for slug, name, parent, origin, tags, note in M.MAKES:
-        total += write('car-insurance/' + slug + '/index.html',
-                       make_page(slug, name, parent, origin, tags, note)); n += 1
-        urls.append(SITE + '/car-insurance/' + slug + '/')
+    seen, redrawn = {}, 0
+    for row in M.MAKES:
+        page, attempt = build_make(row, seen)
+        if attempt:
+            redrawn += 1
+        total += write('car-insurance/' + row[0] + '/index.html', page); n += 1
+        urls.append(SITE + '/car-insurance/' + row[0] + '/')
+    SALT[0] = ''
     total += write('car-insurance/makes/index.html', hub()); n += 1
     urls.append(SITE + '/car-insurance/makes/')
     print(str(n) + ' pages, ' + str(round(total/1024)) + ' KB')
+    print(str(redrawn) + ' of ' + str(len(seen)) + ' makes needed a redraw to stay under '
+          + str(round(LIMIT * 100)) + '% overlap')
     print('run tools/gensitemap.py to refresh sitemap.xml')

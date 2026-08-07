@@ -14,7 +14,8 @@ not have a source for them, and a fabricated number on a page whose whole job
 is to be trusted is worse than no page.
 
 tags: luxury, ev, truck, performance, economy, offroad, discontinued,
-      mainstream, big-repair (aluminium bodies, sensor-dense bumpers)
+      mainstream, big-repair (aluminium bodies, sensor-dense bumpers),
+      exotic (rarely written on a standard personal auto policy at all)
 """
 
 MAKES = [
@@ -103,6 +104,24 @@ MAKES = [
   'Maserati is a low-volume luxury brand where a single body panel can cost more than a whole repair on a mainstream car.'),
  ('fiat','Fiat','Stellantis','Italian',['economy'],
   'Fiat’s US presence has shrunk to almost nothing, and a thin parts and service network makes an older 500 harder to repair than its size suggests.'),
+ ('ferrari','Ferrari','Ferrari N.V.','Italian',['exotic','luxury','performance','big-repair'],
+  'Ferrari repairs go through factory-authorised workshops only, and the waiting list for one is part of what a claim actually costs you.'),
+ ('lamborghini','Lamborghini','Volkswagen Group','Italian',['exotic','luxury','performance','big-repair'],
+  'Lamborghini bodies are largely carbon fibre and aluminium, materials that are replaced rather than repaired — there is no straightening a carbon tub.'),
+
+ # ---------------- Ultra-luxury and low volume ----------------
+ ('bentley','Bentley','Volkswagen Group','British',['exotic','luxury','big-repair'],
+  'Bentley interiors are hand-finished, which means an interior claim on one can run past what a whole mainstream car is worth.'),
+ ('rolls-royce','Rolls-Royce','BMW Group','British',['exotic','luxury','big-repair'],
+  'Rolls-Royce sells a few thousand cars a year across the entire United States, and that volume is why almost no standard carrier will write one.'),
+ ('aston-martin','Aston Martin','Aston Martin Lagonda','British',['exotic','luxury','performance','big-repair'],
+  'Aston Martin builds in very small numbers with bonded aluminium structures, a construction that a general body shop is not equipped to touch.'),
+ ('mclaren','McLaren','McLaren Automotive','British',['exotic','performance','big-repair'],
+  'Every McLaren is built around a carbon fibre tub, and whether that tub survived an impact is the single question that decides a total loss.'),
+ ('lotus','Lotus','Geely','British',['exotic','performance'],
+  'Lotus built its name on light cars with minimal bodywork, and the newer electric models are the opposite of that in both weight and repair cost.'),
+ ('vinfast','VinFast','Vingroup','Vietnamese',['ev','big-repair'],
+  'VinFast started US deliveries in 2023, and a service network that new is a fair question to ask a carrier about before you buy the car.'),
 
  # ---------------- No longer sold new in the US ----------------
  ('pontiac','Pontiac','General Motors','American',['discontinued','performance'],
@@ -123,6 +142,16 @@ MAKES = [
   'Isuzu stopped selling passenger vehicles in the US in 2009 and now sells commercial trucks — those are a commercial policy, not a personal one.'),
  ('saab','Saab','—','Swedish',['discontinued','performance'],
   'Saab stopped production in 2011, and the parts situation is the single biggest question on any Saab policy above liability.'),
+ ('plymouth','Plymouth','Chrysler','American',['discontinued','economy'],
+  'Chrysler ended Plymouth in 2001, and most of what it sold was badge-shared with Dodge — which is what still keeps parts on the shelf.'),
+ ('geo','Geo','General Motors','American',['discontinued','economy'],
+  'Geo was General Motors’ import-badge experiment and ended in 1997; a Geo Metro or Prizm is mechanically a Suzuki or a Toyota underneath.'),
+ ('eagle','Eagle','Chrysler','American',['discontinued'],
+  'Eagle came out of Chrysler’s purchase of American Motors and ended in 1998, so anything wearing the badge is older than most drivers on the policy.'),
+ ('daewoo','Daewoo','General Motors','Korean',['discontinued','economy'],
+  'Daewoo left the US in 2002 and its models were later rebadged as Suzukis and Chevrolets, which is the only reason parts are findable at all.'),
+ ('smart','smart','Mercedes-Benz Group','German',['discontinued','economy'],
+  'smart stopped US sales in 2019. The car is unusually small, and small does not mean cheap to repair when the parts come from Mercedes.'),
 ]
 
 # Bodies that change the conversation, for the model picker.

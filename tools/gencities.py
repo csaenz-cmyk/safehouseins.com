@@ -15,7 +15,7 @@ whole job is to be trusted is worse than no page.
 
     python3 tools/gencities.py
 """
-import os, sys, html
+import os, re, sys, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import shell, cities
 
@@ -63,6 +63,8 @@ def rewrite(chunk, depth):
 
 # --------------------------------------------------------------- copy blocks ---
 
+SALT = ['']   # set by city_page; see pick()
+
 def pick(slug, options):
     """Stable choice per city.
 
@@ -70,9 +72,14 @@ def pick(slug, options):
     search engine calls a doorway page. Every block below has several drafts and
     each city gets one by hash — same city, same page, every regeneration, but
     Mission and Pharr no longer read like a find-and-replace of each other.
+
+    The salt is the state. Anthony, Socorro and Las Vegas each exist in both
+    Texas and New Mexico, and hashing on the name alone handed both pages the
+    identical draft of every single block — the two Anthony pages came out 87%
+    the same. Salting with the state gives them independent draws.
     """
     h = 0
-    for ch in slug:
+    for ch in SALT[0] + slug:
         h = (h * 131 + ord(ch)) & 0xFFFFFFFF
     return options[h % len(options)]
 
@@ -350,23 +357,65 @@ def limits_chart(st, name):
           '<div class="btrack"><i style="width:' + str(round(w)) + '%"></i></div>'
           '<div class="bv">$' + format(b * 1000, ',d') + '<small>per accident</small></div>'
           '</div>')
-    return ("<h2>What the limits actually mean</h2>"
-      "<p>Liability is written as three numbers. The first is the most the policy pays for injury "
-      "to any one person, the second is the most for everyone hurt in one accident, and the third "
-      "is property damage. " + d['name'] + " requires <strong>" + d['min'] + "</strong>; these are "
-      "the tiers above it.</p>"
-      "<div class=\"bars\">" + ''.join(rows) + "</div>"
-      "<p class=\"cap\">Bars compare the per-accident bodily injury limit. Anything above the line "
-      "is a choice, not a requirement &mdash; and the premium difference between the first row and "
-      "the third is usually smaller than people assume.</p>")
+    head, cap = pick(name + 'lim', [
+      ("<h2>What the limits actually mean</h2>"
+       "<p>Liability is written as three numbers. The first is the most the policy pays for injury "
+       "to any one person, the second is the most for everyone hurt in one accident, and the third "
+       "is property damage. " + d['name'] + " requires <strong>" + d['min'] + "</strong>; these are "
+       "the tiers above it.</p>",
+       "<p class=\"cap\">Bars compare the per-accident bodily injury limit. Anything above the line "
+       "is a choice, not a requirement &mdash; and the premium difference between the first row and "
+       "the third is usually smaller than people assume.</p>"),
+
+      ("<h2>Reading the three numbers on your policy</h2>"
+       "<p>Everyone in " + name + " has seen <strong>" + d['min'] + "</strong> written somewhere and "
+       "very few have been told what it means. Injury to one person, injury to everyone in the "
+       "accident, then damage to property &mdash; in that order, in thousands of dollars. Here is "
+       "how the legal floor compares with what sits above it.</p>",
+       "<p class=\"cap\">The bars are the middle number, the one that covers everybody hurt in a "
+       "single accident. Going up a tier costs far less than most people guess, because the "
+       "expensive part of a claim is the first dollar, not the last.</p>"),
+
+      ("<h2>The legal minimum, and everything above it</h2>"
+       "<p>" + d['name'] + " will let you drive on <strong>" + d['min'] + "</strong>. That is a floor "
+       "written into law, not a recommendation from anybody, and it has not moved in a long time "
+       "while the cost of a hospital stay and a replacement car both have. These are the steps "
+       "above it.</p>",
+       "<p class=\"cap\">Compared here on the per-accident injury limit. Whether you need the top "
+       "row depends on one question: what could somebody take from you if the claim ran past your "
+       "coverage.</p>"),
+    ])
+    return (head + "<div class=\"bars\">" + ''.join(rows) + "</div>" + cap)
 
 def calculator(st, name):
     d = STATE[st]
     a, b, c = [int(x) for x in d['min'].split('/')]
-    return ("<h2>What would the state minimum leave you paying?</h2>"
-      "<p>Put in two numbers and see it. This is arithmetic against "
-      "" + d['name'] + "'s actual limits &mdash; not a rate quote, and nothing is sent anywhere.</p>"
-      "<div class=\"calc\" data-bi=\"" + str(b) + "\" data-pd=\"" + str(c) + "\">"
+    head, cap = pick(name + 'calc', [
+      ("<h2>What would the state minimum leave you paying?</h2>"
+       "<p>Put in two numbers and see it. This is arithmetic against " + d['name'] + "'s actual "
+       "limits &mdash; not a rate quote, and nothing is sent anywhere.</p>",
+       "<p class=\"cap\">Liability pays for damage you do to other people. It never pays for your "
+       "own vehicle &mdash; that is collision and comprehensive, and it is the line most people "
+       "get wrong.</p>"),
+
+      ("<h2>Where the minimum stops and your money starts</h2>"
+       "<p>The gap between what a policy pays and what an accident costs does not disappear. It "
+       "becomes yours. Two numbers below, run against the limits " + d['name'] + " actually "
+       "requires &mdash; it stays in your browser and it is not a quote.</p>",
+       "<p class=\"cap\">Worth being clear about: none of this covers your own car. Liability is "
+       "for the harm you do to somebody else. Repairing your own vehicle is collision and "
+       "comprehensive, bought separately.</p>"),
+
+      ("<h2>Run your own numbers before you pick a limit</h2>"
+       "<p>Nobody chooses coverage well in the abstract. Put in what your car is worth and what a "
+       "lawsuit could reach, and the arithmetic against " + d['name'] + "'s minimum does the "
+       "arguing. Nothing here is sent anywhere and nothing here is a price.</p>",
+       "<p class=\"cap\">The third row is the one that surprises people. On liability alone, your "
+       "own car is not covered at all &mdash; not by the state minimum, not by any limit above "
+       "it. That is what collision and comprehensive are for.</p>"),
+    ])
+    return (head
+      + "<div class=\"calc\" data-bi=\"" + str(b) + "\" data-pd=\"" + str(c) + "\">"
         "<div class=\"cin\">"
           "<label>What is your car worth today?"
             "<span class=\"pre\">$<input type=\"number\" class=\"cv\" value=\"18000\" min=\"0\" step=\"500\"></span>"
@@ -383,31 +432,74 @@ def calculator(st, name):
           "<div class=\"crow\"><b>Your own car, on liability only</b>"
             "<span class=\"cnum ow\"></span><small class=\"cnote own\"></small></div>"
         "</div>"
-        "<p class=\"cap\">Liability pays for damage you do to other people. It never pays for your "
-        "own vehicle &mdash; that is collision and comprehensive, and it is the line most people "
-        "get wrong.</p>"
+        + cap +
       "</div>")
 
 def factors(st, name):
-    yours = [('Your driving record', 'The single biggest thing you control. Violations age out.'),
-             ('Coverage and deductible', 'Higher deductible, lower premium &mdash; if you can cover it.'),
-             ('Annual mileage', 'Estimating high costs money every month.'),
-             ('Continuous coverage', 'A gap is expensive. Even a short one.'),
-             ('Discounts you claim', 'Multi-policy, good student, paid-in-full, telematics.')]
-    theirs = [('Where the car is parked overnight', 'Rated by address, not by city.'),
-              ('The vehicle itself', 'Repair cost and theft rate, not sticker price.'),
-              ('Who else is on the policy', 'Every driver in the household counts.'),
-              ('The carrier&rsquo;s appetite', 'Two companies can be hundreds apart on the same risk.')]
+    yours = pick(name + 'fy', [
+      [('Your driving record', 'The single biggest thing you control. Violations age out.'),
+       ('Coverage and deductible', 'Higher deductible, lower premium &mdash; if you can cover it.'),
+       ('Annual mileage', 'Estimating high costs money every month.'),
+       ('Continuous coverage', 'A gap is expensive. Even a short one.'),
+       ('Discounts you claim', 'Multi-policy, good student, paid-in-full, telematics.')],
+
+      [('Your driving record', 'Nothing else you do moves a quote as far. Old violations do fall off.'),
+       ('The deductible you pick', 'Raising it lowers the premium, but only if you could actually pay it.'),
+       ('Miles you say you drive', 'Guessing high is a bill you pay every month for no reason.'),
+       ('Never letting it lapse', 'Even a few uninsured weeks follow you into the next quote.'),
+       ('Asking for every discount', 'Almost none of them are applied for you automatically.')],
+
+      [('How you have driven lately', 'The thing with the most weight, and the one that improves on its own.'),
+       ('How much risk you keep', 'A bigger deductible is a cheaper policy and a worse morning after a wreck.'),
+       ('Your mileage estimate', 'Rated on what you tell them. Tell them the truth, not a round number.'),
+       ('An unbroken policy history', 'Continuous coverage is quietly one of the better discounts there is.'),
+       ('Discounts nobody offered you', 'Multi-policy, good student, paid in full, safe-driving apps.')],
+    ])
+    theirs = pick(name + 'ft', [
+      [('Where the car is parked overnight', 'Rated by address, not by city.'),
+       ('The vehicle itself', 'Repair cost and theft rate, not sticker price.'),
+       ('Who else is on the policy', 'Every driver in the household counts.'),
+       ('The carrier&rsquo;s appetite', 'Two companies can be hundreds apart on the same risk.')],
+
+      [('Your overnight address', 'Two streets apart can rate differently. It is not a city-wide number.'),
+       ('What you drive', 'What it costs to fix and how often it gets stolen &mdash; not what it cost new.'),
+       ('Everyone in the household', 'Licensed drivers at your address count whether they drive it or not.'),
+       ('Which company is looking', 'The same risk lands hundreds apart depending on who prices it.')],
+
+      [('The ZIP the car sleeps in', 'Claims history around you, which has nothing to do with your driving.'),
+       ('The car on the title', 'Parts availability, repair hours and theft rates decide this one.'),
+       ('Other drivers at your address', 'Household members have to be listed, or excluded on purpose.'),
+       ('How badly a carrier wants the business', 'Appetite changes by year and by state, and it changes prices.')],
+    ])
     def col(title, sub, rows, kind):
         return ('<div class="fcol ' + kind + '"><h3>' + title + '</h3><p class="fsub">' + sub + '</p><ul>'
                 + ''.join('<li><b>' + t + '</b><span>' + x + '</span></li>' for t, x in rows)
                 + '</ul></div>')
-    return ("<h2>What moves your price in " + name + "</h2>"
-      "<p>Carriers weigh these differently, which is the whole reason one company can be cheapest "
-      "for you and a different one cheapest for your neighbour.</p>"
-      "<div class=\"fgrid2\">"
-      + col('You control these', 'Worth working on', yours, 'good')
-      + col('You do not control these', 'Worth shopping around', theirs, 'meh')
+    head, ta, tb = pick(name + 'fh', [
+      ("<h2>What moves your price in " + name + "</h2>"
+       "<p>Carriers weigh these differently, which is the whole reason one company can be cheapest "
+       "for you and a different one cheapest for your neighbour.</p>",
+       ('You control these', 'Worth working on'),
+       ('You do not control these', 'Worth shopping around')),
+
+      ("<h2>What a " + name + " quote is really built from</h2>"
+       "<p>None of these carry the same weight at every company. That is the entire reason shopping "
+       "works &mdash; the cheapest carrier for the house next door may be nowhere near cheapest "
+       "for you.</p>",
+       ('Things you can change', 'Where the effort pays'),
+       ('Things you cannot', 'Where shopping pays'))
+      ,
+      ("<h2>Why two people in " + name + " pay different prices</h2>"
+       "<p>Split the list in half and it gets much easier to think about: the things worth working "
+       "on, and the things only worth shopping. Carriers disagree about how much each one matters, "
+       "which is where the money is.</p>",
+       ('Within your control', 'Worth the effort'),
+       ('Outside your control', 'Worth a second opinion')),
+    ])
+    return (head
+      + "<div class=\"fgrid2\">"
+      + col(ta[0], ta[1], yours, 'good')
+      + col(tb[0], tb[1], theirs, 'meh')
       + "</div>")
 
 def faq(st, name, tags):
@@ -611,15 +703,55 @@ DISCOUNTS = [
   ('Occupation or professional group', 'Teachers, nurses, trades &mdash; varies by carrier.'),
 ]
 
+# Second wording for the same twelve discounts. Same list, same order, same
+# meaning — it exists so two neighbouring cities do not ship the identical
+# 150-word block.
+DISCOUNTS_ALT = [
+  ('Another policy with the same carrier', 'Home, renters or a second car. Almost always the biggest one on the list.'),
+  ('Paid in full', 'Settling the whole term up front instead of month by month.'),
+  ('Automatic payments', 'Modest on its own, and nobody applies it for you.'),
+  ('Paperless documents', 'One checkbox. Easy to switch on, easier to forget about.'),
+  ('Good student', 'A student on the policy who can produce the grades.'),
+  ('Student away at school', 'Away at college without the car. Missed more often than any other.'),
+  ('Defensive driving course', 'A course the state approves, good for a fixed stretch afterwards.'),
+  ('Safety and anti-theft equipment', 'Earned by the vehicle rather than by you.'),
+  ('Telematics or safe-driving app', 'Not for everybody &mdash; but for some people it is the largest one.'),
+  ('Continuous coverage', 'What you get for never letting the policy lapse.'),
+  ('Military or veteran', 'Available at some carriers and not others.'),
+  ('Occupation or professional group', 'Teachers, nurses, trades. Entirely carrier by carrier.'),
+]
+
 def discount_audit(name):
     rows = ''.join(
       '<label class="dchk"><input type="checkbox"><span class="dbox"></span>'
       '<span class="dtx"><b>' + t + '</b><small>' + x + '</small></span></label>'
-      for t, x in DISCOUNTS)
-    return ("<h2>Which discounts are actually on your policy?</h2>"
-      "<p>Most discounts are opt-in &mdash; nobody applies them for you, and nobody writes to say "
-      "you have started qualifying for one. Tick what you already have and see what is left.</p>"
-      "<div class=\"audit\">"
+      for t, x in pick(name + 'dl', [DISCOUNTS, DISCOUNTS_ALT]))
+    head, cap = pick(name + 'da', [
+      ("<h2>Which discounts are actually on your policy?</h2>"
+       "<p>Most discounts are opt-in &mdash; nobody applies them for you, and nobody writes to say "
+       "you have started qualifying for one. Tick what you already have and see what is left.</p>",
+       "<p class=\"cap\">Not every discount exists at every carrier, and a few cancel each other "
+       "out. This is a prompt for the conversation, not a promise &mdash; which is exactly what an "
+       "agent is for.</p>"),
+
+      ("<h2>Count the discounts nobody has given you</h2>"
+       "<p>Qualifying for a discount and receiving it are two different things. Carriers do not "
+       "watch your life for changes, and they will not write to tell you a new one applies. Tick "
+       "the ones already on your policy and look at what is left over.</p>",
+       "<p class=\"cap\">Some of these will not exist at your carrier, and one or two cannot be "
+       "combined. Treat the leftovers as questions to ask rather than money you are owed &mdash; "
+       "asking them is our job.</p>"),
+
+      ("<h2>The discounts audit</h2>"
+       "<p>People overpay far more often by missing a discount than by picking the wrong company. "
+       "Almost every one of these has to be claimed, and most of them stop applying &mdash; or "
+       "start applying &mdash; without anybody telling you. Tick what you have.</p>",
+       "<p class=\"cap\">Availability varies by carrier and a few are mutually exclusive, so the "
+       "leftover count is a starting point, not a bill. Sorting out which ones are real for you is "
+       "what an agent is actually for.</p>"),
+    ])
+    return (head
+      + "<div class=\"audit\">"
         "<div class=\"dlist\">" + rows + "</div>"
         "<div class=\"dsum\">"
           "<div class=\"dring\"><span class=\"dnum\">0</span><small>of " + str(len(DISCOUNTS)) + "</small></div>"
@@ -627,15 +759,35 @@ def discount_audit(name):
           "<a class=\"btn\" href=\"../../../quote.html\">Have us check the rest</a>"
         "</div>"
       "</div>"
-      "<p class=\"cap\">Not every discount exists at every carrier, and a few cancel each other out. "
-      "This is a prompt for the conversation, not a promise &mdash; which is exactly what an agent "
-      "is for.</p>")
+      + cap)
 
 def deductible_calc(name):
-    return ("<h2>Is a higher deductible worth it?</h2>"
-      "<p>Raising a deductible lowers the premium. The question is how long it takes the saving to "
-      "pay back the extra you would owe at claim time. Take the two numbers off your own quote.</p>"
-      "<div class=\"ded\">"
+    head, cap = pick(name + 'dk', [
+      ("<h2>Is a higher deductible worth it?</h2>"
+       "<p>Raising a deductible lowers the premium. The question is how long it takes the saving to "
+       "pay back the extra you would owe at claim time. Take the two numbers off your own quote.</p>",
+       "<p class=\"cap\">The honest test is not the arithmetic, it is whether you could write the "
+       "cheque tomorrow. A deductible you cannot cover is not a saving, it is a deferred "
+       "problem.</p>"),
+
+      ("<h2>How long a bigger deductible takes to pay for itself</h2>"
+       "<p>Going from $500 to $1,000 buys you a smaller bill every month and a larger one exactly "
+       "once, on the worst day. The only thing worth knowing is how many months of saving it takes "
+       "to cover that day. Both numbers come off your own quote.</p>",
+       "<p class=\"cap\">The maths is the easy half. The real question is whether the higher number "
+       "is money you could produce tomorrow morning &mdash; because if it is not, the saving was "
+       "never a saving.</p>"),
+
+      ("<h2>The deductible payback sum</h2>"
+       "<p>Every deductible is a trade: a little each month against a lot at claim time. Divide one "
+       "into the other and you get the break-even point, which is the only honest way to compare "
+       "the two options. Take both figures straight off the quote.</p>",
+       "<p class=\"cap\">If the payback runs longer than you expect to keep the car, the higher "
+       "deductible is probably not worth it. And if you could not cover the gap out of pocket, it "
+       "is not worth it at any payback.</p>"),
+    ])
+    return (head
+      + "<div class=\"ded\">"
         "<div class=\"cin\">"
           "<label>Monthly saving from the higher deductible"
             "<span class=\"pre\">$<input type=\"number\" class=\"dsave\" value=\"14\" min=\"0\" step=\"1\"></span>"
@@ -646,8 +798,7 @@ def deductible_calc(name):
         "</div>"
         "<div class=\"dres\"><b class=\"dbig\"></b><span class=\"dsub\"></span></div>"
       "</div>"
-      "<p class=\"cap\">The honest test is not the arithmetic, it is whether you could write the "
-      "cheque tomorrow. A deductible you cannot cover is not a saving, it is a deferred problem.</p>")
+      + cap)
 
 SECTIONS = [
   ('border',     para_border),
@@ -760,6 +911,8 @@ def breadcrumb(name, st, url):
 
 # ------------------------------------------------------------------- builder ---
 def city_page(slug, name, county, tags, nb, st):
+    # SALT is owned by build_city — it is what the redraw loop varies. Setting it
+    # here would pin every redraw to the same draw and make the loop a no-op.
     d = STATE[st]
     url = SITE + '/car-insurance/' + st + '/' + slug + '/'
     title = 'Car insurance in ' + name + ', ' + d['abbr']
@@ -856,6 +1009,7 @@ def city_page(slug, name, county, tags, nb, st):
     return page
 
 def state_page(st):
+    SALT[0] = ''   # hubs are not per-city; do not inherit the last city's salt
     d = STATE[st]
     url = SITE + '/car-insurance/' + st + '/'
     rows = sorted(d['rows'], key=lambda r: r[1])
@@ -884,6 +1038,7 @@ def state_page(st):
 """ + rewrite(shell.FOOTER, 2)
 
 def hub():
+    SALT[0] = ''   # hubs are not per-city; do not inherit the last city's salt
     url = SITE + '/car-insurance/'
     out = []
     for st, d in STATE.items():
@@ -1055,12 +1210,60 @@ def write(path, content):
     open(full, 'w', encoding='utf-8').write(content)
     return len(content)
 
+LIMIT = 0.68          # a little under the 70% dupcheck.py fails at
+SHINGLE = 8
+MAX_REDRAW = 24
+
+def _shingles(page_html):
+    """The words a search engine would compare, as 8-word shingles."""
+    s = page_html
+    for pat in (r'(?s)<head.*?</head>', r'(?s)<footer.*?</footer>', r'(?s)<script.*?</script>'):
+        s = re.sub(pat, '', s)
+    s = re.sub(r'<[^>]+>', ' ', s)
+    w = re.findall(r"[a-z']+", html.unescape(s).lower())
+    return set(tuple(w[i:i + SHINGLE]) for i in range(len(w) - SHINGLE + 1))
+
+def _overlap(a, b):
+    u = a | b
+    return len(a & b) / len(u) if u else 0.0
+
+def build_city(slug, name, county, tags, nb, st, seen):
+    """Generate a city page that does not read like one already generated.
+
+    Every block picks a draft by hashing the city, which means two cities with
+    the same tags can draw the same draft in block after block by pure bad
+    luck — Grapevine and Round Rock came out 74% identical that way. Rather
+    than hand-tuning variant counts until the collisions happen to clear, bump
+    the salt and draw again until the page is genuinely different from every
+    page already built.
+
+    Deterministic: same input, same salt sequence, same page every run.
+    """
+    for attempt in range(MAX_REDRAW):
+        SALT[0] = st + ':' + ('' if attempt == 0 else str(attempt) + ':')
+        page = city_page(slug, name, county, tags, nb, st)
+        sh = _shingles(page)
+        worst = max((( _overlap(sh, o), k) for k, o in seen.items()), default=(0.0, None))
+        if worst[0] < LIMIT:
+            seen[st + '/' + slug] = sh
+            return page, attempt, worst
+    # Nothing cleared the line. Ship the last draw rather than no page, but say so
+    # loudly — it means the variant pool is too thin for the number of cities.
+    seen[st + '/' + slug] = sh
+    print('  WARN ' + st + '/' + slug + ' still ' + str(round(worst[0] * 100)) +
+          '% like ' + str(worst[1]) + ' after ' + str(MAX_REDRAW) + ' redraws')
+    return page, MAX_REDRAW, worst
+
 if __name__ == '__main__':
     urls, total, n = [], 0, 0
+    seen, redrawn = {}, 0
     for st, d in STATE.items():
         for slug, name, county, tags, nb in d['rows']:
             p = 'car-insurance/' + st + '/' + slug + '/index.html'
-            total += write(p, city_page(slug, name, county, tags, nb, st)); n += 1
+            page, attempt, worst = build_city(slug, name, county, tags, nb, st, seen)
+            if attempt:
+                redrawn += 1
+            total += write(p, page); n += 1
             urls.append(SITE + '/car-insurance/' + st + '/' + slug + '/')
         total += write('car-insurance/' + st + '/index.html', state_page(st)); n += 1
         urls.append(SITE + '/car-insurance/' + st + '/')
@@ -1068,4 +1271,6 @@ if __name__ == '__main__':
     urls.append(SITE + '/car-insurance/')
 
     print(str(n) + ' pages, ' + str(round(total/1024)) + ' KB')
+    print(str(redrawn) + ' of ' + str(len(seen)) + ' cities needed a redraw to stay under '
+          + str(round(LIMIT * 100)) + '% overlap')
     print('run tools/gensitemap.py to refresh sitemap.xml')
