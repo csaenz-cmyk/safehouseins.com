@@ -35,6 +35,11 @@ CSS = """
   /* ============ city page ============ */
   .chero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
   .chero .cscape{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .chero img.cscape{object-fit:cover;object-position:center 40%}
+  .ccredit{position:absolute;right:10px;bottom:6px;z-index:3;margin:0;font-size:10.5px;
+      font-weight:600;color:#41546E;background:rgba(255,255,255,.75);border-radius:6px;
+      padding:2px 7px;max-width:60%;text-align:right}
+  .ccredit a{color:inherit;font-weight:700}
   .chero .veil{position:absolute;inset:0;z-index:1;
       background:linear-gradient(100deg,#fff 0%,rgba(255,255,255,.97) 34%,rgba(255,255,255,.62) 52%,
                  rgba(255,255,255,0) 74%)}
@@ -235,9 +240,19 @@ def crumbs(state_slug, state_name, city, up):
             '<span aria-current="page">' + _e(city) + '</span></nav>')
 
 def hero(city, abbr, state_slug, state_name, place, up, ident, photo=None):
-    art = ('<img class="cscape" src="' + up + 'assets/cities/' + ident + '.webp" alt="" '
-           'width="1200" height="420" fetchpriority="high">') if photo \
-          else cityscape.scene(place.get('scene', 'plains'), ident, ident.replace('-', ''))
+    """`photo` is the filename of a real photograph if one has been dropped into
+    assets/cities/, otherwise the illustrated scene is used. Nothing else in the
+    hero changes, so adding a photo is a file copy and not a code change."""
+    if photo:
+        art = ('<img class="cscape" src="' + up + 'assets/cities/' + photo + '" '
+               'alt="' + _e(city) + ', ' + _e(abbr) + '" width="1600" height="560" '
+               'fetchpriority="high" decoding="async">')
+    else:
+        art = cityscape.scene(place.get('scene', 'plains'), ident, ident.replace('-', ''))
+    # Wikimedia and most Creative Commons photos require a credit line. Without
+    # somewhere to put it we could not use them at all, so the slot exists.
+    credit = place.get('photo_credit')
+    credit_html = ('<p class="ccredit">' + credit + '</p>') if (photo and credit) else ''
     chips = place.get('chips') or []
     icons = ['pin', 'shield', 'lang', 'bolt']
     chip_html = ''.join('<span>' + BK.ICON.get(icons[i % len(icons)], BK.ICON['pin']) + c + '</span>'
@@ -252,7 +267,7 @@ def hero(city, abbr, state_slug, state_name, place, up, ident, photo=None):
           '<a class="btn ghost" href="sms:+1' + TEXT.replace('-', '') + '">Text us</a>'
         '</div>'
         + ('<div class="cchips">' + chip_html + '</div>' if chip_html else '') +
-      '</div></div></header>')
+      '</div></div>' + credit_html + '</header>')
 
 def intents(place, city, up):
     keys = place.get('intents') or []

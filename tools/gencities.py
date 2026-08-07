@@ -911,6 +911,14 @@ def breadcrumb(name, st, url):
 
 # ------------------------------------------------------------------- builder ---
 
+def find_photo(ident):
+    """A real photograph at assets/cities/<state>-<slug>.<ext> wins over the
+    illustration. Checked at build time so dropping a file in is the whole job."""
+    for ext in ('webp', 'jpg', 'jpeg', 'png', 'avif'):
+        if os.path.exists(os.path.join(ROOT, 'assets', 'cities', ident + '.' + ext)):
+            return ident + '.' + ext
+    return None
+
 # ---------------------------------------------------------- the new layout ---
 def city_page_v2(slug, name, county, tags, nb, st, place):
     """The rebuilt city page, for cities with real local content in places.py.
@@ -955,7 +963,7 @@ def city_page_v2(slug, name, county, tags, nb, st, place):
 
     presence = place.get('presence', 'serving')
     parts = [
-      CK.hero(name, d['abbr'], st, d['name'], place, up, ident),
+      CK.hero(name, d['abbr'], st, d['name'], place, up, ident, find_photo(ident)),
       BK.trustbar(),
       CK.intents(place, name, up),
       CK.factors(place, name),
