@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Car insurance in Santa Rosa, NM · Safe House Insurance</title>
+<meta name="description" content="Compare car insurance in Santa Rosa, NM across the carriers Safe House Insurance represents. Licensed, local, bilingual. Free quote in a few minutes.">
+<link rel="icon" href="../../../assets/safehouse-heart.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--blue:#1666ED;--blue-d:#0F4FBF;--cyan:#00C2FF;--navy:#0A2148;--ink:#0E1726;
+        --muted:#5C6A80;--line:#E5EBF6;--ice:#EFF5FF;--ice2:#DCEAFF;
+        --grad:linear-gradient(115deg,#1666ED,#00C2FF)}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  body{font-family:'Figtree',system-ui,-apple-system,sans-serif;color:var(--ink);
+       background:#fff;-webkit-font-smoothing:antialiased;line-height:1.6}
+  img{max-width:100%;display:block}
+  a{color:var(--blue);font-weight:700;text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+  .narrow{max-width:760px;margin:0 auto}
+
+  nav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.93);
+      backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:70px}
+  nav .logo{height:38px}
+  nav .nl{display:none;gap:24px;align-items:center}
+  nav .nl a{font-size:14.5px;font-weight:700;color:var(--ink)}
+  nav .cta{background:var(--grad);color:#fff;border-radius:99px;padding:10px 20px;
+      font-size:14.5px;font-weight:800;white-space:nowrap}
+  nav .cta:hover{text-decoration:none}
+  @media(min-width:900px){ nav .nl{display:flex} nav .logo{height:44px} }
+
+  header.pg{background:linear-gradient(180deg,var(--ice),#fff);padding:52px 0 40px;
+      border-bottom:1px solid var(--line)}
+  header.pg .kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:900;
+      letter-spacing:.12em;text-transform:uppercase;color:var(--blue-d);
+      background:#fff;border:1.5px solid var(--ice2);border-radius:99px;padding:7px 15px}
+  header.pg h1{font-size:clamp(30px,6vw,54px);font-weight:900;letter-spacing:-.03em;
+      color:var(--navy);line-height:1.08;margin-top:18px}
+  header.pg p{font-size:clamp(16px,2.2vw,19.5px);color:var(--muted);font-weight:600;
+      margin-top:16px;max-width:640px}
+
+  section.blk{padding:52px 0}
+  section.blk.tint{background:var(--ice)}
+  h2{font-size:clamp(24px,3.6vw,36px);font-weight:900;letter-spacing:-.025em;color:var(--navy);
+     line-height:1.12}
+  h3{font-size:19px;font-weight:900;color:var(--navy);margin-bottom:6px}
+  p.lead{font-size:17px;color:var(--muted);font-weight:600;margin-top:14px}
+  section.blk p{font-size:16px;color:#25344b;margin-top:14px}
+  section.blk ul{margin:14px 0 0 20px}
+  section.blk li{font-size:16px;color:#25344b;margin:7px 0}
+  strong{font-weight:800;color:var(--navy)}
+
+  .grid{display:grid;gap:14px;margin-top:26px}
+  @media(min-width:760px){ .grid.c2{grid-template-columns:1fr 1fr}
+                           .grid.c3{grid-template-columns:repeat(3,1fr)} }
+  .card{border:1.5px solid var(--line);border-radius:20px;padding:22px;background:#fff}
+  .card p{font-size:15px;margin-top:8px;color:var(--muted);font-weight:600}
+  .card .n{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;
+      background:var(--ice);color:var(--blue-d);font-weight:900;font-size:15px;margin-bottom:12px}
+
+  .people{display:grid;gap:12px;margin-top:26px}
+  @media(min-width:680px){ .people{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:1000px){ .people{grid-template-columns:repeat(3,1fr)} }
+  .person{display:flex;gap:14px;align-items:center;border:1.5px solid var(--line);
+      border-radius:18px;padding:14px;background:#fff}
+  .person img{width:62px;height:62px;border-radius:16px;object-fit:cover;flex:0 0 auto}
+  .person b{display:block;font-size:16px;font-weight:900;color:var(--navy)}
+  .person small{display:block;font-size:13px;color:var(--muted);font-weight:700;margin-top:2px}
+  .person em{display:block;font-size:12.5px;color:#9fb0c6;font-weight:700;font-style:normal;margin-top:3px}
+
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+  .chips span{font-size:13.5px;font-weight:800;color:var(--navy);background:#fff;
+      border:1.5px solid var(--line);border-radius:99px;padding:8px 15px}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      background:var(--grad);color:#fff;border:0;border-radius:99px;padding:15px 28px;
+      font:inherit;font-size:16px;font-weight:800;cursor:pointer;
+      box-shadow:0 18px 34px -18px rgba(22,102,237,.9)}
+  .btn:hover{text-decoration:none;filter:brightness(1.05)}
+  .btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line);box-shadow:none}
+  .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+
+  footer{background:var(--navy);color:#fff;padding:48px 0 34px;margin-top:10px}
+  footer a{color:#fff}
+  footer .fgrid{display:grid;gap:30px}
+  @media(min-width:820px){ footer .fgrid{grid-template-columns:1.2fr 1fr 1fr} }
+  footer .flogo{height:34px;filter:brightness(0) invert(1)}
+  footer h5{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+      color:#8FB4F0;margin-bottom:14px}
+  footer .ways{display:grid;gap:14px}
+  footer .way{display:flex;gap:11px;align-items:flex-start}
+  footer .way .ic{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.12);
+      display:grid;place-items:center;flex:0 0 auto;font-size:15px}
+  footer .way b{display:block;font-size:12.5px;font-weight:900;letter-spacing:.06em;
+      text-transform:uppercase;color:#8FB4F0}
+  footer .way a{display:block;font-size:17px;font-weight:800;margin-top:2px}
+  footer .way small{display:block;font-size:12.5px;color:#A8C2E8;font-weight:600;margin-top:2px}
+  footer .links{display:grid;gap:9px}
+  footer .links a{font-size:14.5px;font-weight:700;color:#DCE9FA}
+  footer .tag{font-size:14px;color:#A8C2E8;font-weight:600;margin-top:14px;max-width:34ch}
+  footer .fbot{border-top:1px solid rgba(255,255,255,.14);margin-top:34px;padding-top:20px}
+  footer .fbot p{font-size:12px;color:#8FA6C8;line-height:1.7}
+  footer .fbot .lg{display:flex;gap:8px;flex-wrap:wrap;font-size:13.5px;font-weight:800;margin-bottom:12px}
+  /* the wide link deck above the contact block */
+  footer .deck{display:grid;gap:26px;padding-bottom:34px;margin-bottom:34px;
+      border-bottom:1px solid rgba(255,255,255,.14)}
+  @media(min-width:680px){ footer .deck{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:1000px){ footer .deck{grid-template-columns:repeat(4,1fr)} }
+  footer .deck .col2{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
+  footer .deck a{display:block;font-size:14px;font-weight:600;color:#C7DBF5;padding:3px 0}
+  footer .deck a:hover{color:#fff}
+  footer .deck .more{font-weight:800;color:#8FB4F0}
+
+</style>
+<link rel="canonical" href="https://safehouseins.com/car-insurance/new-mexico/santa-rosa/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"InsuranceAgency","name":"Safe House Insurance","url":"https://safehouseins.com/car-insurance/new-mexico/santa-rosa/","telephone":"+1-915-503-1207","email":"contact@safehouseins.com","address":{"@type":"PostalAddress","streetAddress":"6065 Montana Ave Ste C8","addressLocality":"El Paso","addressRegion":"TX","postalCode":"79925","addressCountry":"US"},"areaServed":{"@type":"City","name":"Santa Rosa","containedInPlace":{"@type":"AdministrativeArea","name":"Guadalupe County, New Mexico"}},"knowsLanguage":["en","es"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Car insurance","item":"https://safehouseins.com/car-insurance/"},{"@type":"ListItem","position":2,"name":"New Mexico","item":"https://safehouseins.com/car-insurance/new-mexico/"},{"@type":"ListItem","position":3,"name":"Santa Rosa","item":"https://safehouseins.com/car-insurance/new-mexico/santa-rosa/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much is car insurance in Santa Rosa, NM?", "acceptedAnswer": {"@type": "Answer", "text": "Anyone quoting one figure for a whole city is guessing. Two households on the same street pay very differently depending on the vehicle, the record, the mileage and who else is on the policy — and carriers disagree with each other on all four. What we can tell you is the spread. Running a quote in Santa Rosa through every carrier we represent, the gap between cheapest and dearest is routinely wide enough to matter. That is the number worth finding, and it takes a few minutes."}}, {"@type": "Question", "name": "What is the cheapest car insurance in Santa Rosa?", "acceptedAnswer": {"@type": "Answer", "text": "It changes by driver, which is why the question does not have a fixed answer. Carriers each have an appetite — one wants clean records and newer cars, another is comfortable with a violation or a lapse — and the winner in Santa Rosa swaps depending on which of those you are. We shop the whole shelf rather than defending one company's number, and we are paid the same whichever you pick."}}, {"@type": "Question", "name": "Which is the best insurance company in Santa Rosa?", "acceptedAnswer": {"@type": "Answer", "text": "Best depends on what you are optimising for. Cheapest today is not the same as best at paying a claim, and neither is the same as the one that will still want your business after an accident. We are appointed with a shelf of carriers rather than employed by one, so we can tell you which is genuinely good for your situation instead of defending a single answer."}}, {"@type": "Question", "name": "Why is car insurance so expensive in Santa Rosa?", "acceptedAnswer": {"@type": "Answer", "text": "Your premium is partly your record and largely your surroundings — local claim frequency, uninsured drivers, repair costs, theft and weather. That is why a spotless driver can still be quoted more in one place than another. The lever that actually works is comparison. Carriers weigh those local risks very differently, so the same clean record in Santa Rosa can be priced hundreds apart depending on who is looking at it."}}, {"@type": "Question", "name": "Does my ZIP code change my rate in Santa Rosa?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — carriers rate on the address where the car is parked overnight, not on the city. Two addresses a few miles apart in Santa Rosa can be quoted differently on identical drivers and identical cars. It also means a move is a reason to re-shop, even a short one. The company that was cheapest at your old address is not automatically cheapest at the new one."}}, {"@type": "Question", "name": "What is the minimum car insurance required in New Mexico?", "acceptedAnswer": {"@type": "Answer", "text": "The legal floor is 25/50/10 in liability — $25,000 per injured person, $50,000 per accident, $10,000 for the property you damage. Read those numbers against what is actually on the road. $10,000 is the whole budget for someone else's vehicle, and none of the three does anything for yours. Scroll up and put your own figures in."}}, {"@type": "Question", "name": "How can I lower my car insurance in Santa Rosa?", "acceptedAnswer": {"@type": "Answer", "text": "Roughly in order of how much they move the number: shop it across carriers instead of renewing, raise your deductible to a figure you could genuinely cover tomorrow, correct an inflated mileage estimate, bundle if you have a home or renters policy, and make sure every discount is actually on the policy. Do not lower it by dropping to the state minimum without doing the arithmetic. That is not saving money, it is moving risk onto yourself."}}, {"@type": "Question", "name": "Do I need full coverage?", "acceptedAnswer": {"@type": "Answer", "text": "There is no policy called full coverage. What people mean is liability plus collision plus comprehensive — the two that pay for your car. A lienholder will insist on them; once the car is yours outright, it becomes a decision. Ask it this way: if the car were gone tomorrow, could you replace it out of pocket without it hurting? That answer is the coverage answer."}}, {"@type": "Question", "name": "¿Puedo hacer todo esto en español?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Un agente con licencia le explica su cotización, su deducible y lo que firma en español, sin traductor y sin prisa. 915-503-1207 o 915-594-3777 ."}}]}</script>
+
+<style>
+  .crumbs{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:14px}
+  .crumbs a{color:var(--blue)}
+  .crumbs span{color:var(--navy)}
+  .ctys{display:grid;gap:10px;margin-top:22px}
+  @media(min-width:560px){ .ctys{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:900px){ .ctys{grid-template-columns:repeat(4,1fr)} }
+  .cty{display:block;border:1.5px solid var(--line);border-radius:16px;padding:14px 16px;
+       background:#fff;text-decoration:none}
+  .cty:hover{border-color:var(--blue);text-decoration:none}
+  .cty b{display:block;font-size:15.5px;font-weight:900;color:var(--navy)}
+  .cty small{display:block;font-size:12.5px;color:var(--muted);font-weight:700;margin-top:2px}
+  .blk .chips span a{font-weight:800}
+  /* ---- liability tiers ---- */
+  .bars{display:grid;gap:10px;margin-top:24px}
+  .bar{display:grid;grid-template-columns:1fr;gap:8px;border:1.5px solid var(--line);
+       border-radius:16px;padding:14px 16px;background:#fff}
+  @media(min-width:620px){ .bar{grid-template-columns:150px 1fr 130px;align-items:center;gap:16px} }
+  .bar.min{border-color:#F5C97B;background:#FFFBF3}
+  .bar .bl b{display:block;font-size:16px;font-weight:900;color:var(--navy)}
+  .bar .bl small{display:block;font-size:12.5px;color:var(--muted);font-weight:700}
+  .bar .btrack{height:12px;border-radius:99px;background:var(--ice2);overflow:hidden}
+  .bar .btrack i{display:block;height:100%;border-radius:99px;background:var(--grad)}
+  .bar.min .btrack i{background:#E8A33D}
+  .bar .bv{font-size:15px;font-weight:900;color:var(--navy);text-align:left}
+  @media(min-width:620px){ .bar .bv{text-align:right} }
+  .bar .bv small{display:block;font-size:11.5px;color:var(--muted);font-weight:700}
+  .cap{font-size:13px;color:#9fb0c6;font-weight:600;margin-top:14px;line-height:1.6}
+
+  /* ---- exposure calculator ---- */
+  .calc{border:1.5px solid var(--line);border-radius:20px;padding:20px;background:#fff;margin-top:22px}
+  .calc .cin{display:grid;gap:14px}
+  @media(min-width:620px){ .calc .cin{grid-template-columns:1fr 1fr;gap:18px} }
+  .calc label{display:block;font-size:13.5px;font-weight:800;color:var(--navy)}
+  .calc label small{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:2px}
+  .calc .pre{display:flex;align-items:center;gap:6px;margin-top:8px;border:1.5px solid var(--line);
+      border-radius:13px;padding:11px 13px;font-weight:800;color:var(--muted)}
+  .calc .pre:focus-within{border-color:var(--blue);box-shadow:0 0 0 4px rgba(22,102,237,.13)}
+  .calc input{width:100%;border:0;outline:none;font:inherit;font-size:16px;font-weight:800;
+      color:var(--ink);background:transparent}
+  .calc .cout{display:grid;gap:10px;margin-top:20px}
+  .calc .crow{display:grid;grid-template-columns:1fr auto;gap:4px 14px;align-items:baseline;
+      border-top:1px solid var(--line);padding-top:12px}
+  .calc .crow b{font-size:15px;font-weight:800;color:var(--navy)}
+  .calc .cnum{font-size:20px;font-weight:900;color:#0F7B4A;text-align:right;white-space:nowrap}
+  .calc .cnum.gap{color:#C2410C}
+  .calc .cnote{grid-column:1/-1;font-size:13px;color:var(--muted);font-weight:600;line-height:1.5}
+
+  /* ---- rating factors ---- */
+  .fgrid2{display:grid;gap:14px;margin-top:24px}
+  @media(min-width:760px){ .fgrid2{grid-template-columns:1fr 1fr} }
+  .fcol{border:1.5px solid var(--line);border-radius:20px;padding:20px;background:#fff}
+  .fcol.good{border-color:#BBE3CC;background:#F5FCF8}
+  .fcol.meh{border-color:var(--ice2);background:var(--ice)}
+  .fcol .fsub{font-size:13px;color:var(--muted);font-weight:700;margin-top:2px}
+  .fcol ul{list-style:none;margin:16px 0 0}
+  .fcol li{padding:10px 0;border-top:1px solid rgba(10,33,72,.08)}
+  .fcol li:first-child{border-top:0;padding-top:0}
+  .fcol li b{display:block;font-size:14.5px;font-weight:800;color:var(--navy)}
+  .fcol li span{display:block;font-size:13px;color:var(--muted);font-weight:600;margin-top:2px}
+
+  /* ---- FAQ ---- */
+  .faqs{margin-top:22px;border-top:1px solid var(--line)}
+  .qa{border-bottom:1px solid var(--line)}
+  .qa summary{list-style:none;cursor:pointer;padding:18px 34px 18px 0;position:relative;
+      font-size:16.5px;font-weight:800;color:var(--navy);line-height:1.35}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary::after{content:"";position:absolute;right:6px;top:24px;width:10px;height:10px;
+      border-right:2.5px solid var(--blue);border-bottom:2.5px solid var(--blue);
+      transform:rotate(45deg);transition:.2s}
+  .qa[open] summary::after{transform:rotate(-135deg);top:28px}
+  .qa .qb{padding:0 0 18px}
+  .qa .qb p{font-size:15.5px;margin-top:0}
+  .qa .qb p+p{margin-top:12px}
+  /* ---- discount audit ---- */
+  .audit{display:grid;gap:18px;margin-top:24px}
+  @media(min-width:860px){ .audit{grid-template-columns:1fr 260px;align-items:start} }
+  .dlist{display:grid;gap:8px}
+  .dchk{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--line);
+        border-radius:14px;padding:12px 14px;background:#fff;cursor:pointer;transition:.15s}
+  .dchk:hover{border-color:#CBDCF4}
+  .dchk input{position:absolute;opacity:0;width:0;height:0}
+  .dchk .dbox{flex:0 0 auto;width:20px;height:20px;border:2px solid #C6D4E8;border-radius:6px;
+      margin-top:2px;display:grid;place-items:center;transition:.15s}
+  .dchk .dbox::after{content:'¹3';color:#fff;font-size:13px;font-weight:900;opacity:0}
+  .dchk input:checked+.dbox{background:#0F7B4A;border-color:#0F7B4A}
+  .dchk input:checked+.dbox::after{opacity:1}
+  .dchk input:checked~.dtx b{color:#0F7B4A}
+  .dchk input:focus-visible+.dbox{outline:3px solid #BBD6FF;outline-offset:2px}
+  .dtx b{display:block;font-size:14.5px;font-weight:800;color:var(--navy)}
+  .dtx small{display:block;font-size:12.5px;color:var(--muted);font-weight:600;margin-top:1px}
+  .dsum{border:1.5px solid var(--line);border-radius:20px;padding:22px;background:#fff;
+        text-align:center;position:sticky;top:90px}
+  .dring{width:104px;height:104px;margin:0 auto;border-radius:99px;display:grid;place-items:center;
+      background:conic-gradient(var(--blue) calc(var(--p,0)*1%), var(--ice) 0);position:relative}
+  .dring::before{content:"";position:absolute;inset:9px;border-radius:99px;background:#fff}
+  .dring .dnum{position:relative;font-size:30px;font-weight:900;color:var(--navy);line-height:1}
+  .dring small{position:relative;display:block;font-size:11.5px;font-weight:800;color:var(--muted)}
+  .dsum .dmsg{font-size:14px;font-weight:700;color:var(--muted);margin-top:14px;line-height:1.5}
+  .dsum .btn{margin-top:16px;width:100%;padding:13px 18px;font-size:15px}
+
+  /* ---- deductible payback ---- */
+  .ded{border:1.5px solid var(--line);border-radius:20px;padding:20px;background:#fff;margin-top:22px}
+  .ded .cin{display:grid;gap:14px}
+  @media(min-width:620px){ .ded .cin{grid-template-columns:1fr 1fr;gap:18px} }
+  .ded label{display:block;font-size:13.5px;font-weight:800;color:var(--navy)}
+  .ded label small{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:2px}
+  .ded .pre{display:flex;align-items:center;gap:6px;margin-top:8px;border:1.5px solid var(--line);
+      border-radius:13px;padding:11px 13px;font-weight:800;color:var(--muted)}
+  .ded .pre:focus-within{border-color:var(--blue);box-shadow:0 0 0 4px rgba(22,102,237,.13)}
+  .ded input{width:100%;border:0;outline:none;font:inherit;font-size:16px;font-weight:800;
+      color:var(--ink);background:transparent}
+  .ded .dres{margin-top:20px;border-top:1px solid var(--line);padding-top:16px;text-align:center}
+  .ded .dbig{display:block;font-size:30px;font-weight:900;color:var(--navy);letter-spacing:-.02em}
+  .ded .dsub{display:block;font-size:14px;color:var(--muted);font-weight:700;margin-top:6px;line-height:1.5}
+
+
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a href="../../../index.html" aria-label="Safe House Insurance home"><img class="logo" src="../../../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+  <div class="nl">
+    <a href="../../../about.html">About</a>
+    <a href="../../../careers.html">Careers</a>
+    <a href="../../../index.html#faq">FAQ</a>
+  </div>
+  <a class="cta" href="../../../quote.html">Get my free quote</a>
+</div></nav>
+
+<header class="pg"><div class="wrap">
+  <p class="crumbs"><a href="../../">Car insurance</a> &rsaquo;
+     <a href="../">New Mexico</a> &rsaquo; <span>Santa Rosa</span></p>
+  <span class="kick">Santa Rosa, NM</span>
+  <h1>Car insurance in<br>Santa Rosa.</h1>
+  <p>One form, every carrier we represent, prices back in a few minutes &mdash; then a licensed
+     agent here in El Paso goes through them with you, in English or Spanish.</p>
+  <div class="acts">
+    <a class="btn" href="../../../quote.html">Get my free quote</a>
+    <a class="btn ghost" href="tel:+19155031207">Call 915-503-1207</a>
+  </div>
+</div></header>
+
+<section class="blk"><div class="wrap narrow">
+  <p>Safe House Insurance is independent and licensed in New Mexico, which is a way of saying we get paid the same whichever company you end up with. There is no version of this where steering you costs you money and earns us more.</p><p>We write policies throughout Guadalupe County. What a driver in Santa Rosa pays comes down to where the car is kept, what it is, and who is on the policy &mdash; which is why a single quote never answers the question and four or five of them usually do.</p>
+</div></section>
+
+<section class="blk tint"><div class="wrap narrow">
+  <h2>The minimum New Mexico requires</h2><p>New Mexico requires at least <strong>25/50/10</strong> in liability: $25,000 for injury to one person, $50,000 per accident, and $10,000 for property damage. That is the floor for driving legally in Santa Rosa &mdash; it is not the same thing as being covered.</p><p>Minimum limits are legal, not adequate &mdash; those are different words for a reason. We quote the state minimum and a set of realistic limits together so you can see what the extra protection actually costs before you decide you cannot afford it.</p>
+</div></section>
+
+<section class="blk"><div class="wrap narrow"><h2>Getting around Santa Rosa</h2><p>Traffic here runs on I-40 and US-54, and how much of it you sit in is one of the few things on a quote form you control. Annual mileage and the address the car is parked at overnight both move the price, and both are worth getting right rather than estimating high.</p><p>We write across Guadalupe County, so if you moved within it recently that is worth a call &mdash; a change of address can change the premium even when nothing else did.</p></div></section>
+<section class="blk"><div class="wrap narrow"><h2>Storm country pricing</h2><p>Hail frequency is one of the biggest rating factors in this part of the state, and it is one where companies disagree most. Two carriers looking at the same Santa Rosa address, the same car and the same clean record can be hundreds apart for that reason alone.</p></div></section>
+<section class="blk"><div class="wrap narrow"><h2>Sin barrera de idioma</h2><p>Si prefiere hacer todo esto en espa&ntilde;ol, en Santa Rosa no tiene que conformarse con un formulario traducido. Un agente con licencia le explica su p&oacute;liza, sus opciones y lo que firma, en espa&ntilde;ol y sin prisa. <a href="tel:+19155031207">915-503-1207</a> &middot; <a href="sms:+19155943777">915-594-3777</a>.</p></div></section>
+
+
+<section class="blk tint"><div class="wrap narrow">
+  <h2>What the limits actually mean</h2><p>Liability is written as three numbers. The first is the most the policy pays for injury to any one person, the second is the most for everyone hurt in one accident, and the third is property damage. New Mexico requires <strong>25/50/10</strong>; these are the tiers above it.</p><div class="bars"><div class="bar min"><div class="bl"><b>25/50/10</b><small>State minimum</small></div><div class="btrack"><i style="width:10%"></i></div><div class="bv">$50,000<small>per accident</small></div></div><div class="bar"><div class="bl"><b>50/100/50</b><small>A step up</small></div><div class="btrack"><i style="width:20%"></i></div><div class="bv">$100,000<small>per accident</small></div></div><div class="bar"><div class="bl"><b>100/300/100</b><small>What most agents suggest</small></div><div class="btrack"><i style="width:60%"></i></div><div class="bv">$300,000<small>per accident</small></div></div><div class="bar"><div class="bl"><b>250/500/100</b><small>If you have assets to protect</small></div><div class="btrack"><i style="width:100%"></i></div><div class="bv">$500,000<small>per accident</small></div></div></div><p class="cap">Bars compare the per-accident bodily injury limit. Anything above the line is a choice, not a requirement &mdash; and the premium difference between the first row and the third is usually smaller than people assume.</p>
+</div></section>
+
+<section class="blk"><div class="wrap narrow">
+  <h2>What would the state minimum leave you paying?</h2><p>Put in two numbers and see it. This is arithmetic against New Mexico's actual limits &mdash; not a rate quote, and nothing is sent anywhere.</p><div class="calc" data-bi="50" data-pd="10"><div class="cin"><label>What is your car worth today?<span class="pre">$<input type="number" class="cv" value="18000" min="0" step="500"></span></label><label>What could you lose if you were sued? <small>Savings, equity, wages</small><span class="pre">$<input type="number" class="as" value="60000" min="0" step="5000"></span></label></div><div class="cout"><div class="crow"><b>Their car, if you total it</b><span class="cnum pd"></span><small class="cnote pdn"></small></div><div class="crow"><b>Injuries, if you are sued</b><span class="cnum bi"></span><small class="cnote bin"></small></div><div class="crow"><b>Your own car, on liability only</b><span class="cnum ow"></span><small class="cnote own"></small></div></div><p class="cap">Liability pays for damage you do to other people. It never pays for your own vehicle &mdash; that is collision and comprehensive, and it is the line most people get wrong.</p></div>
+</div></section>
+
+<section class="blk tint"><div class="wrap">
+  <div class="narrow"><h2>What moves your price in Santa Rosa</h2><p>Carriers weigh these differently, which is the whole reason one company can be cheapest for you and a different one cheapest for your neighbour.</p></div>
+  <div class="fgrid2"><div class="fcol good"><h3>You control these</h3><p class="fsub">Worth working on</p><ul><li><b>Your driving record</b><span>The single biggest thing you control. Violations age out.</span></li><li><b>Coverage and deductible</b><span>Higher deductible, lower premium &mdash; if you can cover it.</span></li><li><b>Annual mileage</b><span>Estimating high costs money every month.</span></li><li><b>Continuous coverage</b><span>A gap is expensive. Even a short one.</span></li><li><b>Discounts you claim</b><span>Multi-policy, good student, paid-in-full, telematics.</span></li></ul></div><div class="fcol meh"><h3>You do not control these</h3><p class="fsub">Worth shopping around</p><ul><li><b>Where the car is parked overnight</b><span>Rated by address, not by city.</span></li><li><b>The vehicle itself</b><span>Repair cost and theft rate, not sticker price.</span></li><li><b>Who else is on the policy</b><span>Every driver in the household counts.</span></li><li><b>The carrier&rsquo;s appetite</b><span>Two companies can be hundreds apart on the same risk.</span></li></ul></div></div>
+</div></section>
+
+<section class="blk"><div class="wrap">
+  <div class="narrow"><h2>Which discounts are actually on your policy?</h2><p>Most discounts are opt-in &mdash; nobody applies them for you, and nobody writes to say you have started qualifying for one. Tick what you already have and see what is left.</p><div class="audit"><div class="dlist"><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Another policy with the same carrier</b><small>Home, renters or a second vehicle. Usually the largest single one.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Paid in full</b><small>Paying the term up front instead of monthly.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Automatic payments</b><small>Small, and almost never claimed by accident.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Paperless documents</b><small>Trivial to switch on, easy to forget.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Good student</b><small>A student on the policy with the grades to prove it.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Student away at school</b><small>At school without the car. Often missed entirely.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Defensive driving course</b><small>A state-approved course, good for a set period.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Safety and anti-theft equipment</b><small>Depends on the vehicle, not on you.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Telematics or safe-driving app</b><small>Not for everyone &mdash; but it is a real discount.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Continuous coverage</b><small>Rewarded for never letting it lapse.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Military or veteran</b><small>Some carriers, not all.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Occupation or professional group</b><small>Teachers, nurses, trades &mdash; varies by carrier.</small></span></label></div><div class="dsum"><div class="dring"><span class="dnum">0</span><small>of 12</small></div><p class="dmsg"></p><a class="btn" href="../../../quote.html">Have us check the rest</a></div></div><p class="cap">Not every discount exists at every carrier, and a few cancel each other out. This is a prompt for the conversation, not a promise &mdash; which is exactly what an agent is for.</p></div>
+</div></section>
+
+<section class="blk tint"><div class="wrap narrow">
+  <h2>Is a higher deductible worth it?</h2><p>Raising a deductible lowers the premium. The question is how long it takes the saving to pay back the extra you would owe at claim time. Take the two numbers off your own quote.</p><div class="ded"><div class="cin"><label>Monthly saving from the higher deductible<span class="pre">$<input type="number" class="dsave" value="14" min="0" step="1"></span></label><label>Extra you would pay at claim time <small>e.g. $500 to $1,000 is $500</small><span class="pre">$<input type="number" class="dgap" value="500" min="0" step="50"></span></label></div><div class="dres"><b class="dbig"></b><span class="dsub"></span></div></div><p class="cap">The honest test is not the arithmetic, it is whether you could write the cheque tomorrow. A deductible you cannot cover is not a saving, it is a deferred problem.</p>
+</div></section>
+
+<section class="blk"><div class="wrap narrow">
+  <h2>Questions people ask about Santa Rosa</h2><div class="faqs"><details class="qa"><summary>How much is car insurance in Santa Rosa, NM?</summary><div class="qb"><p>Anyone quoting one figure for a whole city is guessing. Two households on the same street pay very differently depending on the vehicle, the record, the mileage and who else is on the policy &mdash; and carriers disagree with each other on all four.</p><p>What we can tell you is the spread. Running a quote in Santa Rosa through every carrier we represent, the gap between cheapest and dearest is routinely wide enough to matter. That is the number worth finding, and it takes a few minutes.</p></div></details><details class="qa"><summary>What is the cheapest car insurance in Santa Rosa?</summary><div class="qb"><p>It changes by driver, which is why the question does not have a fixed answer. Carriers each have an appetite &mdash; one wants clean records and newer cars, another is comfortable with a violation or a lapse &mdash; and the winner in Santa Rosa swaps depending on which of those you are.</p><p>We shop the whole shelf rather than defending one company's number, and we are paid the same whichever you pick.</p></div></details><details class="qa"><summary>Which is the best insurance company in Santa Rosa?</summary><div class="qb"><p>Best depends on what you are optimising for. Cheapest today is not the same as best at paying a claim, and neither is the same as the one that will still want your business after an accident.</p><p>We are appointed with a shelf of carriers rather than employed by one, so we can tell you which is genuinely good for your situation instead of defending a single answer.</p></div></details><details class="qa"><summary>Why is car insurance so expensive in Santa Rosa?</summary><div class="qb"><p>Your premium is partly your record and largely your surroundings &mdash; local claim frequency, uninsured drivers, repair costs, theft and weather. That is why a spotless driver can still be quoted more in one place than another.</p><p>The lever that actually works is comparison. Carriers weigh those local risks very differently, so the same clean record in Santa Rosa can be priced hundreds apart depending on who is looking at it.</p></div></details><details class="qa"><summary>Does my ZIP code change my rate in Santa Rosa?</summary><div class="qb"><p>Yes &mdash; carriers rate on the address where the car is parked overnight, not on the city. Two addresses a few miles apart in Santa Rosa can be quoted differently on identical drivers and identical cars.</p><p>It also means a move is a reason to re-shop, even a short one. The company that was cheapest at your old address is not automatically cheapest at the new one.</p></div></details><details class="qa"><summary>What is the minimum car insurance required in New Mexico?</summary><div class="qb"><p>The legal floor is <strong>25/50/10</strong> in liability &mdash; $25,000 per injured person, $50,000 per accident, $10,000 for the property you damage.</p><p>Read those numbers against what is actually on the road. $10,000 is the whole budget for someone else's vehicle, and none of the three does anything for yours. Scroll up and put your own figures in.</p></div></details><details class="qa"><summary>How can I lower my car insurance in Santa Rosa?</summary><div class="qb"><p>Roughly in order of how much they move the number: shop it across carriers instead of renewing, raise your deductible to a figure you could genuinely cover tomorrow, correct an inflated mileage estimate, bundle if you have a home or renters policy, and make sure every discount is actually on the policy.</p><p>Do not lower it by dropping to the state minimum without doing the arithmetic. That is not saving money, it is moving risk onto yourself.</p></div></details><details class="qa"><summary>Do I need full coverage?</summary><div class="qb"><p>There is no policy called full coverage. What people mean is liability plus collision plus comprehensive &mdash; the two that pay for <em>your</em> car. A lienholder will insist on them; once the car is yours outright, it becomes a decision.</p><p>Ask it this way: if the car were gone tomorrow, could you replace it out of pocket without it hurting? That answer is the coverage answer.</p></div></details><details class="qa"><summary>&iquest;Puedo hacer todo esto en espa&ntilde;ol?</summary><div class="qb"><p>S&iacute;. Un agente con licencia le explica su cotizaci&oacute;n, su deducible y lo que firma en espa&ntilde;ol, sin traductor y sin prisa. <a href="tel:+19155031207">915-503-1207</a> o <a href="sms:+19155943777">915-594-3777</a>.</p></div></details></div>
+</div></section>
+
+<section class="blk tint"><div class="wrap narrow">
+  <h2>How a quote here actually works</h2>
+  <ul>
+    <li><strong>You tell us once.</strong> A few minutes online, or on the phone if you would
+        rather talk it through.</li>
+    <li><strong>We shop it.</strong> Your details go to every carrier that writes Santa Rosa
+        at the same time, and the prices come back to us.</li>
+    <li><strong>You pick.</strong> An agent applies the discounts you qualify for and reviews the
+        policy before anything is issued.</li>
+  </ul>
+  <p>Nothing binds on a screen, and the prices you see online are marked subject to verification
+     because your driving record still has to be run. After that the number more often goes down
+     than up.</p>
+  <div class="acts">
+    <a class="btn" href="../../../quote.html">Start my quote</a>
+    <a class="btn ghost" href="sms:+19155943777">Text 915-594-3777</a>
+  </div>
+</div></section>
+
+<section class="blk"><div class="wrap narrow">
+  <h2>Nearby</h2><p>We write the same policies across the region:</p><div class="chips"><span><a href="../../new-mexico/tucumcari/">Tucumcari</a></span><span><a href="../../new-mexico/las-vegas/">Las Vegas</a></span><span><a href="../../new-mexico/santa-fe/">Santa Fe</a></span><span><a href="../../new-mexico/clovis/">Clovis</a></span></div>
+  <p style="margin-top:22px"><a href="../../">See every city we write</a></p>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="deck">
+    <div>
+      <h5>Car insurance in Texas</h5>
+      <div class="col2"><a href="../../../car-insurance/texas/houston/">Houston</a><a href="../../../car-insurance/texas/san-antonio/">San Antonio</a><a href="../../../car-insurance/texas/dallas/">Dallas</a><a href="../../../car-insurance/texas/austin/">Austin</a><a href="../../../car-insurance/texas/fort-worth/">Fort Worth</a><a href="../../../car-insurance/texas/el-paso/">El Paso</a><a href="../../../car-insurance/texas/arlington/">Arlington</a><a href="../../../car-insurance/texas/laredo/">Laredo</a><a href="../../../car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="../../../car-insurance/texas/mcallen/">McAllen</a><a href="../../../car-insurance/texas/brownsville/">Brownsville</a><a href="../../../car-insurance/texas/lubbock/">Lubbock</a></div>
+      <a class="more" href="../../../car-insurance/texas/">See all Texas cities</a>
+    </div>
+    <div>
+      <h5>Car insurance in New Mexico</h5>
+      <div class="col2"><a href="../../../car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="../../../car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="../../../car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="../../../car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="../../../car-insurance/new-mexico/roswell/">Roswell</a><a href="../../../car-insurance/new-mexico/farmington/">Farmington</a><a href="../../../car-insurance/new-mexico/hobbs/">Hobbs</a><a href="../../../car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
+      <a class="more" href="../../../car-insurance/new-mexico/">See all New Mexico cities</a>
+    </div>
+    <div>
+      <h5>What we insure</h5>
+      <a href="../../../quote.html">Car insurance</a>
+      <a href="../../../quote.html">Home insurance</a>
+      <a href="../../../quote.html">Renters insurance</a>
+      <a href="../../../quote.html">Motorcycle insurance</a>
+      <a href="../../../quote.html">Commercial vehicles</a>
+      <a href="../../../quote.html">Work trucks and fleets</a>
+    </div>
+    <div>
+      <h5>Company</h5>
+      <a href="../../../index.html">Home</a>
+      <a href="../../../about.html">About us</a>
+      <a href="../../../careers.html">Careers</a>
+      <a href="../../../car-insurance/">Car insurance by city</a>
+      <a href="../../../index.html#faq">FAQ</a>
+      <a href="../../../quote.html">Get a quote</a>
+    </div>
+  </div>
+
+  <div class="fgrid">
+    <div>
+      <img class="flogo" src="../../../assets/safehouse-logo.png" alt="Safe House Insurance">
+      <p class="tag">One agency for everything you own. Licensed in Texas and New Mexico,
+         based in El Paso. Se habla espa&ntilde;ol.</p>
+    </div>
+
+    <div>
+      <h5>Reach us</h5>
+      <div class="ways">
+        <div class="way"><span class="ic" aria-hidden="true">&#9742;</span>
+          <span><b>Call</b><a href="tel:+19155031207">915-503-1207</a>
+          <small>A licensed agent, not a call centre</small></span></div>
+        <div class="way"><span class="ic" aria-hidden="true">&#128172;</span>
+          <span><b>Text</b><a href="sms:+19155943777">915-594-3777</a>
+          <small>Different number &mdash; this one receives texts</small></span></div>
+        <div class="way"><span class="ic" aria-hidden="true">&#9993;</span>
+          <span><b>Email</b><a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a>
+          <small>Documents, questions, anything</small></span></div>
+      </div>
+    </div>
+
+    <div>
+      <h5>Where we are</h5>
+      <p class="tag">Safe House Insurance LLC<br>
+        6065 Montana Ave Ste C8<br>
+        El Paso, TX 79925</p>
+      <div class="links" style="margin-top:16px">
+        <a href="../../../privacy.html">Privacy Policy</a>
+        <a href="../../../sms-terms.html">SMS Terms</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="fbot">
+    <p class="lg"><a href="../../../privacy.html">Privacy Policy</a> &middot;
+       <a href="../../../sms-terms.html">SMS Terms</a></p>
+    <p>Safe House Insurance LLC &middot; 6065 Montana Ave Ste C8, El Paso, TX 79925<br>
+      Independent insurance agency licensed in Texas and New Mexico. Coverage is subject to carrier
+      approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy.
+      Quotes are estimates and are not a guarantee of coverage or price.
+      &copy; 2026 Safe House Insurance.</p>
+  </div>
+</div></footer>
+
+
+<script>
+(function(){
+  // Arithmetic against this state's statutory limits and whatever the visitor
+  // types. No rate data, no lookups, nothing leaves the page.
+  var box = document.querySelector('.calc');
+  if (!box) return;
+  var BI = +box.dataset.bi * 1000;      // per-accident bodily injury
+  var PD = +box.dataset.pd * 1000;      // property damage
+  var cv = box.querySelector('.cv'), as = box.querySelector('.as');
+
+  function money(n){
+    return '$' + Math.max(0, Math.round(n)).toLocaleString('en-US');
+  }
+  function set(sel, noteSel, value, gap, note){
+    var el = box.querySelector(sel);
+    el.textContent = value;
+    el.classList.toggle('gap', gap);
+    box.querySelector(noteSel).innerHTML = note;
+  }
+  function run(){
+    var car = Math.max(0, +cv.value || 0);
+    var net = Math.max(0, +as.value || 0);
+
+    // their car: the minimum pays PD, you pay whatever is above it
+    var overPD = car - PD;
+    set('.pd', '.pdn',
+        overPD > 0 ? money(overPD) + ' short' : 'Covered',
+        overPD > 0,
+        overPD > 0
+          ? 'A car like yours at ' + money(car) + ' is ' + money(overPD) + ' more than the '
+            + money(PD) + ' the state minimum pays. The rest comes from you.'
+          : 'The ' + money(PD) + ' minimum would cover a vehicle at ' + money(car)
+            + '. It would not cover a newer or larger one.');
+
+    // injuries: everything you own sits behind the per-accident limit
+    set('.bi', '.bin',
+        money(net) + ' exposed',
+        net > 0,
+        'The minimum stops at ' + money(BI) + ' per accident. A serious injury claim can run past '
+        + 'that, and what you told us you could lose &mdash; ' + money(net) + ' &mdash; is what sits '
+        + 'behind it.');
+
+    // your own car: liability pays nothing toward it, ever
+    set('.ow', '.own',
+        money(car) + ' on you',
+        car > 0,
+        'Liability pays nothing toward your own vehicle. Without collision and comprehensive, the '
+        + 'full ' + money(car) + ' is yours &mdash; in a wreck you caused, a theft, hail or flood.');
+  }
+  cv.addEventListener('input', run);
+  as.addEventListener('input', run);
+  run();
+})();
+</script>
+
+<script>
+(function(){
+  var au = document.querySelector('.audit');
+  if (au) {
+    var boxes = au.querySelectorAll('.dchk input'),
+        ring  = au.querySelector('.dring'),
+        num   = au.querySelector('.dnum'),
+        msg   = au.querySelector('.dmsg'),
+        total = boxes.length;
+    function tally(){
+      var n = 0;
+      boxes.forEach(function(b){ if (b.checked) n++; });
+      var missing = total - n;
+      num.textContent = n;
+      ring.style.setProperty('--p', Math.round(n / total * 100));
+      msg.textContent = missing === 0
+        ? 'Everything on this list is already on your policy. Worth confirming with the carrier '
+          + 'that they are all actually applied.'
+        : missing + (missing === 1 ? ' discount' : ' discounts') + ' on this list you have not '
+          + 'claimed. Not all of them will apply to you — but the ones that do are money you are '
+          + 'leaving on the table every month.';
+    }
+    boxes.forEach(function(b){ b.addEventListener('change', tally); });
+    tally();
+  }
+
+  var ded = document.querySelector('.ded');
+  if (ded) {
+    var save = ded.querySelector('.dsave'),
+        gap  = ded.querySelector('.dgap'),
+        big  = ded.querySelector('.dbig'),
+        sub  = ded.querySelector('.dsub');
+    function run(){
+      var s = +save.value || 0, g = +gap.value || 0;
+      if (s <= 0 || g <= 0) {
+        big.textContent = '—';
+        sub.textContent = 'Put both numbers in and this fills itself.';
+        return;
+      }
+      var months = g / s;
+      var years  = months / 12;
+      big.textContent = (months < 24 ? Math.round(months) + ' months'
+                                     : years.toFixed(1) + ' years');
+      sub.textContent = 'That is how long the $' + s + ' a month has to keep adding up before it '
+        + 'covers the extra $' + g + ' you would owe on a claim. Claim sooner than that and the '
+        + 'higher deductible cost you money.';
+    }
+    save.addEventListener('input', run);
+    gap.addEventListener('input', run);
+    run();
+  }
+})();
+</script>
+</body>
+</html>

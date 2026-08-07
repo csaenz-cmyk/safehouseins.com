@@ -106,6 +106,16 @@
   footer .fbot{border-top:1px solid rgba(255,255,255,.14);margin-top:34px;padding-top:20px}
   footer .fbot p{font-size:12px;color:#8FA6C8;line-height:1.7}
   footer .fbot .lg{display:flex;gap:8px;flex-wrap:wrap;font-size:13.5px;font-weight:800;margin-bottom:12px}
+  /* the wide link deck above the contact block */
+  footer .deck{display:grid;gap:26px;padding-bottom:34px;margin-bottom:34px;
+      border-bottom:1px solid rgba(255,255,255,.14)}
+  @media(min-width:680px){ footer .deck{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:1000px){ footer .deck{grid-template-columns:repeat(4,1fr)} }
+  footer .deck .col2{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
+  footer .deck a{display:block;font-size:14px;font-weight:600;color:#C7DBF5;padding:3px 0}
+  footer .deck a:hover{color:#fff}
+  footer .deck .more{font-weight:800;color:#8FB4F0}
+
 </style>
 <link rel="canonical" href="https://safehouseins.com/car-insurance/texas/">
 
@@ -183,6 +193,48 @@
   .qa .qb{padding:0 0 18px}
   .qa .qb p{font-size:15.5px;margin-top:0}
   .qa .qb p+p{margin-top:12px}
+  /* ---- discount audit ---- */
+  .audit{display:grid;gap:18px;margin-top:24px}
+  @media(min-width:860px){ .audit{grid-template-columns:1fr 260px;align-items:start} }
+  .dlist{display:grid;gap:8px}
+  .dchk{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--line);
+        border-radius:14px;padding:12px 14px;background:#fff;cursor:pointer;transition:.15s}
+  .dchk:hover{border-color:#CBDCF4}
+  .dchk input{position:absolute;opacity:0;width:0;height:0}
+  .dchk .dbox{flex:0 0 auto;width:20px;height:20px;border:2px solid #C6D4E8;border-radius:6px;
+      margin-top:2px;display:grid;place-items:center;transition:.15s}
+  .dchk .dbox::after{content:'¹3';color:#fff;font-size:13px;font-weight:900;opacity:0}
+  .dchk input:checked+.dbox{background:#0F7B4A;border-color:#0F7B4A}
+  .dchk input:checked+.dbox::after{opacity:1}
+  .dchk input:checked~.dtx b{color:#0F7B4A}
+  .dchk input:focus-visible+.dbox{outline:3px solid #BBD6FF;outline-offset:2px}
+  .dtx b{display:block;font-size:14.5px;font-weight:800;color:var(--navy)}
+  .dtx small{display:block;font-size:12.5px;color:var(--muted);font-weight:600;margin-top:1px}
+  .dsum{border:1.5px solid var(--line);border-radius:20px;padding:22px;background:#fff;
+        text-align:center;position:sticky;top:90px}
+  .dring{width:104px;height:104px;margin:0 auto;border-radius:99px;display:grid;place-items:center;
+      background:conic-gradient(var(--blue) calc(var(--p,0)*1%), var(--ice) 0);position:relative}
+  .dring::before{content:"";position:absolute;inset:9px;border-radius:99px;background:#fff}
+  .dring .dnum{position:relative;font-size:30px;font-weight:900;color:var(--navy);line-height:1}
+  .dring small{position:relative;display:block;font-size:11.5px;font-weight:800;color:var(--muted)}
+  .dsum .dmsg{font-size:14px;font-weight:700;color:var(--muted);margin-top:14px;line-height:1.5}
+  .dsum .btn{margin-top:16px;width:100%;padding:13px 18px;font-size:15px}
+
+  /* ---- deductible payback ---- */
+  .ded{border:1.5px solid var(--line);border-radius:20px;padding:20px;background:#fff;margin-top:22px}
+  .ded .cin{display:grid;gap:14px}
+  @media(min-width:620px){ .ded .cin{grid-template-columns:1fr 1fr;gap:18px} }
+  .ded label{display:block;font-size:13.5px;font-weight:800;color:var(--navy)}
+  .ded label small{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:2px}
+  .ded .pre{display:flex;align-items:center;gap:6px;margin-top:8px;border:1.5px solid var(--line);
+      border-radius:13px;padding:11px 13px;font-weight:800;color:var(--muted)}
+  .ded .pre:focus-within{border-color:var(--blue);box-shadow:0 0 0 4px rgba(22,102,237,.13)}
+  .ded input{width:100%;border:0;outline:none;font:inherit;font-size:16px;font-weight:800;
+      color:var(--ink);background:transparent}
+  .ded .dres{margin-top:20px;border-top:1px solid var(--line);padding-top:16px;text-align:center}
+  .ded .dbig{display:block;font-size:30px;font-weight:900;color:var(--navy);letter-spacing:-.02em}
+  .ded .dsub{display:block;font-size:14px;color:var(--muted);font-weight:700;margin-top:6px;line-height:1.5}
+
 
 </style>
 </head>
@@ -211,10 +263,41 @@
   <div class="narrow"><h2>Cities we write in Texas</h2>
   <p class="lead">The state minimum here is <strong>30/60/25</strong> in liability.
      Every page below explains what that covers and what it does not.</p></div>
-  <div class="ctys"><a class="cty" href="abilene/"><b>Abilene</b><small>Taylor County</small></a><a class="cty" href="amarillo/"><b>Amarillo</b><small>Potter County</small></a><a class="cty" href="anthony/"><b>Anthony</b><small>El Paso County</small></a><a class="cty" href="arlington/"><b>Arlington</b><small>Tarrant County</small></a><a class="cty" href="austin/"><b>Austin</b><small>Travis County</small></a><a class="cty" href="baytown/"><b>Baytown</b><small>Harris County</small></a><a class="cty" href="beaumont/"><b>Beaumont</b><small>Jefferson County</small></a><a class="cty" href="brownsville/"><b>Brownsville</b><small>Cameron County</small></a><a class="cty" href="corpus-christi/"><b>Corpus Christi</b><small>Nueces County</small></a><a class="cty" href="dallas/"><b>Dallas</b><small>Dallas County</small></a><a class="cty" href="del-rio/"><b>Del Rio</b><small>Val Verde County</small></a><a class="cty" href="denton/"><b>Denton</b><small>Denton County</small></a><a class="cty" href="eagle-pass/"><b>Eagle Pass</b><small>Maverick County</small></a><a class="cty" href="edinburg/"><b>Edinburg</b><small>Hidalgo County</small></a><a class="cty" href="el-paso/"><b>El Paso</b><small>El Paso County</small></a><a class="cty" href="fabens/"><b>Fabens</b><small>El Paso County</small></a><a class="cty" href="fort-worth/"><b>Fort Worth</b><small>Tarrant County</small></a><a class="cty" href="galveston/"><b>Galveston</b><small>Galveston County</small></a><a class="cty" href="garland/"><b>Garland</b><small>Dallas County</small></a><a class="cty" href="georgetown/"><b>Georgetown</b><small>Williamson County</small></a><a class="cty" href="grand-prairie/"><b>Grand Prairie</b><small>Dallas County</small></a><a class="cty" href="harlingen/"><b>Harlingen</b><small>Cameron County</small></a><a class="cty" href="horizon-city/"><b>Horizon City</b><small>El Paso County</small></a><a class="cty" href="houston/"><b>Houston</b><small>Harris County</small></a><a class="cty" href="irving/"><b>Irving</b><small>Dallas County</small></a><a class="cty" href="killeen/"><b>Killeen</b><small>Bell County</small></a><a class="cty" href="laredo/"><b>Laredo</b><small>Webb County</small></a><a class="cty" href="lubbock/"><b>Lubbock</b><small>Lubbock County</small></a><a class="cty" href="mcallen/"><b>McAllen</b><small>Hidalgo County</small></a><a class="cty" href="mckinney/"><b>McKinney</b><small>Collin County</small></a><a class="cty" href="mesquite/"><b>Mesquite</b><small>Dallas County</small></a><a class="cty" href="midland/"><b>Midland</b><small>Midland County</small></a><a class="cty" href="mission/"><b>Mission</b><small>Hidalgo County</small></a><a class="cty" href="new-braunfels/"><b>New Braunfels</b><small>Comal County</small></a><a class="cty" href="odessa/"><b>Odessa</b><small>Ector County</small></a><a class="cty" href="pasadena/"><b>Pasadena</b><small>Harris County</small></a><a class="cty" href="pharr/"><b>Pharr</b><small>Hidalgo County</small></a><a class="cty" href="plano/"><b>Plano</b><small>Collin County</small></a><a class="cty" href="rio-grande-city/"><b>Rio Grande City</b><small>Starr County</small></a><a class="cty" href="round-rock/"><b>Round Rock</b><small>Williamson County</small></a><a class="cty" href="san-angelo/"><b>San Angelo</b><small>Tom Green County</small></a><a class="cty" href="san-antonio/"><b>San Antonio</b><small>Bexar County</small></a><a class="cty" href="san-elizario/"><b>San Elizario</b><small>El Paso County</small></a><a class="cty" href="socorro/"><b>Socorro</b><small>El Paso County</small></a><a class="cty" href="sugar-land/"><b>Sugar Land</b><small>Fort Bend County</small></a><a class="cty" href="temple/"><b>Temple</b><small>Bell County</small></a><a class="cty" href="tyler/"><b>Tyler</b><small>Smith County</small></a><a class="cty" href="uvalde/"><b>Uvalde</b><small>Uvalde County</small></a><a class="cty" href="victoria/"><b>Victoria</b><small>Victoria County</small></a><a class="cty" href="waco/"><b>Waco</b><small>McLennan County</small></a><a class="cty" href="weslaco/"><b>Weslaco</b><small>Hidalgo County</small></a></div>
+  <div class="ctys"><a class="cty" href="abilene/"><b>Abilene</b><small>Taylor County</small></a><a class="cty" href="allen/"><b>Allen</b><small>Collin County</small></a><a class="cty" href="amarillo/"><b>Amarillo</b><small>Potter County</small></a><a class="cty" href="anthony/"><b>Anthony</b><small>El Paso County</small></a><a class="cty" href="arlington/"><b>Arlington</b><small>Tarrant County</small></a><a class="cty" href="austin/"><b>Austin</b><small>Travis County</small></a><a class="cty" href="baytown/"><b>Baytown</b><small>Harris County</small></a><a class="cty" href="beaumont/"><b>Beaumont</b><small>Jefferson County</small></a><a class="cty" href="bedford/"><b>Bedford</b><small>Tarrant County</small></a><a class="cty" href="brownsville/"><b>Brownsville</b><small>Cameron County</small></a><a class="cty" href="bryan/"><b>Bryan</b><small>Brazos County</small></a><a class="cty" href="carrollton/"><b>Carrollton</b><small>Dallas County</small></a><a class="cty" href="cedar-hill/"><b>Cedar Hill</b><small>Dallas County</small></a><a class="cty" href="cedar-park/"><b>Cedar Park</b><small>Williamson County</small></a><a class="cty" href="college-station/"><b>College Station</b><small>Brazos County</small></a><a class="cty" href="conroe/"><b>Conroe</b><small>Montgomery County</small></a><a class="cty" href="coppell/"><b>Coppell</b><small>Dallas County</small></a><a class="cty" href="corpus-christi/"><b>Corpus Christi</b><small>Nueces County</small></a><a class="cty" href="dallas/"><b>Dallas</b><small>Dallas County</small></a><a class="cty" href="desoto/"><b>DeSoto</b><small>Dallas County</small></a><a class="cty" href="del-rio/"><b>Del Rio</b><small>Val Verde County</small></a><a class="cty" href="denton/"><b>Denton</b><small>Denton County</small></a><a class="cty" href="duncanville/"><b>Duncanville</b><small>Dallas County</small></a><a class="cty" href="eagle-pass/"><b>Eagle Pass</b><small>Maverick County</small></a><a class="cty" href="edinburg/"><b>Edinburg</b><small>Hidalgo County</small></a><a class="cty" href="el-paso/"><b>El Paso</b><small>El Paso County</small></a><a class="cty" href="euless/"><b>Euless</b><small>Tarrant County</small></a><a class="cty" href="fabens/"><b>Fabens</b><small>El Paso County</small></a><a class="cty" href="flower-mound/"><b>Flower Mound</b><small>Denton County</small></a><a class="cty" href="fort-worth/"><b>Fort Worth</b><small>Tarrant County</small></a><a class="cty" href="frisco/"><b>Frisco</b><small>Collin County</small></a><a class="cty" href="galveston/"><b>Galveston</b><small>Galveston County</small></a><a class="cty" href="garland/"><b>Garland</b><small>Dallas County</small></a><a class="cty" href="georgetown/"><b>Georgetown</b><small>Williamson County</small></a><a class="cty" href="grand-prairie/"><b>Grand Prairie</b><small>Dallas County</small></a><a class="cty" href="grapevine/"><b>Grapevine</b><small>Tarrant County</small></a><a class="cty" href="harlingen/"><b>Harlingen</b><small>Cameron County</small></a><a class="cty" href="horizon-city/"><b>Horizon City</b><small>El Paso County</small></a><a class="cty" href="houston/"><b>Houston</b><small>Harris County</small></a><a class="cty" href="huntsville/"><b>Huntsville</b><small>Walker County</small></a><a class="cty" href="irving/"><b>Irving</b><small>Dallas County</small></a><a class="cty" href="keller/"><b>Keller</b><small>Tarrant County</small></a><a class="cty" href="killeen/"><b>Killeen</b><small>Bell County</small></a><a class="cty" href="laredo/"><b>Laredo</b><small>Webb County</small></a><a class="cty" href="league-city/"><b>League City</b><small>Galveston County</small></a><a class="cty" href="lewisville/"><b>Lewisville</b><small>Denton County</small></a><a class="cty" href="longview/"><b>Longview</b><small>Gregg County</small></a><a class="cty" href="lubbock/"><b>Lubbock</b><small>Lubbock County</small></a><a class="cty" href="mansfield/"><b>Mansfield</b><small>Tarrant County</small></a><a class="cty" href="mcallen/"><b>McAllen</b><small>Hidalgo County</small></a><a class="cty" href="mckinney/"><b>McKinney</b><small>Collin County</small></a><a class="cty" href="mesquite/"><b>Mesquite</b><small>Dallas County</small></a><a class="cty" href="midland/"><b>Midland</b><small>Midland County</small></a><a class="cty" href="mission/"><b>Mission</b><small>Hidalgo County</small></a><a class="cty" href="missouri-city/"><b>Missouri City</b><small>Fort Bend County</small></a><a class="cty" href="new-braunfels/"><b>New Braunfels</b><small>Comal County</small></a><a class="cty" href="north-richland-hills/"><b>North Richland Hills</b><small>Tarrant County</small></a><a class="cty" href="odessa/"><b>Odessa</b><small>Ector County</small></a><a class="cty" href="pasadena/"><b>Pasadena</b><small>Harris County</small></a><a class="cty" href="pearland/"><b>Pearland</b><small>Brazoria County</small></a><a class="cty" href="pharr/"><b>Pharr</b><small>Hidalgo County</small></a><a class="cty" href="plano/"><b>Plano</b><small>Collin County</small></a><a class="cty" href="port-arthur/"><b>Port Arthur</b><small>Jefferson County</small></a><a class="cty" href="richardson/"><b>Richardson</b><small>Dallas County</small></a><a class="cty" href="rio-grande-city/"><b>Rio Grande City</b><small>Starr County</small></a><a class="cty" href="rockwall/"><b>Rockwall</b><small>Rockwall County</small></a><a class="cty" href="round-rock/"><b>Round Rock</b><small>Williamson County</small></a><a class="cty" href="rowlett/"><b>Rowlett</b><small>Dallas County</small></a><a class="cty" href="san-angelo/"><b>San Angelo</b><small>Tom Green County</small></a><a class="cty" href="san-antonio/"><b>San Antonio</b><small>Bexar County</small></a><a class="cty" href="san-elizario/"><b>San Elizario</b><small>El Paso County</small></a><a class="cty" href="san-marcos/"><b>San Marcos</b><small>Hays County</small></a><a class="cty" href="sherman/"><b>Sherman</b><small>Grayson County</small></a><a class="cty" href="socorro/"><b>Socorro</b><small>El Paso County</small></a><a class="cty" href="sugar-land/"><b>Sugar Land</b><small>Fort Bend County</small></a><a class="cty" href="temple/"><b>Temple</b><small>Bell County</small></a><a class="cty" href="texas-city/"><b>Texas City</b><small>Galveston County</small></a><a class="cty" href="the-colony/"><b>The Colony</b><small>Denton County</small></a><a class="cty" href="tyler/"><b>Tyler</b><small>Smith County</small></a><a class="cty" href="uvalde/"><b>Uvalde</b><small>Uvalde County</small></a><a class="cty" href="victoria/"><b>Victoria</b><small>Victoria County</small></a><a class="cty" href="waco/"><b>Waco</b><small>McLennan County</small></a><a class="cty" href="weslaco/"><b>Weslaco</b><small>Hidalgo County</small></a><a class="cty" href="wichita-falls/"><b>Wichita Falls</b><small>Wichita County</small></a><a class="cty" href="wylie/"><b>Wylie</b><small>Collin County</small></a></div>
 </div></section>
 
 <footer><div class="wrap">
+  <div class="deck">
+    <div>
+      <h5>Car insurance in Texas</h5>
+      <div class="col2"><a href="../../car-insurance/texas/houston/">Houston</a><a href="../../car-insurance/texas/san-antonio/">San Antonio</a><a href="../../car-insurance/texas/dallas/">Dallas</a><a href="../../car-insurance/texas/austin/">Austin</a><a href="../../car-insurance/texas/fort-worth/">Fort Worth</a><a href="../../car-insurance/texas/el-paso/">El Paso</a><a href="../../car-insurance/texas/arlington/">Arlington</a><a href="../../car-insurance/texas/laredo/">Laredo</a><a href="../../car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="../../car-insurance/texas/mcallen/">McAllen</a><a href="../../car-insurance/texas/brownsville/">Brownsville</a><a href="../../car-insurance/texas/lubbock/">Lubbock</a></div>
+      <a class="more" href="../../car-insurance/texas/">See all Texas cities</a>
+    </div>
+    <div>
+      <h5>Car insurance in New Mexico</h5>
+      <div class="col2"><a href="../../car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="../../car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="../../car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="../../car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="../../car-insurance/new-mexico/roswell/">Roswell</a><a href="../../car-insurance/new-mexico/farmington/">Farmington</a><a href="../../car-insurance/new-mexico/hobbs/">Hobbs</a><a href="../../car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
+      <a class="more" href="../../car-insurance/new-mexico/">See all New Mexico cities</a>
+    </div>
+    <div>
+      <h5>What we insure</h5>
+      <a href="../../quote.html">Car insurance</a>
+      <a href="../../quote.html">Home insurance</a>
+      <a href="../../quote.html">Renters insurance</a>
+      <a href="../../quote.html">Motorcycle insurance</a>
+      <a href="../../quote.html">Commercial vehicles</a>
+      <a href="../../quote.html">Work trucks and fleets</a>
+    </div>
+    <div>
+      <h5>Company</h5>
+      <a href="../../index.html">Home</a>
+      <a href="../../about.html">About us</a>
+      <a href="../../careers.html">Careers</a>
+      <a href="../../car-insurance/">Car insurance by city</a>
+      <a href="../../index.html#faq">FAQ</a>
+      <a href="../../quote.html">Get a quote</a>
+    </div>
+  </div>
+
   <div class="fgrid">
     <div>
       <img class="flogo" src="../../assets/safehouse-logo.png" alt="Safe House Insurance">
@@ -238,14 +321,11 @@
     </div>
 
     <div>
-      <h5>Company</h5>
-      <div class="links">
-        <a href="../../index.html">Home</a>
-        <a href="../../about.html">About us</a>
-        <a href="../../careers.html">Careers</a>
-        <a href="../../car-insurance/">Car insurance by city</a>
-        <a href="../../quote.html">Get a quote</a>
-        <a href="../../index.html#faq">FAQ</a>
+      <h5>Where we are</h5>
+      <p class="tag">Safe House Insurance LLC<br>
+        6065 Montana Ave Ste C8<br>
+        El Paso, TX 79925</p>
+      <div class="links" style="margin-top:16px">
         <a href="../../privacy.html">Privacy Policy</a>
         <a href="../../sms-terms.html">SMS Terms</a>
       </div>

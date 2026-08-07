@@ -107,6 +107,16 @@ CSS = """
   footer .fbot{border-top:1px solid rgba(255,255,255,.14);margin-top:34px;padding-top:20px}
   footer .fbot p{font-size:12px;color:#8FA6C8;line-height:1.7}
   footer .fbot .lg{display:flex;gap:8px;flex-wrap:wrap;font-size:13.5px;font-weight:800;margin-bottom:12px}
+  /* the wide link deck above the contact block */
+  footer .deck{display:grid;gap:26px;padding-bottom:34px;margin-bottom:34px;
+      border-bottom:1px solid rgba(255,255,255,.14)}
+  @media(min-width:680px){ footer .deck{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:1000px){ footer .deck{grid-template-columns:repeat(4,1fr)} }
+  footer .deck .col2{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
+  footer .deck a{display:block;font-size:14px;font-weight:600;color:#C7DBF5;padding:3px 0}
+  footer .deck a:hover{color:#fff}
+  footer .deck .more{font-weight:800;color:#8FB4F0}
+
 """
 
 def head(title, desc):
@@ -138,6 +148,37 @@ def head(title, desc):
 
 FOOTER = """
 <footer><div class="wrap">
+  <div class="deck">
+    <div>
+      <h5>Car insurance in Texas</h5>
+      <div class="col2"><a href="car-insurance/texas/houston/">Houston</a><a href="car-insurance/texas/san-antonio/">San Antonio</a><a href="car-insurance/texas/dallas/">Dallas</a><a href="car-insurance/texas/austin/">Austin</a><a href="car-insurance/texas/fort-worth/">Fort Worth</a><a href="car-insurance/texas/el-paso/">El Paso</a><a href="car-insurance/texas/arlington/">Arlington</a><a href="car-insurance/texas/laredo/">Laredo</a><a href="car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="car-insurance/texas/mcallen/">McAllen</a><a href="car-insurance/texas/brownsville/">Brownsville</a><a href="car-insurance/texas/lubbock/">Lubbock</a></div>
+      <a class="more" href="car-insurance/texas/">See all Texas cities</a>
+    </div>
+    <div>
+      <h5>Car insurance in New Mexico</h5>
+      <div class="col2"><a href="car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="car-insurance/new-mexico/roswell/">Roswell</a><a href="car-insurance/new-mexico/farmington/">Farmington</a><a href="car-insurance/new-mexico/hobbs/">Hobbs</a><a href="car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
+      <a class="more" href="car-insurance/new-mexico/">See all New Mexico cities</a>
+    </div>
+    <div>
+      <h5>What we insure</h5>
+      <a href="quote.html">Car insurance</a>
+      <a href="quote.html">Home insurance</a>
+      <a href="quote.html">Renters insurance</a>
+      <a href="quote.html">Motorcycle insurance</a>
+      <a href="quote.html">Commercial vehicles</a>
+      <a href="quote.html">Work trucks and fleets</a>
+    </div>
+    <div>
+      <h5>Company</h5>
+      <a href="index.html">Home</a>
+      <a href="about.html">About us</a>
+      <a href="careers.html">Careers</a>
+      <a href="car-insurance/">Car insurance by city</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="quote.html">Get a quote</a>
+    </div>
+  </div>
+
   <div class="fgrid">
     <div>
       <img class="flogo" src="assets/safehouse-logo.png" alt="Safe House Insurance">
@@ -161,14 +202,11 @@ FOOTER = """
     </div>
 
     <div>
-      <h5>Company</h5>
-      <div class="links">
-        <a href="index.html">Home</a>
-        <a href="about.html">About us</a>
-        <a href="careers.html">Careers</a>
-        <a href="car-insurance/">Car insurance by city</a>
-        <a href="quote.html">Get a quote</a>
-        <a href="index.html#faq">FAQ</a>
+      <h5>Where we are</h5>
+      <p class="tag">Safe House Insurance LLC<br>
+        6065 Montana Ave Ste C8<br>
+        El Paso, TX 79925</p>
+      <div class="links" style="margin-top:16px">
         <a href="privacy.html">Privacy Policy</a>
         <a href="sms-terms.html">SMS Terms</a>
       </div>

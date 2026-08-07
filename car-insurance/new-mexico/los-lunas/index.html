@@ -106,6 +106,16 @@
   footer .fbot{border-top:1px solid rgba(255,255,255,.14);margin-top:34px;padding-top:20px}
   footer .fbot p{font-size:12px;color:#8FA6C8;line-height:1.7}
   footer .fbot .lg{display:flex;gap:8px;flex-wrap:wrap;font-size:13.5px;font-weight:800;margin-bottom:12px}
+  /* the wide link deck above the contact block */
+  footer .deck{display:grid;gap:26px;padding-bottom:34px;margin-bottom:34px;
+      border-bottom:1px solid rgba(255,255,255,.14)}
+  @media(min-width:680px){ footer .deck{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:1000px){ footer .deck{grid-template-columns:repeat(4,1fr)} }
+  footer .deck .col2{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
+  footer .deck a{display:block;font-size:14px;font-weight:600;color:#C7DBF5;padding:3px 0}
+  footer .deck a:hover{color:#fff}
+  footer .deck .more{font-weight:800;color:#8FB4F0}
+
 </style>
 <link rel="canonical" href="https://safehouseins.com/car-insurance/new-mexico/los-lunas/">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"InsuranceAgency","name":"Safe House Insurance","url":"https://safehouseins.com/car-insurance/new-mexico/los-lunas/","telephone":"+1-915-503-1207","email":"contact@safehouseins.com","address":{"@type":"PostalAddress","streetAddress":"6065 Montana Ave Ste C8","addressLocality":"El Paso","addressRegion":"TX","postalCode":"79925","addressCountry":"US"},"areaServed":{"@type":"City","name":"Los Lunas","containedInPlace":{"@type":"AdministrativeArea","name":"Valencia County, New Mexico"}},"knowsLanguage":["en","es"]}</script>
@@ -186,6 +196,48 @@
   .qa .qb{padding:0 0 18px}
   .qa .qb p{font-size:15.5px;margin-top:0}
   .qa .qb p+p{margin-top:12px}
+  /* ---- discount audit ---- */
+  .audit{display:grid;gap:18px;margin-top:24px}
+  @media(min-width:860px){ .audit{grid-template-columns:1fr 260px;align-items:start} }
+  .dlist{display:grid;gap:8px}
+  .dchk{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--line);
+        border-radius:14px;padding:12px 14px;background:#fff;cursor:pointer;transition:.15s}
+  .dchk:hover{border-color:#CBDCF4}
+  .dchk input{position:absolute;opacity:0;width:0;height:0}
+  .dchk .dbox{flex:0 0 auto;width:20px;height:20px;border:2px solid #C6D4E8;border-radius:6px;
+      margin-top:2px;display:grid;place-items:center;transition:.15s}
+  .dchk .dbox::after{content:'¹3';color:#fff;font-size:13px;font-weight:900;opacity:0}
+  .dchk input:checked+.dbox{background:#0F7B4A;border-color:#0F7B4A}
+  .dchk input:checked+.dbox::after{opacity:1}
+  .dchk input:checked~.dtx b{color:#0F7B4A}
+  .dchk input:focus-visible+.dbox{outline:3px solid #BBD6FF;outline-offset:2px}
+  .dtx b{display:block;font-size:14.5px;font-weight:800;color:var(--navy)}
+  .dtx small{display:block;font-size:12.5px;color:var(--muted);font-weight:600;margin-top:1px}
+  .dsum{border:1.5px solid var(--line);border-radius:20px;padding:22px;background:#fff;
+        text-align:center;position:sticky;top:90px}
+  .dring{width:104px;height:104px;margin:0 auto;border-radius:99px;display:grid;place-items:center;
+      background:conic-gradient(var(--blue) calc(var(--p,0)*1%), var(--ice) 0);position:relative}
+  .dring::before{content:"";position:absolute;inset:9px;border-radius:99px;background:#fff}
+  .dring .dnum{position:relative;font-size:30px;font-weight:900;color:var(--navy);line-height:1}
+  .dring small{position:relative;display:block;font-size:11.5px;font-weight:800;color:var(--muted)}
+  .dsum .dmsg{font-size:14px;font-weight:700;color:var(--muted);margin-top:14px;line-height:1.5}
+  .dsum .btn{margin-top:16px;width:100%;padding:13px 18px;font-size:15px}
+
+  /* ---- deductible payback ---- */
+  .ded{border:1.5px solid var(--line);border-radius:20px;padding:20px;background:#fff;margin-top:22px}
+  .ded .cin{display:grid;gap:14px}
+  @media(min-width:620px){ .ded .cin{grid-template-columns:1fr 1fr;gap:18px} }
+  .ded label{display:block;font-size:13.5px;font-weight:800;color:var(--navy)}
+  .ded label small{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:2px}
+  .ded .pre{display:flex;align-items:center;gap:6px;margin-top:8px;border:1.5px solid var(--line);
+      border-radius:13px;padding:11px 13px;font-weight:800;color:var(--muted)}
+  .ded .pre:focus-within{border-color:var(--blue);box-shadow:0 0 0 4px rgba(22,102,237,.13)}
+  .ded input{width:100%;border:0;outline:none;font:inherit;font-size:16px;font-weight:800;
+      color:var(--ink);background:transparent}
+  .ded .dres{margin-top:20px;border-top:1px solid var(--line);padding-top:16px;text-align:center}
+  .ded .dbig{display:block;font-size:30px;font-weight:900;color:var(--navy);letter-spacing:-.02em}
+  .ded .dsub{display:block;font-size:14px;color:var(--muted);font-weight:700;margin-top:6px;line-height:1.5}
+
 
 </style>
 </head>
@@ -240,6 +292,14 @@
   <div class="fgrid2"><div class="fcol good"><h3>You control these</h3><p class="fsub">Worth working on</p><ul><li><b>Your driving record</b><span>The single biggest thing you control. Violations age out.</span></li><li><b>Coverage and deductible</b><span>Higher deductible, lower premium &mdash; if you can cover it.</span></li><li><b>Annual mileage</b><span>Estimating high costs money every month.</span></li><li><b>Continuous coverage</b><span>A gap is expensive. Even a short one.</span></li><li><b>Discounts you claim</b><span>Multi-policy, good student, paid-in-full, telematics.</span></li></ul></div><div class="fcol meh"><h3>You do not control these</h3><p class="fsub">Worth shopping around</p><ul><li><b>Where the car is parked overnight</b><span>Rated by address, not by city.</span></li><li><b>The vehicle itself</b><span>Repair cost and theft rate, not sticker price.</span></li><li><b>Who else is on the policy</b><span>Every driver in the household counts.</span></li><li><b>The carrier&rsquo;s appetite</b><span>Two companies can be hundreds apart on the same risk.</span></li></ul></div></div>
 </div></section>
 
+<section class="blk"><div class="wrap">
+  <div class="narrow"><h2>Which discounts are actually on your policy?</h2><p>Most discounts are opt-in &mdash; nobody applies them for you, and nobody writes to say you have started qualifying for one. Tick what you already have and see what is left.</p><div class="audit"><div class="dlist"><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Another policy with the same carrier</b><small>Home, renters or a second vehicle. Usually the largest single one.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Paid in full</b><small>Paying the term up front instead of monthly.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Automatic payments</b><small>Small, and almost never claimed by accident.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Paperless documents</b><small>Trivial to switch on, easy to forget.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Good student</b><small>A student on the policy with the grades to prove it.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Student away at school</b><small>At school without the car. Often missed entirely.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Defensive driving course</b><small>A state-approved course, good for a set period.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Safety and anti-theft equipment</b><small>Depends on the vehicle, not on you.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Telematics or safe-driving app</b><small>Not for everyone &mdash; but it is a real discount.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Continuous coverage</b><small>Rewarded for never letting it lapse.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Military or veteran</b><small>Some carriers, not all.</small></span></label><label class="dchk"><input type="checkbox"><span class="dbox"></span><span class="dtx"><b>Occupation or professional group</b><small>Teachers, nurses, trades &mdash; varies by carrier.</small></span></label></div><div class="dsum"><div class="dring"><span class="dnum">0</span><small>of 12</small></div><p class="dmsg"></p><a class="btn" href="../../../quote.html">Have us check the rest</a></div></div><p class="cap">Not every discount exists at every carrier, and a few cancel each other out. This is a prompt for the conversation, not a promise &mdash; which is exactly what an agent is for.</p></div>
+</div></section>
+
+<section class="blk tint"><div class="wrap narrow">
+  <h2>Is a higher deductible worth it?</h2><p>Raising a deductible lowers the premium. The question is how long it takes the saving to pay back the extra you would owe at claim time. Take the two numbers off your own quote.</p><div class="ded"><div class="cin"><label>Monthly saving from the higher deductible<span class="pre">$<input type="number" class="dsave" value="14" min="0" step="1"></span></label><label>Extra you would pay at claim time <small>e.g. $500 to $1,000 is $500</small><span class="pre">$<input type="number" class="dgap" value="500" min="0" step="50"></span></label></div><div class="dres"><b class="dbig"></b><span class="dsub"></span></div></div><p class="cap">The honest test is not the arithmetic, it is whether you could write the cheque tomorrow. A deductible you cannot cover is not a saving, it is a deferred problem.</p>
+</div></section>
+
 <section class="blk"><div class="wrap narrow">
   <h2>Questions people ask about Los Lunas</h2><div class="faqs"><details class="qa"><summary>How much is car insurance in Los Lunas, NM?</summary><div class="qb"><p>There is no average that helps you. A city-wide figure mixes a 19-year-old on a financed truck with a retiree on a paid-off sedan, and your quote will look like neither of them.</p><p>The number that matters is the range across carriers for <em>your</em> details, in Los Lunas, today. We can have it back to you in a few minutes, and it costs nothing to find out.</p></div></details><details class="qa"><summary>What is the cheapest car insurance in Los Lunas?</summary><div class="qb"><p>No company is cheapest for everyone here, and any page that names one is selling you something. The cheapest carrier for a 45-year-old with a clean record and a paid-off sedan is frequently not the cheapest for a 22-year-old with a financed truck, or for a household with a recent claim.</p><p>The only honest answer is the one you get by asking all of them at once, which is what an independent agency is for.</p></div></details><details class="qa"><summary>Which is the best insurance company in Los Lunas?</summary><div class="qb"><p>Three different questions hide inside that one: who is cheapest, who handles a claim well, and who will keep you after you file one. They rarely have the same answer.</p><p>Tell us which matters most to you and we will say so plainly &mdash; including when the cheapest quote on the screen is not the one we would put our own family on.</p></div></details><details class="qa"><summary>Why is car insurance so expensive in Los Lunas?</summary><div class="qb"><p>Most of it is not about you. Premiums in any area are pushed up by how often claims are filed nearby, how many drivers around you are uninsured, what repairs cost locally, and weather. None of that is in your control, and all of it lands in your quote.</p><p>What you do control: your deductible, your mileage estimate, keeping coverage continuous, and whether every discount you qualify for is actually applied. That last one is missed more than anything else, because most discounts are opt-in.</p></div></details><details class="qa"><summary>Does my ZIP code change my rate in Los Lunas?</summary><div class="qb"><p>It does, and more than most people expect. The garaging address &mdash; where the vehicle sits overnight &mdash; feeds theft rates, claim frequency and repair costs into the quote, and those vary block to block, not just city to city.</p><p>If you have moved within Los Lunas recently and simply let the policy renew, that is worth ten minutes of our time and possibly some of your money.</p></div></details><details class="qa"><summary>What is the minimum car insurance required in New Mexico?</summary><div class="qb"><p>New Mexico requires at least <strong>25/50/10</strong>: $25,000 for injury to one person, $50,000 per accident, and $10,000 for property damage.</p><p>That is what makes you legal. It is not what makes you covered &mdash; it pays nothing toward your own vehicle, and $10,000 does not replace a late-model truck. The calculator above runs it on your own numbers.</p></div></details><details class="qa"><summary>How can I lower my car insurance in Los Lunas?</summary><div class="qb"><p>The biggest single win is usually the least exciting one: getting the same coverage quoted by every carrier rather than letting it renew. After that &mdash; a deductible you can actually afford, an honest mileage figure, bundling, and auditing the discounts.</p><p>What we would not do is cut liability to the legal minimum to hit a number. Check the calculator above and see what that trade really costs.</p></div></details><details class="qa"><summary>Do I need full coverage?</summary><div class="qb"><p>&ldquo;Full coverage&rdquo; is not a real product &mdash; it is shorthand for liability plus collision plus comprehensive. If your car is financed or leased, the lender requires the last two. If it is paid off, it is a judgement call.</p><p>The rough test: if writing a cheque for the car's full value tomorrow would not seriously hurt, liability-only can make sense. If it would, it does not.</p></div></details><details class="qa"><summary>&iquest;Puedo hacer todo esto en espa&ntilde;ol?</summary><div class="qb"><p>Claro que s&iacute;. La mitad de nuestras conversaciones empiezan en espa&ntilde;ol y las atiende una persona con licencia, no una traducci&oacute;n autom&aacute;tica. Ll&aacute;menos al <a href="tel:+19155031207">915-503-1207</a> o escr&iacute;banos al <a href="sms:+19155943777">915-594-3777</a>.</p></div></details></div>
 </div></section>
@@ -264,11 +324,42 @@
 </div></section>
 
 <section class="blk"><div class="wrap narrow">
-  <h2>Nearby</h2><p>We write the same policies across the region:</p><div class="chips"><span><a href="../../new-mexico/albuquerque/">Albuquerque</a></span><span><a href="../../new-mexico/rio-rancho/">Rio Rancho</a></span><span><a href="../../new-mexico/santa-fe/">Santa Fe</a></span></div>
+  <h2>Nearby</h2><p>We write the same policies across the region:</p><div class="chips"><span><a href="../../new-mexico/albuquerque/">Albuquerque</a></span><span><a href="../../new-mexico/belen/">Belen</a></span><span><a href="../../new-mexico/rio-rancho/">Rio Rancho</a></span><span><a href="../../new-mexico/santa-fe/">Santa Fe</a></span></div>
   <p style="margin-top:22px"><a href="../../">See every city we write</a></p>
 </div></section>
 
 <footer><div class="wrap">
+  <div class="deck">
+    <div>
+      <h5>Car insurance in Texas</h5>
+      <div class="col2"><a href="../../../car-insurance/texas/houston/">Houston</a><a href="../../../car-insurance/texas/san-antonio/">San Antonio</a><a href="../../../car-insurance/texas/dallas/">Dallas</a><a href="../../../car-insurance/texas/austin/">Austin</a><a href="../../../car-insurance/texas/fort-worth/">Fort Worth</a><a href="../../../car-insurance/texas/el-paso/">El Paso</a><a href="../../../car-insurance/texas/arlington/">Arlington</a><a href="../../../car-insurance/texas/laredo/">Laredo</a><a href="../../../car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="../../../car-insurance/texas/mcallen/">McAllen</a><a href="../../../car-insurance/texas/brownsville/">Brownsville</a><a href="../../../car-insurance/texas/lubbock/">Lubbock</a></div>
+      <a class="more" href="../../../car-insurance/texas/">See all Texas cities</a>
+    </div>
+    <div>
+      <h5>Car insurance in New Mexico</h5>
+      <div class="col2"><a href="../../../car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="../../../car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="../../../car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="../../../car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="../../../car-insurance/new-mexico/roswell/">Roswell</a><a href="../../../car-insurance/new-mexico/farmington/">Farmington</a><a href="../../../car-insurance/new-mexico/hobbs/">Hobbs</a><a href="../../../car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
+      <a class="more" href="../../../car-insurance/new-mexico/">See all New Mexico cities</a>
+    </div>
+    <div>
+      <h5>What we insure</h5>
+      <a href="../../../quote.html">Car insurance</a>
+      <a href="../../../quote.html">Home insurance</a>
+      <a href="../../../quote.html">Renters insurance</a>
+      <a href="../../../quote.html">Motorcycle insurance</a>
+      <a href="../../../quote.html">Commercial vehicles</a>
+      <a href="../../../quote.html">Work trucks and fleets</a>
+    </div>
+    <div>
+      <h5>Company</h5>
+      <a href="../../../index.html">Home</a>
+      <a href="../../../about.html">About us</a>
+      <a href="../../../careers.html">Careers</a>
+      <a href="../../../car-insurance/">Car insurance by city</a>
+      <a href="../../../index.html#faq">FAQ</a>
+      <a href="../../../quote.html">Get a quote</a>
+    </div>
+  </div>
+
   <div class="fgrid">
     <div>
       <img class="flogo" src="../../../assets/safehouse-logo.png" alt="Safe House Insurance">
@@ -292,14 +383,11 @@
     </div>
 
     <div>
-      <h5>Company</h5>
-      <div class="links">
-        <a href="../../../index.html">Home</a>
-        <a href="../../../about.html">About us</a>
-        <a href="../../../careers.html">Careers</a>
-        <a href="../../../car-insurance/">Car insurance by city</a>
-        <a href="../../../quote.html">Get a quote</a>
-        <a href="../../../index.html#faq">FAQ</a>
+      <h5>Where we are</h5>
+      <p class="tag">Safe House Insurance LLC<br>
+        6065 Montana Ave Ste C8<br>
+        El Paso, TX 79925</p>
+      <div class="links" style="margin-top:16px">
         <a href="../../../privacy.html">Privacy Policy</a>
         <a href="../../../sms-terms.html">SMS Terms</a>
       </div>
@@ -370,6 +458,60 @@
   cv.addEventListener('input', run);
   as.addEventListener('input', run);
   run();
+})();
+</script>
+
+<script>
+(function(){
+  var au = document.querySelector('.audit');
+  if (au) {
+    var boxes = au.querySelectorAll('.dchk input'),
+        ring  = au.querySelector('.dring'),
+        num   = au.querySelector('.dnum'),
+        msg   = au.querySelector('.dmsg'),
+        total = boxes.length;
+    function tally(){
+      var n = 0;
+      boxes.forEach(function(b){ if (b.checked) n++; });
+      var missing = total - n;
+      num.textContent = n;
+      ring.style.setProperty('--p', Math.round(n / total * 100));
+      msg.textContent = missing === 0
+        ? 'Everything on this list is already on your policy. Worth confirming with the carrier '
+          + 'that they are all actually applied.'
+        : missing + (missing === 1 ? ' discount' : ' discounts') + ' on this list you have not '
+          + 'claimed. Not all of them will apply to you — but the ones that do are money you are '
+          + 'leaving on the table every month.';
+    }
+    boxes.forEach(function(b){ b.addEventListener('change', tally); });
+    tally();
+  }
+
+  var ded = document.querySelector('.ded');
+  if (ded) {
+    var save = ded.querySelector('.dsave'),
+        gap  = ded.querySelector('.dgap'),
+        big  = ded.querySelector('.dbig'),
+        sub  = ded.querySelector('.dsub');
+    function run(){
+      var s = +save.value || 0, g = +gap.value || 0;
+      if (s <= 0 || g <= 0) {
+        big.textContent = '—';
+        sub.textContent = 'Put both numbers in and this fills itself.';
+        return;
+      }
+      var months = g / s;
+      var years  = months / 12;
+      big.textContent = (months < 24 ? Math.round(months) + ' months'
+                                     : years.toFixed(1) + ' years');
+      sub.textContent = 'That is how long the $' + s + ' a month has to keep adding up before it '
+        + 'covers the extra $' + g + ' you would owe on a claim. Claim sooner than that and the '
+        + 'higher deductible cost you money.';
+    }
+    save.addEventListener('input', run);
+    gap.addEventListener('input', run);
+    run();
+  }
 })();
 </script>
 </body>

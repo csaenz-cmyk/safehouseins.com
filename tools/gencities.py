@@ -26,10 +26,27 @@ STATE = {
   'texas':      {'name':'Texas',      'abbr':'TX', 'min':cities.TX_MIN, 'rows':cities.TEXAS},
   'new-mexico': {'name':'New Mexico', 'abbr':'NM', 'min':cities.NM_MIN, 'rows':cities.NEW_MEXICO},
 }
-INDEX = {}   # slug -> (state_slug, name, abbr)
+# Keyed by (state, slug): Socorro and Anthony exist in both states, and a
+# slug-only index would silently send one of each pair to the wrong page.
+INDEX = {}
+BY_SLUG = {}          # slug -> [states that have it]
 for st, d in STATE.items():
     for slug, name, county, tags, nb in d['rows']:
-        INDEX[slug] = (st, name, d['abbr'])
+        INDEX[(st, slug)] = (name, d['abbr'])
+        BY_SLUG.setdefault(slug, []).append(st)
+
+def resolve(ref, home_state):
+    """A neighbour reference to (state, slug), or None.
+
+    Bare slug means 'the one in my own state if it exists'. Prefix with
+    'texas:' or 'new-mexico:' to cross the line deliberately."""
+    if ':' in ref:
+        st, slug = ref.split(':', 1)
+        return (st, slug) if (st, slug) in INDEX else None
+    if (home_state, ref) in INDEX:
+        return (home_state, ref)
+    states = BY_SLUG.get(ref, [])
+    return (states[0], ref) if len(states) == 1 else None
 
 def up(n):
     """Path back to the site root from a page n directories deep."""
@@ -578,6 +595,60 @@ def faq_schema(qs):
          "acceptedAnswer":{"@type":"Answer","text":plain(a)}} for q, a in qs]}
     return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + '</script>'
 
+
+DISCOUNTS = [
+  ('Another policy with the same carrier', 'Home, renters or a second vehicle. Usually the largest single one.'),
+  ('Paid in full', 'Paying the term up front instead of monthly.'),
+  ('Automatic payments', 'Small, and almost never claimed by accident.'),
+  ('Paperless documents', 'Trivial to switch on, easy to forget.'),
+  ('Good student', 'A student on the policy with the grades to prove it.'),
+  ('Student away at school', 'At school without the car. Often missed entirely.'),
+  ('Defensive driving course', 'A state-approved course, good for a set period.'),
+  ('Safety and anti-theft equipment', 'Depends on the vehicle, not on you.'),
+  ('Telematics or safe-driving app', 'Not for everyone &mdash; but it is a real discount.'),
+  ('Continuous coverage', 'Rewarded for never letting it lapse.'),
+  ('Military or veteran', 'Some carriers, not all.'),
+  ('Occupation or professional group', 'Teachers, nurses, trades &mdash; varies by carrier.'),
+]
+
+def discount_audit(name):
+    rows = ''.join(
+      '<label class="dchk"><input type="checkbox"><span class="dbox"></span>'
+      '<span class="dtx"><b>' + t + '</b><small>' + x + '</small></span></label>'
+      for t, x in DISCOUNTS)
+    return ("<h2>Which discounts are actually on your policy?</h2>"
+      "<p>Most discounts are opt-in &mdash; nobody applies them for you, and nobody writes to say "
+      "you have started qualifying for one. Tick what you already have and see what is left.</p>"
+      "<div class=\"audit\">"
+        "<div class=\"dlist\">" + rows + "</div>"
+        "<div class=\"dsum\">"
+          "<div class=\"dring\"><span class=\"dnum\">0</span><small>of " + str(len(DISCOUNTS)) + "</small></div>"
+          "<p class=\"dmsg\"></p>"
+          "<a class=\"btn\" href=\"../../../quote.html\">Have us check the rest</a>"
+        "</div>"
+      "</div>"
+      "<p class=\"cap\">Not every discount exists at every carrier, and a few cancel each other out. "
+      "This is a prompt for the conversation, not a promise &mdash; which is exactly what an agent "
+      "is for.</p>")
+
+def deductible_calc(name):
+    return ("<h2>Is a higher deductible worth it?</h2>"
+      "<p>Raising a deductible lowers the premium. The question is how long it takes the saving to "
+      "pay back the extra you would owe at claim time. Take the two numbers off your own quote.</p>"
+      "<div class=\"ded\">"
+        "<div class=\"cin\">"
+          "<label>Monthly saving from the higher deductible"
+            "<span class=\"pre\">$<input type=\"number\" class=\"dsave\" value=\"14\" min=\"0\" step=\"1\"></span>"
+          "</label>"
+          "<label>Extra you would pay at claim time <small>e.g. $500 to $1,000 is $500</small>"
+            "<span class=\"pre\">$<input type=\"number\" class=\"dgap\" value=\"500\" min=\"0\" step=\"50\"></span>"
+          "</label>"
+        "</div>"
+        "<div class=\"dres\"><b class=\"dbig\"></b><span class=\"dsub\"></span></div>"
+      "</div>"
+      "<p class=\"cap\">The honest test is not the arithmetic, it is whether you could write the "
+      "cheque tomorrow. A deductible you cannot cover is not a saving, it is a deferred problem.</p>")
+
 SECTIONS = [
   ('border',     para_border),
   ('rgv',        para_rgv),
@@ -648,17 +719,16 @@ def minimums(st, name):
 
 def neighbours(nb, st, name):
     out = []
-    for s in nb:
-        if s in cities.SKIP:
+    for ref in nb:
+        if ref in cities.SKIP:
             continue
-        if s in cities.ALIASES:
-            a_st, a_slug, a_label = cities.ALIASES[s]
-            if a_slug not in INDEX:
-                continue
-            out.append('<a href="../../' + a_st + '/' + a_slug + '/">' + html.escape(a_label) + '</a>')
-        elif s in INDEX:
-            n_st, n_name, n_abbr = INDEX[s]
-            out.append('<a href="../../' + n_st + '/' + s + '/">' + html.escape(n_name) + '</a>')
+        hit = resolve(ref, st)
+        if not hit:
+            continue
+        n_st, n_slug = hit
+        n_name, n_abbr = INDEX[hit]
+        label = n_name if n_st == st else n_name + ', ' + n_abbr
+        out.append('<a href="../../' + n_st + '/' + n_slug + '/">' + html.escape(label) + '</a>')
     if not out:
         return ''
     return ("<h2>Nearby</h2><p>We write the same policies across the region:</p>"
@@ -745,6 +815,14 @@ def city_page(slug, name, county, tags, nb, st):
 <section class="blk tint"><div class="wrap">
   <div class="narrow">""" + factors(st, name).split('<div class="fgrid2">')[0] + """</div>
   <div class="fgrid2">""" + factors(st, name).split('<div class="fgrid2">')[1] + """
+</div></section>
+
+<section class="blk"><div class="wrap">
+  <div class="narrow">""" + discount_audit(name) + """</div>
+</div></section>
+
+<section class="blk tint"><div class="wrap narrow">
+  """ + deductible_calc(name) + """
 </div></section>
 
 <section class="blk"><div class="wrap narrow">
@@ -909,16 +987,62 @@ EXTRA_CSS = """
   .qa .qb{padding:0 0 18px}
   .qa .qb p{font-size:15.5px;margin-top:0}
   .qa .qb p+p{margin-top:12px}
+  /* ---- discount audit ---- */
+  .audit{display:grid;gap:18px;margin-top:24px}
+  @media(min-width:860px){ .audit{grid-template-columns:1fr 260px;align-items:start} }
+  .dlist{display:grid;gap:8px}
+  .dchk{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--line);
+        border-radius:14px;padding:12px 14px;background:#fff;cursor:pointer;transition:.15s}
+  .dchk:hover{border-color:#CBDCF4}
+  .dchk input{position:absolute;opacity:0;width:0;height:0}
+  .dchk .dbox{flex:0 0 auto;width:20px;height:20px;border:2px solid #C6D4E8;border-radius:6px;
+      margin-top:2px;display:grid;place-items:center;transition:.15s}
+  .dchk .dbox::after{content:'\2713';color:#fff;font-size:13px;font-weight:900;opacity:0}
+  .dchk input:checked+.dbox{background:#0F7B4A;border-color:#0F7B4A}
+  .dchk input:checked+.dbox::after{opacity:1}
+  .dchk input:checked~.dtx b{color:#0F7B4A}
+  .dchk input:focus-visible+.dbox{outline:3px solid #BBD6FF;outline-offset:2px}
+  .dtx b{display:block;font-size:14.5px;font-weight:800;color:var(--navy)}
+  .dtx small{display:block;font-size:12.5px;color:var(--muted);font-weight:600;margin-top:1px}
+  .dsum{border:1.5px solid var(--line);border-radius:20px;padding:22px;background:#fff;
+        text-align:center;position:sticky;top:90px}
+  .dring{width:104px;height:104px;margin:0 auto;border-radius:99px;display:grid;place-items:center;
+      background:conic-gradient(var(--blue) calc(var(--p,0)*1%), var(--ice) 0);position:relative}
+  .dring::before{content:"";position:absolute;inset:9px;border-radius:99px;background:#fff}
+  .dring .dnum{position:relative;font-size:30px;font-weight:900;color:var(--navy);line-height:1}
+  .dring small{position:relative;display:block;font-size:11.5px;font-weight:800;color:var(--muted)}
+  .dsum .dmsg{font-size:14px;font-weight:700;color:var(--muted);margin-top:14px;line-height:1.5}
+  .dsum .btn{margin-top:16px;width:100%;padding:13px 18px;font-size:15px}
+
+  /* ---- deductible payback ---- */
+  .ded{border:1.5px solid var(--line);border-radius:20px;padding:20px;background:#fff;margin-top:22px}
+  .ded .cin{display:grid;gap:14px}
+  @media(min-width:620px){ .ded .cin{grid-template-columns:1fr 1fr;gap:18px} }
+  .ded label{display:block;font-size:13.5px;font-weight:800;color:var(--navy)}
+  .ded label small{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:2px}
+  .ded .pre{display:flex;align-items:center;gap:6px;margin-top:8px;border:1.5px solid var(--line);
+      border-radius:13px;padding:11px 13px;font-weight:800;color:var(--muted)}
+  .ded .pre:focus-within{border-color:var(--blue);box-shadow:0 0 0 4px rgba(22,102,237,.13)}
+  .ded input{width:100%;border:0;outline:none;font:inherit;font-size:16px;font-weight:800;
+      color:var(--ink);background:transparent}
+  .ded .dres{margin-top:20px;border-top:1px solid var(--line);padding-top:16px;text-align:center}
+  .ded .dbig{display:block;font-size:30px;font-weight:900;color:var(--navy);letter-spacing:-.02em}
+  .ded .dsub{display:block;font-size:14px;color:var(--muted);font-weight:700;margin-top:6px;line-height:1.5}
+
 
 </style>
 """
 
 CALC_JS = "\n<script>\n(function(){\n  // Arithmetic against this state's statutory limits and whatever the visitor\n  // types. No rate data, no lookups, nothing leaves the page.\n  var box = document.querySelector('.calc');\n  if (!box) return;\n  var BI = +box.dataset.bi * 1000;      // per-accident bodily injury\n  var PD = +box.dataset.pd * 1000;      // property damage\n  var cv = box.querySelector('.cv'), as = box.querySelector('.as');\n\n  function money(n){\n    return '$' + Math.max(0, Math.round(n)).toLocaleString('en-US');\n  }\n  function set(sel, noteSel, value, gap, note){\n    var el = box.querySelector(sel);\n    el.textContent = value;\n    el.classList.toggle('gap', gap);\n    box.querySelector(noteSel).innerHTML = note;\n  }\n  function run(){\n    var car = Math.max(0, +cv.value || 0);\n    var net = Math.max(0, +as.value || 0);\n\n    // their car: the minimum pays PD, you pay whatever is above it\n    var overPD = car - PD;\n    set('.pd', '.pdn',\n        overPD > 0 ? money(overPD) + ' short' : 'Covered',\n        overPD > 0,\n        overPD > 0\n          ? 'A car like yours at ' + money(car) + ' is ' + money(overPD) + ' more than the '\n            + money(PD) + ' the state minimum pays. The rest comes from you.'\n          : 'The ' + money(PD) + ' minimum would cover a vehicle at ' + money(car)\n            + '. It would not cover a newer or larger one.');\n\n    // injuries: everything you own sits behind the per-accident limit\n    set('.bi', '.bin',\n        money(net) + ' exposed',\n        net > 0,\n        'The minimum stops at ' + money(BI) + ' per accident. A serious injury claim can run past '\n        + 'that, and what you told us you could lose &mdash; ' + money(net) + ' &mdash; is what sits '\n        + 'behind it.');\n\n    // your own car: liability pays nothing toward it, ever\n    set('.ow', '.own',\n        money(car) + ' on you',\n        car > 0,\n        'Liability pays nothing toward your own vehicle. Without collision and comprehensive, the '\n        + 'full ' + money(car) + ' is yours &mdash; in a wreck you caused, a theft, hail or flood.');\n  }\n  cv.addEventListener('input', run);\n  as.addEventListener('input', run);\n  run();\n})();\n</script>\n"
 
+WIDGET_JS = "\n<script>\n(function(){\n  var au = document.querySelector('.audit');\n  if (au) {\n    var boxes = au.querySelectorAll('.dchk input'),\n        ring  = au.querySelector('.dring'),\n        num   = au.querySelector('.dnum'),\n        msg   = au.querySelector('.dmsg'),\n        total = boxes.length;\n    function tally(){\n      var n = 0;\n      boxes.forEach(function(b){ if (b.checked) n++; });\n      var missing = total - n;\n      num.textContent = n;\n      ring.style.setProperty('--p', Math.round(n / total * 100));\n      msg.textContent = missing === 0\n        ? 'Everything on this list is already on your policy. Worth confirming with the carrier '\n          + 'that they are all actually applied.'\n        : missing + (missing === 1 ? ' discount' : ' discounts') + ' on this list you have not '\n          + 'claimed. Not all of them will apply to you — but the ones that do are money you are '\n          + 'leaving on the table every month.';\n    }\n    boxes.forEach(function(b){ b.addEventListener('change', tally); });\n    tally();\n  }\n\n  var ded = document.querySelector('.ded');\n  if (ded) {\n    var save = ded.querySelector('.dsave'),\n        gap  = ded.querySelector('.dgap'),\n        big  = ded.querySelector('.dbig'),\n        sub  = ded.querySelector('.dsub');\n    function run(){\n      var s = +save.value || 0, g = +gap.value || 0;\n      if (s <= 0 || g <= 0) {\n        big.textContent = '—';\n        sub.textContent = 'Put both numbers in and this fills itself.';\n        return;\n      }\n      var months = g / s;\n      var years  = months / 12;\n      big.textContent = (months < 24 ? Math.round(months) + ' months'\n                                     : years.toFixed(1) + ' years');\n      sub.textContent = 'That is how long the $' + s + ' a month has to keep adding up before it '\n        + 'covers the extra $' + g + ' you would owe on a claim. Claim sooner than that and the '\n        + 'higher deductible cost you money.';\n    }\n    save.addEventListener('input', run);\n    gap.addEventListener('input', run);\n    run();\n  }\n})();\n</script>\n"
+
 def write(path, content):
     content = content.replace('</head>', EXTRA_CSS + '</head>')
     if '<div class="calc"' in content:
         content = content.replace('</body>', CALC_JS + '</body>')
+    if '<div class="audit"' in content:
+        content = content.replace('</body>', WIDGET_JS + '</body>')
     full = os.path.join(ROOT, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
     open(full, 'w', encoding='utf-8').write(content)
