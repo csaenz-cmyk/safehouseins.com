@@ -207,7 +207,7 @@ def scene(kind, seed, ident):
                  _ground(), _road()]
 
     return ('<svg class="cscape" viewBox="0 0 ' + str(W) + ' ' + str(H) + '" '
-            'preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" '
+            'preserveAspectRatio="xMaxYMax slice" xmlns="http://www.w3.org/2000/svg" '
             'aria-hidden="true" focusable="false">'
             + _defs(i, warm)
             + '<rect width="' + str(W) + '" height="' + str(H) + '" fill="url(#sky' + i + ')"/>'

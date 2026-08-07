@@ -17,7 +17,7 @@ whole job is to be trusted is worse than no page.
 """
 import os, re, sys, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import shell, cities
+import shell, cities, places as PL, citykit as CK, states as ST, brandkit as BK
 
 SITE = 'https://safehouseins.com'
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -910,6 +910,90 @@ def breadcrumb(name, st, url):
       ']}</script>')
 
 # ------------------------------------------------------------------- builder ---
+
+# ---------------------------------------------------------- the new layout ---
+def city_page_v2(slug, name, county, tags, nb, st, place):
+    """The rebuilt city page, for cities with real local content in places.py.
+
+    Assembled entirely from citykit components. Any section whose data is
+    missing is simply not rendered, so a city with ZIPs but no written
+    neighbourhood notes gets the ZIP selector and no area explorer — which is
+    the correct outcome, not a gap to pad.
+    """
+    d = STATE[st]
+    sd = ST.get(st)
+    url = SITE + '/car-insurance/' + st + '/' + slug + '/'
+    up = '../../../'
+    ident = st + '-' + slug
+
+    title = 'Car insurance in ' + name + ', ' + d['abbr']
+    desc = pick(name + 'v2d', [
+      'Compare car insurance in ' + name + ' across the companies Safe House represents. '
+      'Local coverage questions answered, and a free quote in a few minutes.',
+      'Car insurance for ' + name + ' drivers from Safe House, an independent agency. Several '
+      'carriers, one form, and a licensed agent to go through it with you.',
+      'Insurance in ' + name + ', ' + d['abbr'] + '? Safe House shops multiple companies at once, '
+      'in English or Spanish, and a licensed agent reviews it before anything is issued.',
+    ])
+    assert len(html.unescape(desc)) <= 160, (slug, len(desc))
+
+    faq_html, faq_qs = faq(st, name, tags)
+    extra = place.get('faq') or []
+    if extra:
+        faq_qs = faq_qs + list(extra)
+
+    head = rewrite(shell.head(title, desc, ' · Safe House'), 3)
+    head = head.replace('</head>',
+        '<link rel="canonical" href="' + url + '">\n'
+        '<meta property="og:title" content="' + html.escape(title) + '">\n'
+        '<meta property="og:description" content="' + html.escape(desc) + '">\n'
+        '<meta property="og:url" content="' + url + '">\n'
+        + schema(name, county, st, url) + '\n' + breadcrumb(name, st, url) + '\n'
+        + faq_schema(faq_qs) + '\n'
+        + '<style>' + BK.CSS + CK.CSS + '</style>\n</head>')
+    head = head.replace('<body>', '<body class="bp">')
+
+    presence = place.get('presence', 'serving')
+    parts = [
+      CK.hero(name, d['abbr'], st, d['name'], place, up, ident),
+      BK.trustbar(),
+      CK.intents(place, name, up),
+      CK.factors(place, name),
+      CK.zips(place, name, up),
+      CK.minimums(st, name, up),
+      CK.areas(place, name, up),
+      CK.independent(name, presence, up, len(name) % 3),
+      CK.process(up),
+      CK.localteam(name, presence, up),
+      CK.reviews(name),
+      '<section class="sec"><div class="wrap narrow">'
+      '<div class="shead rv" style="max-width:none"><span class="eyebrow">FAQ</span>'
+      '<h2>Car insurance questions from ' + name + ' drivers</h2></div>'
+      + BK.faqblock(faq_qs) + '</div></section>',
+      BK.finalcta(name, up, headline='Ready to see your ' + name + ' options?'),
+      neighbours_v2(nb, st, name),
+      CK.locallinks(place, up),
+    ]
+    return (head + ''.join(p for p in parts if p) + CK.sticky(name, up)
+            + rewrite(shell.FOOTER, 3).replace('</body>', BK.JS + CK.JS + '</body>'))
+
+def neighbours_v2(nb, st, name):
+    """Nearby cities, as a short honest row rather than a wall of links."""
+    rows = []
+    for ref in (nb or [])[:6]:
+        got = resolve(ref, st)
+        if not got:
+            continue
+        s2, sl = got
+        n2, ab = INDEX[(s2, sl)]
+        rows.append('<a href="' + ('../' + sl + '/' if s2 == st else '../../' + s2 + '/' + sl + '/')
+                    + '">' + html.escape(n2) + ', ' + ab + '</a>')
+    if not rows:
+        return ''
+    return ('<section class="sec"><div class="wrap narrow">'
+      '<h2 style="font-size:20px">We also write nearby</h2>'
+      '<div class="llinks">' + ''.join(rows) + '</div></div></section>')
+
 def city_page(slug, name, county, tags, nb, st):
     # SALT is owned by build_city — it is what the redraw loop varies. Setting it
     # here would pin every redraw to the same draw and make the loop a no-op.
@@ -939,7 +1023,7 @@ def city_page(slug, name, county, tags, nb, st):
   <span class="kick">""" + name + ", " + d['abbr'] + """</span>
   <h1>Car insurance in<br>""" + name + """.</h1>
   <p>One form, every carrier we represent, prices back in a few minutes &mdash; then a licensed
-     agent here in El Paso goes through them with you, in English or Spanish.</p>
+     agent goes through them with you, in English or Spanish.</p>
   <div class="acts">
     <a class="btn" href="../../../quote.html">Get my free quote</a>
     <a class="btn ghost" href="tel:+19155031207">Call 915-503-1207</a>
@@ -1241,7 +1325,9 @@ def build_city(slug, name, county, tags, nb, st, seen):
     """
     for attempt in range(MAX_REDRAW):
         SALT[0] = st + ':' + ('' if attempt == 0 else str(attempt) + ':')
-        page = city_page(slug, name, county, tags, nb, st)
+        place = PL.get(st, slug)
+        page = (city_page_v2(slug, name, county, tags, nb, st, place) if place
+                else city_page(slug, name, county, tags, nb, st))
         sh = _shingles(page)
         worst = max((( _overlap(sh, o), k) for k, o in seen.items()), default=(0.0, None))
         if worst[0] < LIMIT:
