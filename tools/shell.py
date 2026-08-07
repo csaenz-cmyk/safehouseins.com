@@ -119,13 +119,16 @@ CSS = """
 
 """
 
-def head(title, desc):
+def head(title, desc, suffix=' · Safe House Insurance'):
+    """`suffix` is shortenable because search results cut a title off around 60
+    characters, and 'Mercedes-Benz car insurance in Texas & New Mexico' plus the
+    full company name is well past that."""
     return """<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>""" + title + """ · Safe House Insurance</title>
+<title>""" + title + suffix + """</title>
 <meta name="description" content=\"""" + desc + """\">
 <link rel="icon" href="assets/safehouse-heart.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
