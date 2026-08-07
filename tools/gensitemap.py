@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+"""Writes sitemap.xml and robots.txt by walking what is actually on disk.
+
+It used to be written by the city generator, which meant running the makes
+generator afterwards silently dropped 48 pages out of the sitemap. Walking the
+filesystem cannot go stale that way.
+
+    python3 tools/gensitemap.py
+"""
+import os, re, sys
+
+SITE = 'https://safehouseins.com'
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Working files, mockups and dead experiments that should never be indexed.
+SKIP_ROOT = {'index-b.html', 'option-1-lemonade.html', 'jerry-1.html', 'jerry-2.html'}
+SKIP_DIRS = {'.git', 'assets', 'docs', 'tools', 'email', 'mockups', 'sms', '__pycache__'}
+
+def urls():
+    out = []
+    for f in sorted(os.listdir(ROOT)):
+        if not f.endswith('.html') or f in SKIP_ROOT or re.match(r'option-\d+\.html', f):
+            continue
+        out.append(SITE + '/' + ('' if f == 'index.html' else f))
+    for dirpath, dirnames, filenames in os.walk(ROOT):
+        dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS and not d.startswith('.')]
+        if dirpath == ROOT or 'index.html' not in filenames:
+            continue
+        rel = os.path.relpath(dirpath, ROOT).replace(os.sep, '/')
+        out.append(SITE + '/' + rel + '/')
+    return sorted(set(out))
+
+if __name__ == '__main__':
+    u = urls()
+    body = ['<?xml version="1.0" encoding="UTF-8"?>',
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    body += ['  <url><loc>' + x + '</loc></url>' for x in u]
+    body.append('</urlset>')
+    open(os.path.join(ROOT, 'sitemap.xml'), 'w', encoding='utf-8').write('\n'.join(body) + '\n')
+    open(os.path.join(ROOT, 'robots.txt'), 'w', encoding='utf-8').write(
+        'User-agent: *\nAllow: /\n\nSitemap: ' + SITE + '/sitemap.xml\n')
+    print(str(len(u)) + ' urls in sitemap.xml')
+    for x in u[:4]:
+        print('   ', x)
+    print('    ...')

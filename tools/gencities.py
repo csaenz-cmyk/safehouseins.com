@@ -910,6 +910,13 @@ def hub():
 <section class="blk"><div class="wrap">
 """ + ''.join(out) + """
 </div></section>
+
+<section class="blk tint"><div class="wrap narrow">
+  <h2>Or look it up by what you drive</h2>
+  <p>What you drive is one input into a quote, and the one people ask about most. We have a page
+     for every make sold in the United States &mdash; and for a few that are not any more.</p>
+  <div class="acts"><a class="btn" href="makes/">Car insurance by make</a></div>
+</div></section>
 """ + rewrite(shell.FOOTER, 1)
 
 EXTRA_CSS = """
@@ -1060,18 +1067,5 @@ if __name__ == '__main__':
     total += write('car-insurance/index.html', hub()); n += 1
     urls.append(SITE + '/car-insurance/')
 
-    top = ['', '/quote.html', '/about.html', '/careers.html', '/privacy', '/sms-terms']
-    sm = ['<?xml version="1.0" encoding="UTF-8"?>',
-          '<urlset xmlns="http://www.sitemap.org/schemas/sitemap/0.9">'.replace('sitemap.org','sitemaps.org')]
-    for t in top:
-        sm.append('  <url><loc>' + SITE + (t or '/') + '</loc></url>')
-    for u in urls:
-        sm.append('  <url><loc>' + u + '</loc></url>')
-    sm.append('</urlset>')
-    open(os.path.join(ROOT, 'sitemap.xml'), 'w', encoding='utf-8').write('\n'.join(sm) + '\n')
-
-    open(os.path.join(ROOT, 'robots.txt'), 'w', encoding='utf-8').write(
-        'User-agent: *\nAllow: /\n\nSitemap: ' + SITE + '/sitemap.xml\n')
-
     print(str(n) + ' pages, ' + str(round(total/1024)) + ' KB')
-    print(str(len(urls) + len(top)) + ' urls in sitemap.xml, robots.txt written')
+    print('run tools/gensitemap.py to refresh sitemap.xml')

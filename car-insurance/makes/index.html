@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Car insurance by make · Safe House Insurance</title>
+<meta name="description" content="Car insurance by vehicle make from Safe House Insurance — what actually drives the premium on your car, and a free quote across every carrier we represent.">
+<link rel="icon" href="../../assets/safehouse-heart.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--blue:#1666ED;--blue-d:#0F4FBF;--cyan:#00C2FF;--navy:#0A2148;--ink:#0E1726;
+        --muted:#5C6A80;--line:#E5EBF6;--ice:#EFF5FF;--ice2:#DCEAFF;
+        --grad:linear-gradient(115deg,#1666ED,#00C2FF)}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  body{font-family:'Figtree',system-ui,-apple-system,sans-serif;color:var(--ink);
+       background:#fff;-webkit-font-smoothing:antialiased;line-height:1.6}
+  img{max-width:100%;display:block}
+  a{color:var(--blue);font-weight:700;text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+  .narrow{max-width:760px;margin:0 auto}
+
+  nav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.93);
+      backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:70px}
+  nav .logo{height:38px}
+  nav .nl{display:none;gap:24px;align-items:center}
+  nav .nl a{font-size:14.5px;font-weight:700;color:var(--ink)}
+  nav .cta{background:var(--grad);color:#fff;border-radius:99px;padding:10px 20px;
+      font-size:14.5px;font-weight:800;white-space:nowrap}
+  nav .cta:hover{text-decoration:none}
+  @media(min-width:900px){ nav .nl{display:flex} nav .logo{height:44px} }
+
+  header.pg{background:linear-gradient(180deg,var(--ice),#fff);padding:52px 0 40px;
+      border-bottom:1px solid var(--line)}
+  header.pg .kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:900;
+      letter-spacing:.12em;text-transform:uppercase;color:var(--blue-d);
+      background:#fff;border:1.5px solid var(--ice2);border-radius:99px;padding:7px 15px}
+  header.pg h1{font-size:clamp(30px,6vw,54px);font-weight:900;letter-spacing:-.03em;
+      color:var(--navy);line-height:1.08;margin-top:18px}
+  header.pg p{font-size:clamp(16px,2.2vw,19.5px);color:var(--muted);font-weight:600;
+      margin-top:16px;max-width:640px}
+
+  section.blk{padding:52px 0}
+  section.blk.tint{background:var(--ice)}
+  h2{font-size:clamp(24px,3.6vw,36px);font-weight:900;letter-spacing:-.025em;color:var(--navy);
+     line-height:1.12}
+  h3{font-size:19px;font-weight:900;color:var(--navy);margin-bottom:6px}
+  p.lead{font-size:17px;color:var(--muted);font-weight:600;margin-top:14px}
+  section.blk p{font-size:16px;color:#25344b;margin-top:14px}
+  section.blk ul{margin:14px 0 0 20px}
+  section.blk li{font-size:16px;color:#25344b;margin:7px 0}
+  strong{font-weight:800;color:var(--navy)}
+
+  .grid{display:grid;gap:14px;margin-top:26px}
+  @media(min-width:760px){ .grid.c2{grid-template-columns:1fr 1fr}
+                           .grid.c3{grid-template-columns:repeat(3,1fr)} }
+  .card{border:1.5px solid var(--line);border-radius:20px;padding:22px;background:#fff}
+  .card p{font-size:15px;margin-top:8px;color:var(--muted);font-weight:600}
+  .card .n{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;
+      background:var(--ice);color:var(--blue-d);font-weight:900;font-size:15px;margin-bottom:12px}
+
+  .people{display:grid;gap:12px;margin-top:26px}
+  @media(min-width:680px){ .people{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:1000px){ .people{grid-template-columns:repeat(3,1fr)} }
+  .person{display:flex;gap:14px;align-items:center;border:1.5px solid var(--line);
+      border-radius:18px;padding:14px;background:#fff}
+  .person img{width:62px;height:62px;border-radius:16px;object-fit:cover;flex:0 0 auto}
+  .person b{display:block;font-size:16px;font-weight:900;color:var(--navy)}
+  .person small{display:block;font-size:13px;color:var(--muted);font-weight:700;margin-top:2px}
+  .person em{display:block;font-size:12.5px;color:#9fb0c6;font-weight:700;font-style:normal;margin-top:3px}
+
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+  .chips span{font-size:13.5px;font-weight:800;color:var(--navy);background:#fff;
+      border:1.5px solid var(--line);border-radius:99px;padding:8px 15px}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      background:var(--grad);color:#fff;border:0;border-radius:99px;padding:15px 28px;
+      font:inherit;font-size:16px;font-weight:800;cursor:pointer;
+      box-shadow:0 18px 34px -18px rgba(22,102,237,.9)}
+  .btn:hover{text-decoration:none;filter:brightness(1.05)}
+  .btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line);box-shadow:none}
+  .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+
+  footer{background:var(--navy);color:#fff;padding:48px 0 34px;margin-top:10px}
+  footer a{color:#fff}
+  footer .fgrid{display:grid;gap:30px}
+  @media(min-width:820px){ footer .fgrid{grid-template-columns:1.2fr 1fr 1fr} }
+  footer .flogo{height:34px;filter:brightness(0) invert(1)}
+  footer h5{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+      color:#8FB4F0;margin-bottom:14px}
+  footer .ways{display:grid;gap:14px}
+  footer .way{display:flex;gap:11px;align-items:flex-start}
+  footer .way .ic{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.12);
+      display:grid;place-items:center;flex:0 0 auto;font-size:15px}
+  footer .way b{display:block;font-size:12.5px;font-weight:900;letter-spacing:.06em;
+      text-transform:uppercase;color:#8FB4F0}
+  footer .way a{display:block;font-size:17px;font-weight:800;margin-top:2px}
+  footer .way small{display:block;font-size:12.5px;color:#A8C2E8;font-weight:600;margin-top:2px}
+  footer .links{display:grid;gap:9px}
+  footer .links a{font-size:14.5px;font-weight:700;color:#DCE9FA}
+  footer .tag{font-size:14px;color:#A8C2E8;font-weight:600;margin-top:14px;max-width:34ch}
+  footer .fbot{border-top:1px solid rgba(255,255,255,.14);margin-top:34px;padding-top:20px}
+  footer .fbot p{font-size:12px;color:#8FA6C8;line-height:1.7}
+  footer .fbot .lg{display:flex;gap:8px;flex-wrap:wrap;font-size:13.5px;font-weight:800;margin-bottom:12px}
+  /* the wide link deck above the contact block */
+  footer .deck{display:grid;gap:26px;padding-bottom:34px;margin-bottom:34px;
+      border-bottom:1px solid rgba(255,255,255,.14)}
+  @media(min-width:680px){ footer .deck{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:1000px){ footer .deck{grid-template-columns:repeat(4,1fr)} }
+  footer .deck .col2{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
+  footer .deck a{display:block;font-size:14px;font-weight:600;color:#C7DBF5;padding:3px 0}
+  footer .deck a:hover{color:#fff}
+  footer .deck .more{font-weight:800;color:#8FB4F0}
+
+</style>
+<link rel="canonical" href="https://safehouseins.com/car-insurance/makes/">
+
+<style>
+  .crumbs{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:14px}
+  .crumbs a{color:var(--blue)} .crumbs span{color:var(--navy)}
+  .ctys{display:grid;gap:10px;margin:22px 0 34px}
+  @media(min-width:560px){ .ctys{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:900px){ .ctys{grid-template-columns:repeat(4,1fr)} }
+  .cty{display:block;border:1.5px solid var(--line);border-radius:16px;padding:14px 16px;
+       background:#fff;text-decoration:none}
+  .cty:hover{border-color:var(--blue);text-decoration:none}
+  .cty b{display:block;font-size:15.5px;font-weight:900;color:var(--navy)}
+  .cty small{display:block;font-size:12.5px;color:var(--muted);font-weight:700;margin-top:2px}
+
+  .facts{display:grid;gap:10px;margin-bottom:22px}
+  @media(min-width:620px){ .facts{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))} }
+  .facts div{border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff}
+  .facts small{display:block;font-size:11px;font-weight:900;letter-spacing:.08em;
+      text-transform:uppercase;color:var(--muted)}
+  .facts b{display:block;font-size:15.5px;font-weight:900;color:var(--navy);margin-top:3px}
+
+  .picker{border:1.5px solid var(--line);border-radius:20px;padding:20px;background:#fff;margin-top:22px}
+  .picker .pin{display:grid;gap:14px}
+  @media(min-width:620px){ .picker .pin{grid-template-columns:1fr 1fr;gap:18px} }
+  .picker label{display:block;font-size:13.5px;font-weight:800;color:var(--navy)}
+  .picker select{width:100%;margin-top:8px;font:inherit;font-size:16px;font-weight:700;
+      color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:13px;
+      padding:12px 13px;outline:none}
+  .picker select:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(22,102,237,.13)}
+  .picker .pout{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}
+  .picker .bn{display:none}
+  .picker .bn.on{display:block}
+  .picker .bn b{display:block;font-size:16px;font-weight:900;color:var(--navy)}
+  .picker .bn p{font-size:15px;color:#25344b;margin-top:6px}
+  .picker .pempty{font-size:14px;color:#9fb0c6;font-weight:700}
+  .picker.chosen .pempty{display:none}
+
+  .drop{border:1.5px solid var(--line);border-radius:20px;padding:20px;background:#fff;margin-top:22px}
+  .drop .cin{display:grid;gap:14px}
+  @media(min-width:760px){ .drop .cin{grid-template-columns:repeat(3,1fr);gap:16px} }
+  .drop label{display:block;font-size:13.5px;font-weight:800;color:var(--navy)}
+  .drop .pre{display:flex;align-items:center;gap:6px;margin-top:8px;border:1.5px solid var(--line);
+      border-radius:13px;padding:11px 13px;font-weight:800;color:var(--muted)}
+  .drop .pre:focus-within{border-color:var(--blue);box-shadow:0 0 0 4px rgba(22,102,237,.13)}
+  .drop input{width:100%;border:0;outline:none;font:inherit;font-size:16px;font-weight:800;
+      color:var(--ink);background:transparent}
+  .drop .dres{margin-top:20px;border-top:1px solid var(--line);padding-top:16px;text-align:center}
+  .drop .kbig{display:block;font-size:26px;font-weight:900;letter-spacing:-.02em;color:var(--navy)}
+  .drop .kbig.warn{color:#C2410C}
+  .drop .ksub{display:block;font-size:14px;color:var(--muted);font-weight:700;margin-top:8px;line-height:1.55}
+  .cap{font-size:13px;color:#9fb0c6;font-weight:600;margin-top:14px;line-height:1.6}
+
+  .faqs{margin-top:22px;border-top:1px solid var(--line)}
+  .qa{border-bottom:1px solid var(--line)}
+  .qa summary{list-style:none;cursor:pointer;padding:18px 34px 18px 0;position:relative;
+      font-size:16.5px;font-weight:800;color:var(--navy);line-height:1.35}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary::after{content:"";position:absolute;right:6px;top:24px;width:10px;height:10px;
+      border-right:2.5px solid var(--blue);border-bottom:2.5px solid var(--blue);
+      transform:rotate(45deg);transition:.2s}
+  .qa[open] summary::after{transform:rotate(-135deg);top:28px}
+  .qa .qb{padding:0 0 18px}
+  .qa .qb p{font-size:15.5px;margin-top:0}
+  .qa .qb p+p{margin-top:12px}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a href="../../index.html" aria-label="Safe House Insurance home"><img class="logo" src="../../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+  <div class="nl">
+    <a href="../../about.html">About</a>
+    <a href="../../careers.html">Careers</a>
+    <a href="../../index.html#faq">FAQ</a>
+  </div>
+  <a class="cta" href="../../quote.html">Get my free quote</a>
+</div></nav>
+
+<header class="pg"><div class="wrap">
+  <p class="crumbs"><a href="../">Car insurance</a> &rsaquo; <span>By make</span></p>
+  <span class="kick">By make</span>
+  <h1>Car insurance,<br>make by make.</h1>
+  <p>What you drive is only one input into a quote &mdash; but it is the one people ask about most.
+     Find your make below, or skip it and start the quote.</p>
+  <div class="acts"><a class="btn" href="../../quote.html">Get my free quote</a></div>
+</div></header>
+
+<section class="blk"><div class="wrap">
+<div class="narrow"><h2>American</h2></div><div class="ctys"><a class="cty" href="../buick/"><b>Buick</b><small>General Motors</small></a><a class="cty" href="../cadillac/"><b>Cadillac</b><small>General Motors</small></a><a class="cty" href="../chevrolet/"><b>Chevrolet</b><small>General Motors</small></a><a class="cty" href="../chrysler/"><b>Chrysler</b><small>Stellantis</small></a><a class="cty" href="../dodge/"><b>Dodge</b><small>Stellantis</small></a><a class="cty" href="../ford/"><b>Ford</b><small>Ford Motor Company</small></a><a class="cty" href="../gmc/"><b>GMC</b><small>General Motors</small></a><a class="cty" href="../jeep/"><b>Jeep</b><small>Stellantis</small></a><a class="cty" href="../lincoln/"><b>Lincoln</b><small>Ford Motor Company</small></a><a class="cty" href="../lucid/"><b>Lucid</b><small>Lucid Motors</small></a><a class="cty" href="../ram/"><b>Ram</b><small>Stellantis</small></a><a class="cty" href="../rivian/"><b>Rivian</b><small>Rivian</small></a><a class="cty" href="../tesla/"><b>Tesla</b><small>Tesla, Inc.</small></a></div><div class="narrow"><h2>Japanese</h2></div><div class="ctys"><a class="cty" href="../acura/"><b>Acura</b><small>Honda Motor Co.</small></a><a class="cty" href="../honda/"><b>Honda</b><small>Honda Motor Co.</small></a><a class="cty" href="../infiniti/"><b>Infiniti</b><small>Nissan Motor Corporation</small></a><a class="cty" href="../lexus/"><b>Lexus</b><small>Toyota Motor Corporation</small></a><a class="cty" href="../mazda/"><b>Mazda</b><small>Mazda Motor Corporation</small></a><a class="cty" href="../mitsubishi/"><b>Mitsubishi</b><small>Mitsubishi Motors</small></a><a class="cty" href="../nissan/"><b>Nissan</b><small>Nissan Motor Corporation</small></a><a class="cty" href="../subaru/"><b>Subaru</b><small>Subaru Corporation</small></a><a class="cty" href="../toyota/"><b>Toyota</b><small>Toyota Motor Corporation</small></a></div><div class="narrow"><h2>Korean</h2></div><div class="ctys"><a class="cty" href="../genesis/"><b>Genesis</b><small>Hyundai Motor Group</small></a><a class="cty" href="../hyundai/"><b>Hyundai</b><small>Hyundai Motor Group</small></a><a class="cty" href="../kia/"><b>Kia</b><small>Hyundai Motor Group</small></a></div><div class="narrow"><h2>German</h2></div><div class="ctys"><a class="cty" href="../audi/"><b>Audi</b><small>Volkswagen Group</small></a><a class="cty" href="../bmw/"><b>BMW</b><small>BMW Group</small></a><a class="cty" href="../mercedes-benz/"><b>Mercedes-Benz</b><small>Mercedes-Benz Group</small></a><a class="cty" href="../porsche/"><b>Porsche</b><small>Volkswagen Group</small></a><a class="cty" href="../volkswagen/"><b>Volkswagen</b><small>Volkswagen Group</small></a></div><div class="narrow"><h2>Swedish</h2></div><div class="ctys"><a class="cty" href="../polestar/"><b>Polestar</b><small>Geely</small></a><a class="cty" href="../volvo/"><b>Volvo</b><small>Geely</small></a></div><div class="narrow"><h2>British</h2></div><div class="ctys"><a class="cty" href="../jaguar/"><b>Jaguar</b><small>JLR (Tata Motors)</small></a><a class="cty" href="../land-rover/"><b>Land Rover</b><small>JLR (Tata Motors)</small></a><a class="cty" href="../mini/"><b>MINI</b><small>BMW Group</small></a></div><div class="narrow"><h2>Italian</h2></div><div class="ctys"><a class="cty" href="../alfa-romeo/"><b>Alfa Romeo</b><small>Stellantis</small></a><a class="cty" href="../fiat/"><b>Fiat</b><small>Stellantis</small></a><a class="cty" href="../maserati/"><b>Maserati</b><small>Stellantis</small></a></div><div class="narrow"><h2>No longer sold new in the US</h2></div><div class="ctys"><a class="cty" href="../hummer/"><b>Hummer</b><small>General Motors</small></a><a class="cty" href="../isuzu/"><b>Isuzu</b><small>Isuzu Motors</small></a><a class="cty" href="../mercury/"><b>Mercury</b><small>Ford Motor Company</small></a><a class="cty" href="../oldsmobile/"><b>Oldsmobile</b><small>General Motors</small></a><a class="cty" href="../pontiac/"><b>Pontiac</b><small>General Motors</small></a><a class="cty" href="../saab/"><b>Saab</b><small>—</small></a><a class="cty" href="../saturn/"><b>Saturn</b><small>General Motors</small></a><a class="cty" href="../scion/"><b>Scion</b><small>Toyota Motor Corporation</small></a><a class="cty" href="../suzuki/"><b>Suzuki</b><small>Suzuki Motor Corporation</small></a></div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="deck">
+    <div>
+      <h5>Car insurance in Texas</h5>
+      <div class="col2"><a href="../../car-insurance/texas/houston/">Houston</a><a href="../../car-insurance/texas/san-antonio/">San Antonio</a><a href="../../car-insurance/texas/dallas/">Dallas</a><a href="../../car-insurance/texas/austin/">Austin</a><a href="../../car-insurance/texas/fort-worth/">Fort Worth</a><a href="../../car-insurance/texas/el-paso/">El Paso</a><a href="../../car-insurance/texas/arlington/">Arlington</a><a href="../../car-insurance/texas/laredo/">Laredo</a><a href="../../car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="../../car-insurance/texas/mcallen/">McAllen</a><a href="../../car-insurance/texas/brownsville/">Brownsville</a><a href="../../car-insurance/texas/lubbock/">Lubbock</a></div>
+      <a class="more" href="../../car-insurance/texas/">See all Texas cities</a>
+    </div>
+    <div>
+      <h5>Car insurance in New Mexico</h5>
+      <div class="col2"><a href="../../car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="../../car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="../../car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="../../car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="../../car-insurance/new-mexico/roswell/">Roswell</a><a href="../../car-insurance/new-mexico/farmington/">Farmington</a><a href="../../car-insurance/new-mexico/hobbs/">Hobbs</a><a href="../../car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
+      <a class="more" href="../../car-insurance/new-mexico/">See all New Mexico cities</a>
+    </div>
+    <div>
+      <h5>What we insure</h5>
+      <a href="../../quote.html">Car insurance</a>
+      <a href="../../quote.html">Home insurance</a>
+      <a href="../../quote.html">Renters insurance</a>
+      <a href="../../quote.html">Motorcycle insurance</a>
+      <a href="../../quote.html">Commercial vehicles</a>
+      <a href="../../quote.html">Work trucks and fleets</a>
+    </div>
+    <div>
+      <h5>Company</h5>
+      <a href="../../index.html">Home</a>
+      <a href="../../about.html">About us</a>
+      <a href="../../careers.html">Careers</a>
+      <a href="../../car-insurance/">Car insurance by city</a>
+      <a href="../../car-insurance/makes/">Car insurance by make</a>
+      <a href="../../index.html#faq">FAQ</a>
+      <a href="../../quote.html">Get a quote</a>
+    </div>
+  </div>
+
+  <div class="fgrid">
+    <div>
+      <img class="flogo" src="../../assets/safehouse-logo.png" alt="Safe House Insurance">
+      <p class="tag">One agency for everything you own. Licensed in Texas and New Mexico,
+         based in El Paso. Se habla espa&ntilde;ol.</p>
+    </div>
+
+    <div>
+      <h5>Reach us</h5>
+      <div class="ways">
+        <div class="way"><span class="ic" aria-hidden="true">&#9742;</span>
+          <span><b>Call</b><a href="tel:+19155031207">915-503-1207</a>
+          <small>A licensed agent, not a call centre</small></span></div>
+        <div class="way"><span class="ic" aria-hidden="true">&#128172;</span>
+          <span><b>Text</b><a href="sms:+19155943777">915-594-3777</a>
+          <small>Different number &mdash; this one receives texts</small></span></div>
+        <div class="way"><span class="ic" aria-hidden="true">&#9993;</span>
+          <span><b>Email</b><a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a>
+          <small>Documents, questions, anything</small></span></div>
+      </div>
+    </div>
+
+    <div>
+      <h5>Where we are</h5>
+      <p class="tag">Safe House Insurance LLC<br>
+        6065 Montana Ave Ste C8<br>
+        El Paso, TX 79925</p>
+      <div class="links" style="margin-top:16px">
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../sms-terms.html">SMS Terms</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="fbot">
+    <p class="lg"><a href="../../privacy.html">Privacy Policy</a> &middot;
+       <a href="../../sms-terms.html">SMS Terms</a></p>
+    <p>Safe House Insurance LLC &middot; 6065 Montana Ave Ste C8, El Paso, TX 79925<br>
+      Independent insurance agency licensed in Texas and New Mexico. Coverage is subject to carrier
+      approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy.
+      Quotes are estimates and are not a guarantee of coverage or price.
+      &copy; 2026 Safe House Insurance.</p>
+  </div>
+</div></footer>
+
+</body>
+</html>
