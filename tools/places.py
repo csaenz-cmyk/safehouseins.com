@@ -104,6 +104,228 @@ INTENTS = {
 
 PLACES = {
 
+# ----------------------------------------------------------------- Laredo ---
+'texas:laredo': dict(
+  scene='valley', presence='serving',
+  blurb='Compare options from several insurance companies with a licensed Safe House agent &mdash; '
+        'en ingl&eacute;s o en espa&ntilde;ol, and we can talk about crossing before you cross.',
+  chips=['Laredo, TX', 'Multiple carriers', 'English &amp; Spanish', 'Border region'],
+  zips=[('78040', 'Downtown and El Centro'), ('78041', 'North Central'),
+        ('78043', 'East and Southeast'), ('78045', 'North and Northwest'),
+        ('78046', 'South and Southeast')],
+  areas=[
+    ('Downtown and El Centro', 'Closest to the Gateway and Ju&aacute;rez-Lincoln bridges. Tight '
+     'older streets, a lot of stop-start driving, and mostly street or lot parking.'),
+    ('North Laredo', 'Newer subdivisions out past Del Mar and toward the Loop. Longer daily trips '
+     'and more garage and driveway parking than the centre.'),
+    ('The Loop 20 corridor', 'The Bob Bullock Loop does most of the crosstown work, which is why so '
+     'much local driving here is highway driving rather than surface streets.'),
+    ('South Laredo', 'Along US 83 down the river. Longer distances into town, and closer to the '
+     'commercial traffic heading for the bridges.'),
+    ('East and Santa Maria', 'Out toward US 59, where the city thins out and trips get longer '
+     'without feeling like it.'),
+  ],
+  factors=[
+    ('border', 'Crossing to Nuevo Laredo',
+     'This is the question we get asked most here. A U.S. auto policy generally does not provide '
+     'the liability coverage Mexico requires of a driver, and physical damage cover usually stops '
+     'at the border. Crossing normally means a separate Mexican policy for the days you are there '
+     '&mdash; arranged before you go, because it cannot be fixed at the bridge.'),
+    ('truck', 'A city built around freight',
+     'Laredo is one of the busiest commercial land ports in the country, and a lot of households '
+     'here have a vehicle that does something for work. If yours carries tools or materials for '
+     'pay, tows for money, or is titled to a company, a personal auto policy can deny a claim that '
+     'happened on the job.'),
+    ('road', 'I-35 starts here, and Loop 20 carries the rest',
+     'Between the interstate, the loop and US 83 along the river, a lot of everyday driving in '
+     'Laredo happens at highway speed. Annual mileage is something a carrier asks about, and it is '
+     'the figure people most often estimate from memory.'),
+    ('lang', 'En espa&ntilde;ol, con una persona',
+     'Nuestros agentes trabajan en espa&ntilde;ol por tel&eacute;fono o por mensaje. Los t&eacute;rminos '
+     'de cobertura son donde est&aacute; la confusi&oacute;n, y vale la pena entenderlos en el idioma en '
+     'que uno piensa.'),
+  ],
+  intents=['cheaper', 'mexico', 'renewal', 'bought', 'commercial', 'sr22', 'noprior', 'switch'],
+  faq=[
+    ('Does my Texas insurance cover me in Nuevo Laredo?',
+     '<p>Generally not in the way you need. A standard U.S. auto policy does not usually satisfy '
+     'Mexico&rsquo;s liability requirements, and physical damage coverage commonly stops at the '
+     'border. Most people crossing here buy a separate Mexican auto policy covering the days they '
+     'will be over.</p>'
+     '<p>It takes minutes to arrange in advance and nothing can be done about it afterwards, which '
+     'is the whole reason to ask before the trip rather than after.</p>'),
+    ('&iquest;Puedo hacer todo esto en espa&ntilde;ol?',
+     '<p>S&iacute;. Por tel&eacute;fono, por mensaje de texto, o en persona en nuestra oficina de El '
+     'Paso. Hablamos espa&ntilde;ol.</p>'
+     '<p>Y no solo el precio &mdash; tambi&eacute;n repasamos la p&oacute;liza l&iacute;nea por '
+     'l&iacute;nea, porque ah&iacute; es donde normalmente est&aacute;n las dudas.</p>'),
+  ],
+  links=[('../../../quote.html', 'Get a car insurance quote'), ('../', 'Car insurance in Texas'),
+         ('../mcallen/', 'Car insurance in McAllen'),
+         ('../../makes/', 'Car insurance by vehicle make'), ('../../ram/', 'Ram truck insurance')],
+),
+
+# ---------------------------------------------------------------- McAllen ---
+'texas:mcallen': dict(
+  scene='valley', presence='serving',
+  blurb='Compare options from several insurance companies with a licensed Safe House agent &mdash; '
+        'en ingl&eacute;s o en espa&ntilde;ol, para toda el &aacute;rea del Valle.',
+  chips=['McAllen, TX', 'Multiple carriers', 'English &amp; Spanish', 'Rio Grande Valley'],
+  zips=[('78501', 'Central and South'), ('78503', 'South and near the bridge'),
+        ('78504', 'North McAllen')],
+  areas=[
+    ('North McAllen', 'Around Trenton and Nolana. Newer housing, more garages and driveways, and '
+     'longer drives to the south side of town.'),
+    ('Central McAllen', 'The older grid around Main and Bicentennial. Short trips and a lot of '
+     'stop-start driving on the 10th Street corridor.'),
+    ('South McAllen', 'Down toward Hidalgo and the international bridge, with the heaviest '
+     'cross-border and retail traffic in the city.'),
+    ('The expressway corridor', 'US 83 &mdash; now signed I-2 &mdash; runs the length of the Valley '
+     'and is how most of McAllen connects to Mission, Pharr and Edinburg.'),
+  ],
+  factors=[
+    ('border', 'The bridges at Hidalgo and Anzalduas',
+     'Crossing is routine here, and a U.S. auto policy is generally not what Mexico asks of a '
+     'driver. A separate Mexican policy for the days you are there is the normal answer, and it has '
+     'to be arranged before you go.'),
+    ('road', 'One expressway, four cities',
+     'The Valley runs east to west on a single expressway corridor, so a McAllen household often '
+     'works in Pharr, shops in Edinburg and has family in Mission. Those are real annual miles, and '
+     'mileage is one of the things carriers ask about.'),
+    ('lang', 'Le atendemos en espa&ntilde;ol',
+     'Por tel&eacute;fono o por mensaje, en el idioma que prefiera. Explicamos la cobertura, no '
+     'solamente el precio.'),
+    ('home', 'Where the vehicle is kept',
+     'Rated on the address the vehicle parks at overnight rather than the one on your licence. In '
+     'the Valley people move between neighbouring cities more than most places, and the policy has '
+     'to follow.'),
+  ],
+  intents=['cheaper', 'mexico', 'renewal', 'bought', 'noprior', 'newdriver', 'switch', 'sr22'],
+  faq=[
+    ('Can I use my U.S. insurance when I cross at Hidalgo or Anzalduas?',
+     '<p>Generally not for the liability Mexico requires, and physical damage cover commonly stops '
+     'at the border. A separate Mexican auto policy for the days of the trip is the usual answer.</p>'
+     '<p>Ask before you cross. It is quick to arrange in advance and impossible to sort out '
+     'afterwards.</p>'),
+    ('&iquest;Atienden a clientes en espa&ntilde;ol en el Valle?',
+     '<p>S&iacute;, por tel&eacute;fono y por mensaje de texto. Somos una agencia independiente con '
+     'licencia en Texas y Nuevo M&eacute;xico, con oficina en El Paso.</p>'
+     '<p>Repasamos la p&oacute;liza completa con usted, no solo la cifra final.</p>'),
+  ],
+  links=[('../../../quote.html', 'Get a car insurance quote'), ('../', 'Car insurance in Texas'),
+         ('../brownsville/', 'Car insurance in Brownsville'), ('../laredo/', 'Car insurance in Laredo'),
+         ('../../makes/', 'Car insurance by vehicle make')],
+),
+
+# ---------------------------------------------------------------- Lubbock ---
+'texas:lubbock': dict(
+  scene='plains', presence='serving',
+  blurb='Compare options from several insurance companies with a licensed Safe House agent &mdash; '
+        'including the hail and student-driver questions that come up on the South Plains.',
+  chips=['Lubbock, TX', 'Multiple carriers', 'Student drivers', 'Fast quotes'],
+  zips=[('79401', 'Downtown and Tech'), ('79403', 'Northeast'), ('79407', 'West'),
+        ('79410', 'Central'), ('79411', 'Central'), ('79412', 'South Central'),
+        ('79413', 'South'), ('79414', 'Southwest'), ('79415', 'North'),
+        ('79416', 'Northwest'), ('79423', 'South'), ('79424', 'Southwest')],
+  areas=[
+    ('Tech and Overton', 'Around the university north-west of downtown. A high share of student '
+     'drivers, apartment lots rather than garages, and short trips.'),
+    ('Downtown and Central', 'The older grid inside the loop, with a mix of street and driveway '
+     'parking.'),
+    ('Southwest Lubbock', 'Where most of the newer housing has gone, out past 82nd toward the loop '
+     'and beyond. Longer drives into town.'),
+    ('North and Northeast', 'Older neighbourhoods and more of the city&rsquo;s industrial and '
+     'agricultural traffic.'),
+    ('Beyond Loop 289', 'The ring road is the dividing line between crosstown trips and genuine '
+     'commutes, and a great deal of Lubbock driving happens on it.'),
+  ],
+  factors=[
+    ('sun', 'Hail is a comprehensive claim',
+     'The South Plains gets hail, and hail damage to a vehicle is covered by '
+     '<strong>comprehensive</strong> &mdash; not collision, not liability. Comprehensive is '
+     'optional, applies subject to your deductible, and is governed by the terms of the policy you '
+     'hold. It is also the first coverage people drop on a paid-off vehicle.'),
+    ('user', 'A university town',
+     'A student away at Texas Tech without the car is often rated differently from one who takes it '
+     'with them, and a good-student discount is real at many carriers. Neither is applied for you '
+     '&mdash; both have to be asked for.'),
+    ('road', 'One interstate and a ring road',
+     'I-27 runs north toward Amarillo and Loop 289 wraps the city, so most crosstown driving here '
+     'happens at speed rather than on surface streets. Annual mileage is something carriers ask '
+     'about.'),
+    ('home', 'Where the vehicle sits overnight',
+     'Carriers rate on the garaging address, and a student apartment lot near campus and a house '
+     'with a garage out past the loop are genuinely different answers.'),
+  ],
+  intents=['cheaper', 'newdriver', 'renewal', 'bought', 'noprior', 'switch', 'sr22'],
+  faq=[
+    ('Does my insurance cover hail damage in Lubbock?',
+     '<p>Only if you carry <strong>comprehensive</strong> coverage. Hail is not a collision claim '
+     'and liability does not touch it. Comprehensive is optional, applies subject to your '
+     'deductible, and is subject to the terms and exclusions of your policy.</p>'
+     '<p>If the vehicle is financed the lender almost certainly requires it. If it is paid off and '
+     'you dropped it to save money, hail damage is your own cost &mdash; worth checking which one '
+     'describes you before spring.</p>'),
+    ('My student is at Texas Tech. How should the policy be set up?',
+     '<p>It depends on whether the vehicle goes with them. A student living away at school without '
+     'a car is often rated differently from one who keeps it on campus, and where the vehicle is '
+     'garaged has to match reality either way.</p>'
+     '<p>Ask about the good-student discount while you are at it. It exists at a lot of carriers, '
+     'it is worth real money, and nobody applies it automatically.</p>'),
+  ],
+  links=[('../../../quote.html', 'Get a car insurance quote'), ('../', 'Car insurance in Texas'),
+         ('../amarillo/', 'Car insurance in Amarillo'),
+         ('../../makes/', 'Car insurance by vehicle make'), ('../../ford/', 'Ford insurance')],
+),
+
+# ------------------------------------------------------------- Rio Rancho ---
+'new-mexico:rio-rancho': dict(
+  scene='high-desert', presence='serving',
+  blurb='Compare options from several insurance companies with a licensed Safe House agent &mdash; '
+        'including what a daily commute across the river does to a quote.',
+  chips=['Rio Rancho, NM', 'Multiple carriers', 'English &amp; Spanish', 'Fast quotes'],
+  zips=[('87124', 'south and City Center'), ('87144', 'north and Enchanted Hills')],
+  areas=[
+    ('City Center and the 528 corridor', 'Along NM 528, where most of the shopping, the offices and '
+     'the everyday traffic are.'),
+    ('Southern Rio Rancho', 'The older, denser part of the city and the closest to the river '
+     'crossings into Albuquerque.'),
+    ('Northern Meadows and Enchanted Hills', 'Newer subdivisions north along US 550. Longer '
+     'commutes, and mostly garage and driveway parking.'),
+    ('The West Mesa edge', 'Out toward Unser and Paseo del Volcan the grid thins out quickly, and '
+     'distances between places get longer than they look on a map.'),
+  ],
+  factors=[
+    ('road', 'A commuter city on the other side of the river',
+     'A great many Rio Rancho households work in Albuquerque, and the two cities are joined by a '
+     'small number of river crossings. That makes for a genuine daily commute rather than a '
+     'crosstown trip &mdash; and annual mileage is one of the things a carrier asks about.'),
+    ('home', 'Rio Rancho is not Albuquerque',
+     'They sit next to each other and they are different cities in different counties. Your policy '
+     'is rated on the address the vehicle parks at overnight, so if you moved across the river and '
+     'never updated it, that is worth fixing before a claim rather than during one.'),
+    ('sun', 'Hail, sun and a cracked windscreen',
+     'All three are <strong>comprehensive</strong> claims rather than collision. Comprehensive is '
+     'optional, applies subject to your deductible, and is governed by the terms of your policy. '
+     'It is usually the cheaper half of physical damage cover.'),
+    ('lang', 'English or Spanish',
+     'Our agents work in both, by phone or text. We go through the coverage itself, not just the '
+     'price.'),
+  ],
+  intents=['cheaper', 'renewal', 'bought', 'noprior', 'switch', 'newdriver', 'sr22'],
+  faq=[
+    ('I moved from Albuquerque to Rio Rancho. Do I need to tell my insurance company?',
+     '<p>Yes, and promptly. An auto policy is rated on the address where the vehicle is kept '
+     'overnight, not on your mailing address or your licence. Rio Rancho and Albuquerque are '
+     'separate cities in separate counties, so the change is a real one.</p>'
+     '<p>It is also a natural moment to re-shop rather than just update. The company that was '
+     'cheapest at the old address is not automatically cheapest at the new one.</p>'),
+  ],
+  links=[('../../../quote.html', 'Get a car insurance quote'),
+         ('../', 'Car insurance in New Mexico'), ('../albuquerque/', 'Car insurance in Albuquerque'),
+         ('../../makes/', 'Car insurance by vehicle make')],
+),
+
 # ----------------------------------------------------------------- Dallas ---
 'texas:dallas': dict(
   scene='metro-skyline', presence='serving',
