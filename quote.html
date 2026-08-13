@@ -1589,7 +1589,30 @@
     PLANS.full   =build(fBest,'full',mBest,'monthly');
   }
 
+  /* Name every rate this page decided not to show, and why.
+
+     "Carrier X is missing" is otherwise unanswerable from the outside: a
+     carrier the AMS never sent and a carrier this page dropped look identical
+     on screen. There is no cap on the list — every company that comes back
+     appears in both tabs — so anything absent was either dropped here for one
+     of these two reasons, or never arrived, and this says which. */
+  function reportDropped(rates){
+    var out=[];
+    (rates||[]).forEach(function(r){
+      var m=termMonths(r.term);
+      if(m!==null&&m!==6) out.push(r.carrier+' — '+termText(r.term)+', not a six-month term');
+      else if(r.premium===null||r.premium===undefined||r.premium===''
+              ||!isFinite(Number(r.premium))||Number(r.premium)<=0)
+        out.push(r.carrier+' — premium came back as '+JSON.stringify(r.premium));
+    });
+    if(out.length) console.warn('[quote] '+out.length+' rate(s) not shown:\n  '+out.join('\n  '));
+    console.log('[quote] '+((rates||[]).length-out.length)+' of '+((rates||[]).length)
+               +' rates shown, from '+(new Set((rates||[]).map(function(r){
+                 return company(r.carrier); })).size)+' companies the AMS sent');
+  }
+
   function results(rates){
+    reportDropped(rates);
     var list=sixMonth(rates);
     // Filtering must never leave an empty price list on screen. If nothing
     // six-month came back, this is a quote an agent has to work.
