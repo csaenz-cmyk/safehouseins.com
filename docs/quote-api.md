@@ -342,6 +342,92 @@ them on the phone and an abandoned form is worth less than a lead with gaps.
 `ownership` is derived from `residenceType` rather than asked again. Asking
 own-or-rent twice in two vocabularies is how the two answers end up disagreeing.
 
+## Motorcycle
+
+Thirteen steps. Like home, it does not reach `/public-quote` — the AMS rates
+auto — so it leaves by email with every answer written out, and the payload is
+assembled ready for the day there is somewhere to POST it. `motoPayload()`
+builds it, it is on `window.__moto`, and `toAms()` attaches it as `motorcycle`.
+
+**Nothing is named after a carrier.** The screens are the agency's words and
+every answer is stored under a normalised key — `physicalDamageValuation` holds
+`"Actual Cash Value"`, not a carrier's code for it. Mapping onto whichever
+company is being quoted happens once, on the AMS side. Adding a second
+motorcycle carrier must not change a single screen the visitor sees.
+
+**Every option list is in `MOTO_CFG`.** A carrier with a different set of
+deductibles is an edit there, not a rebuild. Three things fall out of that:
+
+- `avail` — the third element of an option — is what carrier eligibility rules
+  drive. `Agreed Value` and `Total Loss Coverage` are written and switched off,
+  so turning them on for an eligible bike is a flag, not new code.
+- A coverage whose list comes back with only one entry is **skipped**, not
+  shown as a screen with one dead choice. `medicalPayments` is the live case:
+  it is in the model and absent from the screens until a carrier offers more
+  than `None`. `waiveCosmeticDamage` is `hidden` outright for the same reason.
+- Every coverage screen opens with a default already chosen, so a visitor who
+  agrees with all of them presses Continue once instead of eleven times.
+
+### Coverage is split the way it is sold
+
+```jsonc
+{ "motorcycle": {
+    "disclosure": { "accepted": true, "at": "…", "text": "…",
+                    "source": "safehouseins.com/quote" },
+    "garagingZip": "79924", "residence": "Own Home/Condo",
+    "priorInsurance": true, "priorCarrier": "…", "priorExpiration": "2026-11-01",
+    "association": "Harley Owners Group (HOG)", "paperless": "Yes",
+    "motorcycles": [ { "vin": "…", "year": 2019, "make": "Harley-Davidson",
+                       "model": "Street Glide", "engineCc": 1868,
+                       "bodyType": "Touring", "primaryUse": "Pleasure riding",
+                       "annualMiles": "2,500 – 5,000", "isTrike": "No",
+                       "offRoadUse": "No", "antiLockBrakes": "Yes",
+                       "modified": "Yes", "modifications": "…",
+                       "lienholder": "…" } ],
+    "riders": [ { "firstName": "…", "dob": "1985-04-12", "licenseStatus": "…",
+                  "stateFilingRequired": "No",
+                  "riding": { "endorsement": "Yes",
+                              "yearsExperience": "Over 10 years",
+                              "safetyCourse": "Yes",
+                              "ridingFrequency": "1–2 days per week" } } ],
+    "incidents": [ { "type": "…", "date": "2024-03", "who": "Carlos" } ],
+    "coverage": {
+      "policy": { "liabilityLimits": "250/500/100",
+                  "umBodilyInjuryLimits": "50/100", "umPropertyDamage": "None",
+                  "pipLimit": "$2,500", "medicalPayments": "None",
+                  "waiveCosmeticDamage": "No" },
+      "motorcycles": [
+        { "physicalDamageValuation": "Actual Cash Value",
+          "comprehensiveDeductible": "$500", "collisionDeductible": "$500",
+          "roadsideOption": "Roadside", "carriedContentsLimit": "None",
+          "accessoryCoverageRange": "$1–$3,000",
+          "safetyApparelCoverage": "None", "transportTrailer": "No",
+          "disappearingDeductible": "No" },
+        { "physicalDamageValuation": "None - Liability Only",
+          "roadsideOption": "None" } ] } } }
+```
+
+`coverage.motorcycles[i]` lines up with `motorcycles[i]`. **Two bikes on one
+policy do not share a physical damage answer** — assuming they do is how a
+classic gets quoted like a commuter. The second bike above is liability-only,
+so its two deductibles are *absent*, not null: the question was never put, and
+an answer there would be invented.
+
+### The disclosure
+
+Its own step, second, before any question it authorises. Agreeing is required
+to continue; declining is a real answer that ends the online quote and points
+the visitor at the phone, because without permission to pull the records nobody
+can price it — but the enquiry is still worth taking.
+
+The wording travels with the answer, as the SMS consent does. What matters
+later is not that a box was ticked but what the person was shown when they
+ticked it, so `DISCLOSURE_TEXT` and the screen have to be changed together.
+
+`garagingZip` comes from the address step and `residence` is asked once, on the
+history step, in the words a motorcycle carrier uses. The auto flow's own/rent
+select is hidden for motorcycle rather than asked twice.
+
 ## What the form never asks
 
 Violations, accidents, tickets, SSN, licence images, payment details.

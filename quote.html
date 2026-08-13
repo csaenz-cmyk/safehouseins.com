@@ -353,6 +353,68 @@
   .tip.rt>div{left:auto;right:0;transform:none}
   .tip.rt>div::before{left:auto;right:14px;transform:rotate(45deg)}
 
+  /* ---------------- disclosure ----------------
+     Readable, not a wall: the short version is always visible and the long one
+     is a disclosure that opens, so nobody has to scroll a contract to answer. */
+  .disc{background:#F7FAFF;border:1.5px solid var(--line);border-radius:16px;padding:16px 17px;margin-top:6px}
+  .disc p{font-size:13.5px;line-height:1.62;color:#33445E;font-weight:600}
+  .disc details{margin-top:12px;border-top:1px solid var(--line);padding-top:11px}
+  .disc summary{cursor:pointer;font-size:12.5px;font-weight:800;color:var(--blue);
+      list-style:none;display:flex;align-items:center;gap:6px}
+  .disc summary::-webkit-details-marker{display:none}
+  .disc summary::after{content:'';width:6px;height:6px;border-right:2px solid currentColor;
+      border-bottom:2px solid currentColor;transform:rotate(45deg);margin-top:-3px;transition:transform .18s}
+  .disc details[open] summary::after{transform:rotate(-135deg);margin-top:2px}
+  .disc details p{font-size:12.8px;margin-top:9px;color:var(--muted)}
+  .dlead{margin-top:16px;font-size:14.5px;font-weight:800;color:var(--navy)}
+
+  /* ---------------- coverage ----------------
+     A coverage is a question with a plain-language line under it, an optional
+     bubble for the longer answer, and its choices. Cards for the decisions that
+     matter, a compact select for the ones that are a number off a list. */
+  .cov{border-top:1px solid var(--line);padding-top:20px;margin-top:20px}
+  .cov:first-child{border-top:0;padding-top:0;margin-top:14px}
+  /* Not flex: the title is a bare text node, so a flex parent makes it a block
+     of its own and drops the "?" onto the next line. Inline flow keeps the
+     bubble button sitting at the end of the question where it belongs. */
+  .cov h3{font-size:16.5px;font-weight:900;color:var(--navy);letter-spacing:-.015em;
+      line-height:1.32}
+  .cov .why{font-size:13px;color:var(--muted);font-weight:600;line-height:1.55;margin-top:5px}
+  .covopts{display:grid;gap:8px;margin-top:12px}
+  @media(min-width:520px){ .covopts.two{grid-template-columns:1fr 1fr} }
+  .covopt{display:flex;align-items:center;gap:11px;text-align:left;font:inherit;cursor:pointer;
+      border:2px solid var(--line);border-radius:15px;padding:13px 15px;background:#fff;
+      transition:border-color .16s,box-shadow .16s,transform .16s}
+  .covopt:hover{border-color:#C6D8F5;transform:translateY(-1px)}
+  .covopt:focus-visible{outline:3px solid rgba(22,102,237,.35);outline-offset:2px}
+  .covopt[aria-pressed=true]{border-color:var(--blue);box-shadow:0 6px 18px rgba(22,102,237,.16)}
+  .covopt .dot{flex:0 0 auto;width:19px;height:19px;border-radius:50%;border:2px solid #C9D6EA;position:relative}
+  .covopt[aria-pressed=true] .dot{border-color:var(--blue);background:var(--grad)}
+  .covopt[aria-pressed=true] .dot::after{content:'';position:absolute;inset:4px;border-radius:50%;background:#fff}
+  .covopt .ct{flex:1}
+  .covopt .ct b{display:block;font-size:15px;font-weight:900;color:var(--navy);letter-spacing:-.01em}
+  .covopt .ct small{display:block;font-size:12.3px;color:var(--muted);font-weight:600;
+      line-height:1.5;margin-top:3px}
+  .covopt[aria-pressed=true] .ct b{color:var(--blue-d)}
+
+  .bikehd{display:flex;align-items:center;gap:9px;margin:26px 0 2px;font-size:12px;font-weight:900;
+      letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+  .bikehd::after{content:'';flex:1;height:1px;background:var(--line)}
+  .bikehd:first-child{margin-top:4px}
+
+  /* ---------------- coverage summary ---------------- */
+  .sumrow{display:flex;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+  .sumrow:last-child{border-bottom:0}
+  .sumrow .sk{flex:1;font-size:13.5px;font-weight:700;color:var(--muted)}
+  .sumrow .sv{font-size:14.5px;font-weight:900;color:var(--navy);text-align:right}
+  .sumrow button{font:inherit;font-size:12.5px;font-weight:800;color:var(--blue);background:none;
+      border:0;cursor:pointer;padding:2px 4px;border-radius:6px}
+  .sumrow button:hover{text-decoration:underline}
+  .sumrow button:focus-visible{outline:3px solid rgba(22,102,237,.35);outline-offset:1px}
+  .sumgrp{margin-top:20px}
+  .sumgrp>h3{font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--blue);margin-bottom:2px}
+
   .diag{margin-top:18px;padding:12px 14px;border-radius:12px;background:#FFF7ED;border:1px solid #FCD9A8;
       font-family:'Geist Mono',monospace;font-size:11.5px;line-height:1.55;color:#8A4B00;text-align:left;
       word-break:break-word}
@@ -841,6 +903,166 @@
       <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
     </section>
 
+    <!-- ================= MOTORCYCLE =================
+         Same components as the rest of the form. Nothing here names a carrier:
+         every option list lives in MOTO_CFG so a second carrier is a config
+         change, and every answer is stored under a normalised key so it can be
+         mapped to whichever carrier is being quoted. -->
+
+    <!-- ---- M2 · permission to shop it ---- -->
+    <section class="step" data-step="disclosure">
+      <h1>Before we shop this for you.</h1>
+      <p class="sub">One thing to agree to, then the questions.</p>
+      <div class="disc">
+        <p>By continuing, you authorize Safe House Insurance and the insurance
+          companies we work with to use the information you provide, along with
+          information from other permitted sources, to obtain and evaluate
+          insurance quotes. This may include insurance history, driving history,
+          claims information, and other information permitted by law.
+          Information may also be used to determine eligibility, pricing,
+          discounts, and available coverage options.</p>
+        <details><summary>What that means, in plain terms</summary>
+          <p>We are an independent agency, not an insurance company. To find you
+            a price we send what you tell us to several carriers at once, and
+            each of them looks up the same public records any insurer would —
+            your driving record, past claims and prior coverage — to work out
+            what they can offer you.</p>
+          <p>We use it to quote your insurance and nothing else. We do not sell
+            your information, and the only people who contact you are licensed
+            Safe House agents. Our <a href="privacy.html" target="_blank" rel="noopener">Privacy
+            Policy</a> covers how it is handled and how long it is kept.</p>
+          <p>Nothing is bound and nothing is charged on this page. Every price
+            you see is subject to verification before a policy can be issued.</p>
+        </details>
+      </div>
+      <p class="dlead">I have read and agree to the above disclosure.</p>
+      <div class="pills">
+        <label class="pill"><input type="radio" name="mDisc" value="Agree" autocomplete="off"><span>I agree</span></label>
+        <label class="pill"><input type="radio" name="mDisc" value="Decline" autocomplete="off"><span>I do not agree</span></label>
+      </div>
+      <p class="err" id="e-disclosure"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- M4 · the bikes ---- -->
+    <section class="step" data-step="bikes">
+      <h1>Which motorcycles?</h1>
+      <p class="sub">The VIN is what gets you a price on screen. Without it an agent
+        has to look the bike up and call you back.</p>
+      <div id="bikeList"></div>
+      <button class="addbtn" id="addBike" type="button">+ Add another motorcycle</button>
+      <p class="err" id="e-bikes"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- M5 · who rides ---- -->
+    <section class="step" data-step="riders">
+      <h1>Who is on the policy?</h1>
+      <p class="sub">Everyone in the household who rides, plus anyone else who
+        should be listed.</p>
+      <div id="riderList"></div>
+      <button class="addbtn" id="addRider" type="button">+ Add another person</button>
+      <p class="err" id="e-riders"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- M6 · riding history, per person ---- -->
+    <section class="step" data-step="riding">
+      <h1>Riding experience.</h1>
+      <p class="sub">Experience and a safety course are two of the few things that
+        reliably bring a motorcycle premium down.</p>
+      <div id="ridingList"></div>
+      <p class="err" id="e-riding"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- M7 · incidents ---- -->
+    <section class="step" data-step="incidents">
+      <h1>Any accidents, tickets or claims?</h1>
+      <p class="sub">In the last five years, on any vehicle &mdash; not just a
+        motorcycle. Carriers check anyway, and a surprise later is what changes a
+        price after you have already been quoted.</p>
+      <div class="fl"><label>Is there anything to report?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="mInc" value="No" autocomplete="off"><span>Nothing to report</span></label>
+          <label class="pill"><input type="radio" name="mInc" value="Yes" autocomplete="off"><span>Yes, add them</span></label>
+        </div></div>
+      <div id="mIncWrap" hidden>
+        <div id="incList"></div>
+        <button class="addbtn" id="addInc" type="button">+ Add another</button>
+      </div>
+      <p class="err" id="e-incidents"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- M8 · history and household ---- -->
+    <section class="step" data-step="history">
+      <h1>A few last details.</h1>
+      <div class="fl"><label>Have you had motorcycle insurance in the last 12 months?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="mPrior" value="Yes" autocomplete="off"><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="mPrior" value="No" autocomplete="off"><span>No</span></label>
+        </div></div>
+      <div class="blk" id="mPriorWrap" hidden>
+        <div class="fl"><label for="mPriorCar">Who is it with?</label>
+          <input id="mPriorCar" name="priorCarrier" placeholder="Carrier name" autocomplete="off"></div>
+        <div class="fl"><label for="mPriorExp">When does that policy end?</label>
+          <input id="mPriorExp" name="priorExpiration" type="date" autocomplete="off"></div>
+      </div>
+      <div class="fl"><label for="mAssoc">Are you a member of a riding association?</label>
+        <select id="mAssoc" name="association"><option value="">Choose one</option></select></div>
+      <div class="fl"><label for="mRes">What best describes where you live?</label>
+        <select id="mRes" name="residence"><option value="">Choose one</option>
+          <option>Own Home/Condo</option><option>Own Manufactured Home</option>
+          <option>Rent</option><option>Live with Parents</option><option>Other</option></select></div>
+      <div class="fl"><label>Happy to get your documents by email?</label>
+        <p class="sub" style="margin:2px 0 0">Policy documents and notices, sent
+          electronically instead of by post. Several carriers discount for it.</p>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="mPaperless" value="Yes" autocomplete="off"><span>Yes, email them</span></label>
+          <label class="pill"><input type="radio" name="mPaperless" value="No" autocomplete="off"><span>No, post them</span></label>
+        </div></div>
+      <p class="err" id="e-history"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- M9 · coverage that applies to the whole policy ---- -->
+    <section class="step" data-step="covPolicy">
+      <h1>Now the coverage.</h1>
+      <p class="sub">These apply to the whole policy. Not sure? Pick what sounds
+        right &mdash; your agent goes through it with you before anything is issued.</p>
+      <div id="covPolicyBody"></div>
+      <p class="err" id="e-covPolicy"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- M10 · coverage per bike ---- -->
+    <section class="step" data-step="covBike">
+      <h1>Protecting the motorcycle itself.</h1>
+      <p class="sub">This is the big one, and it is set per motorcycle &mdash; an
+        older bike and a new one rarely want the same answer.</p>
+      <div id="covBikeBody"></div>
+      <p class="err" id="e-covBike"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- M11 · the optional extras, per bike ---- -->
+    <section class="step" data-step="covExtras">
+      <h1>Anything else?</h1>
+      <p class="sub">All optional. Skip anything you do not want &mdash; none is a
+        perfectly good answer.</p>
+      <div id="covExtrasBody"></div>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- M12 · what you picked ---- -->
+    <section class="step" data-step="covSummary">
+      <h1>Your coverage choices.</h1>
+      <p class="sub">Change anything you want before we send it out.</p>
+      <div id="covSummaryBody"></div>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
     <!-- ============ 6 · contact ============ -->
     <section class="step" data-step="contact">
       <h1>Where do we send it?</h1>
@@ -1002,6 +1224,13 @@
       // growing its own copies of two steps that already work.
       HOME=['type','address','property','details','construction','systems',
             'roof','garage','household','contact'],
+      // The disclosure comes second, before any question it authorises us to
+      // ask. Coverage is split into four screens rather than one: the policy
+      // decisions, then the bike itself, then the optional extras, then what
+      // was chosen — a single screen carrying all of it is the wall of an
+      // insurance application, which is the thing this form exists not to be.
+      MOTO=['type','disclosure','address','bikes','riders','riding','incidents',
+            'history','covPolicy','covBike','covExtras','covSummary','contact'],
       SHORT=['type','contact'],
       flow=SHORT, at=0, veh=0, drv=0;
 
@@ -1825,9 +2054,572 @@
     });
   })();
 
+  /* ================= motorcycle =================
+
+     One rule shapes all of this: the form is the agency's intake layer, not a
+     carrier's application. So every answer is stored under a normalised key —
+     liabilityLimits, physicalDamageValuation, roadsideOption — and the words
+     the visitor reads are ours. What a given carrier calls the same thing is a
+     mapping done later, on the AMS side, against these keys.
+
+     Every option list lives in MOTO_CFG. Adding a carrier that offers a
+     different set of deductibles is an edit here, not a rebuild of the form —
+     and `avail` is what a carrier's eligibility rules would drive: a valuation
+     nobody can offer this bike simply is not in the list. A coverage whose
+     list comes back with only "None" in it is skipped rather than shown as a
+     screen with one dead choice on it. */
+  var MOTO_CFG = {
+    // ---- policy level ----
+    liabilityLimits:{
+      short:'Liability',
+      title:'How much liability coverage would you like?',
+      why:'This coverage helps pay for injuries or property damage you cause to '
+         +'others in an accident.',
+      tip:'The first two numbers are the injury limits — per person, then per '
+         +'accident — and the last is property damage, all in thousands. '
+         +'"CSL" is a combined single limit: one pot of money covering both. '
+         +'Higher limits generally provide more protection.',
+      cards:true, dflt:'100/300/50',
+      options:[['30/60/25','State minimum in Texas'],['50/100/25',''],
+               ['100/300/50','A common choice'],['250/500/100',''],
+               ['300 CSL','One combined limit'],['500 CSL','One combined limit']]},
+    umBodilyInjuryLimits:{
+      short:'Uninsured motorist — injuries',
+      title:'Uninsured or underinsured driver — injuries',
+      why:'Helps protect you and your passengers if you are injured by a driver '
+         +'who does not have insurance, or does not have enough of it.',
+      tip:'On a motorcycle this is the coverage riders most often wish they had '
+         +'bought. In Texas a carrier has to offer it and you have to turn it '
+         +'down in writing.',
+      cards:true, dflt:'100/300',
+      options:[['None',''],['30/60',''],['50/100',''],['100/300',''],['250/500','']]},
+    umPropertyDamage:{
+      short:'Uninsured motorist — property',
+      title:'Uninsured or underinsured driver — your motorcycle',
+      why:'Helps pay for damage to your motorcycle caused by an uninsured or '
+         +'underinsured driver, subject to the applicable deductible.',
+      cards:true, dflt:'None',
+      options:[['None',''],['25 with $250 Deductible','']]},
+    pipLimit:{
+      short:'Personal injury protection',
+      title:'Personal injury protection',
+      why:'Can help pay certain medical expenses and other covered costs after '
+         +'an accident, regardless of who was at fault.',
+      cards:true, dflt:'None',
+      options:[['None',''],['$2,500','']]},
+    medicalPayments:{
+      short:'Medical payments',
+      title:'Medical payments',
+      why:'Helps pay eligible medical expenses for you and your passengers '
+         +'after a covered accident.',
+      cards:true, dflt:'None',
+      // Varies by state and carrier. Left as None-only until a carrier says
+      // otherwise, and a None-only list is skipped rather than shown.
+      options:[['None','']]},
+
+    // ---- per motorcycle ----
+    physicalDamageValuation:{
+      short:'Motorcycle protection',
+      title:'How would you like your motorcycle protected?',
+      why:'This decides what happens to the bike itself if it is stolen, '
+         +'damaged or written off.',
+      cards:true, perBike:true, dflt:'Actual Cash Value',
+      options:[
+        ['None - Liability Only','Your motorcycle itself would not have comprehensive or collision coverage.'],
+        ['Actual Cash Value','If your motorcycle is totalled, the insurance company generally pays its value at the time of the loss, taking age and condition into consideration.'],
+        // Neither of these is shown unless a carrier's eligibility rules turn
+        // it on for this bike. They are here so that switching them on is a
+        // flag rather than a rewrite.
+        ['Agreed Value','You and the insurance company agree a value for the motorcycle up front, including eligible accessory coverage. May need photos, receipts, title or an inspection.',false],
+        ['Total Loss Coverage','For eligible newer motorcycles, may pay based on the MSRP of a current model-year motorcycle of the same make and model after a covered total loss.',false]]},
+    comprehensiveDeductible:{
+      short:'Comprehensive deductible',
+      title:'Comprehensive deductible',
+      why:'Comprehensive generally covers theft, vandalism, weather, fire and '
+         +'certain other losses that are not a collision.',
+      tip:'The deductible is what you pay yourself before the insurance pays '
+         +'the rest. A higher one lowers the premium and costs you more if you '
+         +'do claim.',
+      cards:true, perBike:true, needsPhys:true, dflt:'$500',
+      options:[['$100',''],['$250',''],['$500',''],['$1,000','']]},
+    collisionDeductible:{
+      short:'Collision deductible',
+      title:'Collision deductible',
+      why:'Collision helps pay for damage to your motorcycle from a covered '
+         +'collision.',
+      cards:true, perBike:true, needsPhys:true, dflt:'$500',
+      options:[['None',''],['$100',''],['$250',''],['$500',''],['$1,000','']]},
+    roadsideOption:{
+      short:'Roadside',
+      title:'Roadside assistance',
+      why:'For when the bike will not go — towing to a repair shop, winching, '
+         +'a jump start or fuel brought out to you.',
+      tip:'Trip interruption adds help with lodging, food and getting around if '
+         +'a covered breakdown happens far from home — usually more than 100 '
+         +'miles away. What it pays varies by insurance company, and your agent '
+         +'will tell you what the quoting carrier includes.',
+      cards:true, perBike:true, dflt:'None',
+      options:[['None','No roadside coverage.'],
+               ['Roadside','Towing, winching, jump starts and fuel delivery.'],
+               ['Roadside w/Trip Interruption','Roadside assistance plus help with lodging, food and transport when a covered breakdown happens far from home.']]},
+    carriedContentsLimit:{
+      short:'Carried contents',
+      title:'Personal belongings you carry',
+      why:'Helps cover things like a phone, touring gear or camping kit if they '
+         +'are damaged in a covered comprehensive or collision loss.',
+      cards:true, perBike:true, dflt:'None',
+      options:[['None',''],['$1,000',''],['$2,000',''],['$3,000','']]},
+    accessoryCoverageRange:{
+      short:'Accessory coverage',
+      title:'Accessory coverage',
+      why:'Covers eligible equipment and modifications that did not come from '
+         +'the manufacturer — custom paint, chrome, exhaust, electronics, a '
+         +'sidecar or a motorcycle trailer.',
+      perBike:true, dflt:'None', select:true,
+      options:(function(){
+        var o=[['None','']]; o.push(['$1–$3,000','']);
+        for(var lo=3001; lo<30000; lo+=1000)
+          o.push(['$'+lo.toLocaleString()+'–$'+(lo+999).toLocaleString(),'']);
+        return o;
+      })()},
+    safetyApparelCoverage:{
+      short:'Riding gear',
+      title:'Riding gear',
+      why:'Covers eligible motorcycle safety apparel and riding equipment — '
+         +'helmet, jacket, gloves, boots.',
+      perBike:true, dflt:'None', select:true,
+      options:[['None',''],['$1–$500',''],['$501–$1,000',''],['$1,001–$1,500',''],
+               ['$1,501–$2,000',''],['$2,001–$2,500',''],['$2,501–$3,000','']]},
+    transportTrailer:{
+      short:'Transport trailer',
+      title:'A trailer you haul the bike on?',
+      why:'A trailer used to transport the motorcycle, not one you tow behind it.',
+      cards:true, perBike:true, dflt:'No', trailer:true,
+      options:[['No',''],['Yes','']]},
+    disappearingDeductible:{
+      short:'Disappearing deductible',
+      title:'Disappearing deductible',
+      why:'On some carriers your deductible shrinks for every year you ride '
+         +'without a claim. Availability depends on the insurance company.',
+      cards:true, perBike:true, dflt:'No',
+      options:[['No',''],['Yes','If it is available on the carrier we quote']]},
+    // Kept in the model, no screen: there is only one answer available today.
+    waiveCosmeticDamage:{ title:'Waive cosmetic damage', hidden:true, dflt:'No',
+      options:[['No','']]}
+  };
+  var POLICY_COV=['liabilityLimits','umBodilyInjuryLimits','umPropertyDamage',
+                  'pipLimit','medicalPayments'];
+  var BIKE_PHYS =['physicalDamageValuation','comprehensiveDeductible','collisionDeductible'];
+  var BIKE_EXTRA=['roadsideOption','carriedContentsLimit','accessoryCoverageRange',
+                  'safetyApparelCoverage','transportTrailer','disappearingDeductible'];
+
+  // What the visitor has chosen. Policy-level answers sit at the top; per-bike
+  // answers are keyed by bike index, because two motorcycles on one policy
+  // rarely want the same physical damage answer and assuming they do is how a
+  // classic bike ends up quoted like a commuter.
+  var COV={policy:{}, bikes:{}};
+  function covGet(key,bike){
+    return bike==null ? COV.policy[key] : ((COV.bikes[bike]||{})[key]);
+  }
+  function covSet(key,val,bike){
+    if(bike==null) COV.policy[key]=val;
+    else { (COV.bikes[bike]=COV.bikes[bike]||{})[key]=val; }
+  }
+  // Only the options a carrier can actually offer. The third element of an
+  // option is its availability; absent means available.
+  function covOptions(key){
+    return (MOTO_CFG[key].options||[]).filter(function(o){ return o[2]!==false; });
+  }
+  function covLive(key){ return !MOTO_CFG[key].hidden && covOptions(key).length>1; }
+
+  var MOTO_TIPS={
+    mEndorse:'The motorcycle authorisation on your driver licence — in Texas the '
+       +'"M" endorsement. It is what makes it legal to ride on public roads, and '
+       +'it is separate from the licence itself. If you are not sure, look for an '
+       +'M next to the class on the front of your licence.',
+    mCourse:'A rider course approved by the state — the Basic RiderCourse and '
+       +'similar. Finishing one can qualify you for a discount with several '
+       +'insurance companies, so it is worth saying if you have.',
+    mExp:'How long you have been riding on a public road, not how long you have '
+       +'owned this particular motorcycle.',
+    mFreq:'Roughly how often you ride in the months you actually ride. Nobody is '
+       +'holding you to it — it is used to work out how much the bike is used.',
+    mCC:'Engine size, printed in the bike’s handbook and usually in its name '
+       +'— a Sportster 1200 is 1200cc. It is one of the biggest things in a '
+       +'motorcycle price.',
+    mAbs:'Brakes that stop the wheels locking up in a hard stop. Most bikes made '
+       +'in the last ten years have them, and many carriers discount for it.',
+    mTrike:'Three wheels rather than two — a factory trike or a conversion. It '
+       +'is rated differently, so it matters.',
+    mMod:'Anything changed from how the factory built it that affects how it '
+       +'runs or what it is worth — a different frame, a turbo or nitrous kit, a '
+       +'big-bore kit, a lift. Cosmetic parts go under accessory coverage instead.',
+    mLien:'The bank or finance company that holds the loan on the bike. They '
+       +'normally have to be named on the policy.',
+    mAddl:'Anyone else with a financial interest who needs to be told about the '
+       +'policy — a lessor, or a co-owner.',
+    mFiling:'A form an insurance company files with the state to prove you are '
+       +'insured, usually after a licence suspension. If you have been told you '
+       +'need an SR-22, say so here — not every carrier will file one.',
+    mAssoc:'Some carriers discount for membership of a riding association. If '
+       +'yours is not listed, pick Other and tell us at the end.'
+  };
+
+  /* ---- the bikes ---- */
+  var MOTO_TYPES=['Cruiser','Sport bike','Touring','Standard / naked','Dual sport',
+    'Dirt / off-road','Scooter or moped','Trike','Custom / chopper','Other'];
+  var MOTO_USE=['Pleasure riding','Commuting to work','Business use','Track or competition'];
+  var MOTO_MILES=['Under 1,000','1,000 – 2,500','2,500 – 5,000','5,000 – 7,500',
+                  '7,500 – 10,000','Over 10,000'];
+  var MOTO_FREQ=['5–7 days per week','3–4 days per week','1–2 days per week',
+                 '1–3 days per month'];
+  var MOTO_EXP=['Less than 1 year','1 – 2 years','3 – 5 years','6 – 10 years','Over 10 years'];
+  var MOTO_ASSOC=['None','American Motorcyclist Association (AMA)','Harley Owners Group (HOG)',
+    'BMW Motorcycle Owners of America','Gold Wing Road Riders Association',
+    'Motorcycle Riders Foundation','Christian Motorcyclists Association',
+    'Military or veterans riding association','Other'];
+  var MOTO_EDU=['Did not finish high school','High school or GED','Some college',
+    'Associate degree','Bachelor degree','Master degree','Doctorate or professional'];
+  var MOTO_LIC=['Valid licence','Permit','Suspended','Expired','Never licensed'];
+  var MOTO_INC=['At-fault accident','Not-at-fault accident','Speeding ticket',
+    'Other moving violation','DUI or DWI','Comprehensive claim (theft, weather, vandalism)',
+    'Licence suspension','Other'];
+  function opts(list,val){ return sel('<option value="">Choose one</option>'
+    +list.map(function(o){ return '<option>'+esc(o)+'</option>'; }).join(''),val); }
+  function yesno(name,n){ return '<div class="pills">'
+    +'<label class="pill"><input type="radio" name="'+name+n+'" value="Yes" autocomplete="off"><span>Yes</span></label>'
+    +'<label class="pill"><input type="radio" name="'+name+n+'" value="No" autocomplete="off"><span>No</span></label></div>'; }
+  function tipFor(key){ return MOTO_TIPS[key]
+    ? '<span class="tip" hidden-tip><button type="button" aria-expanded="false" '
+      +'aria-label="What does this mean?">?</button><div role="note">'+esc(MOTO_TIPS[key])+'</div></span>'
+    : ''; }
+
+  var bikes=0, riders=0, incs=0;
+  function addBike(){ bikes++;
+    document.getElementById('bikeList').insertAdjacentHTML('beforeend',bikeBlock(bikes));
+    wireMoto(); addTips(); }
+  function addRider(){ riders++;
+    document.getElementById('riderList').insertAdjacentHTML('beforeend',riderBlock(riders));
+    wireMoto(); addTips(); }
+  function addInc(){ incs++;
+    document.getElementById('incList').insertAdjacentHTML('beforeend',incBlock(incs));
+    fillIncWho(); }
+  // Which person an incident belongs to, named rather than numbered — an agent
+  // reading "Speeding ticket — Maria" does not have to cross-reference.
+  function fillIncWho(){
+    var names=[].slice.call(document.querySelectorAll('#riderList [data-rider]'))
+      .map(function(r,i){ return r.querySelector('[data-f=firstName]').value.trim()||('Person '+(i+1)); });
+    [].forEach.call(document.querySelectorAll('.incwho'),function(s){
+      var was=s.value;
+      s.innerHTML='<option value="">Choose one</option>'
+        +names.map(function(n){ return '<option>'+esc(n)+'</option>'; }).join('');
+      if(was) s.value=was;
+    });
+  }
+  function renumber(){
+    [].forEach.call(document.querySelectorAll('#bikeList [data-bike] .bt b'),function(b,i){
+      b.textContent='Motorcycle '+(i+1); });
+    [].forEach.call(document.querySelectorAll('#riderList [data-rider] .bt b'),function(b,i){
+      b.textContent = i===0?'You':'Person '+(i+1); });
+    [].forEach.call(document.querySelectorAll('#incList [data-inc] .bt b'),function(b,i){
+      b.textContent='Incident '+(i+1); });
+    fillIncWho();
+  }
+  // Riding history is one panel per person, rebuilt on arrival so a person
+  // added or removed on the previous screen is reflected here.
+  function renderRiding(){
+    var rs=[].slice.call(document.querySelectorAll('#riderList [data-rider]'));
+    var keep={};
+    [].forEach.call(document.querySelectorAll('#ridingList [data-riding]'),function(b){
+      keep[b.dataset.idx]={ exp:b.querySelector('[data-f=yearsExperience]').value,
+                            freq:b.querySelector('[data-f=ridingFrequency]').value };
+    });
+    document.getElementById('ridingList').innerHTML = rs.map(function(r,i){
+      return ridingBlock(i+1, r.querySelector('[data-f=firstName]').value.trim()
+                              || (i===0?'You':'Person '+(i+1)));
+    }).join('');
+    [].forEach.call(document.querySelectorAll('#ridingList [data-riding]'),function(b){
+      var k=keep[b.dataset.idx]; if(!k) return;
+      b.querySelector('[data-f=yearsExperience]').value=k.exp;
+      b.querySelector('[data-f=ridingFrequency]').value=k.freq;
+    });
+    addTips();
+  }
+  function bikeBlock(n){
+    return '<div class="blk" data-bike><div class="bt"><b>Motorcycle '+n+'</b>'
+      +(n>1?'<button class="rm" type="button" data-rmbike>Remove</button>':'')+'</div>'
+      +'<div class="fl"><label>VIN <span class="opt2">(on the frame by the steering head)</span></label>'
+        +'<input data-f="vin" autocomplete="off" maxlength="17" placeholder="17 characters"></div>'
+      +'<div class="g2">'
+        +'<div class="fl"><label>Year</label><select data-f="year">'+YEARS+'</select></div>'
+        +'<div class="fl"><label>Make</label><input data-f="make" autocomplete="off" placeholder="Harley-Davidson"></div>'
+      +'</div>'
+      +'<div class="g2">'
+        +'<div class="fl"><label>Model</label><input data-f="model" autocomplete="off" placeholder="Street Glide"></div>'
+        +'<div class="fl"><label>Engine size'+tipFor('mCC')+'</label>'
+          +'<input data-f="cc" inputmode="numeric" autocomplete="off" placeholder="1200"></div>'
+      +'</div>'
+      +'<div class="fl"><label>What kind of bike is it?</label><select data-f="bodyType">'
+        +opts(MOTO_TYPES)+'</select></div>'
+      +'<div class="g2">'
+        +'<div class="fl"><label>Year you bought it</label><select data-f="purchaseYear">'+YEARS+'</select></div>'
+        +'<div class="fl"><label>How is it mostly used?</label><select data-f="use">'+opts(MOTO_USE)+'</select></div>'
+      +'</div>'
+      +'<div class="fl"><label>Miles ridden a year</label><select data-f="annualMiles">'+opts(MOTO_MILES)+'</select></div>'
+      +'<div class="fl"><label>Is it a trike?'+tipFor('mTrike')+'</label>'+yesno('bkTrike',n)+'</div>'
+      +'<div class="fl"><label>Ridden off-road?</label>'+yesno('bkOff',n)+'</div>'
+      +'<div class="fl"><label>Does it have anti-lock brakes?'+tipFor('mAbs')+'</label>'+yesno('bkAbs',n)+'</div>'
+      +'<div class="fl"><label>Modified from standard?'+tipFor('mMod')+'</label>'+yesno('bkMod',n)+'</div>'
+      +'<div class="fl" data-when="bkMod'+n+'=Yes" hidden><label>What was changed?</label>'
+        +'<textarea data-f="modifications" rows="2" placeholder="Turbo kit, lift, custom frame&hellip;"></textarea></div>'
+      +'<div class="fl"><label>Is there a loan on it?'+tipFor('mLien')+'</label>'+yesno('bkLien',n)+'</div>'
+      +'<div class="fl" data-when="bkLien'+n+'=Yes" hidden><label>Who is the lender?</label>'
+        +'<input data-f="lienholder" autocomplete="off" placeholder="Bank or finance company"></div>'
+      +'<div class="fl"><label>Anyone else to name on the policy?'+tipFor('mAddl')+'</label>'+yesno('bkAddl',n)+'</div>'
+      +'<div class="fl" data-when="bkAddl'+n+'=Yes" hidden><label>Who, and why?</label>'
+        +'<input data-f="additionalInterest" autocomplete="off" placeholder="Name — lessor, co-owner&hellip;"></div>'
+      +'</div>';
+  }
+  function riderBlock(n){
+    return '<div class="blk" data-rider><div class="bt"><b>'+(n===1?'You':'Person '+n)+'</b>'
+      +(n>1?'<button class="rm" type="button" data-rmrider>Remove</button>':'')+'</div>'
+      +'<div class="g2">'
+        +'<div class="fl"><label>First name</label><input data-f="firstName" autocomplete="off"></div>'
+        +'<div class="fl"><label>Last name</label><input data-f="lastName" autocomplete="off"></div>'
+      +'</div>'
+      +'<div class="g2">'
+        +'<div class="fl"><label>Middle initial <span class="opt2">(optional)</span></label>'
+          +'<input data-f="middleInitial" maxlength="1" autocomplete="off"></div>'
+        +'<div class="fl"><label>Suffix <span class="opt2">(optional)</span></label>'
+          +'<select data-f="suffix"><option value=""></option><option>Jr</option><option>Sr</option>'
+          +'<option>II</option><option>III</option><option>IV</option></select></div>'
+      +'</div>'
+      +'<div class="g2">'
+        +'<div class="fl"><label>Date of birth</label><input data-f="dob" type="date" autocomplete="off"></div>'
+        +'<div class="fl"><label>Gender</label><select data-f="gender">'
+          +'<option value="">Choose one</option><option>Female</option><option>Male</option></select></div>'
+      +'</div>'
+      +'<div class="g2">'
+        +'<div class="fl"><label>Marital status</label><select data-f="maritalStatus">'
+          +opts(['Single','Married','Divorced','Widowed','Separated'])+'</select></div>'
+        +(n>1?'<div class="fl"><label>Relationship to you</label><select data-f="relationship">'
+          +opts(['Spouse','Child','Parent','Sibling','Other relative','Roommate','Other'])+'</select></div>'
+          :'<div class="fl"><label>Highest level of school finished</label><select data-f="education">'
+          +opts(MOTO_EDU)+'</select></div>')
+      +'</div>'
+      +(n>1?'<div class="fl"><label>Highest level of school finished</label><select data-f="education">'
+        +opts(MOTO_EDU)+'</select></div>':'')
+      +'<div class="fl"><label>Driver licence status</label><select data-f="licenseStatus">'
+        +opts(MOTO_LIC)+'</select></div>'
+      +'<div class="g2">'
+        +'<div class="fl"><label>Licence state</label><select data-f="licenseState">'+STATES+'</select></div>'
+        +'<div class="fl"><label>Licence number</label><input data-f="licenseNumber" autocomplete="off" maxlength="25"></div>'
+      +'</div>'
+      +'<div class="fl"><label>Do you need an SR-22 or similar filing?'+tipFor('mFiling')+'</label>'
+        +yesno('rdFiling',n)+'</div>'
+      +'</div>';
+  }
+  function ridingBlock(n,name){
+    return '<div class="blk" data-riding data-idx="'+n+'"><div class="bt"><b>'+esc(name)+'</b></div>'
+      +'<div class="fl"><label>Motorcycle endorsement on the licence?'+tipFor('mEndorse')+'</label>'
+        +yesno('rgEnd',n)+'</div>'
+      +'<div class="fl"><label>Years riding'+tipFor('mExp')+'</label>'
+        +'<select data-f="yearsExperience">'+opts(MOTO_EXP)+'</select></div>'
+      +'<div class="fl"><label>Finished an approved safety course?'+tipFor('mCourse')+'</label>'
+        +yesno('rgCourse',n)+'</div>'
+      +'<div class="fl"><label>How often do you ride in season?'+tipFor('mFreq')+'</label>'
+        +'<select data-f="ridingFrequency">'+opts(MOTO_FREQ)+'</select></div>'
+      +'</div>';
+  }
+  function incBlock(n){
+    return '<div class="blk" data-inc><div class="bt"><b>Incident '+n+'</b>'
+      +(n>1?'<button class="rm" type="button" data-rminc>Remove</button>':'')+'</div>'
+      +'<div class="fl"><label>What happened?</label><select data-f="type">'+opts(MOTO_INC)+'</select></div>'
+      +'<div class="g2">'
+        +'<div class="fl"><label>When?</label><input data-f="date" type="month" autocomplete="off"></div>'
+        +'<div class="fl"><label>Who was it?</label><select data-f="who" class="incwho">'
+          +'<option value="">Choose one</option></select></div>'
+      +'</div>'
+      +'<div class="fl"><label>Anything to add? <span class="opt2">(optional)</span></label>'
+        +'<input data-f="notes" autocomplete="off" placeholder="A short description helps the agent"></div>'
+      +'</div>';
+  }
+
+  /* ---- drawing a coverage ----
+     One shape for all of them: the question, a line of plain English, an
+     optional bubble carrying the longer answer, then the choices. Cards for a
+     decision worth reading, a select when the answer is a number off a list —
+     thirty accessory bands as cards would bury everything around them. */
+  function covBlock(key,bike){
+    var c=MOTO_CFG[key], list=covOptions(key), id=key+(bike==null?'':'_'+bike),
+        cur=covGet(key,bike);
+    var body;
+    if(c.select){
+      body='<select class="covsel" data-cov="'+key+'"'+(bike==null?'':' data-bike="'+bike+'"')+'>'
+        +list.map(function(o){
+            return '<option'+(o[0]===cur?' selected':'')+'>'+esc(o[0])+'</option>'; }).join('')
+        +'</select>';
+    } else {
+      body='<div class="covopts'+(list.length>3&&!list.some(function(o){return o[1];})?' two':'')+'">'
+        +list.map(function(o){
+            return '<button type="button" class="covopt" data-cov="'+key+'"'
+              +(bike==null?'':' data-bike="'+bike+'"')+' data-v="'+esc(o[0])+'" '
+              +'aria-pressed="'+(o[0]===cur?'true':'false')+'">'
+              +'<span class="dot" aria-hidden="true"></span><span class="ct"><b>'+esc(o[0])+'</b>'
+              +(o[1]?'<small>'+esc(o[1])+'</small>':'')+'</span></button>'; }).join('')
+        +'</div>';
+    }
+    return '<div class="cov" data-covrow="'+id+'"><h3>'+esc(c.title)
+      +(c.tip?'<span class="tip" hidden-tip><button type="button" aria-expanded="false" '
+        +'aria-label="What does this mean?">?</button><div role="note">'+esc(c.tip)+'</div></span>':'')
+      +'</h3><p class="why">'+esc(c.why)+'</p>'+body+'</div>';
+  }
+
+  function bikeName(i){
+    var b=document.querySelectorAll('#bikeList [data-bike]')[i];
+    if(!b) return 'Motorcycle '+(i+1);
+    var y=b.querySelector('[data-f=year]').value, mk=b.querySelector('[data-f=make]').value.trim(),
+        md=b.querySelector('[data-f=model]').value.trim();
+    return [y,mk,md].filter(Boolean).join(' ')||('Motorcycle '+(i+1));
+  }
+  function bikeCount(){ return document.querySelectorAll('#bikeList [data-bike]').length||1; }
+
+  // Defaults are filled the first time a screen is drawn, so a visitor who
+  // agrees with all of them can simply press Continue rather than tapping
+  // through eleven questions to say yes to what we already suggested.
+  function covDefaults(){
+    POLICY_COV.forEach(function(k){
+      if(covLive(k)&&covGet(k)==null) covSet(k,MOTO_CFG[k].dflt);
+      if(!covLive(k)) covSet(k,covOptions(k)[0][0]);
+    });
+    for(var i=0;i<bikeCount();i++)
+      BIKE_PHYS.concat(BIKE_EXTRA).forEach(function(k){
+        if(covGet(k,i)==null) covSet(k,MOTO_CFG[k].dflt,i);
+      });
+    covSet('waiveCosmeticDamage',MOTO_CFG.waiveCosmeticDamage.dflt);
+  }
+  function renderCovPolicy(){
+    covDefaults();
+    document.getElementById('covPolicyBody').innerHTML =
+      POLICY_COV.filter(covLive).map(function(k){ return covBlock(k,null); }).join('');
+    addTips();
+  }
+  function hasPhys(i){
+    var v=covGet('physicalDamageValuation',i);
+    return !!v && v!=='None - Liability Only';
+  }
+  function renderCovBike(){
+    covDefaults();
+    var out='';
+    for(var i=0;i<bikeCount();i++){
+      out+=(bikeCount()>1?'<p class="bikehd">'+esc(bikeName(i))+'</p>':'')
+         + covBlock('physicalDamageValuation',i)
+         + (hasPhys(i)?covBlock('comprehensiveDeductible',i)+covBlock('collisionDeductible',i):'');
+    }
+    document.getElementById('covBikeBody').innerHTML=out;
+    addTips();
+  }
+  function renderCovExtras(){
+    covDefaults();
+    var out='';
+    for(var i=0;i<bikeCount();i++){
+      out+=(bikeCount()>1?'<p class="bikehd">'+esc(bikeName(i))+'</p>':'')
+         + BIKE_EXTRA.filter(covLive).map(function(k){ return covBlock(k,i); }).join('');
+    }
+    document.getElementById('covExtrasBody').innerHTML=out;
+    addTips();
+  }
+
+  /* The summary is the last thing before contact, so every line is editable —
+     it is the only screen where a visitor can see the whole shape of what they
+     asked for, and a summary you cannot act on is just a receipt. */
+  function renderCovSummary(){
+    function row(k,bike){
+      // The summary uses the short label, not the question. "How much liability
+      // coverage would you like? — 250/500/100" is a sentence; "Liability" with
+      // the answer beside it is something you can scan fourteen of.
+      var v=covGet(k,bike); if(v==null) return '';
+      return '<div class="sumrow"><span class="sk">'+esc(MOTO_CFG[k].short||MOTO_CFG[k].title)+'</span>'
+        +'<span class="sv">'+esc(v)+'</span>'
+        +'<button type="button" data-edit="'+(bike==null?'covPolicy':(BIKE_PHYS.indexOf(k)>-1?'covBike':'covExtras'))
+        +'">Edit</button></div>';
+    }
+    var out='<div class="sumgrp"><h3>The whole policy</h3>'
+      + POLICY_COV.filter(covLive).map(function(k){ return row(k,null); }).join('')+'</div>';
+    for(var i=0;i<bikeCount();i++){
+      out+='<div class="sumgrp"><h3>'+esc(bikeName(i))+'</h3>'
+        + BIKE_PHYS.filter(function(k){
+            return k==='physicalDamageValuation'||hasPhys(i); }).map(function(k){ return row(k,i); }).join('')
+        + BIKE_EXTRA.filter(covLive).map(function(k){ return row(k,i); }).join('')+'</div>';
+    }
+    document.getElementById('covSummaryBody').innerHTML=out;
+  }
+
+  /* ---- conditionals, all in one place ----
+     Same rule as the home flow: a hidden field is never read, so closing a
+     branch discards what was typed into it and a changed mind cannot ship a
+     stale answer. [data-when="name=Value"] is the generic version — it lets a
+     repeated block carry its own conditionals without a listener per block. */
+  function wireMoto(){
+    [].forEach.call(document.querySelectorAll('[data-when]'),function(el){
+      var p=el.getAttribute('data-when').split('='), got=pick(p[0]);
+      el.hidden = got!==p[1];
+    });
+    var w=document.getElementById('mPriorWrap');
+    if(w) w.hidden = pick('mPrior')!=='Yes';
+    var iw=document.getElementById('mIncWrap');
+    if(iw){ iw.hidden = pick('mInc')!=='Yes';
+      if(pick('mInc')==='Yes' && !incs) addInc(); }
+  }
+
+  /* Wired in its own block, after the definitions above. It used to sit inside
+     the homeowners setup, which runs earlier in the file — MOTO_TYPES and the
+     rest were still undefined there, and the first bike block threw before any
+     other listener on the page had been attached. */
+  (function(){
+    addBike(); addRider();
+    document.getElementById('addBike').addEventListener('click',function(){ addBike(); });
+    document.getElementById('addRider').addEventListener('click',function(){ addRider(); });
+    document.getElementById('addInc').addEventListener('click',function(){ addInc(); });
+    document.getElementById('mAssoc').innerHTML=opts(MOTO_ASSOC);
+
+    form.addEventListener('click',function(e){
+      var rm=e.target.closest('[data-rmbike],[data-rmrider],[data-rminc]');
+      if(rm){ rm.closest('.blk').remove(); renumber(); return; }
+      var c=e.target.closest('.covopt'); if(!c) return;
+      var bike=c.dataset.bike==null?null:Number(c.dataset.bike);
+      covSet(c.dataset.cov,c.dataset.v,bike);
+      [].forEach.call(c.parentNode.children,function(x){
+        x.setAttribute('aria-pressed',String(x===c)); });
+      // Liability-only takes the two deductible questions off the screen
+      // entirely rather than greying them out.
+      if(c.dataset.cov==='physicalDamageValuation') renderCovBike();
+    });
+    form.addEventListener('change',function(e){
+      if(e.target.classList&&e.target.classList.contains('covsel'))
+        covSet(e.target.dataset.cov,e.target.value,
+               e.target.dataset.bike==null?null:Number(e.target.dataset.bike));
+      if(/^(mPrior|mInc|bk|rd)/.test(e.target.name||'')) wireMoto();
+      // The rider's name labels their incidents and their riding panel.
+      if(e.target.dataset&&e.target.dataset.f==='firstName') fillIncWho();
+    });
+    document.getElementById('covSummaryBody').addEventListener('click',function(e){
+      var b=e.target.closest('[data-edit]'); if(!b) return;
+      show(b.dataset.edit);
+    });
+  })();
+
   /* ---------- navigation ---------- */
   function stepEl(name){ return steps.filter(function(s){return s.dataset.step===name;})[0]; }
   function show(name){
+    // Screens built from earlier answers are drawn on arrival, never once at
+    // load: a motorcycle or a person added two steps ago has to appear here.
+    if(name==='riding') renderRiding();
+    if(name==='incidents') fillIncWho();
+    if(name==='covPolicy') renderCovPolicy();
+    if(name==='covBike') renderCovBike();
+    if(name==='covExtras') renderCovExtras();
+    if(name==='covSummary') renderCovSummary();
     steps.forEach(function(s){ s.classList.toggle('on',s.dataset.step===name); });
     var i=flow.indexOf(name);
     if(i>-1){ at=i; bar.style.width=Math.round(((i+1)/flow.length)*100)+'%';
@@ -1840,16 +2632,23 @@
   }
   function chosenType(){ var r=form.querySelector('input[name=type]:checked'); return r?r.value:''; }
   function isHome(){ return chosenType()==='home'; }
+  function isMoto(){ return chosenType()==='moto'; }
   function setFlow(){
     var t=chosenType();
-    flow = t==='car' ? AUTO : t==='home' ? HOME : SHORT;
-    // Two shared steps that have to say something different depending on which
+    flow = t==='car' ? AUTO : t==='home' ? HOME : t==='moto' ? MOTO : SHORT;
+    // Shared steps that have to say something different depending on which
     // product is being quoted.
     var h1=document.getElementById('addrH1');
     if(h1) h1.textContent = isHome() ? 'What is the property address?'
+                          : isMoto() ? 'Where is the motorcycle kept?'
                                      : 'Where do you keep the car?';
     var dob=document.getElementById('hDobWrap');
     if(dob) dob.hidden = !isHome();
+    // The motorcycle flow asks where you live on its own screen, in the words
+    // a motorcycle carrier uses. Asking again here would be the same question
+    // twice in two vocabularies.
+    var res=document.getElementById('res');
+    if(res) res.closest('.fl').hidden = isMoto();
   }
 
   function fail(id,msg){ var p=document.getElementById(id); if(!p) return false;
@@ -1875,7 +2674,8 @@
         return fail('e-address','Please enter a 5-digit ZIP code.');
       // Never defaulted. Left blank the AMS rates as a renter, so a homeowner
       // would silently lose the discount and see a price that is too high.
-      if(!document.getElementById('res').value)
+      // The motorcycle flow asks it on its own screen instead.
+      if(!isMoto() && !document.getElementById('res').value)
         return fail('e-address','Let us know if you own or rent \u2014 it changes the price.');
       return true; }
     if(name==='current'){ clear('e-current');
@@ -1934,6 +2734,69 @@
       if(!document.getElementById('hGar').value) return fail('e-garage','Is there a garage?');
       if(hasGarage()&&!pick('hGarSp')) return fail('e-garage','How many cars does the garage hold?');
       return true; }
+    /* ---- motorcycle ---- */
+    if(name==='disclosure'){ clear('e-disclosure');
+      var d=pick('mDisc');
+      if(!d) return fail('e-disclosure','Please let us know whether you agree.');
+      // A decline is a real answer, not an error. It ends the online quote and
+      // hands the person to an agent, because without permission to pull the
+      // records nobody can price it — but we can still take the enquiry.
+      if(d==='Decline') return fail('e-disclosure',
+        'Without that permission we cannot pull the records a price is based on '
+        + '— but an agent still can, by phone. Call 915-503-1207 and we will take it from there.');
+      return true; }
+    if(name==='bikes'){ clear('e-bikes');
+      var bs=[].slice.call(document.querySelectorAll('#bikeList [data-bike]'));
+      for(var bi=0;bi<bs.length;bi++){
+        var yr=bs[bi].querySelector('[data-f=year]').value,
+            mk=bs[bi].querySelector('[data-f=make]').value.trim(),
+            vin=bs[bi].querySelector('[data-f=vin]').value.trim();
+        if(!vin && !(yr&&mk))
+          return fail('e-bikes','Add the VIN, or at least the year and make of motorcycle '+(bi+1)+'.');
+        if(!bs[bi].querySelector('[data-f=use]').value)
+          return fail('e-bikes','How is motorcycle '+(bi+1)+' mostly used?');
+      }
+      return true; }
+    if(name==='riders'){ clear('e-riders');
+      var rs=[].slice.call(document.querySelectorAll('#riderList [data-rider]'));
+      for(var ri=0;ri<rs.length;ri++){
+        if(!rs[ri].querySelector('[data-f=firstName]').value.trim())
+          return fail('e-riders','We need a first name for person '+(ri+1)+'.');
+        if(!rs[ri].querySelector('[data-f=dob]').value)
+          return fail('e-riders','And a date of birth for '
+            +(rs[ri].querySelector('[data-f=firstName]').value.trim()||'person '+(ri+1))+'.');
+        if(!rs[ri].querySelector('[data-f=licenseStatus]').value)
+          return fail('e-riders','What is the licence status for '
+            +(rs[ri].querySelector('[data-f=firstName]').value.trim()||'person '+(ri+1))+'?');
+      }
+      return true; }
+    if(name==='riding'){ clear('e-riding');
+      var gs=[].slice.call(document.querySelectorAll('#ridingList [data-riding]'));
+      for(var gi=0;gi<gs.length;gi++){
+        if(!gs[gi].querySelector('[data-f=yearsExperience]').value)
+          return fail('e-riding','How long has '+gs[gi].querySelector('b').textContent+' been riding?');
+      }
+      return true; }
+    if(name==='incidents'){ clear('e-incidents');
+      if(!pick('mInc')) return fail('e-incidents','Let us know either way — &ldquo;nothing to report&rdquo; is one press.');
+      if(pick('mInc')==='Yes'){
+        var is=[].slice.call(document.querySelectorAll('#incList [data-inc]'));
+        for(var ii=0;ii<is.length;ii++)
+          if(!is[ii].querySelector('[data-f=type]').value)
+            return fail('e-incidents','What happened in incident '+(ii+1)+'?');
+      }
+      return true; }
+    if(name==='history'){ clear('e-history');
+      if(!pick('mPrior')) return fail('e-history','Have you had motorcycle insurance in the last 12 months?');
+      if(!document.getElementById('mRes').value)
+        return fail('e-history','What best describes where you live?');
+      if(!pick('mPaperless')) return fail('e-history','Would you like your documents by email?');
+      return true; }
+    if(name==='covPolicy'||name==='covBike'||name==='covExtras'||name==='covSummary'){
+      // Every coverage screen opens with a default already selected, so there
+      // is nothing here that can be left blank.
+      return true; }
+
     if(name==='household'){ clear('e-household');
       if(!pick('hDog')) return fail('e-household','Is there a dog in the home?');
       if(pick('hDog')==='Yes'&&!dogBreeds().length)
@@ -2143,6 +3006,16 @@
     +'and my policy at the number provided. Message and data rates may apply. Message frequency '
     +'varies. Reply STOP to opt out, HELP for help.';
 
+  /* Travels with the answer, the same way the SMS consent wording does: what
+     matters later is not that a box was ticked but what the person was shown
+     when they ticked it. Kept word-for-word in step with the screen. */
+  var DISCLOSURE_TEXT='By continuing, you authorize Safe House Insurance and the insurance '
+    +'companies we work with to use the information you provide, along with information from '
+    +'other permitted sources, to obtain and evaluate insurance quotes. This may include '
+    +'insurance history, driving history, claims information, and other information permitted '
+    +'by law. Information may also be used to determine eligibility, pricing, discounts, and '
+    +'available coverage options.';
+
   function toAms(){
     var ins=form.querySelector('input[name=insured]:checked'),
         liab=document.getElementById('liab').value,
@@ -2206,7 +3079,100 @@
     if(pc) p.priorCarrier=pc;
     if(pe) p.priorExpiration=pe;
     if(isHome()) p.property=homePayload();
+    if(isMoto()) p.motorcycle=motoPayload();
     return p;
+  }
+
+  /* Everything the motorcycle flow collected, under normalised keys.
+
+     Deliberately not named after any carrier. `physicalDamageValuation` holds
+     "Actual Cash Value", not a Progressive code; mapping that onto whichever
+     carrier is being quoted happens on the AMS side, once, rather than being
+     baked into a form that then only fits one company. The agency can add a
+     second motorcycle carrier without the visitor's screens changing at all.
+
+     Coverage is split the way it is actually sold: what applies to the policy
+     against what applies to a given motorcycle. Two bikes on one policy do not
+     have to share a physical damage answer. */
+  function motoPayload(){
+    var v=function(el,f){ var x=el.querySelector('[data-f='+f+']'); return x?x.value.trim():''; };
+    var num=function(s){ var n=String(s).replace(/\D/g,''); return n?Number(n):undefined; };
+    var blocks=function(sel){ return [].slice.call(document.querySelectorAll(sel)); };
+
+    var o={
+      disclosure:{ accepted: pick('mDisc')==='Agree',
+                   text: DISCLOSURE_TEXT, at: new Date().toISOString(),
+                   source:'safehouseins.com/quote' },
+      paperless: pick('mPaperless'),
+      residence: document.getElementById('mRes').value,
+      association: document.getElementById('mAssoc').value||undefined,
+      priorInsurance: pick('mPrior')==='Yes',
+      garagingZip: document.getElementById('zip').value.trim(),
+      motorcycles:[], riders:[], incidents:[],
+      coverage:{ policy:{}, motorcycles:[] }
+    };
+    if(pick('mPrior')==='Yes'){
+      o.priorCarrier=document.getElementById('mPriorCar').value.trim()||undefined;
+      o.priorExpiration=document.getElementById('mPriorExp').value||undefined;
+    }
+    blocks('#bikeList [data-bike]').forEach(function(b,i){
+      var n=i+1, m={
+        vin:v(b,'vin')||undefined, year:num(v(b,'year')), make:v(b,'make')||undefined,
+        model:v(b,'model')||undefined, engineCc:num(v(b,'cc')),
+        bodyType:v(b,'bodyType')||undefined, purchaseYear:num(v(b,'purchaseYear')),
+        primaryUse:v(b,'use')||undefined, annualMiles:v(b,'annualMiles')||undefined,
+        isTrike:pick('bkTrike'+n), offRoadUse:pick('bkOff'+n),
+        antiLockBrakes:pick('bkAbs'+n), modified:pick('bkMod'+n)
+      };
+      // A closed branch contributes nothing rather than a null the AMS has to
+      // interpret — the same rule the home flow follows.
+      if(pick('bkMod'+n)==='Yes') m.modifications=v(b,'modifications')||undefined;
+      if(pick('bkLien'+n)==='Yes') m.lienholder=v(b,'lienholder')||undefined;
+      if(pick('bkAddl'+n)==='Yes') m.additionalInterest=v(b,'additionalInterest')||undefined;
+      o.motorcycles.push(m);
+    });
+    blocks('#riderList [data-rider]').forEach(function(r,i){
+      var n=i+1, g=document.querySelectorAll('#ridingList [data-riding]')[i];
+      var d={
+        firstName:v(r,'firstName'), lastName:v(r,'lastName')||undefined,
+        middleInitial:v(r,'middleInitial')||undefined, suffix:v(r,'suffix')||undefined,
+        dob:v(r,'dob'), gender:v(r,'gender')||undefined,
+        maritalStatus:v(r,'maritalStatus')||undefined,
+        relationship:i===0?'Insured':(v(r,'relationship')||undefined),
+        education:v(r,'education')||undefined,
+        licenseStatus:v(r,'licenseStatus')||undefined,
+        licenseState:v(r,'licenseState')||undefined,
+        licenseNumber:v(r,'licenseNumber')||undefined,
+        stateFilingRequired:pick('rdFiling'+n)
+      };
+      if(g) d.riding={
+        endorsement:pick('rgEnd'+n),
+        yearsExperience:v(g,'yearsExperience')||undefined,
+        safetyCourse:pick('rgCourse'+n),
+        ridingFrequency:v(g,'ridingFrequency')||undefined
+      };
+      o.riders.push(d);
+    });
+    if(pick('mInc')==='Yes') blocks('#incList [data-inc]').forEach(function(b){
+      if(!v(b,'type')) return;
+      o.incidents.push({ type:v(b,'type'), date:v(b,'date')||undefined,
+        who:v(b,'who')||undefined, notes:v(b,'notes')||undefined });
+    });
+
+    POLICY_COV.forEach(function(k){ if(covGet(k)!=null) o.coverage.policy[k]=covGet(k); });
+    o.coverage.policy.waiveCosmeticDamage=covGet('waiveCosmeticDamage');
+    for(var i=0;i<o.motorcycles.length;i++){
+      var c={};
+      BIKE_PHYS.forEach(function(k){
+        // The deductibles are simply absent on a liability-only bike, because
+        // the question was never put and an answer there would be invented.
+        if(k==='physicalDamageValuation'||hasPhys(i)) c[k]=covGet(k,i);
+      });
+      BIKE_EXTRA.forEach(function(k){ if(covLive(k)) c[k]=covGet(k,i); });
+      o.coverage.motorcycles.push(c);
+    }
+    window.__moto=o;
+    return o;
   }
 
   /* Everything the home flow collected, under one key.
@@ -2788,7 +3754,7 @@
       +'\nEmail: '+document.getElementById('cem').value
       // carried here too, so a fallback never loses the consent record
       +'\nSMS consent: '+(sc&&sc.checked?('YES at '+new Date().toISOString()):'NO')
-      +(isHome()?homeMailBody():'')
+      +(isHome()?homeMailBody():'')+(isMoto()?motoMailBody():'')
       +(document.getElementById('cnt').value?'\n\nNotes: '+document.getElementById('cnt').value:'');
     location.href='mailto:contact@safehouseins.com?subject='
       +encodeURIComponent('Quote request - '+LABEL[chosenType()]+' - '+document.getElementById('cfn').value)
@@ -2842,6 +3808,62 @@
     add('Unrepaired damage',o.unrepairedDamage==='Yes'
         ?'YES — '+o.damageDescription:'No');
     add('Applicant DOB',o.dateOfBirth);
+    return '\n'+L.join('\n');
+  }
+
+  /* The motorcycle answers, for the agent who quotes it by hand.
+
+     Same reason as the home version: motorcycle does not reach the rating
+     endpoint, so without this the visitor answers sixty-odd questions and an
+     agent receives a name and a phone number. */
+  function motoMailBody(){
+    var o=motoPayload(), L=[];
+    function add(k,v){ if(v!==undefined&&v!==null&&v!=='') L.push(k+': '+v); }
+    L.push('\n--- DISCLOSURE ---');
+    add('Agreed',o.disclosure.accepted?('YES at '+o.disclosure.at):'NO');
+    L.push('\n--- POLICY ---');
+    add('Garaging ZIP',o.garagingZip);
+    add('Residence',o.residence);
+    add('Association',o.association);
+    add('Prior motorcycle insurance',o.priorInsurance
+      ? ('YES'+(o.priorCarrier?' — '+o.priorCarrier:'')+(o.priorExpiration?', ends '+o.priorExpiration:''))
+      : 'NO');
+    add('Paperless',o.paperless);
+    o.motorcycles.forEach(function(m,i){
+      L.push('\n--- MOTORCYCLE '+(i+1)+' ---');
+      add('Bike',[m.year,m.make,m.model].filter(Boolean).join(' ')||'(not given)');
+      add('VIN',m.vin); add('Engine',m.engineCc?m.engineCc+'cc':undefined);
+      add('Type',m.bodyType); add('Bought',m.purchaseYear);
+      add('Use',m.primaryUse); add('Miles a year',m.annualMiles);
+      add('Trike',m.isTrike); add('Off-road',m.offRoadUse); add('ABS',m.antiLockBrakes);
+      add('Modified',m.modified==='Yes'?('YES — '+(m.modifications||'not described')):'No');
+      add('Lienholder',m.lienholder); add('Additional interest',m.additionalInterest);
+      var c=o.coverage.motorcycles[i]||{};
+      Object.keys(c).forEach(function(k){ add('  '+MOTO_CFG[k].title,c[k]); });
+    });
+    o.riders.forEach(function(d,i){
+      L.push('\n--- RIDER '+(i+1)+' ---');
+      add('Name',[d.firstName,d.middleInitial,d.lastName,d.suffix].filter(Boolean).join(' '));
+      add('DOB',d.dob); add('Gender',d.gender); add('Marital',d.maritalStatus);
+      add('Relationship',d.relationship); add('Education',d.education);
+      add('Licence',[d.licenseStatus,d.licenseState,d.licenseNumber].filter(Boolean).join(' / '));
+      add('SR-22 or filing needed',d.stateFilingRequired);
+      if(d.riding){
+        add('Endorsement',d.riding.endorsement);
+        add('Years riding',d.riding.yearsExperience);
+        add('Safety course',d.riding.safetyCourse);
+        add('Rides',d.riding.ridingFrequency);
+      }
+    });
+    if(o.incidents.length){
+      L.push('\n--- INCIDENTS ---');
+      o.incidents.forEach(function(x,i){
+        add(String(i+1),[x.type,x.date,x.who,x.notes].filter(Boolean).join(' — '));
+      });
+    } else L.push('\n--- INCIDENTS ---\nNone reported');
+    L.push('\n--- COVERAGE (whole policy) ---');
+    Object.keys(o.coverage.policy).forEach(function(k){
+      add(MOTO_CFG[k].title,o.coverage.policy[k]); });
     return '\n'+L.join('\n');
   }
 
