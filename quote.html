@@ -1990,9 +1990,22 @@
      is there, and when it is not, the shared one is still used.
 
      Nothing has to be scoped. It is there for the handful of collisions. */
+  /* Where borrowing is worse than not having a photograph at all.
+
+     Sharing is right for a material that looks the same wherever it is asked
+     about. Wood is not one: a butcher-block worktop, a wood-shingle roof and
+     lap siding on the outside of a house have the name in common and nothing
+     else. A countertop photo uploaded as wood.webp was being shown as the
+     exterior of somebody's house.
+
+     These fall back to the drawing instead, which for siding is a hand-drawn
+     lap, until a scoped photograph is supplied. */
+  var NO_BORROW={'siding-wood':1,'roof-material-wood':1};
+
   function usePhotoIfThere(host,value,scope){
-    var names=[]; if(scope) names.push(scope+'-'+artSlug(value));
-    names.push(artSlug(value));
+    var names=[], scoped=scope?scope+'-'+artSlug(value):'';
+    if(scoped) names.push(scoped);
+    if(!NO_BORROW[scoped]) names.push(artSlug(value));
     (function attempt(i){
       if(i>=names.length) return;
       var im=new Image();

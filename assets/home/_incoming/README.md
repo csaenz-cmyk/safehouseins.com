@@ -64,10 +64,17 @@ The prefixes are `construction`, `foundation`, `siding`, `roof-material`,
 `roof-shape`, `flooring` and `countertops`.
 
 Nothing has to be scoped — it exists for the handful of collisions. Upload
-`wood.jpg` alone and all three questions use it; add `flooring-wood.jpg` later
-and only the flooring question changes. The words that collide today are
+`terrazzo.jpg` alone and both questions use it; add `flooring-terrazzo.jpg`
+later and only the flooring question changes. The words that collide today are
 **wood**, **concrete**, **terrazzo**, **marble**, **tile**, **laminate**,
 **stone** and **metal**.
+
+**Wood is the exception that never shares.** A butcher-block worktop, a
+wood-shingle roof and lap siding have the name in common and nothing else, so
+the siding and roof-material questions ignore a bare `wood.jpg` and keep their
+drawing until `siding-wood.jpg` and `roof-material-wood.jpg` exist. This is not
+a rule worth extending by guesswork: it is there because a countertop photo was
+being shown as the outside of somebody's house.
 
 ### Construction type
 
