@@ -41,8 +41,33 @@ turned into a hyphen. Get it wrong and the tool still converts the file, the
 page still works, and the drawing quietly stays.
 
 Some names are shared on purpose. `stone.jpg` covers Stone under both
-construction type and siding, and `wood.jpg` covers wood siding, wood flooring
-and a wood countertop. One photo, three places.
+construction type and siding: brick is brick whichever question is asking, so
+one upload does the work of two.
+
+### When one word needs two photographs
+
+Sharing breaks down where the same word is not the same picture. Terrazzo
+underfoot is a floor and terrazzo in a kitchen is a worktop. Wood siding, a
+wood floor and a butcher-block counter have nothing in common but the name.
+
+For those, put the section in front of the filename and it wins over the
+shared one:
+
+| File | Used by |
+|---|---|
+| `terrazzo.jpg` | anything asking about terrazzo |
+| `flooring-terrazzo.jpg` | the flooring question only, beating the above |
+| `countertops-wood.jpg` | the countertop question only |
+| `siding-wood.jpg` | the siding question only |
+
+The prefixes are `construction`, `foundation`, `siding`, `roof-material`,
+`roof-shape`, `flooring` and `countertops`.
+
+Nothing has to be scoped — it exists for the handful of collisions. Upload
+`wood.jpg` alone and all three questions use it; add `flooring-wood.jpg` later
+and only the flooring question changes. The words that collide today are
+**wood**, **concrete**, **terrazzo**, **marble**, **tile**, **laminate**,
+**stone** and **metal**.
 
 ### Construction type
 

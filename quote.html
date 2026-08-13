@@ -1977,17 +1977,71 @@
   function artSlug(v){
     return String(v).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
   }
-  function usePhotoIfThere(host,value){
-    var im=new Image();
-    im.onload=function(){
-      host.innerHTML='';
-      im.alt=''; im.loading='lazy'; im.decoding='async';
-      host.appendChild(im);
-    };
-    im.src='assets/home/'+artSlug(value)+'.webp';
+  /* Two names are tried, most specific first.
+
+     Most materials are one photograph wherever they appear: brick is brick on
+     a wall whether the question is siding or construction type, so `brick.webp`
+     serves both and one upload does the work of two.
+
+     But some are the same word and not the same picture. Terrazzo underfoot is
+     a floor and terrazzo in a kitchen is a worktop; wood siding, a wood floor
+     and a butcher-block counter share nothing but a name. So a scoped file —
+     `countertops-terrazzo.webp` — wins over the shared `terrazzo.webp` when it
+     is there, and when it is not, the shared one is still used.
+
+     Nothing has to be scoped. It is there for the handful of collisions. */
+  function usePhotoIfThere(host,value,scope){
+    var names=[]; if(scope) names.push(scope+'-'+artSlug(value));
+    names.push(artSlug(value));
+    (function attempt(i){
+      if(i>=names.length) return;
+      var im=new Image();
+      im.onload=function(){
+        host.innerHTML='';
+        im.alt=''; im.loading='lazy'; im.decoding='async';
+        host.appendChild(im);
+      };
+      im.onerror=function(){ attempt(i+1); };
+      im.src='assets/home/'+names[i]+'.webp';
+    })(0);
   }
 
-  function visualize(id,over){
+  /* The picture grid, built from checkboxes instead of a select.
+
+     Same shape as visualize() and for the same reason: the inputs stay in the
+     DOM as the single source of truth, so picks() and homePayload() read them
+     exactly as they did when this was a row of text pills.
+
+     Flooring and countertops carried a 19px swatch until there were real
+     photographs to show. A drawn swatch that small is a coloured dot, which is
+     honest about a drawing and wasteful of a photograph of actual granite. */
+  function visualMulti(name,scope,over){
+    var boxes=[].slice.call(form.querySelectorAll('input[name='+name+']'));
+    if(!boxes.length) return;
+    var pills=boxes[0].closest('.pills'); if(!pills) return;
+    var grid=document.createElement('div'); grid.className='vgrid';
+    boxes.forEach(function(cb){
+      var lb=cb.parentNode.querySelector('span'),
+          art=(over&&over[cb.value])||ART[cb.value]||svg(QM,'#E8EEF8'),
+          b=document.createElement('button');
+      b.type='button'; b.className='vopt';
+      b.setAttribute('aria-pressed',String(cb.checked));
+      b.innerHTML='<span class="vart">'+art+'</span>'
+                 +'<span class="vlb">'+esc(lb?lb.textContent:cb.value)+'</span>';
+      usePhotoIfThere(b.firstElementChild,cb.value,scope);
+      b.addEventListener('click',function(){
+        cb.checked=!cb.checked;
+        b.setAttribute('aria-pressed',String(cb.checked));
+        cb.dispatchEvent(new Event('change',{bubbles:true}));
+      });
+      grid.appendChild(b);
+    });
+    pills.classList.add('vhidden');
+    pills.setAttribute('aria-hidden','true');
+    pills.parentNode.appendChild(grid);
+  }
+
+  function visualize(id,scope,over){
     var sel=document.getElementById(id); if(!sel) return;
     var grid=document.createElement('div'); grid.className='vgrid';
     [].forEach.call(sel.options,function(o){
@@ -1997,7 +2051,7 @@
       b.type='button'; b.className='vopt'; b.setAttribute('aria-pressed','false');
       b.dataset.v=o.value;
       b.innerHTML='<span class="vart">'+art+'</span><span class="vlb">'+esc(o.textContent)+'</span>';
-      usePhotoIfThere(b.firstElementChild,o.value);
+      usePhotoIfThere(b.firstElementChild,o.value,scope);
       grid.appendChild(b);
     });
     grid.addEventListener('click',function(e){
@@ -2152,21 +2206,16 @@
     // Five selects become pictures; stories, units and bathrooms stay native,
     // because a number does not need illustrating and the OS wheel is the
     // better control for one on a phone.
-    visualize('hConstr'); visualize('hFound');
+    visualize('hConstr','construction'); visualize('hFound','foundation');
     // 'Wood' means three different pictures depending on where it is asked —
     // butcher block on a worktop, lap boards on a wall, shakes on a roof. ART
     // is keyed by the option text, so the two that are not the countertop pass
     // their own drawing in.
-    visualize('hSiding',{Wood:svg(lap(9,'#C9A063','#94733F','#DDBA84'),'#94733F')});
-    visualize('hRoofMat',{Wood:svg(courses(6,5,10,'#A9793F','#8A6134',1.4),'#8A6134')});
-    visualize('hRoofShape');
-
-    // The two material multi-selects keep their pills and gain a swatch, so
-    // the row still reads as one of the form's own controls.
-    [].forEach.call(form.querySelectorAll('input[name=hFloor],input[name=hCounter]'),function(i){
-      var art=ART[i.value]; if(!art) return;
-      i.nextElementSibling.insertAdjacentHTML('afterbegin','<i class="sw">'+art+'</i>');
-    });
+    visualize('hSiding','siding',{Wood:svg(lap(9,'#C9A063','#94733F','#DDBA84'),'#94733F')});
+    visualize('hRoofMat','roof-material',{Wood:svg(courses(6,5,10,'#A9793F','#8A6134',1.4),'#8A6134')});
+    visualize('hRoofShape','roof-shape');
+    visualMulti('hFloor','flooring');
+    visualMulti('hCounter','countertops');
 
     addTips(); limitDates();
     // One open bubble at a time, and a tap anywhere else closes it — on a
