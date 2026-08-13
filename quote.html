@@ -383,12 +383,14 @@
 
     <!-- ============ 2 · where the car lives ============ -->
     <section class="step" data-step="address">
-      <h1>Where do you keep the car?</h1>
+      <h1 id="addrH1">Where do you keep the car?</h1>
       <p class="sub">Rates change block by block, so the address matters.</p>
       <div class="fl acwrap"><label for="addr">Street address</label>
         <input id="addr" name="address" placeholder="Start typing — e.g. 12426 Paseo Rojo"
                autocomplete="street-address" role="combobox" aria-expanded="false" aria-autocomplete="list">
         <div class="aclist" id="aclist" role="listbox"></div></div>
+      <div class="fl"><label for="unit">Unit or apartment <span class="opt2">(optional)</span></label>
+        <input id="unit" name="unit" placeholder="Apt 4B" autocomplete="address-line2"></div>
       <div class="g2">
         <div class="fl"><label for="city">City</label>
           <input id="city" name="city" placeholder="El Paso" autocomplete="address-level2"></div>
@@ -510,6 +512,286 @@
       <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
     </section>
 
+    <!-- ================= HOMEOWNERS =================
+         Only these steps run when "Home" is picked at step 1. Everything here
+         reuses the components already on the page — .fl, .g2, .pills, .blk —
+         rather than introducing a second visual language for one product.
+         .pills works unchanged for checkboxes: the CSS keys off :checked, not
+         off the input type, so a multi-select looks like the radios above it.
+
+         Conditional blocks are hidden with [hidden] and opened by wireHome().
+         A hidden field is never read, so a closed branch cannot contribute a
+         stale answer to the quote. -->
+
+    <!-- ---- H2 · what and why ---- -->
+    <section class="step" data-step="property">
+      <h1>Tell us about the property.</h1>
+      <p class="sub">A few basics first &mdash; these decide which carriers can even quote it.</p>
+      <div class="g2">
+        <div class="fl"><label for="hEff">Coverage should start</label>
+          <input id="hEff" name="effectiveDate" type="date" autocomplete="off"></div>
+        <div class="fl"><label for="hWhy">Why are you shopping?</label>
+          <select id="hWhy" name="reason"><option value="">Choose one</option>
+            <option>Closing on a new home</option><option>Switching insurance companies</option>
+            <option>Other</option></select></div>
+      </div>
+      <!-- Own-or-rent is not asked here. The address step already asks it in a
+           more useful form (#res), the AMS already maps that field, and asking
+           twice with two different vocabularies is how the two answers end up
+           disagreeing. Homeowner / Renter is derived from it in toAms(). -->
+      <div class="fl"><label>What kind of property is it?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="hProp" value="House" autocomplete="off"><span>House</span></label>
+          <label class="pill"><input type="radio" name="hProp" value="Condo" autocomplete="off"><span>Condo</span></label>
+          <label class="pill"><input type="radio" name="hProp" value="Co-op" autocomplete="off"><span>Co-op</span></label>
+        </div></div>
+      <div class="fl"><label>And the building itself?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="hBldg" value="Single Family House" autocomplete="off"><span>Single family</span></label>
+          <label class="pill"><input type="radio" name="hBldg" value="Duplex" autocomplete="off"><span>Duplex</span></label>
+          <label class="pill"><input type="radio" name="hBldg" value="Triplex / Fourplex" autocomplete="off"><span>Triplex or fourplex</span></label>
+        </div></div>
+      <div class="fl"><label>Is this where you live most of the year?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="hPrimary" value="Yes" autocomplete="off"><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="hPrimary" value="No" autocomplete="off"><span>No</span></label>
+        </div></div>
+      <p class="err" id="e-property"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- H3 · size and age ---- -->
+    <section class="step" data-step="details">
+      <h1>The basics of the home.</h1>
+      <p class="sub">Close is fine &mdash; your agent confirms these against the inspection.</p>
+      <div class="g2">
+        <div class="fl"><label for="hYear">Year built</label>
+          <input id="hYear" name="yearBuilt" inputmode="numeric" maxlength="4" placeholder="1998" autocomplete="off"></div>
+        <div class="fl"><label for="hSqft">Square footage</label>
+          <input id="hSqft" name="sqft" inputmode="numeric" placeholder="1,850" autocomplete="off"></div>
+      </div>
+      <div class="g2">
+        <div class="fl"><label for="hStories">Stories</label>
+          <select id="hStories" name="stories"><option value="">Choose one</option>
+            <option>1</option><option>1.5</option><option>2</option><option>2.5</option>
+            <option>3</option><option>4 or more</option></select></div>
+        <div class="fl"><label for="hUnits">Units in the building</label>
+          <select id="hUnits" name="units"><option value="">Choose one</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option>
+            <option>5 or more</option></select></div>
+      </div>
+      <div class="fl"><label for="hBaths">Bathrooms</label>
+        <select id="hBaths" name="bathrooms"><option value="">Choose one</option>
+          <option>1</option><option>1.5</option><option>2</option><option>2.5</option>
+          <option>3</option><option>3.5</option><option>4 or more</option></select></div>
+      <div class="fl"><label>Is it new construction?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="hNew" value="Yes" autocomplete="off"><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="hNew" value="No" autocomplete="off"><span>No</span></label>
+        </div></div>
+      <p class="err" id="e-details"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- H4 · how it is built ---- -->
+    <section class="step" data-step="construction">
+      <h1>How is it built?</h1>
+      <p class="sub">If you are not sure, pick the closest &mdash; nothing here is bound today.</p>
+      <div class="fl"><label for="hConstr">Construction type</label>
+        <select id="hConstr" name="constructionType"><option value="">Choose one</option>
+          <option>Frame</option><option>Masonry &mdash; solid brick or block</option>
+          <option>Masonry veneer</option><option>Stucco on frame</option><option>Stone</option>
+          <option>Log</option><option>Steel frame</option><option>Poured concrete</option>
+          <option>Manufactured or mobile home</option><option>Not sure</option></select></div>
+      <div class="fl"><label for="hFound">Foundation</label>
+        <select id="hFound" name="foundation"><option value="">Choose one</option>
+          <option>Slab on grade</option><option>Crawl space</option>
+          <option>Basement &mdash; finished</option><option>Basement &mdash; unfinished</option>
+          <option>Walkout basement</option><option>Pier and beam</option>
+          <option>Piers or stilts</option><option>Not sure</option></select></div>
+      <div class="fl"><label for="hSiding">Exterior / siding</label>
+        <select id="hSiding" name="siding"><option value="">Choose one</option>
+          <option>Brick</option><option>Brick veneer</option><option>Stucco</option>
+          <option>Stone</option><option>Stone veneer</option><option>Vinyl</option>
+          <option>Wood</option><option>Fiber cement</option><option>Aluminum</option>
+          <option>Metal</option><option>Composite</option><option>Not sure</option></select></div>
+      <div class="fl"><label>Flooring <span class="opt2">(pick all that apply)</span></label>
+        <div class="pills" data-multi="flooring">
+          <label class="pill"><input type="checkbox" name="hFloor" value="Carpet" autocomplete="off"><span>Carpet</span></label>
+          <label class="pill"><input type="checkbox" name="hFloor" value="Laminate / Sheet Vinyl" autocomplete="off"><span>Laminate / sheet vinyl</span></label>
+          <label class="pill"><input type="checkbox" name="hFloor" value="Concrete" autocomplete="off"><span>Concrete</span></label>
+          <label class="pill"><input type="checkbox" name="hFloor" value="Hardwood" autocomplete="off"><span>Hardwood</span></label>
+          <label class="pill"><input type="checkbox" name="hFloor" value="Vinyl Plank" autocomplete="off"><span>Vinyl plank</span></label>
+          <label class="pill"><input type="checkbox" name="hFloor" value="Ceramic / Clay Tile" autocomplete="off"><span>Ceramic / clay tile</span></label>
+          <label class="pill"><input type="checkbox" name="hFloor" value="Marble / Granite" autocomplete="off"><span>Marble / granite</span></label>
+          <label class="pill"><input type="checkbox" name="hFloor" value="Terrazzo" autocomplete="off"><span>Terrazzo</span></label>
+        </div></div>
+      <div class="fl"><label>Countertops <span class="opt2">(pick all that apply)</span></label>
+        <div class="pills" data-multi="countertops">
+          <label class="pill"><input type="checkbox" name="hCounter" value="Tile" autocomplete="off"><span>Tile</span></label>
+          <label class="pill"><input type="checkbox" name="hCounter" value="Laminate" autocomplete="off"><span>Laminate</span></label>
+          <label class="pill"><input type="checkbox" name="hCounter" value="Cultured Marble" autocomplete="off"><span>Cultured marble</span></label>
+          <label class="pill"><input type="checkbox" name="hCounter" value="Granite" autocomplete="off"><span>Granite</span></label>
+          <label class="pill"><input type="checkbox" name="hCounter" value="Marble" autocomplete="off"><span>Marble</span></label>
+          <label class="pill"><input type="checkbox" name="hCounter" value="Quartz" autocomplete="off"><span>Quartz</span></label>
+          <label class="pill"><input type="checkbox" name="hCounter" value="Terrazzo" autocomplete="off"><span>Terrazzo</span></label>
+          <label class="pill"><input type="checkbox" name="hCounter" value="Wood" autocomplete="off"><span>Wood</span></label>
+          <label class="pill"><input type="checkbox" name="hCounter" value="Stainless Steel" autocomplete="off"><span>Stainless steel</span></label>
+          <label class="pill"><input type="checkbox" name="hCounter" value="Concrete" autocomplete="off"><span>Concrete</span></label>
+        </div></div>
+      <p class="err" id="e-construction"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- H5 · systems ---- -->
+    <section class="step" data-step="systems">
+      <h1>The systems inside.</h1>
+      <p class="sub">Updated wiring and plumbing are two of the biggest discounts on a
+        home policy, so they are worth getting right.</p>
+
+      <div class="fl"><label>Electrical &mdash; renovated in the last 10 years?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="hElec" value="Not Renovated" autocomplete="off"><span>Not renovated</span></label>
+          <label class="pill"><input type="radio" name="hElec" value="Renovated" autocomplete="off"><span>Renovated / updated</span></label>
+        </div></div>
+      <div class="fl" id="hElecYrWrap" hidden><label for="hElecYr">Year the electrical was updated</label>
+        <input id="hElecYr" name="electricalYear" inputmode="numeric" maxlength="4" placeholder="2019" autocomplete="off"></div>
+
+      <div class="fl"><label>Plumbing &mdash; renovated in the last 10 years?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="hPlumb" value="Not Renovated" autocomplete="off"><span>Not renovated</span></label>
+          <label class="pill"><input type="radio" name="hPlumb" value="Renovated" autocomplete="off"><span>Renovated / updated</span></label>
+        </div></div>
+      <div class="fl" id="hPlumbYrWrap" hidden><label for="hPlumbYr">Year the plumbing was updated</label>
+        <input id="hPlumbYr" name="plumbingYear" inputmode="numeric" maxlength="4" placeholder="2019" autocomplete="off"></div>
+
+      <div class="fl"><label>Heating &mdash; renovated in the last 10 years?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="hHeat" value="Not Renovated" autocomplete="off"><span>Not renovated</span></label>
+          <label class="pill"><input type="radio" name="hHeat" value="Renovated" autocomplete="off"><span>Renovated / updated</span></label>
+        </div></div>
+      <div class="fl" id="hHeatYrWrap" hidden><label for="hHeatYr">Year the heating was updated</label>
+        <input id="hHeatYr" name="heatingYear" inputmode="numeric" maxlength="4" placeholder="2019" autocomplete="off"></div>
+
+      <div class="g2">
+        <div class="fl"><label for="hWh">Where is the water heater?</label>
+          <select id="hWh" name="waterHeaterLocation"><option value="">Choose one</option>
+            <option>Above Level 1</option><option>Primary Level</option><option>Garage</option>
+            <option>Outside</option><option>Basement</option><option>Unknown</option></select></div>
+        <div class="fl"><label>Is it tankless?</label>
+          <div class="pills">
+            <label class="pill"><input type="radio" name="hWhTank" value="Yes" autocomplete="off"><span>Yes</span></label>
+            <label class="pill"><input type="radio" name="hWhTank" value="No" autocomplete="off"><span>No</span></label>
+          </div></div>
+      </div>
+
+      <div class="fl"><label>Is there a second water heater?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="hWh2" value="Yes" autocomplete="off"><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="hWh2" value="No" autocomplete="off"><span>No</span></label>
+        </div></div>
+      <div class="blk" id="hWh2Wrap" hidden>
+        <div class="g2">
+          <div class="fl"><label for="hWh2Loc">Where is the second one?</label>
+            <select id="hWh2Loc" name="waterHeater2Location"><option value="">Choose one</option>
+              <option>Above Level 1</option><option>Primary Level</option><option>Garage</option>
+              <option>Outside</option><option>Basement</option><option>Unknown</option></select></div>
+          <div class="fl"><label>Is that one tankless?</label>
+            <div class="pills">
+              <label class="pill"><input type="radio" name="hWh2Tank" value="Yes" autocomplete="off"><span>Yes</span></label>
+              <label class="pill"><input type="radio" name="hWh2Tank" value="No" autocomplete="off"><span>No</span></label>
+            </div></div>
+        </div>
+      </div>
+      <p class="err" id="e-systems"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- H6 · roof ---- -->
+    <section class="step" data-step="roof">
+      <h1>The roof.</h1>
+      <p class="sub">Its age is the single biggest thing on a home quote in Texas and
+        New Mexico &mdash; hail country.</p>
+      <div class="fl"><label for="hRoofYr">Year the roof was installed or replaced</label>
+        <input id="hRoofYr" name="roofYear" inputmode="numeric" maxlength="4" placeholder="2018" autocomplete="off"></div>
+      <div class="fl"><label for="hRoofMat">Roof material</label>
+        <select id="hRoofMat" name="roofMaterial"><option value="">Choose one</option>
+          <option>Architectural Shingle</option><option>Composition Shingle</option>
+          <option>Concrete / Clay Tile</option><option>Metal</option><option>Slate</option>
+          <option>Tar / Gravel</option><option>Wood</option><option>Other</option></select></div>
+      <div class="g2">
+        <div class="fl"><label for="hRoofShape">Roof shape</label>
+          <select id="hRoofShape" name="roofShape"><option value="">Choose one</option>
+            <option>Gable</option><option>Hip</option><option>Flat</option>
+            <option>Shed</option><option>Other</option></select></div>
+        <div class="fl"><label for="hRoofSlope">Roof slope</label>
+          <select id="hRoofSlope" name="roofSlope"><option value="">Choose one</option>
+            <option>Flat</option><option>Low slope</option><option>Medium slope</option>
+            <option>Steep slope</option><option>Not sure</option></select></div>
+      </div>
+      <p class="err" id="e-roof"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- H7 · garage and protection ---- -->
+    <section class="step" data-step="garage">
+      <h1>Garage and safety.</h1>
+      <p class="sub">Protective devices are a straightforward discount on nearly every carrier.</p>
+      <div class="fl"><label for="hGar">Garage</label>
+        <select id="hGar" name="garageType"><option value="">Choose one</option>
+          <option>Attached or built-in</option><option>Detached</option>
+          <option>Basement garage</option><option>Carport</option><option>No garage</option></select></div>
+      <div class="fl" id="hGarSpWrap" hidden><label>How many cars does it hold?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="hGarSp" value="1 Car" autocomplete="off"><span>1 car</span></label>
+          <label class="pill"><input type="radio" name="hGarSp" value="2 Car" autocomplete="off"><span>2 car</span></label>
+          <label class="pill"><input type="radio" name="hGarSp" value="3 Car" autocomplete="off"><span>3 car</span></label>
+          <label class="pill"><input type="radio" name="hGarSp" value="4+ Car" autocomplete="off"><span>4 or more</span></label>
+        </div></div>
+      <div class="fl"><label>Does the home have any of these? <span class="opt2">(pick all that apply)</span></label>
+        <div class="pills" data-multi="safety">
+          <label class="pill"><input type="checkbox" name="hSafe" value="Fire Alarm" autocomplete="off"><span>Fire alarm</span></label>
+          <label class="pill"><input type="checkbox" name="hSafe" value="Burglar Alarm" autocomplete="off"><span>Burglar alarm</span></label>
+          <label class="pill"><input type="checkbox" name="hSafe" value="Deadbolts" autocomplete="off"><span>Deadbolts</span></label>
+          <label class="pill"><input type="checkbox" name="hSafe" value="Fire Extinguisher" autocomplete="off"><span>Fire extinguisher</span></label>
+          <label class="pill"><input type="checkbox" name="hSafe" value="Smart Water Valve" autocomplete="off"><span>Smart water valve</span></label>
+          <label class="pill"><input type="checkbox" name="hSafe" value="None" data-none="1" autocomplete="off"><span>None of these</span></label>
+        </div></div>
+      <p class="err" id="e-garage"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <!-- ---- H8 · household ---- -->
+    <section class="step" data-step="household">
+      <h1>A few last things.</h1>
+      <p class="sub">These three come up on every home application, so we ask them once here.</p>
+      <div class="fl"><label>Is there a dog in the home?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="hDog" value="Yes" autocomplete="off"><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="hDog" value="No" autocomplete="off"><span>No</span></label>
+        </div></div>
+      <div id="hDogWrap" hidden>
+        <div id="dogList"></div>
+        <button class="addbtn" id="addDog" type="button">+ Add another dog</button>
+      </div>
+      <div class="fl"><label>Is there a mortgage or loan on the property?</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="hMort" value="Yes" autocomplete="off"><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="hMort" value="No" autocomplete="off"><span>No</span></label>
+        </div></div>
+      <div class="fl"><label>Any unrepaired damage right now?</label>
+        <p class="sub" style="margin:2px 0 0">Roof leaks, broken windows, missing siding, water damage &mdash; that sort of thing.</p>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="hDmg" value="Yes" autocomplete="off"><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="hDmg" value="No" autocomplete="off"><span>No</span></label>
+        </div></div>
+      <div class="fl" id="hDmgWrap" hidden><label for="hDmgTxt">What needs repairing?</label>
+        <textarea id="hDmgTxt" name="damageDescription" rows="3"
+                  placeholder="A short description is enough &mdash; the agent will follow up."></textarea></div>
+      <p class="err" id="e-household"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
     <!-- ============ 6 · contact ============ -->
     <section class="step" data-step="contact">
       <h1>Where do we send it?</h1>
@@ -520,6 +802,10 @@
       </div>
       <div class="fl"><label for="cph">Phone</label><input id="cph" name="phone" type="tel" placeholder="(915) 000-0000" inputmode="tel" autocomplete="tel"></div>
       <div class="fl"><label for="cem">Email <span class="opt2">(we send your quote here)</span></label><input id="cem" name="email" type="email" placeholder="you@email.com" inputmode="email" autocomplete="email"></div>
+      <!-- The auto flow takes a date of birth per driver; a home quote has no
+           driver list, so the applicant's own goes here and only here. -->
+      <div class="fl" id="hDobWrap" hidden><label for="hDob">Date of birth</label>
+        <input id="hDob" name="dob" type="date" autocomplete="bday"></div>
       <div class="fl"><label for="cnt">Anything we should know? <span class="opt2">(optional)</span></label>
         <textarea id="cnt" name="notes" rows="3" placeholder="SR-22, tickets, current carrier&hellip;"></textarea></div>
       <!-- A2P 10DLC: this consent stands on its own, starts unchecked, and is
@@ -663,6 +949,10 @@
       AUTO_PLAIN=['type','address','current','vehicles','drivers','coverage','contact'],
       // the lookup step only exists once a prefill endpoint does
       AUTO=(API&&window.SAFEHOUSE_PREFILL)?AUTO_FULL:AUTO_PLAIN,
+      // Home reuses 'address' and 'contact' from the auto flow rather than
+      // growing its own copies of two steps that already work.
+      HOME=['type','address','property','details','construction','systems',
+            'roof','garage','household','contact'],
       SHORT=['type','contact'],
       flow=SHORT, at=0, veh=0, drv=0;
 
@@ -1133,6 +1423,85 @@
     }
   })();
 
+  /* ================= homeowners ================= */
+
+  function pick(n){ var r=form.querySelector('input[name='+n+']:checked'); return r?r.value:''; }
+  function picks(n){ return [].slice.call(form.querySelectorAll('input[name='+n+']:checked'))
+                              .map(function(i){ return i.value; }); }
+  function hasGarage(){ var v=document.getElementById('hGar').value; return !!v && v!=='No garage'; }
+
+  /* Breeds a carrier is likely to ask about by name, plus the ones people
+     actually own, so the list is useful rather than a liability checklist.
+     It is a datalist, not a select: the field stays free text, so a breed we
+     did not think of and "mixed — mostly lab" are both valid answers. */
+  var BREEDS=('Akita,Alaskan Malamute,American Bulldog,Australian Shepherd,Basset Hound,Beagle,'
+    +'Belgian Malinois,Bernese Mountain Dog,Bichon Frise,Border Collie,Boston Terrier,Boxer,'
+    +'Bullmastiff,Cane Corso,Cavalier King Charles Spaniel,Chihuahua,Chow Chow,Cocker Spaniel,'
+    +'Corgi,Dachshund,Dalmatian,Doberman Pinscher,English Bulldog,French Bulldog,German Shepherd,'
+    +'German Shorthaired Pointer,Golden Retriever,Great Dane,Great Pyrenees,Greyhound,Havanese,'
+    +'Husky,Jack Russell Terrier,Labrador Retriever,Maltese,Mastiff,Miniature Schnauzer,Mixed breed,'
+    +'Newfoundland,Papillon,Pekingese,Pit Bull Terrier,Pointer,Pomeranian,Poodle,Presa Canario,'
+    +'Pug,Rat Terrier,Rhodesian Ridgeback,Rottweiler,Saint Bernard,Samoyed,Shar Pei,Shiba Inu,'
+    +'Shih Tzu,Siberian Husky,Staffordshire Bull Terrier,Vizsla,Weimaraner,Wolf hybrid,'
+    +'Yorkshire Terrier,Other').split(',');
+
+  var dogs=0;
+  function dogBlock(n){
+    return '<div class="blk dog"><div class="fl"><label for="dogB'+n+'">Dog '+n+' &mdash; breed</label>'
+      +'<input id="dogB'+n+'" data-f="breed" list="breedList" autocomplete="off" '
+      +'placeholder="Start typing &mdash; e.g. Labrador"></div>'
+      +(n>1?'<button class="rm" type="button" data-rmdog>Remove</button>':'')+'</div>';
+  }
+  function addDog(){ dogs++;
+    document.getElementById('dogList').insertAdjacentHTML('beforeend',dogBlock(dogs)); }
+  function dogBreeds(){
+    return [].slice.call(document.querySelectorAll('#dogList [data-f=breed]'))
+             .map(function(i){ return i.value.trim(); }).filter(Boolean);
+  }
+
+  /* Every conditional on the home flow, in one place and driven by one
+     function, so a branch cannot be opened by one listener and left open by
+     another. Hidden inputs are never read by toAms(), so closing a branch
+     also discards whatever was typed into it — a visitor who answers "yes",
+     fills the box, then changes to "no" does not silently ship the old
+     answer. */
+  function wireHome(){
+    var d=document;
+    d.getElementById('hDogWrap').hidden = pick('hDog')!=='Yes';
+    if(pick('hDog')==='Yes' && !dogs) addDog();
+    d.getElementById('hDmgWrap').hidden = pick('hDmg')!=='Yes';
+    d.getElementById('hWh2Wrap').hidden = pick('hWh2')!=='Yes';
+    d.getElementById('hGarSpWrap').hidden = !hasGarage();
+    [['hElec','hElecYrWrap'],['hPlumb','hPlumbYrWrap'],['hHeat','hHeatYrWrap']]
+      .forEach(function(p){ d.getElementById(p[1]).hidden = pick(p[0])!=='Renovated'; });
+  }
+
+  (function(){
+    var dl=document.createElement('datalist'); dl.id='breedList';
+    dl.innerHTML=BREEDS.map(function(b){ return '<option value="'+esc(b)+'">'; }).join('');
+    document.body.appendChild(dl);
+
+    form.addEventListener('change',function(e){
+      if(!e.target.name) return;
+      // "None of these" and the real devices are mutually exclusive: a home
+      // with a fire alarm and "none" ticked is not an answer anyone can rate.
+      if(e.target.name==='hSafe'){
+        var none=e.target.dataset.none;
+        [].slice.call(form.querySelectorAll('input[name=hSafe]')).forEach(function(i){
+          if(none && i!==e.target) i.checked=false;
+          else if(!none && i.dataset.none) i.checked=false;
+        });
+      }
+      if(/^h(Dog|Dmg|Wh2|Elec|Plumb|Heat)$/.test(e.target.name)||e.target.id==='hGar') wireHome();
+    });
+    document.getElementById('addDog').addEventListener('click',addDog);
+    document.getElementById('dogList').addEventListener('click',function(e){
+      var b=e.target.closest('[data-rmdog]'); if(!b) return;
+      b.closest('.dog').remove();
+      if(!document.querySelectorAll('#dogList .dog').length){ dogs=0; addDog(); }
+    });
+  })();
+
   /* ---------- navigation ---------- */
   function stepEl(name){ return steps.filter(function(s){return s.dataset.step===name;})[0]; }
   function show(name){
@@ -1147,7 +1516,18 @@
     window.scrollTo({top:0,behavior:'smooth'});
   }
   function chosenType(){ var r=form.querySelector('input[name=type]:checked'); return r?r.value:''; }
-  function setFlow(){ flow=chosenType()==='car'?AUTO:SHORT; }
+  function isHome(){ return chosenType()==='home'; }
+  function setFlow(){
+    var t=chosenType();
+    flow = t==='car' ? AUTO : t==='home' ? HOME : SHORT;
+    // Two shared steps that have to say something different depending on which
+    // product is being quoted.
+    var h1=document.getElementById('addrH1');
+    if(h1) h1.textContent = isHome() ? 'What is the property address?'
+                                     : 'Where do you keep the car?';
+    var dob=document.getElementById('hDobWrap');
+    if(dob) dob.hidden = !isHome();
+  }
 
   function fail(id,msg){ var p=document.getElementById(id); if(!p) return false;
     p.querySelector('span').textContent=msg; p.style.display='flex'; return false; }
@@ -1180,6 +1560,66 @@
         return fail('e-current','Let us know if you are insured right now.');
       return true; }
     if(name==='lookup') return true;          // optional by design
+
+    /* ---- homeowners ----
+       Asked for, not demanded. Everything a carrier will refuse to rate
+       without is required; everything an agent can confirm on the phone is
+       let through blank, because a half-finished form that a visitor
+       abandons is worth less than a lead with three gaps in it. */
+    if(name==='property'){ clear('e-property');
+      if(!pick('hProp')) return fail('e-property','Let us know whether it is a house, a condo or a co-op.');
+      if(!pick('hBldg')) return fail('e-property','Which kind of building is it?');
+      if(!pick('hPrimary')) return fail('e-property','Is this where you live most of the year?');
+      return true; }
+    if(name==='details'){ clear('e-details');
+      var yb=document.getElementById('hYear').value.trim();
+      if(!/^\d{4}$/.test(yb)) return fail('e-details','We need the year the home was built — four digits.');
+      var now=new Date().getFullYear();
+      if(Number(yb)<1800||Number(yb)>now+1)
+        return fail('e-details','That year looks off — please check it.');
+      if(!String(document.getElementById('hSqft').value).replace(/\D/g,''))
+        return fail('e-details','Roughly how many square feet? An estimate is fine.');
+      if(!document.getElementById('hStories').value) return fail('e-details','How many stories?');
+      return true; }
+    if(name==='construction'){ clear('e-construction');
+      if(!document.getElementById('hConstr').value)
+        return fail('e-construction','Pick the construction type — &ldquo;Not sure&rdquo; is a valid answer.');
+      if(!document.getElementById('hFound').value) return fail('e-construction','And the foundation?');
+      return true; }
+    if(name==='systems'){ clear('e-systems');
+      var sys=[['hElec','hElecYr','electrical'],['hPlumb','hPlumbYr','plumbing'],
+               ['hHeat','hHeatYr','heating']];
+      for(var s=0;s<sys.length;s++){
+        var v=pick(sys[s][0]);
+        if(!v) return fail('e-systems','Let us know about the '+sys[s][2]+' — it is a real discount.');
+        // Only enforced on the branch that is open. A year cannot be missing
+        // from a question the visitor was never shown.
+        if(v==='Renovated'&&!/^\d{4}$/.test(document.getElementById(sys[s][1]).value.trim()))
+          return fail('e-systems','Which year was the '+sys[s][2]+' updated?');
+      }
+      if(!document.getElementById('hWh').value)
+        return fail('e-systems','Where is the water heater? &ldquo;Unknown&rdquo; is fine.');
+      if(pick('hWh2')==='Yes'&&!document.getElementById('hWh2Loc').value)
+        return fail('e-systems','Where is the second water heater?');
+      return true; }
+    if(name==='roof'){ clear('e-roof');
+      var ry=document.getElementById('hRoofYr').value.trim();
+      if(!/^\d{4}$/.test(ry)) return fail('e-roof','The roof year matters more than anything else here — your best estimate is fine.');
+      if(!document.getElementById('hRoofMat').value) return fail('e-roof','What is the roof made of?');
+      return true; }
+    if(name==='garage'){ clear('e-garage');
+      if(!document.getElementById('hGar').value) return fail('e-garage','Is there a garage?');
+      if(hasGarage()&&!pick('hGarSp')) return fail('e-garage','How many cars does the garage hold?');
+      return true; }
+    if(name==='household'){ clear('e-household');
+      if(!pick('hDog')) return fail('e-household','Is there a dog in the home?');
+      if(pick('hDog')==='Yes'&&!dogBreeds().length)
+        return fail('e-household','Which breed? If it is a mix, name the closest one.');
+      if(!pick('hMort')) return fail('e-household','Is there a mortgage on it?');
+      if(!pick('hDmg')) return fail('e-household','Any unrepaired damage?');
+      if(pick('hDmg')==='Yes'&&!document.getElementById('hDmgTxt').value.trim())
+        return fail('e-household','A one-line description of the damage is enough.');
+      return true; }
     if(name==='vehicles'){ clear('e-vehicles');
       var bs=[].slice.call(document.querySelectorAll('#vehList .blk')), noVin=[];
       for(var i=0;i<bs.length;i++){
@@ -1223,6 +1663,14 @@
       if(!em) return fail('e-contact','We need your email \u2014 that is where your quote gets sent.');
       if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em))
         return fail('e-contact','That email looks incomplete \u2014 please check it.');
+      // Home only: the auto flow already collected a date of birth per driver.
+      if(isHome()){
+        var dob=document.getElementById('hDob').value;
+        if(!dob) return fail('e-contact','We need your date of birth to quote a home policy.');
+        var age=(Date.now()-new Date(dob).getTime())/31557600000;
+        if(age<18) return fail('e-contact','The applicant has to be 18 or older.');
+        if(age>110) return fail('e-contact','That date of birth looks off \u2014 please check it.');
+      }
       return true; }
     return true;
   }
@@ -1434,7 +1882,71 @@
         pe=document.getElementById('pexp').value;
     if(pc) p.priorCarrier=pc;
     if(pe) p.priorExpiration=pe;
+    if(isHome()) p.property=homePayload();
     return p;
+  }
+
+  /* Everything the home flow collected, under one key.
+
+     It is a separate object rather than fields sprinkled through the quote
+     because the AMS maps auto and home onto different rating requests, and a
+     flat payload would leave it guessing which product a stray field belongs
+     to. `drivers` and `vehicles` stay empty on a home quote.
+
+     Only what the visitor actually answered goes in. A hidden branch is not
+     read, so "no dog" ships no breed and "not renovated" ships no year —
+     rather than a null the AMS has to decide how to interpret. */
+  function homePayload(){
+    var v=function(id){ var el=document.getElementById(id); return el?el.value.trim():''; },
+        num=function(id){ var n=v(id).replace(/\D/g,''); return n?Number(n):undefined; },
+        res=v('res'),
+        o={
+          ownership: /^Own/.test(res) ? 'Homeowner' : 'Renter',
+          residence: res,
+          unit: v('unit')||undefined,
+          effectiveDate: v('hEff')||undefined,
+          reason: v('hWhy')||undefined,
+          propertyType: pick('hProp'),
+          buildingType: pick('hBldg'),
+          primaryResidence: pick('hPrimary'),
+          yearBuilt: num('hYear'),
+          squareFeet: num('hSqft'),
+          stories: v('hStories'),
+          units: v('hUnits')||undefined,
+          bathrooms: v('hBaths')||undefined,
+          newConstruction: pick('hNew')||undefined,
+          constructionType: v('hConstr'),
+          foundation: v('hFound'),
+          siding: v('hSiding')||undefined,
+          flooring: picks('hFloor'),
+          countertops: picks('hCounter'),
+          electrical: pick('hElec'),
+          plumbing: pick('hPlumb'),
+          heating: pick('hHeat'),
+          waterHeater: { location: v('hWh'), tankless: pick('hWhTank')||undefined },
+          roofYear: num('hRoofYr'),
+          roofMaterial: v('hRoofMat'),
+          roofShape: v('hRoofShape')||undefined,
+          roofSlope: v('hRoofSlope')||undefined,
+          garageType: v('hGar'),
+          protectiveDevices: picks('hSafe').filter(function(x){ return x!=='None'; }),
+          hasDog: pick('hDog'),
+          mortgage: pick('hMort'),
+          unrepairedDamage: pick('hDmg'),
+          dateOfBirth: v('hDob')||undefined
+        };
+    if(pick('hElec')==='Renovated') o.electricalYear=num('hElecYr');
+    if(pick('hPlumb')==='Renovated') o.plumbingYear=num('hPlumbYr');
+    if(pick('hHeat')==='Renovated') o.heatingYear=num('hHeatYr');
+    if(pick('hWh2')==='Yes') o.waterHeater2={ location:v('hWh2Loc'), tankless:pick('hWh2Tank')||undefined };
+    if(hasGarage()) o.garageSpaces=pick('hGarSp');
+    if(pick('hDog')==='Yes') o.dogBreeds=dogBreeds();
+    if(pick('hDmg')==='Yes') o.damageDescription=v('hDmgTxt');
+    // Same convention as __quote and __chosen: the last thing this page built,
+    // readable from the console. A home quote leaves by email, so without it
+    // there is nothing to inspect when an agent says a field arrived wrong.
+    window.__home=o;
+    return o;
   }
 
   /* ---------- rating: submit, then poll ----------
@@ -1953,10 +2465,61 @@
       +'\nEmail: '+document.getElementById('cem').value
       // carried here too, so a fallback never loses the consent record
       +'\nSMS consent: '+(sc&&sc.checked?('YES at '+new Date().toISOString()):'NO')
+      +(isHome()?homeMailBody():'')
       +(document.getElementById('cnt').value?'\n\nNotes: '+document.getElementById('cnt').value:'');
     location.href='mailto:contact@safehouseins.com?subject='
       +encodeURIComponent('Quote request - '+LABEL[chosenType()]+' - '+document.getElementById('cfn').value)
       +'&body='+encodeURIComponent(b);
+  }
+
+  /* The home answers, written out for the agent who has to quote it by hand.
+
+     Without this the whole flow is pointless: the AMS rates auto only, so a
+     home quote leaves this page by email, and shortMail() on its own sends a
+     name and a phone number. Someone would answer thirty-odd questions and an
+     agent would receive four lines.
+
+     Anything the visitor did not answer is left out rather than printed as
+     blank, so what arrives is what they actually said. */
+  function homeMailBody(){
+    var o=homePayload(), L=[];
+    function add(label,v){ if(v!==undefined&&v!==null&&v!==''&&!(Array.isArray(v)&&!v.length))
+      L.push(label+': '+(Array.isArray(v)?v.join(', '):v)); }
+    L.push('\n--- PROPERTY ---');
+    add('Address',[document.getElementById('addr').value,o.unit,
+                   document.getElementById('city').value,
+                   document.getElementById('st').value+' '+document.getElementById('zip').value]
+                  .filter(Boolean).join(', '));
+    add('Ownership',o.ownership+' ('+o.residence+')');
+    add('Effective',o.effectiveDate); add('Reason',o.reason);
+    add('Property',o.propertyType); add('Building',o.buildingType);
+    add('Primary residence',o.primaryResidence);
+    L.push('\n--- BUILD ---');
+    add('Year built',o.yearBuilt); add('Square feet',o.squareFeet);
+    add('Stories',o.stories); add('Units',o.units); add('Bathrooms',o.bathrooms);
+    add('New construction',o.newConstruction);
+    add('Construction',o.constructionType); add('Foundation',o.foundation);
+    add('Siding',o.siding); add('Flooring',o.flooring); add('Countertops',o.countertops);
+    L.push('\n--- SYSTEMS ---');
+    add('Electrical',o.electrical+(o.electricalYear?' ('+o.electricalYear+')':''));
+    add('Plumbing',o.plumbing+(o.plumbingYear?' ('+o.plumbingYear+')':''));
+    add('Heating',o.heating+(o.heatingYear?' ('+o.heatingYear+')':''));
+    add('Water heater',o.waterHeater.location
+        +(o.waterHeater.tankless?' / tankless '+o.waterHeater.tankless:''));
+    if(o.waterHeater2) add('Second water heater',o.waterHeater2.location
+        +(o.waterHeater2.tankless?' / tankless '+o.waterHeater2.tankless:''));
+    L.push('\n--- ROOF ---');
+    add('Roof year',o.roofYear); add('Material',o.roofMaterial);
+    add('Shape',o.roofShape); add('Slope',o.roofSlope);
+    L.push('\n--- OTHER ---');
+    add('Garage',o.garageType+(o.garageSpaces?' / '+o.garageSpaces:''));
+    add('Protective devices',o.protectiveDevices.length?o.protectiveDevices:'None');
+    add('Dog',o.hasDog==='Yes'?o.dogBreeds.join(', '):'No');
+    add('Mortgage',o.mortgage);
+    add('Unrepaired damage',o.unrepairedDamage==='Yes'
+        ?'YES — '+o.damageDescription:'No');
+    add('Applicant DOB',o.dateOfBirth);
+    return '\n'+L.join('\n');
   }
 
   /* Integration checks the AMS asked for. A warning means a real price went out

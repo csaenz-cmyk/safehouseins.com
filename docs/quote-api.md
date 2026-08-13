@@ -286,6 +286,62 @@ the visitor sees depends on it:
 A failure is silent on screen and loud in the console. `window.__chosen.sent`
 records whether it landed.
 
+## Homeowners
+
+Picking **Home** at step 1 runs a ten-step flow instead of the two-step
+name-and-number handoff it used to get. It reuses `address` and `contact` from
+the auto flow — the same fields, the same validation, the same
+`residenceType` — and adds eight steps of property detail between them.
+
+**It does not reach `/public-quote`.** The AMS rates auto only, so a home quote
+leaves the page by email to `contact@safehouseins.com` with every answer
+written out under `--- PROPERTY / BUILD / SYSTEMS / ROOF / OTHER ---`, and the
+visitor lands on the agent screen. A worked example came to 1,252 encoded
+characters, inside what `mailto:` handles.
+
+**When the AMS grows a home endpoint, the payload is already assembled.**
+`homePayload()` builds it and it is on `window.__home`; `toAms()` attaches it as
+`property` on the quote body. It is a nested object rather than fields spread
+through the quote because a flat payload would leave the AMS guessing which
+product a stray field belongs to. `drivers` and `vehicles` stay empty.
+
+```jsonc
+{ "property": {
+    "ownership": "Homeowner",        // derived from residenceType, not asked twice
+    "residence": "Own a home", "unit": "Apt 4B",
+    "effectiveDate": "2026-09-01", "reason": "Switching insurance companies",
+    "propertyType": "House", "buildingType": "Single Family House",
+    "primaryResidence": "Yes",
+    "yearBuilt": 1998, "squareFeet": 1850, "stories": "1", "bathrooms": "2",
+    "constructionType": "Frame", "foundation": "Slab on grade", "siding": "Stucco",
+    "flooring": ["Carpet","Hardwood"], "countertops": ["Granite"],
+    "electrical": "Renovated", "electricalYear": 2019,
+    "plumbing": "Not Renovated", "heating": "Not Renovated",
+    "waterHeater": { "location": "Garage", "tankless": "No" },
+    "roofYear": 2018, "roofMaterial": "Architectural Shingle",
+    "roofShape": "Gable", "roofSlope": "Medium slope",
+    "garageType": "Attached or built-in", "garageSpaces": "2 Car",
+    "protectiveDevices": ["Deadbolts"],
+    "hasDog": "Yes", "dogBreeds": ["Labrador Retriever"],
+    "mortgage": "Yes", "unrepairedDamage": "No",
+    "dateOfBirth": "1985-04-12" } }
+```
+
+**A closed branch sends nothing at all.** `plumbingYear` is absent rather than
+null when the plumbing was not renovated, `dogBreeds` is absent when there is no
+dog, `garageSpaces` is absent when there is no garage. A field that is present
+was answered by a person; the AMS never has to decide what a null means.
+
+Only what a carrier will refuse to rate without is required — property type,
+building type, primary residence, year built, square footage, stories,
+construction, foundation, roof year, roof material, garage, dog, mortgage,
+damage, date of birth. Siding, roof shape, roof slope, bathrooms, units,
+flooring and countertops are let through blank, because an agent can confirm
+them on the phone and an abandoned form is worth less than a lead with gaps.
+
+`ownership` is derived from `residenceType` rather than asked again. Asking
+own-or-rent twice in two vocabularies is how the two answers end up disagreeing.
+
 ## What the form never asks
 
 Violations, accidents, tickets, SSN, licence images, payment details.
