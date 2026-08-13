@@ -45,21 +45,48 @@ def process(folder, W, H, budget_kb, check=False):
         return
     for f in names:
         stem = os.path.splitext(f)[0].lower().replace(' ', '-').replace('_', '-')
+        # `name.fit.png` is fitted whole instead of cropped, and the marker is
+        # stripped so the output is still name.webp — see the note below.
+        fit = stem.endswith('.fit')
+        if fit:
+            stem = stem[:-4]
         out = os.path.join(dst, stem + '.webp')
         if check:
-            print('  %-34s %6.1f KB in' % (f, os.path.getsize(os.path.join(src, f)) / 1024))
+            print('  %-34s %6.1f KB in%s' % (f, os.path.getsize(os.path.join(src, f)) / 1024,
+                                             '  (fit)' if fit else ''))
             continue
         im = Image.open(os.path.join(src, f)).convert('RGB')
-        # cover-crop to the target ratio, then resize
         tr, ir = W / H, im.width / im.height
-        if ir > tr:
+        if fit:
+            # For an illustration rather than a photograph. A photo can lose its
+            # edges to a crop; a composed piece of artwork cannot — cropping the
+            # Texas collage to 2.86:1 sliced the vehicles in half whatever
+            # anchor it was given, because the artwork is 1.6:1 and no anchor
+            # can make 947px of content fit in 537.
+            #
+            # It is trimmed to its own edges and left at its own shape, NOT
+            # padded out to the box. Padding was the first attempt and it looks
+            # right on a wide screen and disappears on a phone: `contain` then
+            # scales the whole canvas to the narrow width, so the artwork ends
+            # up a fraction of the empty space it was mounted on. Trimmed, the
+            # same CSS gives it the full width of a phone and the right-hand
+            # half of a desktop hero.
+            from PIL import ImageChops
+            corner = im.getpixel((0, 0))
+            box = ImageChops.difference(im, Image.new('RGB', im.size, corner)) \
+                            .convert('L').point(lambda p: 255 if p > 12 else 0).getbbox()
+            if box:
+                im = im.crop(box)
+            im.thumbnail((W, H), Image.LANCZOS)
+        elif ir > tr:
             nw = int(im.height * tr)
             im = im.crop(((im.width - nw) // 2, 0, (im.width + nw) // 2, im.height))
+            im = im.resize((W, H), Image.LANCZOS)
         else:
             nh = int(im.width / tr)
             top = int((im.height - nh) * 0.35)      # favour the skyline over the foreground
             im = im.crop((0, top, im.width, top + nh))
-        im = im.resize((W, H), Image.LANCZOS)
+            im = im.resize((W, H), Image.LANCZOS)
         # walk the quality down until it fits the budget
         for q in (82, 76, 70, 64, 58, 52):
             im.save(out, 'WEBP', quality=q, method=6)

@@ -49,6 +49,15 @@ CSS = """
   .chero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
   .chero .cscape{position:absolute;inset:0;width:100%;height:100%;z-index:0}
   .chero img.cscape{object-fit:cover;object-position:center 40%}
+  /* Artwork, not a photograph. A photo can be cropped to fill; a composed
+     piece cannot, and cover on a phone's tall hero zooms far enough in to
+     leave a fragment of one truck on screen. So it is fitted whole and sat on
+     the floor of the hero — which is what the 210px of bottom padding in
+     .cgrid is already holding open for it — while the headline keeps the top,
+     where the mobile veil is opaque anyway. Wide screens crop nothing, so
+     there it just holds the right edge it was padded against. */
+  .chero img.cscape.art{object-fit:contain;object-position:bottom center;background:#fff}
+  @media(min-width:900px){ .chero img.cscape.art{object-position:bottom right} }
   .ccredit{position:absolute;right:10px;bottom:6px;z-index:3;margin:0;font-size:10.5px;
       font-weight:600;color:#41546E;background:rgba(255,255,255,.75);border-radius:6px;
       padding:2px 7px;max-width:60%;text-align:right}
@@ -61,6 +70,10 @@ CSS = """
                  rgba(255,255,255,.15) 100%)} }
   .chero .wrap{position:relative;z-index:2}
   .cgrid{padding:34px 0 210px}
+  /* Fitted artwork is as tall as the hero is wide divided by its ratio, which
+     on a phone is more than the 210px held open for an illustration — without
+     this the sticky quote bar clips the bottom of it. */
+  .chero.hasart .cgrid{padding-bottom:268px}
   @media(min-width:900px){ .cgrid{padding:56px 0 64px;max-width:600px} }
   .chero h1{font-size:clamp(34px,6.6vw,58px);font-weight:900;letter-spacing:-.035em;
       color:var(--navy);line-height:1.03;margin-top:16px}
@@ -266,8 +279,17 @@ def hero(city, abbr, state_slug, state_name, place, up, ident, photo=None, own_p
     """
     if photo:
         alt = (_e(city) + ', ' + _e(abbr)) if own_photo else _e(state_name)
-        art = ('<img class="cscape" src="' + up + 'assets/cities/' + photo + '" '
-               'alt="' + alt + '" width="1600" height="560" '
+        # A state stand-in is artwork set against the right edge, so a phone —
+        # which crops the 1600px wide image to something near square — has to
+        # be told to keep that edge. A photograph wants its middle instead.
+        # No width/height on the artwork: it keeps its own shape rather than
+        # being padded to the hero's, so a hardcoded 1600x560 would be a lie.
+        # It costs nothing either way — .cscape is absolutely positioned and
+        # fills the hero, so the intrinsic size never affects layout.
+        dims = ' width="1600" height="560"' if own_photo else ''
+        cls = 'cscape' if own_photo else 'cscape art'
+        art = ('<img class="' + cls + '" src="' + up + 'assets/cities/' + photo + '" '
+               'alt="' + alt + '"' + dims + ' '
                'fetchpriority="high" decoding="async">')
     else:
         art = cityscape.scene(place.get('scene', 'plains'), ident, ident.replace('-', ''))
@@ -279,7 +301,8 @@ def hero(city, abbr, state_slug, state_name, place, up, ident, photo=None, own_p
     icons = ['pin', 'shield', 'lang', 'bolt']
     chip_html = ''.join('<span>' + BK.ICON.get(icons[i % len(icons)], BK.ICON['pin']) + c + '</span>'
                         for i, c in enumerate(chips))
-    return ('<header class="chero">' + art + '<div class="veil"></div><div class="wrap">'
+    return ('<header class="chero' + ('' if (own_photo or not photo) else ' hasart') + '">'
+      + art + '<div class="veil"></div><div class="wrap">'
       '<div class="cgrid">'
         + crumbs(state_slug, state_name, city, up) +
         '<h1>Car insurance in<em>' + _e(city) + ', ' + _e(abbr) + '.</em></h1>'
