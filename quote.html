@@ -343,16 +343,22 @@
       font:800 10.5px/1 'Figtree',system-ui,sans-serif;font-family:inherit}
   .tip>button:hover{background:var(--ice);border-color:var(--blue)}
   .tip>button:focus-visible{outline:3px solid rgba(22,102,237,.35);outline-offset:2px}
-  .tip>div{position:absolute;left:50%;top:calc(100% + 8px);transform:translateX(-50%);
-      width:min(258px,72vw);z-index:60;background:var(--navy);color:#E8F0FF;
-      border-radius:12px;padding:10px 12px;font-size:12.5px;font-weight:600;line-height:1.5;
-      text-transform:none;letter-spacing:0;box-shadow:0 12px 30px rgba(6,21,48,.3)}
-  .tip>div::before{content:'';position:absolute;left:50%;top:-5px;width:10px;height:10px;
-      transform:translateX(-50%) rotate(45deg);background:var(--navy)}
+  /* Position is set in JS, not here. A bubble centred on its own button runs
+     off whichever edge it is near — and a tooltip clipped mid-word reads as
+     the wrong tooltip entirely, which is exactly how it was reported. So the
+     left offset and the arrow are measured against the viewport on open, and
+     the only thing the stylesheet fixes is the width. */
+  .tip>div{position:absolute;left:0;top:calc(100% + 9px);
+      width:min(272px,calc(100vw - 32px));z-index:60;background:var(--navy);color:#E8F0FF;
+      border-radius:12px;padding:11px 13px;font-size:12.5px;font-weight:600;line-height:1.5;
+      text-transform:none;letter-spacing:0;text-align:left;
+      box-shadow:0 12px 30px rgba(6,21,48,.3)}
+  .tip>div::before{content:'';position:absolute;left:12px;top:-5px;width:10px;height:10px;
+      transform:rotate(45deg);background:var(--navy)}
   .tip[hidden-tip] > div{display:none}
-  /* Near the right edge the bubble would otherwise run off the card. */
-  .tip.rt>div{left:auto;right:0;transform:none}
-  .tip.rt>div::before{left:auto;right:14px;transform:rotate(45deg)}
+  /* Above the button instead, when there is no room below it. */
+  .tip.up>div{top:auto;bottom:calc(100% + 9px)}
+  .tip.up>div::before{top:auto;bottom:-5px}
 
   /* ---------------- disclosure ----------------
      Readable, not a wall: the short version is always visible and the long one
@@ -641,7 +647,7 @@
       <p class="sub">A few basics first &mdash; these decide which carriers can even quote it.</p>
       <div class="g2">
         <div class="fl"><label for="hEff">Coverage should start</label>
-          <input id="hEff" name="effectiveDate" type="date" autocomplete="off"></div>
+          <input id="hEff" name="effectiveDate" type="date" data-nopast autocomplete="off"></div>
         <div class="fl"><label for="hWhy">Why are you shopping?</label>
           <select id="hWhy" name="reason"><option value="">Choose one</option>
             <option>Closing on a new home</option><option>Switching insurance companies</option>
@@ -999,6 +1005,8 @@
     <!-- ---- M8 · history and household ---- -->
     <section class="step" data-step="history">
       <h1>A few last details.</h1>
+      <div class="fl"><label for="mEff">When should coverage start?</label>
+        <input id="mEff" name="effectiveDate" type="date" data-nopast autocomplete="off"></div>
       <div class="fl"><label>Have you had motorcycle insurance in the last 12 months?</label>
         <div class="pills">
           <label class="pill"><input type="radio" name="mPrior" value="Yes" autocomplete="off"><span>Yes</span></label>
@@ -1077,7 +1085,7 @@
       <!-- The auto flow takes a date of birth per driver; a home quote has no
            driver list, so the applicant's own goes here and only here. -->
       <div class="fl" id="hDobWrap" hidden><label for="hDob">Date of birth</label>
-        <input id="hDob" name="dob" type="date" autocomplete="bday"></div>
+        <input id="hDob" name="dob" type="date" data-nofuture autocomplete="bday"></div>
       <div class="fl"><label for="cnt">Anything we should know? <span class="opt2">(optional)</span></label>
         <textarea id="cnt" name="notes" rows="3" placeholder="SR-22, tickets, current carrier&hellip;"></textarea></div>
       <!-- A2P 10DLC: this consent stands on its own, starts unchecked, and is
@@ -1319,7 +1327,7 @@
         +'<div class="fl"><label>Last name</label><input data-f="last" value="'+esc(d.last)+'" autocomplete="off"></div>'
       +'</div>'
       +'<div class="g2">'
-        +'<div class="fl"><label>Date of birth</label><input data-f="dob" type="date" value="'+esc(d.dob)+'" autocomplete="off"></div>'
+        +'<div class="fl"><label>Date of birth</label><input data-f="dob" type="date" data-nofuture value="'+esc(d.dob)+'" autocomplete="off"></div>'
         +'<div class="fl"><label>Gender</label><select data-f="gender">'
           +sel('<option>Female</option><option>Male</option>',d.gender)+'</select></div>'
       +'</div>'
@@ -1346,6 +1354,7 @@
     document.getElementById('addVeh').disabled=veh>=4; }
   function addDrv(d){ drv++; document.getElementById('drvList').insertAdjacentHTML('beforeend',driverBlock(drv,d));
     wireLicense(document.querySelector('#drvList .blk:last-child'));
+    limitDates(document.querySelector('#drvList .blk:last-child'));
     document.getElementById('addDrv').disabled=drv>=4; }
   document.getElementById('addVeh').addEventListener('click',function(){addVeh();});
   document.getElementById('addDrv').addEventListener('click',function(){addDrv();});
@@ -2036,6 +2045,59 @@
     hGar:'Built-in or attached means it shares a wall with the house. Detached '
           +'is a separate building.'
   };
+  /* Put the bubble where it fits.
+
+     Centred on its button it is clipped by whichever edge it is nearest, and a
+     tooltip cut off mid-word does not read as a positioning bug — it reads as
+     the wrong tooltip, because the fragment you can see starts in the middle
+     of a sentence next to a heading it does not belong to.
+
+     So: centre it on the button, then push it back inside the viewport, then
+     move the arrow to wherever the button ended up. The arrow is what keeps it
+     attached to its question once the bubble itself has moved. */
+  /* A date that cannot be in the past, and one that cannot be in the future.
+
+     The native picker is where this belongs: min and max grey the impossible
+     days out, so nobody picks one and gets told off afterwards. Validation
+     still repeats the check, because a typed date and an old browser both get
+     past the picker.
+
+     Run again after any block is added — a rider added on the fifth step has a
+     date of birth that was not in the document when this first ran. */
+  function today(){ return new Date(Date.now()-new Date().getTimezoneOffset()*60000)
+    .toISOString().slice(0,10); }
+  function limitDates(root){
+    var t=today();
+    [].forEach.call((root||document).querySelectorAll('[data-nopast]'),function(i){ i.min=t; });
+    [].forEach.call((root||document).querySelectorAll('[data-nofuture]'),function(i){ i.max=t; });
+  }
+
+  var TIP_EDGE=12;
+  function placeTip(tip){
+    var box=tip.firstElementChild.nextElementSibling;
+    if(!box) return;
+    box.style.left='0px';                         // measure from a known origin
+    tip.classList.remove('up');
+    var vw=document.documentElement.clientWidth,
+        t=tip.getBoundingClientRect(), w=box.getBoundingClientRect().width;
+    var want=t.left+t.width/2-w/2,
+        put=Math.max(TIP_EDGE, Math.min(want, vw-w-TIP_EDGE));
+    box.style.left=(put-t.left)+'px';
+    // The arrow stays under the button, clamped so it cannot slide off the
+    // bubble's own rounded corners.
+    var arrow=Math.max(10, Math.min(t.left+t.width/2-put-5, w-20));
+    box.style.setProperty('--tip-arrow',arrow+'px');
+    box.style.cssText+=';';
+    var st=document.getElementById('tipArrowStyle');
+    if(!st){ st=document.createElement('style'); st.id='tipArrowStyle';
+      st.textContent='.tip>div::before{left:var(--tip-arrow,12px)}';
+      document.head.appendChild(st); }
+    // Below by default; above when the bubble would run off the bottom.
+    var b=box.getBoundingClientRect();
+    if(b.bottom > document.documentElement.clientHeight-8 && t.top > b.height+20)
+      tip.classList.add('up');
+  }
+
   function addTips(){
     Object.keys(TIPS).forEach(function(id){
       var el=document.getElementById(id); if(!el) return;
@@ -2103,7 +2165,7 @@
       i.nextElementSibling.insertAdjacentHTML('afterbegin','<i class="sw">'+art+'</i>');
     });
 
-    addTips();
+    addTips(); limitDates();
     // One open bubble at a time, and a tap anywhere else closes it — on a
     // phone there is no hover to leave, so it has to be dismissible.
     document.addEventListener('click',function(e){
@@ -2116,10 +2178,11 @@
       var was=!open.hasAttribute('hidden-tip');
       open.toggleAttribute('hidden-tip',was);
       btn.setAttribute('aria-expanded',String(!was));
-      // Flip the bubble when it would otherwise hang off the right edge.
-      if(!was){ var r=open.getBoundingClientRect();
-        open.classList.toggle('rt', r.left+129 > document.documentElement.clientWidth-8); }
+      if(!was) placeTip(open);
     });
+    // Re-measure rather than leave a bubble stranded where it was opened.
+    window.addEventListener('resize',function(){
+      [].forEach.call(document.querySelectorAll('.tip:not([hidden-tip])'),placeTip); });
     document.addEventListener('keydown',function(e){
       if(e.key!=='Escape') return;
       [].forEach.call(document.querySelectorAll('.tip:not([hidden-tip])'),function(t){
@@ -2372,10 +2435,10 @@
   var bikes=0, riders=0, incs=0;
   function addBike(){ bikes++;
     document.getElementById('bikeList').insertAdjacentHTML('beforeend',bikeBlock(bikes));
-    wireMoto(); addTips(); }
+    wireMoto(); addTips(); limitDates(); }
   function addRider(){ riders++;
     document.getElementById('riderList').insertAdjacentHTML('beforeend',riderBlock(riders));
-    wireMoto(); addTips(); }
+    wireMoto(); addTips(); limitDates(); }
   function addInc(){ incs++;
     document.getElementById('incList').insertAdjacentHTML('beforeend',incBlock(incs));
     fillIncWho(); }
@@ -2470,7 +2533,7 @@
           +'<option>II</option><option>III</option><option>IV</option></select></div>'
       +'</div>'
       +'<div class="g2">'
-        +'<div class="fl"><label>Date of birth</label><input data-f="dob" type="date" autocomplete="off"></div>'
+        +'<div class="fl"><label>Date of birth</label><input data-f="dob" type="date" data-nofuture autocomplete="off"></div>'
         +'<div class="fl"><label>Gender</label><select data-f="gender">'
           +'<option value="">Choose one</option><option>Female</option><option>Male</option></select></div>'
       +'</div>'
@@ -2736,6 +2799,19 @@
     p.scrollIntoView({block:'center',behavior:'smooth'}); return false; }
   var vinNudged=false;
 
+  /* Which error line to write on is per-step, so the message lands on the
+     screen the visitor is looking at rather than one they have left. */
+  var DATE_ERR={property:'e-property',history:'e-history',contact:'e-contact'};
+  function pastDatesOk(step){
+    var el=stepEl(step); if(!el) return true;
+    var bad=[].slice.call(el.querySelectorAll('[data-nopast]')).filter(function(i){
+      return i.value && i.value < today(); });
+    if(!bad.length) return true;
+    var id=DATE_ERR[step]; if(!id) return true;
+    clear(id);
+    return fail(id,'Coverage cannot start in the past — pick today or a day after it.');
+  }
+
   function valid(name){
     if(name==='type') return !!chosenType();
     if(name==='address'){ clear('e-address');
@@ -2764,6 +2840,11 @@
        without is required; everything an agent can confirm on the phone is
        let through blank, because a half-finished form that a visitor
        abandons is worth less than a lead with three gaps in it. */
+    /* A start date in the past is not a date anyone can be sold. min on the
+       input greys those days out; this catches a typed one and a browser that
+       ignores min, on whichever flow asked for it. */
+    if(!pastDatesOk(name)) return false;
+
     if(name==='property'){ clear('e-property');
       if(!pick('hProp')) return fail('e-property','Let us know whether it is a house, a condo or a co-op.');
       if(!pick('hBldg')) return fail('e-property','Which kind of building is it?');
