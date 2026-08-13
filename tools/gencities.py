@@ -911,13 +911,29 @@ def breadcrumb(name, st, url):
 
 # ------------------------------------------------------------------- builder ---
 
-def find_photo(ident):
-    """A real photograph at assets/cities/<state>-<slug>.<ext> wins over the
-    illustration. Checked at build time so dropping a file in is the whole job."""
-    for ext in ('webp', 'jpg', 'jpeg', 'png', 'avif'):
-        if os.path.exists(os.path.join(ROOT, 'assets', 'cities', ident + '.' + ext)):
-            return ident + '.' + ext
+EXTS = ('webp', 'jpg', 'jpeg', 'png', 'avif')
+
+def _photo_at(stem):
+    for ext in EXTS:
+        if os.path.exists(os.path.join(ROOT, 'assets', 'cities', stem + '.' + ext)):
+            return stem + '.' + ext
     return None
+
+def find_photo(ident, state_slug):
+    """Three tiers, most specific first, checked at build time so dropping a
+    file in is the whole job:
+
+        assets/cities/texas-dallas.webp   this city, and nothing else
+        assets/cities/texas.webp          every Texas city without its own
+        (nothing)                         the illustrated scene
+
+    The middle tier is what makes 129 pages affordable: one artwork standing in
+    for the state is honest as long as the page does not claim it is a
+    photograph of that particular town — see the alt text in citykit.hero().
+    A city that later gets its own photograph simply overrides it, with no
+    change here.
+    """
+    return _photo_at(ident) or _photo_at(state_slug)
 
 # ---------------------------------------------------------- the new layout ---
 
@@ -998,7 +1014,8 @@ def city_page_v2(slug, name, county, tags, nb, st, place):
     presence = place.get('presence', 'serving')
     seed = SALT[0] + st + slug   # varies with the redraw loop
     parts = [
-      CK.hero(name, d['abbr'], st, d['name'], place, up, ident, find_photo(ident)),
+      CK.hero(name, d['abbr'], st, d['name'], place, up, ident, find_photo(ident, st),
+              own_photo=bool(_photo_at(ident))),
       BK.trustbar(),
       CK.intents(place, name, up, seed),
       CK.factors(place, name),

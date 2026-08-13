@@ -252,13 +252,22 @@ def crumbs(state_slug, state_name, city, up):
             '<a href="' + up + 'car-insurance/' + state_slug + '/">' + _e(state_name) + '</a> &rsaquo; '
             '<span aria-current="page">' + _e(city) + '</span></nav>')
 
-def hero(city, abbr, state_slug, state_name, place, up, ident, photo=None):
-    """`photo` is the filename of a real photograph if one has been dropped into
+def hero(city, abbr, state_slug, state_name, place, up, ident, photo=None, own_photo=False):
+    """`photo` is the filename of an image if one has been dropped into
     assets/cities/, otherwise the illustrated scene is used. Nothing else in the
-    hero changes, so adding a photo is a file copy and not a code change."""
+    hero changes, so adding one is a file copy and not a code change.
+
+    `own_photo` says whether that image is of this city or is the state's
+    stand-in. It decides the alt text and nothing else, which is the whole
+    point: alt text is what the image claims to be, read out loud to somebody
+    who cannot see it. A shared Texas artwork described as "Lubbock, TX" tells a
+    blind visitor a photograph of their town is on the page when it is not, and
+    it is the same class of mistake as the old hardcoded "here in El Paso".
+    """
     if photo:
+        alt = (_e(city) + ', ' + _e(abbr)) if own_photo else _e(state_name)
         art = ('<img class="cscape" src="' + up + 'assets/cities/' + photo + '" '
-               'alt="' + _e(city) + ', ' + _e(abbr) + '" width="1600" height="560" '
+               'alt="' + alt + '" width="1600" height="560" '
                'fetchpriority="high" decoding="async">')
     else:
         art = cityscape.scene(place.get('scene', 'plains'), ident, ident.replace('-', ''))

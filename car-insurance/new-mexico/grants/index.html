@@ -314,8 +314,12 @@
   .pitem{display:flex;gap:14px;align-items:center;border:1.5px solid var(--line);border-radius:18px;
       padding:14px 16px;background:#fff;transition:transform .18s,border-color .18s}
   .pitem:hover{transform:translateY(-3px);border-color:var(--acc-line)}
-  .pitem .th{flex:0 0 auto;width:66px;height:30px}
+  /* Sized between the silhouette's 420x232 and a photograph's 880x520 so that
+     both letterbox into it rather than one of them being cropped or stretched.
+     A list mixing the two should not look like it mixes two thumbnail sizes. */
+  .pitem .th{flex:0 0 auto;width:84px;height:48px}
   .pitem .th svg{width:100%;height:100%}
+  .pitem .th img{width:100%;height:100%;object-fit:contain;display:block}
   .pitem b{display:block;font-size:15px;font-weight:900;color:var(--navy)}
   .pitem small{display:block;font-size:12.5px;color:var(--muted);font-weight:700;margin-top:2px}
 
