@@ -30,6 +30,23 @@ phone call, which is what the page promises them.
 
 Do not send before the 10DLC campaign is approved.
 
+### The rule above only covers this path
+
+Confirmed August 2026, on the AMS side: the agent-facing SMS paths do **not**
+check consent before sending. `dispatch-scheduled.js` calls `sendSmsCore`
+directly, and the Inbox composer that fills its queue does not check either. A
+`TODO` to wire consent into them has been open since May. They all use the same
+RingCentral number this quote flow would use.
+
+So a consent record written here is not, on its own, what decides whether a
+person gets a text. Two things follow:
+
+- **Reading this file is not enough to know whether the agency is compliant.**
+  The gate has to exist on every path out of that number, not just this one.
+- **An explicit STOP has to win everywhere.** It is the one signal that cannot
+  have an exception carved out for it, and a per-path gate is exactly how a
+  STOP recorded in one place gets ignored by another.
+
 ## When
 
 On the same event that fills `rates[]` — the moment rating finishes, alongside
