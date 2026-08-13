@@ -531,7 +531,7 @@ def make_page(slug, name, parent, origin, tags, note):
       'Spanish. Coverage notes by model and a free quote.',
     ])
     qs = faq(slug, name, parent, origin, tags, note)
-    photo = os.path.exists(os.path.join(ROOT, 'assets', 'makes', slug + '.webp'))
+    photo = has_photo(slug)
     acc = LU.accent(slug)
 
     # Measure what a search result would actually show, not the escaped source —
@@ -647,6 +647,21 @@ def make_page(slug, name, parent, origin, tags, note):
             + rewrite(shell.FOOTER, 2).replace('</body>', BK.JS + '</body>'))
 
 # ----------------------------------------------------------------- the hub ---
+def has_photo(slug):
+    return os.path.exists(os.path.join(ROOT, 'assets', 'makes', slug + '.webp'))
+
+def thumb(slug):
+    """The hub list follows whatever the brand's own hero is showing. A make with
+    a photograph gets it here too; one without keeps the silhouette, so adding an
+    image later changes both places at once and neither can drift from the other.
+
+    Lazy and far down the page: the hub is sixty rows and none of them is the LCP
+    element, which the hero above them is."""
+    if has_photo(slug):
+        return ('<img src="' + UP + 'assets/makes/' + slug + '.webp" alt="" '
+                'width="84" height="48" loading="lazy" decoding="async">')
+    return vehiclesvg.silhouette(LU.dominant_body(slug), 'var(--acc)', 'h' + slug)
+
 def hub():
     url = SITE + '/car-insurance/makes/'
     groups = {}
@@ -663,7 +678,7 @@ def hub():
         rows = sorted(groups[g], key=lambda r: r[1])
         out.append('<h2 class="rv">' + g + '</h2><div class="plist">' + ''.join(
           '<a class="pitem rv" href="../' + s + '/"><span class="th" aria-hidden="true">'
-          + vehiclesvg.silhouette(LU.dominant_body(s), 'var(--acc)', 'h' + s)
+          + thumb(s)
           + '</span><span><b>' + _e(n) + '</b><small>' + _e(p) + '</small></span></a>'
           for s, n, p in rows) + '</div>')
 
