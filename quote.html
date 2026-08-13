@@ -1734,16 +1734,57 @@
     document.getElementById('pickedP').textContent = em
       ? 'We are sending this quote to '+em+' and an agent is picking it up now.'
       : 'An agent is picking this up now.';
-    // The AMS has no endpoint for recording a choice yet, so the selection
-    // lives here and in the console until it does. The lead itself was saved
-    // the moment the quote was submitted — nothing is lost either way.
     window.__chosen={quoteId:q,plan:chosenRate.__kind,carrier:chosenRate.carrier,
                      premium:chosenRate.premium,downPayment:chosenRate.downPayment,
                      installment:chosenRate.installment,payments:chosenRate.payments,
                      term:chosenRate.term,email:em};
     console.log('[quote] visitor chose',window.__chosen);
+    sendChoice(chosenRate,q);
     show('picked');
   });
+
+  /* Tell the AMS which row was picked, so the agent opens the file knowing what
+     the visitor was looking at instead of guessing from the rate list.
+
+     Three things this deliberately does not do:
+
+     - It does not hold up the screen. show('picked') runs either way and this
+       is never awaited. The choice is a note on a lead that was already saved
+       when the quote was submitted, so a failure here costs the agent context
+       and costs the visitor nothing.
+     - It does not fire without a quoteId. A 202 means the AMS saved the lead
+       but never rated, so there is no quote for a selection to attach to and
+       the visitor cannot have chosen a row in the first place.
+     - It does not retry. Confirm can only be pressed once — the screen moves
+       on — and a retry loop against an endpoint that may already have recorded
+       the choice is how one selection becomes several.
+
+     Sent as {action:'select'} on the normal POST, which is the shape the AMS
+     built. It is not the separate /public-quote/select path this file asked
+     for; that request predates the endpoint existing. */
+  function sendChoice(r,q){
+    if(!API||!q) return;
+    var body={action:'select',quoteId:q,
+              clientId:(window.__quote&&window.__quote.clientId)||undefined,
+              carrier:r.carrier,premium:r.premium,downPayment:r.downPayment,
+              installment:r.installment,payments:r.payments,term:r.term};
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},
+               body:JSON.stringify(body)})
+      .then(function(res){
+        window.__chosen.sent=res.ok;
+        if(res.ok){ console.log('[quote] selection recorded'); return; }
+        // Silent to the visitor, loud here: the price they picked is on screen
+        // and correct, and only the agent's view of it is missing.
+        return res.json().catch(function(){return {};}).then(function(d){
+          console.warn('[quote] the AMS did not record the selection ('+res.status+').'
+                      +why(d)+' The lead is unaffected.',d);
+        });
+      })
+      .catch(function(e){
+        window.__chosen.sent=false;
+        console.warn('[quote] the selection never reached the AMS.',e);
+      });
+  }
 
   function chosenHtml(r){
     var rows=[];

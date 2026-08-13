@@ -252,14 +252,39 @@ number.
 
 Email is required at the contact step — that is where the quote is sent.
 
-**The AMS has no endpoint for recording which option the visitor chose.** The
-selection is put on `window.__chosen` and logged, nothing more. It is
-deliberately not POSTed anywhere: the only documented POST creates a quote, and
-sending a selection to it would create a duplicate lead. The lead itself was
-saved when the quote was submitted, so an agent still calls either way — they
-just do not yet know which carrier was picked. **This needs an endpoint on the
-AMS side**, something like `POST /public-quote/select` taking `{quoteId,
-carrier, premium, downPayment, installment, payments, term}`.
+### Recording the choice
+
+The selection is POSTed back, so the agent opens the file knowing which row the
+visitor was looking at. The AMS mirrors it into the callback as
+*"⭐ Client selected"*.
+
+```jsonc
+POST {API}   { "action": "select", "quoteId": "…", "clientId": "…",
+               "carrier": "…", "premium": 980.25, "downPayment": 159.50,
+               "installment": 159.50, "payments": 5, "term": "6 months" }
+```
+
+It is `action: 'select'` on the normal POST, **not** the separate
+`/public-quote/select` path this file used to ask for — that request predates
+the endpoint, and the AMS built it as an action instead.
+
+`clientId` is sent because the GET needs it to authorise; if the AMS does not
+want it there, dropping it is a one-line change.
+
+What it deliberately does not do, all three for the same reason — the lead was
+already saved when the quote was submitted, so this is a note on it and nothing
+the visitor sees depends on it:
+
+- **Does not hold up the screen.** Never awaited; the confirmation renders
+  either way. A failure costs the agent context and the visitor nothing.
+- **Does not fire without a `quoteId`.** After a 202 there is no rated quote to
+  attach a selection to, and no rows were shown to choose from.
+- **Does not retry.** Confirm can only be pressed once, and retrying against an
+  endpoint that may already have recorded the choice is how one selection
+  becomes several.
+
+A failure is silent on screen and loud in the console. `window.__chosen.sent`
+records whether it landed.
 
 ## What the form never asks
 
