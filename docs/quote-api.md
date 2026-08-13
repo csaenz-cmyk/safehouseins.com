@@ -330,6 +330,8 @@ Neither is in the contract, so neither is assumed:
 
 ## Before going live
 
-Confirm with your ITC/Zywave rep that your agreement permits displaying rates to
-consumers on your own site. Some TurboRater contracts are agent-use only. That
-is a contract question, and it is the one thing here that code cannot settle.
+**Settled, August 2026:** the agency confirmed with ITC/Zywave that its
+agreement permits displaying rates to consumers on its own site. Some TurboRater
+contracts are agent-use only and this one is not, so the results screen is
+allowed to exist. Re-check it if the agreement is ever renegotiated — it is the
+one thing here that code cannot settle.

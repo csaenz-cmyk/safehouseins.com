@@ -3,6 +3,16 @@
 Two pages and one checkbox. This is what TCR reviewers open, and the reasons
 each piece is shaped the way it is.
 
+## Status: not approved yet (confirmed with the agency, August 2026)
+
+**Nothing may be texted until it is.** This is the gate on the whole SMS side,
+not a formality — sending before approval is what gets a 10DLC number taken
+down, and the templates in `sms/` are written and checked but must stay unsent.
+
+The website side does not change either way: the consent checkbox, the four
+`smsConsent*` fields and `/sms-terms` are what the reviewer is looking at, so
+they ship regardless. It is the AMS that must not send.
+
 ## The agency details
 
 Supplied by the agency, and they must keep matching the IRS SS-4 — TCR
