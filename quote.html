@@ -469,7 +469,10 @@
 <div class="qwrap">
   <div class="crumb">
     <button class="back" id="back" type="button" aria-label="Go back"><svg class="i"><use href="#ar"/></svg></button>
-    <span id="crumb">Step 1</span><span class="sp"></span>
+    <!-- Empty during the questions; the later screens name themselves here.
+         aria-live so a screen reader hears "Working on it" when it appears,
+         rather than the label changing silently behind the visitor. -->
+    <span id="crumb" aria-live="polite"></span><span class="sp"></span>
   </div>
 
   <form class="qcard" id="qform" novalidate autocomplete="on">
@@ -2760,8 +2763,16 @@
     if(name==='covSummary') renderCovSummary();
     steps.forEach(function(s){ s.classList.toggle('on',s.dataset.step===name); });
     var i=flow.indexOf(name);
+    // No step count. "Step 2 of 13" is the first thing a visitor reads on the
+    // motorcycle flow and it reads as a warning about how long this is going
+    // to take. The bar still fills as they go, so the sense of progress is
+    // there without a number attached to it.
+    //
+    // The screens after the questions keep their labels — those name what is
+    // happening rather than counting anything, and going blank while a quote
+    // is being rated would read as the page having stalled.
     if(i>-1){ at=i; bar.style.width=Math.round(((i+1)/flow.length)*100)+'%';
-      crumb.textContent='Step '+(i+1)+' of '+flow.length; back.style.visibility='visible'; }
+      crumb.textContent=''; back.style.visibility='visible'; }
     else { bar.style.width='100%';
       crumb.textContent={rating:'Working on it',results:'Your options',
                          confirm:'Almost there'}[name]||'All done';
