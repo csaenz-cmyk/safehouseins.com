@@ -344,6 +344,7 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
   .vopt[aria-pressed=true]{border-color:var(--blue);box-shadow:0 6px 18px rgba(22,102,237,.18)}
   .vopt .vart{display:block;aspect-ratio:4/3;width:100%;background:var(--ice)}
   .vopt .vart svg{display:block;width:100%;height:100%}
+  .vopt .vart img{display:block;width:100%;height:100%;object-fit:cover}
   .vopt .vlb{display:block;padding:7px 9px 9px;font-size:12px;font-weight:800;
       line-height:1.3;color:var(--navy)}
   .vopt[aria-pressed=true] .vlb{color:var(--blue-d)}
@@ -1799,15 +1800,29 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
       return '<path d="M0 '+(i*4.4+2)+' h80" stroke="#AEB6BF" stroke-width="1.5" opacity=".7"/>';}),'#C4CBD3');
   ART['Concrete ']=ART['Concrete'];
   // construction ------------------------------------------------------------
-  ART['Frame']=svg(rep(6,function(i){ return '<rect x="'+(3+i*13)+'" y="4" width="7" height="52" fill="#C79A63"/>';})
-    +'<rect x="0" y="4" width="80" height="5" fill="#A87C48"/><rect x="0" y="51" width="80" height="5" fill="#A87C48"/>','#F1E7D8');
+  /* Frame and the two "over a frame" walls were the least legible of the set:
+     the studs alone read as a fence. Each is now a wall being built, left to
+     right — studs, then whatever goes on the outside of them, stopping partway
+     so both layers are visible at once. That is the actual difference between
+     these three answers, and it is the whole reason the question is asked. */
+  function studs(x0,x1){ var s='';
+    for(var x=x0;x<x1-4;x+=13) s+='<rect x="'+x+'" y="6" width="6" height="48" fill="#C79A63"/>';
+    return '<rect x="'+x0+'" y="2" width="'+(x1-x0)+'" height="5" fill="#A87C48"/>'+s
+      +'<rect x="'+x0+'" y="53" width="'+(x1-x0)+'" height="5" fill="#A87C48"/>'; }
+  ART['Frame']=svg(studs(2,78),'#F5EFE4');
   ART['Masonry — solid brick or block']=svg(courses(5,4,12,'#B4553A','#8E3F29',2),'#7E3A25');
+  // A thin brick face with the frame showing behind it — veneer is a skin, and
+  // that is the whole difference from solid masonry. Painted in the same order
+  // as the stucco tile: courses first, then the frame side over the top of
+  // them, then the studs. Drawing the studs first left them under the brick.
   ART['Masonry veneer']=svg(courses(5,4,12,'#B4553A','#8E3F29',2)
-    +'<rect x="52" y="0" width="28" height="60" fill="#F1E7D8"/>'
-    +rep(2,function(i){ return '<rect x="'+(56+i*13)+'" y="4" width="7" height="52" fill="#C79A63"/>';}),'#7E3A25');
-  ART['Stucco on frame']=svg('<rect x="52" y="0" width="28" height="60" fill="#F1E7D8"/>'
-    +rep(2,function(i){ return '<rect x="'+(56+i*13)+'" y="4" width="7" height="52" fill="#C79A63"/>';})
-    +speck(16,9,['#DED4C2'],2,5),'#EBE0CD');
+    +'<rect x="34" y="0" width="46" height="60" fill="#F5EFE4"/>'
+    +'<rect x="30" y="0" width="4" height="60" fill="#8E3F29"/>'   // the skin, seen edge-on
+    +studs(36,78),'#7E3A25');
+  ART['Stucco on frame']=svg(studs(40,78)
+    +'<rect x="0" y="0" width="40" height="60" fill="#E9E0CF"/>'
+    +speck(14,9,['#DBD1BE','#F1EADC'],2,5)
+    +'<rect x="38" y="0" width="3" height="60" fill="#CFC3AC"/>','#F5EFE4');
   ART['Stone']=svg(rep(12,function(i){ var c=i%4, r=Math.floor(i/4);
       return '<rect x="'+(c*20+1)+'" y="'+(r*20+1)+'" width="18" height="18" rx="6" fill="'
         +['#9E9A90','#8B877E','#ADA89C'][i%3]+'"/>';}),'#6F6C66');
@@ -1823,35 +1838,64 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
     +'<path d="M4 20 L40 8 L76 20 Z" fill="#8B95A3"/><rect x="30" y="30" width="12" height="14" fill="#9FB3CC"/>'
     +'<circle cx="20" cy="48" r="5" fill="#3E4650"/><circle cx="60" cy="48" r="5" fill="#3E4650"/>','#EFF5FF');
   ART['Not sure']=svg(QM,'#E8EEF8');
-  // foundation --------------------------------------------------------------
-  function ground(y){ return '<rect y="'+y+'" width="80" height="'+(60-y)+'" fill="#C8A97E"/>'
-    +'<path d="M0 '+y+' h80" stroke="#A9885C" stroke-width="1.6"/>'; }
-  var HOUSE='<rect x="10" y="6" width="60" height="18" fill="#E8EDF4" stroke="#9FB3CC" stroke-width="1.4"/>';
-  ART['Slab on grade']=svg(ground(32)+HOUSE+'<rect x="8" y="24" width="64" height="8" fill="#A8AEB5"/>','#EFF5FF');
-  ART['Crawl space']=svg(ground(44)+HOUSE+'<rect x="8" y="24" width="64" height="5" fill="#A8AEB5"/>'
-    +'<rect x="10" y="29" width="6" height="15" fill="#8F959C"/><rect x="64" y="29" width="6" height="15" fill="#8F959C"/>','#EFF5FF');
-  ART['Basement — finished']=svg(ground(24)+HOUSE+'<rect x="10" y="24" width="60" height="30" fill="#EFF5FF" '
-    +'stroke="#9FB3CC" stroke-width="1.4"/><rect x="14" y="44" width="52" height="6" fill="#B07E45"/>','#EFF5FF');
-  ART['Basement — unfinished']=svg(ground(24)+HOUSE+'<rect x="10" y="24" width="60" height="30" fill="#B9BFC6" '
-    +'stroke="#8F959C" stroke-width="1.4"/>','#EFF5FF');
-  ART['Walkout basement']=svg('<path d="M0 24 H40 V50 H80 V60 H0 Z" fill="#C8A97E"/>'
-    +'<path d="M0 24 H40 V50 H80" stroke="#A9885C" stroke-width="1.6" fill="none"/>'
-    +HOUSE+'<rect x="10" y="24" width="60" height="26" fill="#EFF5FF" stroke="#9FB3CC" stroke-width="1.4"/>','#EFF5FF');
-  ART['Pier and beam']=svg(ground(46)+HOUSE+'<rect x="6" y="24" width="68" height="6" fill="#B07E45"/>'
-    +rep(4,function(i){ return '<rect x="'+(10+i*19)+'" y="30" width="8" height="16" fill="#A8AEB5"/>';}),'#EFF5FF');
-  ART['Piers or stilts']=svg(ground(52)+'<rect x="10" y="6" width="60" height="16" fill="#E8EDF4" '
-    +'stroke="#9FB3CC" stroke-width="1.4"/>'
-    +rep(4,function(i){ return '<rect x="'+(13+i*18)+'" y="22" width="6" height="30" fill="#B07E45"/>';}),'#EFF5FF');
+  /* foundation ---------------------------------------------------------------
+     Redrawn. The first version floated a grey rectangle over a brown band and
+     asked the visitor to read a technical cross-section; slab and crawl space
+     came out looking almost identical. Now every tile carries the same little
+     house with a roof, drawn at the same place, and the only thing that
+     changes between them is what is underneath it — which is the question. */
+  var HS='<path d="M8 16 L40 3 L72 16 Z" fill="#5A6470"/>'
+        +'<rect x="14" y="16" width="52" height="14" fill="#E8EDF4" stroke="#9FB3CC" stroke-width="1.3"/>'
+        +'<rect x="34" y="20" width="10" height="10" fill="#9FB3CC"/>';
+  function dirt(y){ return '<rect y="'+y+'" width="80" height="'+(60-y)+'" fill="#C8A97E"/>'
+    +'<path d="M0 '+y+' h80" stroke="#9C7C50" stroke-width="1.8"/>'; }
+  ART['Slab on grade']=svg(dirt(36)+HS
+    +'<rect x="11" y="30" width="58" height="6" fill="#AAB0B7" stroke="#8F959C" stroke-width="1"/>','#EFF5FF');
+  ART['Crawl space']=svg(dirt(44)+HS
+    +'<rect x="12" y="30" width="56" height="4" fill="#B07E45"/>'
+    +'<rect x="14" y="34" width="52" height="10" fill="#3E4650"/>'      // the gap, clearly a gap
+    +'<rect x="12" y="34" width="5" height="10" fill="#AAB0B7"/><rect x="63" y="34" width="5" height="10" fill="#AAB0B7"/>','#EFF5FF');
+  ART['Basement — finished']=svg(dirt(30)+HS
+    +'<rect x="14" y="30" width="52" height="24" fill="#FBFCFE" stroke="#9FB3CC" stroke-width="1.3"/>'
+    +'<rect x="14" y="48" width="52" height="6" fill="#B07E45"/>'        // a floor you would live on
+    +'<rect x="22" y="35" width="11" height="8" fill="#CFE0F5" stroke="#9FB3CC" stroke-width=".9"/>'
+    +'<rect x="47" y="35" width="11" height="8" fill="#CFE0F5" stroke="#9FB3CC" stroke-width=".9"/>','#EFF5FF');
+  ART['Basement — unfinished']=svg(dirt(30)+HS
+    +'<rect x="14" y="30" width="52" height="24" fill="#9EA5AD" stroke="#7C838B" stroke-width="1.3"/>'
+    +rep(3,function(i){ return '<path d="M14 '+(36+i*6)+' h52" stroke="#8A9199" stroke-width=".9"/>';}),'#EFF5FF');
+  ART['Walkout basement']=svg('<path d="M0 30 H30 V54 H80 V60 H0 Z" fill="#C8A97E"/>'
+    +'<path d="M0 30 H30 V54 H80" stroke="#9C7C50" stroke-width="1.8" fill="none"/>'+HS
+    +'<rect x="14" y="30" width="52" height="24" fill="#FBFCFE" stroke="#9FB3CC" stroke-width="1.3"/>'
+    +'<rect x="52" y="38" width="12" height="16" fill="#5A6470"/>','#EFF5FF');   // a door out at grade
+  ART['Pier and beam']=svg(dirt(48)+HS
+    +'<rect x="10" y="30" width="60" height="5" fill="#B07E45"/>'
+    +rep(4,function(i){ return '<rect x="'+(14+i*17)+'" y="35" width="9" height="13" fill="#AAB0B7" '
+      +'stroke="#8F959C" stroke-width=".8"/>';}),'#EFF5FF');
+  ART['Piers or stilts']=svg(dirt(56)
+    +'<path d="M8 6 L40 -6 L72 6 Z" fill="#5A6470"/>'
+    +'<rect x="14" y="6" width="52" height="14" fill="#E8EDF4" stroke="#9FB3CC" stroke-width="1.3"/>'
+    +'<rect x="34" y="10" width="10" height="10" fill="#9FB3CC"/>'
+    +rep(4,function(i){ return '<rect x="'+(16+i*16)+'" y="20" width="6" height="36" fill="#B07E45" '
+      +'stroke="#8A6134" stroke-width=".8"/>';}),'#EFF5FF');
   // siding ------------------------------------------------------------------
   ART['Brick']=ART['Masonry — solid brick or block'];
   ART['Brick veneer']=ART['Masonry — solid brick or block'];
   ART['Stucco']=svg(speck(22,13,['#E2D8C6','#EFE7D8'],2,6),'#E9E0CF');
   ART['Stone veneer']=ART['Stone'];
-  ART['Vinyl']=svg(rep(7,function(i){ return '<rect y="'+(i*8.6)+'" width="80" height="7.4" fill="#D6DEE7"/>'
-      +'<path d="M0 '+(i*8.6+7.4)+' h80" stroke="#B4C0CD" stroke-width="1.2"/>';}),'#B4C0CD');
-  ART['Fiber cement']=svg(rep(6,function(i){ return '<rect y="'+(i*10)+'" width="80" height="8.8" fill="#CFD6DE"/>'
-      +'<path d="M0 '+(i*10+8.8)+' h80" stroke="#A9B4C1" stroke-width="1.2"/>';}),'#A9B4C1');
-  ART['Aluminum']=svg(rep(10,function(i){ return '<rect y="'+(i*6)+'" width="80" height="5.2" fill="#C6CDD5"/>';}),'#A6AFB9');
+  /* Vinyl, fiber cement and aluminium were three sets of identical grey
+     stripes, which is close to what they look like in life and useless as a
+     way to tell them apart. Board width, colour and the shadow under each
+     course are pushed apart far enough to be distinguishable at 104px. This is
+     the group that most wants a real photograph. */
+  function lap(h,fill,shade,tint){
+    return rep(Math.ceil(60/h),function(i){ var y=i*h;
+      return '<rect y="'+y+'" width="80" height="'+(h-1.1)+'" fill="'+fill+'"/>'
+        +'<rect y="'+(y+h-1.1)+'" width="80" height="1.1" fill="'+shade+'"/>'
+        +(tint?'<rect y="'+y+'" width="80" height="1.6" fill="'+tint+'" opacity=".65"/>':''); });
+  }
+  ART['Vinyl']=svg(lap(11,'#DCE4EC','#A9B7C6','#F2F6FA'),'#A9B7C6');         // wide, soft, pale
+  ART['Fiber cement']=svg(lap(7.5,'#C2C7C4','#8D9691',''),'#8D9691');        // narrower, matte, greener
+  ART['Aluminum']=svg(lap(5,'#C9D1D9','#8C97A3','#EFF4F8'),'#8C97A3');       // narrowest, metallic highlight
   ART['Metal']=svg(rep(7,function(i){ return '<rect x="'+(i*11.4)+'" y="0" width="9.6" height="60" fill="#B8C1CB"/>';}),'#8F9AA6');
   ART['Composite']=svg(rep(5,function(i){ return '<rect x="'+(i*16)+'" y="0" width="13" height="60" fill="#D3CEC4"/>';}),'#B5AFA3');
   // roof material -----------------------------------------------------------
@@ -1930,6 +1974,31 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
      It stays in the DOM, visually hidden, and remains the single value: valid()
      and homePayload() read it exactly as before, and a change dispatched from
      here reaches the same listeners a native pick would have. */
+  /* A drawing is a placeholder for a photograph.
+
+     Some of these read fine as drawings — a roof shape is a diagram, and a
+     diagram is the clearest it will ever be. Others do not: three kinds of lap
+     siding drawn honestly are three sets of grey stripes, and a foundation
+     cross-section asks the visitor to read a technical drawing to answer a
+     question about their own house.
+
+     So: drop a photograph at assets/home/<slug>.webp and it replaces the
+     drawing on the next load, one option at a time, with no code change. The
+     photo is loaded off-screen first and only swapped in once it has decoded,
+     so a missing file costs nothing and a broken image never appears. */
+  function artSlug(v){
+    return String(v).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  }
+  function usePhotoIfThere(host,value){
+    var im=new Image();
+    im.onload=function(){
+      host.innerHTML='';
+      im.alt=''; im.loading='lazy'; im.decoding='async';
+      host.appendChild(im);
+    };
+    im.src='assets/home/'+artSlug(value)+'.webp';
+  }
+
   function visualize(id,over){
     var sel=document.getElementById(id); if(!sel) return;
     var grid=document.createElement('div'); grid.className='vgrid';
@@ -1940,6 +2009,7 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
       b.type='button'; b.className='vopt'; b.setAttribute('aria-pressed','false');
       b.dataset.v=o.value;
       b.innerHTML='<span class="vart">'+art+'</span><span class="vlb">'+esc(o.textContent)+'</span>';
+      usePhotoIfThere(b.firstElementChild,o.value);
       grid.appendChild(b);
     });
     grid.addEventListener('click',function(e){
@@ -2041,7 +2111,12 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
     // Five selects become pictures; stories, units and bathrooms stay native,
     // because a number does not need illustrating and the OS wheel is the
     // better control for one on a phone.
-    visualize('hConstr'); visualize('hFound'); visualize('hSiding');
+    visualize('hConstr'); visualize('hFound');
+    // 'Wood' means three different pictures depending on where it is asked —
+    // butcher block on a worktop, lap boards on a wall, shakes on a roof. ART
+    // is keyed by the option text, so the two that are not the countertop pass
+    // their own drawing in.
+    visualize('hSiding',{Wood:svg(lap(9,'#C9A063','#94733F','#DDBA84'),'#94733F')});
     visualize('hRoofMat',{Wood:svg(courses(6,5,10,'#A9793F','#8A6134',1.4),'#8A6134')});
     visualize('hRoofShape');
 

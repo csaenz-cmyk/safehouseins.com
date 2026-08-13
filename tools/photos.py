@@ -19,8 +19,13 @@ import os, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # (folder, output width, output height, KB budget)
+# 'home' are the little 4:3 tiles on the quote form's picture pickers — a
+# roof shape, a foundation, a countertop. They render about 104px wide, so
+# 480x360 is already twice what a retina screen needs, and there are dozens of
+# them on one screen: the budget is small on purpose.
 JOBS = [('cities', 1600, 560, 130),
-        ('makes',   880, 520,  90)]
+        ('makes',   880, 520,  90),
+        ('home',    480, 360,  45)]
 
 def process(folder, W, H, budget_kb, check=False):
     try:
