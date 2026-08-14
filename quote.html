@@ -311,7 +311,15 @@
      than a word does, the select stays in the DOM as the value — validation
      and the payload keep reading it, unchanged — and this grid drives it. */
   .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:9px;margin-top:9px}
+  /* A column, not the browser's default button box.
+
+     Grid rows stretch every tile to the tallest, and a button centres whatever
+     is inside it — so a one-word caption left spare height split evenly above
+     and below the photograph, and the picture sat lower than its neighbours'.
+     As a flex column the picture is pinned to the top and the caption absorbs
+     the difference, so every image in a row starts on the same line. */
   .vopt{font:inherit;text-align:left;cursor:pointer;padding:0;overflow:hidden;
+      display:flex;flex-direction:column;
       border:2px solid var(--line);border-radius:14px;background:#fff;
       transition:border-color .16s,transform .16s,box-shadow .16s}
   .vopt:hover{border-color:#C6D8F5;transform:translateY(-2px)}
@@ -320,8 +328,9 @@
   .vopt .vart{display:block;aspect-ratio:4/3;width:100%;background:var(--ice)}
   .vopt .vart svg{display:block;width:100%;height:100%}
   .vopt .vart img{display:block;width:100%;height:100%;object-fit:cover}
-  .vopt .vlb{display:block;padding:7px 9px 9px;font-size:12px;font-weight:800;
-      line-height:1.3;color:var(--navy)}
+  .vopt .vart{flex:0 0 auto}
+  .vopt .vlb{display:block;flex:1 0 auto;padding:7px 9px 9px;font-size:12px;
+      font-weight:800;line-height:1.3;color:var(--navy)}
   .vopt[aria-pressed=true] .vlb{color:var(--blue-d)}
   .vhidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -392,6 +401,22 @@
   .cov h3{font-size:16.5px;font-weight:900;color:var(--navy);letter-spacing:-.015em;
       line-height:1.32}
   .cov .why{font-size:13px;color:var(--muted);font-weight:600;line-height:1.55;margin-top:5px}
+  /* The one coverage that stays a dropdown: accessory cover runs in £1,000
+     bands to $30,000, so it is twenty-eight options and cards would bury the
+     rest of the screen. It had no styling at all and rendered as a raw browser
+     control in the middle of a form where nothing else does. */
+  .covsel{width:100%;margin-top:12px;border:2px solid var(--line);border-radius:15px;
+      padding:13px 42px 13px 15px;font-family:inherit;font-size:16px;font-weight:700;
+      background:#fff;color:var(--ink);cursor:pointer;-webkit-appearance:none;appearance:none;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235C6A80' stroke-width='2.4' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>");
+      background-repeat:no-repeat;background-position:right 14px center;background-size:17px;
+      transition:border-color .16s,box-shadow .16s}
+  .covsel:hover{border-color:#C6D8F5}
+  .covsel:focus{border-color:var(--blue);outline:none;box-shadow:0 0 0 3px rgba(22,102,237,.16)}
+  /* Not the default: the visitor has chosen an amount, so it reads like the
+     picked state of the cards beside it rather than like an empty field. */
+  .covsel.set{border-color:var(--blue);color:var(--blue-d)}
+
   .covopts{display:grid;gap:8px;margin-top:12px}
   @media(min-width:520px){ .covopts.two{grid-template-columns:1fr 1fr} }
   .covopt{display:flex;align-items:center;gap:11px;text-align:left;font:inherit;cursor:pointer;
@@ -1603,6 +1628,34 @@
      Nothing here is required. A decode that fails, times out or returns a bike
      NHTSA does not know leaves every field exactly as the visitor left it and
      says so — the year, make and model below are enough to quote from. */
+  /* NHTSA's BodyClass onto the words this form uses.
+
+     It reports things like "Motorcycle - Dual Sport/Adventure" and this form
+     offers "Dual sport", so the strings never match outright. Matched on a
+     substring, longest and most specific first, because "Sport Touring" and
+     "Dual Sport" both contain "sport" and only the order stops a touring bike
+     being filed as a sport bike.
+
+     A body class we cannot place leaves the question unanswered rather than
+     guessing, and the visitor can change whatever it picks. */
+  var BODY_TO_TYPE=[
+    ['sport touring','Touring'], ['dual sport','Dual sport'], ['dual-sport','Dual sport'],
+    ['adventure','Dual sport'], ['enduro','Dirt / off-road'], ['off-road','Dirt / off-road'],
+    ['off road','Dirt / off-road'], ['dirt','Dirt / off-road'], ['motocross','Dirt / off-road'],
+    ['cruiser','Cruiser'], ['chopper','Custom / chopper'], ['custom','Custom / chopper'],
+    ['touring','Touring'], ['sport','Sport bike'], ['supersport','Sport bike'],
+    ['standard','Standard / naked'], ['naked','Standard / naked'],
+    ['scooter','Scooter or moped'], ['moped','Scooter or moped'],
+    ['three-wheel','Trike'], ['trike','Trike']
+  ];
+  function bikeTypeFrom(bodyClass){
+    var s=String(bodyClass||'').toLowerCase();
+    if(!s) return '';
+    for(var i=0;i<BODY_TO_TYPE.length;i++)
+      if(s.indexOf(BODY_TO_TYPE[i][0])>-1) return BODY_TO_TYPE[i][1];
+    return '';
+  }
+
   function wireBikeVin(blk){
     var input=blk.querySelector('[data-f=vin]'), timer=null;
     if(!input) return;
@@ -1626,6 +1679,8 @@
             return o.value===v.year||o.text===v.year; })) y.value=v.year;
           put('make',v.make); put('model',v.model);
           if(v.cc) put('cc',String(v.cc));
+          var bt=bikeTypeFrom(v.body), sel=blk.querySelector('[data-f=bodyType]');
+          if(bt && sel && !sel.value) sel.value=bt;
           vinStatus(blk,'ok',[v.year,v.make,v.model].filter(Boolean).join(' ')
             +(v.cc?' — '+v.cc+'cc':''));
         }).catch(function(){
@@ -2514,7 +2569,9 @@
       title:'Riding gear',
       why:'Covers eligible motorcycle safety apparel and riding equipment — '
          +'helmet, jacket, gloves, boots.',
-      perBike:true, dflt:'None', select:true,
+      // Seven short amounts: cards, like every other coverage on this screen.
+      // A dropdown here was the odd one out and hid six of the seven.
+      perBike:true, dflt:'None',
       options:[['None',''],['$1–$500',''],['$501–$1,000',''],['$1,001–$1,500',''],
                ['$1,501–$2,000',''],['$2,001–$2,500',''],['$2,501–$3,000','']]},
     transportTrailer:{
@@ -2785,7 +2842,8 @@
         cur=covGet(key,bike);
     var body;
     if(c.select){
-      body='<select class="covsel" data-cov="'+key+'"'+(bike==null?'':' data-bike="'+bike+'"')+'>'
+      body='<select class="covsel'+(cur&&cur!=='None'?' set':'')+'" data-cov="'+key+'"'
+        +(bike==null?'':' data-bike="'+bike+'"')+'>'
         +list.map(function(o){
             return '<option'+(o[0]===cur?' selected':'')+'>'+esc(o[0])+'</option>'; }).join('')
         +'</select>';
@@ -2926,9 +2984,11 @@
       if(c.dataset.cov==='physicalDamageValuation') renderCovBike();
     });
     form.addEventListener('change',function(e){
-      if(e.target.classList&&e.target.classList.contains('covsel'))
+      if(e.target.classList&&e.target.classList.contains('covsel')){
         covSet(e.target.dataset.cov,e.target.value,
                e.target.dataset.bike==null?null:Number(e.target.dataset.bike));
+        e.target.classList.toggle('set',e.target.value!=='None');
+      }
       if(/^(mPrior|mInc|bk|rd)/.test(e.target.name||'')) wireMoto();
       // The rider's name labels their incidents and their riding panel.
       if(e.target.dataset&&e.target.dataset.f==='firstName') fillIncWho();
