@@ -49,6 +49,56 @@ contract shape directly.
 `toAms()` in `quote.html` emits the contract shape. Nothing renames fields
 anywhere else — no hop, no adapter, one function.
 
+### New fields the AMS has to map — August 2026
+
+Four additions, none of which the AMS reads yet. Until it does, a quote still
+rates on `biLimit` alone and the rest is collected and ignored, which is a
+worse outcome than not asking: the visitor picks a $100 deductible and gets
+priced on $500.
+
+**`coverages`** — the whole coverage selection, replacing a screen that only
+ever asked for liability limits and two deductibles.
+
+```jsonc
+"coverages": {
+  "liability": "100/300/50",          // also "100 CSL" | "300 CSL" | "500 CSL"
+  "umBodilyInjury": "100/300",        // null when the visitor chose None
+  "umPropertyDamage": "50 w/$250 Ded",
+  "medicalPayments": "$5,000 Per Person",
+  "personalInjuryProtection": null,   // never both — see below
+  "comprehensiveDeductible": "$500",  // these four are absent, not null,
+  "collisionDeductible": "$500",      // on a liability-only quote
+  "rental": "$50 Per Day (Max 30 Days)",
+  "roadside": "Selected with Trip Interruption"
+}
+```
+
+`None` travels as `null`, so the AMS never has to decide whether the string
+"None" means no cover or an enum value it failed to map.
+
+Two rules are enforced in the browser and are worth enforcing again on the AMS
+side, because a payload can be posted without a browser:
+
+- **Uninsured-motorist limits never exceed the liability carrying them**,
+  compared as numbers rather than strings. Under a combined single limit there
+  is no third number to read property damage out of, so both UM limits are
+  compared against the CSL itself — stated on screen rather than inferred.
+- **Medical Payments and Personal Injury Protection are mutually exclusive.**
+  Setting either above None empties the other, so the pair cannot both arrive
+  populated.
+
+**`employment`** and **`occupation`** on each driver — a dependent pair. The
+eleven plain-English occupations this form used before were the website's
+wording and not the rater's, so every one landed unmapped and the field did
+nothing. Both now come from the rater's own catalogue
+(`docs/employment-occupation.md`). Five employment statuses carry no occupation
+at all and send none.
+
+**`licenseCountry`** on each driver, for a licence issued outside the US.
+Present only for foreign, international, matrícula consular and passport;
+`licenseState` is what a US licence, learner permit or state ID sends. **State
+ID is a new licence type** and needs a home in the engine's enum.
+
 ```jsonc
 {
   "firstName": "", "lastName": "", "phone": "", "email": "",

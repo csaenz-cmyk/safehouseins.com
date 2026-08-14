@@ -417,6 +417,21 @@
      picked state of the cards beside it rather than like an empty field. */
   .covsel.set{border-color:var(--blue);color:var(--blue-d)}
 
+  /* "Most common" beside a limit, and the note under a combined single limit. */
+  .rec{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:99px;
+      background:#E8F1FE;color:var(--blue-d);font-size:10px;font-weight:900;
+      letter-spacing:.06em;text-transform:uppercase;vertical-align:1px}
+  .cslnote{margin:-2px 0 14px;font-size:12.5px;line-height:1.5;color:var(--muted);font-weight:600}
+  .warn2{margin:-2px 0 14px;font-size:12.5px;line-height:1.5;font-weight:700;color:#9A5B00;
+      background:#FFF7E8;border:1.5px solid #F5DFB0;border-radius:12px;padding:9px 12px}
+  .fl select:disabled{background:#F2F5FA;color:#9FB0C6;cursor:not-allowed}
+  /* An option the liability above it will not carry. Greyed, not removed, so
+     the list does not silently get shorter as somebody lowers their limits. */
+  .fl select option:disabled{color:#B6C2D2}
+  .tipq{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;
+      border-radius:50%;background:#E8F1FE;color:var(--blue-d);font-size:11px;font-weight:900;
+      vertical-align:1px}
+
   .covopts{display:grid;gap:8px;margin-top:12px}
   @media(min-width:520px){ .covopts.two{grid-template-columns:1fr 1fr} }
   .covopt{display:flex;align-items:center;gap:11px;text-align:left;font:inherit;cursor:pointer;
@@ -639,27 +654,21 @@
     </section>
 
     <!-- ============ 5 · coverage ============ -->
+    <!-- Coverages are drawn by covAuto() from COV_AUTO rather than written out
+         here: the limits, their numeric values and the rules between them have
+         to agree, and three lists in three places is how they stop agreeing. -->
     <section class="step" data-step="coverage">
       <h1>How much coverage?</h1>
-      <p class="sub">Not sure? Pick what sounds right &mdash; your agent will sanity-check it with you.</p>
-      <div class="fl"><label for="liab">Liability limits</label>
-        <select id="liab" name="liability">
-          <option value="30/60/25">30/60/25 &mdash; Texas minimum</option>
-          <option value="50/100/50">50/100/50</option>
-          <option value="100/300/100" selected>100/300/100 &mdash; most common</option>
-          <option value="250/500/100">250/500/100</option>
-        </select></div>
+      <p class="sub">Not sure? Pick what sounds right &mdash; your agent will sanity-check it
+        with you. Tap any <span class="tipq">?</span> to see what a coverage actually does.</p>
+      <div id="covAutoBody"></div>
       <div class="fl"><label>Do you want comprehensive and collision?</label>
         <div class="pills">
           <label class="pill"><input type="radio" name="fullcov" value="yes" autocomplete="off" checked><span>Yes, full coverage</span></label>
           <label class="pill"><input type="radio" name="fullcov" value="no" autocomplete="off"><span>Liability only</span></label>
         </div></div>
-      <div class="g2" id="dedWrap">
-        <div class="fl"><label for="dcomp">Comprehensive deductible</label>
-          <select id="dcomp" name="compded"><option>$250</option><option selected>$500</option><option>$1,000</option></select></div>
-        <div class="fl"><label for="dcoll">Collision deductible</label>
-          <select id="dcoll" name="collded"><option>$250</option><option selected>$500</option><option>$1,000</option></select></div>
-      </div>
+      <div id="covPhysBody"></div>
+      <p class="err" id="e-coverage"><svg class="i"><use href="#shield"/></svg><span></span></p>
       <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
     </section>
 
@@ -1326,23 +1335,164 @@
   // Plain-language licence types. The AMS maps these onto the engine's enum —
   // CONFIRM the list against docs/public-quote-api.md before go-live, because one
   // value outside the enum takes the whole quote down.
-  var LTYPES=['U.S. driver\u2019s license','Foreign driver\u2019s license',
+  var LTYPES=['U.S. driver\u2019s license','State ID','Foreign driver\u2019s license',
               'International driver\u2019s license','Learner permit',
               'Matr\u00edcula consular','Passport','No license'];
+
+  /* Countries for a licence issued outside the United States.
+
+     Mexico and Canada sit above the alphabetical list, separated by a rule,
+     because between them they are almost every case an El Paso agency sees and
+     scrolling past a hundred countries to reach Mexico is the wrong default for
+     this border. The rest is alphabetical with no favourites \u2014 a shortlist that
+     tried to guess the next most likely would be guessing about people. */
+  var COUNTRIES_TOP=['Mexico','Canada'];
+  var COUNTRIES=('Afghanistan,Albania,Algeria,Andorra,Angola,Argentina,Armenia,Australia,Austria,'
+    +'Azerbaijan,Bahamas,Bahrain,Bangladesh,Barbados,Belarus,Belgium,Belize,Benin,Bolivia,'
+    +'Bosnia and Herzegovina,Botswana,Brazil,Brunei,Bulgaria,Burkina Faso,Burundi,Cambodia,'
+    +'Cameroon,Cape Verde,Central African Republic,Chad,Chile,China,Colombia,Comoros,'
+    +'Congo (Republic),Congo (DRC),Costa Rica,C\u00f4te d\u2019Ivoire,Croatia,Cuba,Cyprus,'
+    +'Czech Republic,Denmark,Djibouti,Dominica,Dominican Republic,Ecuador,Egypt,El Salvador,'
+    +'Equatorial Guinea,Eritrea,Estonia,Eswatini,Ethiopia,Fiji,Finland,France,Gabon,Gambia,'
+    +'Georgia,Germany,Ghana,Greece,Grenada,Guatemala,Guinea,Guinea-Bissau,Guyana,Haiti,Honduras,'
+    +'Hong Kong,Hungary,Iceland,India,Indonesia,Iran,Iraq,Ireland,Israel,Italy,Jamaica,Japan,'
+    +'Jordan,Kazakhstan,Kenya,Kiribati,Kosovo,Kuwait,Kyrgyzstan,Laos,Latvia,Lebanon,Lesotho,'
+    +'Liberia,Libya,Liechtenstein,Lithuania,Luxembourg,Madagascar,Malawi,Malaysia,Maldives,Mali,'
+    +'Malta,Marshall Islands,Mauritania,Mauritius,Micronesia,Moldova,Monaco,Mongolia,Montenegro,'
+    +'Morocco,Mozambique,Myanmar,Namibia,Nauru,Nepal,Netherlands,New Zealand,Nicaragua,Niger,'
+    +'Nigeria,North Korea,North Macedonia,Norway,Oman,Pakistan,Palau,Palestine,Panama,'
+    +'Papua New Guinea,Paraguay,Peru,Philippines,Poland,Portugal,Qatar,Romania,Russia,Rwanda,'
+    +'Saint Kitts and Nevis,Saint Lucia,Saint Vincent and the Grenadines,Samoa,San Marino,'
+    +'Saudi Arabia,Senegal,Serbia,Seychelles,Sierra Leone,Singapore,Slovakia,Slovenia,'
+    +'Solomon Islands,Somalia,South Africa,South Korea,South Sudan,Spain,Sri Lanka,Sudan,'
+    +'Suriname,Sweden,Switzerland,Syria,Taiwan,Tajikistan,Tanzania,Thailand,Timor-Leste,Togo,'
+    +'Tonga,Trinidad and Tobago,Tunisia,T\u00fcrkiye,Turkmenistan,Tuvalu,Uganda,Ukraine,'
+    +'United Arab Emirates,United Kingdom,Uruguay,Uzbekistan,Vanuatu,Vatican City,Venezuela,'
+    +'Vietnam,Yemen,Zambia,Zimbabwe').split(',');
+  var COUNTRY_OPTS='<option value="">Choose one</option>'
+    + COUNTRIES_TOP.map(function(c){ return '<option>'+c+'</option>'; }).join('')
+    + '<option disabled>\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500</option>'
+    + COUNTRIES.map(function(c){ return '<option>'+c+'</option>'; }).join('')
+    + '<option>Other</option>';
   // Relationship to the primary insured — a SEPARATE field from marital status.
   // Only asked from driver 2 on: the AMS forces driver 1 to Insured regardless.
-  var OCCS=['Student','Homemaker','Retired','Military','Professional / office',
-            'Skilled trade','Driver / transport','Healthcare','Education',
-            'Self-employed','Other'];
-  var OCC='<option value="">Choose one</option>'
-    +OCCS.map(function(s){return '<option>'+s+'</option>';}).join('');
+  /* Employment, and the occupations that hang off it.
+
+     Taken from the rater's own catalogue rather than written from scratch. The
+     eleven plain-English occupations this form used before — "Skilled trade",
+     "Professional / office" — were this site's wording, not the rater's, so
+     every one of them landed on the engine as an unmapped value and the whole
+     field did nothing. These strings are the ones the engine already knows.
+
+     Five statuses carry no occupation at all: somebody retired or not currently
+     employed does not have one, and asking anyway produces an answer that
+     contradicts the status above it. */
+  var EMPLOY_NONE=['Household Manager / Stay-at-home duties (full-time)',
+    'Retired (not employed)','Full time student (not employed or part-time employed)',
+    'Disabled (not employed)','Not currently employed'];
+  var EMPLOY={
+   'Agriculture/Forestry/Fishing':'Agriculture Inspector/Grader,Arborist,Clerk,Equipment Operator,Farm/Ranch Owner,Farm/Ranch Worker,Fisherman,Florist,Laborer/Worker,Landscaper,Landscaping/Nursery Worker,Logger,Mill Worker,Ranger,Supervisor,Timber Grader/Scaler,Other',
+   'Art/Design/Media':'Actor,Administrative Assistant,Announcer/Broadcaster,Artist/Animator,Author/Writer,Choreography/Dancer,Clerk,Composer/Director,Curator,Designer,Editor,Journalist/Reporter,Musician/Singer,Photographer,Printer,Producer,Production Crew,Projectionist,Receptionist/Secretary,Ticket Sales/Usher,Other',
+   'Banking/Finance/Real Estate':'Accountant/Auditor,Administrative Assistant,Analyst,Appraiser - Real Estate,Bookkeeper,Broker,Branch Manager,Clerk,Collections,Consultant,Controller,CSR/Teller,Director/Administrator,Executive,Financial Advisor,Investment Banker,Investor,Loan/Escrow Processor,Manager - Credit/Loan,Manager - Portfolio/Production,Manager - Property,Realtor,Receptionist/Secretary,Sales Agent/Representative,Trader Financial Instruments,Underwriter,Other',
+   'Business/Sales/Office':'Account Executive,Administrative Assistant,Buyer,Cashier/Checker,Clerk-Office,Consultant,Customer Service Representative,Director/Administrator,Executive,H.R.Representative,Manager - Department/Store,Manager - District,Manager - Finance / Insurance,Manager - General Operations,Manager - H.R./Public Relations,Manager - Marketing/Sales,Manager/Supervisor - Office,Marketing Researcher,Messenger/Courier,Receptionist/Secretary,Sales - Counter/Rental,Sales - Homebased,Sales - Manufacture Rep,Sales - Retail/Wholesale,Sales - Route/Vendor,Other',
+   'Construction / Energy / Mining':'Appraiser - Real Estate,Boiler Operator/Maker,Bricklayer/Mason,Carpenter,Carpet Installer,Concrete Worker,Construction - Project Manager,Construction Worker,Contractor,Crane Operator,Electrician/Linesman,Elevator Technician/Installer,Equipment Operator,Floor Layer/Finisher,Foreman/Supervisor,Handyman,Heat/Air Technician,Inspector,Laborer/Worker,Metalworker,Miner,Oil/Gas Driller/Rig Operator,Painter,Plaster/Drywall/Stucco,Plumber,Roofer,Utility Worker,Welder,Other',
+   'Education/Library':'Administrative Assistant,Audio-Visual Tech,Child/Day Care Worker,Clerk,Counselor,Graduate Teaching Assistant,Instructor-Vocation,Librarian/Curator,Principal,Professor College,Receptionist/Secretary,Superintendent,Teacher College,Teacher K-12,Teaching Assistant/Aide,Tutor,Other',
+   'Engineer/Architect/Science/Math':'Actuary,Administrative Assistant,Analyst,Architect,Chemist,Clerk,Clinical Data Coordinator,Drafter,Engineer,Lab Assistant,Manager - Project,Manager - R&D,Mathematician,Receptionist/Secretary,Research Program Director,Researcher,Scientist,Sociologist,Surveyor/Mapmaker,Technician,Other',
+   'Food Service / Hotel Services':'Baker,Bartender,Bellhop,Bus Person,Caterer,Chef,Concessionaire,Concierge,Cook - Restaurant/Cafeteria,Cook/Worker - Fast Food,Delivery Person,Desk Clerk,Dishwasher,Food Production/Packing,Host/Maitre d’,Housekeeper/Maid,Manager,Valet,Waiter/Waitress,Wine Steward,Other',
+   'Government/Military':'Accountant/Auditor,Administrative Assistant,Analyst,Attorney,Chief Executive,Clerk,Commissioner,Council Member,Director/Administrator,Enlisted Military Personnel (E1-E4),Legislator,Mayor/City Manager,Meter Reader,NCO (E5-9),Officer - Commissioned,Officer - Warrant,Park Ranger,Planner,Postmaster,Receptionist/Secretary,Regulator,US Postal Worker,Other',
+   'Information Technology':'Administrative Assistant,Analyst,Clerk,Director/Administrator,Engineer - Hardware,Engineer - Software,Engineer - Systems,Executive,Manager - Systems,Network Administrator,Programmer,Project Coordinator,Receptionist/Secretary,Support Technician,Systems Security,Technical Writer,Web Developer,Other',
+   'Insurance':'Accountant/Auditor,Actuary,Actuarial Clerk,Administrative Assistant,Agent/Broker,Analyst,Attorney,Claims Adjuster,Clerk,Commissioner,Customer Service Representative,Director/Administrator,Executive,Insurance CSR,Product Manager,Receptionist/Secretary,Sales Representative,Underwriter,Other',
+   'Legal/Law Enforcement/Security':'Airport Security Officer,Animal Control Officer,Attorney,Bailiff,Corrections Officer,Court Clerk/Reporter,Deputy Sheriff,Dispatcher,Examiner,Federal Agent/Marshall,Fire Chief,Fire Fighter/Supervisor,Gaming Officer/Investigator,Highway Patrol Officer,Judge/Hearing Officer,Legal Assistant/Secretary,Paralegal/Law Clerk,Police Chief,Police Detective/Investigator,Police Officer/Supervisor,Private Investigator/Detective,Process Server,Security Guard,Sheriff,Other',
+   'Medical/Social Services/Religion':'Administrative Assistant,Assistant - Medic/Dent/Vet,Chiropractor,Clergy,Clerk,Client Care Worker,Dental Hygienist,Dentist,Dietician,Doctor,Hospice Volunteer,Lab Assistant,Mortician,Nurse - C.N.A.,Nurse - LPN,Nurse - RN,Nurse Practitioner,Optometrist,Orthodontist,Paramedic/E.M. Technician,Pharmacist,Physical Therapist,Psychologist,Receptionist/Secretary,Social Worker,Support Services,Technician,Therapist,Veterinarian,Other',
+   'Personal Care/Service':'Caregiver,Dry Cleaner/Laundry,Hair Stylist/Barber,Housekeeper,Manicurist,Masseuse,Nanny,Pet Services,Receptionist/Secretary,Other',
+   'Production / Manufacturing':'Administrative Assistant,Clerk,Factory Worker,Foreman/Supervisor,Furniture Finisher,Inspector,Jeweler,Machine Operator,Packer,Plant Manager,Printer/Bookbinder,Quality Control,Receptionist/Secretary,Refining Operator,Shoemaker,Tailor/Custom Sewer,Textile Worker,Upholsterer,Other',
+   'Repair / Maintenance / Grounds':'Building Maintenance Engineer,Custodian/Janitor,Electrician,Field Service Technician,Handyman,Heat/Air Conditioner Repairman,Housekeeper/Maid,Landscape/Grounds Maintenance,Maintenance Mechanic,Mechanic,Other',
+   'Sports/Recreation':'Activity/Recreational Assistant,Administrative Assistant,Agent,Athlete,Camp Counselor/Lead,Clerk,Coach,Concessionaire,Director Program,Event Manager/Promoter,Life Guard,Manager - Fitness Club,Park Ranger,Receptionist/Secretary,Sales - Ticket/Membership,Sports Broadcast/Journalist,Trainer/Instructor,Umpire/Referee,Other',
+   'Travel / Transportation / Storage':'Administrative Assistant,Air Traffic Control,Airport Operations Crew,Bellhop/Porter,Clerk,Crane Loader/Operator,Dispatcher,Driver - Bus/Streetcar,Driver - Taxi/Limo,Driver - Truck/Delivery,Flight Attendant,Laborer,Longshoreman,Manager - Warehouse/District,Mate/Sailor,Parking Lot Attendant,Pilot/Captain/Engineer,Railroad Worker,Receptionist/Secretary,Shipping/Receiving Clerk,Subway/Light Rail Operator,Ticket Agent,Transportation Specialist,Travel Agent,Other'
+  };
+  var EMPLOY_OPTS='<option value="">Choose one</option>'
+    + EMPLOY_NONE.map(function(s){ return '<option>'+esc(s)+'</option>'; }).join('')
+    + '<option disabled>──────────</option>'
+    + Object.keys(EMPLOY).map(function(s){ return '<option>'+esc(s)+'</option>'; }).join('');
+  function occOptionsFor(employment){
+    var l=EMPLOY[employment];
+    if(!l) return '';
+    return '<option value="">Choose one</option>'
+      + l.split(',').map(function(s){ return '<option>'+esc(s)+'</option>'; }).join('');
+  }
   var RELS=['Spouse','Child','Parent','Sibling','Other relative','Other'];
   var REL='<option value="">Choose one</option>'
     +RELS.map(function(s){return '<option>'+s+'</option>';}).join('');
   var LTYPE='<option value="">Choose one</option>'
     +LTYPES.map(function(s){return '<option>'+s+'</option>';}).join('');
   // the state question only makes sense for a U.S.-issued document
-  function needsState(t){ return t==='U.S. driver\u2019s license'||t==='Learner permit'; }
+  /* ================= auto coverages =================
+
+     Every limit carries the numbers it means, not just the text. The rules
+     between these coverages are arithmetic \u2014 uninsured-motorist cover may not
+     exceed the liability it sits under \u2014 and comparing "100/300" to "50/100"
+     as strings gets that wrong in a way nobody sees until a carrier declines
+     the risk. `bi` is [per person, per accident] in thousands, `pd` is property
+     damage in thousands, `csl` is a combined single limit. */
+  var LIAB=[
+    {v:'30/60/25',   bi:[30,60],   pd:25,  note:'Texas minimum'},
+    {v:'50/100/25',  bi:[50,100],  pd:25},
+    {v:'50/100/50',  bi:[50,100],  pd:50,  note:'Most common'},
+    {v:'100/300/25', bi:[100,300], pd:25},
+    {v:'100/300/50', bi:[100,300], pd:50},
+    {v:'100/300/100',bi:[100,300], pd:100},
+    {v:'250/500/25', bi:[250,500], pd:25},
+    {v:'250/500/50', bi:[250,500], pd:50},
+    {v:'250/500/100',bi:[250,500], pd:100},
+    {v:'100 CSL', csl:100}, {v:'300 CSL', csl:300}, {v:'500 CSL', csl:500}
+  ];
+  var UMBI=[{v:'None'},{v:'30/60',bi:[30,60]},{v:'50/100',bi:[50,100]},
+            {v:'100/300',bi:[100,300]},{v:'250/500',bi:[250,500]}];
+  var UMPD=[{v:'None'},{v:'25 w/$250 Ded',pd:25},{v:'50 w/$250 Ded',pd:50},
+            {v:'100 w/$250 Ded',pd:100}];
+  var MEDPAY=['None','$500 Per Person','$1,000 Per Person','$2,000 Per Person',
+              '$5,000 Per Person','$10,000 Per Person'];
+  var PIP=['None','$2,500','$5,000','$10,000'];
+  var DEDUCT=['$100','$250','$500','$750','$1,000','$1,500','$2,000'];
+  var RENTAL=['None','$40 Per Day (Max 30 Days)','$50 Per Day (Max 30 Days)',
+              '$60 Per Day (Max 30 Days)','$70 Per Day (Max 30 Days)',
+              '$40 Per Day (Max 45 Days)','$50 Per Day (Max 45 Days)',
+              '$60 Per Day (Max 45 Days)','$70 Per Day (Max 45 Days)'];
+  var ROADSIDE=['None','Selected','Selected with Trip Interruption'];
+
+  function liabOf(v){
+    for(var i=0;i<LIAB.length;i++) if(LIAB[i].v===v) return LIAB[i];
+    return null;
+  }
+
+  /* What a combined single limit means for the two uninsured-motorist rules.
+
+     A CSL is one pot for injury and property together, so there is no third
+     number to read a property-damage cap out of and no split bodily-injury
+     figure to compare against. Rather than invent one, the comparison is made
+     against the CSL itself and stated on screen: an uninsured-motorist limit
+     may go up to the combined limit, and no further.
+
+     This is the explicit version of a decision that would otherwise be made
+     silently by whatever parseInt() happened to return for "100 CSL". */
+  function umAllowed(liabVal){
+    var L=liabOf(liabVal);
+    if(!L) return {bi:function(){return true;}, pd:function(){return true;}, csl:false};
+    if(L.csl) return {
+      bi:function(o){ return !o.bi || o.bi[1]<=L.csl; },
+      pd:function(o){ return !o.pd || o.pd<=L.csl; },
+      csl:true };
+    return {
+      bi:function(o){ return !o.bi || (o.bi[0]<=L.bi[0] && o.bi[1]<=L.bi[1]); },
+      pd:function(o){ return !o.pd || o.pd<=L.pd; },
+      csl:false };
+  }
+
+  function needsState(t){ return t==='U.S. driver\u2019s license'||t==='Learner permit'
+                              ||t==='State ID'; }
+  function needsCountry(t){ return t==='Foreign driver\u2019s license'
+                              ||t==='International driver\u2019s license'
+                              ||t==='Matr\u00edcula consular'||t==='Passport'; }
 
   /* ---------- repeatable blocks ---------- */
   function vehicleBlock(n,v){
@@ -1406,11 +1556,23 @@
       +'<div class="fl"><label>License type</label><select data-f="ltype">'+sel(LTYPE,d.ltype)+'</select></div>'
       +'<div class="fl lstwrap"'+(needsState(d.ltype)?'':' style="display:none"')+'>'
         +'<label>License state</label><select data-f="lstate">'+sel(STATES,d.lstate)+'</select></div>'
+      // Only for a licence issued abroad. Hidden, its value is never read, so a
+      // visitor who picks a country and then switches to a U.S. licence does not
+      // ship a country alongside a Texas licence number.
+      +'<div class="fl lcnwrap"'+(needsCountry(d.ltype)?'':' style="display:none"')+'>'
+        +'<label>Country that issued it</label><select data-f="lcountry">'
+        +sel(COUNTRY_OPTS,d.lcountry)+'</select></div>'
       +'<div class="fl lnumwrap"'+(d.ltype==='No license'?' style="display:none"':'')+'>'
         +'<label>License or ID number</label>'
         +'<input data-f="lnum" value="'+esc(d.lnum)+'" placeholder="38348855" autocomplete="off" '
         +'inputmode="text" maxlength="25"></div>'
-      +'<div class="fl"><label>Occupation</label><select data-f="occupation">'+sel(OCC,d.occupation)+'</select></div>'
+      +'<div class="fl"><label>Employment</label><select data-f="employment">'
+        +sel(EMPLOY_OPTS,d.employment)+'</select></div>'
+      // Drawn only once an employment category is chosen, because the list
+      // depends on it — and left out entirely for the five statuses that do not
+      // have one.
+      +'<div class="fl occwrap" style="display:none"><label>Occupation</label>'
+        +'<select data-f="occupation"></select></div>'
       +'<div class="fl"><label>Marital status</label><select data-f="marital">'
         +sel('<option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option><option>Separated</option>',d.marital)+'</select></div>'
       +(n>1?'<div class="fl"><label>Relationship to you</label><select data-f="relationship">'+sel(REL,d.relationship)+'</select></div>':'')
@@ -1426,6 +1588,7 @@
     document.getElementById('addVeh').disabled=veh>=4; }
   function addDrv(d){ drv++; document.getElementById('drvList').insertAdjacentHTML('beforeend',driverBlock(drv,d));
     wireLicense(document.querySelector('#drvList .blk:last-child'));
+    wireEmployment(document.querySelector('#drvList .blk:last-child'));
     limitDates(document.querySelector('#drvList .blk:last-child'));
     document.getElementById('addDrv').disabled=drv>=4; }
   document.getElementById('addVeh').addEventListener('click',function(){addVeh();});
@@ -1694,15 +1857,41 @@
   function wireLicense(blk){
     var t=blk.querySelector('[data-f=ltype]'), wrap=blk.querySelector('.lstwrap');
     if(!t||!wrap) return;
-    var num=blk.querySelector('.lnumwrap');
+    var num=blk.querySelector('.lnumwrap'), cn=blk.querySelector('.lcnwrap');
     t.addEventListener('change',function(){
       var on=needsState(t.value);
       wrap.style.display=on?'block':'none';
       if(!on) wrap.querySelector('[data-f=lstate]').value='';
+      // A closed branch is also an emptied one, here as everywhere else on this
+      // form: switching from a foreign licence to a Texas one must not leave a
+      // country behind on the quote.
+      if(cn){ var c=needsCountry(t.value);
+              cn.style.display=c?'block':'none';
+              if(!c) cn.querySelector('[data-f=lcountry]').value=''; }
       var hasDoc=t.value && t.value!=='No license';
       if(num){ num.style.display=hasDoc?'block':'none';
                if(!hasDoc) num.querySelector('[data-f=lnum]').value=''; }
     });
+  }
+
+  /* Occupation follows employment, and is absent when employment has no list.
+
+     The occupation select is emptied and hidden rather than left showing a
+     stale list: somebody who picks Healthcare, chooses Pharmacist and then
+     switches to Construction must not ship Pharmacist under a builder. */
+  function wireEmployment(blk){
+    var e=blk.querySelector('[data-f=employment]'),
+        wrap=blk.querySelector('.occwrap');
+    if(!e||!wrap) return;
+    var occ=wrap.querySelector('[data-f=occupation]');
+    function apply(){
+      var html=occOptionsFor(e.value);
+      occ.innerHTML=html;
+      wrap.style.display=html?'block':'none';
+      if(!html) occ.value='';
+    }
+    e.addEventListener('change',apply);
+    apply();
   }
 
   /* ---------- address suggestions ----------
@@ -1859,6 +2048,118 @@
       return m[s]||'';   // anything else is a state we cannot write in
     }
   })();
+
+  /* ---------- drawing the auto coverages ---------- */
+
+  function covField(id,name,label,html,badge){
+    return '<div class="fl"><label for="'+id+'">'+label
+      +(badge?' <span class="rec">'+badge+'</span>':'')+'</label>'
+      +'<select id="'+id+'" name="'+name+'">'+html+'</select></div>';
+  }
+  function plain(list,cur){
+    return list.map(function(o){
+      return '<option'+(o===cur?' selected':'')+'>'+esc(o)+'</option>'; }).join('');
+  }
+
+  function covAuto(){
+    var body=document.getElementById('covAutoBody');
+    if(!body) return;
+    body.innerHTML =
+      covField('liab','liability','Bodily Injury &amp; Property Damage',
+        LIAB.map(function(o){
+          return '<option value="'+esc(o.v)+'"'+(o.v==='100/300/100'?' selected':'')+'>'
+            +esc(o.v)+(o.note?' — '+o.note:'')+'</option>'; }).join(''))
+      + covField('umbi','umBodilyInjury','Uninsured/Underinsured Motorist Bodily Injury','')
+      + covField('umpd','umPropertyDamage','Uninsured/Underinsured Property Damage','')
+      + '<p class="cslnote" id="cslNote" hidden></p>'
+      + '<div class="g2">'
+      +   covField('medpay','medicalPayments','Medical Payment',plain(MEDPAY,'None'))
+      +   covField('pip','personalInjuryProtection','Personal Injury Protection',plain(PIP,'None'))
+      + '</div>'
+      + '<p class="warn2" id="mpWarn" hidden>A vehicle may have Medical Payments '
+      +   'or Personal Injury Protection, not both.</p>';
+    document.getElementById('covPhysBody').innerHTML =
+        '<div class="g2">'
+      +   covField('dcomp','compded','Comprehensive Deductible',plain(DEDUCT,'$500'))
+      +   covField('dcoll','collded','Collision Deductible',plain(DEDUCT,'$500'))
+      + '</div>'
+      + covField('rental','rental','Rental',plain(RENTAL,'None'))
+      + covField('roadside','roadside','Roadside/Trip Interruption',plain(ROADSIDE,'None'));
+    syncUM(true);
+    addTips();
+  }
+
+  /* Keep the uninsured-motorist limits inside the liability that carries them.
+
+     Options that would exceed it are disabled rather than removed: a visitor
+     who has just lowered their liability should be able to see that 250/500 is
+     still a thing and why it is greyed, instead of watching the list silently
+     get shorter. Anything already chosen that is no longer allowed drops to the
+     highest that is — not to None, which would quietly strip cover somebody
+     had asked for. */
+  function syncUM(initial){
+    var liab=document.getElementById('liab'); if(!liab) return;
+    var rule=umAllowed(liab.value);
+    [['umbi',UMBI,'bi'],['umpd',UMPD,'pd']].forEach(function(spec){
+      var el=document.getElementById(spec[0]), list=spec[1], test=rule[spec[2]];
+      var cur=initial?'None':el.value, best='None';
+      el.innerHTML=list.map(function(o){
+        var ok=test(o);
+        if(ok && o.v!=='None') best=o.v;
+        return '<option'+(ok?'':' disabled')+'>'+esc(o.v)+'</option>';
+      }).join('');
+      var still=list.filter(function(o){ return o.v===cur; })[0];
+      el.value = (still && test(still)) ? cur : (cur==='None' ? 'None' : best);
+    });
+    var note=document.getElementById('cslNote');
+    if(note){
+      note.hidden=!rule.csl;
+      note.textContent='A combined single limit covers injury and property together, '
+        +'so uninsured-motorist cover is capped at that one figure rather than at a '
+        +'separate property-damage number.';
+    }
+  }
+
+  /* Medical Payments and Personal Injury Protection do the same job and a
+     vehicle carries one or the other. Setting either above None empties and
+     disables the other, so an invalid pair cannot be reached at all — the
+     message explains what just happened rather than warning about what might. */
+  function syncMedPip(changed){
+    var mp=document.getElementById('medpay'), pip=document.getElementById('pip');
+    if(!mp||!pip) return;
+    if(changed==='medpay' && mp.value!=='None') pip.value='None';
+    if(changed==='pip' && pip.value!=='None') mp.value='None';
+    pip.disabled = mp.value!=='None';
+    mp.disabled  = pip.value!=='None';
+    var w=document.getElementById('mpWarn');
+    if(w) w.hidden = mp.value==='None' && pip.value==='None';
+  }
+
+  /* What the visitor actually chose, ready for the rater.
+
+     `None` is sent as null rather than the word, so the AMS never has to decide
+     whether the string "None" means no cover or an unmapped enum value. The
+     four physical-damage coverages are omitted entirely on a liability-only
+     quote — they were hidden, so there is nothing the visitor said about them. */
+  function autoCoverages(){
+    var v=function(id){ var el=document.getElementById(id); return el?el.value:''; },
+        none=function(x){ return (!x||x==='None')?null:x; },
+        full=(form.querySelector('input[name=fullcov]:checked')||{}).value==='yes',
+        o={
+          liability: v('liab'),
+          umBodilyInjury: none(v('umbi')),
+          umPropertyDamage: none(v('umpd')),
+          medicalPayments: none(v('medpay')),
+          personalInjuryProtection: none(v('pip'))
+        };
+    if(full){
+      o.comprehensiveDeductible=v('dcomp');
+      o.collisionDeductible=v('dcoll');
+      o.rental=none(v('rental'));
+      o.roadside=none(v('roadside'));
+    }
+    return o;
+  }
 
   /* ================= homeowners ================= */
 
@@ -2262,6 +2563,38 @@
      exist because a question nobody can answer is a question people abandon
      the form on — "units in the building" is the clearest example. */
   var TIPS={
+    /* Auto coverages, in what-happens-to-you terms rather than policy terms.
+       Every one of these is a question an agent gets asked on the phone. */
+    liab:'What your policy pays for the harm you cause to other people. The '
+        +'first two numbers are injuries — one person, then everyone in the '
+        +'crash — and the third is their car and anything else you damage, all '
+        +'in thousands. It pays nothing toward your own car. A combined single '
+        +'limit (CSL) is one pot for all three instead.',
+    umbi:'Pays your injuries when the driver who hit you has no insurance, or '
+        +'not enough of it, or drove off. Texas and New Mexico both require '
+        +'carriers to offer it, and turning it down has to be in writing.',
+    umpd:'The same idea for your car rather than your body — it pays to repair '
+        +'it when the at-fault driver cannot. The $250 deductible is what you '
+        +'pay before it starts.',
+    medpay:'Medical bills for you and your passengers after a crash, no matter '
+        +'who caused it and with no deductible. It pays alongside your health '
+        +'insurance and can cover what that leaves behind.',
+    pip:'Broader than Medical Payments: as well as medical bills it can pay '
+        +'lost wages and the cost of someone to help at home while you recover. '
+        +'A vehicle carries this or Medical Payments, not both.',
+    dcomp:'Comprehensive is damage that is not a collision — hail, theft, fire, '
+        +'a cracked windscreen, hitting a deer. The deductible is what you pay '
+        +'yourself before the carrier pays: a $500 deductible on $3,000 of hail '
+        +'means you pay $500. A lower deductible costs more every month.',
+    dcoll:'Collision is your own car after hitting something — another vehicle, '
+        +'a kerb, a wall — whoever was at fault. The deductible works the same '
+        +'way, and it applies each time you claim, not once a year.',
+    rental:'Pays for a hire car while yours is being repaired after a covered '
+        +'claim. The daily figure is what it pays a day and the days are the '
+        +'longest it will keep paying.',
+    roadside:'Towing, winching, a jump start, fuel, a locksmith, a flat tyre '
+        +'changed and on-scene labour. Trip interruption adds help with lodging, '
+        +'meals and getting home when the breakdown happens far from it.',
     hUnits:'How many separate homes share this building. A normal house is 1. '
           +'A duplex is 2 — even if you only own or live in one side.',
     hStories:'Floors of living space, not counting a basement or an attic you '
@@ -3314,11 +3647,21 @@
       document.getElementById('priorWrap').style.display=(r.value==='yes'&&r.checked)?'block':'none';
     });
   });
+  /* Comprehensive, collision, rental and roadside all describe damage to the
+     visitor's own car, so liability-only hides the lot rather than leaving a
+     rental limit on a policy that could never pay one. */
   form.querySelectorAll('input[name=fullcov]').forEach(function(r){
     r.addEventListener('change',function(){
-      document.getElementById('dedWrap').style.display=
-        form.querySelector('input[name=fullcov]:checked').value==='yes'?'grid':'none';
+      document.getElementById('covPhysBody').style.display=
+        form.querySelector('input[name=fullcov]:checked').value==='yes'?'block':'none';
     });
+  });
+
+  covAuto();
+  form.addEventListener('change',function(e){
+    var id=e.target.id;
+    if(id==='liab') syncUM(false);
+    if(id==='medpay'||id==='pip') syncMedPip(id);
   });
 
   /* ---------- prefill lookup ----------
@@ -3388,12 +3731,28 @@
           return '  '+(i+1)+'. '+d.firstName+' '+d.lastName+' - DOB '+d.dob
             +' - '+(d.licenseType||'')+(d.licenseState?' '+d.licenseState:'')
             +(d.licenseNumber?' #'+d.licenseNumber:'')
-            +' - '+d.maritalStatus+(d.occupation?' - '+d.occupation:'')
+            +(d.licenseCountry?' ('+d.licenseCountry+')':'')
+            +' - '+d.maritalStatus
+            +(d.employment?' - '+d.employment:'')
+            +(d.occupation?' / '+d.occupation:'')
             +(d.relationship?' - '+d.relationship:''); }).join('\n'):'')
-      +'\n\nCoverage: '+p.biLimit
-      +(p.vehicles[0]&&p.vehicles[0].comprehensive==='None'
-          ?' - liability only'
-          :' - comp '+(p.vehicles[0]||{}).comprehensive+' / coll '+(p.vehicles[0]||{}).collision)
+      // Written out line by line rather than as one summary string: the
+      // visitor now chooses nine coverages, and a fallback email that prints
+      // two of them is the agent quoting something else.
+      +'\n\nCoverage:\n'+(function(c){
+          if(!c) return '  '+p.biLimit;
+          var L=[['Bodily Injury & Property Damage',c.liability],
+                 ['UM/UIM Bodily Injury',c.umBodilyInjury],
+                 ['UM/UIM Property Damage',c.umPropertyDamage],
+                 ['Medical Payments',c.medicalPayments],
+                 ['Personal Injury Protection',c.personalInjuryProtection],
+                 ['Comprehensive deductible',c.comprehensiveDeductible],
+                 ['Collision deductible',c.collisionDeductible],
+                 ['Rental',c.rental],['Roadside',c.roadside]];
+          if(c.comprehensiveDeductible===undefined) L.push(['','LIABILITY ONLY']);
+          return L.filter(function(r){ return r[1]; })
+                  .map(function(r){ return '  '+(r[0]?r[0]+': ':'')+r[1]; }).join('\n');
+        })(p.coverages)
       +(p.notes?'\n\nNotes: '+p.notes:'');
     location.href='mailto:contact@safehouseins.com?subject='
       +encodeURIComponent('Quote request - Car - '+p.firstName+' '+p.lastName)
@@ -3459,16 +3818,25 @@
 
           hasPriorInsurance: ins?ins.value==='yes':false,
           biLimit: liab,
+          // The rest of the coverage selection, under one key rather than
+          // scattered through the quote. biLimit stays where it is because the
+          // AMS already reads it and reads property damage out of slot 3.
+          coverages: autoCoverages(),
 
           drivers: grab('#drvList .blk').map(function(d,i){
             var o={firstName:d.first,lastName:d.last,dob:d.dob,
                    gender:d.gender,maritalStatus:d.marital};
+            // Employment and occupation are a pair: the occupation only means
+            // anything under the category it was chosen from, so they travel
+            // together and neither is sent without the other having been asked.
+            if(d.employment) o.employment=d.employment;
             if(d.occupation) o.occupation=d.occupation;
             // driver 1 is forced to Insured on the AMS side
             if(i>0 && d.relationship) o.relationship=d.relationship;
             if(d.lnum)   o.licenseNumber=d.lnum;
             if(d.ltype)  o.licenseType=d.ltype;      // extra, for the callback drawer
             if(d.lstate) o.licenseState=d.lstate;
+            if(d.lcountry) o.licenseCountry=d.lcountry;
             return o;
           }),
 
