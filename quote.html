@@ -329,6 +329,11 @@
      Deliberately an <i> and not a <span>: `.pill span` styles the pill body
      itself and would also match a span nested inside it, handing the swatch
      the pill's padding and 99px border-radius. */
+  /* Line icons on a pill. Drawn in currentColor so they turn white with the
+     label when the pill is picked, instead of needing a second checked rule. */
+  .pill .pic{display:inline-block;width:17px;height:17px;vertical-align:-3.5px;margin-right:7px}
+  .pill .pic svg{display:block;width:17px;height:17px;fill:none;stroke:currentColor;
+      stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
   .pill .sw{display:inline-block;width:19px;height:19px;padding:0;border-radius:5px;
       overflow:hidden;vertical-align:-4px;margin-right:7px;border:1px solid rgba(10,33,72,.14)}
   .pill .sw svg{display:block;width:19px;height:19px}
@@ -715,27 +720,56 @@
     </section>
 
     <!-- ---- H4 · how it is built ---- -->
+    <!-- One question a screen from here on.
+
+         These five were one screen and it was the longest in the form: five
+         questions, forty-odd picture tiles, and a scrollbar that made the last
+         two easy to miss. Split, each one is a grid that fits without scrolling
+         on a phone, and the progress bar moves five times instead of once. -->
     <section class="step" data-step="construction">
       <h1>How is it built?</h1>
-      <p class="sub">If you are not sure, pick the closest &mdash; nothing here is bound today.</p>
+      <p class="sub">What holds the house up &mdash; the frame behind the walls, not what
+        you see from the street. If you are not sure, pick the closest.</p>
       <div class="fl"><label for="hConstr">Construction type</label>
         <select id="hConstr" name="constructionType"><option value="">Choose one</option>
           <option>Frame</option><option>Masonry &mdash; solid brick or block</option>
           <option>Masonry veneer</option><option>Stucco on frame</option><option>Stone</option>
           <option>Log</option><option>Steel frame</option><option>Poured concrete</option>
           <option>Manufactured or mobile home</option><option>Not sure</option></select></div>
+      <p class="err" id="e-construction"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <section class="step" data-step="foundation">
+      <h1>What does it sit on?</h1>
+      <p class="sub">Slab is a concrete pad straight on the ground, and it is the most
+        common by far in Texas and New Mexico.</p>
       <div class="fl"><label for="hFound">Foundation</label>
         <select id="hFound" name="foundation"><option value="">Choose one</option>
           <option>Slab on grade</option><option>Crawl space</option>
           <option>Basement &mdash; finished</option><option>Basement &mdash; unfinished</option>
           <option>Walkout basement</option><option>Pier and beam</option>
           <option>Piers or stilts</option><option>Not sure</option></select></div>
+      <p class="err" id="e-foundation"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <section class="step" data-step="siding">
+      <h1>What are the outside walls?</h1>
+      <p class="sub">What you actually see standing in front of the house.</p>
       <div class="fl"><label for="hSiding">Exterior / siding</label>
         <select id="hSiding" name="siding"><option value="">Choose one</option>
           <option>Brick</option><option>Brick veneer</option><option>Stucco</option>
           <option>Stone</option><option>Stone veneer</option><option>Vinyl</option>
           <option>Wood</option><option>Fiber cement</option><option>Aluminum</option>
           <option>Metal</option><option>Composite</option><option>Not sure</option></select></div>
+      <p class="err" id="e-siding"><svg class="i"><use href="#shield"/></svg><span></span></p>
+      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+    </section>
+
+    <section class="step" data-step="flooring">
+      <h1>What is on the floors?</h1>
+      <p class="sub">Pick every one that is in the house &mdash; most homes have two or three.</p>
       <div class="fl"><label>Flooring <span class="opt2">(pick all that apply)</span></label>
         <div class="pills" data-multi="flooring">
           <label class="pill"><input type="checkbox" name="hFloor" value="Carpet" autocomplete="off"><span>Carpet</span></label>
@@ -746,7 +780,15 @@
           <label class="pill"><input type="checkbox" name="hFloor" value="Ceramic / Clay Tile" autocomplete="off"><span>Ceramic / clay tile</span></label>
           <label class="pill"><input type="checkbox" name="hFloor" value="Marble / Granite" autocomplete="off"><span>Marble / granite</span></label>
           <label class="pill"><input type="checkbox" name="hFloor" value="Terrazzo" autocomplete="off"><span>Terrazzo</span></label>
-        </div></div>
+        </div>
+        <p class="err" id="e-flooring"><svg class="i"><use href="#shield"/></svg><span></span></p>
+        <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+      </div>
+    </section>
+
+    <section class="step" data-step="countertops">
+      <h1>And the countertops?</h1>
+      <p class="sub">Kitchen and bathrooms both count.</p>
       <div class="fl"><label>Countertops <span class="opt2">(pick all that apply)</span></label>
         <div class="pills" data-multi="countertops">
           <label class="pill"><input type="checkbox" name="hCounter" value="Tile" autocomplete="off"><span>Tile</span></label>
@@ -759,9 +801,10 @@
           <label class="pill"><input type="checkbox" name="hCounter" value="Wood" autocomplete="off"><span>Wood</span></label>
           <label class="pill"><input type="checkbox" name="hCounter" value="Stainless Steel" autocomplete="off"><span>Stainless steel</span></label>
           <label class="pill"><input type="checkbox" name="hCounter" value="Concrete" autocomplete="off"><span>Concrete</span></label>
-        </div></div>
-      <p class="err" id="e-construction"><svg class="i"><use href="#shield"/></svg><span></span></p>
-      <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+        </div>
+        <p class="err" id="e-countertops"><svg class="i"><use href="#shield"/></svg><span></span></p>
+        <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
+      </div>
     </section>
 
     <!-- ---- H5 · systems ---- -->
@@ -1234,7 +1277,8 @@
       AUTO=(API&&window.SAFEHOUSE_PREFILL)?AUTO_FULL:AUTO_PLAIN,
       // Home reuses 'address' and 'contact' from the auto flow rather than
       // growing its own copies of two steps that already work.
-      HOME=['type','address','property','details','construction','systems',
+      HOME=['type','address','property','details',
+            'construction','foundation','siding','flooring','countertops','systems',
             'roof','garage','household','contact'],
       // The disclosure comes second, before any question it authorises us to
       // ask. Coverage is split into four screens rather than one: the policy
@@ -1453,7 +1497,12 @@
         var out = {
           year:  String(row.ModelYear || row.year  || '').trim(),
           make:  title(row.Make      || row.make  || ''),
-          model: title(row.Model     || row.model || '')
+          model: title(row.Model     || row.model || ''),
+          // Motorcycles only. NHTSA reports displacement for bikes and the
+          // decoded figure is usually fractional — 1201.4 for a 1200 — so it
+          // is rounded before it reaches a field the visitor will read.
+          cc:    Math.round(Number(row.DisplacementCC || row.cc || 0)) || '',
+          body:  String(row.BodyClass || '').trim()
         };
         if(!out.year && !out.make) throw new Error('no match');
         vinCache[vin]=out;
@@ -1539,6 +1588,48 @@
           vinStatus(blk,'ok',[v.year,v.make,v.model].filter(Boolean).join(' '));
         }).catch(function(){
           vinStatus(blk,'no','Could not read that VIN \u2014 the year and make below will do.');
+        });
+      },350);
+    });
+  }
+
+  /* The same VIN lookup for a motorcycle.
+
+     It is a separate function from wireVin() rather than a flag on it because
+     the two blocks fill different fields: a bike has no make/model catalogue
+     behind it, so the decoded make and model go straight into text inputs, and
+     it has an engine size that a car does not.
+
+     Nothing here is required. A decode that fails, times out or returns a bike
+     NHTSA does not know leaves every field exactly as the visitor left it and
+     says so — the year, make and model below are enough to quote from. */
+  function wireBikeVin(blk){
+    var input=blk.querySelector('[data-f=vin]'), timer=null;
+    if(!input) return;
+    function put(f,v){
+      var el=blk.querySelector('[data-f='+f+']');
+      // never overwrite something the visitor typed themselves
+      if(el && v && !el.value) el.value=v;
+    }
+    input.addEventListener('input',function(){
+      var vin=input.value.trim().toUpperCase();
+      input.value=vin;
+      clearTimeout(timer);
+      if(vin.length<17){ vinClear(blk); return; }
+      if(!VIN_RE.test(vin)){
+        vinStatus(blk,'no','That does not look like a VIN — fill in the year and make instead.'); return; }
+      timer=setTimeout(function(){
+        vinStatus(blk,'busy','Looking up this VIN…');
+        decodeVin(vin).then(function(v){
+          var y=blk.querySelector('[data-f=year]');
+          if(v.year && [].slice.call(y.options).some(function(o){
+            return o.value===v.year||o.text===v.year; })) y.value=v.year;
+          put('make',v.make); put('model',v.model);
+          if(v.cc) put('cc',String(v.cc));
+          vinStatus(blk,'ok',[v.year,v.make,v.model].filter(Boolean).join(' ')
+            +(v.cc?' — '+v.cc+'cc':''));
+        }).catch(function(){
+          vinStatus(blk,'no','Could not read that VIN — the year and make below will do.');
         });
       },350);
     });
@@ -1927,6 +2018,38 @@
     +'Shih Tzu,Siberian Husky,Staffordshire Bull Terrier,Vizsla,Weimaraner,Wolf hybrid,'
     +'Yorkshire Terrier,Other').split(',');
 
+  /* Protective devices, drawn rather than listed.
+
+     These are six short phrases that all look alike in a row, and the question
+     is one people skim — it is also a straightforward discount on nearly every
+     carrier, so being skimmed costs the visitor money. A flame, a shield and a
+     padlock are told apart before the words are read.
+
+     Deliberately outlines in currentColor, not the picture tiles used for
+     materials: a countertop is a thing you recognise by its surface, and a
+     burglar alarm is a category. */
+  var SAFE_ICONS={
+    'Fire Alarm':'<path d="M10 2.4c2.6 2.9 4.4 5.1 4.4 7.5a4.4 4.4 0 0 1-8.8 0c0-1.3.5-2.4 1.4-3.5'
+                +'.3 1 .9 1.7 1.7 2-.2-2.5.3-4.4 1.3-6z"/>',
+    'Burglar Alarm':'<path d="M10 2.6l5.7 2.1v4.6c0 3.6-2.3 6.4-5.7 7.7-3.4-1.3-5.7-4.1-5.7-7.7V4.7z"/>'
+                +'<circle cx="10" cy="9.2" r="1.5"/><path d="M10 10.7v2.4"/>',
+    'Deadbolts':'<rect x="4.6" y="8.6" width="10.8" height="7.8" rx="1.7"/>'
+                +'<path d="M7.3 8.6V6.5a2.7 2.7 0 0 1 5.4 0v2.1"/><path d="M10 11.4v2.2"/>',
+    'Fire Extinguisher':'<rect x="6.6" y="6.8" width="6.8" height="9.6" rx="2.2"/>'
+                +'<path d="M8.6 6.8V5.2h2.8v1.6"/><path d="M13.4 8.6c1.7 0 2.4-1 2.4-2.4"/>',
+    'Smart Water Valve':'<path d="M10 3.4s4 4.2 4 6.7a4 4 0 0 1-8 0c0-2.5 4-6.7 4-6.7z"/>'
+                +'<path d="M14.8 14.6a4.6 4.6 0 0 1 2.1 1.6"/>',
+    'None':'<circle cx="10" cy="10" r="6.8"/><path d="M5.6 14.4 14.4 5.6"/>'
+  };
+  function iconPills(){
+    [].forEach.call(form.querySelectorAll('input[name=hSafe]'),function(i){
+      var p=SAFE_ICONS[i.value], lb=i.nextElementSibling;
+      if(!p||!lb||lb.querySelector('.pic')) return;
+      lb.insertAdjacentHTML('afterbegin','<i class="pic"><svg viewBox="0 0 20 20" '
+        +'aria-hidden="true">'+p+'</svg></i>');
+    });
+  }
+
   var dogs=0;
   function dogBlock(n){
     return '<div class="blk dog"><div class="fl"><label for="dogB'+n+'">Dog '+n+' &mdash; breed</label>'
@@ -2192,6 +2315,7 @@
   }
 
   (function(){
+    iconPills();
     var dl=document.createElement('datalist'); dl.id='breedList';
     dl.innerHTML=BREEDS.map(function(b){ return '<option value="'+esc(b)+'">'; }).join('');
     document.body.appendChild(dl);
@@ -2499,7 +2623,9 @@
 
   var bikes=0, riders=0, incs=0;
   function addBike(){ bikes++;
-    document.getElementById('bikeList').insertAdjacentHTML('beforeend',bikeBlock(bikes));
+    var list=document.getElementById('bikeList');
+    list.insertAdjacentHTML('beforeend',bikeBlock(bikes));
+    wireBikeVin(list.lastElementChild);
     wireMoto(); addTips(); limitDates(); }
   function addRider(){ riders++;
     document.getElementById('riderList').insertAdjacentHTML('beforeend',riderBlock(riders));
@@ -2552,7 +2678,8 @@
     return '<div class="blk" data-bike><div class="bt"><b>Motorcycle '+n+'</b>'
       +(n>1?'<button class="rm" type="button" data-rmbike>Remove</button>':'')+'</div>'
       +'<div class="fl"><label>VIN <span class="opt2">(on the frame by the steering head)</span></label>'
-        +'<input data-f="vin" autocomplete="off" maxlength="17" placeholder="17 characters"></div>'
+        +'<input data-f="vin" autocomplete="off" maxlength="17" placeholder="17 characters">'
+        +'<span class="vinst"><span class="dot"></span><span class="tx"></span></span></div>'
       +'<div class="g2">'
         +'<div class="fl"><label>Year</label><select data-f="year">'+YEARS+'</select></div>'
         +'<div class="fl"><label>Make</label><input data-f="make" autocomplete="off" placeholder="Harley-Davidson"></div>'
@@ -2936,8 +3063,15 @@
     if(name==='construction'){ clear('e-construction');
       if(!document.getElementById('hConstr').value)
         return fail('e-construction','Pick the construction type — &ldquo;Not sure&rdquo; is a valid answer.');
-      if(!document.getElementById('hFound').value) return fail('e-construction','And the foundation?');
       return true; }
+    if(name==='foundation'){ clear('e-foundation');
+      if(!document.getElementById('hFound').value)
+        return fail('e-foundation','Pick the foundation — &ldquo;Not sure&rdquo; is a valid answer.');
+      return true; }
+    // Siding, flooring and countertops are asked and not demanded: an agent can
+    // confirm any of the three on the phone, and stopping the form over a
+    // material costs the lead outright.
+    if(name==='siding'||name==='flooring'||name==='countertops') return true;
     if(name==='systems'){ clear('e-systems');
       var sys=[['hElec','hElecYr','electrical'],['hPlumb','hPlumbYr','plumbing'],
                ['hHeat','hHeatYr','heating']];
