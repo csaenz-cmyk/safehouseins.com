@@ -1454,10 +1454,20 @@
               '$5,000 Per Person','$10,000 Per Person'];
   var PIP=['None','$2,500','$5,000','$10,000'];
   var DEDUCT=['$100','$250','$500','$750','$1,000','$1,500','$2,000'];
-  var RENTAL=['None','$40 Per Day (Max 30 Days)','$50 Per Day (Max 30 Days)',
-              '$60 Per Day (Max 30 Days)','$70 Per Day (Max 30 Days)',
-              '$40 Per Day (Max 45 Days)','$50 Per Day (Max 45 Days)',
-              '$60 Per Day (Max 45 Days)','$70 Per Day (Max 45 Days)'];
+  /* The rater's own daily amounts, and nothing else.
+
+     This list previously offered $60 and $70, which the engine has no value
+     for: they mapped to None, so a visitor could choose rental cover, be quoted
+     without it, and never be told. An option that cannot be bought is worse
+     than an option that is not offered.
+
+     The day cap is gone for the same reason in reverse. RentalLimit is a daily
+     figure only — there is no field for a maximum number of days — so "Max 30
+     Days" and "Max 45 Days" were two labels over one value. Whatever cap the
+     policy carries comes from the carrier's program, not from a choice made
+     here, and printing it as a choice said otherwise. */
+  var RENTAL=['None','$15 Per Day','$20 Per Day','$25 Per Day','$30 Per Day',
+              '$35 Per Day','$40 Per Day','$50 Per Day','$75 Per Day','$100 Per Day'];
   var ROADSIDE=['None','Selected','Selected with Trip Interruption'];
 
   function liabOf(v){
@@ -2590,8 +2600,9 @@
         +'a kerb, a wall — whoever was at fault. The deductible works the same '
         +'way, and it applies each time you claim, not once a year.',
     rental:'Pays for a hire car while yours is being repaired after a covered '
-        +'claim. The daily figure is what it pays a day and the days are the '
-        +'longest it will keep paying.',
+        +'claim. The figure is what it pays a day — pick one close to what a '
+        +'rental actually costs here, because the difference comes out of your '
+        +'pocket. How many days it keeps paying is set by the carrier.',
     roadside:'Towing, winching, a jump start, fuel, a locksmith, a flat tyre '
         +'changed and on-scene labour. Trip interruption adds help with lodging, '
         +'meals and getting home when the breakdown happens far from it.',

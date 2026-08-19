@@ -49,12 +49,36 @@ contract shape directly.
 `toAms()` in `quote.html` emits the contract shape. Nothing renames fields
 anywhere else — no hop, no adapter, one function.
 
-### New fields the AMS has to map — August 2026
+### The coverage fields — mapped and live, August 2026
 
-Four additions, none of which the AMS reads yet. Until it does, a quote still
-rates on `biLimit` alone and the rest is collected and ignored, which is a
-worse outcome than not asking: the visitor picks a $100 deductible and gets
-priced on $500.
+All four additions below are read by the AMS: `mapCoverages()` in
+`public-quote.js`, against the catalogue in `functions/_turborater-enums.js`.
+The engine's own contract is dumped at `docs/turborater-enums.json` in the AMS
+repo — check a value there before adding it to a list here.
+
+**Every option on this screen must exist in the engine.** One that does not
+maps to None, and the visitor is quoted without a coverage they chose and is
+never told. This already happened once: the rental list offered $60 and $70,
+which the engine has no value for. The available daily amounts are 15, 20, 25,
+30, 35, 40, 50, 75 and 100, and this form now offers exactly those.
+
+Two things the engine does not model, worth knowing before they are added back:
+
+- **Rental has no maximum-days field.** `RentalLimit` is a daily figure alone,
+  so a "Max 30 Days" / "Max 45 Days" choice was two labels over one value. The
+  cap comes from the carrier's program.
+- **Country of origin has four meanings, not one per country.** The enum is
+  None, International, Canada, Mexico, Poland, Matricula, Other — so everything
+  outside Mexico, Canada and Poland rates as International. The long list is
+  still worth keeping for the agent's file, and Mexico and Canada belong at the
+  top of it for a border agency, but it does not buy rating precision.
+
+Deductibles have more room than this form uses: 50, 150, 200, 300, 350, 400,
+450, 550, 600, 2500, 3000 and 5000 are all accepted, and 900 and 950 on
+collision only.
+
+`Disabled (not employed)` maps to `Other` — the engine's catalogue has no
+disabled status. Nothing to fix here; worth knowing it loses that detail.
 
 **`coverages`** — the whole coverage selection, replacing a screen that only
 ever asked for liability limits and two deductibles.
@@ -76,8 +100,10 @@ ever asked for liability limits and two deductibles.
 `None` travels as `null`, so the AMS never has to decide whether the string
 "None" means no cover or an enum value it failed to map.
 
-Two rules are enforced in the browser and are worth enforcing again on the AMS
-side, because a payload can be posted without a browser:
+Two rules are enforced in the browser and again on the AMS side
+(`clampUmToLiability`, `resolveMedPayPip`), because a payload can be posted
+without a browser. When the AMS has to degrade one, it says so in `warnings` on
+the response:
 
 - **Uninsured-motorist limits never exceed the liability carrying them**,
   compared as numbers rather than strings. Under a combined single limit there
