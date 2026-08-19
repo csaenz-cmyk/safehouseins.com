@@ -1492,7 +1492,20 @@
      here, and printing it as a choice said otherwise. */
   var RENTAL=['None','$15 Per Day','$20 Per Day','$25 Per Day','$30 Per Day',
               '$35 Per Day','$40 Per Day','$50 Per Day','$75 Per Day','$100 Per Day'];
-  var ROADSIDE=['None','Selected','Selected with Trip Interruption'];
+  /* Roadside carries an amount, because otherwise the AMS has to invent one.
+
+     "Selected" said nothing about how much, so the AMS assumed a figure — and
+     assumed high on purpose, since quoting less cover than the visitor ends up
+     with is a price the agency cannot honour. That assumption is now
+     unnecessary: these are TowingLimit's own values, dollars per disablement,
+     and coverage_assumed disappears on its own once one of them is sent.
+
+     Use exactly these nine. A figure outside the enum does not fall to None the
+     way rental does — it falls to the assumed amount, which until recently
+     happened silently: asking for $60 quoted $75 and said nothing. */
+  var ROADSIDE=['None','$20 Per Disablement','$30 Per Disablement','$35 Per Disablement',
+                '$40 Per Disablement','$50 Per Disablement','$75 Per Disablement',
+                '$100 Per Disablement','$125 Per Disablement','$250 Per Disablement'];
 
   function liabOf(v){
     for(var i=0;i<LIAB.length;i++) if(LIAB[i].v===v) return LIAB[i];
@@ -2118,7 +2131,15 @@
       +   covField('dcoll','collded','Collision Deductible',plain(DEDUCT,'$500'))
       + '</div>'
       + covField('rental','rental','Rental',plain(RENTAL,'None'))
-      + covField('roadside','roadside','Roadside/Trip Interruption',plain(ROADSIDE,'None'));
+      + covField('roadside','roadside','Roadside/Trip Interruption',plain(ROADSIDE,'None'))
+      // Trip interruption rides on the roadside string rather than being its own
+      // field, so the two travel as one value the AMS already parses. Hidden
+      // until there is a roadside amount for it to attach to.
+      + '<label class="consent" id="tripWrap" for="roadtrip" hidden>'
+      +   '<input type="checkbox" id="roadtrip" name="tripInterruption">'
+      +   '<span class="box" aria-hidden="true"></span>'
+      +   '<span class="tx">Add trip interruption &mdash; help with lodging, meals and '
+      +     'getting home when the breakdown happens far from it.</span></label>';
     syncUM(true);
     addTips();
   }
@@ -2190,7 +2211,11 @@
       o.comprehensiveDeductible=v('dcomp');
       o.collisionDeductible=v('dcoll');
       o.rental=none(v('rental'));
-      o.roadside=none(v('roadside'));
+      // One string, in the shape the AMS already reads: an amount it maps onto
+      // TowingLimit, and the exact phrase it recognised on "Selected with Trip
+      // Interruption". No amount means no trip interruption to attach.
+      var road=none(v('roadside')), trip=document.getElementById('roadtrip');
+      o.roadside = road ? road+((trip&&trip.checked)?' with Trip Interruption':'') : null;
     }
     return o;
   }
@@ -2628,8 +2653,9 @@
         +'rental actually costs here, because the difference comes out of your '
         +'pocket. How many days it keeps paying is set by the carrier.',
     roadside:'Towing, winching, a jump start, fuel, a locksmith, a flat tyre '
-        +'changed and on-scene labour. Trip interruption adds help with lodging, '
-        +'meals and getting home when the breakdown happens far from it.',
+        +'changed and on-scene labour. The figure is what it pays per breakdown '
+        +'— a tow across El Paso is usually under $100, one off the interstate '
+        +'can be more.',
     hUnits:'How many separate homes share this building. A normal house is 1. '
           +'A duplex is 2 — even if you only own or live in one side.',
     hStories:'Floors of living space, not counting a basement or an attic you '
@@ -3697,6 +3723,11 @@
     var id=e.target.id;
     if(id==='liab') syncUM(false);
     if(id==='medpay'||id==='pip') syncMedPip(id);
+    if(id==='roadside'){
+      var w=document.getElementById('tripWrap'), t=document.getElementById('roadtrip');
+      w.hidden = e.target.value==='None';
+      if(w.hidden && t) t.checked=false;   // a closed branch is an emptied one
+    }
   });
 
   /* ---------- prefill lookup ----------
@@ -4732,8 +4763,14 @@
       if(w.code==='coverage_dropped')
         return '<li><b>'+name+'</b> was not quoted'+asked+'. A vehicle carries Medical Payments '
              +'or Personal Injury Protection, not both.</li>';
+      // Not "the carrier's own amount". Nobody at a carrier chose it — the AMS
+      // picked a figure because this page did not send one, and it deliberately
+      // picks a generous one so the price is never lower than the cover turns
+      // out to be. Saying a carrier set it would be inventing a source.
       if(w.code==='coverage_assumed')
-        return '<li><b>'+name+'</b> was quoted at the carrier&rsquo;s own amount'+asked+'.</li>';
+        return '<li><b>'+name+'</b> was quoted at a standard amount'+asked
+             +' &mdash; we did not send a figure, so one was assumed. Your agent will '
+             +'confirm it with you.</li>';
       if(w.code==='coverage_unavailable')
         return '<li><b>'+name+'</b> was not quoted'+asked+' &mdash; the carriers we sent this to '
              +'do not offer it. These prices do not include it.</li>';

@@ -62,6 +62,18 @@ never told. This already happened once: the rental list offered $60 and $70,
 which the engine has no value for. The available daily amounts are 15, 20, 25,
 30, 35, 40, 50, 75 and 100, and this form now offers exactly those.
 
+Roadside carries a dollar figure per disablement, from `TowingLimit`: 20, 30,
+35, 40, 50, 75, 100, 125 and 250. It used to be sent as the bare word
+"Selected", which left the AMS to assume an amount — and assume a generous one,
+since quoting less cover than the visitor ends up with is a price the agency
+cannot honour. **A roadside figure outside the enum does not fall to None the
+way rental does; it falls to the assumed amount.** Asking for $60 quoted $75,
+silently, until the AMS started reporting it as `coverage_reduced`.
+
+Trip interruption rides on the same string — `"$50 Per Disablement with Trip
+Interruption"` — rather than becoming a field of its own, because both halves
+are shapes the AMS already parses.
+
 Two things the engine does not model, worth knowing before they are added back:
 
 - **Rental has no maximum-days field.** `RentalLimit` is a daily figure alone,
