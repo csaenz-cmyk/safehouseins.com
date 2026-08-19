@@ -2132,14 +2132,22 @@
       + '</div>'
       + covField('rental','rental','Rental',plain(RENTAL,'None'))
       + covField('roadside','roadside','Roadside/Trip Interruption',plain(ROADSIDE,'None'))
-      // Trip interruption rides on the roadside string rather than being its own
-      // field, so the two travel as one value the AMS already parses. Hidden
-      // until there is a roadside amount for it to attach to.
+      /* Trip interruption rides on the roadside string rather than being its
+         own field, so the two travel as one value the AMS already parses.
+
+         The rating engine has no field for it at all — it has been parsed and
+         discarded since the first version of this form. It stays on the page
+         because unlike the rental day cap, this one is a real answer somebody
+         can act on: the carriers sell it and an agent adds it by hand. What it
+         cannot do is show up in a price, and the label says so before the
+         choice rather than only in the notice afterwards. */
       + '<label class="consent" id="tripWrap" for="roadtrip" hidden>'
       +   '<input type="checkbox" id="roadtrip" name="tripInterruption">'
       +   '<span class="box" aria-hidden="true"></span>'
       +   '<span class="tx">Add trip interruption &mdash; help with lodging, meals and '
-      +     'getting home when the breakdown happens far from it.</span></label>';
+      +     'getting home when the breakdown happens far from it. '
+      +     '<b>Not priced online:</b> your agent arranges this with the carrier you '
+      +     'pick, so the prices you see next will not include it.</span></label>';
     syncUM(true);
     addTips();
   }
@@ -4736,7 +4744,7 @@
     personalInjuryProtection:'Personal Injury Protection',
     comprehensiveDeductible:'Comprehensive deductible',
     collisionDeductible:'Collision deductible',
-    rental:'Rental', roadside:'Roadside'
+    rental:'Rental', roadside:'Roadside', tripInterruption:'Trip interruption'
   };
 
   /* One sentence per coverage the carriers could not quote as asked.
@@ -4757,9 +4765,21 @@
     var mine=(details||[]).filter(function(w){ return w && w.audience==='client'; });
     list.innerHTML=mine.map(function(w){
       var name=COV_LABEL[w.field]||w.field, asked=w.asked?' (you asked for '+esc(w.asked)+')':'';
-      if(w.code==='coverage_reduced')
+      /* Why a limit changed depends on the field, not just the code.
+
+         Uninsured-motorist cover is capped by the liability underneath it,
+         which is worth explaining because it is a rule and not an accident.
+         Everywhere else `coverage_reduced` means the amount asked for is not
+         one the engine sells and the nearest was used — and the direction is
+         not ours to name, since roadside moves $60 up to $75 while a clamp
+         moves down. Reusing the liability sentence across both was the same
+         mistake as crediting a carrier for our own assumption. */
+      if(w.code==='coverage_reduced' && /^um/.test(w.field||''))
         return '<li><b>'+name+'</b> was lowered to fit the liability limits you chose'+asked
              +'. It cannot be higher than they are.</li>';
+      if(w.code==='coverage_reduced')
+        return '<li><b>'+name+'</b> was quoted at the nearest amount the carriers sell'
+             +asked+'. Your agent will tell you exactly what it is.</li>';
       if(w.code==='coverage_dropped')
         return '<li><b>'+name+'</b> was not quoted'+asked+'. A vehicle carries Medical Payments '
              +'or Personal Injury Protection, not both.</li>';
@@ -4771,6 +4791,15 @@
         return '<li><b>'+name+'</b> was quoted at a standard amount'+asked
              +' &mdash; we did not send a figure, so one was assumed. Your agent will '
              +'confirm it with you.</li>';
+      // Trip interruption is a coverage_unavailable that means something else.
+      // The carriers do sell it; the rating engine simply has no field for it,
+      // so an agent arranges it by hand. Telling somebody the carriers do not
+      // offer a thing they can in fact buy would be the wrong correction to a
+      // problem we only just found.
+      if(w.code==='coverage_unavailable' && w.field==='tripInterruption')
+        return '<li><b>'+name+'</b> is not priced online, so the prices below do not '
+             +'include it. Your agent can add it with the carrier you pick &mdash; tell '
+             +'them you want it when they call.</li>';
       if(w.code==='coverage_unavailable')
         return '<li><b>'+name+'</b> was not quoted'+asked+' &mdash; the carriers we sent this to '
              +'do not offer it. These prices do not include it.</li>';

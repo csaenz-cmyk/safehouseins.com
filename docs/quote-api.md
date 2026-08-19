@@ -72,7 +72,21 @@ silently, until the AMS started reporting it as `coverage_reduced`.
 
 Trip interruption rides on the same string — `"$50 Per Disablement with Trip
 Interruption"` — rather than becoming a field of its own, because both halves
-are shapes the AMS already parses.
+are shapes the AMS already parses. Confirmed: the amount is read with a digit
+regex, so the combined form maps.
+
+**Trip interruption itself has no field in the engine**, and never had one. It
+has been parsed and discarded since the first version of this form, back when
+"Selected with Trip Interruption" was the only way to ask for roadside at all.
+It stays on the page anyway, and that is a deliberate difference from the rental
+day cap, which was removed: a day cap was set by the carrier's program and
+nobody could act on the visitor's preference, whereas the carriers do sell trip
+interruption and an agent adds it by hand. The answer leads somewhere.
+
+What it cannot do is appear in a price, so the checkbox says that before the
+choice and the AMS reports `coverage_unavailable` on field `tripInterruption`
+after it. That code needs its own wording: the standard "the carriers do not
+offer it" line is false here.
 
 Two things the engine does not model, worth knowing before they are added back:
 
