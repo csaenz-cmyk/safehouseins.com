@@ -132,10 +132,25 @@ is English and addressed to an agent, and `rated` is the engine's vocabulary —
 next to a price would read as gibberish. `asked` is this page's own string, so
 that one is quoted back to the visitor verbatim.
 
-Codes: `coverage_reduced`, `coverage_dropped`, `coverage_assumed`,
-`coverage_unavailable`, and `unreadable_value` (integration only). An
-unrecognised code still renders, as a plain "not quoted as asked" line — a new
-code on the AMS side must never mean a silent omission here.
+Codes: `coverage_reduced`, `coverage_increased`, `coverage_dropped`,
+`coverage_assumed`, `coverage_unavailable`, and `unreadable_value` (integration
+only). An unrecognised code still renders, as a plain "not quoted as asked"
+line — a new code on the AMS side must never mean a silent omission here.
+
+**Read `direction` before the code where both are present.** Every coverage
+except roadside falls to None when the value is not one the engine sells, and
+that is `coverage_unavailable`. Roadside instead rounds to the nearest amount
+it does sell, and it rounds **both ways from the same constant**: $60 becomes
+$75, and so does $300. Describing the second as "the nearest amount" was
+nonsense — $75 is a seventh of $300 — and it is the case that matters most,
+because the visitor is being shown a price for far less roadside than they
+asked for. Up and down are now separate sentences and the downward one says so
+plainly.
+
+`ratedUnit` is what makes `rated` sayable: a bare `75` beside a price means
+nothing, `usd_per_disablement` turns it into "$75 per breakdown". A unit this
+page does not recognise yields nothing rather than a guess, and the sentence
+around it still reads.
 
 **`coverages`** — the whole coverage selection, replacing a screen that only
 ever asked for liability limits and two deductibles.
