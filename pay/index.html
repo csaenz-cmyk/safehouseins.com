@@ -58,6 +58,18 @@
   .paycard .dest b{color:#5C6A80;font-weight:800}
 
   .payempty{text-align:center;color:#5C6A80;font-weight:600;padding:26px 0;display:none}
+  .paypriv{max-width:520px;margin:-18px auto 22px;text-align:center;font-size:12px;
+      font-weight:600;color:#8FA0B8;line-height:1.5}
+
+  /* The answer to "who wrote my policy", set apart from the list it came from
+     so it reads as a result and not as one more card among eight. */
+  .payhit{border:1.5px solid #BBD6FB;background:#F4F9FF;border-radius:20px;
+      padding:18px 18px 16px;margin:0 0 20px}
+  .payhit .hitlead{margin:0 0 12px;font-size:15.5px;font-weight:700;color:#0A2148;line-height:1.4}
+  .payhit .hitlead b{font-weight:900;color:#1666ED}
+  .payhit .paygrid{margin:0}
+  .payhit .paycard{border-color:#CFE2FC}
+  .payhit .hitnote{margin:12px 0 0;font-size:12.5px;font-weight:600;color:#5C6A80;line-height:1.5}
 
   .paynote{border:1.5px solid #F5DFB0;background:#FFFAF0;border-radius:18px;padding:18px 20px;margin:28px 0 0}
   .paynote b{display:block;font-size:15px;color:#8A5200;font-weight:900;margin-bottom:6px}
@@ -118,9 +130,14 @@
 
       <div class="paysearch">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
-        <input id="paySearch" type="search" autocomplete="off"
-               placeholder="Search for your insurance company" aria-label="Search for your insurance company">
+        <input id="paySearch" type="search" autocomplete="off" spellcheck="false"
+               placeholder="Policy number or company name"
+               aria-label="Policy number or company name">
       </div>
+      <p class="paypriv">Your policy number stays in your browser &mdash; we do not send it
+        anywhere or save it.</p>
+
+      <div class="payhit" id="payHit" hidden aria-live="polite"></div>
 
       <div class="paygrid" id="payGrid"></div>
       <p class="payempty" id="payEmpty">No company by that name here. Call us on
@@ -181,15 +198,27 @@
      KEEP THESE CHECKED. Carrier payment URLs move, and a link that 404s on a
      page somebody reached because their policy is about to cancel is worse
      than no page. Verify them when a carrier is added or changes name. */
+  /* [ name, payment URL, phone, what they write, policy-number prefixes ]
+
+     The prefixes are what lets somebody type the number off their ID card
+     instead of knowing which of eight companies wrote the policy — the thing
+     they are least likely to know and most likely to be embarrassed about.
+
+     **Never guess one.** A wrong prefix does not fail visibly: it sends
+     somebody to confidently pay the wrong carrier, and they find out when the
+     policy they thought they paid cancels. Only prefixes the agency has
+     confirmed against real policies go in here. A carrier with none simply is
+     not matched by number, which costs nothing — the visitor finds it by name
+     in the list below, exactly as before. */
   var CARRIERS=[
-    ['Progressive',  'https://account.apps.progressive.com/access/ez-payment/policy-info', '', 'Auto'],
-    ['Acacia',       'https://login.acaciamga.com/consumer',                               '', 'Auto'],
-    ['GAINSCO',      '', '', 'Auto'],
-    ['Kemper',       '', '', 'Auto'],
-    ['Bluefire',     '', '', 'Auto'],
-    ['Commonwealth', '', '', 'Auto'],
-    ['Apollo',       '', '', 'Auto'],
-    ['Infinity',     '', '', 'Auto']
+    ['Progressive',  'https://account.apps.progressive.com/access/ez-payment/policy-info', '', 'Auto', []],
+    ['Acacia',       'https://login.acaciamga.com/consumer',                               '', 'Auto', ['AIM','AIL']],
+    ['GAINSCO',      '', '', 'Auto', []],
+    ['Kemper',       '', '', 'Auto', []],
+    ['Bluefire',     '', '', 'Auto', []],
+    ['Commonwealth', '', '', 'Auto', []],
+    ['Apollo',       '', '', 'Auto', []],
+    ['Infinity',     '', '', 'Auto', []]
   ];
 
   var grid=document.getElementById('payGrid'),
@@ -248,14 +277,71 @@
 
   /* Search is a filter, never a gate: an empty box shows everything, and the
      empty state names the phone number rather than leaving somebody stuck. */
-  search.addEventListener('input',function(){
-    var q=search.value.trim().toLowerCase(), shown=0;
-    [].forEach.call(grid.children,function(el){
-      var hit=!q || el.dataset.name.indexOf(q)>-1;
-      el.style.display=hit?'':'none';
-      if(hit) shown++;
+  /* One box, two ways in: a company name or a policy number.
+
+     Nobody is asked to choose which they are typing. A policy number is
+     recognised by matching a known prefix, and everything else falls through
+     to the name filter it already was — so the box cannot be "used wrong".
+
+     **The number never leaves the browser.** No request carries it, it is not
+     put in the URL, and nothing stores it. Matching a prefix is string work
+     this page does on its own, and a payments page that quietly transmitted
+     policy numbers would deserve none of the trust the rest of it asks for. */
+  function norm(s){ return String(s).toUpperCase().replace(/[^A-Z0-9]/g,''); }
+
+  function byPolicy(q){
+    var n=norm(q); if(n.length<3) return [];
+    return CARRIERS.filter(function(c){
+      return (c[4]||[]).some(function(p){
+        // the whole prefix has to be there, so a single letter matches nothing
+        return n.indexOf(norm(p))===0;
+      });
     });
-    empty.style.display=shown?'none':'block';
+  }
+
+  var hit=document.getElementById('payHit');
+
+  function showHit(list,typed){
+    if(!list.length){ hit.hidden=true; hit.innerHTML=''; return; }
+    // More than one carrier on a prefix is a real possibility as the table
+    // grows. Naming both beats picking one and being wrong half the time.
+    hit.innerHTML='<p class="hitlead">'+(list.length===1
+        ? 'That policy number is with <b>'+esc(list[0][0])+'</b>'
+        : 'That prefix is used by more than one company &mdash; pick yours')
+      +'</p><div class="paygrid">'+list.map(card).join('')+'</div>'
+      +'<p class="hitnote">Not right? Your policy number is on your ID card, top left. '
+      +'Call us on <a href="tel:+19155031207">915-503-1207</a> if it does not match.</p>';
+    hit.hidden=false;
+  }
+
+  search.addEventListener('input',function(){
+    var raw=search.value.trim(), q=raw.toLowerCase(), shown=0;
+    var pol=byPolicy(raw);
+    showHit(pol,raw);
+
+    [].forEach.call(grid.children,function(el){
+      var name=el.dataset.name;
+      // With a policy match on screen, the list below narrows to it as well,
+      // so the page is not saying two things at once.
+      var ok = pol.length ? pol.some(function(c){ return c[0].toLowerCase()===name; })
+                          : (!q || name.indexOf(q)>-1);
+      el.style.display=ok?'':'none';
+      if(ok) shown++;
+    });
+
+    // "No company by that name" is wrong when somebody typed a number, so the
+    // empty state says which of the two failed.
+    if(shown){ empty.style.display='none'; }
+    else {
+      empty.style.display='block';
+      empty.innerHTML = /^[A-Za-z]{2,}[0-9]/.test(norm(raw))
+        ? 'We do not recognise that policy number prefix yet. Call us on '
+          +'<a href="tel:+19155031207">915-503-1207</a> and we will tell you who '
+          +'wrote your policy &mdash; it takes seconds.'
+        : 'No company by that name here. Call us on '
+          +'<a href="tel:+19155031207">915-503-1207</a> and we will tell you who '
+          +'wrote your policy.';
+    }
   });
 })();
 </script>
