@@ -124,6 +124,24 @@
   .pwarn p{margin:0;font-size:13.5px;line-height:1.65;color:#6B4B18;font-weight:600}
   .pwarn p+p{margin-top:9px}
 
+  /* The way out for somebody who came to pay and stayed to ask why. Full-width
+     and clickable rather than a link in a sentence: the questions behind it —
+     what a lapse costs, whether to pay monthly — are the ones this page's
+     visitors are actually carrying. */
+  .plearn{max-width:900px;margin:20px auto 0;padding:0 20px}
+  .plearn a{display:flex;align-items:center;gap:18px;border:1.5px solid var(--pline);
+      border-radius:20px;padding:22px 24px;background:#fff;text-decoration:none;
+      transition:border-color .16s,box-shadow .16s,transform .16s}
+  .plearn a:hover{border-color:#BBD6FB;box-shadow:0 14px 34px rgba(8,24,58,.09);transform:translateY(-2px)}
+  .plearn .t{flex:1 1 auto}
+  .plearn s{display:block;text-decoration:none;font-size:11.5px;letter-spacing:.11em;
+      text-transform:uppercase;font-weight:800;color:var(--pblue);margin-bottom:5px}
+  .plearn b{display:block;font-size:17px;font-weight:800;color:var(--pnavy);letter-spacing:-.02em}
+  .plearn .d{display:block;margin-top:6px;font-size:13.5px;line-height:1.6;color:#5C6A80;font-weight:600}
+  .plearn .ar{flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:#EAF2FE;
+      color:var(--pblue);display:flex;align-items:center;justify-content:center;
+      font-size:19px;font-weight:800}
+
   .psafe{max-width:900px;margin:14px auto 56px;padding:0 20px;text-align:center}
   .psafe p{margin:0;font-size:12.5px;line-height:1.6;color:#8FA0B8;font-weight:600}
 </style>
@@ -204,6 +222,15 @@
          driving uninsured. One phone call tells you whether you need a reinstatement, a
          new policy, or just the payment &mdash; and it is faster than finding out the hard way.</p>
     </div>
+  </div>
+
+  <div class="plearn">
+    <a href="guide/">
+      <span class="t"><s>Learn more</s><b>How paying for car insurance actually works</b>
+        <span class="d">Paying in full or monthly, what a missed payment really costs in
+          Texas and New Mexico, and what to do in the week you cannot pay.</span></span>
+      <span class="ar">&rarr;</span>
+    </a>
   </div>
 
   <div class="psafe">

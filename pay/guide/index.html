@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Pay Car Insurance in Texas &amp; New Mexico — Safe House Insurance</title>
+<meta name="description" content="How car insurance payments work — paying in full vs monthly, what happens if you miss a payment, and how to avoid a lapse. Written for Texas and New Mexico drivers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../../assets/safehouse-heart.png">
+<link rel="stylesheet" href="../../assets/styles.css">
+<style>
+  /* ================= paying for car insurance =================
+     A guide, not a sales page. The one thing it will not do is quote a figure
+     it cannot stand behind: no average premium, no "autopay saves 3-15%", no
+     grace period in days. Those vary by carrier and by state, we have no source
+     to cite, and a made-up number on a page whose job is to be trusted is worse
+     than no page — the same rule the city and make pages are built under. */
+
+  :root{ --gnavy:#08183A; --gblue:#1666ED; --gline:#E5EBF6; }
+
+  .gh{position:relative;background:
+      radial-gradient(900px 420px at 20% -10%, rgba(34,167,240,.28), transparent 62%),
+      var(--gnavy);
+      padding:140px 20px 56px;color:#fff}
+  @media(max-width:700px){ .gh{padding-top:118px} }
+  .gh .in{max-width:760px;margin:0 auto}
+  .gh .crumbs{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;
+      color:rgba(255,255,255,.55);margin-bottom:20px}
+  .gh .crumbs a{color:rgba(255,255,255,.75);text-decoration:none}
+  .gh h1{margin:0;font-size:clamp(31px,5.2vw,46px);line-height:1.08;font-weight:800;letter-spacing:-.03em}
+  .gh h1 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#8FD0FF}
+  .gh .lede{margin:16px 0 0;max-width:60ch;font-size:16.5px;line-height:1.65;
+      color:rgba(255,255,255,.78);font-weight:500}
+
+  .gwrap{max-width:760px;margin:0 auto;padding:0 20px}
+
+  /* The summary somebody reads instead of the article. It has to be true on
+     its own, because for most visitors it is the whole page. */
+  .gkey{margin:-30px auto 0;position:relative;z-index:2;background:#fff;border:1px solid var(--gline);
+      border-radius:22px;box-shadow:0 22px 54px rgba(8,24,58,.14);padding:26px 28px}
+  .gkey b{display:block;font-size:12px;letter-spacing:.11em;text-transform:uppercase;
+      font-weight:800;color:#7C8BA4;margin-bottom:14px}
+  .gkey ul{margin:0;padding:0;list-style:none}
+  .gkey li{position:relative;padding-left:28px;margin-top:11px;font-size:15px;line-height:1.6;
+      color:#23324B;font-weight:600}
+  .gkey li:first-child{margin-top:0}
+  .gkey li::before{content:"";position:absolute;left:4px;top:8px;width:9px;height:9px;
+      border-radius:50%;background:linear-gradient(140deg,var(--gblue),#22A7F0)}
+
+  .gsec{padding:44px 0 0}
+  .gsec h2{margin:0 0 14px;font-size:25px;font-weight:800;color:var(--gnavy);letter-spacing:-.025em;
+      line-height:1.2}
+  .gsec h3{margin:26px 0 8px;font-size:17px;font-weight:800;color:var(--gnavy)}
+  .gsec p{margin:0 0 13px;font-size:15.5px;line-height:1.72;color:#3B4A63;font-weight:500}
+  .gsec p:last-child{margin-bottom:0}
+  .gsec a{color:var(--gblue);font-weight:700}
+
+  .gways{display:grid;gap:11px;grid-template-columns:1fr;margin:18px 0 0}
+  @media(min-width:640px){ .gways{grid-template-columns:1fr 1fr} }
+  .gway{border:1.5px solid var(--gline);border-radius:15px;padding:15px 17px;background:#fff}
+  .gway b{display:block;font-size:14.5px;font-weight:800;color:var(--gnavy);margin-bottom:3px}
+  .gway span{display:block;font-size:13px;line-height:1.55;color:#5C6A80;font-weight:600}
+
+  /* Two columns that are genuinely a choice, not a recommendation dressed as
+     one. Monthly is the right answer for plenty of people and the page says so
+     rather than nudging everybody toward the option that looks tidier. */
+  .gvs{display:grid;gap:13px;grid-template-columns:1fr;margin:18px 0 0}
+  @media(min-width:640px){ .gvs{grid-template-columns:1fr 1fr} }
+  .gvcol{border:1.5px solid var(--gline);border-radius:18px;padding:20px;background:#fff}
+  .gvcol.hi{border-color:#BBD6FB;background:#F7FBFF}
+  .gvcol b{display:block;font-size:16px;font-weight:800;color:var(--gnavy);margin-bottom:9px}
+  .gvcol ul{margin:0;padding-left:18px}
+  .gvcol li{font-size:13.5px;line-height:1.6;color:#4A5A74;font-weight:600;margin-top:6px}
+
+  .gsteps{margin:18px 0 0;padding:0;list-style:none;counter-reset:s}
+  .gsteps li{counter-increment:s;position:relative;padding:0 0 0 46px;margin-top:16px}
+  .gsteps li::before{content:counter(s);position:absolute;left:0;top:-1px;width:31px;height:31px;
+      border-radius:10px;background:#EAF2FE;color:var(--gblue);display:flex;align-items:center;
+      justify-content:center;font-weight:900;font-size:14px}
+  .gsteps b{display:block;font-size:15px;font-weight:800;color:var(--gnavy);margin-bottom:3px}
+  .gsteps p{margin:0;font-size:14px;line-height:1.65;color:#4A5A74;font-weight:600}
+
+  .gcall{border:1.5px solid #F5DFB0;background:#FFFAF0;border-radius:18px;padding:20px 22px;margin:24px 0 0}
+  .gcall b{display:block;font-size:15.5px;color:#8A5200;font-weight:900;margin-bottom:7px}
+  .gcall p{margin:0;font-size:14px;line-height:1.68;color:#6B4B18;font-weight:600}
+
+  .gmin{display:grid;gap:11px;grid-template-columns:1fr 1fr;margin:18px 0 0}
+  .gmincol{border:1.5px solid var(--gline);border-radius:15px;padding:16px 18px;background:#fff}
+  .gmincol s{display:block;text-decoration:none;font-size:11.5px;letter-spacing:.09em;
+      text-transform:uppercase;font-weight:800;color:#7C8BA4}
+  .gmincol b{display:block;font-family:'Geist Mono',monospace;font-size:21px;font-weight:600;
+      color:var(--gnavy);margin:4px 0 3px;letter-spacing:-.02em}
+  .gmincol span{font-size:12.5px;color:#5C6A80;font-weight:600}
+
+  .gcta{margin:46px auto 60px;border-radius:24px;padding:32px 28px;text-align:center;color:#fff;
+      background:linear-gradient(120deg,var(--gblue),#22A7F0)}
+  .gcta b{display:block;font-size:23px;font-weight:800;letter-spacing:-.02em}
+  .gcta p{margin:9px auto 20px;max-width:46ch;font-size:14.5px;line-height:1.6;
+      color:rgba(255,255,255,.9);font-weight:600}
+  .gcta .row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .gcta a{border-radius:14px;padding:14px 22px;font-size:15px;font-weight:800;text-decoration:none}
+  .gcta .p{background:#fff;color:var(--gblue)}
+  .gcta .s{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.35)}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <span>📞 Call or text <a href="tel:+19155031207">915-503-1207</a></span>
+    <span>✉️ <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></span>
+    <span class="es">🇲🇽 Se habla español</span>
+    <span>El Paso, TX · Serving TX &amp; NM</span>
+  </div>
+
+  <header class="gh">
+    <nav>
+      <a href="../../index.html"><img class="logo" src="../../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+      <div class="links"><a href="../../auto.html">Auto</a><a href="../../home-insurance.html">Home</a><a href="../../commercial.html">Commercial</a><a href="../../about.html">About</a><a href="../../index.html#faq">FAQ</a><a href="../" class="active">Make a payment</a></div>
+      <div class="nav-cta"><a class="signin" href="../../contact.html">Contact</a><a class="btn white sm" href="../../contact.html#quote">Get a quote</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button></div>
+    </nav>
+
+  <div class="drawer" id="drawer">
+    <a href="../../index.html">Home</a>
+    <a href="../../auto.html">Auto</a>
+    <a href="../../home-insurance.html">Home insurance</a>
+    <a href="../../commercial.html">Commercial</a>
+    <a href="../">Make a payment</a>
+    <a href="../../about.html">About</a>
+    <a href="../../contact.html">Contact</a>
+    <a class="btn white" href="tel:+19155031207">📞 Call 915-503-1207</a>
+    <a class="dr-mail" href="mailto:contact@safehouseins.com">contact@safehouseins.com · 🇲🇽 Se habla español</a>
+  </div>
+
+    <div class="in">
+      <div class="crumbs"><a href="../../index.html">Home</a> &nbsp;/&nbsp;
+        <a href="../">Make a payment</a> &nbsp;/&nbsp; Paying for car insurance</div>
+      <h1>Paying for car insurance, <em>without losing your coverage</em></h1>
+      <p class="lede">How the payment actually works, what a lapse really costs in Texas and
+        New Mexico, and what to do in the week you cannot pay. Written by licensed agents
+        who spend most of their day on exactly this.</p>
+    </div>
+  </header>
+
+  <div class="gwrap">
+    <div class="gkey">
+      <b>The short version</b>
+      <ul>
+        <li>Nearly every carrier takes a card, a bank transfer or a check. Cash is usually
+            an office-only option and never something to mail.</li>
+        <li>Paying six months at once almost always costs less overall than paying monthly,
+            because you skip the instalment fees.</li>
+        <li>Most carriers discount autopay. How much is different at every one, so ask
+            yours rather than assuming.</li>
+        <li>A cancellation for non-payment is far more expensive than the payment. It follows
+            you into your next policy&rsquo;s price, and it can cost you the continuous-coverage
+            discount you already had.</li>
+        <li>If you are going to be late, call before the due date. There is almost always
+            something an agent can do beforehand and much less afterwards.</li>
+      </ul>
+    </div>
+
+    <section class="gsec">
+      <h2>How you can pay</h2>
+      <p>Payment methods are set by your insurance company, not by us &mdash; but across the
+        carriers we place business with, these are the usual ones.</p>
+      <div class="gways">
+        <div class="gway"><b>Debit or credit card</b>
+          <span>The fastest, and what the online portals are built around. A card payment
+            usually posts the same day.</span></div>
+        <div class="gway"><b>Bank transfer (ACH)</b>
+          <span>Straight from a checking account. Most carriers reserve their best autopay
+            discount for this rather than for cards.</span></div>
+        <div class="gway"><b>Check or money order</b>
+          <span>Accepted by most, but it has to arrive and clear before the due date, not
+            be postmarked by it.</span></div>
+        <div class="gway"><b>Cash, in person</b>
+          <span>Some carriers take cash at an office or a payment centre. Never mail
+            it &mdash; there is no way to prove it arrived.</span></div>
+      </div>
+    </section>
+
+    <section class="gsec">
+      <h2>In full or monthly</h2>
+      <p>Most policies here run six months. You can usually pay the whole term at once, or
+        put money down and pay the rest in instalments. Paying in full costs less overall,
+        because instalment plans add a fee to each payment and the down payment is often
+        larger than one month&rsquo;s share.</p>
+      <p>That does not make it the right answer for everybody, and an agent who tells you it
+        always is has not asked about your month.</p>
+      <div class="gvs">
+        <div class="gvcol hi"><b>Paying in full makes sense when</b>
+          <ul>
+            <li>You have the whole amount without touching money you need for something else</li>
+            <li>Your income is steady and predictable</li>
+            <li>You would rather not think about it again for six months</li>
+          </ul></div>
+        <div class="gvcol"><b>Monthly makes sense when</b>
+          <ul>
+            <li>The full amount would leave you short somewhere that matters more</li>
+            <li>Your income moves around week to week</li>
+            <li>You would rather keep the cash available for an emergency</li>
+            <li>You are between jobs or expecting a change soon</li>
+          </ul></div>
+      </div>
+      <p style="margin-top:16px">The mistake is not choosing monthly. It is choosing a
+        monthly payment that is tight every single month &mdash; because the month it does not
+        clear costs far more than the difference you saved.</p>
+    </section>
+
+    <section class="gsec">
+      <h2>What happens if you miss a payment</h2>
+      <p>Missing one is common and it is recoverable. What matters is how fast you move, and
+        the timeline below is the shape of it at most carriers. <strong>The exact dates are
+        on the notice your carrier sends you</strong> &mdash; they are set by that carrier and by
+        state law, so read the notice rather than trusting a number you found online,
+        including ours.</p>
+      <ol class="gsteps">
+        <li><b>Your payment is late</b>
+          <p>Coverage does not usually stop the moment a payment is missed. Most carriers
+            allow a short window first, and you are still insured during it.</p></li>
+        <li><b>The carrier sends notice</b>
+          <p>A letter, email or text with a date on it. That date is the one that matters &mdash;
+            it is when coverage actually ends if nothing is paid.</p></li>
+        <li><b>The policy cancels</b>
+          <p>From that date you are uninsured. Driving uninsured is illegal in both Texas and
+            New Mexico, and a stop, an accident or a traffic camera in that gap is a much
+            larger problem than the missed payment was.</p></li>
+        <li><b>Reinstatement, sometimes</b>
+          <p>Many carriers will put a recently cancelled policy back in force if you pay what
+            is owed plus a fee, and some will not. It depends on the carrier and how long the
+            gap has been. This is the point to call rather than to pay online and hope.</p></li>
+      </ol>
+      <div class="gcall">
+        <b>Call before you pay a cancelled policy.</b>
+        <p>A payment made after a cancellation date does not always reinstate the policy, and
+          some carriers will hold the money against the balance while you keep driving with no
+          coverage. One call tells you whether you need a reinstatement, a new policy, or just
+          the payment. We do this every day &mdash; <a href="tel:+19155031207" style="color:#8A5200;text-decoration:underline">915-503-1207</a>.</p>
+      </div>
+    </section>
+
+    <section class="gsec">
+      <h2>Why a lapse costs more than the payment</h2>
+      <p>This is the part that surprises people. The money you did not pay is rarely the
+        expensive bit &mdash; the gap in your record is.</p>
+      <p>Carriers price continuous coverage. Going without it, even briefly, moves you into a
+        worse bracket at renewal and at every carrier you shop afterwards, and it can cost you
+        a prior-insurance discount you already had. A lapse of a few days can follow your
+        premium for years, which is why it is worth a phone call to avoid one.</p>
+      <p>On top of that, both states require you to carry liability while your vehicle is
+        registered:</p>
+      <div class="gmin">
+        <div class="gmincol"><s>Texas minimum</s><b>30/60/25</b>
+          <span>Thousands: injury per person, injury per accident, property damage.</span></div>
+        <div class="gmincol"><s>New Mexico minimum</s><b>25/50/10</b>
+          <span>The same three figures, at New Mexico&rsquo;s limits.</span></div>
+      </div>
+      <p style="margin-top:14px">Those are floors written into law, not recommendations &mdash;
+        and a lapse means you were below them.</p>
+    </section>
+
+    <section class="gsec">
+      <h2>If you cannot pay this month</h2>
+      <p>There is more room here than most people think, and almost all of it exists before
+        the due date rather than after it.</p>
+      <ol class="gsteps">
+        <li><b>Call before the date, not after</b>
+          <p>Some carriers will move a due date or split a payment if you ask in advance.
+            Very few will do anything once the policy has cancelled.</p></li>
+        <li><b>Ask what a partial payment buys</b>
+          <p>Paying part of it sometimes pushes the cancellation date out far enough to reach
+            your next payday. Ask what the minimum is to keep the policy alive.</p></li>
+        <li><b>Ask us to re-shop it</b>
+          <p>If the premium is the problem rather than this month, that is a different fix. We
+            can compare what several carriers would charge for the same coverage &mdash; and check
+            whether you are missing a discount you qualify for.</p></li>
+        <li><b>Look at the coverage, carefully</b>
+          <p>Raising a deductible or dropping collision on an older car lowers the payment, and
+            both have real consequences. Worth doing with an agent, not alone at midnight.</p></li>
+      </ol>
+    </section>
+
+    <section class="gsec">
+      <h2>Set up autopay once</h2>
+      <p>Most carriers discount autopay, usually more for a bank account than for a card, and
+        the amount is different at every one &mdash; ask yours what it is rather than assuming a
+        figure. The bigger value is not the discount anyway. It is that a policy on autopay
+        does not lapse because a text message went unread during a busy week.</p>
+      <p>Two things worth doing at the same time: make sure the account behind it is one that
+        will not be short on the due date, and keep the carrier&rsquo;s texts turned on so a failed
+        payment reaches you.</p>
+    </section>
+
+    <div class="gcta">
+      <b>Ready to pay?</b>
+      <p>Enter your policy number and we will take you straight to your carrier&rsquo;s payment
+        page. Or call and we will walk you through it.</p>
+      <div class="row">
+        <a class="p" href="../">Make a payment &rarr;</a>
+        <a class="s" href="tel:+19155031207">📞 915-503-1207</a>
+        <a class="s" href="sms:+19155943777">💬 915-594-3777</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="fgrid">
+        <div>
+          <img class="logo" src="../../assets/safehouse-logo.png" alt="Safe House Insurance">
+          <p style="max-width:36ch;font-size:14.5px">The modern way to insure. Auto, home, commercial &amp; life — compared, bought and managed in El Paso, TX.</p>
+          <p style="margin-top:14px;color:#fff;font-weight:800">📞 Call <a href="tel:+19155031207" style="color:#fff">915-503-1207</a></p>
+          <p style="margin-top:4px;color:#fff;font-weight:800">💬 Text <a href="sms:+19155943777" style="color:#fff">915-594-3777</a></p>
+          <p style="font-size:13.5px;margin-top:4px">✉ <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></p>
+          <p style="font-size:13px;margin-top:4px">🇲🇽 Se habla español</p>
+        </div>
+        <div><h5>Insurance</h5><a href="../../auto.html">Auto</a><a href="../../home-insurance.html">Home</a><a href="../../commercial.html">Commercial</a><a href="../../contact.html">Life</a><a href="../../contact.html">Bonds</a></div>
+        <div><h5>Company</h5><a href="../../about.html">About us</a><a href="../../careers.html">Careers</a><a href="../../index.html#how">How it works</a><a href="../../index.html#faq">FAQ</a><a href="../../contact.html">Contact</a></div>
+        <div><h5>Account</h5><a href="../">Make a payment</a><a href="../../contact.html#quote">Get a quote</a><a href="#">Manage policy</a><a href="#">File a claim</a></div>
+      </div>
+    </div>
+    <p class="disclaimer">Safe House Insurance is an independent insurance agency licensed in Texas and New Mexico [license #__________]. This page is general information about how insurance payments work and is not legal or financial advice; payment terms, grace periods and reinstatement rules are set by your insurance company and by state law, and the notice your carrier sends you governs. Payments are handled entirely by that carrier under their own terms; Safe House does not process, hold or receive premium payments through this site.</p>
+    <p class="flegal"><a href="../../privacy.html">Privacy Policy</a> &middot; <a href="../../sms-terms.html">SMS Terms</a></p>
+  </footer>
+
+<script>
+  (function(){
+    var burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
+    if(!burger||!drawer)return;
+    function setMenu(open){
+      if(open){var r=document.querySelector('nav').getBoundingClientRect();
+        drawer.style.paddingTop=Math.max(r.bottom+20,90)+'px';}
+      burger.classList.toggle('on',open);drawer.classList.toggle('on',open);
+      document.body.classList.toggle('locked',open);
+      burger.setAttribute('aria-expanded',open);
+      burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+    }
+    burger.addEventListener('click',function(){setMenu(!drawer.classList.contains('on'));});
+    Array.prototype.forEach.call(drawer.querySelectorAll('a'),function(a){a.addEventListener('click',function(){setMenu(false);});});
+    addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
+    addEventListener('resize',function(){if(innerWidth>960)setMenu(false);});
+  })();
+</script>
+</body>
+</html>
