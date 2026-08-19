@@ -4,85 +4,128 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Make a Payment — Safe House Insurance</title>
-<meta name="description" content="Pay your insurance premium. Find your carrier's payment portal and phone number in one place. Safe House Insurance, El Paso TX. Se habla español.">
+<meta name="description" content="Enter your policy number and we will take you straight to your insurance company's payment page. Safe House Insurance, El Paso TX. Se habla español.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="../assets/safehouse-heart.png">
 <link rel="stylesheet" href="../assets/styles.css">
 <style>
-  /* ---- payments directory ----
-     Every carrier is one card. The list is short today and will not stay that
-     way, so it is drawn from CARRIERS at the bottom of this file: adding one is
-     a line of data, not a block of markup to copy and get subtly wrong. */
-  .paywrap{max-width:1080px;margin:0 auto;padding:0 20px}
-  .paysearch{position:relative;max-width:520px;margin:0 auto 26px}
-  .paysearch input{width:100%;border:2px solid #E5EBF6;border-radius:16px;padding:15px 16px 15px 46px;
-      font-family:inherit;font-size:16px;background:#fff;color:#0A2148}
-  .paysearch input:focus{border-color:#1666ED;outline:none;box-shadow:0 0 0 4px rgba(22,102,237,.14)}
-  .paysearch svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:19px;height:19px;
-      fill:none;stroke:#7C8BA4;stroke-width:2.2}
+  /* ================= make a payment =================
+     One question on the screen: what is your policy number. The carrier list
+     that used to be here asked the visitor to answer something harder — which
+     of eleven companies wrote their policy — and most people holding an ID
+     card know the number on it and not the name above it. */
 
-  .paygrid{display:grid;gap:14px;grid-template-columns:1fr}
-  @media(min-width:660px){ .paygrid{grid-template-columns:1fr 1fr} }
-  @media(min-width:1000px){ .paygrid{grid-template-columns:repeat(3,1fr)} }
+  :root{ --pnavy:#08183A; --pblue:#1666ED; --pcyan:#22A7F0; --pline:#E5EBF6; }
 
-  .paycard{border:1.5px solid #E5EBF6;border-radius:20px;background:#fff;padding:20px;
-      display:flex;flex-direction:column;gap:12px;transition:border-color .18s,box-shadow .18s}
-  .paycard:hover{border-color:#C6D8F5;box-shadow:0 10px 30px rgba(10,33,72,.07)}
-  .paycard .top{display:flex;align-items:center;gap:12px}
-  .paycard .mark{width:46px;height:46px;flex:0 0 auto;border-radius:12px;border:1px solid #E9EFF8;
-      background:#F7FAFF;display:flex;align-items:center;justify-content:center;overflow:hidden}
-  .paycard .mark img{width:100%;height:100%;object-fit:contain}
-  .paycard .mark span{font-size:18px;font-weight:900;color:#1666ED}
-  .paycard h3{margin:0;font-size:16.5px;font-weight:800;color:#0A2148;line-height:1.25}
-  .paycard .kind{display:block;font-size:12px;font-weight:700;color:#7C8BA4;margin-top:2px}
-  .paycard .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:4px}
-  .paycard .acts a{flex:1 1 auto;text-align:center;border-radius:12px;padding:11px 14px;
-      font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap}
-  .paycard .go{background:linear-gradient(100deg,#1666ED,#22A7F0);color:#fff}
-  .paycard .tel{background:#fff;color:#0A2148;border:2px solid #E5EBF6}
-  .paycard .tel:hover{border-color:#C6D8F5}
-  /* A carrier with no online portal is not a broken card — it is a phone call,
-     and saying so is better than a dead button. */
-  .paycard .nolink{font-size:12.5px;font-weight:700;color:#7C8BA4;margin:0}
+  .pay{position:relative;overflow:hidden;background:
+      radial-gradient(1100px 520px at 18% -12%, rgba(34,167,240,.34), transparent 62%),
+      radial-gradient(900px 460px at 88% 6%, rgba(22,102,237,.30), transparent 60%),
+      var(--pnavy);
+      /* The shared nav is position:absolute, so the hero has to leave room for
+         it the way every other page does — 140px is what .subhero reserves. */
+      padding:140px 20px 64px;color:#fff}
+  @media(max-width:700px){ .pay{padding-top:118px} }
+  .pay .in{max-width:660px;margin:0 auto;text-align:center;position:relative;z-index:2}
+  .pay .crumbs{font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+      font-weight:800;color:rgba(255,255,255,.55);margin-bottom:22px}
+  .pay .crumbs a{color:rgba(255,255,255,.75);text-decoration:none}
+  .pay h1{margin:0;font-size:clamp(34px,6vw,52px);line-height:1.04;font-weight:800;
+      letter-spacing:-.03em}
+  .pay h1 em{display:block;font-family:'Instrument Serif',serif;font-style:italic;
+      font-weight:400;color:#8FD0FF;letter-spacing:-.01em}
+  .pay .lede{margin:16px auto 0;max-width:44ch;font-size:16px;line-height:1.6;
+      color:rgba(255,255,255,.78);font-weight:500}
 
-  /* Where the button actually goes, printed before it is pressed.
+  /* The one control on the page, sized like it. */
+  .pbox{margin:30px auto 0;max-width:520px;text-align:left}
+  .pbox label{display:block;font-size:12px;letter-spacing:.11em;text-transform:uppercase;
+      font-weight:800;color:rgba(255,255,255,.66);margin-bottom:9px}
+  .pfield{position:relative}
+  .pfield input{width:100%;border:0;border-radius:18px;padding:20px 20px 20px 54px;
+      font-family:'Geist Mono',monospace;font-size:19px;letter-spacing:.06em;
+      background:#fff;color:var(--pnavy);box-shadow:0 18px 44px rgba(0,0,0,.30)}
+  .pfield input::placeholder{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;
+      letter-spacing:0;color:#9FB0C6}
+  .pfield input:focus{outline:none;box-shadow:0 0 0 4px rgba(143,208,255,.55),0 18px 44px rgba(0,0,0,.30)}
+  .pfield .ic{position:absolute;left:19px;top:50%;transform:translateY(-50%);width:21px;height:21px;
+      fill:none;stroke:#9FB0C6;stroke-width:2}
+  .phint{margin:10px 2px 0;font-size:12.5px;line-height:1.55;color:rgba(255,255,255,.62);font-weight:600}
 
-     The opposite of hiding the destination in a frame: somebody about to type a
-     card number is told whose page they will be typing it into, and gets used
-     to checking. That habit is what makes a fake link recognisable later. */
-  .paycard .dest{display:flex;align-items:center;gap:6px;margin:0;font-size:12px;
-      font-weight:700;color:#7C8BA4;line-height:1.45}
-  .paycard .dest svg{width:13px;height:13px;flex:0 0 auto;fill:none;stroke:#8FA0B8;stroke-width:2}
-  .paycard .dest b{color:#5C6A80;font-weight:800}
+  /* ---- the answer ---- */
+  .pres{max-width:660px;margin:-30px auto 0;padding:0 20px;position:relative;z-index:3}
+  .pcard{background:#fff;border-radius:24px;box-shadow:0 24px 60px rgba(8,24,58,.16);
+      border:1px solid var(--pline);padding:26px;animation:prise .3s ease-out}
+  @keyframes prise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){ .pcard{animation:none} }
+  .pcard .who{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+  .pcard .badge{width:52px;height:52px;flex:0 0 auto;border-radius:15px;
+      background:linear-gradient(140deg,#EAF2FE,#DCEBFD);display:flex;align-items:center;
+      justify-content:center;font-size:21px;font-weight:900;color:var(--pblue);overflow:hidden}
+  .pcard .badge img{width:100%;height:100%;object-fit:contain}
+  .pcard .eyebrow{font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;
+      font-weight:800;color:#7C8BA4}
+  .pcard h2{margin:2px 0 0;font-size:23px;font-weight:800;color:var(--pnavy);letter-spacing:-.02em}
+  .pcard .dest{display:flex;align-items:flex-start;gap:7px;margin:14px 0 0;font-size:12.5px;
+      line-height:1.5;font-weight:600;color:#7C8BA4}
+  .pcard .dest svg{width:14px;height:14px;flex:0 0 auto;margin-top:1px;fill:none;stroke:#9FB0C6;stroke-width:2}
+  .pcard .dest b{color:#42536D;font-weight:800}
 
-  .payempty{text-align:center;color:#5C6A80;font-weight:600;padding:26px 0;display:none}
-  .paypriv{max-width:520px;margin:-18px auto 22px;text-align:center;font-size:12px;
-      font-weight:600;color:#8FA0B8;line-height:1.5}
+  .pgo{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:18px;
+      background:linear-gradient(100deg,var(--pblue),var(--pcyan));color:#fff;
+      border-radius:16px;padding:17px 20px;font-size:16.5px;font-weight:800;
+      text-decoration:none;box-shadow:0 12px 26px rgba(22,102,237,.28);transition:transform .16s}
+  .pgo:hover{transform:translateY(-2px)}
+  .pnolink{margin:16px 0 0;border:1.5px dashed #D6E1F2;border-radius:14px;padding:14px;
+      font-size:13.5px;line-height:1.55;font-weight:600;color:#5C6A80;text-align:center}
 
-  /* The answer to "who wrote my policy", set apart from the list it came from
-     so it reads as a result and not as one more card among eight. */
-  .payhit{border:1.5px solid #BBD6FB;background:#F4F9FF;border-radius:20px;
-      padding:18px 18px 16px;margin:0 0 20px}
-  .payhit .hitlead{margin:0 0 12px;font-size:15.5px;font-weight:700;color:#0A2148;line-height:1.4}
-  .payhit .hitlead b{font-weight:900;color:#1666ED}
-  .payhit .paygrid{margin:0}
-  .payhit .paycard{border-color:#CFE2FC}
-  .payhit .hitnote{margin:12px 0 0;font-size:12.5px;font-weight:600;color:#5C6A80;line-height:1.5}
+  /* Two ways that are not a link, given equal room. Plenty of people would
+     rather talk to somebody than log into a portal, and on a page about money
+     that preference deserves a button and not a footnote. */
+  .palt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  @media(max-width:520px){ .palt{grid-template-columns:1fr} }
+  .palt a{display:flex;align-items:center;gap:11px;border:2px solid var(--pline);
+      border-radius:15px;padding:13px 15px;text-decoration:none;background:#fff;
+      transition:border-color .16s,background .16s}
+  .palt a:hover{border-color:#C6D8F5;background:#FAFCFF}
+  .palt .i{width:34px;height:34px;flex:0 0 auto;border-radius:10px;background:#F1F6FE;
+      display:flex;align-items:center;justify-content:center}
+  .palt .i svg{width:17px;height:17px;fill:none;stroke:var(--pblue);stroke-width:2;
+      stroke-linecap:round;stroke-linejoin:round}
+  .palt s{display:block;text-decoration:none;font-size:11.5px;font-weight:700;color:#7C8BA4}
+  .palt b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);
+      font-family:'Geist Mono',monospace;letter-spacing:-.01em}
 
-  .paynote{border:1.5px solid #F5DFB0;background:#FFFAF0;border-radius:18px;padding:18px 20px;margin:28px 0 0}
-  .paynote b{display:block;font-size:15px;color:#8A5200;font-weight:900;margin-bottom:6px}
-  .paynote p{margin:0;font-size:14px;line-height:1.6;color:#6B4B18;font-weight:600}
-  .paynote p+p{margin-top:8px}
+  /* Nothing recognised. Never a dead end — it hands over to a person. */
+  .pmiss{background:#fff;border-radius:24px;border:1px solid var(--pline);
+      box-shadow:0 24px 60px rgba(8,24,58,.12);padding:26px;text-align:center;
+      animation:prise .3s ease-out}
+  .pmiss b{display:block;font-size:17px;font-weight:800;color:var(--pnavy);margin-bottom:7px}
+  .pmiss p{margin:0 auto;max-width:44ch;font-size:14px;line-height:1.6;color:#5C6A80;font-weight:600}
+  .pmiss .palt{max-width:430px;margin-left:auto;margin-right:auto}
 
-  .payhelp{border:1.5px solid #E5EBF6;border-radius:18px;background:#F7FAFF;padding:20px;margin:16px 0 0;
-      display:flex;flex-wrap:wrap;align-items:center;gap:14px;justify-content:space-between}
-  .payhelp div{flex:1 1 260px}
-  .payhelp b{display:block;font-size:15.5px;color:#0A2148;font-weight:900}
-  .payhelp p{margin:4px 0 0;font-size:14px;color:#5C6A80;font-weight:600;line-height:1.55}
-  .payready{margin:0 0 26px;font-size:14px;color:#5C6A80;font-weight:600;line-height:1.6;text-align:center}
-  .payready b{color:#0A2148}
+  /* ---- below the fold ---- */
+  .pinfo{max-width:900px;margin:0 auto;padding:56px 20px 0}
+  .pinfo h3{margin:0 0 20px;text-align:center;font-size:22px;font-weight:800;
+      color:var(--pnavy);letter-spacing:-.02em}
+  .pcols{display:grid;gap:14px;grid-template-columns:1fr}
+  @media(min-width:760px){ .pcols{grid-template-columns:1fr 1fr 1fr} }
+  .pcol{border:1.5px solid var(--pline);border-radius:18px;padding:20px;background:#fff}
+  .pcol .n{width:30px;height:30px;border-radius:9px;background:#EAF2FE;color:var(--pblue);
+      display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;
+      margin-bottom:11px}
+  .pcol b{display:block;font-size:15px;font-weight:800;color:var(--pnavy);margin-bottom:5px}
+  .pcol p{margin:0;font-size:13.5px;line-height:1.6;color:#5C6A80;font-weight:600}
+
+  .pwarn{max-width:900px;margin:20px auto 0;padding:0 20px}
+  .pwarn .box{border:1.5px solid #F5DFB0;background:#FFFAF0;border-radius:18px;padding:20px 22px}
+  .pwarn b{display:block;font-size:15px;color:#8A5200;font-weight:900;margin-bottom:7px}
+  .pwarn p{margin:0;font-size:13.5px;line-height:1.65;color:#6B4B18;font-weight:600}
+  .pwarn p+p{margin-top:9px}
+
+  .psafe{max-width:900px;margin:14px auto 56px;padding:0 20px;text-align:center}
+  .psafe p{margin:0;font-size:12.5px;line-height:1.6;color:#8FA0B8;font-weight:600}
 </style>
 </head>
 <body>
@@ -93,9 +136,7 @@
     <span>El Paso, TX · Serving TX &amp; NM</span>
   </div>
 
-  <header class="subhero">
-    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
-    <div class="hearts" id="hearts"></div>
+  <header class="pay">
     <nav>
       <a href="../index.html"><img class="logo" src="../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
       <div class="links"><a href="../auto.html">Auto</a><a href="../home-insurance.html">Home</a><a href="../commercial.html">Commercial</a><a href="../about.html">About</a><a href="../index.html#faq">FAQ</a><a href="./" class="active">Make a payment</a></div>
@@ -114,55 +155,62 @@
     <a class="dr-mail" href="mailto:contact@safehouseins.com">contact@safehouseins.com · 🇲🇽 Se habla español</a>
   </div>
 
-    <div class="subhero-inner">
-      <div class="crumbs"><a href="../index.html">Home</a> / Make a payment</div>
-      <h1>Pay your policy,<br><span class="it">whoever wrote it.</span></h1>
-      <p>Your premium is paid to the insurance company, not to us. Find yours below and
-         you will land on their own payment page — or call them directly.</p>
+    <div class="in">
+      <div class="crumbs"><a href="../index.html">Home</a> &nbsp;/&nbsp; Make a payment</div>
+      <h1>Pay your policy.<em>We&rsquo;ll find the company.</em></h1>
+      <p class="lede">Type the policy number from your ID card. We will tell you who wrote it
+        and take you straight to their payment page.</p>
+
+      <div class="pbox">
+        <label for="pol">Policy number</label>
+        <div class="pfield">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18M7 15h4"/></svg>
+          <input id="pol" type="text" autocomplete="off" spellcheck="false"
+                 autocapitalize="characters" placeholder="e.g. AIM4471902"
+                 aria-describedby="polHint">
+        </div>
+        <p class="phint" id="polHint">It stays in your browser &mdash; we do not send it anywhere
+          or save it. Letters and numbers both count; spaces and dashes do not matter.</p>
+      </div>
     </div>
   </header>
 
-  <section>
-    <div class="paywrap">
-      <p class="payready">Have your <b>policy number</b> handy &mdash; it is on your ID card, your
-        declarations page, and any email the carrier sent you. Most also ask for your
-        <b>ZIP code</b> or <b>date of birth</b> to find the account.</p>
+  <div class="pres" id="res" aria-live="polite"></div>
 
-      <div class="paysearch">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
-        <input id="paySearch" type="search" autocomplete="off" spellcheck="false"
-               placeholder="Policy number or company name"
-               aria-label="Policy number or company name">
-      </div>
-      <p class="paypriv">Your policy number stays in your browser &mdash; we do not send it
-        anywhere or save it.</p>
-
-      <div class="payhit" id="payHit" hidden aria-live="polite"></div>
-
-      <div class="paygrid" id="payGrid"></div>
-      <p class="payempty" id="payEmpty">No company by that name here. Call us on
-        <a href="tel:+19155031207">915-503-1207</a> and we will tell you who wrote your policy.</p>
-
-      <div class="payhelp">
-        <div>
-          <b>Not sure which company you are with?</b>
-          <p>It is printed at the top of your ID card and on your declarations page. If you
-             cannot find either, call or text us and we will look it up in seconds.</p>
-        </div>
-        <a class="btn" href="tel:+19155031207">📞 Call 915-503-1207</a>
-      </div>
-
-      <div class="paynote">
-        <b>If your policy has already cancelled, do not pay online first.</b>
-        <p>A payment made after a cancellation date does not always put the policy back
-           in force, and some carriers will keep the money against a balance while you
-           are driving uninsured. Call us before you pay and we will tell you what the
-           carrier actually needs &mdash; a reinstatement, a new policy, or just the payment.</p>
-        <p>Safe House never takes card or bank details on this website, by text, or by
-           email. If somebody contacts you asking for them in our name, it is not us.</p>
-      </div>
+  <section class="pinfo">
+    <h3>Where to find your policy number</h3>
+    <div class="pcols">
+      <div class="pcol"><div class="n">1</div>
+        <b>Your ID card</b>
+        <p>Top left on the card in your glovebox or in your wallet app. It is the
+           longest string of letters and numbers on it.</p></div>
+      <div class="pcol"><div class="n">2</div>
+        <b>Your declarations page</b>
+        <p>The first page of the packet the carrier sent when the policy started,
+           printed near your name.</p></div>
+      <div class="pcol"><div class="n">3</div>
+        <b>Any email from the carrier</b>
+        <p>It is in the subject line of most renewal and billing emails. Search your
+           inbox for the company name.</p></div>
     </div>
   </section>
+
+  <div class="pwarn">
+    <div class="box">
+      <b>If your policy has already cancelled, call us before you pay.</b>
+      <p>A payment made after a cancellation date does not always put the policy back in
+         force, and some carriers will hold the money against a balance while you are
+         driving uninsured. One phone call tells you whether you need a reinstatement, a
+         new policy, or just the payment &mdash; and it is faster than finding out the hard way.</p>
+    </div>
+  </div>
+
+  <div class="psafe">
+    <p>Safe House never asks for card or bank details on this website, by text, or by email.
+       Every payment is made on your insurance company's own site. If somebody contacts you
+       asking for card details in our name, it is not us &mdash; call 915-503-1207 and tell us.</p>
+  </div>
 
   <footer>
     <div class="wrap">
@@ -176,7 +224,7 @@
           <p style="font-size:13px;margin-top:4px">🇲🇽 Se habla español</p>
         </div>
         <div><h5>Insurance</h5><a href="../auto.html">Auto</a><a href="../home-insurance.html">Home</a><a href="../commercial.html">Commercial</a><a href="../contact.html">Life</a><a href="../contact.html">Bonds</a></div>
-        <div><h5>Company</h5><a href="../about.html">About us</a><a href="../careers.html">Careers</a><a href="../index.html#how">How it works</a><a href="../index.html#ai">Technology</a><a href="../about.html">About</a><a href="../index.html#faq">FAQ</a><a href="../contact.html">Contact</a></div>
+        <div><h5>Company</h5><a href="../about.html">About us</a><a href="../careers.html">Careers</a><a href="../index.html#how">How it works</a><a href="../index.html#ai">Technology</a><a href="../index.html#faq">FAQ</a><a href="../contact.html">Contact</a></div>
         <div><h5>Account</h5><a href="./">Make a payment</a><a href="../contact.html#quote">Get a quote</a><a href="#">Manage policy</a><a href="#">File a claim</a></div>
       </div>
     </div>
@@ -186,217 +234,134 @@
 
 <script>
 (function(){
-  /* One row per carrier. Nothing below this table names a carrier, so adding
-     one is a line here and nothing else.
+  /* Which carrier a policy number belongs to.
 
-     [ name, payment URL, phone, what they mainly write ]
+       starts — numbers beginning with any of these
+       has    — numbers containing any of these anywhere
 
-     A blank URL is a carrier we have no online portal for. That is a normal
-     state, not a missing field: the card drops the button and says to call,
-     which is honest, rather than linking somewhere that might not be theirs.
+     `has` exists because Safeway's numbers carry NM-PP in the middle rather
+     than at the front, so a prefix rule would never see them.
 
-     KEEP THESE CHECKED. Carrier payment URLs move, and a link that 404s on a
-     page somebody reached because their policy is about to cancel is worse
-     than no page. Verify them when a carrier is added or changes name. */
-  /* [ name, payment URL, phone, what they write, policy-number prefixes ]
-
-     The prefixes are what lets somebody type the number off their ID card
-     instead of knowing which of eight companies wrote the policy — the thing
-     they are least likely to know and most likely to be embarrassed about.
-
-     **Never guess one.** A wrong prefix does not fail visibly: it sends
+     **Never guess a rule.** A wrong one does not fail visibly: it sends
      somebody to confidently pay the wrong carrier, and they find out when the
-     policy they thought they paid cancels. Only prefixes the agency has
-     confirmed against real policies go in here. A carrier with none simply is
-     not matched by number, which costs nothing — the visitor finds it by name
-     in the list below, exactly as before. */
-  /* Objects rather than positional rows: there are now two kinds of matching
-     rule and six fields, and `['Acacia','',...,[],[]]` is how the wrong array
-     slot gets edited at two in the morning.
-
-       name, url, tel, kind
-       starts  — policy numbers beginning with any of these
-       has     — policy numbers containing any of these anywhere
-
-     `has` exists because Safeway's numbers carry NM-PP somewhere in the middle
-     rather than at the front, so a prefix rule would never see them.
-
-     **Never guess a rule.** A wrong one does not fail visibly — it sends
-     somebody to confidently pay the wrong carrier, and they find out when the
-     policy they thought they paid cancels. A carrier with no rules is still
-     found by name in the list, which costs nothing. */
+     policy they thought they paid cancels. Carriers with no rule are simply
+     never matched, which is why they are not listed here at all — a name on a
+     page nobody can act on is decoration. */
   var CARRIERS=[
-    { name:'Progressive', kind:'Auto', starts:['9'],
+    { name:'Progressive', starts:['9'],
       url:'https://account.apps.progressive.com/access/ez-payment/policy-info' },
-    { name:'Acacia', kind:'Auto', starts:['AIM','AIL'],
+    { name:'Acacia', starts:['AIM','AIL'],
       url:'https://login.acaciamga.com/consumer/' },
-    { name:'Alinsco', kind:'Auto', starts:['EA'],
+    { name:'Alinsco', starts:['EA'],
       url:'https://customers.alinscoinsurance.com/Account/Login.aspx?ReturnUrl=/Payment/MakePayment.aspx?AgentNo=24027' },
-    { name:'Commonwealth Casualty', kind:'Auto', starts:['TXA'],
+    { name:'Commonwealth Casualty', starts:['TXA'],
       url:'https://customer.commonwealthcasualty.com/singlepayment' },
-    { name:'Safeway', kind:'Auto', has:['NMPP'],
+    { name:'Safeway', has:['NMPP'],
       url:'https://www.mysafeway.com/' },
-    { name:'GEICO', kind:'Auto', starts:['6'],
-      url:'https://www.geico.com/information/make-a-payment/' },
-    // No payment link yet. The card drops its button and says to call, which is
-    // a working state and not a gap to fill with a guess.
-    { name:'GAINSCO', kind:'Auto' },
-    { name:'Kemper',  kind:'Auto' },
-    { name:'Bluefire', kind:'Auto' },
-    { name:'Apollo',  kind:'Auto' },
-    { name:'Infinity', kind:'Auto' }
+    { name:'GEICO', starts:['6'],
+      url:'https://www.geico.com/information/make-a-payment/' }
   ];
 
-  var grid=document.getElementById('payGrid'),
-      empty=document.getElementById('payEmpty'),
-      search=document.getElementById('paySearch');
+  var TEL='915-503-1207', SMS='915-594-3777';
+
+  var res=document.getElementById('res'), input=document.getElementById('pol');
 
   function esc(v){ return String(v==null?'':v).replace(/[&<>"]/g,function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function slug(n){ return String(n).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
+  function norm(s){ return String(s).toUpperCase().replace(/[^A-Z0-9]/g,''); }
 
   /* The registrable domain, which is the part worth reading.
-     "account.apps.progressive.com" tells somebody less than "progressive.com"
-     does, and the subdomain is exactly where a lookalike hides — nobody checks
-     the middle of a long hostname. Falls back to the whole host rather than
-     guessing when there is nothing sensible to trim. */
+     account.apps.progressive.com tells somebody less than progressive.com does,
+     and the subdomain is exactly where a lookalike hides — nobody reads the
+     middle of a long hostname. */
   function host(u){
     var m=String(u).match(/^https?:\/\/([^\/?#]+)/); if(!m) return u;
     var h=m[1].replace(/^www\./,''), p=h.split('.');
     return p.length>2 ? p.slice(-2).join('.') : h;
   }
 
-  function card(c){
-    var name=c.name, url=c.url||'', tel=c.tel||'', kind=c.kind||'',
-        digits=String(tel).replace(/[^0-9]/g,'');
-    var acts='';
-    if(url) acts+='<a class="go" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'
-                 +'Pay online &rarr;</a>';
-    if(tel) acts+='<a class="tel" href="tel:+1'+esc(digits)+'">'+esc(tel)+'</a>';
-    return '<article class="paycard" data-name="'+esc(name.toLowerCase())+'">'
-      + '<div class="top">'
-      +   '<span class="mark"><img src="../assets/carriers/'+slug(name)+'.webp" alt="" loading="lazy"'
-      +     ' onerror="this.replaceWith(Object.assign(document.createElement(\'span\'),'
-      +     '{textContent:this.alt||\''+esc(name.charAt(0))+'\'}))"></span>'
-      +   '<div><h3>'+esc(name)+'</h3><span class="kind">'+esc(kind)+'</span></div>'
-      + '</div>'
-      + (url ? '<p class="dest"><svg viewBox="0 0 24 24" aria-hidden="true">'
-             +   '<rect x="4" y="10.5" width="16" height="10" rx="2"/>'
-             +   '<path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>'
-             +   '<span>Opens <b>'+esc(host(url))+'</b> in a new tab. This page stays '
-             +   'open behind it.</span></p>' : '')
-      + (acts ? '<div class="acts">'+acts+'</div>'
-              : '<p class="nolink">No online payments &mdash; call us and we will take you '
-                +'through it.</p>')
-      + '</article>';
-  }
-
-  /* Carriers you can pay online come first, then the rest alphabetically.
-
-     Sorted here rather than by hand in the table, so adding a URL promotes
-     that carrier on its own — the row order stops being something anybody has
-     to remember to keep in step with the links. */
-  grid.innerHTML=CARRIERS.slice().sort(function(a,b){
-    var pa=a.url?0:1, pb=b.url?0:1;
-    return pa-pb || a.name.localeCompare(b.name);
-  }).map(card).join('');
-
-  /* Search is a filter, never a gate: an empty box shows everything, and the
-     empty state names the phone number rather than leaving somebody stuck. */
-  /* One box, two ways in: a company name or a policy number.
-
-     Nobody is asked to choose which they are typing. A policy number is
-     recognised by matching a known prefix, and everything else falls through
-     to the name filter it already was — so the box cannot be "used wrong".
-
-     **The number never leaves the browser.** No request carries it, it is not
-     put in the URL, and nothing stores it. Matching a prefix is string work
-     this page does on its own, and a payments page that quietly transmitted
-     policy numbers would deserve none of the trust the rest of it asks for. */
-  function norm(s){ return String(s).toUpperCase().replace(/[^A-Z0-9]/g,''); }
-
-  /* How much has to be typed before a rule is allowed to answer.
+  /* How much has to be typed before a rule may answer.
 
      A letter prefix identifies a carrier on its own: AIM is Acacia and nothing
-     else, so once those three characters are there the answer is safe.
-
-     A digit is not. Progressive starts 9 and GEICO starts 6, so a single
+     else. A digit is not — Progressive starts 9 and GEICO starts 6, so a single
      character would name a carrier off one keystroke and keep naming one while
-     somebody is still typing — and a partial number that guessed right by luck
-     reads exactly like one that guessed wrong. Numeric rules therefore wait
-     for a plausible whole number before they say anything.
-
-     This is the difference between a rule being right and a rule being sure. */
+     somebody is still typing, and a partial number that guessed right by luck
+     reads exactly like one that guessed wrong. */
   var MIN_ALPHA=2, MIN_NUMERIC=6;
 
-  function ruleFires(rule,n){
+  function fires(rule,n){
     var r=norm(rule);
     if(!r || n.indexOf(r)!==0) return false;
     return /^[0-9]+$/.test(r) ? n.length>=MIN_NUMERIC : n.length>=Math.max(r.length,MIN_ALPHA);
   }
-
-  function byPolicy(q){
+  function match(q){
     var n=norm(q); if(n.length<MIN_ALPHA) return [];
     return CARRIERS.filter(function(c){
-      var starts=(c.starts||[]).some(function(p){ return ruleFires(p,n); });
-      // A "contains" rule is only checked once there is enough typed to be a
-      // policy number rather than a fragment that happens to include it.
-      var has=(c.has||[]).some(function(s){
-        return n.length>=MIN_NUMERIC && n.indexOf(norm(s))>-1; });
-      return starts || has;
+      return (c.starts||[]).some(function(p){ return fires(p,n); })
+          || (c.has||[]).some(function(s){ return n.length>=MIN_NUMERIC && n.indexOf(norm(s))>-1; });
     });
   }
 
-  var hit=document.getElementById('payHit');
+  var ICON_PH='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>',
+      ICON_SMS='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg>',
+      ICON_LOCK='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>';
 
-  function showHit(list,typed){
-    if(!list.length){ hit.hidden=true; hit.innerHTML=''; return; }
-    // More than one carrier on a prefix is a real possibility as the table
-    // grows. Naming both beats picking one and being wrong half the time.
-    hit.innerHTML='<p class="hitlead">'+(list.length===1
-        ? 'That policy number is with <b>'+esc(list[0].name)+'</b>'
-        : 'That prefix is used by more than one company &mdash; pick yours')
-      +'</p><div class="paygrid">'+list.map(card).join('')+'</div>'
-      +'<p class="hitnote">Not right? Your policy number is on your ID card, top left. '
-      +'Call us on <a href="tel:+19155031207">915-503-1207</a> if it does not match.</p>';
-    hit.hidden=false;
+  /* Call and text stand next to the link, not underneath it. Somebody who
+     would rather talk to a person than sign into a portal is not an edge case
+     on a page about paying a bill. The wording is "walk you through it" and
+     never "call to pay": Safe House does not take the payment, the carrier
+     does, and this page says so twice elsewhere. */
+  function alts(){
+    return '<div class="palt">'
+      + '<a href="tel:+1'+TEL.replace(/\D/g,'')+'"><span class="i">'+ICON_PH+'</span>'
+      +   '<span><s>Rather talk to someone? We&rsquo;ll walk you through it</s><b>'+TEL+'</b></span></a>'
+      + '<a href="sms:+1'+SMS.replace(/\D/g,'')+'"><span class="i">'+ICON_SMS+'</span>'
+      +   '<span><s>Text us your question</s><b>'+SMS+'</b></span></a>'
+      + '</div>';
   }
 
-  search.addEventListener('input',function(){
-    var raw=search.value.trim(), q=raw.toLowerCase(), shown=0;
-    var pol=byPolicy(raw);
-    showHit(pol,raw);
+  function found(c){
+    var mark='<span class="badge"><img src="../assets/carriers/'+slug(c.name)+'.webp" alt=""'
+      + ' loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(\'span\'),'
+      + '{textContent:\''+esc(c.name.charAt(0))+'\'}))"></span>';
+    return '<div class="pcard"><div class="who">'+mark
+      + '<div><div class="eyebrow">Your policy is with</div><h2>'+esc(c.name)+'</h2></div></div>'
+      + (c.url
+          ? '<p class="dest">'+ICON_LOCK+'<span>Opens <b>'+esc(host(c.url))+'</b> in a new tab. '
+            + 'This page stays open behind it.</span></p>'
+            + '<a class="pgo" href="'+esc(c.url)+'" target="_blank" rel="noopener noreferrer">'
+            + 'Pay on '+esc(c.name)+'&rsquo;s site &rarr;</a>'
+          : '<p class="pnolink">'+esc(c.name)+' has no online payment page we can send you to. '
+            + 'Call or text and an agent will take you through it.</p>')
+      + alts() + '</div>';
+  }
 
-    [].forEach.call(grid.children,function(el){
-      var name=el.dataset.name;
-      // With a policy match on screen, the list below narrows to it as well,
-      // so the page is not saying two things at once.
-      var ok = pol.length ? pol.some(function(c){ return c.name.toLowerCase()===name; })
-                          : (!q || name.indexOf(q)>-1);
-      el.style.display=ok?'':'none';
-      if(ok) shown++;
-    });
+  function missing(){
+    return '<div class="pmiss"><b>We do not recognise that number yet</b>'
+      + '<p>Not every company we work with can be looked up by number, and a typo looks '
+      + 'the same as an unknown one. Call or text us the number and we will tell you who '
+      + 'wrote your policy &mdash; it takes seconds.</p>'
+      + alts() + '</div>';
+  }
 
-    // "No company by that name" is wrong when somebody typed a number, so the
-    // empty state says which of the two failed.
-    if(shown){ empty.style.display='none'; }
-    else {
-      empty.style.display='block';
-      empty.innerHTML = /^[A-Za-z]{2,}[0-9]/.test(norm(raw))
-        ? 'We do not recognise that policy number prefix yet. Call us on '
-          +'<a href="tel:+19155031207">915-503-1207</a> and we will tell you who '
-          +'wrote your policy &mdash; it takes seconds.'
-        : 'No company by that name here. Call us on '
-          +'<a href="tel:+19155031207">915-503-1207</a> and we will tell you who '
-          +'wrote your policy.';
-    }
+  /* Nothing renders until enough has been typed to mean something. An answer
+     that appears and changes on every keystroke reads as guessing, and the
+     card is a claim about somebody's money. */
+  var t=null;
+  input.addEventListener('input',function(){
+    input.value=input.value.toUpperCase();
+    clearTimeout(t);
+    var n=norm(input.value);
+    if(n.length<MIN_ALPHA){ res.innerHTML=''; return; }
+    var hits=match(input.value);
+    if(hits.length){ res.innerHTML=hits.map(found).join(''); return; }
+    // Only call it unknown once the visitor has plausibly finished typing.
+    t=setTimeout(function(){
+      if(!match(input.value).length && norm(input.value).length>=MIN_NUMERIC) res.innerHTML=missing();
+    },650);
   });
 })();
-</script>
-
-<script>
-  const hc=document.getElementById('hearts');
-  if(hc){for(let i=0;i<7;i++){const im=document.createElement('img');im.src='../assets/safehouse-heart.png';const s=20+Math.random()*40;im.style.width=s+'px';im.style.left=(Math.random()*100)+'%';im.style.bottom=(-10-Math.random()*20)+'%';im.style.animationDuration=(13+Math.random()*12)+'s';im.style.animationDelay=(-Math.random()*15)+'s';hc.appendChild(im);}}
 </script>
 
 <script>
