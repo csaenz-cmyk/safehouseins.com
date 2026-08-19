@@ -80,6 +80,37 @@ collision only.
 `Disabled (not employed)` maps to `Other` — the engine's catalogue has no
 disabled status. Nothing to fix here; worth knowing it loses that detail.
 
+### When a coverage is not quoted as asked
+
+The AMS answers with `warnings` (free text, for the log) and `warningDetails`,
+one structured entry per coverage:
+
+```jsonc
+{ "code": "coverage_unavailable", "field": "rental", "asked": "$60 Per Day",
+  "rated": "None", "reason": "…", "audience": "client", "message": "…" }
+```
+
+`audience` decides who it is for, and it is the whole point of the field:
+
+- **`client`** — the visitor is being shown a price for cover they did not
+  choose. `covWarnings()` puts these above the rate list, because the prices
+  underneath are for what the notice describes.
+- **`integration`** — this page sent something the AMS could not read. That is
+  our bug, not the visitor's problem, and it goes to the console only. A
+  visitor shown "biLimit unreadable" would be alarmed by something they cannot
+  act on.
+
+**The wording on screen is written here, not taken from `message`.** `message`
+is English and addressed to an agent, and `rated` is the engine's vocabulary —
+`30000/60000` for a limit this page calls 100/300, `75` for roadside. Either
+next to a price would read as gibberish. `asked` is this page's own string, so
+that one is quoted back to the visitor verbatim.
+
+Codes: `coverage_reduced`, `coverage_dropped`, `coverage_assumed`,
+`coverage_unavailable`, and `unreadable_value` (integration only). An
+unrecognised code still renders, as a plain "not quoted as asked" line — a new
+code on the AMS side must never mean a silent omission here.
+
 **`coverages`** — the whole coverage selection, replacing a screen that only
 ever asked for liability limits and two deductibles.
 
@@ -102,8 +133,7 @@ ever asked for liability limits and two deductibles.
 
 Two rules are enforced in the browser and again on the AMS side
 (`clampUmToLiability`, `resolveMedPayPip`), because a payload can be posted
-without a browser. When the AMS has to degrade one, it says so in `warnings` on
-the response:
+without a browser:
 
 - **Uninsured-motorist limits never exceed the liability carrying them**,
   compared as numbers rather than strings. Under a combined single limit there

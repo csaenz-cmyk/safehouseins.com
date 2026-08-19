@@ -418,6 +418,20 @@
   .covsel.set{border-color:var(--blue);color:var(--blue-d)}
 
   /* "Most common" beside a limit, and the note under a combined single limit. */
+  /* Amber, not red. Nothing has gone wrong that the visitor caused or has to
+     fix — the prices are real, they just cover slightly less than was asked
+     for, and an alarm-coloured box over a price list reads as "your quote
+     failed" when it has not. */
+  .covwarn{border:1.5px solid #F5DFB0;background:#FFFAF0;border-radius:16px;
+      padding:14px 16px;margin:4px 0 18px}
+  .covwarn b{display:flex;align-items:center;gap:8px;font-size:14px;color:#8A5200;
+      font-weight:900;line-height:1.35}
+  .covwarn b .i{width:17px;height:17px;flex:0 0 auto;fill:none;stroke:#B87400;stroke-width:1.8}
+  .covwarn ul{margin:9px 0 0;padding-left:19px}
+  .covwarn li{font-size:13px;line-height:1.55;color:#6B4B18;font-weight:600;margin-top:5px}
+  .covwarn li b{display:inline;font-size:13px;color:#5A3D0F}
+  .covwarn>p{margin:10px 0 0;font-size:12.5px;line-height:1.5;color:#8A6A38;font-weight:600}
+
   .rec{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:99px;
       background:#E8F1FE;color:var(--blue-d);font-size:10px;font-weight:900;
       letter-spacing:.06em;text-transform:uppercase;vertical-align:1px}
@@ -1205,6 +1219,16 @@
       <h1>Your initial options</h1>
       <span class="tag">Subject to verification</span>
       <p class="sub">Six-month policies, one price per company &mdash; lowest first.</p>
+
+      <!-- Coverages the carriers could not quote as asked. Above the prices,
+           because the prices are for what is described here and not for what
+           the visitor picked. Filled by covWarnings(). -->
+      <div class="covwarn" id="covWarn" hidden>
+        <b><svg class="i"><use href="#shield"/></svg> Two of these prices are not quite what you asked for</b>
+        <ul id="covWarnList"></ul>
+        <p>Everything else is as you chose it. Your agent can price the rest properly
+           when they call &mdash; nothing here is final.</p>
+      </div>
 
       <div class="segs" id="paytabs" role="tablist" aria-label="How you want to pay">
         <button class="seg on" type="button" data-pay="monthly" role="tab" aria-selected="true">Pay monthly</button>
@@ -4671,10 +4695,67 @@
 
   /* Integration checks the AMS asked for. A warning means a real price went out
      for the wrong coverage — which looks fine on screen, so it has to be loud. */
+  /* The coverage questions, in the words they carry on screen. Keyed by the
+     field name this page sent, so the two cannot drift. */
+  var COV_LABEL={
+    liability:'Bodily Injury &amp; Property Damage',
+    umBodilyInjury:'Uninsured/Underinsured Motorist Bodily Injury',
+    umPropertyDamage:'Uninsured/Underinsured Property Damage',
+    medicalPayments:'Medical Payments',
+    personalInjuryProtection:'Personal Injury Protection',
+    comprehensiveDeductible:'Comprehensive deductible',
+    collisionDeductible:'Collision deductible',
+    rental:'Rental', roadside:'Roadside'
+  };
+
+  /* One sentence per coverage the carriers could not quote as asked.
+
+     Written here rather than shown as the AMS sent it: `message` is English and
+     addressed to an agent, and `rated` is the engine's own vocabulary —
+     "30000/60000" for a limit this page calls 100/300, "75" for roadside. Both
+     would read as gibberish next to a price. What the visitor asked for is this
+     page's own string, so that one is quoted back verbatim.
+
+     Only audience 'client' reaches the screen. An 'integration' warning means
+     this page sent something the AMS could not read: that is a bug report, it
+     is nobody's fault but ours, and showing it to a visitor would be alarming
+     and unactionable. Those stay in the console. */
+  function covWarnings(details){
+    var box=document.getElementById('covWarn'), list=document.getElementById('covWarnList');
+    if(!box||!list) return;
+    var mine=(details||[]).filter(function(w){ return w && w.audience==='client'; });
+    list.innerHTML=mine.map(function(w){
+      var name=COV_LABEL[w.field]||w.field, asked=w.asked?' (you asked for '+esc(w.asked)+')':'';
+      if(w.code==='coverage_reduced')
+        return '<li><b>'+name+'</b> was lowered to fit the liability limits you chose'+asked
+             +'. It cannot be higher than they are.</li>';
+      if(w.code==='coverage_dropped')
+        return '<li><b>'+name+'</b> was not quoted'+asked+'. A vehicle carries Medical Payments '
+             +'or Personal Injury Protection, not both.</li>';
+      if(w.code==='coverage_assumed')
+        return '<li><b>'+name+'</b> was quoted at the carrier&rsquo;s own amount'+asked+'.</li>';
+      if(w.code==='coverage_unavailable')
+        return '<li><b>'+name+'</b> was not quoted'+asked+' &mdash; the carriers we sent this to '
+             +'do not offer it. These prices do not include it.</li>';
+      return '<li><b>'+name+'</b> was not quoted as asked'+asked+'.</li>';
+    }).join('');
+    box.hidden=!mine.length;
+    if(mine.length){
+      var h=box.querySelector('b');
+      h.innerHTML='<svg class="i"><use href="#shield"/></svg> '
+        +(mine.length===1 ? 'One coverage is not quite what you asked for'
+                          : mine.length+' coverages are not quite what you asked for');
+    }
+  }
+
   function audit(d,sent){
     if(d.warnings && d.warnings.length){
       console.error('[quote] AMS WARNINGS — fix before launch:',d.warnings);
     }
+    // Integration warnings are ours to fix and never the visitor's to read.
+    var integ=(d.warningDetails||[]).filter(function(w){ return w&&w.audience==='integration'; });
+    if(integ.length) console.error('[quote] the AMS could not read what this page sent:',integ);
+    covWarnings(d.warningDetails);
     if(d.ratedCoverage){
       var asked=sent.biLimit||'';
       var nums=asked.split('/').map(function(x){return String(parseInt(x,10)*1000);});
@@ -4686,7 +4767,8 @@
         +'quoted '+bi+'. The limit did not parse.');
     }
     window.__quote={quoteId:d.quoteId,clientId:d.clientId,
-      ratedCoverage:d.ratedCoverage,warnings:d.warnings||[]};
+      ratedCoverage:d.ratedCoverage,warnings:d.warnings||[],
+      warningDetails:d.warningDetails||[]};
   }
 
   /* ---------- deep link ---------- */
