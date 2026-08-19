@@ -171,14 +171,14 @@
      page somebody reached because their policy is about to cancel is worse
      than no page. Verify them when a carrier is added or changes name. */
   var CARRIERS=[
-    ['Progressive',              '', '', 'Auto'],
-    ['GAINSCO',                  '', '', 'Auto'],
-    ['Kemper',                   '', '', 'Auto'],
-    ['Bluefire',                 '', '', 'Auto'],
-    ['Commonwealth',             '', '', 'Auto'],
-    ['Acacia',                   '', '', 'Auto'],
-    ['Apollo',                   '', '', 'Auto'],
-    ['Infinity',                 '', '', 'Auto']
+    ['Progressive',  'https://account.apps.progressive.com/access/ez-payment/policy-info', '', 'Auto'],
+    ['Acacia',       'https://login.acaciamga.com/consumer',                               '', 'Auto'],
+    ['GAINSCO',      '', '', 'Auto'],
+    ['Kemper',       '', '', 'Auto'],
+    ['Bluefire',     '', '', 'Auto'],
+    ['Commonwealth', '', '', 'Auto'],
+    ['Apollo',       '', '', 'Auto'],
+    ['Infinity',     '', '', 'Auto']
   ];
 
   var grid=document.getElementById('payGrid'),
@@ -209,7 +209,15 @@
       + '</article>';
   }
 
-  grid.innerHTML=CARRIERS.map(card).join('');
+  /* Carriers you can pay online come first, then the rest alphabetically.
+
+     Sorted here rather than by hand in the table, so adding a URL promotes
+     that carrier on its own — the row order stops being something anybody has
+     to remember to keep in step with the links. */
+  grid.innerHTML=CARRIERS.slice().sort(function(a,b){
+    var pa=a[1]?0:1, pb=b[1]?0:1;
+    return pa-pb || a[0].localeCompare(b[0]);
+  }).map(card).join('');
 
   /* Search is a filter, never a gate: an empty box shows everything, and the
      empty state names the phone number rather than leaving somebody stuck. */
