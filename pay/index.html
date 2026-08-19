@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/safehouse-heart.png">
 <link rel="stylesheet" href="../assets/styles.css">
 <style>
   /* ---- payments directory ----
@@ -45,6 +46,16 @@
   /* A carrier with no online portal is not a broken card — it is a phone call,
      and saying so is better than a dead button. */
   .paycard .nolink{font-size:12.5px;font-weight:700;color:#7C8BA4;margin:0}
+
+  /* Where the button actually goes, printed before it is pressed.
+
+     The opposite of hiding the destination in a frame: somebody about to type a
+     card number is told whose page they will be typing it into, and gets used
+     to checking. That habit is what makes a fake link recognisable later. */
+  .paycard .dest{display:flex;align-items:center;gap:6px;margin:0;font-size:12px;
+      font-weight:700;color:#7C8BA4;line-height:1.45}
+  .paycard .dest svg{width:13px;height:13px;flex:0 0 auto;fill:none;stroke:#8FA0B8;stroke-width:2}
+  .paycard .dest b{color:#5C6A80;font-weight:800}
 
   .payempty{text-align:center;color:#5C6A80;font-weight:600;padding:26px 0;display:none}
 
@@ -189,6 +200,17 @@
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function slug(n){ return String(n).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
 
+  /* The registrable domain, which is the part worth reading.
+     "account.apps.progressive.com" tells somebody less than "progressive.com"
+     does, and the subdomain is exactly where a lookalike hides — nobody checks
+     the middle of a long hostname. Falls back to the whole host rather than
+     guessing when there is nothing sensible to trim. */
+  function host(u){
+    var m=String(u).match(/^https?:\/\/([^\/?#]+)/); if(!m) return u;
+    var h=m[1].replace(/^www\./,''), p=h.split('.');
+    return p.length>2 ? p.slice(-2).join('.') : h;
+  }
+
   function card(c){
     var name=c[0], url=c[1], tel=c[2], kind=c[3],
         digits=String(tel||'').replace(/[^0-9]/g,'');
@@ -203,6 +225,11 @@
       +     '{textContent:this.alt||\''+esc(name.charAt(0))+'\'}))"></span>'
       +   '<div><h3>'+esc(name)+'</h3><span class="kind">'+esc(kind)+'</span></div>'
       + '</div>'
+      + (url ? '<p class="dest"><svg viewBox="0 0 24 24" aria-hidden="true">'
+             +   '<rect x="4" y="10.5" width="16" height="10" rx="2"/>'
+             +   '<path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>'
+             +   '<span>Opens <b>'+esc(host(url))+'</b> in a new tab. This page stays '
+             +   'open behind it.</span></p>' : '')
       + (acts ? '<div class="acts">'+acts+'</div>'
               : '<p class="nolink">No online payments &mdash; call us and we will take you '
                 +'through it.</p>')
