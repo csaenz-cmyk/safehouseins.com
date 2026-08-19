@@ -210,15 +210,41 @@
      confirmed against real policies go in here. A carrier with none simply is
      not matched by number, which costs nothing — the visitor finds it by name
      in the list below, exactly as before. */
+  /* Objects rather than positional rows: there are now two kinds of matching
+     rule and six fields, and `['Acacia','',...,[],[]]` is how the wrong array
+     slot gets edited at two in the morning.
+
+       name, url, tel, kind
+       starts  — policy numbers beginning with any of these
+       has     — policy numbers containing any of these anywhere
+
+     `has` exists because Safeway's numbers carry NM-PP somewhere in the middle
+     rather than at the front, so a prefix rule would never see them.
+
+     **Never guess a rule.** A wrong one does not fail visibly — it sends
+     somebody to confidently pay the wrong carrier, and they find out when the
+     policy they thought they paid cancels. A carrier with no rules is still
+     found by name in the list, which costs nothing. */
   var CARRIERS=[
-    ['Progressive',  'https://account.apps.progressive.com/access/ez-payment/policy-info', '', 'Auto', []],
-    ['Acacia',       'https://login.acaciamga.com/consumer',                               '', 'Auto', ['AIM','AIL']],
-    ['GAINSCO',      '', '', 'Auto', []],
-    ['Kemper',       '', '', 'Auto', []],
-    ['Bluefire',     '', '', 'Auto', []],
-    ['Commonwealth', '', '', 'Auto', []],
-    ['Apollo',       '', '', 'Auto', []],
-    ['Infinity',     '', '', 'Auto', []]
+    { name:'Progressive', kind:'Auto', starts:['9'],
+      url:'https://account.apps.progressive.com/access/ez-payment/policy-info' },
+    { name:'Acacia', kind:'Auto', starts:['AIM','AIL'],
+      url:'https://login.acaciamga.com/consumer/' },
+    { name:'Alinsco', kind:'Auto', starts:['EA'],
+      url:'https://customers.alinscoinsurance.com/Account/Login.aspx?ReturnUrl=/Payment/MakePayment.aspx?AgentNo=24027' },
+    { name:'Commonwealth Casualty', kind:'Auto', starts:['TXA'],
+      url:'https://customer.commonwealthcasualty.com/singlepayment' },
+    { name:'Safeway', kind:'Auto', has:['NMPP'],
+      url:'https://www.mysafeway.com/' },
+    { name:'GEICO', kind:'Auto', starts:['6'],
+      url:'https://www.geico.com/information/make-a-payment/' },
+    // No payment link yet. The card drops its button and says to call, which is
+    // a working state and not a gap to fill with a guess.
+    { name:'GAINSCO', kind:'Auto' },
+    { name:'Kemper',  kind:'Auto' },
+    { name:'Bluefire', kind:'Auto' },
+    { name:'Apollo',  kind:'Auto' },
+    { name:'Infinity', kind:'Auto' }
   ];
 
   var grid=document.getElementById('payGrid'),
@@ -241,8 +267,8 @@
   }
 
   function card(c){
-    var name=c[0], url=c[1], tel=c[2], kind=c[3],
-        digits=String(tel||'').replace(/[^0-9]/g,'');
+    var name=c.name, url=c.url||'', tel=c.tel||'', kind=c.kind||'',
+        digits=String(tel).replace(/[^0-9]/g,'');
     var acts='';
     if(url) acts+='<a class="go" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'
                  +'Pay online &rarr;</a>';
@@ -271,8 +297,8 @@
      that carrier on its own — the row order stops being something anybody has
      to remember to keep in step with the links. */
   grid.innerHTML=CARRIERS.slice().sort(function(a,b){
-    var pa=a[1]?0:1, pb=b[1]?0:1;
-    return pa-pb || a[0].localeCompare(b[0]);
+    var pa=a.url?0:1, pb=b.url?0:1;
+    return pa-pb || a.name.localeCompare(b.name);
   }).map(card).join('');
 
   /* Search is a filter, never a gate: an empty box shows everything, and the
@@ -289,13 +315,35 @@
      policy numbers would deserve none of the trust the rest of it asks for. */
   function norm(s){ return String(s).toUpperCase().replace(/[^A-Z0-9]/g,''); }
 
+  /* How much has to be typed before a rule is allowed to answer.
+
+     A letter prefix identifies a carrier on its own: AIM is Acacia and nothing
+     else, so once those three characters are there the answer is safe.
+
+     A digit is not. Progressive starts 9 and GEICO starts 6, so a single
+     character would name a carrier off one keystroke and keep naming one while
+     somebody is still typing — and a partial number that guessed right by luck
+     reads exactly like one that guessed wrong. Numeric rules therefore wait
+     for a plausible whole number before they say anything.
+
+     This is the difference between a rule being right and a rule being sure. */
+  var MIN_ALPHA=2, MIN_NUMERIC=6;
+
+  function ruleFires(rule,n){
+    var r=norm(rule);
+    if(!r || n.indexOf(r)!==0) return false;
+    return /^[0-9]+$/.test(r) ? n.length>=MIN_NUMERIC : n.length>=Math.max(r.length,MIN_ALPHA);
+  }
+
   function byPolicy(q){
-    var n=norm(q); if(n.length<3) return [];
+    var n=norm(q); if(n.length<MIN_ALPHA) return [];
     return CARRIERS.filter(function(c){
-      return (c[4]||[]).some(function(p){
-        // the whole prefix has to be there, so a single letter matches nothing
-        return n.indexOf(norm(p))===0;
-      });
+      var starts=(c.starts||[]).some(function(p){ return ruleFires(p,n); });
+      // A "contains" rule is only checked once there is enough typed to be a
+      // policy number rather than a fragment that happens to include it.
+      var has=(c.has||[]).some(function(s){
+        return n.length>=MIN_NUMERIC && n.indexOf(norm(s))>-1; });
+      return starts || has;
     });
   }
 
@@ -306,7 +354,7 @@
     // More than one carrier on a prefix is a real possibility as the table
     // grows. Naming both beats picking one and being wrong half the time.
     hit.innerHTML='<p class="hitlead">'+(list.length===1
-        ? 'That policy number is with <b>'+esc(list[0][0])+'</b>'
+        ? 'That policy number is with <b>'+esc(list[0].name)+'</b>'
         : 'That prefix is used by more than one company &mdash; pick yours')
       +'</p><div class="paygrid">'+list.map(card).join('')+'</div>'
       +'<p class="hitnote">Not right? Your policy number is on your ID card, top left. '
@@ -323,7 +371,7 @@
       var name=el.dataset.name;
       // With a policy match on screen, the list below narrows to it as well,
       // so the page is not saying two things at once.
-      var ok = pol.length ? pol.some(function(c){ return c[0].toLowerCase()===name; })
+      var ok = pol.length ? pol.some(function(c){ return c.name.toLowerCase()===name; })
                           : (!q || name.indexOf(q)>-1);
       el.style.display=ok?'':'none';
       if(ok) shown++;
