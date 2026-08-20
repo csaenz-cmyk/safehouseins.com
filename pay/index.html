@@ -233,11 +233,6 @@
     </a>
   </div>
 
-  <div class="psafe">
-    <p>Safe House never asks for card or bank details on this website, by text, or by email.
-       Every payment is made on your insurance company's own site. If somebody contacts you
-       asking for card details in our name, it is not us &mdash; call 915-503-1207 and tell us.</p>
-  </div>
 
   <footer>
     <div class="wrap">
@@ -336,9 +331,12 @@
 
   /* Call and text stand next to the link, not underneath it. Somebody who
      would rather talk to a person than sign into a portal is not an edge case
-     on a page about paying a bill. The wording is "walk you through it" and
-     never "call to pay": Safe House does not take the payment, the carrier
-     does, and this page says so twice elsewhere. */
+     on a page about paying a bill.
+
+     "Walk you through it" rather than "call to pay" because that is what this
+     button leads to: the premium on this page is owed to the carrier, and the
+     agent's job here is getting the visitor into the right portal. It is not a
+     claim about what the agency does or does not collect elsewhere. */
   function alts(){
     return '<div class="palt">'
       + '<a href="tel:+1'+TEL.replace(/\D/g,'')+'"><span class="i">'+ICON_PH+'</span>'
