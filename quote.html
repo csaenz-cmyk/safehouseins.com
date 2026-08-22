@@ -435,6 +435,27 @@
   .rec{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:99px;
       background:#E8F1FE;color:var(--blue-d);font-size:10px;font-weight:900;
       letter-spacing:.06em;text-transform:uppercase;vertical-align:1px}
+  /* The greyed-option explainer. Informational blue, not a warning colour:
+     nothing has gone wrong, the visitor has simply hit a rule. */
+  /* One card per vehicle, numbered only when there is more than one — a single
+     car does not need to be told it is the first of one. */
+  .vcov{border:1.5px solid var(--line);border-radius:18px;padding:18px;margin-top:14px;
+      background:#FCFDFF}
+  .vcov:first-child{margin-top:8px}
+  .vch{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .vch .vn{width:26px;height:26px;flex:0 0 auto;border-radius:9px;background:var(--ice);
+      color:var(--blue-d);display:flex;align-items:center;justify-content:center;
+      font-size:13px;font-weight:900}
+  .vch b{font-size:15px;font-weight:800;color:var(--navy);letter-spacing:-.01em}
+  .vphys[hidden]{display:none}
+  .tripw[hidden]{display:none}
+
+  .umwhy{border:1.5px solid #BBD6FB;background:#F4F9FF;border-radius:16px;
+      padding:15px 17px;margin:-2px 0 16px}
+  .umwhy b{display:block;font-size:14px;font-weight:900;color:var(--blue-d);margin-bottom:6px}
+  .umwhy p{margin:0;font-size:13.5px;line-height:1.6;color:#3B4A63;font-weight:600}
+  .umwhy p+p{margin-top:7px}
+  .umwhy p b{display:inline;font-size:13.5px;color:var(--navy)}
   .cslnote{margin:-2px 0 14px;font-size:12.5px;line-height:1.5;color:var(--muted);font-weight:600}
   .warn2{margin:-2px 0 14px;font-size:12.5px;line-height:1.5;font-weight:700;color:#9A5B00;
       background:#FFF7E8;border:1.5px solid #F5DFB0;border-radius:12px;padding:9px 12px}
@@ -632,7 +653,7 @@
         <div class="fl"><label for="lfn">First name</label><input id="lfn" placeholder="Your name" autocomplete="given-name"></div>
         <div class="fl"><label for="lln">Last name</label><input id="lln" placeholder="Last name" autocomplete="family-name"></div>
       </div>
-      <div class="fl"><label for="ldob">Date of birth</label><input id="ldob" type="date" autocomplete="bday"></div>
+      <div class="fl"><label for="ldob">Date of birth</label><input id="ldob" data-dob autocomplete="bday"></div>
 
       <label class="consent"><input type="checkbox" id="consent">
         <span>I authorize Safe House Insurance to obtain reports about me and my household from consumer
@@ -676,12 +697,11 @@
       <p class="sub">Not sure? Pick what sounds right &mdash; your agent will sanity-check it
         with you. Tap any <span class="tipq">?</span> to see what a coverage actually does.</p>
       <div id="covAutoBody"></div>
-      <div class="fl"><label>Do you want comprehensive and collision?</label>
-        <div class="pills">
-          <label class="pill"><input type="radio" name="fullcov" value="yes" autocomplete="off" checked><span>Yes, full coverage</span></label>
-          <label class="pill"><input type="radio" name="fullcov" value="no" autocomplete="off"><span>Liability only</span></label>
-        </div></div>
-      <div id="covPhysBody"></div>
+      <!-- One block per vehicle. Comprehensive, collision, rental and roadside
+           are all per-vehicle at the carrier, and a household with a financed
+           truck and a paid-off runabout usually wants full coverage on one and
+           not the other. Asking once for both was quoting the wrong policy. -->
+      <div id="covVehBody"></div>
       <p class="err" id="e-coverage"><svg class="i"><use href="#shield"/></svg><span></span></p>
       <button class="btn" data-next type="button">Continue <svg class="i"><use href="#ar"/></svg></button>
     </section>
@@ -1179,7 +1199,7 @@
       <!-- The auto flow takes a date of birth per driver; a home quote has no
            driver list, so the applicant's own goes here and only here. -->
       <div class="fl" id="hDobWrap" hidden><label for="hDob">Date of birth</label>
-        <input id="hDob" name="dob" type="date" data-nofuture autocomplete="bday"></div>
+        <input id="hDob" name="dob" data-dob autocomplete="bday"></div>
       <div class="fl"><label for="cnt">Anything we should know? <span class="opt2">(optional)</span></label>
         <textarea id="cnt" name="notes" rows="3" placeholder="SR-22, tickets, current carrier&hellip;"></textarea></div>
       <!-- A2P 10DLC: this consent stands on its own, starts unchecked, and is
@@ -1329,13 +1349,13 @@
       bar=document.getElementById('bar'), crumb=document.getElementById('crumb'),
       back=document.getElementById('back'),
       LABEL={car:'Car',home:'Home',commercial:'Commercial vehicle',moto:'Motorcycle',renters:'Renters'},
-      AUTO_FULL=['type','address','current','lookup','vehicles','drivers','coverage','contact'],
-      AUTO_PLAIN=['type','address','current','vehicles','drivers','coverage','contact'],
+      AUTO_FULL=['type','disclosure','address','current','lookup','vehicles','drivers','coverage','contact'],
+      AUTO_PLAIN=['type','disclosure','address','current','vehicles','drivers','coverage','contact'],
       // the lookup step only exists once a prefill endpoint does
       AUTO=(API&&window.SAFEHOUSE_PREFILL)?AUTO_FULL:AUTO_PLAIN,
       // Home reuses 'address' and 'contact' from the auto flow rather than
       // growing its own copies of two steps that already work.
-      HOME=['type','address','property','details',
+      HOME=['type','disclosure','address','property','details',
             'construction','foundation','siding','flooring','countertops','systems',
             'roof','garage','household','contact'],
       // The disclosure comes second, before any question it authorises us to
@@ -1596,7 +1616,7 @@
         +'<div class="fl"><label>Last name</label><input data-f="last" value="'+esc(d.last)+'" autocomplete="off"></div>'
       +'</div>'
       +'<div class="g2">'
-        +'<div class="fl"><label>Date of birth</label><input data-f="dob" type="date" data-nofuture value="'+esc(d.dob)+'" autocomplete="off"></div>'
+        +'<div class="fl"><label>Date of birth</label><input data-f="dob" data-dob value="'+esc(d.dob)+'" autocomplete="off"></div>'
         +'<div class="fl"><label>Gender</label><select data-f="gender">'
           +sel('<option>Female</option><option>Male</option>',d.gender)+'</select></div>'
       +'</div>'
@@ -1637,6 +1657,7 @@
     wireLicense(document.querySelector('#drvList .blk:last-child'));
     wireEmployment(document.querySelector('#drvList .blk:last-child'));
     limitDates(document.querySelector('#drvList .blk:last-child'));
+    wireDOBs(document.querySelector('#drvList .blk:last-child'));
     document.getElementById('addDrv').disabled=drv>=4; }
   document.getElementById('addVeh').addEventListener('click',function(){addVeh();});
   document.getElementById('addDrv').addEventListener('click',function(){addDrv();});
@@ -2098,10 +2119,13 @@
 
   /* ---------- drawing the auto coverages ---------- */
 
-  function covField(id,name,label,html,badge){
+  function covField(id,name,label,html,badge,tipKey){
+    // Per-vehicle fields carry an index in their id, so the tooltip is matched
+    // on data-tip instead — one key, however many vehicles are on the policy.
     return '<div class="fl"><label for="'+id+'">'+label
       +(badge?' <span class="rec">'+badge+'</span>':'')+'</label>'
-      +'<select id="'+id+'" name="'+name+'">'+html+'</select></div>';
+      +'<select id="'+id+'" name="'+name+'"'+(tipKey?' data-tip="'+tipKey+'"':'')+'>'
+      +html+'</select></div>';
   }
   function plain(list,cur){
     return list.map(function(o){
@@ -2114,10 +2138,11 @@
     body.innerHTML =
       covField('liab','liability','Bodily Injury &amp; Property Damage',
         LIAB.map(function(o){
-          return '<option value="'+esc(o.v)+'"'+(o.v==='100/300/100'?' selected':'')+'>'
+          return '<option value="'+esc(o.v)+'"'+(o.v==='50/100/50'?' selected':'')+'>'
             +esc(o.v)+(o.note?' — '+o.note:'')+'</option>'; }).join(''))
       + covField('umbi','umBodilyInjury','Uninsured/Underinsured Motorist Bodily Injury','')
       + covField('umpd','umPropertyDamage','Uninsured/Underinsured Property Damage','')
+      + '<div class="umwhy" id="umWhy" hidden aria-live="polite"></div>'
       + '<p class="cslnote" id="cslNote" hidden></p>'
       + '<div class="g2">'
       +   covField('medpay','medicalPayments','Medical Payment',plain(MEDPAY,'None'))
@@ -2125,29 +2150,7 @@
       + '</div>'
       + '<p class="warn2" id="mpWarn" hidden>A vehicle may have Medical Payments '
       +   'or Personal Injury Protection, not both.</p>';
-    document.getElementById('covPhysBody').innerHTML =
-        '<div class="g2">'
-      +   covField('dcomp','compded','Comprehensive Deductible',plain(DEDUCT,'$500'))
-      +   covField('dcoll','collded','Collision Deductible',plain(DEDUCT,'$500'))
-      + '</div>'
-      + covField('rental','rental','Rental',plain(RENTAL,'None'))
-      + covField('roadside','roadside','Roadside/Trip Interruption',plain(ROADSIDE,'None'))
-      /* Trip interruption rides on the roadside string rather than being its
-         own field, so the two travel as one value the AMS already parses.
-
-         The rating engine has no field for it at all — it has been parsed and
-         discarded since the first version of this form. It stays on the page
-         because unlike the rental day cap, this one is a real answer somebody
-         can act on: the carriers sell it and an agent adds it by hand. What it
-         cannot do is show up in a price, and the label says so before the
-         choice rather than only in the notice afterwards. */
-      + '<label class="consent" id="tripWrap" for="roadtrip" hidden>'
-      +   '<input type="checkbox" id="roadtrip" name="tripInterruption">'
-      +   '<span class="box" aria-hidden="true"></span>'
-      +   '<span class="tx">Add trip interruption &mdash; help with lodging, meals and '
-      +     'getting home when the breakdown happens far from it. '
-      +     '<b>Not priced online:</b> your agent arranges this with the carrier you '
-      +     'pick, so the prices you see next will not include it.</span></label>';
+    covVehicles();
     syncUM(true);
     addTips();
   }
@@ -2160,20 +2163,86 @@
      get shorter. Anything already chosen that is no longer allowed drops to the
      highest that is — not to None, which would quietly strip cover somebody
      had asked for. */
+  /* What to call a vehicle on screen. Falls back to a number, because
+     somebody can reach this step with the year filled in and nothing else. */
+  function vehName(i){
+    var b=document.querySelectorAll('#vehList .blk')[i];
+    if(!b) return 'Vehicle '+(i+1);
+    var g=function(f){ var e=b.querySelector('[data-f='+f+']'); return e?(e.value||'').trim():''; };
+    return [g('year'),g('make'),g('model')].filter(Boolean).join(' ')||('Vehicle '+(i+1));
+  }
+  function vehCount(){ return document.querySelectorAll('#vehList .blk').length||1; }
+
+  /* Physical damage, once per vehicle.
+
+     Everything above this is a policy-level decision — liability and the
+     uninsured-motorist limits under it apply to the whole policy. Everything
+     here is priced per car, and the visitor chooses it per car.
+
+     Redrawn each time the step opens, because a vehicle can be added or
+     removed after this screen was first built. Choices already made are read
+     back off the DOM first so redrawing does not throw them away. */
+  function covVehicles(){
+    var body=document.getElementById('covVehBody'); if(!body) return;
+    var keep=[].slice.call(body.querySelectorAll('[data-vi]')).map(function(bk){
+      var q=function(sel){ var e=bk.querySelector(sel); return e?e.value:null; };
+      var f=bk.querySelector('input[type=radio]:checked');
+      return { full:f?f.value:'yes', dcomp:q('[data-tip=dcomp]'), dcoll:q('[data-tip=dcoll]'),
+               rental:q('[data-tip=rental]'), road:q('[data-tip=roadside]'),
+               trip:!!(bk.querySelector('input[type=checkbox]')||{}).checked };
+    });
+    var n=vehCount(), out='';
+    for(var i=0;i<n;i++){
+      var k=keep[i]||{full:'yes'}, full=k.full!=='no';
+      out += '<div class="vcov" data-vi="'+i+'">'
+        + (n>1 ? '<div class="vch"><span class="vn">'+(i+1)+'</span><b>'+esc(vehName(i))+'</b></div>' : '')
+        + '<div class="fl"><label>Comprehensive and collision on '
+        +   (n>1?'this vehicle':'your vehicle')+'?</label><div class="pills">'
+        +   '<label class="pill"><input type="radio" name="fullcov'+i+'" value="yes" autocomplete="off"'
+        +     (full?' checked':'')+'><span>Yes, full coverage</span></label>'
+        +   '<label class="pill"><input type="radio" name="fullcov'+i+'" value="no" autocomplete="off"'
+        +     (full?'':' checked')+'><span>Liability only</span></label>'
+        + '</div></div>'
+        + '<div class="vphys"'+(full?'':' hidden')+'>'
+        +   '<div class="g2">'
+        +     covField('dcomp'+i,'compded'+i,'Comprehensive Deductible',plain(DEDUCT,k.dcomp||'$500'),'','dcomp')
+        +     covField('dcoll'+i,'collded'+i,'Collision Deductible',plain(DEDUCT,k.dcoll||'$500'),'','dcoll')
+        +   '</div>'
+        +   covField('rental'+i,'rental'+i,'Rental',plain(RENTAL,k.rental||'None'),'','rental')
+        +   covField('roadside'+i,'roadside'+i,'Roadside/Trip Interruption',
+                     plain(ROADSIDE,k.road||'None'),'','roadside')
+        +   '<label class="consent tripw"'+(((k.road||'None')==='None')?' hidden':'')+'>'
+        +     '<input type="checkbox"'+(k.trip?' checked':'')+'>'
+        +     '<span class="box" aria-hidden="true"></span>'
+        +     '<span class="tx">Add trip interruption &mdash; help with lodging, meals and '
+        +       'getting home when the breakdown happens far from it. '
+        +       '<b>Not priced online:</b> your agent arranges this with the carrier you '
+        +       'pick, so the prices you see next will not include it.</span></label>'
+        + '</div></div>';
+    }
+    body.innerHTML=out;
+    addTips();
+  }
+
   function syncUM(initial){
     var liab=document.getElementById('liab'); if(!liab) return;
-    var rule=umAllowed(liab.value);
-    [['umbi',UMBI,'bi'],['umpd',UMPD,'pd']].forEach(function(spec){
+    var rule=umAllowed(liab.value), blocked=[];
+    [['umbi',UMBI,'bi','Uninsured/Underinsured Motorist Bodily Injury'],
+     ['umpd',UMPD,'pd','Uninsured/Underinsured Property Damage']].forEach(function(spec){
       var el=document.getElementById(spec[0]), list=spec[1], test=rule[spec[2]];
-      var cur=initial?'None':el.value, best='None';
+      var cur=initial?'None':el.value, best='None', n=0;
       el.innerHTML=list.map(function(o){
         var ok=test(o);
-        if(ok && o.v!=='None') best=o.v;
-        return '<option'+(ok?'':' disabled')+'>'+esc(o.v)+'</option>';
+        if(ok && o.v!=='None') best=o.v; else if(!ok) n++;
+        // An explicit value, so the option text stays clean and whatever this
+        // sends to the AMS never depends on what the label happens to say.
+        return '<option value="'+esc(o.v)+'"'+(ok?'':' disabled')+'>'+esc(o.v)+'</option>';
       }).join('');
       var still=list.filter(function(o){ return o.v===cur; })[0];
       el.value = (still && test(still)) ? cur : (cur==='None' ? 'None' : best);
+      if(n) blocked.push(spec[3]);
     });
+    umWhy(blocked, liab.value, rule);
     var note=document.getElementById('cslNote');
     if(note){
       note.hidden=!rule.csl;
@@ -2181,6 +2250,41 @@
         +'so uninsured-motorist cover is capped at that one figure rather than at a '
         +'separate property-damage number.';
     }
+  }
+
+  /* Why a greyed option is greyed.
+
+     A dropdown with dead entries and no explanation reads as a broken website,
+     and the visitor's next move is to stop trusting the rest of the page. The
+     rule is real and easy to say: uninsured-motorist cover pays when the other
+     driver cannot, and no carrier will sell more of it than the liability
+     sitting underneath it.
+
+     So the note names the limit they picked and what raising it would unlock,
+     which turns a wall into a choice. */
+  function umWhy(blocked, liabVal, rule){
+    var box=document.getElementById('umWhy'); if(!box) return;
+    if(!blocked || !blocked.length){ box.hidden=true; box.innerHTML=''; return; }
+    var next='';
+    for(var i=0;i<LIAB.length;i++){
+      var L=LIAB[i];
+      if(!L.csl && !rule.csl){
+        var cu=liabOf(liabVal);
+        if(cu && !cu.csl && (L.bi[0]>cu.bi[0] || L.pd>cu.pd)){ next=L.v; break; }
+      }
+    }
+    box.innerHTML='<b>Some options are greyed out &mdash; here is why</b>'
+      + '<p>Uninsured motorist coverage pays when the driver who hits you cannot. '
+      + 'Carriers will not write more of it than the liability underneath it, so with '
+      + '<b>' + esc(liabVal) + '</b> selected above, the higher '
+      + (blocked.length>1 ? 'limits are' : 'limits on ' + esc(blocked[0]) + ' are')
+      + ' not available yet.</p>'
+      + (next ? '<p>Nothing is broken &mdash; raise your liability limit to <b>'+esc(next)
+              + '</b> or higher and those options open up. Not sure? Your agent will go '
+              + 'through it with you.</p>'
+              : '<p>Nothing is broken. Raise your liability limit above and those options '
+              + 'open up.</p>');
+    box.hidden=false;
   }
 
   /* Medical Payments and Personal Injury Protection do the same job and a
@@ -2206,25 +2310,34 @@
      quote — they were hidden, so there is nothing the visitor said about them. */
   function autoCoverages(){
     var v=function(id){ var el=document.getElementById(id); return el?el.value:''; },
+        none=function(x){ return (!x||x==='None')?null:x; };
+    // Policy-level only now. Comprehensive, collision, rental and roadside are
+    // priced per car and travel on each vehicle instead.
+    return {
+      liability: v('liab'),
+      umBodilyInjury: none(v('umbi')),
+      umPropertyDamage: none(v('umpd')),
+      medicalPayments: none(v('medpay')),
+      personalInjuryProtection: none(v('pip'))
+    };
+  }
+
+  /* One vehicle's physical damage, in the shape the AMS already reads:
+     `comprehensive` and `collision` are the deductibles it has always taken,
+     and 'None' on both is how a liability-only vehicle has always been sent. */
+  function vehCoverage(i){
+    var blk=document.querySelector('#covVehBody [data-vi="'+i+'"]');
+    if(!blk) return {comprehensive:'None',collision:'None'};
+    var sel=function(k){ var e=blk.querySelector('[data-tip='+k+']'); return e?e.value:''; },
         none=function(x){ return (!x||x==='None')?null:x; },
-        full=(form.querySelector('input[name=fullcov]:checked')||{}).value==='yes',
-        o={
-          liability: v('liab'),
-          umBodilyInjury: none(v('umbi')),
-          umPropertyDamage: none(v('umpd')),
-          medicalPayments: none(v('medpay')),
-          personalInjuryProtection: none(v('pip'))
-        };
-    if(full){
-      o.comprehensiveDeductible=v('dcomp');
-      o.collisionDeductible=v('dcoll');
-      o.rental=none(v('rental'));
-      // One string, in the shape the AMS already reads: an amount it maps onto
-      // TowingLimit, and the exact phrase it recognised on "Selected with Trip
-      // Interruption". No amount means no trip interruption to attach.
-      var road=none(v('roadside')), trip=document.getElementById('roadtrip');
-      o.roadside = road ? road+((trip&&trip.checked)?' with Trip Interruption':'') : null;
-    }
+        f=blk.querySelector('input[type=radio]:checked'),
+        full=!f||f.value==='yes';
+    if(!full) return {comprehensive:'None',collision:'None'};
+    var road=none(sel('roadside')),
+        trip=blk.querySelector('.tripw input');
+    var o={ comprehensive:sel('dcomp'), collision:sel('dcoll') };
+    if(none(sel('rental'))) o.rental=sel('rental');
+    if(road) o.roadside = road+((trip&&trip.checked)?' with Trip Interruption':'');
     return o;
   }
 
@@ -2716,6 +2829,56 @@
      date of birth that was not in the document when this first ran. */
   function today(){ return new Date(Date.now()-new Date().getTimezoneOffset()*60000)
     .toISOString().slice(0,10); }
+  /* Dates of birth are typed, not picked.
+
+     A native date input is right for "when should coverage start" — that is a
+     day or two away and a calendar is the fastest way to say it. It is wrong
+     for a date of birth, where the answer is thirty-odd years back and every
+     mobile browser opens a picker on the current month. People know their
+     birthday; the calendar is in the way.
+
+     So DOB fields are text with a mask, and everything downstream still reads
+     ISO because dobISO() normalises at the two places values are collected.
+     Effective and expiry dates keep their pickers on purpose. */
+  function maskDOB(el){
+    if(!el||el.dataset.dobWired) return;
+    el.dataset.dobWired='1';
+    el.type='text'; el.inputMode='numeric'; el.autocomplete='bday';
+    el.placeholder='MM/DD/YYYY'; el.maxLength=10;
+    el.addEventListener('input',function(){
+      var d=el.value.replace(/[^0-9]/g,'').slice(0,8), out=d.slice(0,2);
+      if(d.length>2) out+='/'+d.slice(2,4);
+      if(d.length>4) out+='/'+d.slice(4,8);
+      el.value=out;
+    });
+    // Backspacing onto a slash should delete the digit before it, not stall.
+    el.addEventListener('keydown',function(e){
+      if(e.key==='Backspace' && /\/$/.test(el.value.slice(0,el.selectionStart))){
+        e.preventDefault();
+        el.value=el.value.slice(0,el.selectionStart-1)+el.value.slice(el.selectionStart);
+      }
+    });
+  }
+
+  /* MM/DD/YYYY (or an ISO value a browser autofilled) to ISO, or '' when it is
+     not a real past date. Returning '' for a bad date means every existing
+     `if(!dob)` check catches a typo without a second code path. */
+  function dobISO(v){
+    v=String(v||'').trim();
+    if(/^\d{4}-\d{2}-\d{2}$/.test(v)) return v;
+    var m=v.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if(!m) return '';
+    var mo=+m[1], da=+m[2], yr=+m[3];
+    if(mo<1||mo>12||da<1||da>31||yr<1900) return '';
+    var d=new Date(yr,mo-1,da);
+    if(d.getFullYear()!==yr||d.getMonth()!==mo-1||d.getDate()!==da) return '';
+    if(d.getTime()>Date.now()) return '';           // nobody is born tomorrow
+    return yr+'-'+('0'+mo).slice(-2)+'-'+('0'+da).slice(-2);
+  }
+  function wireDOBs(root){
+    [].forEach.call((root||document).querySelectorAll('[data-dob]'),maskDOB);
+  }
+
   function limitDates(root){
     var t=today();
     [].forEach.call((root||document).querySelectorAll('[data-nopast]'),function(i){ i.min=t; });
@@ -2750,16 +2913,24 @@
 
   function addTips(){
     Object.keys(TIPS).forEach(function(id){
-      var el=document.getElementById(id); if(!el) return;
+      [].concat(document.getElementById(id)||[],
+                [].slice.call(document.querySelectorAll('[data-tip="'+id+'"]')))
+        .forEach(function(el){ attachTip(el,id); });
+    });
+    addGroupTips();
+  }
+  function attachTip(el,id){
+      if(!el) return;
       var fl=el.closest('.fl'); if(!fl) return;
       var lab=fl.querySelector('label'); if(!lab||lab.querySelector('.tip')) return;
       var t=document.createElement('span'); t.className='tip'; t.setAttribute('hidden-tip','');
       t.innerHTML='<button type="button" aria-expanded="false" aria-label="What does this mean?">?</button>'
                  +'<div role="note">'+esc(TIPS[id])+'</div>';
       lab.appendChild(t);
-    });
-    // Radio groups have no single element to hang the tip off, so they are
-    // matched by the name of the group instead.
+  }
+  // Radio groups have no single element to hang the tip off, so they are
+  // matched by the name of the group instead.
+  function addGroupTips(){
     [['hPrimary','hPrimary'],['hNew','hNew']].forEach(function(p){
       var r=form.querySelector('input[name='+p[0]+']'); if(!r) return;
       var fl=r.closest('.fl'), lab=fl&&fl.querySelector('label');
@@ -2811,7 +2982,7 @@
     visualMulti('hFloor','flooring');
     visualMulti('hCounter','countertops');
 
-    addTips(); limitDates();
+    addTips(); limitDates(); wireDOBs();
     // One open bubble at a time, and a tap anywhere else closes it — on a
     // phone there is no hover to leave, so it has to be dismissible.
     document.addEventListener('click',function(e){
@@ -3085,10 +3256,10 @@
     var list=document.getElementById('bikeList');
     list.insertAdjacentHTML('beforeend',bikeBlock(bikes));
     wireBikeVin(list.lastElementChild);
-    wireMoto(); addTips(); limitDates(); }
+    wireMoto(); addTips(); limitDates(); wireDOBs(); }
   function addRider(){ riders++;
     document.getElementById('riderList').insertAdjacentHTML('beforeend',riderBlock(riders));
-    wireMoto(); addTips(); limitDates(); }
+    wireMoto(); addTips(); limitDates(); wireDOBs(); }
   function addInc(){ incs++;
     document.getElementById('incList').insertAdjacentHTML('beforeend',incBlock(incs));
     fillIncWho(); }
@@ -3184,7 +3355,7 @@
           +'<option>II</option><option>III</option><option>IV</option></select></div>'
       +'</div>'
       +'<div class="g2">'
-        +'<div class="fl"><label>Date of birth</label><input data-f="dob" type="date" data-nofuture autocomplete="off"></div>'
+        +'<div class="fl"><label>Date of birth</label><input data-f="dob" data-dob autocomplete="off"></div>'
         +'<div class="fl"><label>Gender</label><select data-f="gender">'
           +'<option value="">Choose one</option><option>Female</option><option>Male</option></select></div>'
       +'</div>'
@@ -3412,6 +3583,9 @@
     if(name==='covBike') renderCovBike();
     if(name==='covExtras') renderCovExtras();
     if(name==='covSummary') renderCovSummary();
+    // Same reason: a vehicle can be added or removed after this screen was
+    // first built, and each one needs its own physical-damage block.
+    if(name==='coverage') covVehicles();
     steps.forEach(function(s){ s.classList.toggle('on',s.dataset.step===name); });
     var i=flow.indexOf(name);
     // No step count. "Step 2 of 13" is the first thing a visitor reads on the
@@ -3587,7 +3761,7 @@
       for(var ri=0;ri<rs.length;ri++){
         if(!rs[ri].querySelector('[data-f=firstName]').value.trim())
           return fail('e-riders','We need a first name for person '+(ri+1)+'.');
-        if(!rs[ri].querySelector('[data-f=dob]').value)
+        if(!dobISO(rs[ri].querySelector('[data-f=dob]').value))
           return fail('e-riders','And a date of birth for '
             +(rs[ri].querySelector('[data-f=firstName]').value.trim()||'person '+(ri+1))+'.');
         if(!rs[ri].querySelector('[data-f=licenseStatus]').value)
@@ -3656,7 +3830,7 @@
     if(name==='drivers'){ clear('e-drivers');
       var ds=[].slice.call(document.querySelectorAll('#drvList .blk'));
       for(var j=0;j<ds.length;j++){
-        if(!ds[j].querySelector('[data-f=first]').value.trim() || !ds[j].querySelector('[data-f=dob]').value)
+        if(!ds[j].querySelector('[data-f=first]').value.trim() || !dobISO(ds[j].querySelector('[data-f=dob]').value))
           return fail('e-drivers','Driver '+(j+1)+' needs a first name and a date of birth.');
         var lt=ds[j].querySelector('[data-f=ltype]').value;
         if(!lt) return fail('e-drivers','Pick the license type for driver '+(j+1)+'.');
@@ -3676,8 +3850,8 @@
         return fail('e-contact','That email looks incomplete \u2014 please check it.');
       // Home only: the auto flow already collected a date of birth per driver.
       if(isHome()){
-        var dob=document.getElementById('hDob').value;
-        if(!dob) return fail('e-contact','We need your date of birth to quote a home policy.');
+        var dob=dobISO(document.getElementById('hDob').value);
+        if(!dob) return fail('e-contact','We need your date of birth &mdash; type it as MM/DD/YYYY.');
         var age=(Date.now()-new Date(dob).getTime())/31557600000;
         if(age<18) return fail('e-contact','The applicant has to be 18 or older.');
         if(age>110) return fail('e-contact','That date of birth looks off \u2014 please check it.');
@@ -3716,25 +3890,25 @@
       document.getElementById('priorWrap').style.display=(r.value==='yes'&&r.checked)?'block':'none';
     });
   });
-  /* Comprehensive, collision, rental and roadside all describe damage to the
-     visitor's own car, so liability-only hides the lot rather than leaving a
-     rental limit on a policy that could never pay one. */
-  form.querySelectorAll('input[name=fullcov]').forEach(function(r){
-    r.addEventListener('change',function(){
-      document.getElementById('covPhysBody').style.display=
-        form.querySelector('input[name=fullcov]:checked').value==='yes'?'block':'none';
-    });
-  });
-
   covAuto();
+
+  /* Delegated, because the per-vehicle blocks are redrawn whenever the step is
+     opened and listeners bound to the old nodes would go with them. */
   form.addEventListener('change',function(e){
-    var id=e.target.id;
+    var t=e.target, id=t.id||'';
     if(id==='liab') syncUM(false);
     if(id==='medpay'||id==='pip') syncMedPip(id);
-    if(id==='roadside'){
-      var w=document.getElementById('tripWrap'), t=document.getElementById('roadtrip');
-      w.hidden = e.target.value==='None';
-      if(w.hidden && t) t.checked=false;   // a closed branch is an emptied one
+
+    // Liability only hides this vehicle's physical damage rather than leaving a
+    // rental limit on cover that could never pay one.
+    if(/^fullcov\d+$/.test(t.name||'')){
+      var blk=t.closest('[data-vi]'), phys=blk&&blk.querySelector('.vphys');
+      if(phys) phys.hidden = t.value!=='yes';
+    }
+    if(t.dataset && t.dataset.tip==='roadside'){
+      var b=t.closest('[data-vi]'), w=b&&b.querySelector('.tripw');
+      if(w){ w.hidden = t.value==='None';
+             var cb=w.querySelector('input'); if(w.hidden && cb) cb.checked=false; }
     }
   });
 
@@ -3753,9 +3927,9 @@
         st=document.getElementById('st').value,
         fn=document.getElementById('lfn').value.trim(),
         ln=document.getElementById('lln').value.trim(),
-        dob=document.getElementById('ldob').value,
+        dob=dobISO(document.getElementById('ldob').value),
         ok=document.getElementById('consent').checked;
-    if(!fn||!ln||!dob) return fail('e-lookup','Add your name and date of birth so we look up the right household.');
+    if(!fn||!ln||!dob) return fail('e-lookup','Add your name and date of birth (MM/DD/YYYY) so we look up the right household.');
     if(!ok) return fail('e-lookup','Please authorize the lookup, or skip it and type everything in.');
 
     document.getElementById('looking').classList.add('on');
@@ -3784,7 +3958,10 @@
   /* ---------- collect ---------- */
   function grab(sel){ return [].slice.call(document.querySelectorAll(sel)).map(function(b){
     var o={}; [].slice.call(b.querySelectorAll('[data-f]')).forEach(function(f){
-      o[f.dataset.f]=(f.value||'').trim(); }); return o; }); }
+      var val=(f.value||'').trim();
+      // one place, so a masked birthday reaches the AMS as ISO like every
+      // other date on this form
+      o[f.dataset.f]= f.dataset.f==='dob' ? dobISO(val) : val; }); return o; }); }
   function mailto(p){
     var b='Insurance type: Car'
       +'\nName: '+p.firstName+' '+p.lastName
@@ -3819,14 +3996,21 @@
                  ['UM/UIM Bodily Injury',c.umBodilyInjury],
                  ['UM/UIM Property Damage',c.umPropertyDamage],
                  ['Medical Payments',c.medicalPayments],
-                 ['Personal Injury Protection',c.personalInjuryProtection],
-                 ['Comprehensive deductible',c.comprehensiveDeductible],
-                 ['Collision deductible',c.collisionDeductible],
-                 ['Rental',c.rental],['Roadside',c.roadside]];
-          if(c.comprehensiveDeductible===undefined) L.push(['','LIABILITY ONLY']);
+                 ['Personal Injury Protection',c.personalInjuryProtection]];
           return L.filter(function(r){ return r[1]; })
                   .map(function(r){ return '  '+(r[0]?r[0]+': ':'')+r[1]; }).join('\n');
         })(p.coverages)
+      // Physical damage is per vehicle, so the agent has to see it per vehicle.
+      // A single summary line here would hide exactly the case this section was
+      // rebuilt for: full coverage on one car and liability only on the other.
+      +'\n'+p.vehicles.map(function(v,i){
+          var name=[v.year,v.make,v.model].filter(Boolean).join(' ')||('Vehicle '+(i+1));
+          if(v.comprehensive==='None' && v.collision==='None')
+            return '\n  '+name+': LIABILITY ONLY';
+          return '\n  '+name+': comp '+v.comprehensive+' / coll '+v.collision
+               + (v.rental?' / rental '+v.rental:'')
+               + (v.roadside?' / roadside '+v.roadside:'');
+        }).join('')
       +(p.notes?'\n\nNotes: '+p.notes:'');
     location.href='mailto:contact@safehouseins.com?subject='
       +encodeURIComponent('Quote request - Car - '+p.firstName+' '+p.lastName)
@@ -3875,9 +4059,6 @@
   function toAms(){
     var ins=form.querySelector('input[name=insured]:checked'),
         liab=document.getElementById('liab').value,
-        full=(form.querySelector('input[name=fullcov]:checked')||{}).value==='yes',
-        comp=full?document.getElementById('dcomp').value:'None',
-        coll=full?document.getElementById('dcoll').value:'None',
         years=document.getElementById('yrs').value,
         p={
           firstName:document.getElementById('cfn').value.trim(),
@@ -3890,6 +4071,13 @@
           zip:      document.getElementById('zip').value.trim(),
           residenceType: document.getElementById('res').value,
 
+          // The auto and home flows now ask for the same authorisation the
+          // motorcycle flow does, so they record it the same way: what matters
+          // later is not that a button was pressed but what the person was
+          // shown when they pressed it.
+          disclosure:{ accepted: pick('mDisc')==='Agree',
+                       text: DISCLOSURE_TEXT, at: new Date().toISOString(),
+                       source:'safehouseins.com/quote' },
           hasPriorInsurance: ins?ins.value==='yes':false,
           biLimit: liab,
           // The rest of the coverage selection, under one key rather than
@@ -3914,8 +4102,10 @@
             return o;
           }),
 
-          vehicles: grab('#vehList .blk').map(function(v){
-            var o={usage:v.use,comprehensive:comp,collision:coll};
+          vehicles: grab('#vehList .blk').map(function(v,vi){
+            var o={usage:v.use};
+            var vc=vehCoverage(vi);
+            for(var k in vc) if(vc[k]!=null) o[k]=vc[k];
             if(v.vin)   o.vin=v.vin;
             if(v.year)  o.year=Number(v.year)||v.year;
             if(v.make)  o.make=v.make;

@@ -49,6 +49,34 @@ contract shape directly.
 `toAms()` in `quote.html` emits the contract shape. Nothing renames fields
 anywhere else — no hop, no adapter, one function.
 
+### Per-vehicle coverage — August 2026
+
+Comprehensive, collision, rental and roadside moved out of `coverages` and onto
+each entry in `vehicles[]`. They are priced per car at the carrier, and asking
+once for the whole policy quoted the wrong thing for any household with a
+financed truck and a paid-off runabout — full coverage on one, liability only on
+the other, which is the common case here.
+
+`coverages` now carries the policy-level five only: liability, both
+uninsured-motorist limits, medical payments and PIP.
+
+```jsonc
+"vehicles": [
+  { "vin": "…", "comprehensive": "$250", "collision": "$1,000",
+    "rental": "$50 Per Day", "roadside": "$50 Per Disablement" },
+  { "vin": "…", "comprehensive": "None", "collision": "None" }
+]
+```
+
+`comprehensive` and `collision` are the deductibles, which is the shape the AMS
+has always read; `None` on both is a liability-only vehicle, as before. `rental`
+and `roadside` are absent rather than null when not chosen.
+
+**`disclosure` now travels on auto and home too**, in the same shape the
+motorcycle flow has been sending it — accepted, the exact text shown, and when.
+Motorcycle keeps its copy inside `motorcycle.disclosure` as well, so nothing
+that reads it today breaks.
+
 ### The coverage fields — mapped and live, August 2026
 
 All four additions below are read by the AMS: `mapCoverages()` in
