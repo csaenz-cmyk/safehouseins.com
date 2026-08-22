@@ -647,6 +647,10 @@ def make_page(slug, name, parent, origin, tags, note):
             + rewrite(shell.FOOTER, 2).replace('</body>', BK.JS + '</body>'))
 
 # ----------------------------------------------------------------- the hub ---
+# Which make's photograph heads the hub. None goes back to the drawing, and a
+# slug with no image on disk does the same rather than shipping a broken one.
+HUB_ART = 'tesla'
+
 def has_photo(slug):
     return os.path.exists(os.path.join(ROOT, 'assets', 'makes', slug + '.webp'))
 
@@ -661,6 +665,19 @@ def thumb(slug):
         return ('<img src="' + UP + 'assets/makes/' + slug + '.webp" alt="" '
                 'width="84" height="48" loading="lazy" decoding="async">')
     return vehiclesvg.silhouette(LU.dominant_body(slug), 'var(--acc)', 'h' + slug)
+
+def hub_art():
+    """The picture at the top of the hub.
+
+    A make slug uses that make's photograph; None falls back to the generic
+    body-style drawing. Checked against the filesystem at build time, so a slug
+    whose image has not been supplied yet quietly draws instead of shipping a
+    broken image — the same rule the sixty brand heroes follow.
+    """
+    if HUB_ART and has_photo(HUB_ART):
+        return ('<img class="photo" src="' + UP + 'assets/makes/' + HUB_ART + '.webp" '
+                'alt="" width="880" height="520" fetchpriority="high" decoding="async">')
+    return vehiclesvg.silhouette('suv', 'var(--acc)', 'hubart', wide=True)
 
 def hub():
     url = SITE + '/car-insurance/makes/'
@@ -705,7 +722,7 @@ def hub():
       '<div class="acts"><a class="btn" href="' + UP + 'quote.html">Get my free quote &rarr;</a>'
       '<a class="btn ghost" href="' + UP + 'car-insurance/">Browse by city</a></div></div>'
       '<div class="bart"><p class="bmark">Safe House</p>'
-      + vehiclesvg.silhouette('suv', 'var(--acc)', 'hubart', wide=True) +
+      + hub_art() +
       '<div class="bchips"><span>' + str(len(M.MAKES)) + ' makes</span><span>Texas</span>'
       '<span>New Mexico</span><span>English &amp; Spanish</span></div></div>'
       '</div></div></header>'
