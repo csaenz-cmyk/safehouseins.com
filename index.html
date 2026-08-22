@@ -453,7 +453,12 @@
     .flow{padding:88px 0 92px}
     .fhead{padding:0 40px 10px}
     .fnotes span{font-size:13px;padding:9px 15px}
-    .agents{padding:80px 0 84px}
+    /* The agent photo column is taller than the text beside it, so the row
+       already ends with empty space under the copy. 84px of section padding on
+       top of that, plus the next section's 80, read as a hole rather than a
+       break — scoped to this pair so the rest of the page keeps its rhythm. */
+    .agents{padding:80px 0 48px}
+    .agents + section{padding-top:52px}
     .agin{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:64px;padding:0 40px}
     .agtext{max-width:52ch}
     .agstage{margin-top:0;width:min(34vw,420px);max-width:none}
@@ -767,9 +772,6 @@
         <button class="agt" type="button" aria-label="Alexa M."
           data-name="Alexa M." data-role="Licensed agent" data-exp="11 years" data-f1="Has quoted every carrier we carry. Twice." data-f2="Ask her about SR-22s. Actually, don&rsquo;t. She will explain all of it.">
           <img src="assets/agent-2-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
-        <button class="agt" type="button" aria-label="Julian C."
-          data-name="Juli&aacute;n C." data-role="Commercial lines" data-exp="7 years" data-f1="Work trucks, fleets and tow rigs &mdash; that is his lane." data-f2="Coached his kid&rsquo;s team to a losing season. Still proud.">
-          <img src="assets/agent-3-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
         <button class="agt" type="button" aria-label="Marcus D."
           data-name="Marcus D." data-role="Licensed agent" data-exp="9 years" data-f1="Answers the phone before the second ring." data-f2="Grills for the whole office. Nobody asked him to.">
           <img src="assets/agent-4-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
@@ -783,7 +785,6 @@
     <div class="agstage">
       <img class="agp on" src="assets/agent-1.jpg" alt="Daniela R., Safe House Insurance" width="1040" height="1300" loading="lazy">
       <img class="agp" src="assets/agent-2.jpg" alt="Alexa M., Safe House Insurance" width="1040" height="1300" loading="lazy">
-      <img class="agp" src="assets/agent-3.jpg" alt="Julian C., Safe House Insurance" width="1040" height="1300" loading="lazy">
       <img class="agp" src="assets/agent-4.jpg" alt="Marcus D., Safe House Insurance" width="1040" height="1300" loading="lazy">
       <img class="agp" src="assets/agent-5.jpg" alt="Ivette S., Safe House Insurance" width="1040" height="1300" loading="lazy">
       <div class="agcard">
@@ -885,11 +886,11 @@
       </div>
       <div class="qa">
         <button class="qq" type="button" aria-expanded="false" aria-controls="qa2">Can I buy a policy right here on the website?<span class="pm" aria-hidden="true"></span></button>
-        <div class="qbody" id="qa2"><div><p>Not yet. You can start your quote online and see initial options in a few minutes, but a licensed agent reviews everything and finalizes the policy with you by phone or text. Nothing is activated without a person on our side confirming it.</p></div></div>
+        <div class="qbody" id="qa2"><div><p>Not quite &mdash; and that&rsquo;s intentional. You can start your quote online and see your options, but before you buy, one of our licensed agents reviews your quote to make sure you&rsquo;re getting the best option available. Online quotes can sometimes miss additional discounts or savings you may qualify for. Once we&rsquo;ve reviewed everything with you and you&rsquo;re happy with your coverage and price, we can activate your policy.</p></div></div>
       </div>
       <div class="qa">
         <button class="qq" type="button" aria-expanded="false" aria-controls="qa3">Are the prices I see online final?<span class="pm" aria-hidden="true"></span></button>
-        <div class="qbody" id="qa3"><div><p>No. They are initial estimates based on what you enter. Your final price depends on verification, the discounts you actually qualify for and each carrier&rsquo;s underwriting. Your agent confirms the real numbers before you decide.</p></div></div>
+        <div class="qbody" id="qa3"><div><p>They&rsquo;re a great starting point &mdash; and your final price could be even better. Before you decide, we run the required verifications and one of our licensed agents personally reviews your quote to make sure everything is accurate and all eligible discounts and savings have been applied. Then, we&rsquo;ll confirm the final price with you, walk you through your options, and make sure you&rsquo;re getting the right coverage at the best price available to you.</p></div></div>
       </div>
       <div class="qa">
         <button class="qq" type="button" aria-expanded="false" aria-controls="qa4">Which insurance companies do you shop?<span class="pm" aria-hidden="true"></span></button>
@@ -897,7 +898,7 @@
       </div>
       <div class="qa">
         <button class="qq" type="button" aria-expanded="false" aria-controls="qa5">What can you insure for me?<span class="pm" aria-hidden="true"></span></button>
-        <div class="qbody" id="qa5"><div><p>Auto, homeowners, renters, mobile home, commercial and work trucks, and life. If you own more than one thing, one agent can handle all of it.</p></div></div>
+        <div class="qbody" id="qa5"><div><p>From your car to your home, business, and more &mdash; we&rsquo;ve got you covered. We offer auto, homeowners, renters, mobile home, commercial, work truck insurance, and more. Need more than one type of coverage? We can help bring it all together and look for every opportunity to save.</p></div></div>
       </div>
       <div class="qa">
         <button class="qq" type="button" aria-expanded="false" aria-controls="qa6">Do you write SR-22 and high-risk policies?<span class="pm" aria-hidden="true"></span></button>
@@ -917,7 +918,7 @@
       </div>
   </div>
 </div></section>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Safe House Insurance?", "acceptedAnswer": {"@type": "Answer", "text": "We are an independent insurance agency based in El Paso, Texas, licensed in Texas and New Mexico. Independent means we do not work for one company — we shop the carriers we represent and bring you the options."}}, {"@type": "Question", "name": "Can I buy a policy right here on the website?", "acceptedAnswer": {"@type": "Answer", "text": "Not yet. You can start your quote online and see initial options in a few minutes, but a licensed agent reviews everything and finalizes the policy with you by phone or text. Nothing is activated without a person on our side confirming it."}}, {"@type": "Question", "name": "Are the prices I see online final?", "acceptedAnswer": {"@type": "Answer", "text": "No. They are initial estimates based on what you enter. Your final price depends on verification, the discounts you actually qualify for and each carrier's underwriting. Your agent confirms the real numbers before you decide."}}, {"@type": "Question", "name": "Which insurance companies do you shop?", "acceptedAnswer": {"@type": "Answer", "text": "Progressive, Geico, Lemonade, Alinsco and Commonwealth, among others. Carrier availability and eligibility vary by state and by applicant."}}, {"@type": "Question", "name": "What can you insure for me?", "acceptedAnswer": {"@type": "Answer", "text": "Auto, homeowners, renters, mobile home, commercial and work trucks, and life. If you own more than one thing, one agent can handle all of it."}}, {"@type": "Question", "name": "Do you write SR-22 and high-risk policies?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Tickets, accidents, a lapse in coverage or an SR-22 requirement are all things we work with regularly. Tell your agent up front so they shop the right carriers the first time."}}, {"@type": "Question", "name": "¿Hablan español?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Todo el equipo es bilingüe. Puedes cotizar, preguntar y resolver en español, por teléfono o por mensaje, con una persona de verdad aquí en El Paso."}}, {"@type": "Question", "name": "Does it cost anything to get a quote?", "acceptedAnswer": {"@type": "Answer", "text": "No. Quoting is free and there is no obligation. If nothing we find fits you better than what you have, we will tell you that."}}, {"@type": "Question", "name": "How soon can my coverage start?", "acceptedAnswer": {"@type": "Answer", "text": "Most quotes come back the same day. When coverage actually starts depends on the carrier and on what they need from you — your agent tells you exactly what is missing and how soon it can be active."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Safe House Insurance?", "acceptedAnswer": {"@type": "Answer", "text": "We are an independent insurance agency based in El Paso, Texas, licensed in Texas and New Mexico. Independent means we do not work for one company — we shop the carriers we represent and bring you the options."}}, {"@type": "Question", "name": "Can I buy a policy right here on the website?", "acceptedAnswer": {"@type": "Answer", "text": "Not quite — and that’s intentional. You can start your quote online and see your options, but before you buy, one of our licensed agents reviews your quote to make sure you’re getting the best option available. Online quotes can sometimes miss additional discounts or savings you may qualify for. Once we’ve reviewed everything with you and you’re happy with your coverage and price, we can activate your policy."}}, {"@type": "Question", "name": "Are the prices I see online final?", "acceptedAnswer": {"@type": "Answer", "text": "They’re a great starting point — and your final price could be even better. Before you decide, we run the required verifications and one of our licensed agents personally reviews your quote to make sure everything is accurate and all eligible discounts and savings have been applied. Then, we’ll confirm the final price with you, walk you through your options, and make sure you’re getting the right coverage at the best price available to you."}}, {"@type": "Question", "name": "Which insurance companies do you shop?", "acceptedAnswer": {"@type": "Answer", "text": "Progressive, Geico, Lemonade, Alinsco and Commonwealth, among others. Carrier availability and eligibility vary by state and by applicant."}}, {"@type": "Question", "name": "What can you insure for me?", "acceptedAnswer": {"@type": "Answer", "text": "From your car to your home, business, and more — we’ve got you covered. We offer auto, homeowners, renters, mobile home, commercial, work truck insurance, and more. Need more than one type of coverage? We can help bring it all together and look for every opportunity to save."}}, {"@type": "Question", "name": "Do you write SR-22 and high-risk policies?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Tickets, accidents, a lapse in coverage or an SR-22 requirement are all things we work with regularly. Tell your agent up front so they shop the right carriers the first time."}}, {"@type": "Question", "name": "¿Hablan español?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Todo el equipo es bilingüe. Puedes cotizar, preguntar y resolver en español, por teléfono o por mensaje, con una persona de verdad aquí en El Paso."}}, {"@type": "Question", "name": "Does it cost anything to get a quote?", "acceptedAnswer": {"@type": "Answer", "text": "No. Quoting is free and there is no obligation. If nothing we find fits you better than what you have, we will tell you that."}}, {"@type": "Question", "name": "How soon can my coverage start?", "acceptedAnswer": {"@type": "Answer", "text": "Most quotes come back the same day. When coverage actually starts depends on the carrier and on what they need from you — your agent tells you exactly what is missing and how soon it can be active."}}]}</script>
 
 <!-- ================= START BAND ================= -->
 <section class="start" aria-label="Start your quote"><div class="wrap">
