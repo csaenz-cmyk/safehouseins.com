@@ -23,23 +23,30 @@
       radial-gradient(1100px 520px at 18% -12%, rgba(34,167,240,.34), transparent 62%),
       radial-gradient(900px 460px at 88% 6%, rgba(22,102,237,.30), transparent 60%),
       var(--pnavy);
-      /* The shared nav is position:absolute, so the hero has to leave room for
-         it the way every other page does — 140px is what .subhero reserves. */
-      padding:140px 20px 64px;color:#fff}
-  @media(max-width:700px){ .pay{padding-top:118px} }
+      /* The shared nav is position:absolute, so the hero reserves room for it.
+         140px is what .subhero uses, but those pages carry a headline and body
+         copy under it — this one is a heading and a single field, so the same
+         reserve left a visible band of empty navy above the breadcrumb.
+
+         123px is the floor: the shared nav is absolutely positioned from 77px
+         to 163px and the topbar ends at 40, so anything less puts the
+         breadcrumb underneath the menu. The rest of the saving comes from the
+         gaps between the four things in here, not from the reserve. */
+      padding:132px 20px 44px;color:#fff}
+  @media(max-width:700px){ .pay{padding-top:96px;padding-bottom:38px} }
   .pay .in{max-width:660px;margin:0 auto;text-align:center;position:relative;z-index:2}
   .pay .crumbs{font-size:12px;letter-spacing:.12em;text-transform:uppercase;
-      font-weight:800;color:rgba(255,255,255,.55);margin-bottom:22px}
+      font-weight:800;color:rgba(255,255,255,.55);margin-bottom:16px}
   .pay .crumbs a{color:rgba(255,255,255,.75);text-decoration:none}
   .pay h1{margin:0;font-size:clamp(34px,6vw,52px);line-height:1.04;font-weight:800;
       letter-spacing:-.03em}
   .pay h1 em{display:block;font-family:'Instrument Serif',serif;font-style:italic;
       font-weight:400;color:#8FD0FF;letter-spacing:-.01em}
-  .pay .lede{margin:16px auto 0;max-width:44ch;font-size:16px;line-height:1.6;
+  .pay .lede{margin:13px auto 0;max-width:44ch;font-size:16px;line-height:1.6;
       color:rgba(255,255,255,.78);font-weight:500}
 
   /* The one control on the page, sized like it. */
-  .pbox{margin:30px auto 0;max-width:520px;text-align:left}
+  .pbox{margin:24px auto 0;max-width:520px;text-align:left}
   .pbox label{display:block;font-size:12px;letter-spacing:.11em;text-transform:uppercase;
       font-weight:800;color:rgba(255,255,255,.66);margin-bottom:9px}
   .pfield{position:relative}
@@ -128,7 +135,7 @@
      and clickable rather than a link in a sentence: the questions behind it —
      what a lapse costs, whether to pay monthly — are the ones this page's
      visitors are actually carrying. */
-  .plearn{max-width:900px;margin:20px auto 0;padding:0 20px}
+  .plearn{max-width:900px;margin:34px auto 56px;padding:0 20px}
   .plearn a{display:flex;align-items:center;gap:18px;border:1.5px solid var(--pline);
       border-radius:20px;padding:22px 24px;background:#fff;text-decoration:none;
       transition:border-color .16s,box-shadow .16s,transform .16s}
@@ -142,8 +149,25 @@
       color:var(--pblue);display:flex;align-items:center;justify-content:center;
       font-size:19px;font-weight:800}
 
-  .psafe{max-width:900px;margin:14px auto 56px;padding:0 20px;text-align:center}
-  .psafe p{margin:0;font-size:12.5px;line-height:1.6;color:#8FA0B8;font-weight:600}
+  .pfaq,.pelse{max-width:900px;margin:52px auto 0;padding:0 20px}
+  .pfaq h3,.pelse h3{margin:0 0 20px;text-align:center;font-size:22px;font-weight:800;
+      color:var(--pnavy);letter-spacing:-.02em}
+  .pfgrid{display:grid;gap:13px;grid-template-columns:1fr}
+  @media(min-width:700px){ .pfgrid{grid-template-columns:1fr 1fr} }
+  .pf{border:1.5px solid var(--pline);border-radius:18px;padding:19px 21px;background:#fff}
+  .pf b{display:block;font-size:15px;font-weight:800;color:var(--pnavy);margin-bottom:6px}
+  .pf p{margin:0;font-size:13.5px;line-height:1.65;color:#5C6A80;font-weight:600}
+  .pf a{color:var(--pblue);font-weight:800}
+
+  .pegrid{display:grid;gap:11px;grid-template-columns:1fr}
+  @media(min-width:600px){ .pegrid{grid-template-columns:1fr 1fr} }
+  @media(min-width:900px){ .pegrid{grid-template-columns:repeat(4,1fr)} }
+  .pegrid a{display:block;border:1.5px solid var(--pline);border-radius:16px;padding:17px 18px;
+      background:#fff;text-decoration:none;transition:border-color .16s,transform .16s}
+  .pegrid a:hover{border-color:#BBD6FB;transform:translateY(-2px)}
+  .pegrid b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);margin-bottom:4px}
+  .pegrid span{display:block;font-size:12.5px;line-height:1.5;color:#7C8BA4;font-weight:600}
+
 </style>
 </head>
 <body>
@@ -175,9 +199,14 @@
 
     <div class="in">
       <div class="crumbs"><a href="../index.html">Home</a> &nbsp;/&nbsp; Make a payment</div>
-      <h1>Pay your policy.<em>We&rsquo;ll find the company.</em></h1>
-      <p class="lede">Type the policy number from your ID card. We will tell you who wrote it
-        and take you straight to their payment page.</p>
+      <!-- "We've got you" rather than "we'll find the company": the visitor is a
+           Safe House client and this is their agency's page, so it speaks like
+           one. What it does not do is claim to be the insurer or to take the
+           money — the payment goes to the carrier, and the button, the domain
+           line and the footer all say whose page it lands on. -->
+      <h1>Pay your policy.<em>We&rsquo;ve got you.</em></h1>
+      <p class="lede">Enter your policy number and we&rsquo;ll take you straight to the right
+        payment page. Anything looks off, an agent here picks up the phone.</p>
 
       <div class="pbox">
         <label for="pol">Policy number</label>
@@ -188,8 +217,8 @@
                  autocapitalize="characters" placeholder="e.g. AIM4471902"
                  aria-describedby="polHint">
         </div>
-        <p class="phint" id="polHint">It stays in your browser &mdash; we do not send it anywhere
-          or save it. Letters and numbers both count; spaces and dashes do not matter.</p>
+        <p class="phint" id="polHint">Stays in your browser &mdash; nothing is sent or saved.
+          Spaces and dashes don&rsquo;t matter.</p>
       </div>
     </div>
   </header>
@@ -223,6 +252,50 @@
          new policy, or just the payment &mdash; and it is faster than finding out the hard way.</p>
     </div>
   </div>
+
+  <!-- The questions that follow somebody to a payment page. Written out rather
+       than hidden behind an accordion: on a phone, at the point where a policy
+       is about to cancel, a question you have to tap to read is one you do not
+       read. -->
+  <section class="pfaq">
+    <h3>Questions that come up</h3>
+    <div class="pfgrid">
+      <div class="pf"><b>When is my payment actually due?</b>
+        <p>The date on the notice your carrier sent, not the date you last paid.
+          Carriers set their own billing cycles and they do not all fall on the
+          same day of the month.</p></div>
+      <div class="pf"><b>Will paying here update my policy right away?</b>
+        <p>You are paying on the carrier's own site, so it posts on their system
+          the way any payment to them does &mdash; usually the same day for a card.
+          Keep the confirmation number until it shows up.</p></div>
+      <div class="pf"><b>Can I change my due date?</b>
+        <p>Sometimes, and it is worth asking before you are late rather than
+          after. Call us and we will find out what your carrier allows.</p></div>
+      <div class="pf"><b>I do not have my policy number.</b>
+        <p>Call or text and we will look it up. We hold the policy on our side,
+          so we can tell you the number and the carrier in about a minute.</p></div>
+      <div class="pf"><b>Can I pay for someone else&rsquo;s policy?</b>
+        <p>Yes &mdash; carriers care that the premium arrives, not whose card it came
+          from. You will need their policy number.</p></div>
+      <div class="pf"><b>Should I set up autopay?</b>
+        <p>Most carriers discount it, and more importantly a policy on autopay
+          does not lapse because a text went unread. Ask us to set it up with
+          you. <a href="guide/">More on how payments work &rarr;</a></p></div>
+    </div>
+  </section>
+
+  <!-- Somebody on this page is a current client, which is the moment most of
+       these get asked. Sending them back to the contact form to ask for an ID
+       card is a worse experience than one row of links. -->
+  <section class="pelse">
+    <h3>While you&rsquo;re here</h3>
+    <div class="pegrid">
+      <a href="tel:+19155031207"><b>Need your ID card</b><span>We can send a copy by text or email</span></a>
+      <a href="tel:+19155031207"><b>Report a claim</b><span>Call and we will start it with you</span></a>
+      <a href="tel:+19155031207"><b>Add or remove a vehicle</b><span>Changes mid-policy are normal</span></a>
+      <a href="../quote.html"><b>See if you can pay less</b><span>Re-shop it across our carriers</span></a>
+    </div>
+  </section>
 
   <div class="plearn">
     <a href="guide/">
