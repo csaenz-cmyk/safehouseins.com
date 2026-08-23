@@ -70,7 +70,7 @@ SAME_AS      = [GOOGLE_MAPS_URL]
 # The home page links here instead of retyping reviews. A link needs nobody's
 # consent, shows every review including the ones written after today, and
 # cannot drift out of date the way a copied quote does.
-GOOGLE_REVIEWS_URL = GOOGLE_MAPS_URL + '&lrd=0x86e75bec20528575:0x87e2cf039170a8f2,1'
+GOOGLE_REVIEWS_URL = GOOGLE_MAPS_URL + ''
 AGGREGATE_RATING = None   # never populate without real, verifiable reviews
 
 STATES   = ['Texas', 'New Mexico']

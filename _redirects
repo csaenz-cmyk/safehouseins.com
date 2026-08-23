@@ -13,9 +13,11 @@
 /sms-terms.html          /sms-terms/          301
 
 # --- older .html routes to their final names -------------------------------
-/auto.html               /auto-insurance      301
-/home-insurance.html     /home-insurance      301
-/commercial.html         /commercial-insurance 301
+/auto.html                 /auto-insurance         301
+/auto-insurance.html       /auto-insurance         301
+/home-insurance.html       /home-insurance         301
+/commercial.html           /commercial-insurance   301
+/commercial-insurance.html /commercial-insurance   301
 /about.html              /about               301
 /contact.html            /contact             301
 /careers.html            /careers             301

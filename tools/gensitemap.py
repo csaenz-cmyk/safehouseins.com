@@ -7,7 +7,7 @@ filesystem cannot go stale that way.
 
     python3 tools/gensitemap.py
 """
-import os, re, sys
+import os, re, sys, subprocess, time
 
 SITE = 'https://safehouseins.com'
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -44,7 +44,28 @@ if __name__ == '__main__':
     u = urls()
     body = ['<?xml version="1.0" encoding="UTF-8"?>',
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-    body += ['  <url><loc>' + x + '</loc></url>' for x in u]
+    # lastmod from git, per file. A sitemap without it tells a crawler nothing
+    # about what changed, so a fix to one city page competes for recrawl budget
+    # with 203 pages that did not move.
+    def lastmod(url):
+        rel = url.replace(SITE, '').lstrip('/')
+        f = os.path.join(ROOT, rel if rel.endswith('.html')
+                         else os.path.join(rel, 'index.html') if rel else 'index.html')
+        if not os.path.exists(f):
+            return None
+        try:
+            out = subprocess.run(['git', 'log', '-1', '--format=%cs', '--', f],
+                                 cwd=ROOT, capture_output=True, text=True, timeout=10)
+            d = out.stdout.strip()
+            if d:
+                return d
+        except Exception:
+            pass
+        return time.strftime('%Y-%m-%d', time.gmtime(os.path.getmtime(f)))
+
+    body += ['  <url><loc>' + x + '</loc>'
+             + ('<lastmod>' + (lastmod(x) or '') + '</lastmod>' if lastmod(x) else '')
+             + '</url>' for x in u]
     body.append('</urlset>')
     open(os.path.join(ROOT, 'sitemap.xml'), 'w', encoding='utf-8').write('\n'.join(body) + '\n')
     # robots.txt is hand-maintained now — it carries the development-path
