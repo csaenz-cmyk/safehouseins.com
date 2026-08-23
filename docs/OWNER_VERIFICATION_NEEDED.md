@@ -9,36 +9,30 @@ Answer whatever you can, in any order. Reply in this file or in chat.
 
 ---
 
-## 1. License numbers — *highest value, smallest effort*
+## 1. License numbers — ✅ RESOLVED, no number published
 
-Eighteen pages said `license #__________`. That blank is now gone entirely.
+Confirmed: neither Texas nor New Mexico requires an agency to publish its
+license number on a website. Texas accepts the licensed name, a registered DBA
+*or* the number — the name alone satisfies it.
 
-| Need | Where it goes back |
-|---|---|
-| Texas agency license number | Footer disclaimer on every page, `tools/nap.py` |
-| New Mexico license number, if separate | Same |
-| Is the licensed entity "Safe House Insurance LLC"? | Schema `legalName`, legal footer |
-
-Set them in `tools/nap.py` (`LICENSE_TX`, `LICENSE_NM`) and the disclosure
-rebuilds itself everywhere.
-
-**Why it matters more than it looks:** for an insurance agency this is the
-single clearest trust signal on the page, and the audits all scored
-legal/compliance lowest because of it.
+The site now uses **Safe House Insurance LLC** in the legal footer and publishes
+no number. `LICENSE_TX` and `LICENSE_NM` stay `None` in `tools/nap.py` on
+purpose; setting either would put a number back everywhere.
 
 ---
 
-## 2. Business hours
+## 2. Business hours — ⚠️ ONE THING TO CONFIRM
 
-The contact page said `[Confirm your exact hours]`. That text is gone; no hours
-are shown anywhere now, and `openingHoursSpecification` is omitted from schema.
+Set to **Mon–Fri, 11am–5pm Mountain**, now visible on the home footer and the
+contact page and in `openingHoursSpecification` on the home page.
 
-Need: the actual open hours, per day, including Saturday if you open.
+**The days are an assumption.** You gave the hours but not the days; Mon–Fri
+came from what the contact page said before ("Mon–Fri, business hours").
 
-Example of what to send: *Mon–Fri 9:00–17:00, Sat 10:00–14:00, closed Sunday.*
+👉 **Are you open Saturday?** If so, send the hours and it goes in one line.
 
-Goes in `tools/nap.py` → `HOURS`, and then into the contact page, the footer
-and the schema at once.
+Getting this wrong means somebody drives to a closed office, so it is worth the
+thirty seconds.
 
 ---
 
@@ -68,14 +62,22 @@ The home page showed a "5.0 on Google" badge, five signed testimonials from
 Houston, Austin, Albuquerque and Las Cruces, and two video cards with play
 buttons that played nothing. All removed.
 
-To bring reviews back, any one of these works:
+You said to use the Google reviews. To do that I need **one thing**:
 
-- **Your Google Business Profile URL** — then we link to real reviews rather
-  than retyping them
-- **Screenshots or exports** of real reviews, with the reviewer's consent to
-  republish
-- **Nothing yet** — the page currently says "ask us for references", which is
-  honest and stays fine indefinitely
+👉 **The public URL of your Google Business Profile reviews.**
+
+Open your business on Google Maps → Reviews → Share → copy the link. It looks
+like `https://g.page/r/…` or a long `google.com/maps/place/…` URL.
+
+Set it as `GOOGLE_REVIEWS_URL` in `tools/nap.py` and the home page turns into a
+link to your real reviews.
+
+**Why a link and not the quotes retyped on the page:** the five testimonials
+that were there carried real people's names and cities. Republishing somebody's
+words under their name is their call, not ours — and a link needs nobody's
+permission while showing every review, including the ones written after today.
+If you would rather have them on the page, send the reviewer names you have
+permission from and I will put those on.
 
 ⚠️ `AggregateRating` and `Review` schema stay out until real reviews are on the
 page. Marking up reviews a page does not show is a Google policy violation, not
@@ -83,32 +85,30 @@ a grey area, and the penalty lands on the whole site.
 
 ---
 
-## 5. Carriers — *there is a contradiction to resolve*
+## 5. Carriers — ✅ RESOLVED
 
-Four different lists exist across the site:
+Confirmed list, now on the About page and in the home FAQ (and its JSON-LD):
 
-| Where | What it lists |
-|---|---|
-| about.html | Progressive, GEICO, Allstate, State Farm, Nationwide, Safeco, Kemper, GAINSCO, Bristol West, Dairyland, Acacia, Bluefire, Alinsco, Commonwealth, Apollo, Connect |
-| Home FAQ | Progressive, Geico, **Lemonade**, Alinsco, Commonwealth |
-| Quote form (code) | Progressive, GAINSCO, Kemper, Bluefire, Commonwealth, Acacia, Apollo, Infinity |
-| Pay page (code) | Progressive, Acacia, Alinsco, Commonwealth Casualty, Safeway, GEICO |
+Progressive · GEICO · Acacia Insurance Managers · Connect · Alinsco ·
+Commonwealth · Elephant · Root · Apollo · Kemper · Lemonade ·
+Homeowners of America · GAINSCO · Next
 
-The bottom two come from code that runs. The top two are hand-written and match
-neither each other nor the code.
+**Allstate, State Farm, Nationwide, Safeco, Bristol West and Dairyland are
+gone** — they were on the About page and are not on your list. Both Allstate and
+State Farm are captive carriers, so that was worth removing before launch rather
+than after.
 
-**Two specific concerns:**
+Two lists in code were deliberately **not** changed, because they are functional
+rather than marketing:
 
-- **Allstate and State Farm** are captive carriers — they sell through their own
-  exclusive agents and do not normally appoint independent agencies.
-- **Lemonade** appears only in the home FAQ and nowhere else.
+- The **quote form** lists what the rater returns.
+- The **payments page** lists carriers whose portals we route to by policy prefix.
 
-Claiming an appointment you do not hold is the kind of thing the Texas
-Department of Insurance acts on. **Send the real list of your current
-appointments** and all four places get set to match.
+Those two answer "who can I pay / who quoted me", not "who do we represent". If
+you want them aligned with the appointment list, say so and I will.
 
-Also: is **Commonwealth Casualty** (the payment portal) the same company as
-**Commonwealth General RTR** (the quote flow)? If not, they need separate cards.
+Still open: is **Commonwealth Casualty** (payment portal) the same company as
+**Commonwealth General RTR** (quote flow)? If not they need separate entries.
 
 ---
 

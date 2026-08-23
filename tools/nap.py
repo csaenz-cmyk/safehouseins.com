@@ -19,7 +19,7 @@ must never merge them into one "call or text" on a single number.
 
 # ---- identity ----------------------------------------------------------
 NAME        = 'Safe House Insurance'
-LEGAL_NAME  = 'Safe House Insurance LLC'
+LEGAL_NAME  = 'Safe House Insurance LLC'   # what the license is issued to
 SITE        = 'https://safehouseins.com'
 LOGO        = SITE + '/assets/safehouse-logo.png'
 
@@ -42,12 +42,28 @@ EMAIL = 'contact@safehouseins.com'
 # ---- unverified: keep None until the agency confirms --------------------
 # See docs/OWNER_VERIFICATION_NEEDED.md. Anything None here is omitted from
 # the page and from schema; nothing invents a value to fill the gap.
-LICENSE_TX   = None   # Texas agency licence number
-LICENSE_NM   = None   # New Mexico licence number, if separate
-HOURS        = None   # e.g. [('Mo,Tu,We,Th,Fr','09:00','17:00')]
+# Confirmed by the agency: neither Texas nor New Mexico requires an agency to
+# publish its license number on a website. Texas allows the licensed name, a
+# registered DBA, *or* the number — the name alone satisfies it. So the site
+# uses the legal name and publishes no number. These stay None on purpose;
+# setting one would put it back in the footer everywhere.
+LICENSE_TX   = None
+LICENSE_NM   = None
+
+# Confirmed by the agency, August 2026. Mountain Time.
+# ⚠️ Weekdays only was inferred from what the contact page said before
+# ("Mon–Fri, business hours"). If Saturday is open, add it here and it reaches
+# the contact page, the footer and the schema at once.
+HOURS        = [('Mo,Tu,We,Th,Fr', '11:00', '17:00')]
+TIMEZONE     = 'America/Denver'   # Mountain — El Paso, unlike the rest of Texas
 GEO          = None   # (latitude, longitude) for the office
 FOUNDED      = None   # founding year
 SAME_AS      = []     # verified social/profile URLs only
+
+# The public Google Business Profile review URL. Set it and the home page turns
+# its "ask us for references" block into a link to the real reviews — one line,
+# no invented testimonials, no rating in schema that the page does not show.
+GOOGLE_REVIEWS_URL = None
 AGGREGATE_RATING = None   # never populate without real, verifiable reviews
 
 STATES   = ['Texas', 'New Mexico']
