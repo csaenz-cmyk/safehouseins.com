@@ -94,36 +94,64 @@
   .btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line);box-shadow:none}
   .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
 
-  footer{background:var(--navy);color:#fff;padding:48px 0 34px;margin-top:10px}
-  footer a{color:#fff}
-  footer .fgrid{display:grid;gap:30px}
-  @media(min-width:820px){ footer .fgrid{grid-template-columns:1.2fr 1fr 1fr} }
-  footer .flogo{height:34px;filter:brightness(0) invert(1)}
-  footer h5{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
-      color:#8FB4F0;margin-bottom:14px}
-  footer .ways{display:grid;gap:14px}
-  footer .way{display:flex;gap:11px;align-items:flex-start}
-  footer .way .ic{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.12);
-      display:grid;place-items:center;flex:0 0 auto;font-size:15px}
-  footer .way b{display:block;font-size:12.5px;font-weight:900;letter-spacing:.06em;
-      text-transform:uppercase;color:#8FB4F0}
-  footer .way a{display:block;font-size:17px;font-weight:800;margin-top:2px}
-  footer .way small{display:block;font-size:12.5px;color:#A8C2E8;font-weight:600;margin-top:2px}
-  footer .links{display:grid;gap:9px}
-  footer .links a{font-size:14.5px;font-weight:700;color:#DCE9FA}
-  footer .tag{font-size:14px;color:#A8C2E8;font-weight:600;margin-top:14px;max-width:34ch}
-  footer .fbot{border-top:1px solid rgba(255,255,255,.14);margin-top:34px;padding-top:20px}
-  footer .fbot p{font-size:12px;color:#8FA6C8;line-height:1.7}
-  footer .fbot .lg{display:flex;gap:8px;flex-wrap:wrap;font-size:13.5px;font-weight:800;margin-bottom:12px}
-  /* the wide link deck above the contact block */
-  footer .deck{display:grid;gap:26px;padding-bottom:34px;margin-bottom:34px;
-      border-bottom:1px solid rgba(255,255,255,.14)}
-  @media(min-width:680px){ footer .deck{grid-template-columns:repeat(2,1fr)} }
-  @media(min-width:1000px){ footer .deck{grid-template-columns:repeat(4,1fr)} }
-  footer .deck .col2{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
-  footer .deck a{display:block;font-size:14px;font-weight:600;color:#C7DBF5;padding:3px 0}
-  footer .deck a:hover{color:#fff}
-  footer .deck .more{font-weight:800;color:#8FB4F0}
+  /* ---------------- footer ----------------
+     Three bands with hairlines between them, the way a footer this wide has to
+     be read: where to go, how to reach a person, and the legal line.
+
+     It used to be a left-aligned link deck followed by a centred sign-off that
+     repeated the phone numbers, the email and four of the same links. The
+     address was also #C7DBF5 — a pale blue written for the dark navy footer
+     this one replaced — which on white was barely readable. Both fixed. */
+  body>footer{padding:0 0 34px;border-top:1px solid var(--line);background:#FBFCFE}
+  body>footer .fin{max-width:1180px;margin:0 auto;padding:0 22px}
+  body>footer .fband{padding:34px 0;border-bottom:1px solid var(--line)}
+  body>footer .fband:last-of-type{border-bottom:0}
+
+  /* band 2 — reach a person */
+  body>footer .fmid{display:grid;gap:34px;grid-template-columns:1fr}
+  @media(min-width:760px){ body>footer .fmid{grid-template-columns:1.4fr 1fr} }
+  /* Company reads as a list, not a column of eight lonely words. */
+  body>footer .fcols{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+  @media(max-width:520px){ body>footer .fcols{grid-template-columns:1fr} }
+  body>footer .fways{display:grid;gap:20px;grid-template-columns:1fr}
+  @media(min-width:520px){ body>footer .fways{grid-template-columns:1fr 1fr} }
+  body>footer .fway .ic{width:30px;height:30px;border-radius:9px;background:var(--ice);
+      display:grid;place-items:center;margin-bottom:9px}
+  body>footer .fway .ic svg{width:15px;height:15px;fill:none;stroke:var(--blue);
+      stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  body>footer .fway b{display:block;font-size:11.5px;font-weight:900;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--muted)}
+  body>footer .fway a.big{display:block;font-size:17px;font-weight:800;color:var(--navy);
+      margin-top:3px;letter-spacing:-.01em}
+  body>footer .fway a.big:hover{color:var(--blue)}
+  body>footer .fway small{display:block;font-size:12.5px;color:var(--muted);
+      font-weight:600;margin-top:3px;line-height:1.5}
+  body>footer address{font-style:normal;font-size:15px;line-height:1.65;
+      color:var(--navy);font-weight:600;margin-top:3px}
+  body>footer .fhours{font-size:13px;color:var(--muted);font-weight:700;margin-top:7px}
+
+  /* band 3 — the sign-off */
+  body>footer .fend{padding-top:26px;text-align:center}
+  body>footer .logo{height:28px;filter:none;margin:0 auto}
+  body>footer .fend .es{font-size:13.5px;color:var(--muted);font-weight:700;margin-top:10px}
+  body>footer .disc{font-size:12px;color:#8A99AE;line-height:1.7;margin-top:14px;
+      max-width:72ch;margin-left:auto;margin-right:auto}
+  body>footer .legal{margin-top:12px;font-size:13.5px;font-weight:800}
+  body>footer .legal a{color:var(--blue)}
+  body>footer .fdeck{display:grid;gap:30px;text-align:left;
+      border-bottom:1px solid var(--line);display:grid;gap:26px}
+  @media(min-width:680px){ body>footer .fdeck{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:1000px){ body>footer .fdeck{grid-template-columns:repeat(4,1fr)} }
+  body>footer h5{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--navy);margin-bottom:12px}
+  body>footer .fdeck .c2{display:grid;grid-template-columns:1fr 1fr;gap:2px 14px}
+  body>footer .fdeck a,
+  body>footer .fcols a{display:block;font-size:14px;font-weight:600;color:var(--muted);padding:3px 0}
+  body>footer .fdeck a:hover,
+  body>footer .fcols a:hover{color:var(--blue)}
+  body>footer .fdeck .more{font-weight:800;color:var(--blue);margin-top:8px}
+  body>footer .fway a:not(.big){display:inline-block;font-size:13px;font-weight:800;
+      color:var(--blue);margin-top:7px}
 
 </style>
 <link rel="canonical" href="https://safehouseins.com/car-insurance/new-mexico/carlsbad/">
@@ -712,51 +740,79 @@
 <header class="chero"><svg class="cscape" viewBox="0 0 1200 420" preserveAspectRatio="xMaxYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><defs><linearGradient id="skycnewmexicocarlsbad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EAF3FF"/><stop offset=".62" stop-color="#FFE8D2"/><stop offset="1" stop-color="#FFD9B8"/></linearGradient><linearGradient id="farcnewmexicocarlsbad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7FA6DC"/><stop offset="1" stop-color="#5C86BE"/></linearGradient><linearGradient id="nearcnewmexicocarlsbad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#264F86"/><stop offset="1" stop-color="#12315F"/></linearGradient></defs><rect width="1200" height="420" fill="url(#skycnewmexicocarlsbad)"/><circle cx="905" cy="196" r="54" fill="#FFB46B" opacity=".55"/><path d="M0 300 L221 288 L443 288 L662 284 L867 288 L1110 286 L1200 288 L1200 300 Z" fill="url(#farcnewmexicocarlsbad)" opacity=".4"/><rect x="0" y="300" width="1200" height="120" fill="#0F2C56"/><path d="M0 334 H1200" stroke="#8FB4F0" stroke-width="2" opacity=".35" stroke-dasharray="34 26"/><path d="M470 420 L560 306 L640 306 L790 420 Z" fill="#0A2148" opacity=".55"/><path d="M604 310 L636 420" stroke="#FFD9B8" stroke-width="5" opacity=".5" stroke-dasharray="16 22"/><g transform="translate(170,302)" fill="none" stroke="#0A2148" stroke-width="7" stroke-linecap="round"><path d="M-30 0 L0 -46 L30 0"/><path d="M-44 -34 L34 -56"/><path d="M34 -56 L46 -34"/></g><g transform="translate(1010,302)" fill="none" stroke="#0A2148" stroke-width="7" stroke-linecap="round"><path d="M-30 0 L0 -46 L30 0"/><path d="M-44 -34 L34 -56"/><path d="M34 -56 L46 -34"/></g></svg><div class="veil"></div><div class="wrap"><div class="cgrid"><nav class="crumbs" aria-label="Breadcrumb"><a href="../../../car-insurance/">Car insurance</a> &rsaquo; <a href="../../../car-insurance/new-mexico/">New Mexico</a> &rsaquo; <span aria-current="page">Carlsbad</span></nav><h1>Car insurance in<em>Carlsbad, NM.</em></h1><p class="sub">Compare options from several insurance companies with help from a licensed Safe House agent &mdash; in English or Spanish.</p><div class="acts"><a class="btn" href="../../../quote.html">Get my free quote &rarr;</a><a class="btn ghost" href="sms:+19155943777">Text us</a></div><div class="cchips"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>Carlsbad, NM</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7.2-3.4 7.2-9V5.8L12 3 4.8 5.8V12c0 5.6 7.2 9 7.2 9Z"/><path d="m9 12 2.2 2.2L15.4 10"/></svg>Multiple carriers</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg>English &amp; Spanish</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13 2.5 4.5 13.4h6L11 21.5 19.5 10.6h-6L13 2.5Z"/></svg>Fast quotes</span></div></div></div></header><section class="tbar"><div class="wrap"><div class="row"><div class="t"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 20h18"/><path d="M6 20V9l6-5 6 5v11"/><path d="M10 20v-5h4v5"/></svg></span><span><b>Multiple carriers</b><small>One form goes to every company we represent, not just one.</small></span></div><div class="t"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span><span><b>Licensed agents</b><small>A person reviews the quote with you before anything is issued.</small></span></div><div class="t"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg></span><span><b>English &amp; Spanish</b><small>Se habla espa&ntilde;ol &mdash; on the phone and in the office.</small></span></div><div class="t"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg></span><span><b>Texas &amp; New Mexico</b><small>Licensed in both states, based in El Paso.</small></span></div></div></div></section><section class="sec tint"><div class="wrap"><div class="shead rv"><span class="eyebrow">Start here</span><h2>What do you need help with?</h2><p>Different starting points, same finish: your details in front of several insurance companies at once. What changes is which part of it is worth paying attention to.</p></div><div class="intents"><button class="intent" type="button" aria-expanded="false" aria-controls="ia0"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 16h14"/><path d="M4.5 16v2.2a.8.8 0 0 0 .8.8h1.4a.8.8 0 0 0 .8-.8V16"/><path d="M16.5 16v2.2a.8.8 0 0 0 .8.8h1.4a.8.8 0 0 0 .8-.8V16"/><path d="M3.6 16v-3.3l1.8-4.4A2 2 0 0 1 7.3 7h9.4a2 2 0 0 1 1.9 1.3l1.8 4.4V16"/><circle cx="7.4" cy="13" r="1"/><circle cx="16.6" cy="13" r="1"/></svg></span><b>I need cheaper insurance</b></button><button class="intent" type="button" aria-expanded="false" aria-controls="ia1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 17.5 9.5 11l3.6 3.6L21 6.6"/><path d="M15.5 6.6H21v5.5"/></svg></span><b>My renewal went up</b></button><button class="intent" type="button" aria-expanded="false" aria-controls="ia2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="7.6" cy="15.6" r="3.6"/><path d="m10.4 13 8-8"/><path d="m16.4 7 2.2 2.2M18.4 5l2.2 2.2"/></svg></span><b>I just bought a car</b></button><button class="intent" type="button" aria-expanded="false" aria-controls="ia3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2.6H7a1.6 1.6 0 0 0-1.6 1.6v15.6A1.6 1.6 0 0 0 7 21.4h10a1.6 1.6 0 0 0 1.6-1.6V7.2L14 2.6Z"/><path d="M13.8 2.8V7.4h4.6"/><path d="M8.6 12.6h6.8M8.6 16h4.6"/></svg></span><b>I need an SR-22</b></button><button class="intent" type="button" aria-expanded="false" aria-controls="ia4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7.2-3.4 7.2-9V5.8L12 3 4.8 5.8V12c0 5.6 7.2 9 7.2 9Z"/><path d="m9 12 2.2 2.2L15.4 10"/></svg></span><b>I don&rsquo;t have prior insurance</b></button><button class="intent" type="button" aria-expanded="false" aria-controls="ia5"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 8.4h13.2"/><path d="m14.2 5.2 3.2 3.2-3.2 3.2"/><path d="M20 15.6H6.8"/><path d="m9.8 12.4-3.2 3.2 3.2 3.2"/></svg></span><b>I want to switch companies</b></button><button class="intent" type="button" aria-expanded="false" aria-controls="ia6"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 16V7.8a.8.8 0 0 1 .8-.8h9.4a.8.8 0 0 1 .8.8V16"/><path d="M13.5 10h3.6a2 2 0 0 1 1.7 1l2 3.2a2 2 0 0 1 .3 1V16"/><circle cx="7" cy="17.5" r="1.9"/><circle cx="17" cy="17.5" r="1.9"/><path d="M8.9 17.5h6.2M2.5 17.5h2.6M18.9 17.5h2.1"/></svg></span><b>I use my vehicle for work</b></button></div><div class="ianswer" id="ia0" hidden><h3>I need cheaper insurance</h3><p>Cheaper usually means a different company rather than less coverage. One form, several carriers, and the spread between them in front of you &mdash; that spread is the entire reason an independent agency exists.</p><a class="btn" href="../../../quote.html">Compare my options &rarr;</a></div><div class="ianswer" id="ia1" hidden><h3>My renewal went up</h3><p>Renewal increases often have nothing to do with you &mdash; carriers re-rate whole segments at once. It is worth finding out whether your carrier still wants your business before you simply pay the new number.</p><a class="btn" href="../../../quote.html">Check what else is out there &rarr;</a></div><div class="ianswer" id="ia2" hidden><h3>I just bought a car</h3><p>Buying is the moment worth re-shopping everything, not just adding the new car to the old policy. The vehicle changed, so the rating changed, and the company that was cheapest for the last one may not be for this one.</p><a class="btn" href="../../../quote.html">Start my quote &rarr;</a></div><div class="ianswer" id="ia3" hidden><h3>I need an SR-22</h3><p>The SR-22 itself is paperwork &mdash; a filing your insurance company makes on your behalf. The part that matters is finding a carrier that both writes your policy and files the form, and they are not all willing.</p><a class="btn" href="../../../quote.html">Talk to an agent &rarr;</a></div><div class="ianswer" id="ia4" hidden><h3>I don&rsquo;t have prior insurance</h3><p>Some companies treat a lapse as disqualifying and some barely blink. Since you cannot tell which is which from the outside, putting the same details to all of them at once is the only sensible approach.</p><a class="btn" href="../../../quote.html">See who will write me &rarr;</a></div><div class="ianswer" id="ia5" hidden><h3>I want to switch companies</h3><p>You can change carriers mid-term &mdash; you are usually refunded the unused part of what you paid. The thing to avoid is a gap between the two policies, and we will make sure there is not one.</p><a class="btn" href="../../../quote.html">Compare before I switch &rarr;</a></div><div class="ianswer" id="ia6" hidden><h3>I use my vehicle for work</h3><p>Carrying tools or materials for pay, towing for money, delivery, or a vehicle titled to a business &mdash; a personal auto policy can deny a claim that happened while working. Tell us what it actually does.</p><a class="btn" href="../../../quote.html">Ask about commercial &rarr;</a></div></div></section><section class="sec"><div class="wrap"><div class="shead rv"><span class="eyebrow">Local</span><h2>Driving in Carlsbad has a few local twists.</h2><p>None of these are unique to insurance, and all of them come up when we quote drivers here.</p></div><div class="lfx"><article class="lfxc rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3.4 4 20.6M17 3.4l3 17.2"/><path d="M12 4v3M12 10.5v3M12 17v3"/></svg></span><h3>Getting around Carlsbad</h3><p>Local traffic here runs on US-285 and US-62. Where and how far you drive is one of the things an insurance company asks about, and it is the part people most often estimate from memory rather than from the odometer.</p></article><article class="lfxc rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 16V7.8a.8.8 0 0 1 .8-.8h9.4a.8.8 0 0 1 .8.8V16"/><path d="M13.5 10h3.6a2 2 0 0 1 1.7 1l2 3.2a2 2 0 0 1 .3 1V16"/><circle cx="7" cy="17.5" r="1.9"/><circle cx="17" cy="17.5" r="1.9"/><path d="M8.9 17.5h6.2M2.5 17.5h2.6M18.9 17.5h2.1"/></svg></span><h3>Work trucks and field miles</h3><p>A pickup that carries tools or materials for pay, tows for money, or is titled to a company is not doing what a personal auto policy assumes. Field mileage is also far higher than an ordinary commute, and mileage is something carriers ask about.</p></article><article class="lfxc rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.4 10.6 12 3.6l8.6 7"/><path d="M5.6 9.4v10.2h12.8V9.4"/><path d="M10 19.6v-5.4h4v5.4"/></svg></span><h3>Where the vehicle is kept</h3><p>Carriers rate on the address the vehicle parks at overnight, not the one printed on your license. If you have moved within Eddy County and not told anyone, that is worth sorting out before a claim rather than during one.</p></article></div></div></section><section class="sec"><div class="wrap"><div class="shead rv"><span class="eyebrow">Carlsbad</span><h2>Insurance in Carlsbad, in practical terms</h2></div><div class="pblocks"><article class="pblock rv"><h3>Where you drive in Carlsbad</h3><p>Most local driving comes back to US-285 and US-62. How far you go and where the car sits at night are both rating factors, which is why two neighbors with the same car and the same record can be quoted differently.</p><p>If anything has changed &mdash; a new job, a shorter commute, a move within Eddy County &mdash; it is worth re-shopping rather than letting the renewal carry the old assumption.</p></article><article class="pblock rv"><h3>Work trucks and highway miles</h3><p>Around Carlsbad a lot of vehicles are not commuters &mdash; they are trucks running to a site and back, sometimes on a company's business and sometimes on yours. That distinction decides which policy you need, and getting it wrong is how a claim gets denied. If the truck in your driveway does any work, say so and we will quote it properly.</p><p>Long highway mileage moves the price too. Annual miles is one of the few questions where the honest answer usually helps you.</p></article></div></div></section><section class="sec tint"><div class="wrap"><div class="shead rv"><span class="eyebrow">New Mexico law</span><h2>New Mexico minimum auto liability coverage</h2><p>The legal floor in New Mexico is <strong>25/50/10</strong>. It is a floor written into law, not a recommendation from anybody &mdash; and the third number is what it would pay toward the other driver&rsquo;s vehicle, which is worth comparing against what vehicles actually cost to replace.</p></div><div class="mins"><div class="minc rv"><span class="big">$25<small>K</small></span><b>Bodily injury</b><span>per person</span></div><div class="minc rv"><span class="big">$50<small>K</small></span><b>Bodily injury</b><span>per accident</span></div><div class="minc rv"><span class="big">$10<small>K</small></span><b>Property damage</b><span>per accident</span></div></div><div class="minmore rv"><div><b>Minimum coverage is not necessarily the right coverage.</b><p>These are the limits that keep you legal, not the limits that keep you whole. We can put the minimum and the tiers above it side by side so you can see what the difference actually costs.</p></div><a class="btn" href="../../../quote.html">Compare coverage options &rarr;</a></div><div class="offered"><div class="offc rv"><b>Uninsured / underinsured motorist</b><p>Covers you when the at-fault driver has no insurance or not enough. A New Mexico carrier has to offer it, and turning it down has to be in writing.</p></div></div></div></section><section class="sec deep"><div class="wrap"><div class="shead rv"><span class="eyebrow">Real people, real help</span><h2>Serving drivers throughout Carlsbad.</h2></div><div class="indie rv"><b>An independent agency sits on your side of the table.</b><p>Safe House is not an insurance company. We hold appointments with several, so a quote here is a comparison rather than a sales pitch for one carrier &mdash; and a licensed agent goes through the coverage with you, not just the price.</p></div></div></section><section class="sec"><div class="wrap"><div class="shead rv"><span class="eyebrow">How it works</span><h2>Getting insured doesn&rsquo;t need to be complicated.</h2><p>Four steps. The quote happens online; the last mile happens with a person, because that is where discounts and coverage questions actually get sorted out.</p></div><div class="flow"><div class="fstep rv"><span class="n">1</span><b>Tell us about yourself</b><p>The basic driver and vehicle details. No social security number, no photo of your license, no payment details on the form.</p></div><div class="fstep rv"><span class="n">2</span><b>Compare available options</b><p>We shop the insurance companies we represent and the prices come back to you side by side, monthly and paid-in-full.</p></div><div class="fstep rv"><span class="n">3</span><b>Talk with Safe House</b><p>A licensed agent verifies the pricing, the discounts you qualify for and the coverage itself. This is the step that catches the mistakes.</p></div><div class="fstep rv"><span class="n">4</span><b>Activate your policy</b><p>When you are ready, we help you finish. Final pricing and discounts are confirmed with an agent by phone or text before anything is issued.</p></div></div><div class="acts"><a class="btn" href="../../../quote.html">Start my quote &rarr;</a><a class="btn ghost" href="tel:+19155031207">Talk to an agent</a></div></div></section><section class="sec tint"><div class="wrap narrow"><div class="shead rv" style="max-width:none"><span class="eyebrow">Reviews</span><h2>What drivers say</h2></div><div class="revs rv"><b>No reviews on this page yet &mdash; on purpose.</b><p>Inventing testimonials would be the easiest thing on this site to do and the worst. When our real customer reviews are wired up they will appear here. Until then, ask and we will point you at people who have actually used us.</p></div></div></section><section class="sec"><div class="wrap narrow"><div class="shead rv" style="max-width:none"><span class="eyebrow">FAQ</span><h2>Car insurance questions from Carlsbad drivers</h2></div><div class="faqs"><details class="qa"><summary>How much is car insurance in Carlsbad, NM?</summary><div class="qb"><p>Anyone quoting one figure for a whole city is guessing. Two households on the same street pay very differently depending on the vehicle, the record, the mileage and who else is on the policy &mdash; and carriers disagree with each other on all four.</p><p>What we can tell you is the spread. Running a quote in Carlsbad through every carrier we represent, the gap between cheapest and dearest is routinely wide enough to matter. That is the number worth finding, and it takes a few minutes.</p></div></details><details class="qa"><summary>What is the cheapest car insurance in Carlsbad?</summary><div class="qb"><p>It changes by driver, which is why the question does not have a fixed answer. Carriers each have an appetite &mdash; one wants clean records and newer cars, another is comfortable with a violation or a lapse &mdash; and the winner in Carlsbad swaps depending on which of those you are.</p><p>We shop the whole shelf rather than defending one company's number, which is the difference between an agency and a carrier.</p></div></details><details class="qa"><summary>Which is the best insurance company in Carlsbad?</summary><div class="qb"><p>Best depends on what you are optimising for. Cheapest today is not the same as best at paying a claim, and neither is the same as the one that will still want your business after an accident.</p><p>We are appointed with a shelf of carriers rather than employed by one, so we can tell you which is genuinely good for your situation instead of defending a single answer.</p></div></details><details class="qa"><summary>Why is car insurance so expensive in Carlsbad?</summary><div class="qb"><p>Your premium is partly your record and largely your surroundings &mdash; local claim frequency, uninsured drivers, repair costs, theft and weather. That is why a spotless driver can still be quoted more in one place than another.</p><p>The lever that actually works is comparison. Carriers weigh those local risks very differently, so the same clean record in Carlsbad can be priced hundreds apart depending on who is looking at it.</p></div></details><details class="qa"><summary>Does my ZIP code change my rate in Carlsbad?</summary><div class="qb"><p>Yes &mdash; carriers rate on the address where the car is parked overnight, not on the city. Two addresses a few miles apart in Carlsbad can be quoted differently on identical drivers and identical cars.</p><p>It also means a move is a reason to re-shop, even a short one. The company that was cheapest at your old address is not automatically cheapest at the new one.</p></div></details><details class="qa"><summary>What is the minimum car insurance required in New Mexico?</summary><div class="qb"><p>The legal floor is <strong>25/50/10</strong> in liability &mdash; $25,000 per injured person, $50,000 per accident, $10,000 for the property you damage.</p><p>Read those numbers against what is actually on the road. $10,000 is the whole budget for someone else's vehicle, and none of the three does anything for yours. Scroll up and put your own figures in.</p></div></details><details class="qa"><summary>How can I lower my car insurance in Carlsbad?</summary><div class="qb"><p>Roughly in order of how much they move the number: shop it across carriers instead of renewing, raise your deductible to a figure you could genuinely cover tomorrow, correct an inflated mileage estimate, bundle if you have a home or renters policy, and make sure every discount is actually on the policy.</p><p>Do not lower it by dropping to the state minimum without doing the arithmetic. That is not saving money, it is moving risk onto yourself.</p></div></details><details class="qa"><summary>Do I need full coverage?</summary><div class="qb"><p>There is no policy called full coverage. What people mean is liability plus collision plus comprehensive &mdash; the two that pay for <em>your</em> car. A lienholder will insist on them; once the car is yours outright, it becomes a decision.</p><p>Ask it this way: if the car were gone tomorrow, could you replace it out of pocket without it hurting? That answer is the coverage answer.</p></div></details></div></div></section><section class="sec"><div class="wrap"><div class="fin rv"><h2>Ready to see your Carlsbad options?</h2><p>One form, every carrier we represent, prices back in a few minutes. Nothing binds on a screen &mdash; a licensed agent reviews it with you first.</p><div class="acts"><a class="btn" href="../../../quote.html">Quote my Carlsbad &rarr;</a><a class="btn ghost" href="sms:+19155943777">Text us</a></div><p class="fine">Call 915-503-1207 &middot; Text 915-594-3777 &middot; Se habla espa&ntilde;ol</p></div></div></section><section class="sec"><div class="wrap narrow"><h2 style="font-size:20px">We also write nearby</h2><div class="llinks"><a href="../hobbs/">Hobbs, NM</a><a href="../roswell/">Roswell, NM</a><a href="../alamogordo/">Alamogordo, NM</a><a href="../clovis/">Clovis, NM</a></div></div></section><section class="sec tint"><div class="wrap narrow"><h2 style="font-size:20px">Related</h2><div class="llinks"><a href="../../../quote.html">Get a car insurance quote</a><a href="../">Car insurance in New Mexico</a><a href="../../makes/">Car insurance by vehicle make</a></div></div></section><div class="sticky" role="complementary" aria-label="Get a quote"><a class="tel" href="tel:+19155031207" aria-label="Call 915-503-1207"><span aria-hidden="true">&#9742;</span></a><a class="btn" href="../../../quote.html">Get my quote</a></div>
 </main>
 
-<footer><div class="wrap">
-  <div class="deck">
-    <div>
-      <h5>Car insurance in Texas</h5>
-      <div class="col2"><a href="../../../car-insurance/texas/houston/">Houston</a><a href="../../../car-insurance/texas/san-antonio/">San Antonio</a><a href="../../../car-insurance/texas/dallas/">Dallas</a><a href="../../../car-insurance/texas/austin/">Austin</a><a href="../../../car-insurance/texas/fort-worth/">Fort Worth</a><a href="../../../car-insurance/texas/el-paso/">El Paso</a><a href="../../../car-insurance/texas/arlington/">Arlington</a><a href="../../../car-insurance/texas/laredo/">Laredo</a><a href="../../../car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="../../../car-insurance/texas/mcallen/">McAllen</a><a href="../../../car-insurance/texas/brownsville/">Brownsville</a><a href="../../../car-insurance/texas/lubbock/">Lubbock</a></div>
-      <a class="more" href="../../../car-insurance/texas/">See all Texas cities</a>
-    </div>
-    <div>
-      <h5>Car insurance in New Mexico</h5>
-      <div class="col2"><a href="../../../car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="../../../car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="../../../car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="../../../car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="../../../car-insurance/new-mexico/roswell/">Roswell</a><a href="../../../car-insurance/new-mexico/farmington/">Farmington</a><a href="../../../car-insurance/new-mexico/hobbs/">Hobbs</a><a href="../../../car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
-      <a class="more" href="../../../car-insurance/new-mexico/">See all New Mexico cities</a>
-    </div>
-    <div>
-      <h5>What we insure</h5>
-      <a href="../../../quote.html">Car insurance</a>
-      <a href="../../../quote.html">Home insurance</a>
-      <a href="../../../quote.html">Renters insurance</a>
-      <a href="../../../quote.html">Motorcycle insurance</a>
-      <a href="../../../quote.html">Commercial vehicles</a>
-      <a href="../../../quote.html">Work trucks and fleets</a>
-    </div>
-    <div>
-      <h5>Company</h5>
-      <a href="../../../index.html">Home</a>
-      <a href="../../../about.html">About us</a>
-      <a href="../../../careers.html">Careers</a>
-      <a href="../../../car-insurance/">Car insurance by city</a>
-      <a href="../../../car-insurance/makes/">Car insurance by make</a>
-      <a href="../../../index.html#faq">FAQ</a>
-      <a href="../../../quote.html">Get a quote</a>
-    </div>
+<footer>
+ <div class="fin">
+
+  <!-- Band 1 — where to go. Two-column city lists so twelve names read as a
+       list and not as a wall. -->
+  <div class="fband">
+   <div class="fdeck">
+    <div><h5>Car insurance in Texas</h5><div class="c2"><a href="../../../car-insurance/texas/houston/">Houston</a><a href="../../../car-insurance/texas/san-antonio/">San Antonio</a><a href="../../../car-insurance/texas/dallas/">Dallas</a><a href="../../../car-insurance/texas/austin/">Austin</a><a href="../../../car-insurance/texas/fort-worth/">Fort Worth</a><a href="../../../car-insurance/texas/el-paso/">El Paso</a><a href="../../../car-insurance/texas/arlington/">Arlington</a><a href="../../../car-insurance/texas/laredo/">Laredo</a><a href="../../../car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="../../../car-insurance/texas/mcallen/">McAllen</a><a href="../../../car-insurance/texas/brownsville/">Brownsville</a><a href="../../../car-insurance/texas/lubbock/">Lubbock</a></div>
+      <a class="more" href="../../../car-insurance/texas/">See all Texas cities &rarr;</a></div>
+
+    <div><h5>Car insurance in New Mexico</h5><div class="c2"><a href="../../../car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="../../../car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="../../../car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="../../../car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="../../../car-insurance/new-mexico/roswell/">Roswell</a><a href="../../../car-insurance/new-mexico/farmington/">Farmington</a><a href="../../../car-insurance/new-mexico/hobbs/">Hobbs</a><a href="../../../car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
+      <a class="more" href="../../../car-insurance/new-mexico/">See all New Mexico cities &rarr;</a></div>
+
+    <div><h5>What we insure</h5>
+      <a href="../../../quote.html?type=car">Car insurance</a>
+      <a href="../../../quote.html?type=home">Home insurance</a>
+      <a href="../../../quote.html?type=home">Renters insurance</a>
+      <a href="../../../quote.html?type=moto">Motorcycle insurance</a>
+      <a href="../../../quote.html?type=commercial">Commercial vehicles</a>
+      <a href="../../../quote.html?type=commercial">Work trucks and fleets</a>
+      <a class="more" href="../../../car-insurance/makes/">Car insurance by make &rarr;</a></div>
+
+    <div><h5>Already a customer</h5>
+      <a href="../../../pay/">Make a payment</a>
+      <a href="../../../pay/guide/">How paying works</a>
+      <a href="tel:+19155031207">Request an ID card</a>
+      <a href="tel:+19155031207">Report a claim</a>
+      <a href="tel:+19155031207">Change your policy</a>
+      <a href="../../../quote.html">Re-shop your rate</a></div>
+   </div>
   </div>
 
-  <div class="fgrid">
+  <!-- Band 2 — reach a person. Everything here appeared twice in the old
+       footer: once in a link column and again in a centred block underneath. -->
+  <div class="fband">
+   <div class="fmid">
     <div>
-      <img class="flogo" src="../../../assets/safehouse-logo.png" alt="Safe House Insurance">
-      <p class="tag">One agency for everything you own. Licensed in Texas and New Mexico,
-         based in El Paso. Se habla espa&ntilde;ol.</p>
+     <h5>Reach us</h5>
+     <div class="fways">
+<div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><b>Call</b><a class="big" href="tel:+19155031207">915-503-1207</a><small>Mon&ndash;Fri, 11am&ndash;5pm Mountain</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span><b>Text</b><a class="big" href="sms:+19155943777">915-594-3777</a><small>A different line &mdash; this one receives texts</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 6.5L21 6"/></svg></span><b>Email</b><a class="big" href="mailto:contact@safehouseins.com">contact@safehouseins.com</a><small>Documents, questions, anything</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><b>Visit</b>
+       <address>Safe House Insurance LLC<br>6065 Montana Ave Ste C8<br>El Paso, TX 79925</address>
+       <p class="fhours">Mon&ndash;Fri, 11am&ndash;5pm Mountain</p>
+       <a href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">Open in Google Maps &rarr;</a></div>
+     </div>
     </div>
 
     <div>
-      <h5>Reach us</h5>
-      <div class="ways">
-        <div class="way"><span class="ic" aria-hidden="true">&#9742;</span>
-          <span><b>Call</b><a href="tel:+19155031207">915-503-1207</a>
+     <h5>Company</h5>
+     <div class="fcols">
+     <a href="../../../about.html">About us</a>
+     <a href="../../../careers.html">Careers</a>
+     <a href="../../../index.html#faq">FAQ</a>
+     <a href="../../../car-insurance/">Car insurance by city</a>
+     <a href="../../../car-insurance/makes/">Car insurance by make</a>
+     <a href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">Reviews on Google</a>
+     <a href="../../../contact.html">Contact</a>
+     </div>
+     <a class="more" href="../../../quote.html" style="display:inline-block;margin-top:14px;background:var(--grad);color:#fff;padding:12px 22px;border-radius:99px;font-size:14.5px;font-weight:800">Get a quote &rarr;</a>
+    </div>
+   </div>
+  </div>
+
+  <!-- Band 3 — the sign-off. -->
+  <div class="fend">
+   <img class="logo" src="../../../assets/safehouse-logo.png" alt="Safe House Insurance">
+   <p class="es">Licensed independent agency in El Paso, Texas &middot; 🇲🇽 Se habla español</p>
+   <p class="disc">Safe House Insurance LLC is an independent insurance agency licensed in Texas and New Mexico. Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy. Quotes are estimates and are not a guarantee of coverage or price. Carrier availability and eligibility vary by state and by applicant. &copy; 2026 Safe House Insurance.</p>
+   <p class="legal"><a href="../../../privacy.html">Privacy Policy</a> &middot; <a href="../../../sms-terms.html">SMS Terms</a> &middot; <a href="../../../quote.html">Get a quote</a></p>
+  </div>
+
+ </div>
+</footer>
+9155031207">915-503-1207</a>
           <small>A licensed agent, not a call center</small></span></div>
         <div class="way"><span class="ic" aria-hidden="true">&#128172;</span>
           <span><b>Text</b><a href="sms:+19155943777">915-594-3777</a>

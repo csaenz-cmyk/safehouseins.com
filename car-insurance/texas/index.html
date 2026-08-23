@@ -94,36 +94,64 @@
   .btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line);box-shadow:none}
   .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
 
-  footer{background:var(--navy);color:#fff;padding:48px 0 34px;margin-top:10px}
-  footer a{color:#fff}
-  footer .fgrid{display:grid;gap:30px}
-  @media(min-width:820px){ footer .fgrid{grid-template-columns:1.2fr 1fr 1fr} }
-  footer .flogo{height:34px;filter:brightness(0) invert(1)}
-  footer h5{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
-      color:#8FB4F0;margin-bottom:14px}
-  footer .ways{display:grid;gap:14px}
-  footer .way{display:flex;gap:11px;align-items:flex-start}
-  footer .way .ic{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.12);
-      display:grid;place-items:center;flex:0 0 auto;font-size:15px}
-  footer .way b{display:block;font-size:12.5px;font-weight:900;letter-spacing:.06em;
-      text-transform:uppercase;color:#8FB4F0}
-  footer .way a{display:block;font-size:17px;font-weight:800;margin-top:2px}
-  footer .way small{display:block;font-size:12.5px;color:#A8C2E8;font-weight:600;margin-top:2px}
-  footer .links{display:grid;gap:9px}
-  footer .links a{font-size:14.5px;font-weight:700;color:#DCE9FA}
-  footer .tag{font-size:14px;color:#A8C2E8;font-weight:600;margin-top:14px;max-width:34ch}
-  footer .fbot{border-top:1px solid rgba(255,255,255,.14);margin-top:34px;padding-top:20px}
-  footer .fbot p{font-size:12px;color:#8FA6C8;line-height:1.7}
-  footer .fbot .lg{display:flex;gap:8px;flex-wrap:wrap;font-size:13.5px;font-weight:800;margin-bottom:12px}
-  /* the wide link deck above the contact block */
-  footer .deck{display:grid;gap:26px;padding-bottom:34px;margin-bottom:34px;
-      border-bottom:1px solid rgba(255,255,255,.14)}
-  @media(min-width:680px){ footer .deck{grid-template-columns:repeat(2,1fr)} }
-  @media(min-width:1000px){ footer .deck{grid-template-columns:repeat(4,1fr)} }
-  footer .deck .col2{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
-  footer .deck a{display:block;font-size:14px;font-weight:600;color:#C7DBF5;padding:3px 0}
-  footer .deck a:hover{color:#fff}
-  footer .deck .more{font-weight:800;color:#8FB4F0}
+  /* ---------------- footer ----------------
+     Three bands with hairlines between them, the way a footer this wide has to
+     be read: where to go, how to reach a person, and the legal line.
+
+     It used to be a left-aligned link deck followed by a centred sign-off that
+     repeated the phone numbers, the email and four of the same links. The
+     address was also #C7DBF5 — a pale blue written for the dark navy footer
+     this one replaced — which on white was barely readable. Both fixed. */
+  body>footer{padding:0 0 34px;border-top:1px solid var(--line);background:#FBFCFE}
+  body>footer .fin{max-width:1180px;margin:0 auto;padding:0 22px}
+  body>footer .fband{padding:34px 0;border-bottom:1px solid var(--line)}
+  body>footer .fband:last-of-type{border-bottom:0}
+
+  /* band 2 — reach a person */
+  body>footer .fmid{display:grid;gap:34px;grid-template-columns:1fr}
+  @media(min-width:760px){ body>footer .fmid{grid-template-columns:1.4fr 1fr} }
+  /* Company reads as a list, not a column of eight lonely words. */
+  body>footer .fcols{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+  @media(max-width:520px){ body>footer .fcols{grid-template-columns:1fr} }
+  body>footer .fways{display:grid;gap:20px;grid-template-columns:1fr}
+  @media(min-width:520px){ body>footer .fways{grid-template-columns:1fr 1fr} }
+  body>footer .fway .ic{width:30px;height:30px;border-radius:9px;background:var(--ice);
+      display:grid;place-items:center;margin-bottom:9px}
+  body>footer .fway .ic svg{width:15px;height:15px;fill:none;stroke:var(--blue);
+      stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  body>footer .fway b{display:block;font-size:11.5px;font-weight:900;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--muted)}
+  body>footer .fway a.big{display:block;font-size:17px;font-weight:800;color:var(--navy);
+      margin-top:3px;letter-spacing:-.01em}
+  body>footer .fway a.big:hover{color:var(--blue)}
+  body>footer .fway small{display:block;font-size:12.5px;color:var(--muted);
+      font-weight:600;margin-top:3px;line-height:1.5}
+  body>footer address{font-style:normal;font-size:15px;line-height:1.65;
+      color:var(--navy);font-weight:600;margin-top:3px}
+  body>footer .fhours{font-size:13px;color:var(--muted);font-weight:700;margin-top:7px}
+
+  /* band 3 — the sign-off */
+  body>footer .fend{padding-top:26px;text-align:center}
+  body>footer .logo{height:28px;filter:none;margin:0 auto}
+  body>footer .fend .es{font-size:13.5px;color:var(--muted);font-weight:700;margin-top:10px}
+  body>footer .disc{font-size:12px;color:#8A99AE;line-height:1.7;margin-top:14px;
+      max-width:72ch;margin-left:auto;margin-right:auto}
+  body>footer .legal{margin-top:12px;font-size:13.5px;font-weight:800}
+  body>footer .legal a{color:var(--blue)}
+  body>footer .fdeck{display:grid;gap:30px;text-align:left;
+      border-bottom:1px solid var(--line);display:grid;gap:26px}
+  @media(min-width:680px){ body>footer .fdeck{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:1000px){ body>footer .fdeck{grid-template-columns:repeat(4,1fr)} }
+  body>footer h5{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--navy);margin-bottom:12px}
+  body>footer .fdeck .c2{display:grid;grid-template-columns:1fr 1fr;gap:2px 14px}
+  body>footer .fdeck a,
+  body>footer .fcols a{display:block;font-size:14px;font-weight:600;color:var(--muted);padding:3px 0}
+  body>footer .fdeck a:hover,
+  body>footer .fcols a:hover{color:var(--blue)}
+  body>footer .fdeck .more{font-weight:800;color:var(--blue);margin-top:8px}
+  body>footer .fway a:not(.big){display:inline-block;font-size:13px;font-weight:800;
+      color:var(--blue);margin-top:7px}
 
 </style>
 <link rel="canonical" href="https://safehouseins.com/car-insurance/texas/">
@@ -286,51 +314,79 @@
 
 </main>
 
-<footer><div class="wrap">
-  <div class="deck">
-    <div>
-      <h5>Car insurance in Texas</h5>
-      <div class="col2"><a href="../../car-insurance/texas/houston/">Houston</a><a href="../../car-insurance/texas/san-antonio/">San Antonio</a><a href="../../car-insurance/texas/dallas/">Dallas</a><a href="../../car-insurance/texas/austin/">Austin</a><a href="../../car-insurance/texas/fort-worth/">Fort Worth</a><a href="../../car-insurance/texas/el-paso/">El Paso</a><a href="../../car-insurance/texas/arlington/">Arlington</a><a href="../../car-insurance/texas/laredo/">Laredo</a><a href="../../car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="../../car-insurance/texas/mcallen/">McAllen</a><a href="../../car-insurance/texas/brownsville/">Brownsville</a><a href="../../car-insurance/texas/lubbock/">Lubbock</a></div>
-      <a class="more" href="../../car-insurance/texas/">See all Texas cities</a>
-    </div>
-    <div>
-      <h5>Car insurance in New Mexico</h5>
-      <div class="col2"><a href="../../car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="../../car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="../../car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="../../car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="../../car-insurance/new-mexico/roswell/">Roswell</a><a href="../../car-insurance/new-mexico/farmington/">Farmington</a><a href="../../car-insurance/new-mexico/hobbs/">Hobbs</a><a href="../../car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
-      <a class="more" href="../../car-insurance/new-mexico/">See all New Mexico cities</a>
-    </div>
-    <div>
-      <h5>What we insure</h5>
-      <a href="../../quote.html">Car insurance</a>
-      <a href="../../quote.html">Home insurance</a>
-      <a href="../../quote.html">Renters insurance</a>
-      <a href="../../quote.html">Motorcycle insurance</a>
-      <a href="../../quote.html">Commercial vehicles</a>
-      <a href="../../quote.html">Work trucks and fleets</a>
-    </div>
-    <div>
-      <h5>Company</h5>
-      <a href="../../index.html">Home</a>
-      <a href="../../about.html">About us</a>
-      <a href="../../careers.html">Careers</a>
-      <a href="../../car-insurance/">Car insurance by city</a>
-      <a href="../../car-insurance/makes/">Car insurance by make</a>
-      <a href="../../index.html#faq">FAQ</a>
-      <a href="../../quote.html">Get a quote</a>
-    </div>
+<footer>
+ <div class="fin">
+
+  <!-- Band 1 — where to go. Two-column city lists so twelve names read as a
+       list and not as a wall. -->
+  <div class="fband">
+   <div class="fdeck">
+    <div><h5>Car insurance in Texas</h5><div class="c2"><a href="../../car-insurance/texas/houston/">Houston</a><a href="../../car-insurance/texas/san-antonio/">San Antonio</a><a href="../../car-insurance/texas/dallas/">Dallas</a><a href="../../car-insurance/texas/austin/">Austin</a><a href="../../car-insurance/texas/fort-worth/">Fort Worth</a><a href="../../car-insurance/texas/el-paso/">El Paso</a><a href="../../car-insurance/texas/arlington/">Arlington</a><a href="../../car-insurance/texas/laredo/">Laredo</a><a href="../../car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="../../car-insurance/texas/mcallen/">McAllen</a><a href="../../car-insurance/texas/brownsville/">Brownsville</a><a href="../../car-insurance/texas/lubbock/">Lubbock</a></div>
+      <a class="more" href="../../car-insurance/texas/">See all Texas cities &rarr;</a></div>
+
+    <div><h5>Car insurance in New Mexico</h5><div class="c2"><a href="../../car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="../../car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="../../car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="../../car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="../../car-insurance/new-mexico/roswell/">Roswell</a><a href="../../car-insurance/new-mexico/farmington/">Farmington</a><a href="../../car-insurance/new-mexico/hobbs/">Hobbs</a><a href="../../car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
+      <a class="more" href="../../car-insurance/new-mexico/">See all New Mexico cities &rarr;</a></div>
+
+    <div><h5>What we insure</h5>
+      <a href="../../quote.html?type=car">Car insurance</a>
+      <a href="../../quote.html?type=home">Home insurance</a>
+      <a href="../../quote.html?type=home">Renters insurance</a>
+      <a href="../../quote.html?type=moto">Motorcycle insurance</a>
+      <a href="../../quote.html?type=commercial">Commercial vehicles</a>
+      <a href="../../quote.html?type=commercial">Work trucks and fleets</a>
+      <a class="more" href="../../car-insurance/makes/">Car insurance by make &rarr;</a></div>
+
+    <div><h5>Already a customer</h5>
+      <a href="../../pay/">Make a payment</a>
+      <a href="../../pay/guide/">How paying works</a>
+      <a href="tel:+19155031207">Request an ID card</a>
+      <a href="tel:+19155031207">Report a claim</a>
+      <a href="tel:+19155031207">Change your policy</a>
+      <a href="../../quote.html">Re-shop your rate</a></div>
+   </div>
   </div>
 
-  <div class="fgrid">
+  <!-- Band 2 — reach a person. Everything here appeared twice in the old
+       footer: once in a link column and again in a centred block underneath. -->
+  <div class="fband">
+   <div class="fmid">
     <div>
-      <img class="flogo" src="../../assets/safehouse-logo.png" alt="Safe House Insurance">
-      <p class="tag">One agency for everything you own. Licensed in Texas and New Mexico,
-         based in El Paso. Se habla espa&ntilde;ol.</p>
+     <h5>Reach us</h5>
+     <div class="fways">
+<div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><b>Call</b><a class="big" href="tel:+19155031207">915-503-1207</a><small>Mon&ndash;Fri, 11am&ndash;5pm Mountain</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span><b>Text</b><a class="big" href="sms:+19155943777">915-594-3777</a><small>A different line &mdash; this one receives texts</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 6.5L21 6"/></svg></span><b>Email</b><a class="big" href="mailto:contact@safehouseins.com">contact@safehouseins.com</a><small>Documents, questions, anything</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><b>Visit</b>
+       <address>Safe House Insurance LLC<br>6065 Montana Ave Ste C8<br>El Paso, TX 79925</address>
+       <p class="fhours">Mon&ndash;Fri, 11am&ndash;5pm Mountain</p>
+       <a href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">Open in Google Maps &rarr;</a></div>
+     </div>
     </div>
 
     <div>
-      <h5>Reach us</h5>
-      <div class="ways">
-        <div class="way"><span class="ic" aria-hidden="true">&#9742;</span>
-          <span><b>Call</b><a href="tel:+19155031207">915-503-1207</a>
+     <h5>Company</h5>
+     <div class="fcols">
+     <a href="../../about.html">About us</a>
+     <a href="../../careers.html">Careers</a>
+     <a href="../../index.html#faq">FAQ</a>
+     <a href="../../car-insurance/">Car insurance by city</a>
+     <a href="../../car-insurance/makes/">Car insurance by make</a>
+     <a href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">Reviews on Google</a>
+     <a href="../../contact.html">Contact</a>
+     </div>
+     <a class="more" href="../../quote.html" style="display:inline-block;margin-top:14px;background:var(--grad);color:#fff;padding:12px 22px;border-radius:99px;font-size:14.5px;font-weight:800">Get a quote &rarr;</a>
+    </div>
+   </div>
+  </div>
+
+  <!-- Band 3 — the sign-off. -->
+  <div class="fend">
+   <img class="logo" src="../../assets/safehouse-logo.png" alt="Safe House Insurance">
+   <p class="es">Licensed independent agency in El Paso, Texas &middot; 🇲🇽 Se habla español</p>
+   <p class="disc">Safe House Insurance LLC is an independent insurance agency licensed in Texas and New Mexico. Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy. Quotes are estimates and are not a guarantee of coverage or price. Carrier availability and eligibility vary by state and by applicant. &copy; 2026 Safe House Insurance.</p>
+   <p class="legal"><a href="../../privacy.html">Privacy Policy</a> &middot; <a href="../../sms-terms.html">SMS Terms</a> &middot; <a href="../../quote.html">Get a quote</a></p>
+  </div>
+
+ </div>
+</footer>
+9155031207">915-503-1207</a>
           <small>A licensed agent, not a call center</small></span></div>
         <div class="way"><span class="ic" aria-hidden="true">&#128172;</span>
           <span><b>Text</b><a href="sms:+19155943777">915-594-3777</a>
