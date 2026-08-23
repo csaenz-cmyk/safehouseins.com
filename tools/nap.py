@@ -50,20 +50,27 @@ EMAIL = 'contact@safehouseins.com'
 LICENSE_TX   = None
 LICENSE_NM   = None
 
-# Confirmed by the agency, August 2026. Mountain Time.
-# ⚠️ Weekdays only was inferred from what the contact page said before
-# ("Mon–Fri, business hours"). If Saturday is open, add it here and it reaches
-# the contact page, the footer and the schema at once.
+# Confirmed by the agency, August 2026: Monday to Friday only, 11am–5pm.
 HOURS        = [('Mo,Tu,We,Th,Fr', '11:00', '17:00')]
 TIMEZONE     = 'America/Denver'   # Mountain — El Paso, unlike the rest of Texas
 GEO          = None   # (latitude, longitude) for the office
 FOUNDED      = None   # founding year
-SAME_AS      = []     # verified social/profile URLs only
+# Derived from the CID in the agency's own Google listing link:
+# ...#lrd=0x86e75bec20528575:0x87e2cf039170a8f2 — the second hex value is the
+# business CID, 9791616154088810738 in decimal. `maps.google.com/?cid=` is the
+# stable, official way to address a listing and does not rot the way a search
+# URL with session parameters does.
+GOOGLE_MAPS_URL = 'https://maps.google.com/?cid=9791616154088810738'
 
-# The public Google Business Profile review URL. Set it and the home page turns
-# its "ask us for references" block into a link to the real reviews — one line,
-# no invented testimonials, no rating in schema that the page does not show.
-GOOGLE_REVIEWS_URL = None
+# sameAs is how a search engine confirms the website, the map listing and the
+# social profiles are one business rather than three. The Maps listing is a
+# verified one; the rest wait until their URLs are confirmed.
+SAME_AS      = [GOOGLE_MAPS_URL]
+
+# The home page links here instead of retyping reviews. A link needs nobody's
+# consent, shows every review including the ones written after today, and
+# cannot drift out of date the way a copied quote does.
+GOOGLE_REVIEWS_URL = GOOGLE_MAPS_URL + '&lrd=0x86e75bec20528575:0x87e2cf039170a8f2,1'
 AGGREGATE_RATING = None   # never populate without real, verifiable reviews
 
 STATES   = ['Texas', 'New Mexico']

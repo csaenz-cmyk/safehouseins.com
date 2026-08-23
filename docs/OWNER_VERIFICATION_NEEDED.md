@@ -21,18 +21,12 @@ purpose; setting either would put a number back everywhere.
 
 ---
 
-## 2. Business hours — ⚠️ ONE THING TO CONFIRM
+## 2. Business hours — ✅ RESOLVED
 
-Set to **Mon–Fri, 11am–5pm Mountain**, now visible on the home footer and the
-contact page and in `openingHoursSpecification` on the home page.
+**Monday to Friday, 11am–5pm Mountain.** Confirmed, weekdays only.
 
-**The days are an assumption.** You gave the hours but not the days; Mon–Fri
-came from what the contact page said before ("Mon–Fri, business hours").
-
-👉 **Are you open Saturday?** If so, send the hours and it goes in one line.
-
-Getting this wrong means somebody drives to a closed office, so it is worth the
-thirty seconds.
+Live on the home footer, the contact page and in `openingHoursSpecification`
+on the home page.
 
 ---
 
@@ -56,32 +50,28 @@ and comes back quickly.
 
 ---
 
-## 4. Reviews
+## 4. Reviews — ✅ RESOLVED, one thing to click
 
-The home page showed a "5.0 on Google" badge, five signed testimonials from
-Houston, Austin, Albuquerque and Las Cruces, and two video cards with play
-buttons that played nothing. All removed.
+The home page now links to your real Google reviews instead of showing anything
+retyped. The heading is "What our customers say" and the button reads "Read our
+Google reviews".
 
-You said to use the Google reviews. To do that I need **one thing**:
+The URL was derived from the CID in the listing link you sent:
+`...#lrd=0x86e75bec20528575:`**`0x87e2cf039170a8f2`** → CID
+`9791616154088810738` → `https://maps.google.com/?cid=9791616154088810738`.
+That form is stable; the search URL you pasted carries session parameters that
+expire.
 
-👉 **The public URL of your Google Business Profile reviews.**
+👉 **Click it once and confirm it opens your listing.** I cannot open it from
+here — this container has no outbound network — so the derivation is sound but
+unverified.
 
-Open your business on Google Maps → Reviews → Share → copy the link. It looks
-like `https://g.page/r/…` or a long `google.com/maps/place/…` URL.
+The same URL is now in `sameAs` in the entity schema, which is how Google
+confirms the website and the map listing are one business.
 
-Set it as `GOOGLE_REVIEWS_URL` in `tools/nap.py` and the home page turns into a
-link to your real reviews.
-
-**Why a link and not the quotes retyped on the page:** the five testimonials
-that were there carried real people's names and cities. Republishing somebody's
-words under their name is their call, not ours — and a link needs nobody's
-permission while showing every review, including the ones written after today.
-If you would rather have them on the page, send the reviewer names you have
-permission from and I will put those on.
-
-⚠️ `AggregateRating` and `Review` schema stay out until real reviews are on the
-page. Marking up reviews a page does not show is a Google policy violation, not
-a grey area, and the penalty lands on the whole site.
+⚠️ Still no `AggregateRating` in schema, on purpose. Google requires the rating
+to be visible on the page that marks it up. Linking out is the correct pattern
+and carries no risk.
 
 ---
 
