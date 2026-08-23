@@ -146,6 +146,22 @@ def main():
             if 'review' not in text.lower():
                 p0.append((rel, 'review/rating schema with no visible reviews on the page'))
 
+        # One footer design, not two. Six pages shipped a dark navy footer while
+        # 192 shipped the light one, and a class name collision made the city
+        # pages paint a blue card over theirs. Neither showed up in any check
+        # that read the DOM — both needed a pixel to be looked at. This checks
+        # what it can from source: that the footer markup is the shared one.
+        if '<footer' in body and 'class="fshell"' not in body:
+            p1.append((rel, 'footer is not the shared three-band footer'))
+
+        # A generic class name inside the footer that another stylesheet in this
+        # project already owns. `.fin` was the final-CTA card in brandkit.py:
+        # a blue gradient with rounded corners that silently painted over the
+        # footer on 189 pages.
+        for taken in ('class="fin"', 'class="cta"', 'class="card"'):
+            if taken in body[body.find('<footer'):] and '<footer' in body:
+                p1.append((rel, 'footer reuses a class another stylesheet owns: ' + taken))
+
         # "call or text" over the number that does not receive texts.
         if re.search(r'call or text[^<]{0,40}915-503-1207', text, re.I):
             p0.append((rel, 'says "call or text" over 915-503-1207, which does not receive SMS'))

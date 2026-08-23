@@ -187,14 +187,68 @@
   .cta .heartbg{position:absolute;right:-40px;top:-40px;width:260px;filter:brightness(0) invert(1);opacity:.12;animation:bob 5s ease-in-out infinite}
   .cta .h2{position:relative;color:#fff}.cta p{position:relative;color:rgba(255,255,255,.92);max-width:48ch;margin:14px auto 0;font-size:18px}.cta .btn{position:relative;margin-top:30px}
 
-  /* FOOTER */
-  footer{background:var(--ink);color:#9fb0cc;padding:62px 0 36px}
-  .fgrid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:30px}@media(max-width:820px){.fgrid{grid-template-columns:1fr 1fr}}
-  footer .logo{height:28px;filter:brightness(0) invert(1);margin-bottom:14px}
-  footer h5{color:#fff;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
-  footer a{display:block;color:#9fb0cc;font-size:14.5px;margin-bottom:9px}footer a:hover{color:#fff}
-  .fbot{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-top:22px;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-  .disclaimer{max-width:1180px;margin:18px auto 0;padding:0 28px;font-size:12px;color:#5e6e88;line-height:1.6}
+  /* FOOTER — matches the light three-band footer on the rest of the site.
+     Two footer designs were coexisting: light on 192 pages, dark navy on the
+     six that load this stylesheet. */
+  /* ---------------- footer ----------------
+     Three bands with hairlines between them, the way a footer this wide has to
+     be read: where to go, how to reach a person, and the legal line.
+
+     It used to be a left-aligned link deck followed by a centred sign-off that
+     repeated the phone numbers, the email and four of the same links. The
+     address was also #C7DBF5 — a pale blue written for the dark navy footer
+     this one replaced — which on white was barely readable. Both fixed. */
+  footer{padding:0 0 34px;border-top:1px solid var(--line);background:#FBFCFE}
+  footer .fshell{max-width:1180px;margin:0 auto;padding:0 22px}
+  footer .fband{padding:34px 0;border-bottom:1px solid var(--line)}
+  footer .fband:last-of-type{border-bottom:0}
+
+  /* band 2 — reach a person */
+  footer .fmid{display:grid;gap:34px;grid-template-columns:1fr}
+  @media(min-width:760px){ footer .fmid{grid-template-columns:1.4fr 1fr} }
+  /* Company reads as a list, not a column of eight lonely words. */
+  footer .fcols{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+  @media(max-width:520px){ footer .fcols{grid-template-columns:1fr} }
+  footer .fways{display:grid;gap:20px;grid-template-columns:1fr}
+  @media(min-width:520px){ footer .fways{grid-template-columns:1fr 1fr} }
+  footer .fway .ic{width:30px;height:30px;border-radius:9px;background:var(--ice);
+      display:grid;place-items:center;margin-bottom:9px}
+  footer .fway .ic svg{width:15px;height:15px;fill:none;stroke:var(--blue);
+      stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  footer .fway b{display:block;font-size:11.5px;font-weight:900;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--muted)}
+  footer .fway a.big{display:block;font-size:17px;font-weight:800;color:var(--navy);
+      margin-top:3px;letter-spacing:-.01em}
+  footer .fway a.big:hover{color:var(--blue)}
+  footer .fway small{display:block;font-size:12.5px;color:var(--muted);
+      font-weight:600;margin-top:3px;line-height:1.5}
+  footer address{font-style:normal;font-size:15px;line-height:1.65;
+      color:var(--navy);font-weight:600;margin-top:3px}
+  footer .fhours{font-size:13px;color:var(--muted);font-weight:700;margin-top:7px}
+
+  /* band 3 — the sign-off */
+  footer .fend{padding-top:26px;text-align:center}
+  footer .logo{height:28px;filter:none;margin:0 auto}
+  footer .fend .es{font-size:13.5px;color:var(--muted);font-weight:700;margin-top:10px}
+  footer .disc{font-size:12px;color:#8A99AE;line-height:1.7;margin-top:14px;
+      max-width:72ch;margin-left:auto;margin-right:auto}
+  footer .legal{margin-top:12px;font-size:13.5px;font-weight:800}
+  footer .legal a{color:var(--blue)}
+  footer .fdeck{display:grid;gap:30px;text-align:left;
+      border-bottom:1px solid var(--line);display:grid;gap:26px}
+  @media(min-width:680px){ footer .fdeck{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:1000px){ footer .fdeck{grid-template-columns:repeat(4,1fr)} }
+  footer h5{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--navy);margin-bottom:12px}
+  footer .fdeck .c2{display:grid;grid-template-columns:1fr 1fr;gap:2px 14px}
+  footer .fdeck a,
+  footer .fcols a{display:block;font-size:14px;font-weight:600;color:var(--muted);padding:3px 0}
+  footer .fdeck a:hover,
+  footer .fcols a:hover{color:var(--blue)}
+  footer .fdeck .more{font-weight:800;color:var(--blue);margin-top:8px}
+  footer .fway a:not(.big){display:inline-block;font-size:13px;font-weight:800;
+      color:var(--blue);margin-top:7px}
+
 
   /* ============ MULTIPAGE ADDITIONS ============ */
   .links a.active{color:#fff;opacity:1;position:relative}
