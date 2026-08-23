@@ -644,7 +644,7 @@ def factorcards(name, cards, up='../../'):
 
 STEPS = [
   ('You tell us once', 'One form. Your vehicle, your address, who drives it. No questions about your '
-   'social security number, no photos of your licence, no payment details.'),
+   'social security number, no photos of your license, no payment details.'),
   ('We shop it', 'It goes to every carrier we represent at the same time. They price the same risk '
    'differently, and that spread is the whole reason an agency exists.'),
   ('You see what came back', 'The prices land in front of you side by side — monthly plans and '
@@ -724,7 +724,7 @@ def popular(slug, name, up):
 def proof():
     return ('<div class="proof">'
       '<div class="pcard rv"><span class="big">2</span><b>States licensed</b>'
-      '<p>Texas and New Mexico, with an office on Montana Ave in El Paso &mdash; not a call centre '
+      '<p>Texas and New Mexico, with an office on Montana Ave in El Paso &mdash; not a call center '
       'in another time zone.</p></div>'
       '<div class="pcard rv"><span class="big">1</span><b>Form, every carrier</b>'
       '<p>You fill it in once. It goes to every company we represent at the same time and the prices '

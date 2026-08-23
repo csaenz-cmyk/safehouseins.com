@@ -1,0 +1,35 @@
+# Cloudflare Pages / Netlify redirect table.
+#
+# One canonical shape per page. The site grew .html pages first and directory
+# URLs later, so several pages answer on both — two URLs with identical content
+# split their own signals and neither one wins. The directory form is canonical
+# because that is what the 189 generated pages already use.
+#
+# 301, not 302: these are permanent and a temporary redirect asks a crawler to
+# keep the old URL in its index.
+
+# --- legal pages that exist in both shapes ---------------------------------
+/privacy.html            /privacy/            301
+/sms-terms.html          /sms-terms/          301
+
+# --- older .html routes to their final names -------------------------------
+/auto.html               /auto-insurance      301
+/home-insurance.html     /home-insurance      301
+/commercial.html         /commercial-insurance 301
+/about.html              /about               301
+/contact.html            /contact             301
+/careers.html            /careers             301
+/quote.html              /quote               301
+
+# --- development work: never a public landing page -------------------------
+# Kept in the repository, kept out of production. A 404 would be honest but a
+# redirect home is kinder to anyone who has an old preview link.
+/index-b.html            /                    301
+/jerry-1.html            /                    301
+/jerry-2.html            /                    301
+/option-*                /                    301
+
+# --- pages the old site had, so inbound links and printed material keep working
+/pay.html                /pay/                301
+/payment                 /pay/                301
+/make-a-payment          /pay/                301

@@ -17,7 +17,7 @@ MPG, theft rankings. Lineups shift year to year and a stale model year on a
 page is a small lie; the pages say what a model IS, not what it costs.
 
 `accent` is a tasteful page tint chosen to sit well with the brand. It is not
-a logo colour and no manufacturer mark is used anywhere on these pages.
+a logo color and no manufacturer mark is used anywhere on these pages.
 """
 
 # ---------------------------------------------------------------- lineups ---

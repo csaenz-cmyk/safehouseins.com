@@ -1,4 +1,36 @@
+# Safe House Insurance — https://safehouseins.com
+#
+# Policy: everything a customer would want to find is open to every crawler,
+# AI assistants included. This is a local agency whose growth problem is being
+# found at all; blocking the assistants people now ask "who does SR-22 in El
+# Paso" would trade away the visibility this content was written for.
+#
+# What is closed is development work that was never meant to be public.
+
 User-agent: *
 Allow: /
+
+# Design explorations and abandoned layouts. Kept in the repository on purpose
+# — deleting work to hide it from a crawler is the wrong trade — but they are
+# not pages anybody should land on from a search result.
+Disallow: /option-
+Disallow: /jerry-
+Disallow: /index-b
+Disallow: /docs/
+Disallow: /tools/
+Disallow: /email/
+Disallow: /sms/
+Disallow: /mockups/
+
+# Source images, kept so a photo can be re-cropped later. The built versions
+# under /assets/ are what the pages actually use.
+Disallow: /assets/cities/_incoming/
+Disallow: /assets/makes/_incoming/
+Disallow: /assets/home/_incoming/
+Disallow: /assets/carriers/_incoming/
+
+# The quote form is noindex in its own <head> — it is a tool, not a page a
+# search result should land on cold. Crawling stays allowed on purpose so the
+# robots meta tag can actually be read.
 
 Sitemap: https://safehouseins.com/sitemap.xml

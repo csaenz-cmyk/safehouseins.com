@@ -28,7 +28,7 @@ MIME = {'.webp': 'image/webp', '.png': 'image/png',
 
 CHROME = """<title>Safe House Quote Flow</title>
 <style>
-/* Preview chrome only. Every colour is lifted from the form's own tokens
+/* Preview chrome only. Every color is lifted from the form's own tokens
    (quote.html :root) so the bar reads as part of the same product rather than
    a second design arguing with it. Single theme on purpose: the form is a
    light product UI, so the ground is painted explicitly and holds on either

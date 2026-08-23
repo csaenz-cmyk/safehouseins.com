@@ -117,7 +117,7 @@ PLACES = {
     ('Downtown and El Centro', 'Closest to the Gateway and Ju&aacute;rez-Lincoln bridges. Tight '
      'older streets, a lot of stop-start driving, and mostly street or lot parking.'),
     ('North Laredo', 'Newer subdivisions out past Del Mar and toward the Loop. Longer daily trips '
-     'and more garage and driveway parking than the centre.'),
+     'and more garage and driveway parking than the center.'),
     ('The Loop 20 corridor', 'The Bob Bullock Loop does most of the crosstown work, which is why so '
      'much local driving here is highway driving rather than surface streets.'),
     ('South Laredo', 'Along US 83 down the river. Longer distances into town, and closer to the '
@@ -196,7 +196,7 @@ PLACES = {
      'Por tel&eacute;fono o por mensaje, en el idioma que prefiera. Explicamos la cobertura, no '
      'solamente el precio.'),
     ('home', 'Where the vehicle is kept',
-     'Rated on the address the vehicle parks at overnight rather than the one on your licence. In '
+     'Rated on the address the vehicle parks at overnight rather than the one on your license. In '
      'the Valley people move between neighbouring cities more than most places, and the policy has '
      'to follow.'),
   ],
@@ -304,7 +304,7 @@ PLACES = {
      'They sit next to each other and they are different cities in different counties. Your policy '
      'is rated on the address the vehicle parks at overnight, so if you moved across the river and '
      'never updated it, that is worth fixing before a claim rather than during one.'),
-    ('sun', 'Hail, sun and a cracked windscreen',
+    ('sun', 'Hail, sun and a cracked windshield',
      'All three are <strong>comprehensive</strong> claims rather than collision. Comprehensive is '
      'optional, applies subject to your deductible, and is governed by the terms of your policy. '
      'It is usually the cheaper half of physical damage cover.'),
@@ -316,7 +316,7 @@ PLACES = {
   faq=[
     ('I moved from Albuquerque to Rio Rancho. Do I need to tell my insurance company?',
      '<p>Yes, and promptly. An auto policy is rated on the address where the vehicle is kept '
-     'overnight, not on your mailing address or your licence. Rio Rancho and Albuquerque are '
+     'overnight, not on your mailing address or your license. Rio Rancho and Albuquerque are '
      'separate cities in separate counties, so the change is a real one.</p>'
      '<p>It is also a natural moment to re-shop rather than just update. The company that was '
      'cheapest at the old address is not automatically cheapest at the new one.</p>'),
@@ -364,7 +364,7 @@ PLACES = {
      'serious annual figure.'),
     ('home', 'Garage, driveway, lot or street',
      'Carriers ask where the vehicle sits overnight, and across a metro this size the answer '
-     'changes street by street. It is rated on the garaging address, not the one on your licence.'),
+     'changes street by street. It is rated on the garaging address, not the one on your license.'),
   ],
   intents=['cheaper', 'renewal', 'bought', 'sr22', 'noprior', 'switch', 'newdriver', 'commercial'],
   faq=[('Does my insurance cover hail damage in Dallas?',
@@ -406,7 +406,7 @@ PLACES = {
   ],
   factors=[
     ('road', 'I-35 straight through the middle',
-     'Austin has one interstate through the centre and MoPac beside it, which is why so much of '
+     'Austin has one interstate through the center and MoPac beside it, which is why so much of '
      'the metro&rsquo;s driving is north-south on two roads. Annual mileage is something carriers '
      'ask about, and a commute that looks short on a map is not always short in practice.'),
     ('home', 'If you have just moved here',
@@ -465,7 +465,7 @@ PLACES = {
      'confusion usually is, and comprehensive versus collision is worth understanding in whichever '
      'language you think in.'),
     ('home', 'Where the vehicle is kept',
-     'Rated on the overnight address rather than the one on your licence &mdash; and inside Loop '
+     'Rated on the overnight address rather than the one on your license &mdash; and inside Loop '
      '410 versus outside 1604 are genuinely different situations for parking.'),
   ],
   intents=['cheaper', 'renewal', 'bought', 'sr22', 'noprior', 'switch', 'newdriver'],
@@ -551,7 +551,7 @@ PLACES = {
      'Albuquerque over a small number of bridges. That shapes both how far people drive and when '
      'they are on the road &mdash; and mileage is something carriers ask about.'),
     ('sun', 'Hail and sun are comprehensive questions',
-     'Hail damage, a cracked windscreen and theft all fall under <strong>comprehensive</strong> '
+     'Hail damage, a cracked windshield and theft all fall under <strong>comprehensive</strong> '
      'coverage rather than collision. It is optional, applies subject to your deductible, and is '
      'governed by the terms of the policy you hold.'),
     ('home', 'Garaging address, not mailing address',
@@ -581,7 +581,7 @@ PLACES = {
   zips=[('88001', 'central'), ('88003', 'NMSU campus'), ('88005', 'west and Picacho'),
         ('88007', 'northwest'), ('88011', 'East Mesa'), ('88012', 'north and Sonoma Ranch')],
   areas=[
-    ('Downtown and Mesquite', 'The older centre of the city, with a compact street grid and '
+    ('Downtown and Mesquite', 'The older center of the city, with a compact street grid and '
      'shorter local trips.'),
     ('NMSU and University area', 'Around the campus south of University Avenue. A high share of '
      'student drivers and first policies.'),
@@ -710,13 +710,13 @@ PLACES = {
      'vehicle is paid off and you dropped comprehensive to save money, that is the coverage you no '
      'longer have.'),
     ('shield', 'Comprehensive covers more than weather',
-     'The same coverage answers hail, a tree limb, theft, a break-in and a cracked windscreen. It '
+     'The same coverage answers hail, a tree limb, theft, a break-in and a cracked windshield. It '
      'is usually the cheaper half of physical damage cover and it is the half people drop first, '
      'which tends to be backwards.'),
     ('home', 'Where the vehicle actually sits',
      'A garage, a driveway, a carport, an apartment lot or the street &mdash; carriers ask, and in '
      'a metro this size the answer varies enormously between two households a mile apart. It is '
-     'rated on the overnight address, not the one on your licence.'),
+     'rated on the overnight address, not the one on your license.'),
     ('truck', 'Work vehicles around the Ship Channel',
      'Houston has an unusual amount of vehicles doing something commercial &mdash; contractors, '
      'delivery, anything moving materials for pay. A personal auto policy can deny a claim that '
@@ -741,7 +741,7 @@ PLACES = {
      'page with you.</p>'),
     ('Is comprehensive coverage worth it in Houston?',
      '<p>It is the coverage that answers hail, flooding, theft, break-ins and a rock through the '
-     'windscreen, and it is usually the cheaper half of physical damage cover. Whether it is worth '
+     'windshield, and it is usually the cheaper half of physical damage cover. Whether it is worth '
      'carrying comes down to what the vehicle is worth and whether you could replace it out of '
      'pocket &mdash; not to any claim we could make about the weather.</p>'
      '<p>If the vehicle is financed or leased, the question is settled for you: the lender will '
@@ -814,7 +814,7 @@ PLACES = {
      'bridge.'),
     ('home', 'Where the vehicle sleeps',
      'Carriers rate on the address the vehicle is garaged at overnight, not the one on your '
-     'licence. In a city this spread out that is a real distinction &mdash; people move across '
+     'license. In a city this spread out that is a real distinction &mdash; people move across '
      'town and forget to tell anyone, and a claim is the wrong moment to find out the policy has '
      'the old address.'),
     ('lang', 'English or Spanish, whichever is easier',
@@ -823,7 +823,7 @@ PLACES = {
      'gone through line by line either way.'),
     ('sun', 'Sun, hail and the odd flash flood',
      'Comprehensive is the part of the policy that covers hail, flooding, theft and a cracked '
-     'windscreen &mdash; not collision, and not liability. It is subject to your deductible and to '
+     'windshield &mdash; not collision, and not liability. It is subject to your deductible and to '
      'the terms of the policy, and it is the coverage most often dropped by people who then need '
      'it.'),
   ],
@@ -869,7 +869,7 @@ def has(state, slug):
 
 # ---------------------------------------------------------------------------
 # Cities without a hand-written entry above still get the new page. What they
-# do NOT get is invented local colour: their content is derived from things
+# do NOT get is invented local color: their content is derived from things
 # already established and checkable — the corridor fact in cities.ROADS, the
 # city's tags, and its county. Sections with no data (ZIP selector, area
 # explorer) are simply not rendered, which is the honest outcome for a town
@@ -935,7 +935,7 @@ TAG_FACTORS = {
    'usually sits, and they are worth going through in whichever language you think in.'),
  'metro': ('road', 'City miles and where the car sits at night',
    'Stop-start traffic, more vehicles per mile, and an overnight parking situation that varies '
-   'street by street. Carriers rate on the garaging address rather than the one on your licence.'),
+   'street by street. Carriers rate on the garaging address rather than the one on your license.'),
  'dfw': ('road', 'Metroplex distances and toll roads',
    'Commutes across the Metroplex are long, and mileage is one of the things a carrier asks about. '
    'Toll usage does not affect a quote, but the distance behind it does.'),
@@ -964,7 +964,7 @@ def derive(state, slug, name, county, tags, road):
             factors.append(TAG_FACTORS[t])
     factors.append(('home', 'Where the vehicle is kept',
       'Carriers rate on the address the vehicle parks at overnight, not the one printed on your '
-      'licence. If you have moved within ' + county + ' County and not told anyone, that is worth '
+      'license. If you have moved within ' + county + ' County and not told anyone, that is worth '
       'sorting out before a claim rather than during one.'))
 
     intents = list(BASE_INTENTS)

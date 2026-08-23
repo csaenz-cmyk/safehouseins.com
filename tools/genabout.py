@@ -3,7 +3,7 @@
 
 Every number and name here comes from what the agency has actually published —
 the team block on the home page, the carriers named in the privacy policy, the
-licence footprint. Nothing about founding year, client counts or awards is
+license footprint. Nothing about founding year, client counts or awards is
 claimed, because none of that is established anywhere in this repo and an About
 page is the last place to start guessing.
 """
@@ -75,7 +75,7 @@ BODY = """
          or Spanish, whichever the conversation started in.</p></div>
     <div class="card"><span class="n">3</span>
       <h3>Border life is not standard</h3>
-      <p>A foreign licence, a matr&iacute;cula, a first policy at 19, a work truck and a family car
+      <p>A foreign license, a matr&iacute;cula, a first policy at 19, a work truck and a family car
          on one household. National call centres treat those as edge cases. Here they are Tuesday.</p></div>
   </div>
 </div></section>
@@ -112,7 +112,7 @@ BODY = """
 <section class="blk"><div class="wrap narrow">
   <h2>Where we are, and who we can help</h2>
   <p>We are at <strong>6065 Montana Ave Ste C8, El Paso, Texas</strong>, and we are licensed in
-     <strong>Texas and New Mexico</strong>. Those two licences are the honest boundary of what we can
+     <strong>Texas and New Mexico</strong>. Those two licenses are the honest boundary of what we can
      sell &mdash; not a marketing region. If you are outside them, we will tell you so rather than
      take your information.</p>
   <p>Inside them, distance does not matter. We write policies in El Paso and Las Cruces because that
@@ -177,7 +177,7 @@ if __name__ == '__main__':
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     out = (shell.head('About us',
              'Safe House Insurance is an independent, bilingual agency in El Paso, Texas, '
-             'licensed in Texas and New Mexico. How we work and why.')
+             'licensed in Texas and New Mexico. How we work and why.', canonical='https://safehouseins.com/about')
            + BODY + shell.FOOTER)
     path = os.path.join(root, 'about.html')
     open(path, 'w', encoding='utf-8').write(out)

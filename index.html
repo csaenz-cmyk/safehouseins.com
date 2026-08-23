@@ -617,7 +617,7 @@
       <a class="btn gh" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
     </div>
     <div class="badges">
-      <span class="bd"><span class="ic st">★</span><span><b>5-star reviews</b><span>on Google</span></span></span>
+      <span class="bd"><span class="ic">🛡️</span><span><b>Independent agency</b><span>We compare carriers</span></span></span>
       <span class="bd"><span class="ic">🇲🇽</span><span><b>Se habla español</b><span>Bilingual team</span></span></span>
     </div>
   </div>
@@ -760,43 +760,23 @@
 <!-- ================= AGENTS ================= -->
 <section class="agents" id="agents" aria-label="Meet the agents">
   <div class="agin">
-    <div class="agtext rv">
-      <span class="kick"><img src="assets/safehouse-heart.png" alt=""> Our team</span>
-      <h2>Expert advice when you need it.</h2>
-      <p class="sl">Call or text and you get a licensed Safe House agent here in El Paso &mdash;
-         not a bot and not a call center. In English or Spanish, whichever you prefer.</p>
-      <div class="agrow" id="agrow" role="tablist" aria-label="Agents">
-        <button class="agt on" type="button" aria-label="Daniela R."
-          data-name="Daniela R." data-role="Licensed agent" data-exp="8 years" data-f1="Explains deductibles like she&rsquo;s telling a story." data-f2="Sunday menudo is non-negotiable.">
-          <img src="assets/agent-1-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
-        <button class="agt" type="button" aria-label="Alexa M."
-          data-name="Alexa M." data-role="Licensed agent" data-exp="11 years" data-f1="Has quoted every carrier we carry. Twice." data-f2="Ask her about SR-22s. Actually, don&rsquo;t. She will explain all of it.">
-          <img src="assets/agent-2-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
-        <button class="agt" type="button" aria-label="Marcus D."
-          data-name="Marcus D." data-role="Licensed agent" data-exp="9 years" data-f1="Answers the phone before the second ring." data-f2="Grills for the whole office. Nobody asked him to.">
-          <img src="assets/agent-4-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
-        <button class="agt" type="button" aria-label="Ivette S."
-          data-name="Ivette S." data-role="Customer service" data-exp="4 years" data-f1="Finds your ID card faster than you can open the email." data-f2="Certified plant lady. The office ficus is thriving.">
-          <img src="assets/agent-5-t.jpg" alt="" width="240" height="240" loading="lazy"></button>
-      </div>
-      <p class="agnote">Prefer to talk right now? <a href="tel:+19155031207">Call 915-503-1207</a></p>
-    </div>
+    <!-- Four named agents with photographs, years of experience and personal
+         details lived here. None of them could be confirmed from this project,
+         and an insurance page is not the place to introduce people who may not
+         exist. The rotator markup is in git history: restore it the day the
+         names, roles and photographs are confirmed.
 
-    <div class="agstage">
-      <img class="agp on" src="assets/agent-1.jpg" alt="Daniela R., Safe House Insurance" width="1040" height="1300" loading="lazy">
-      <img class="agp" src="assets/agent-2.jpg" alt="Alexa M., Safe House Insurance" width="1040" height="1300" loading="lazy">
-      <img class="agp" src="assets/agent-4.jpg" alt="Marcus D., Safe House Insurance" width="1040" height="1300" loading="lazy">
-      <img class="agp" src="assets/agent-5.jpg" alt="Ivette S., Safe House Insurance" width="1040" height="1300" loading="lazy">
-      <div class="agcard">
-        <div class="agtop">
-          <span><b id="agName">Daniela R.</b><small id="agRole">Licensed agent</small></span>
-          <span class="agexp"><span>Experience</span><b id="agExp">8 years</b></span>
-        </div>
-        <div class="agfacts">
-          <p><svg class="i"><use href="#heart"/></svg><span id="agF1">Explains deductibles like she&rsquo;s telling a story.</span></p>
-          <p><svg class="i"><use href="#heart"/></svg><span id="agF2">Sunday menudo is non-negotiable.</span></p>
-        </div>
-      </div>
+         What replaces it is true without naming anybody. -->
+    <div class="agtext rv" style="max-width:none;text-align:center;margin:0 auto">
+      <span class="kick"><img src="assets/safehouse-heart.png" alt=""> Our team</span>
+      <h2>Real people. Right here in El Paso.</h2>
+      <p class="sl" style="margin-left:auto;margin-right:auto">When you call or text Safe House you
+        are talking to our team &mdash; not a call center somewhere else. Licensed agents who quote
+        your policy, explain the coverage, make changes and pick up the phone after you buy.
+        In English or Spanish, whichever the conversation starts in.</p>
+      <p class="agnote" style="margin-top:20px">Prefer to talk right now?
+        <a href="tel:+19155031207">Call 915-503-1207</a> &middot;
+        <a href="sms:+19155943777">Text 915-594-3777</a></p>
     </div>
   </div>
 </section>
@@ -806,69 +786,34 @@
 
 
 <!-- reviews -->
+<!-- Five signed testimonials, a "5.0 on Google" badge and two video cards with
+     play buttons that played nothing used to live here. None of it could be
+     verified from this repository, and the 129 city pages in the same build say
+     the opposite in plain words: "we would rather show you nothing than show
+     you something we made up."
+
+     Both could not be true, so this now says what the city pages say. Wire the
+     real feed and the section comes back — with real names, real sources and
+     consent. AggregateRating and Review schema stay out until then: Google's
+     structured-data policy prohibits marking up reviews a page does not show,
+     and an invented rating is the fastest route to a manual action. -->
 <section id="reviews"><div class="wrap">
   <div class="rv rhead">
     <span class="kick"><img src="assets/safehouse-heart.png" alt=""> Reviews</span>
-    <h2>Texas and New Mexico<br>trust Safe House.</h2>
-    <p class="sl">Verified reviews from clients across both states &mdash; from El Paso to Houston, Austin and Albuquerque.</p>
+    <h2>Ask us for references.</h2>
+    <p class="sl">Our customer reviews are not published here yet. We would rather show you nothing
+      than show you something we made up &mdash; real reviews will appear here once the feed is
+      connected. In the meantime, ask and we will put you in touch with customers who agreed to speak.</p>
     <div class="rbadge">
-      <span><b>5.0</b><i aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</i><small>on Google</small></span>
+      <span><b>Independent</b><small>We compare carriers, not one</small></span>
       <span><b>Texas &amp; New Mexico</b><small>Licensed in both</small></span>
       <span><b>Español</b><small>Bilingual team</small></span>
     </div>
+    <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+      <a class="btn grad" href="quote.html">Start my quote &rarr;</a>
+      <a class="btn ghost" href="tel:+19155031207">Call 915-503-1207</a>
+    </div>
   </div>
-
-  <!-- MOSAIC. Two card types:
-       .rq  a written review
-       .rvid a video review — drop one in with a poster image and it slots straight
-             into the grid:
-       <figure class="rvid" style="--poster:url('assets/review-1.jpg')">
-         <button class="play" aria-label="Play review"><svg class="i"><use href="#ar"/></svg></button>
-         <figcaption><b>Name</b><span>Safe House customer</span></figcaption>
-       </figure>                                                                    -->
-  <div class="rgrid">
-    <!-- VIDEO SLOT. Add the clip and its poster and it plays in place:
-         <figure class="rvid" data-video="assets/review-1.mp4" style="--poster:url('assets/review-1.jpg')">
-         Drop the .soon chip once the clip is in. -->
-    <figure class="rvid rv">
-      <span class="pat" aria-hidden="true"></span>
-      <span class="soon">Video review</span>
-      <button class="play" type="button" aria-label="Play video review"><svg class="i"><use href="#play"/></svg></button>
-      <figcaption><b>&Oacute;scar P.</b><span>El Paso, TX</span></figcaption>
-    </figure>
-
-    <figure class="rvid rv">
-      <span class="pat" aria-hidden="true"></span>
-      <span class="soon">Video review</span>
-      <button class="play" type="button" aria-label="Play video review"><svg class="i"><use href="#play"/></svg></button>
-      <figcaption><b>Melissa A.</b><span>Las Cruces, NM</span></figcaption>
-    </figure>
-
-    <blockquote class="rq rv wide">
-      <i class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</i>
-      <p>&ldquo;They found me coverage even with an SR-22, and a real person explained everything in Spanish.&rdquo;</p>
-      <footer><b>Jazm&iacute;n R.</b><span>Las Cruces, NM &middot; Google review</span></footer>
-    </blockquote>
-
-    <blockquote class="rq rv dark wide">
-      <i class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</i>
-      <p>&ldquo;Se tomaron el tiempo de explicarme todo en espa&ntilde;ol, sin prisa y sin presi&oacute;n.&rdquo;</p>
-      <footer><b>Rosa V.</b><span>Houston, TX &middot; Google review</span></footer>
-    </blockquote>
-
-    <blockquote class="rq rv">
-      <i class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</i>
-      <p>&ldquo;They took the time to explain my coverage instead of just selling me something.&rdquo;</p>
-      <footer><b>Marcos T.</b><span>Austin, TX &middot; Google review</span></footer>
-    </blockquote>
-
-    <blockquote class="rq rv tint">
-      <i class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</i>
-      <p>&ldquo;Insured my truck and my house with one call. Professional, and they follow up.&rdquo;</p>
-      <footer><b>Diego M.</b><span>Albuquerque, NM &middot; Google review</span></footer>
-    </blockquote>
-  </div>
-
 </div></section>
 
 </div>
@@ -918,6 +863,13 @@
       </div>
   </div>
 </div></section>
+<!-- The entity graph. One InsuranceAgency with a stable @id that every other
+     page references instead of declaring a second, slightly different agency
+     of its own — which is how a knowledge graph ends up unsure which business
+     it is looking at. Only verified fields are here: no rating, no licence
+     number, no hours and no social profiles until they are confirmed, because
+     schema that contradicts the page is worse than no schema. -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"InsuranceAgency","@id":"https://safehouseins.com/#agency","name":"Safe House Insurance","legalName":"Safe House Insurance LLC","url":"https://safehouseins.com/","logo":"https://safehouseins.com/assets/safehouse-logo.png","image":"https://safehouseins.com/assets/safehouse-logo.png","telephone":"+19155031207","email":"contact@safehouseins.com","address":{"@type":"PostalAddress","streetAddress":"6065 Montana Ave Ste C8","addressLocality":"El Paso","addressRegion":"TX","postalCode":"79925","addressCountry":"US"},"areaServed":[{"@type":"State","name":"Texas"},{"@type":"State","name":"New Mexico"}],"knowsLanguage":["en","es"]},{"@type":"WebSite","@id":"https://safehouseins.com/#website","url":"https://safehouseins.com/","name":"Safe House Insurance","publisher":{"@id":"https://safehouseins.com/#agency"},"inLanguage":"en-US"},{"@type":"WebPage","@id":"https://safehouseins.com/#webpage","url":"https://safehouseins.com/","name":"Safe House Insurance — Independent Insurance Agency in El Paso, TX","isPartOf":{"@id":"https://safehouseins.com/#website"},"about":{"@id":"https://safehouseins.com/#agency"},"inLanguage":"en-US"}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Safe House Insurance?", "acceptedAnswer": {"@type": "Answer", "text": "We are an independent insurance agency based in El Paso, Texas, licensed in Texas and New Mexico. Independent means we do not work for one company — we shop the carriers we represent and bring you the options."}}, {"@type": "Question", "name": "Can I buy a policy right here on the website?", "acceptedAnswer": {"@type": "Answer", "text": "Not quite — and that’s intentional. You can start your quote online and see your options, but before you buy, one of our licensed agents reviews your quote to make sure you’re getting the best option available. Online quotes can sometimes miss additional discounts or savings you may qualify for. Once we’ve reviewed everything with you and you’re happy with your coverage and price, we can activate your policy."}}, {"@type": "Question", "name": "Are the prices I see online final?", "acceptedAnswer": {"@type": "Answer", "text": "They’re a great starting point — and your final price could be even better. Before you decide, we run the required verifications and one of our licensed agents personally reviews your quote to make sure everything is accurate and all eligible discounts and savings have been applied. Then, we’ll confirm the final price with you, walk you through your options, and make sure you’re getting the right coverage at the best price available to you."}}, {"@type": "Question", "name": "Which insurance companies do you shop?", "acceptedAnswer": {"@type": "Answer", "text": "Progressive, Geico, Lemonade, Alinsco and Commonwealth, among others. Carrier availability and eligibility vary by state and by applicant."}}, {"@type": "Question", "name": "What can you insure for me?", "acceptedAnswer": {"@type": "Answer", "text": "From your car to your home, business, and more — we’ve got you covered. We offer auto, homeowners, renters, mobile home, commercial, work truck insurance, and more. Need more than one type of coverage? We can help bring it all together and look for every opportunity to save."}}, {"@type": "Question", "name": "Do you write SR-22 and high-risk policies?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Tickets, accidents, a lapse in coverage or an SR-22 requirement are all things we work with regularly. Tell your agent up front so they shop the right carriers the first time."}}, {"@type": "Question", "name": "¿Hablan español?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Todo el equipo es bilingüe. Puedes cotizar, preguntar y resolver en español, por teléfono o por mensaje, con una persona de verdad aquí en El Paso."}}, {"@type": "Question", "name": "Does it cost anything to get a quote?", "acceptedAnswer": {"@type": "Answer", "text": "No. Quoting is free and there is no obligation. If nothing we find fits you better than what you have, we will tell you that."}}, {"@type": "Question", "name": "How soon can my coverage start?", "acceptedAnswer": {"@type": "Answer", "text": "Most quotes come back the same day. When coverage actually starts depends on the carrier and on what they need from you — your agent tells you exactly what is missing and how soon it can be active."}}]}</script>
 
 <!-- ================= START BAND ================= -->
@@ -947,7 +899,20 @@
       <a href="quote.html">Car</a><a href="quote.html">Home</a><a href="quote.html">Renters</a>
       <a href="quote.html">Motorcycle</a><a href="quote.html">Commercial vehicles</a>
       <a href="quote.html">Work trucks and fleets</a></div>
+    <div><h5>Where we are</h5>
+      <!-- The physical address was in JSON-LD and on the city pages but nowhere
+           a person could read it on the home page. That is the single most
+           important fact for local search and for a knowledge panel. -->
+      <address style="font-style:normal;font-size:14.5px;line-height:1.7;color:#C7DBF5">
+        Safe House Insurance LLC<br>
+        6065 Montana Ave Ste C8<br>
+        El Paso, TX 79925
+      </address>
+      <a href="https://maps.google.com/?q=6065+Montana+Ave+Ste+C8,+El+Paso,+TX+79925"
+         target="_blank" rel="noopener">Get directions</a></div>
     <div><h5>Reach us</h5>
+      <!-- Two separate lines, labelled. 915-503-1207 does not receive texts and
+           the site used to say "call or text" over it on eighteen pages. -->
       <a href="tel:+19155031207">Call 915-503-1207</a>
       <a href="sms:+19155943777">Text 915-594-3777</a>
       <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a>
@@ -963,7 +928,7 @@
     Se habla español</p>
   <p class="fnav"><a href="about.html">About us</a> · <a href="careers.html">Careers</a> ·
     <a href="car-insurance/">Car insurance by city</a> · <a href="quote.html">Get a quote</a></p>
-  <p class="disc">Safe House Insurance is an independent insurance agency licensed in Texas and New Mexico (license #__________). Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy. Quotes are estimates and are not a guarantee of coverage or price. Carrier availability and eligibility vary by state and by applicant. © 2026 Safe House Insurance.</p>
+  <p class="disc">Safe House Insurance is an independent insurance agency licensed in Texas and New Mexico. Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy. Quotes are estimates and are not a guarantee of coverage or price. Carrier availability and eligibility vary by state and by applicant. © 2026 Safe House Insurance.</p>
   <p class="legal"><a href="privacy.html">Privacy Policy</a> &middot; <a href="sms-terms.html">SMS Terms</a></p>
 </footer>
 

@@ -394,7 +394,7 @@ def areas(place, city, up):
       '<h2>The ' + _e(city) + ' driver&rsquo;s map</h2>'
       '<p>How the city actually splits up, and what that means for the drive rather than for the '
       'price. We make no claim that one part of town is cheaper than another &mdash; that depends '
-      'on the household, not the postcode.</p></div>'
+      'on the household, not the ZIP code.</p></div>'
       '<div class="areas">'
       + ''.join('<article class="area rv"><b>' + _e(n) + '</b><p>' + b + '</p>'
                 '<a class="mini" href="' + up + 'quote.html">Quote my car &rarr;</a></article>'
@@ -449,7 +449,7 @@ def independent(city, presence, up, variant=0):
 
 FLOWS = [
   [('Tell us about yourself', 'The basic driver and vehicle details. No social security number, no '
-    'photo of your licence, no payment details on the form.'),
+    'photo of your license, no payment details on the form.'),
    ('Compare available options', 'We shop the insurance companies we represent and the prices come '
     'back to you side by side, monthly and paid-in-full.'),
    ('Talk with Safe House', 'A licensed agent verifies the pricing, the discounts you qualify for '
@@ -458,7 +458,7 @@ FLOWS = [
     'are confirmed with an agent by phone or text before anything is issued.')],
 
   [('Give us the basics', 'Who is driving, what they drive, and where it is kept. That is the '
-    'whole form &mdash; no licence photos and no card details.'),
+    'whole form &mdash; no license photos and no card details.'),
    ('We put it to the market', 'The same details go to every company we hold an appointment with, '
     'at the same time, and their answers come back to one screen.'),
    ('An agent checks the work', 'Discounts you qualify for, coverage that actually fits, and the '

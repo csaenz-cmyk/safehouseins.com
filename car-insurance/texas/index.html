@@ -10,6 +10,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+  /* Visually hidden until focused, then a real, visible control. Somebody on a
+     keyboard should not tab through the whole nav on every page to reach the
+     content, and it costs the design nothing because it is off-screen until
+     it matters. */
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:#1666ED;color:#fff;
+      padding:12px 20px;border-radius:0 0 12px 0;font-weight:800;font-size:15px;
+      text-decoration:none}
+  .skip:focus{left:0}
+  :target{scroll-margin-top:90px}
   *{margin:0;padding:0;box-sizing:border-box}
   :root{--blue:#1666ED;--blue-d:#0F4FBF;--cyan:#00C2FF;--navy:#0A2148;--ink:#0E1726;
         --muted:#5C6A80;--line:#E5EBF6;--ice:#EFF5FF;--ice2:#DCEAFF;
@@ -240,6 +249,11 @@
 </head>
 <body>
 
+<!-- First focusable thing on the page. Somebody navigating by keyboard should
+     not have to tab through the whole nav on every page to reach the content;
+     it is invisible until it takes focus, so it costs the design nothing. -->
+<a class="skip" href="#main">Skip to content</a>
+
 <nav><div class="wrap">
   <a href="../../index.html" aria-label="Safe House Insurance home"><img class="logo" src="../../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
   <div class="nl">
@@ -249,6 +263,10 @@
   </div>
   <a class="cta" href="../../quote.html">Get my free quote</a>
 </div></nav>
+
+<!-- One main landmark per page. Screen readers use it to jump straight to the
+     content, and it is what the skip link above targets. -->
+<main id="main">
 
 <header class="pg"><div class="wrap">
   <p class="crumbs"><a href="../">Car insurance</a> &rsaquo; <span>Texas</span></p>
@@ -265,6 +283,8 @@
      Every page below explains what that covers and what it does not.</p></div>
   <div class="ctys"><a class="cty" href="abilene/"><b>Abilene</b><small>Taylor County</small></a><a class="cty" href="allen/"><b>Allen</b><small>Collin County</small></a><a class="cty" href="amarillo/"><b>Amarillo</b><small>Potter County</small></a><a class="cty" href="anthony/"><b>Anthony</b><small>El Paso County</small></a><a class="cty" href="arlington/"><b>Arlington</b><small>Tarrant County</small></a><a class="cty" href="austin/"><b>Austin</b><small>Travis County</small></a><a class="cty" href="baytown/"><b>Baytown</b><small>Harris County</small></a><a class="cty" href="beaumont/"><b>Beaumont</b><small>Jefferson County</small></a><a class="cty" href="bedford/"><b>Bedford</b><small>Tarrant County</small></a><a class="cty" href="brownsville/"><b>Brownsville</b><small>Cameron County</small></a><a class="cty" href="bryan/"><b>Bryan</b><small>Brazos County</small></a><a class="cty" href="carrollton/"><b>Carrollton</b><small>Dallas County</small></a><a class="cty" href="cedar-hill/"><b>Cedar Hill</b><small>Dallas County</small></a><a class="cty" href="cedar-park/"><b>Cedar Park</b><small>Williamson County</small></a><a class="cty" href="college-station/"><b>College Station</b><small>Brazos County</small></a><a class="cty" href="conroe/"><b>Conroe</b><small>Montgomery County</small></a><a class="cty" href="coppell/"><b>Coppell</b><small>Dallas County</small></a><a class="cty" href="corpus-christi/"><b>Corpus Christi</b><small>Nueces County</small></a><a class="cty" href="dallas/"><b>Dallas</b><small>Dallas County</small></a><a class="cty" href="desoto/"><b>DeSoto</b><small>Dallas County</small></a><a class="cty" href="del-rio/"><b>Del Rio</b><small>Val Verde County</small></a><a class="cty" href="denton/"><b>Denton</b><small>Denton County</small></a><a class="cty" href="duncanville/"><b>Duncanville</b><small>Dallas County</small></a><a class="cty" href="eagle-pass/"><b>Eagle Pass</b><small>Maverick County</small></a><a class="cty" href="edinburg/"><b>Edinburg</b><small>Hidalgo County</small></a><a class="cty" href="el-paso/"><b>El Paso</b><small>El Paso County</small></a><a class="cty" href="euless/"><b>Euless</b><small>Tarrant County</small></a><a class="cty" href="fabens/"><b>Fabens</b><small>El Paso County</small></a><a class="cty" href="flower-mound/"><b>Flower Mound</b><small>Denton County</small></a><a class="cty" href="fort-worth/"><b>Fort Worth</b><small>Tarrant County</small></a><a class="cty" href="frisco/"><b>Frisco</b><small>Collin County</small></a><a class="cty" href="galveston/"><b>Galveston</b><small>Galveston County</small></a><a class="cty" href="garland/"><b>Garland</b><small>Dallas County</small></a><a class="cty" href="georgetown/"><b>Georgetown</b><small>Williamson County</small></a><a class="cty" href="grand-prairie/"><b>Grand Prairie</b><small>Dallas County</small></a><a class="cty" href="grapevine/"><b>Grapevine</b><small>Tarrant County</small></a><a class="cty" href="harlingen/"><b>Harlingen</b><small>Cameron County</small></a><a class="cty" href="horizon-city/"><b>Horizon City</b><small>El Paso County</small></a><a class="cty" href="houston/"><b>Houston</b><small>Harris County</small></a><a class="cty" href="huntsville/"><b>Huntsville</b><small>Walker County</small></a><a class="cty" href="irving/"><b>Irving</b><small>Dallas County</small></a><a class="cty" href="keller/"><b>Keller</b><small>Tarrant County</small></a><a class="cty" href="killeen/"><b>Killeen</b><small>Bell County</small></a><a class="cty" href="laredo/"><b>Laredo</b><small>Webb County</small></a><a class="cty" href="league-city/"><b>League City</b><small>Galveston County</small></a><a class="cty" href="lewisville/"><b>Lewisville</b><small>Denton County</small></a><a class="cty" href="longview/"><b>Longview</b><small>Gregg County</small></a><a class="cty" href="lubbock/"><b>Lubbock</b><small>Lubbock County</small></a><a class="cty" href="mansfield/"><b>Mansfield</b><small>Tarrant County</small></a><a class="cty" href="mcallen/"><b>McAllen</b><small>Hidalgo County</small></a><a class="cty" href="mckinney/"><b>McKinney</b><small>Collin County</small></a><a class="cty" href="mesquite/"><b>Mesquite</b><small>Dallas County</small></a><a class="cty" href="midland/"><b>Midland</b><small>Midland County</small></a><a class="cty" href="mission/"><b>Mission</b><small>Hidalgo County</small></a><a class="cty" href="missouri-city/"><b>Missouri City</b><small>Fort Bend County</small></a><a class="cty" href="new-braunfels/"><b>New Braunfels</b><small>Comal County</small></a><a class="cty" href="north-richland-hills/"><b>North Richland Hills</b><small>Tarrant County</small></a><a class="cty" href="odessa/"><b>Odessa</b><small>Ector County</small></a><a class="cty" href="pasadena/"><b>Pasadena</b><small>Harris County</small></a><a class="cty" href="pearland/"><b>Pearland</b><small>Brazoria County</small></a><a class="cty" href="pharr/"><b>Pharr</b><small>Hidalgo County</small></a><a class="cty" href="plano/"><b>Plano</b><small>Collin County</small></a><a class="cty" href="port-arthur/"><b>Port Arthur</b><small>Jefferson County</small></a><a class="cty" href="richardson/"><b>Richardson</b><small>Dallas County</small></a><a class="cty" href="rio-grande-city/"><b>Rio Grande City</b><small>Starr County</small></a><a class="cty" href="rockwall/"><b>Rockwall</b><small>Rockwall County</small></a><a class="cty" href="round-rock/"><b>Round Rock</b><small>Williamson County</small></a><a class="cty" href="rowlett/"><b>Rowlett</b><small>Dallas County</small></a><a class="cty" href="san-angelo/"><b>San Angelo</b><small>Tom Green County</small></a><a class="cty" href="san-antonio/"><b>San Antonio</b><small>Bexar County</small></a><a class="cty" href="san-elizario/"><b>San Elizario</b><small>El Paso County</small></a><a class="cty" href="san-marcos/"><b>San Marcos</b><small>Hays County</small></a><a class="cty" href="sherman/"><b>Sherman</b><small>Grayson County</small></a><a class="cty" href="socorro/"><b>Socorro</b><small>El Paso County</small></a><a class="cty" href="sugar-land/"><b>Sugar Land</b><small>Fort Bend County</small></a><a class="cty" href="temple/"><b>Temple</b><small>Bell County</small></a><a class="cty" href="texas-city/"><b>Texas City</b><small>Galveston County</small></a><a class="cty" href="the-colony/"><b>The Colony</b><small>Denton County</small></a><a class="cty" href="tyler/"><b>Tyler</b><small>Smith County</small></a><a class="cty" href="uvalde/"><b>Uvalde</b><small>Uvalde County</small></a><a class="cty" href="victoria/"><b>Victoria</b><small>Victoria County</small></a><a class="cty" href="waco/"><b>Waco</b><small>McLennan County</small></a><a class="cty" href="weslaco/"><b>Weslaco</b><small>Hidalgo County</small></a><a class="cty" href="wichita-falls/"><b>Wichita Falls</b><small>Wichita County</small></a><a class="cty" href="wylie/"><b>Wylie</b><small>Collin County</small></a></div>
 </div></section>
+
+</main>
 
 <footer><div class="wrap">
   <div class="deck">
@@ -311,7 +331,7 @@
       <div class="ways">
         <div class="way"><span class="ic" aria-hidden="true">&#9742;</span>
           <span><b>Call</b><a href="tel:+19155031207">915-503-1207</a>
-          <small>A licensed agent, not a call centre</small></span></div>
+          <small>A licensed agent, not a call center</small></span></div>
         <div class="way"><span class="ic" aria-hidden="true">&#128172;</span>
           <span><b>Text</b><a href="sms:+19155943777">915-594-3777</a>
           <small>Different number &mdash; this one receives texts</small></span></div>

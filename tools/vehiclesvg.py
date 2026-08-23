@@ -4,7 +4,7 @@ Why drawings and not photographs: a manufacturer press render is their
 copyright and their trademark, and putting one on an agency page is the exact
 thing that makes a site look like an unauthorised dealership. These are
 generic body-style silhouettes — a pickup reads as a pickup, an SUV reads as
-an SUV — tinted with the brand's accent colour and captioned with the brand
+an SUV — tinted with the brand's accent color and captioned with the brand
 name in type. Nobody is misled about whose page they are on.
 
 If real photography is ever licensed, drop it at assets/makes/<slug>.webp and

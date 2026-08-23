@@ -13,7 +13,17 @@ SITE = 'https://safehouseins.com'
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Working files, mockups and dead experiments that should never be indexed.
-SKIP_ROOT = {'index-b.html', 'option-1-lemonade.html', 'jerry-1.html', 'jerry-2.html'}
+# quote.html carries <meta name="robots" content="noindex">. A sitemap is a
+# list of pages you want indexed, so listing a noindex page is a contradiction
+# a crawler resolves by ignoring one of the two signals. Internal links to the
+# quote form stay everywhere — this only removes it from the sitemap.
+#
+# The .html twins of pages that also exist as directories are excluded for the
+# same reason: /privacy.html and /privacy/ are the same page, only one can be
+# canonical, and the sitemap should carry only canonicals.
+SKIP_ROOT = {'index-b.html', 'option-1-lemonade.html', 'jerry-1.html', 'jerry-2.html',
+             'quote.html', 'privacy.html', 'sms-terms.html',
+             '404.html'}
 SKIP_DIRS = {'.git', 'assets', 'docs', 'tools', 'email', 'mockups', 'sms', '__pycache__'}
 
 def urls():
@@ -37,8 +47,12 @@ if __name__ == '__main__':
     body += ['  <url><loc>' + x + '</loc></url>' for x in u]
     body.append('</urlset>')
     open(os.path.join(ROOT, 'sitemap.xml'), 'w', encoding='utf-8').write('\n'.join(body) + '\n')
-    open(os.path.join(ROOT, 'robots.txt'), 'w', encoding='utf-8').write(
-        'User-agent: *\nAllow: /\n\nSitemap: ' + SITE + '/sitemap.xml\n')
+    # robots.txt is hand-maintained now — it carries the development-path
+    # disallows and the AI-crawler policy, and regenerating it from two lines
+    # here silently threw all of that away every time the sitemap was rebuilt.
+    if not os.path.exists(os.path.join(ROOT, 'robots.txt')):
+        open(os.path.join(ROOT, 'robots.txt'), 'w', encoding='utf-8').write(
+            'User-agent: *\nAllow: /\n\nSitemap: ' + SITE + '/sitemap.xml\n')
     print(str(len(u)) + ' urls in sitemap.xml')
     for x in u[:4]:
         print('   ', x)

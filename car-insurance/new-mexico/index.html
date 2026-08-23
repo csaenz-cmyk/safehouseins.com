@@ -10,6 +10,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+  /* Visually hidden until focused, then a real, visible control. Somebody on a
+     keyboard should not tab through the whole nav on every page to reach the
+     content, and it costs the design nothing because it is off-screen until
+     it matters. */
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:#1666ED;color:#fff;
+      padding:12px 20px;border-radius:0 0 12px 0;font-weight:800;font-size:15px;
+      text-decoration:none}
+  .skip:focus{left:0}
+  :target{scroll-margin-top:90px}
   *{margin:0;padding:0;box-sizing:border-box}
   :root{--blue:#1666ED;--blue-d:#0F4FBF;--cyan:#00C2FF;--navy:#0A2148;--ink:#0E1726;
         --muted:#5C6A80;--line:#E5EBF6;--ice:#EFF5FF;--ice2:#DCEAFF;
@@ -240,6 +249,11 @@
 </head>
 <body>
 
+<!-- First focusable thing on the page. Somebody navigating by keyboard should
+     not have to tab through the whole nav on every page to reach the content;
+     it is invisible until it takes focus, so it costs the design nothing. -->
+<a class="skip" href="#main">Skip to content</a>
+
 <nav><div class="wrap">
   <a href="../../index.html" aria-label="Safe House Insurance home"><img class="logo" src="../../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
   <div class="nl">
@@ -249,6 +263,10 @@
   </div>
   <a class="cta" href="../../quote.html">Get my free quote</a>
 </div></nav>
+
+<!-- One main landmark per page. Screen readers use it to jump straight to the
+     content, and it is what the skip link above targets. -->
+<main id="main">
 
 <header class="pg"><div class="wrap">
   <p class="crumbs"><a href="../">Car insurance</a> &rsaquo; <span>New Mexico</span></p>
@@ -265,6 +283,8 @@
      Every page below explains what that covers and what it does not.</p></div>
   <div class="ctys"><a class="cty" href="alamogordo/"><b>Alamogordo</b><small>Otero County</small></a><a class="cty" href="albuquerque/"><b>Albuquerque</b><small>Bernalillo County</small></a><a class="cty" href="anthony/"><b>Anthony</b><small>Doña Ana County</small></a><a class="cty" href="artesia/"><b>Artesia</b><small>Eddy County</small></a><a class="cty" href="aztec/"><b>Aztec</b><small>San Juan County</small></a><a class="cty" href="bayard/"><b>Bayard</b><small>Grant County</small></a><a class="cty" href="belen/"><b>Belen</b><small>Valencia County</small></a><a class="cty" href="bernalillo/"><b>Bernalillo</b><small>Sandoval County</small></a><a class="cty" href="bloomfield/"><b>Bloomfield</b><small>San Juan County</small></a><a class="cty" href="carlsbad/"><b>Carlsbad</b><small>Eddy County</small></a><a class="cty" href="chaparral/"><b>Chaparral</b><small>Doña Ana County</small></a><a class="cty" href="clovis/"><b>Clovis</b><small>Curry County</small></a><a class="cty" href="corrales/"><b>Corrales</b><small>Sandoval County</small></a><a class="cty" href="deming/"><b>Deming</b><small>Luna County</small></a><a class="cty" href="edgewood/"><b>Edgewood</b><small>Santa Fe County</small></a><a class="cty" href="espanola/"><b>Española</b><small>Rio Arriba County</small></a><a class="cty" href="eunice/"><b>Eunice</b><small>Lea County</small></a><a class="cty" href="farmington/"><b>Farmington</b><small>San Juan County</small></a><a class="cty" href="gallup/"><b>Gallup</b><small>McKinley County</small></a><a class="cty" href="grants/"><b>Grants</b><small>Cibola County</small></a><a class="cty" href="hatch/"><b>Hatch</b><small>Doña Ana County</small></a><a class="cty" href="hobbs/"><b>Hobbs</b><small>Lea County</small></a><a class="cty" href="jal/"><b>Jal</b><small>Lea County</small></a><a class="cty" href="kirtland/"><b>Kirtland</b><small>San Juan County</small></a><a class="cty" href="las-cruces/"><b>Las Cruces</b><small>Doña Ana County</small></a><a class="cty" href="las-vegas/"><b>Las Vegas</b><small>San Miguel County</small></a><a class="cty" href="los-alamos/"><b>Los Alamos</b><small>Los Alamos County</small></a><a class="cty" href="los-lunas/"><b>Los Lunas</b><small>Valencia County</small></a><a class="cty" href="lovington/"><b>Lovington</b><small>Lea County</small></a><a class="cty" href="milan/"><b>Milan</b><small>Cibola County</small></a><a class="cty" href="moriarty/"><b>Moriarty</b><small>Torrance County</small></a><a class="cty" href="portales/"><b>Portales</b><small>Roosevelt County</small></a><a class="cty" href="raton/"><b>Raton</b><small>Colfax County</small></a><a class="cty" href="rio-rancho/"><b>Rio Rancho</b><small>Sandoval County</small></a><a class="cty" href="roswell/"><b>Roswell</b><small>Chaves County</small></a><a class="cty" href="ruidoso/"><b>Ruidoso</b><small>Lincoln County</small></a><a class="cty" href="santa-fe/"><b>Santa Fe</b><small>Santa Fe County</small></a><a class="cty" href="santa-rosa/"><b>Santa Rosa</b><small>Guadalupe County</small></a><a class="cty" href="silver-city/"><b>Silver City</b><small>Grant County</small></a><a class="cty" href="socorro/"><b>Socorro</b><small>Socorro County</small></a><a class="cty" href="sunland-park/"><b>Sunland Park</b><small>Doña Ana County</small></a><a class="cty" href="taos/"><b>Taos</b><small>Taos County</small></a><a class="cty" href="truth-or-consequences/"><b>Truth or Consequences</b><small>Sierra County</small></a><a class="cty" href="tucumcari/"><b>Tucumcari</b><small>Quay County</small></a></div>
 </div></section>
+
+</main>
 
 <footer><div class="wrap">
   <div class="deck">
@@ -311,7 +331,7 @@
       <div class="ways">
         <div class="way"><span class="ic" aria-hidden="true">&#9742;</span>
           <span><b>Call</b><a href="tel:+19155031207">915-503-1207</a>
-          <small>A licensed agent, not a call centre</small></span></div>
+          <small>A licensed agent, not a call center</small></span></div>
         <div class="way"><span class="ic" aria-hidden="true">&#128172;</span>
           <span><b>Text</b><a href="sms:+19155943777">915-594-3777</a>
           <small>Different number &mdash; this one receives texts</small></span></div>

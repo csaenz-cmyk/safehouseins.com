@@ -172,7 +172,7 @@ def model_card(slug, name):
 
 BASE_CARDS = [
   ('pin', 'Where you live',
-   'Rated on the address the vehicle parks at overnight, not the city on your licence. Two streets '
+   'Rated on the address the vehicle parks at overnight, not the city on your license. Two streets '
    'apart can price differently, because claims history is measured that finely.'),
   ('user', 'Your driving history',
    'Tickets, at-fault accidents, how long you have been continuously insured. It is the part of the '
@@ -345,14 +345,14 @@ def blocks(slug, name, parent, origin, tags, note):
           'Parts are on a shelf rather than on a boat, more shops can do the work, and more carriers '
           'want to write it. All of that tends to work in your favour.</p>'
           '<p>Where it stops helping is the newest ones. Driver-assist sensors arrived on mainstream '
-          'vehicles just as fast as on luxury ones, and a windscreen with a camera behind it costs '
+          'vehicles just as fast as on luxury ones, and a windshield with a camera behind it costs '
           'what it costs regardless of the badge in front of it.</p>',
 
           '<p>Volume is quietly one of the better things a vehicle can have going for it. A common '
           + _e(name) + ' means a deep parts supply, a short repair and a long list of carriers with '
           'an appetite for it &mdash; which is exactly the situation where shopping around pays, '
           'because they all want the business.</p>'
-          '<p>The exception is anything with a camera in the windscreen or radar in the bumper. That '
+          '<p>The exception is anything with a camera in the windshield or radar in the bumper. That '
           'work is priced the same on an ordinary car as on an expensive one.</p>'])))
 
     if LU.body_mix(slug).get('suv', 0) >= max(1, sum(LU.body_mix(slug).values()) * 0.6):
@@ -622,7 +622,7 @@ def make_page(slug, name, parent, origin, tags, note):
 
     parts.append('<section class="sec tint"><div class="wrap">'
       '<div class="shead rv"><span class="eyebrow">Why Safe House</span>'
-      '<h2>An agency in El Paso, not a call centre</h2>'
+      '<h2>An agency in El Paso, not a call center</h2>'
       '<p>We are independent, we are licensed in Texas and New Mexico, and there is a person on the '
       'other end of the phone who can explain what you are buying.</p></div>'
       + BK.proof() + '</div></section>')

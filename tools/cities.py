@@ -1,10 +1,10 @@
 """The city list behind the local landing pages.
 
-Each row is (slug, name, county, tags, neighbours).
+Each row is (slug, name, county, tags, neighbors).
 
 `tags` decides which of the written sections a page gets, and it is the reason
 these are not doorway pages: a border city page argues about Mexican policies
-and foreign licences, an oil-basin page argues about work trucks and commute
+and foreign licenses, an oil-basin page argues about work trucks and commute
 mileage, a coastal page argues about wind and flood. Two cities with the same
 tags still differ by county, by state minimums and by who they link to.
 
@@ -13,7 +13,7 @@ on the river are all checkable facts. Average premiums, population counts and
 "drivers in Dallas save $X" are not in this file on purpose — inventing them
 would be the fastest way to make the whole set worthless.
 
-Only Texas and New Mexico appear, because those are the two licences the agency
+Only Texas and New Mexico appear, because those are the two licenses the agency
 holds. A landing page for a city we cannot write in is a page that wastes the
 visitor's time.
 """

@@ -25,8 +25,8 @@ BODY = """
      person in front of us rather than selling one company's product. Day to day that looks like
      quoting, explaining, and then looking after the policy afterwards &mdash; payments, changes,
      ID cards, claims, the renewal a year later.</p>
-  <p>The customers are our neighbours: families in El Paso and Las Cruces, work trucks, first-time
-     drivers, people with a foreign licence who have been told no somewhere else. A lot of the job
+  <p>The customers are our neighbors: families in El Paso and Las Cruces, work trucks, first-time
+     drivers, people with a foreign license who have been told no somewhere else. A lot of the job
      is patience and plain language.</p>
 </div></section>
 
@@ -63,7 +63,7 @@ BODY = """
          immediately whether you are comfortable or translating.</p></div>
     <div class="card">
       <h3>Licensed &mdash; or willing to be</h3>
-      <p>A Texas General Lines licence is ideal. If you do not have one and you are serious about
+      <p>A Texas General Lines license is ideal. If you do not have one and you are serious about
          getting it, say so; we would rather train someone good than hire someone available.</p></div>
     <div class="card">
       <h3>Straight with people</h3>
@@ -287,7 +287,7 @@ if __name__ == '__main__':
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     out = (shell.head('Careers',
              'Safe House Insurance is always hiring in El Paso. Send us your resume — '
-             'personal lines, commercial lines and customer service.')
+             'personal lines, commercial lines and customer service.', canonical='https://safehouseins.com/careers')
            + BODY + shell.FOOTER)
     path = os.path.join(root, 'careers.html')
     open(path, 'w', encoding='utf-8').write(out)

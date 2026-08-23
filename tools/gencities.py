@@ -4,10 +4,10 @@
 The risk with a set like this is that Google reads it as doorway pages — near
 duplicates that differ only by a place name — and discounts the whole site.
 The defence here is that the body is assembled from the city's own tags, so a
-border page argues about Mexican policies and foreign licences, an oil-basin
+border page argues about Mexican policies and foreign licenses, an oil-basin
 page argues about work trucks and commute mileage, and a coastal page argues
 about wind and flood. Add the county, the state's own minimum limits and four
-neighbour links, and no two pages read the same.
+neighbor links, and no two pages read the same.
 
 What is deliberately absent: population figures, average premiums, "drivers here
 save $X". None of that is established, and a made-up statistic on a page whose
@@ -36,7 +36,7 @@ for st, d in STATE.items():
         BY_SLUG.setdefault(slug, []).append(st)
 
 def resolve(ref, home_state):
-    """A neighbour reference to (state, slug), or None.
+    """A neighbor reference to (state, slug), or None.
 
     Bare slug means 'the one in my own state if it exists'. Prefix with
     'texas:' or 'new-mexico:' to cross the line deliberately."""
@@ -90,15 +90,15 @@ def para_border(c, s):
        "you south of it. People in " + c + " get caught by that in both directions &mdash; usually "
        "after the accident, not before. If you cross regularly, say so; some carriers handle it "
        "cleanly and some will not touch it.</p>"
-       "<p>A foreign licence, a matr&iacute;cula consular or a passport is not the dead end a call "
-       "centre will tell you it is. We are appointed with carriers that write those drivers every "
+       "<p>A foreign license, a matr&iacute;cula consular or a passport is not the dead end a call "
+       "center will tell you it is. We are appointed with carriers that write those drivers every "
        "day, and having been turned down somewhere else does not count for much here.</p>"),
 
       ("<h2>Crossing, and what your policy does when you do</h2>"
        "<p>Coverage stops at the border in both directions. The US policy on your car does nothing "
        "once you are south of the bridge, and Mexican coverage does nothing once you are back in "
        "" + c + ". Most people learn which is which at the worst possible moment.</p>"
-       "<p>Being licensed abroad is not a reason to be refused. Foreign licences, matr&iacute;culas "
+       "<p>Being licensed abroad is not a reason to be refused. Foreign licenses, matr&iacute;culas "
        "and passports are ordinary here, and we place drivers on them regularly &mdash; a no from "
        "one company is a statement about that company, not about you.</p>"),
 
@@ -107,7 +107,7 @@ def para_border(c, s):
        "US policy you are uninsured the moment you cross, and Mexican coverage does not follow you "
        "home either. Tell your agent how often you cross &mdash; it changes which carriers make "
        "sense.</p>"
-       "<p>We also write plenty of drivers on a foreign licence or a matr&iacute;cula consular. It "
+       "<p>We also write plenty of drivers on a foreign license or a matr&iacute;cula consular. It "
        "narrows the shelf; it does not close it.</p>"),
     ])
 
@@ -270,7 +270,7 @@ def para_mountain(c, s):
       ("<h2>What the altitude does not change</h2>"
        "<p>Dust storms and glare make for real hazards around " + c + ", but carriers do not rate "
        "weather the way drivers assume. What they rate is the claim record it produces, yours and "
-       "your neighbours'. That is why shopping matters most for the people who have actually had a "
+       "your neighbors'. That is why shopping matters most for the people who have actually had a "
        "claim.</p>"),
 
       ("<h2>Driving around " + c + "</h2>"
@@ -330,7 +330,7 @@ def para_road(slug, name, county, st):
 
       ("<h2>Where you drive in " + name + "</h2>"
        "<p>Most local driving comes back to " + r + ". How far you go and where the car sits at "
-       "night are both rating factors, which is why two neighbours with the same car and the same "
+       "night are both rating factors, which is why two neighbors with the same car and the same "
        "record can be quoted differently.</p>"
        "<p>If anything has changed &mdash; a new job, a shorter commute, a move within "
        "" + county + " County &mdash; it is worth re-shopping rather than letting the renewal "
@@ -478,7 +478,7 @@ def factors(st, name):
     head, ta, tb = pick(name + 'fh', [
       ("<h2>What moves your price in " + name + "</h2>"
        "<p>Carriers weigh these differently, which is the whole reason one company can be cheapest "
-       "for you and a different one cheapest for your neighbour.</p>",
+       "for you and a different one cheapest for your neighbor.</p>",
        ('You control these', 'Worth working on'),
        ('You do not control these', 'Worth shopping around')),
 
@@ -630,16 +630,16 @@ def faq(st, name, tags):
     ]
 
     if 'border' in tags:
-        qs.append(("Can I get insured with a foreign licence or a matr&iacute;cula?",
+        qs.append(("Can I get insured with a foreign license or a matr&iacute;cula?",
           P('b1', [
-           "<p>Yes. A foreign licence, a matr&iacute;cula consular or a passport is workable "
+           "<p>Yes. A foreign license, a matr&iacute;cula consular or a passport is workable "
            "&mdash; it narrows which carriers will write you, it does not rule them out. We place "
            "drivers on those documents regularly in " + name + ".</p>"
            "<p>Being turned down by one company tells you about that company's appetite, not about "
            "whether you can be insured.</p>",
 
            "<p>It is an ordinary situation here, not an obstacle. Some carriers write drivers on a "
-           "foreign licence or a matr&iacute;cula without blinking and some will not touch it "
+           "foreign license or a matr&iacute;cula without blinking and some will not touch it "
            "&mdash; knowing which is which is most of what an agency is for.</p>"
            "<p>If you have already been refused somewhere, bring that with you. It changes nothing "
            "about where else you can be placed.</p>"]) ))
@@ -868,7 +868,7 @@ def minimums(st, name):
     ])
     return head + tail
 
-def neighbours(nb, st, name):
+def neighbors(nb, st, name):
     out = []
     for ref in nb:
         if ref in cities.SKIP:
@@ -1147,7 +1147,7 @@ def city_page(slug, name, county, tags, nb, st):
 </div></section>
 
 <section class="blk"><div class="wrap narrow">
-  """ + neighbours(nb, st, name) + """
+  """ + neighbors(nb, st, name) + """
   <p style="margin-top:22px"><a href="../../">See every city we write</a></p>
 </div></section>
 """ + rewrite(shell.FOOTER, 3)
@@ -1202,7 +1202,7 @@ def hub():
 <header class="pg"><div class="wrap">
   <span class="kick">By city</span>
   <h1>Car insurance,<br>city by city.</h1>
-  <p>We are licensed in Texas and New Mexico, and those two licences are the honest boundary of
+  <p>We are licensed in Texas and New Mexico, and those two licenses are the honest boundary of
      what we can sell. Find your city below &mdash; or skip it and start the quote.</p>
   <div class="acts"><a class="btn" href="../quote.html">Get my free quote</a></div>
 </div></header>

@@ -11,6 +11,15 @@ TEXT  = '915-594-3777'
 EMAIL = 'contact@safehouseins.com'
 
 CSS = """
+  /* Visually hidden until focused, then a real, visible control. Somebody on a
+     keyboard should not tab through the whole nav on every page to reach the
+     content, and it costs the design nothing because it is off-screen until
+     it matters. */
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:#1666ED;color:#fff;
+      padding:12px 20px;border-radius:0 0 12px 0;font-weight:800;font-size:15px;
+      text-decoration:none}
+  .skip:focus{left:0}
+  :target{scroll-margin-top:90px}
   *{margin:0;padding:0;box-sizing:border-box}
   :root{--blue:#1666ED;--blue-d:#0F4FBF;--cyan:#00C2FF;--navy:#0A2148;--ink:#0E1726;
         --muted:#5C6A80;--line:#E5EBF6;--ice:#EFF5FF;--ice2:#DCEAFF;
@@ -119,10 +128,15 @@ CSS = """
 
 """
 
-def head(title, desc, suffix=' · Safe House Insurance'):
+def head(title, desc, suffix=' · Safe House Insurance', canonical=None):
     """`suffix` is shortenable because search results cut a title off around 60
     characters, and 'Mercedes-Benz car insurance in Texas & New Mexico' plus the
-    full company name is well past that."""
+    full company name is well past that.
+
+    `canonical` is an absolute URL. Pages built by this shell that leave it None
+    were being published with no canonical at all, which is how about.html and
+    careers.html reached an audit as findings."""
+    canon = ('<link rel="canonical" href="' + canonical + '">\n') if canonical else ''
     return """<!doctype html>
 <html lang="en">
 <head>
@@ -131,12 +145,17 @@ def head(title, desc, suffix=' · Safe House Insurance'):
 <title>""" + title + suffix + """</title>
 <meta name="description" content=\"""" + desc + """\">
 <link rel="icon" href="assets/safehouse-heart.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+""" + canon + """<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>""" + CSS + """</style>
 </head>
 <body>
+
+<!-- First focusable thing on the page. Somebody navigating by keyboard should
+     not have to tab through the whole nav on every page to reach the content;
+     it is invisible until it takes focus, so it costs the design nothing. -->
+<a class="skip" href="#main">Skip to content</a>
 
 <nav><div class="wrap">
   <a href="index.html" aria-label="Safe House Insurance home"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
@@ -147,9 +166,15 @@ def head(title, desc, suffix=' · Safe House Insurance'):
   </div>
   <a class="cta" href="quote.html">Get my free quote</a>
 </div></nav>
+
+<!-- One main landmark per page. Screen readers use it to jump straight to the
+     content, and it is what the skip link above targets. -->
+<main id="main">
 """
 
 FOOTER = """
+</main>
+
 <footer><div class="wrap">
   <div class="deck">
     <div>
@@ -195,7 +220,7 @@ FOOTER = """
       <div class="ways">
         <div class="way"><span class="ic" aria-hidden="true">&#9742;</span>
           <span><b>Call</b><a href="tel:+1""" + CALL.replace('-','') + """\">""" + CALL + """</a>
-          <small>A licensed agent, not a call centre</small></span></div>
+          <small>A licensed agent, not a call center</small></span></div>
         <div class="way"><span class="ic" aria-hidden="true">&#128172;</span>
           <span><b>Text</b><a href="sms:+1""" + TEXT.replace('-','') + """\">""" + TEXT + """</a>
           <small>Different number &mdash; this one receives texts</small></span></div>
