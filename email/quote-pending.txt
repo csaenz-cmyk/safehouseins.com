@@ -1,0 +1,63 @@
+{{firstName}}, an agent is working on your quote.
+Un agente esta trabajando tu cotizacion.
+
+SOME QUOTES THE CARRIERS WILL NOT PRICE AUTOMATICALLY.
+
+Yours is one of them, and that is normal - it usually means a carrier
+wants a person to look at something rather than a computer. One of our
+licensed agents has your details and is quoting it by hand right now.
+
+Algunas cotizaciones no se pueden calcular en automatico. Es normal:
+casi siempre significa que la aseguradora quiere que una persona la
+revise. Un agente con licencia ya la esta trabajando.
+
+YOUR QUOTE NUMBER / TU NUMERO DE COTIZACION: {{quoteRef}}
+
+Read it to us on the phone and we pull your request straight up. No
+price is attached to it yet - that is what the call is for.
+Dinoslo por telefono y abrimos tu solicitud. Todavia no tiene precio;
+para eso es la llamada.
+
+--------------------------------------------------------------------
+NOTHING WAS LOST. WE HAVE EVERYTHING YOU SENT.
+
+You do not have to fill anything in again. Call us with that number and
+we pick it up where you left it.
+
+No se perdio nada y no tienes que volver a llenar nada. Llamanos con
+ese numero y seguimos donde te quedaste.
+--------------------------------------------------------------------
+
+Call {{agentPhone}}
+Text {{textPhone}}
+
+Free, no obligation. Licensed agents, English or Spanish.
+Sin costo y sin compromiso. Agentes con licencia.
+
+WHAT HAPPENS NEXT / LO QUE SIGUE
+
+1. We shop it by hand.
+   An agent takes your details to the carriers directly, including the
+   ones that do not price online.
+   Un agente la lleva a las aseguradoras directamente, incluidas las
+   que no cotizan en linea.
+
+2. We call you with real prices.
+   In English or Spanish, whichever you prefer. Nothing is bound and
+   nothing is charged until you say so.
+   Te llamamos con precios reales, en ingles o espanol. Nada se activa
+   ni se cobra hasta que tu lo digas.
+
+--
+We use your information only to prepare your quote. The only people who
+contact you are licensed Safe House agents. We never sell your details.
+Solo usamos tus datos para preparar la cotizacion. No vendemos tu
+informacion.
+
+Safe House Insurance LLC
+6065 Montana Ave Ste C8, El Paso, TX 79925
+{{agentPhone}}
+Licensed in Texas and New Mexico. Nothing here binds coverage.
+(c) {{year}} Safe House Insurance LLC.
+
+Unsubscribe: {{unsubscribeUrl}}

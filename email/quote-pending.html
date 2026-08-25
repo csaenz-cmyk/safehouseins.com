@@ -1,109 +1,291 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="x-apple-disable-message-reformatting">
-<title>We have your quote request</title>
-<!--[if mso]><style>body,table,td{font-family:Arial,Helvetica,sans-serif !important}</style><![endif]-->
-</head>
-<body style="margin:0;padding:0;background:#EEF4FC">
+<!-- Light only, on purpose.
 
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all">
-  We have your request. An agent is working your quote by hand.
+     This design is built out of specific blues on specific near-whites, and
+     every automatic dark-mode transform in the mail clients works by inverting
+     what it thinks is background and what it thinks is text. It gets tables
+     wrong: the gradient panels stay pale, the text over them goes white, and
+     the result is white on near-white. Declaring the palette light is what most
+     clients honour; the [data-ogsc] rules further down are for Outlook.com,
+     which inverts anyway and has to be told what to keep. -->
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>Your Safe House quote request</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+
+<!--[if mso]>
+<noscript><xml><o:OfficeDocumentSettings>
+  <o:PixelsPerInch>96</o:PixelsPerInch>
+</o:OfficeDocumentSettings></xml></noscript>
+<style>
+  /* Word has no web fonts and no letter-spacing worth the name. Give it a
+     humanist sans it actually ships and let it be plain rather than broken. */
+  body,table,td,a,p,div,span{font-family:'Segoe UI',Tahoma,Arial,sans-serif !important;}
+</style>
+<![endif]-->
+
+<style>
+  :root{color-scheme:light;supported-color-schemes:light;}
+
+  /* Manrope and Outfit are requested by the <link> above, for the clients that
+     can load them.
+
+     Apple Mail on iPhone, iPad and Mac renders them. Gmail — web, Android and
+     iOS — strips web fonts entirely, and so do Yahoo, AOL and every Outlook.
+     That is most of the audience, so the fallback is not a degraded case to
+     tolerate, it is the common case, and the metrics here are tuned for it:
+     nothing depends on Outfit's narrow figures to fit its column, and the
+     tight letter-spacing is kept mild enough that Arial does not collide with
+     itself at 74px.
+
+     The stylesheet URL is Google's documented css2 endpoint rather than
+     hand-written @font-face rules pointing at hashed .woff2 paths. Those paths
+     change without notice, and a stale one fails silently — the email would
+     look fine to whoever shipped it and quietly lose the typeface months
+     later with nobody the wiser. */
+
+  /* Baseline resets every template needs and no client agrees on. */
+  body{margin:0 !important;padding:0 !important;width:100% !important;
+       -webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
+  table{border-collapse:collapse !important;mso-table-lspace:0pt;mso-table-rspace:0pt;}
+  img{border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;display:block;}
+  a{text-decoration:none;}
+  /* iOS turns phone numbers, dates and addresses into blue links of its own.
+     The footer address is the one that gets mangled, so it is styled to match
+     whatever it was going to be anyway. */
+  a[x-apple-data-detectors]{color:inherit !important;text-decoration:none !important;
+    font-size:inherit !important;font-family:inherit !important;font-weight:inherit !important;
+    line-height:inherit !important;}
+
+  /* Phones. Gmail (all three apps), Apple Mail, Yahoo and the Outlook mobile
+     apps all run these. Outlook on Windows does not, and does not need to —
+     it is never 620px wide. */
+  @media only screen and (max-width:620px){
+    .px{padding-left:22px !important;padding-right:22px !important;}
+    .huge{font-size:66px !important;line-height:64px !important;letter-spacing:-2px !important;}
+    .h1{font-size:30px !important;line-height:35px !important;letter-spacing:-0.6px !important;}
+    .h2{font-size:19px !important;line-height:26px !important;}
+    .cta{font-size:18px !important;}
+  }
+  /* Very small phones — an SE, or a phone with the system text size raised. */
+  @media only screen and (max-width:380px){
+    .logo{width:142px !important;max-width:142px !important;}
+    .huge{font-size:54px !important;line-height:54px !important;}
+    .h1{font-size:27px !important;line-height:32px !important;}
+  }
+
+  /* Outlook.com dark mode inverts regardless of the meta above. These keep the
+     two panels that would otherwise become unreadable. */
+  [data-ogsc] .dkkeep{background-color:#0B1738 !important;}
+  [data-ogsc] .dktext{color:#ffffff !important;}
+  [data-ogsc] .dkmute{color:#CFE8FF !important;}
+</style>
+</head>
+
+<body style="margin:0;padding:0;background-color:#EFF3FF;">
+
+<!-- Preheader: the grey line the inbox shows next to the subject. Never
+     rendered in the message. The &zwnj;&nbsp; run afterwards stops Gmail
+     pulling the top of the email in behind it. -->
+<div style="display:none;font-size:1px;color:#EFF3FF;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">
+  {{firstName}}, we have your request and an agent is quoting it by hand. Reference {{quoteRef}}.
+</div>
+<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">
+  &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
 </div>
 
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#EEF4FC">
-<tr><td align="center" style="padding:28px 12px">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#EFF3FF" style="background-color:#EFF3FF;background-image:linear-gradient(160deg,#E3F1FF 0%,#EFF3FF 45%,#F4EEFF 100%);">
+<tr><td align="center" style="padding:30px 12px 42px 12px;">
 
-  <!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
-  <!-- Outlook takes the fixed 600 above; everyone else gets a table that
-       shrinks, which is what keeps this readable on a phone. -->
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-         style="width:100%;max-width:600px;background:#ffffff;border-radius:18px;overflow:hidden">
+<!--[if mso]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td><![endif]-->
+<!-- Fluid, capped at 600. The design came in as width="600" with a hard
+     width:600px, which is a fixed table: on a 375px phone the message is 624px
+     wide and the reader scrolls sideways to find the price. Outlook, which
+     cannot do max-width, gets its 600 from the mso ghost table above instead. -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="width:100%;max-width:600px;background-color:#FFFFFF;border-radius:26px;">
 
-    <tr><td style="background:#1F7AFF;padding:26px 28px">
-      <div style="font:900 21px/1.2 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#ffffff">
-        Safe House Insurance
-      </div>
-      <div style="font:600 13px/1.4 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#D6E7FF;margin-top:4px">
-        El Paso, Texas &middot; Licensed in Texas and New Mexico
-      </div>
-    </td></tr>
-
-    <tr><td style="padding:30px 28px 0">
-      <div style="font:900 24px/1.25 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#0B2545">
-        Thank you for giving us the opportunity, {{firstName}}.
-      </div>
-      <div style="font:600 15px/1.6 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#4A5C74;margin-top:12px">
-        We have your request and an agent is working it by hand right now. Some
-        quotes need a person rather than a computer &mdash; yours is one of them,
-        and that often means a better price than the screen would have shown.
-      </div>
-    </td></tr>
-
-    <tr><td style="padding:22px 28px 0">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-             style="border:2px dashed #CBDCF4;border-radius:14px">
-        <tr><td align="center" style="padding:14px">
-          <div style="font:900 11px/1.2 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;letter-spacing:1.2px;color:#6B7C93;text-transform:uppercase">
-            Your quote number
-          </div>
-          <div style="font:900 30px/1.25 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#0B2545;margin-top:6px;letter-spacing:2px">
-            {{quoteRef}}
-          </div>
-        </td></tr>
+  <!-- ============ header ============ -->
+  <tr>
+    <td style="padding:32px 40px 0 40px;" class="px">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+          <td align="left" valign="middle">
+            <!-- Gmail blocks images by default, so the alt text is what most people
+                 see first. Styled to read as the brand rather than as browser
+                 default serif. -->
+            <img class="logo" src="https://safehouseins.com/assets/safehouse-logo.png" alt="Safe House Insurance" width="168" height="67" style="display:block;border:0;width:168px;max-width:168px;height:auto;font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:19px;line-height:24px;font-weight:800;color:#1B62F0;">
+          </td>
+          <td align="right" valign="middle" style="font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:12px;line-height:17px;color:#7C8FB5;font-weight:700;letter-spacing:1.4px;white-space:nowrap;">REF {{quoteRef}}</td>
+        </tr>
       </table>
-    </td></tr>
+    </td>
+  </tr>
 
-    <tr><td style="padding:22px 28px 0">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-             style="background:#F5F9FF;border:1px solid #DCE9FA;border-radius:14px">
-        <tr><td style="padding:16px 18px">
-          <div style="font:900 15px/1.3 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#0B2545">
-            What happens next
-          </div>
-          <div style="font:600 14px/1.6 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#4A5C74;margin-top:7px">
-            A licensed agent will text or call you shortly with your prices, after
-            applying every discount you qualify for &mdash; in English or Spanish.
-          </div>
-        </td></tr>
+  <!-- ============ headline ============ -->
+  <tr>
+    <td style="padding:40px 40px 0 40px;" class="px">
+      <p style="margin:0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:12px;line-height:16px;color:#1B62F0;font-weight:700;letter-spacing:2.4px;">WE HAVE YOUR REQUEST</p>
+      <p class="h1" style="margin:16px 0 0 0;font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:38px;line-height:43px;mso-line-height-rule:exactly;color:#0B1738;font-weight:800;letter-spacing:-0.9px;">
+        {{firstName}}, an agent is working on your quote.
+      </p>
+      <p style="margin:10px 0 0 0;font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:21px;line-height:28px;mso-line-height-rule:exactly;color:#1B62F0;font-weight:500;letter-spacing:-0.2px;">
+        Un agente est&aacute; trabajando tu cotizaci&oacute;n.
+      </p>
+    </td>
+  </tr>
+
+  <!-- ============ what is happening ============
+       There is no price to lead with, so the lead is what we are doing about
+       it. A blank where the figure would be is what makes a lead feel dropped,
+       and the honest version of this email still has to arrive: it is the only
+       thing the visitor holds with a quote number on it. -->
+  <tr>
+    <td style="padding:32px 40px 0 40px;" class="px">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#F5F8FF" style="background-color:#F5F8FF;background-image:linear-gradient(160deg,#F0F7FF 0%,#F6F4FF 100%);border-radius:20px;">
+        <tr>
+          <td style="padding:24px 26px;">
+            <p style="margin:0;font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:19px;line-height:27px;color:#0B1738;font-weight:700;letter-spacing:-0.3px;">
+              Some quotes the carriers will not price automatically.
+            </p>
+            <p style="margin:10px 0 0 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:15px;line-height:24px;color:#3E4F75;">
+              Yours is one of them, and that is normal &mdash; it usually means a
+              carrier wants a person to look at something rather than a computer.
+              One of our licensed agents has your details and is quoting it by hand
+              right now.
+            </p>
+            <p style="margin:10px 0 0 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:15px;line-height:24px;color:#5C6B8A;">
+              Algunas cotizaciones no se pueden calcular en autom&aacute;tico. Es normal:
+              casi siempre significa que la aseguradora quiere que una persona la
+              revise. Un agente con licencia ya la est&aacute; trabajando.
+            </p>
+          </td>
+        </tr>
       </table>
-    </td></tr>
+    </td>
+  </tr>
 
-    <tr><td align="center" style="padding:26px 28px 0">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-        <tr><td align="center" style="background:#1F7AFF;border-radius:99px">
-          <a href="tel:+19155031207"
-             style="display:inline-block;padding:15px 34px;font:900 16px/1 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#ffffff;text-decoration:none">
-            Call {{agentPhone}}
-          </a>
-        </td></tr>
+  <!-- ============ call to action ============ -->
+  <tr>
+    <td style="padding:32px 40px 0 40px;" class="px">
+      <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+        href="tel:{{agentPhoneE164}}" style="height:60px;v-text-anchor:middle;width:520px;" arcsize="50%" stroke="f" fillcolor="#1B62F0">
+        <w:anchorlock/>
+        <center style="color:#ffffff;font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size:20px;font-weight:bold;">Call {{agentPhone}}</center>
+      </v:roundrect>
+      <![endif]-->
+      <!--[if !mso]><!-->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+          <td align="center" bgcolor="#1B62F0" style="background-color:#1B62F0;background-image:linear-gradient(90deg,#0A2AA8 0%,#1B62F0 55%,#22C1FF 100%);border-radius:999px;">
+            <a class="cta" href="tel:{{agentPhoneE164}}" style="display:block;padding:20px 28px;font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:20px;line-height:24px;mso-line-height-rule:exactly;color:#ffffff;font-weight:800;text-decoration:none;letter-spacing:-0.3px;">Call {{agentPhone}}</a>
+          </td>
+        </tr>
       </table>
-      <div style="font:600 13px/1.5 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#6B7C93;margin-top:12px">
-        Would rather not wait? Call us and we will pull up {{quoteRef}}.
-      </div>
-    </td></tr>
+      <!--<![endif]-->
 
-    <tr><td style="padding:28px">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-             style="border-top:1px solid #E6EEF9">
-        <tr><td style="padding-top:18px">
-          <div style="font:600 12px/1.6 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#8A99AD">
-            We use what you sent only to prepare your quote. The only people who
-            contact you are licensed Safe House agents &mdash; we do not sell your
-            details or hand your number to anyone else.
-          </div>
-          <div style="font:600 12px/1.6 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#A8B4C4;margin-top:12px">
-            Safe House Insurance &middot; El Paso, TX &middot; {{agentPhone}}<br>
-            &copy; {{year}} Safe House Insurance. Nothing here binds coverage.
-          </div>
-        </td></tr>
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:10px;">
+        <tr>
+          <td align="center" bgcolor="#EEF4FF" style="background-color:#EEF4FF;border-radius:999px;">
+            <!-- The text line is a different number from the call line. They
+                 are not interchangeable: {{agentPhone}} does not receive SMS. -->
+            <a href="sms:{{textPhoneE164}}" style="display:block;padding:16px 10px;font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:16px;line-height:21px;color:#0A2AA8;font-weight:700;text-decoration:none;">Text {{textPhone}} — escríbenos</a>
+          </td>
+        </tr>
       </table>
-    </td></tr>
+      <p style="margin:14px 0 0 0;text-align:center;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:13px;line-height:21px;color:#5C6B8A;">
+        Free, no obligation. Licensed agents, English or Spanish.<br>Sin costo y sin compromiso. Agentes con licencia.
+      </p>
+    </td>
+  </tr>
 
-  </table>
-  <!--[if mso]></td></tr></table><![endif]-->
+  <!-- ============ why calling now matters ============ -->
+  <tr>
+    <td style="padding:30px 40px 0 40px;" class="px">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0B1738" class="dkkeep" style="background-color:#0B1738;background-image:linear-gradient(115deg,#0A2AA8 0%,#1B62F0 60%,#22C1FF 100%);border-radius:18px;">
+        <tr>
+          <td class="h2 dktext" style="padding:20px 24px;font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:19px;line-height:27px;mso-line-height-rule:exactly;color:#ffffff;font-weight:700;letter-spacing:-0.3px;">
+            Nothing was lost. We have everything you sent.
+            <div class="dkmute" style="font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:14px;line-height:22px;color:#CFE8FF;font-weight:400;padding-top:8px;">
+              You do not have to fill anything in again. Call us with the number below and we pick it up where you left it.
+            </div>
+            <div class="dkmute" style="font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:14px;line-height:22px;color:#CFE8FF;font-weight:400;padding-top:6px;">
+              No se perdi&oacute; nada y no tienes que volver a llenar nada. Ll&aacute;manos con ese n&uacute;mero y seguimos donde te quedaste.
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ next steps ============ -->
+  <tr>
+    <td style="padding:32px 40px 0 40px;" class="px">
+      <p style="margin:0 0 16px 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:11px;line-height:15px;color:#8093B8;font-weight:700;letter-spacing:2px;">NEXT &nbsp;&middot;&nbsp; LO QUE SIGUE</p>
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+          <td valign="top" style="padding-bottom:14px;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:15px;line-height:24px;color:#3E4F75;border-bottom:1px solid #E9EFFA;">
+            <strong style="font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:17px;color:#0B1738;">1. We shop it by hand.</strong><br>
+            An agent takes your details to the carriers directly, including the ones that do not price online.<br>
+            <span style="color:#5C6B8A;">Un agente la lleva a las aseguradoras directamente, incluidas las que no cotizan en l&iacute;nea.</span>
+          </td>
+        </tr>
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td valign="top" style="font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:15px;line-height:24px;color:#3E4F75;">
+            <strong style="font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:17px;color:#0B1738;">2. We call you with real prices.</strong><br>
+            In English or Spanish, whichever you prefer. Nothing is bound and nothing is charged until you say so.<br>
+            <span style="color:#5C6B8A;">Te llamamos con precios reales, en ingl&eacute;s o espa&ntilde;ol. Nada se activa ni se cobra hasta que t&uacute; lo digas.</span>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ reference ============ -->
+  <tr>
+    <td style="padding:30px 40px 32px 40px;" class="px">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border:1px solid #E1E9F8;border-radius:16px;">
+        <tr>
+          <td style="padding:20px 22px;">
+            <p style="margin:0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:11px;line-height:15px;color:#8093B8;font-weight:700;letter-spacing:1.8px;">YOUR QUOTE NUMBER &nbsp;&middot;&nbsp; TU NÚMERO</p>
+            <p style="margin:8px 0 0 0;font-family:'Courier New',Courier,monospace;font-size:26px;line-height:32px;color:#0B1738;font-weight:700;letter-spacing:2px;">{{quoteRef}}</p>
+            <p style="margin:12px 0 0 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:14px;line-height:23px;color:#3E4F75;">
+              Read it to us on the phone and we pull your request straight up. No price is attached to it yet &mdash; that is what the call is for.
+            </p>
+            <p style="margin:8px 0 0 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:14px;line-height:23px;color:#5C6B8A;">
+              D&iacute;noslo por tel&eacute;fono y abrimos tu solicitud. Todav&iacute;a no tiene precio; para eso es la llamada.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ footer ============ -->
+  <tr>
+    <td bgcolor="#F6F9FF" style="background-color:#F6F9FF;padding:30px 40px 34px 40px;border-radius:0 0 26px 26px;" class="px">
+      <img src="https://safehouseins.com/assets/safehouse-heart.png" alt="" width="22" height="22" style="display:block;border:0;width:22px;max-width:22px;height:22px;font-size:0;line-height:0;">
+      <p style="margin:14px 0 0 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:12px;line-height:21px;color:#5C6B8A;">
+        We use your information only to prepare your quote. The only people who contact you are licensed Safe House agents. We never sell your details.<br>
+        Solo usamos tus datos para preparar la cotización. No vendemos tu información.
+      </p>
+      <p style="margin:14px 0 0 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:12px;line-height:21px;color:#8496B5;">
+        Safe House Insurance LLC &nbsp;&middot;&nbsp; 6065 Montana Ave Ste C8, El Paso, TX 79925 &nbsp;&middot;&nbsp; {{agentPhone}}<br>
+        Licensed in Texas and New Mexico. Nothing here binds coverage / nada aquí obliga cobertura.<br>
+        &copy; {{year}} Safe House Insurance LLC. <a href="{{unsubscribeUrl}}" style="color:#8496B5;text-decoration:underline;">Unsubscribe / cancelar</a>
+      </p>
+    </td>
+  </tr>
+
+</table>
+<!--[if mso]></td></tr></table><![endif]-->
 
 </td></tr>
 </table>

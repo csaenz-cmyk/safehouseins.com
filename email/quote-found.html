@@ -1,133 +1,324 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="x-apple-disable-message-reformatting">
-<title>Your Safe House quote</title>
-<!--[if mso]><style>body,table,td{font-family:Arial,Helvetica,sans-serif !important}</style><![endif]-->
-</head>
-<body style="margin:0;padding:0;background:#EEF4FC">
+<!-- Light only, on purpose.
 
-<!-- preheader: shown in the inbox list, never on the page -->
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all">
-  Here are the prices we found. An agent is reviewing them now.
+     This design is built out of specific blues on specific near-whites, and
+     every automatic dark-mode transform in the mail clients works by inverting
+     what it thinks is background and what it thinks is text. It gets tables
+     wrong: the gradient panels stay pale, the text over them goes white, and
+     the result is white on near-white. Declaring the palette light is what most
+     clients honour; the [data-ogsc] rules further down are for Outlook.com,
+     which inverts anyway and has to be told what to keep. -->
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>Your Safe House quote</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+
+<!--[if mso]>
+<noscript><xml><o:OfficeDocumentSettings>
+  <o:PixelsPerInch>96</o:PixelsPerInch>
+</o:OfficeDocumentSettings></xml></noscript>
+<style>
+  /* Word has no web fonts and no letter-spacing worth the name. Give it a
+     humanist sans it actually ships and let it be plain rather than broken. */
+  body,table,td,a,p,div,span{font-family:'Segoe UI',Tahoma,Arial,sans-serif !important;}
+</style>
+<![endif]-->
+
+<style>
+  :root{color-scheme:light;supported-color-schemes:light;}
+
+  /* Manrope and Outfit are requested by the <link> above, for the clients that
+     can load them.
+
+     Apple Mail on iPhone, iPad and Mac renders them. Gmail — web, Android and
+     iOS — strips web fonts entirely, and so do Yahoo, AOL and every Outlook.
+     That is most of the audience, so the fallback is not a degraded case to
+     tolerate, it is the common case, and the metrics here are tuned for it:
+     nothing depends on Outfit's narrow figures to fit its column, and the
+     tight letter-spacing is kept mild enough that Arial does not collide with
+     itself at 74px.
+
+     The stylesheet URL is Google's documented css2 endpoint rather than
+     hand-written @font-face rules pointing at hashed .woff2 paths. Those paths
+     change without notice, and a stale one fails silently — the email would
+     look fine to whoever shipped it and quietly lose the typeface months
+     later with nobody the wiser. */
+
+  /* Baseline resets every template needs and no client agrees on. */
+  body{margin:0 !important;padding:0 !important;width:100% !important;
+       -webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
+  table{border-collapse:collapse !important;mso-table-lspace:0pt;mso-table-rspace:0pt;}
+  img{border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;display:block;}
+  a{text-decoration:none;}
+  /* iOS turns phone numbers, dates and addresses into blue links of its own.
+     The footer address is the one that gets mangled, so it is styled to match
+     whatever it was going to be anyway. */
+  a[x-apple-data-detectors]{color:inherit !important;text-decoration:none !important;
+    font-size:inherit !important;font-family:inherit !important;font-weight:inherit !important;
+    line-height:inherit !important;}
+
+  /* Phones. Gmail (all three apps), Apple Mail, Yahoo and the Outlook mobile
+     apps all run these. Outlook on Windows does not, and does not need to —
+     it is never 620px wide. */
+  @media only screen and (max-width:620px){
+    .px{padding-left:22px !important;padding-right:22px !important;}
+    .huge{font-size:66px !important;line-height:64px !important;letter-spacing:-2px !important;}
+    .h1{font-size:30px !important;line-height:35px !important;letter-spacing:-0.6px !important;}
+    .h2{font-size:19px !important;line-height:26px !important;}
+    .cta{font-size:18px !important;}
+  }
+  /* Very small phones — an SE, or a phone with the system text size raised. */
+  @media only screen and (max-width:380px){
+    .logo{width:142px !important;max-width:142px !important;}
+    .huge{font-size:54px !important;line-height:54px !important;}
+    .h1{font-size:27px !important;line-height:32px !important;}
+  }
+
+  /* Outlook.com dark mode inverts regardless of the meta above. These keep the
+     two panels that would otherwise become unreadable. */
+  [data-ogsc] .dkkeep{background-color:#0B1738 !important;}
+  [data-ogsc] .dktext{color:#ffffff !important;}
+  [data-ogsc] .dkmute{color:#CFE8FF !important;}
+</style>
+</head>
+
+<body style="margin:0;padding:0;background-color:#EFF3FF;">
+
+<!-- Preheader: the grey line the inbox shows next to the subject. Never
+     rendered in the message. The &zwnj;&nbsp; run afterwards stops Gmail
+     pulling the top of the email in behind it. -->
+<div style="display:none;font-size:1px;color:#EFF3FF;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">
+  {{firstName}}, your best price is {{bestPrice}} — {{bestTermText}}. Reference {{quoteRef}}.
+</div>
+<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">
+  &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
 </div>
 
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#EEF4FC">
-<tr><td align="center" style="padding:28px 12px">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#EFF3FF" style="background-color:#EFF3FF;background-image:linear-gradient(160deg,#E3F1FF 0%,#EFF3FF 45%,#F4EEFF 100%);">
+<tr><td align="center" style="padding:30px 12px 42px 12px;">
 
-  <!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
-  <!-- Outlook takes the fixed 600 above; everyone else gets a table that
-       shrinks, which is what keeps this readable on a phone. -->
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-         style="width:100%;max-width:600px;background:#ffffff;border-radius:18px;overflow:hidden">
+<!--[if mso]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td><![endif]-->
+<!-- Fluid, capped at 600. The design came in as width="600" with a hard
+     width:600px, which is a fixed table: on a 375px phone the message is 624px
+     wide and the reader scrolls sideways to find the price. Outlook, which
+     cannot do max-width, gets its 600 from the mso ghost table above instead. -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="width:100%;max-width:600px;background-color:#FFFFFF;border-radius:26px;">
 
-    <!-- header -->
-    <tr><td style="background:#1F7AFF;padding:26px 28px">
-      <div style="font:900 21px/1.2 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#ffffff">
-        Safe House Insurance
-      </div>
-      <div style="font:600 13px/1.4 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#D6E7FF;margin-top:4px">
-        El Paso, Texas &middot; Licensed in Texas and New Mexico
-      </div>
-    </td></tr>
-
-    <!-- thank you -->
-    <tr><td style="padding:30px 28px 0">
-      <div style="font:900 24px/1.25 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#0B2545">
-        Thank you for giving us the opportunity, {{firstName}}.
-      </div>
-      <div style="font:600 15px/1.6 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#4A5C74;margin-top:12px">
-        We shopped your quote across the carriers we represent. Here is what came
-        back &mdash; and what happens next.
-      </div>
-    </td></tr>
-
-    <!-- reference -->
-    <tr><td style="padding:22px 28px 0">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-             style="border:2px dashed #CBDCF4;border-radius:14px">
-        <tr><td align="center" style="padding:14px">
-          <div style="font:900 11px/1.2 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;letter-spacing:1.2px;color:#6B7C93;text-transform:uppercase">
-            Your quote number
-          </div>
-          <div style="font:900 30px/1.25 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#0B2545;margin-top:6px;letter-spacing:2px">
-            {{quoteRef}}
-          </div>
-        </td></tr>
+  <!-- ============ header ============ -->
+  <tr>
+    <td style="padding:32px 40px 0 40px;" class="px">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+          <td align="left" valign="middle">
+            <!-- Gmail blocks images by default, so the alt text is what most people
+                 see first. Styled to read as the brand rather than as browser
+                 default serif. -->
+            <img class="logo" src="https://safehouseins.com/assets/safehouse-logo.png" alt="Safe House Insurance" width="168" height="67" style="display:block;border:0;width:168px;max-width:168px;height:auto;font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:19px;line-height:24px;font-weight:800;color:#1B62F0;">
+          </td>
+          <td align="right" valign="middle" style="font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:12px;line-height:17px;color:#7C8FB5;font-weight:700;letter-spacing:1.4px;white-space:nowrap;">REF {{quoteRef}}</td>
+        </tr>
       </table>
-    </td></tr>
+    </td>
+  </tr>
 
-    <!-- the prices -->
-    <tr><td style="padding:26px 28px 0">
-      <div style="font:900 13px/1.2 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;letter-spacing:1px;color:#6B7C93;text-transform:uppercase">
-        Some of the prices we found
+  <!-- ============ headline ============ -->
+  <tr>
+    <td style="padding:40px 40px 0 40px;" class="px">
+      <p style="margin:0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:12px;line-height:16px;color:#1B62F0;font-weight:700;letter-spacing:2.4px;">WE SHOPPED {{carrierCount}} CARRIERS</p>
+      <p class="h1" style="margin:16px 0 0 0;font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:38px;line-height:43px;mso-line-height-rule:exactly;color:#0B1738;font-weight:800;letter-spacing:-0.9px;">
+        {{firstName}}, here is what came back.
+      </p>
+      <p style="margin:10px 0 0 0;font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:21px;line-height:28px;mso-line-height-rule:exactly;color:#1B62F0;font-weight:500;letter-spacing:-0.2px;">
+        Esto es lo que encontramos.
+      </p>
+    </td>
+  </tr>
+
+  <!-- ============ the price, and what it is not ============
+
+       Two columns that become two rows, done with inline-blocks and max-width
+       rather than a media query.
+
+       `display:block` on a <td> — the usual shorthand for this — does not
+       stack anything: the browser wraps each block in an anonymous table cell
+       and they stay side by side. Measured at 375px, that is exactly what
+       happened; the columns squeezed to 153px and 161px instead of stacking,
+       and "$2,592" at 66px does not fit in 153px.
+
+       Two inline-blocks capped at 292 and 228 fit the 520px content width side
+       by side and wrap the moment there is not room for both, on their own,
+       in any client with or without media query support. Outlook gets the
+       ghost table instead, because it has neither inline-block nor max-width.
+
+       font-size:0 on the wrapper kills the whitespace between the two blocks,
+       which would otherwise be a ~4px word space that breaks the 520 fit. -->
+  <tr>
+    <td style="padding:32px 40px 0 40px;font-size:0;" class="px">
+      <!--[if mso]><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td width="292" valign="top"><![endif]-->
+      <div style="display:inline-block;width:100%;max-width:292px;vertical-align:top;box-sizing:border-box;-moz-box-sizing:border-box;padding:0 24px 20px 0;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td valign="middle" style="padding-right:8px;">
+              <img src="https://safehouseins.com/assets/safehouse-heart.png" alt="" width="18" height="18" style="display:block;border:0;width:18px;max-width:18px;height:auto;">
+            </td>
+            <td valign="middle" style="font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:11px;line-height:15px;color:#1B62F0;font-weight:700;letter-spacing:2px;">LOWEST PRICE</td>
+          </tr>
+        </table>
+        <!-- Sized so the longest premium a rater returns — "$2,592" and worse —
+             still fits this column in Arial, not only in Outfit. -->
+        <p class="huge" style="margin:10px 0 0 0;font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:74px;line-height:72px;mso-line-height-rule:exactly;color:#0B1738;font-weight:800;letter-spacing:-2.5px;">{{bestPrice}}</p>
+        <p style="margin:12px 0 0 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:15px;line-height:24px;color:#3E4F75;">
+          <strong style="color:#0B1738;">{{bestCarrier}}</strong><br>{{bestPlan}}<br>
+          <span style="color:#5C6B8A;">{{bestPlanEs}}</span>
+        </p>
+      </div><!--
+      --><!--[if mso]></td><td width="228" valign="top"><![endif]--><div style="display:inline-block;width:100%;max-width:228px;vertical-align:top;box-sizing:border-box;-moz-box-sizing:border-box;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#F5F8FF" style="background-color:#F5F8FF;background-image:linear-gradient(160deg,#F0F7FF 0%,#F6F4FF 100%);border-radius:20px;">
+          <tr>
+            <td style="padding:20px 22px;">
+              <p style="margin:0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:11px;line-height:15px;color:#5C6B8A;font-weight:700;letter-spacing:1.8px;">THE OTHERS WE GOT</p>
+              <p style="margin:4px 0 0 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:11px;line-height:16px;color:#5C6B8A;">Las demás que llegaron</p>
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:14px;">
+                {{otherRows}}
+              </table>
+              {{saveBlock}}
+            </td>
+          </tr>
+        </table>
       </div>
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-             style="margin-top:12px;border:1px solid #E6EEF9;border-radius:14px;border-collapse:separate;overflow:hidden">
-        {{rateRows}}
-      </table>
-      <div style="font:600 12px/1.5 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#8A99AD;margin-top:10px">
-        Six-month policies. Prices are based on the information you gave us.
-      </div>
-    </td></tr>
+      <!--[if mso]></td></tr></table><![endif]-->
+    </td>
+  </tr>
 
-    <!-- the part that matters most -->
-    <tr><td style="padding:22px 28px 0">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-             style="background:#FFF6E6;border:1px solid #F5C97B;border-radius:14px">
-        <tr><td style="padding:16px 18px">
-          <div style="font:900 15px/1.3 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#7A4E00">
-            These prices are not final.
-          </div>
-          <div style="font:600 14px/1.6 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#8A5A00;margin-top:7px">
-            They are subject to verification and can change. We still need to run
-            your driving record and apply every discount you qualify for.
-          </div>
-          <div style="font:600 14px/1.6 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#8A5A00;margin-top:10px">
-            You will get a second email with your real prices, and a licensed
-            agent will contact you to go through them &mdash; in English or Spanish.
-          </div>
-        </td></tr>
-      </table>
-    </td></tr>
+  <!-- ============ other policy lengths ============
+       Rendered only when a carrier quoted something that is not a six-month
+       policy. It never joins the struck-through list above: a twelve-month
+       total sitting under a six-month one reads as the expensive option, and
+       it is not the same purchase. Same rule the website follows. -->
+  {{otherTermsBlock}}
 
-    <!-- call -->
-    <tr><td align="center" style="padding:26px 28px 0">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-        <tr><td align="center" style="background:#1F7AFF;border-radius:99px">
-          <a href="tel:+19155031207"
-             style="display:inline-block;padding:15px 34px;font:900 16px/1 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#ffffff;text-decoration:none">
-            Call {{agentPhone}}
-          </a>
-        </td></tr>
+  <!-- ============ call to action ============ -->
+  <tr>
+    <td style="padding:32px 40px 0 40px;" class="px">
+      <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+        href="tel:{{agentPhoneE164}}" style="height:60px;v-text-anchor:middle;width:520px;" arcsize="50%" stroke="f" fillcolor="#1B62F0">
+        <w:anchorlock/>
+        <center style="color:#ffffff;font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size:20px;font-weight:bold;">Call {{agentPhone}}</center>
+      </v:roundrect>
+      <![endif]-->
+      <!--[if !mso]><!-->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+          <td align="center" bgcolor="#1B62F0" style="background-color:#1B62F0;background-image:linear-gradient(90deg,#0A2AA8 0%,#1B62F0 55%,#22C1FF 100%);border-radius:999px;">
+            <a class="cta" href="tel:{{agentPhoneE164}}" style="display:block;padding:20px 28px;font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:20px;line-height:24px;mso-line-height-rule:exactly;color:#ffffff;font-weight:800;text-decoration:none;letter-spacing:-0.3px;">Call {{agentPhone}}</a>
+          </td>
+        </tr>
       </table>
-      <div style="font:600 13px/1.5 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#6B7C93;margin-top:12px">
-        Would rather not wait? Call us and we will pull up {{quoteRef}}.
-      </div>
-    </td></tr>
+      <!--<![endif]-->
 
-    <!-- footer -->
-    <tr><td style="padding:28px">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-             style="border-top:1px solid #E6EEF9">
-        <tr><td style="padding-top:18px">
-          <div style="font:600 12px/1.6 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#8A99AD">
-            We use what you sent only to prepare your quote. The only people who
-            contact you are licensed Safe House agents &mdash; we do not sell your
-            details or hand your number to anyone else.
-          </div>
-          <div style="font:600 12px/1.6 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#A8B4C4;margin-top:12px">
-            Safe House Insurance &middot; El Paso, TX &middot; {{agentPhone}}<br>
-            &copy; {{year}} Safe House Insurance. Nothing here binds coverage.
-          </div>
-        </td></tr>
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:10px;">
+        <tr>
+          <td align="center" bgcolor="#EEF4FF" style="background-color:#EEF4FF;border-radius:999px;">
+            <!-- The text line is a different number from the call line. They
+                 are not interchangeable: {{agentPhone}} does not receive SMS. -->
+            <a href="sms:{{textPhoneE164}}" style="display:block;padding:16px 10px;font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:16px;line-height:21px;color:#0A2AA8;font-weight:700;text-decoration:none;">Text {{textPhone}} — escríbenos</a>
+          </td>
+        </tr>
       </table>
-    </td></tr>
+      <p style="margin:14px 0 0 0;text-align:center;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:13px;line-height:21px;color:#5C6B8A;">
+        Free, no obligation. Licensed agents, English or Spanish.<br>Sin costo y sin compromiso. Agentes con licencia.
+      </p>
+    </td>
+  </tr>
 
-  </table>
-  <!--[if mso]></td></tr></table><![endif]-->
+  <!-- ============ why calling now matters ============ -->
+  <tr>
+    <td style="padding:30px 40px 0 40px;" class="px">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0B1738" class="dkkeep" style="background-color:#0B1738;background-image:linear-gradient(115deg,#0A2AA8 0%,#1B62F0 60%,#22C1FF 100%);border-radius:18px;">
+        <tr>
+          <td class="h2 dktext" style="padding:20px 24px;font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:19px;line-height:27px;mso-line-height-rule:exactly;color:#ffffff;font-weight:700;letter-spacing:-0.3px;">
+            An agent has not looked at this yet — and that is usually where the price drops.
+            <div class="dkmute" style="font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:14px;line-height:22px;color:#CFE8FF;font-weight:400;padding-top:8px;">
+              Online rating only applies the discounts the system can see by itself. Call and we go through it by hand.
+            </div>
+            <div class="dkmute" style="font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:14px;line-height:22px;color:#CFE8FF;font-weight:400;padding-top:6px;">
+              Un agente todavía no lo revisa, y ahí es donde suele bajar el precio. Llámanos y lo repasamos contigo.
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ next steps ============ -->
+  <tr>
+    <td style="padding:32px 40px 0 40px;" class="px">
+      <p style="margin:0 0 16px 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:11px;line-height:15px;color:#8093B8;font-weight:700;letter-spacing:2px;">NEXT &nbsp;&middot;&nbsp; LO QUE SIGUE</p>
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+          <td valign="top" style="padding-bottom:14px;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:15px;line-height:24px;color:#3E4F75;border-bottom:1px solid #E9EFFA;">
+            <strong style="font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:17px;color:#0B1738;">1. You call, we verify.</strong><br>
+            A few minutes. We run your record and apply every discount you qualify for.<br>
+            <span style="color:#5C6B8A;">Nos llamas y verificamos. Unos minutos, con todos los descuentos que te tocan.</span>
+          </td>
+        </tr>
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td valign="top" style="font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:15px;line-height:24px;color:#3E4F75;">
+            <strong style="font-family:'Outfit','Trebuchet MS',Tahoma,Arial,sans-serif;font-size:17px;color:#0B1738;">2. You pick, we start it.</strong><br>
+            Once you are happy with the price, we start the policy and your proof of insurance arrives by email.<br>
+            <span style="color:#5C6B8A;">Tú eliges y nosotros la activamos. Tu comprobante llega por correo.</span>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ reference ============ -->
+  <tr>
+    <td style="padding:30px 40px 32px 40px;" class="px">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border:1px solid #E1E9F8;border-radius:16px;">
+        <tr>
+          <td style="padding:20px 22px;">
+            <p style="margin:0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:11px;line-height:15px;color:#8093B8;font-weight:700;letter-spacing:1.8px;">YOUR QUOTE NUMBER &nbsp;&middot;&nbsp; TU NÚMERO</p>
+            <p style="margin:8px 0 0 0;font-family:'Courier New',Courier,monospace;font-size:26px;line-height:32px;color:#0B1738;font-weight:700;letter-spacing:2px;">{{quoteRef}}</p>
+            <p style="margin:12px 0 0 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:14px;line-height:23px;color:#3E4F75;">
+              Read it to us on the phone and we pull your quote straight up. Prices are based on what you told us and still need verification &mdash; your confirmed price comes after we talk.
+            </p>
+            <p style="margin:8px 0 0 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:14px;line-height:23px;color:#5C6B8A;">
+              Dínoslo por teléfono y abrimos tu cotización. Los precios aún se verifican; el precio confirmado llega después de hablar contigo.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ footer ============ -->
+  <tr>
+    <td bgcolor="#F6F9FF" style="background-color:#F6F9FF;padding:30px 40px 34px 40px;border-radius:0 0 26px 26px;" class="px">
+      <img src="https://safehouseins.com/assets/safehouse-heart.png" alt="" width="22" height="22" style="display:block;border:0;width:22px;max-width:22px;height:22px;font-size:0;line-height:0;">
+      <p style="margin:14px 0 0 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:12px;line-height:21px;color:#5C6B8A;">
+        We use your information only to prepare your quote. The only people who contact you are licensed Safe House agents. We never sell your details.<br>
+        Solo usamos tus datos para preparar la cotización. No vendemos tu información.
+      </p>
+      <p style="margin:14px 0 0 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:12px;line-height:21px;color:#8496B5;">
+        Safe House Insurance LLC &nbsp;&middot;&nbsp; 6065 Montana Ave Ste C8, El Paso, TX 79925 &nbsp;&middot;&nbsp; {{agentPhone}}<br>
+        Licensed in Texas and New Mexico. Nothing here binds coverage / nada aquí obliga cobertura.<br>
+        &copy; {{year}} Safe House Insurance LLC. <a href="{{unsubscribeUrl}}" style="color:#8496B5;text-decoration:underline;">Unsubscribe / cancelar</a>
+      </p>
+    </td>
+  </tr>
+
+</table>
+<!--[if mso]></td></tr></table><![endif]-->
 
 </td></tr>
 </table>

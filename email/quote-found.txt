@@ -1,28 +1,66 @@
-Thank you for giving us the opportunity, {{firstName}}.
+{{firstName}}, here is what came back.
+Esto es lo que encontramos.
 
-We shopped your quote across the carriers we represent. Here is what came
-back -- and what happens next.
+We shopped {{carrierCount}} carriers.
 
-YOUR QUOTE NUMBER: {{quoteRef}}
+YOUR LOWEST PRICE / TU PRECIO MAS BAJO
+{{bestPrice}} - {{bestCarrier}}
+{{bestPlan}}
+{{bestPlanEs}}
 
-SOME OF THE PRICES WE FOUND
-{{rateRowsText}}
+THE OTHERS WE GOT / LAS DEMAS QUE LLEGARON
+{{otherRowsText}}
+{{otherTermsText}}
+YOUR QUOTE NUMBER / TU NUMERO DE COTIZACION: {{quoteRef}}
 
-Six-month policies. Prices are based on the information you gave us.
+Read it to us on the phone and we pull your quote straight up.
+Dinoslo por telefono y abrimos tu cotizacion.
 
-THESE PRICES ARE NOT FINAL.
-They are subject to verification and can change. We still need to run your
-driving record and apply every discount you qualify for.
+--------------------------------------------------------------------
+AN AGENT HAS NOT LOOKED AT THIS YET, AND THAT IS USUALLY WHERE THE
+PRICE DROPS.
 
-You will get a second email with your real prices, and a licensed agent will
-contact you to go through them -- in English or Spanish.
+Online rating only applies the discounts the system can see by itself.
+Call us and we go through it by hand.
 
-Would rather not wait? Call {{agentPhone}} and we will pull up {{quoteRef}}.
+Un agente todavia no lo revisa, y ahi es donde suele bajar el precio.
+Llamanos y lo repasamos contigo.
+--------------------------------------------------------------------
+
+Call {{agentPhone}}
+Text {{textPhone}}
+
+Free, no obligation. Licensed agents, English or Spanish.
+Sin costo y sin compromiso. Agentes con licencia.
+
+WHAT HAPPENS NEXT / LO QUE SIGUE
+
+1. You call, we verify.
+   A few minutes. We run your record and apply every discount you
+   qualify for.
+   Nos llamas y verificamos. Unos minutos, con todos los descuentos
+   que te tocan.
+
+2. You pick, we start it.
+   Once you are happy with the price, we start the policy and your
+   proof of insurance arrives by email.
+   Tu eliges y nosotros la activamos. Tu comprobante llega por correo.
+
+Prices are based on what you told us and still need verification. Your
+confirmed price comes after we talk.
+Los precios aun se verifican; el precio confirmado llega despues de
+hablar contigo.
 
 --
-We use what you sent only to prepare your quote. The only people who contact
-you are licensed Safe House agents -- we do not sell your details or hand your
-number to anyone else.
+We use your information only to prepare your quote. The only people who
+contact you are licensed Safe House agents. We never sell your details.
+Solo usamos tus datos para preparar la cotizacion. No vendemos tu
+informacion.
 
-Safe House Insurance - El Paso, TX - {{agentPhone}}
-(c) {{year}} Safe House Insurance. Nothing here binds coverage.
+Safe House Insurance LLC
+6065 Montana Ave Ste C8, El Paso, TX 79925
+{{agentPhone}}
+Licensed in Texas and New Mexico. Nothing here binds coverage.
+(c) {{year}} Safe House Insurance LLC.
+
+Unsubscribe: {{unsubscribeUrl}}
