@@ -390,6 +390,36 @@ If that leaves nothing at all — no six-month rows and no other lengths either 
 the visitor goes to the agent screen with a reason in the panel. An empty price
 list is never rendered.
 
+#### New Mexico is not rated online — August 2026
+
+**The AMS quotes every auto request against Texas.** `state` is fixed in its
+code and is not read from what this page sends, confirmed by the AMS side. A
+New Mexico visitor therefore does not get an error — they get a Texas price for
+a New Mexico policy: different minimum limits, different rules, a number the
+agency cannot honour. It looks exactly like a working quote, which is what
+makes it worse than no quote.
+
+So `RATE_STATES` at the top of `quote.html` is `['TX']`. A quote in any other
+state skips the rater entirely and goes to the agent screen, with `mailto()` —
+not `shortMail()` — so the agent receives every vehicle, driver and coverage
+and is not restarting the conversation. The screen says why in the visitor's
+terms: New Mexico policies are priced by an agent so they get real New Mexico
+limits instead of a Texas price.
+
+Nothing else on the site claims otherwise; "quote online in minutes, an agent
+calls you with real options" is still true of this path.
+
+**Put `'NM'` back in `RATE_STATES` the day the AMS reads the state it is sent.**
+That is the entire change on this side.
+
+#### "Semi Annual" is six months
+
+The gateway sends `Semi Annual` when it does not send a number, and it has
+always meant six months. `termMonths()` reads the word. Without it the term
+parsed to `null`, which still landed the rate in the comparable list by luck —
+but the card printed *"Policy total $935"* instead of *"6-month total"*,
+because there was no number to name.
+
 #### A different policy length is a choice, not an omission — August 2026
 
 Any term that parses to a number other than 6 used to be **dropped**, and the
@@ -402,7 +432,12 @@ Dropping it was also the wrong trade. A twelve-month policy is a real policy
 somebody can buy; excluding it protected the comparison and lost the sale.
 
 So `otherTerms()` collects them — one row per company, cheapest, sorted — and
-they are appended to **both** tabs under their own divider:
+they are appended to **both** tabs under their own divider. **A company already
+priced in the six-month list does not come back here.** The divider says these
+companies did not quote a six-month policy, and a second Progressive row under
+it would make that line false while breaking the "one price per company" the
+top of the screen promises. The email does the same, for the same reason.
+
 
 > **A DIFFERENT POLICY LENGTH**
 > These companies did not quote a six-month policy, so their price covers a

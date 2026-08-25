@@ -1458,6 +1458,24 @@
 --------------------------------------------------------------------------- */
 (function(){
   var API=(window.SAFEHOUSE_API||'').replace(/\/$/,'');
+
+  /* Where the online rater can actually price a policy — August 2026.
+
+     The AMS quotes every auto request against Texas. `state` is fixed in its
+     code and is not read from what this page sends, so a New Mexico visitor
+     does not get an error, they get a Texas price for a New Mexico policy:
+     different minimum limits, different rules, a number the agency cannot
+     honour. A wrong price is worse than no price, and it is worse in a way
+     nobody can see — it looks exactly like a working quote.
+
+     So New Mexico auto goes to an agent instead, with the whole quote attached
+     by email. Nothing is lost: the lead arrives complete and a licensed agent
+     prices it by hand, which is what would have to happen anyway.
+
+     Put 'NM' back here the day the AMS reads the state it is sent. That is the
+     only change needed on this side. */
+  var RATE_STATES=['TX'];
+  function ratesOnline(st){ return RATE_STATES.indexOf(String(st||'').toUpperCase())>-1; }
   var form=document.getElementById('qform'),
       steps=[].slice.call(form.querySelectorAll('.step')),
       bar=document.getElementById('bar'), crumb=document.getElementById('crumb'),
@@ -4514,10 +4532,22 @@
     el.style.display='block';
   }
 
-  function toAgent(){
-    document.getElementById('doneH').textContent='An agent is taking it from here.';
-    document.getElementById('doneP').textContent='We have got your request. A licensed Safe House agent will '
-      +'text or call you shortly with your options \u2014 in English or Spanish.';
+  /* The agent hand-off. `st` is passed only when the reason is the state, and
+     it changes the wording rather than being left unsaid: somebody who chose
+     New Mexico and never saw a price deserves to know that is deliberate, not
+     the form giving up on them. */
+  function toAgent(st){
+    var nm=String(st||'').toUpperCase()==='NM';
+    document.getElementById('doneH').textContent = nm
+      ? 'A licensed agent is pricing this for you.'
+      : 'An agent is taking it from here.';
+    document.getElementById('doneP').textContent =
+      (nm ? 'New Mexico policies are priced by one of our agents rather than by the '
+          + 'online rater, so you get real New Mexico limits instead of a Texas price. '
+          + 'We have everything you sent \u2014 nothing to fill in again. '
+          : 'We have got your request. ')
+      + 'A licensed Safe House agent will text or call you shortly with your options '
+      + '\u2014 in English or Spanish.';
     show('done'); showDiag();
   }
   /* ---------- one line per company, six-month terms only ----------
@@ -4527,7 +4557,16 @@
      looks like the better deal. So anything we can positively identify as a
      term other than six months is dropped, and each company keeps only its
      cheapest remaining program. */
-  function termMonths(t){ var m=String(t||'').match(/\d+/); return m?Number(m[0]):null; }
+  /* "Semi Annual" is what the gateway sends when it does not send a number,
+     and it has always meant six months. Without this it parsed to null, which
+     still landed it in the comparable list by luck — but the card then printed
+     "Policy total $935" instead of "6-month total", because there was no
+     number to name. Read the word the engine actually uses. */
+  function termMonths(t){
+    var s=String(t||'');
+    if(/semi[\s._-]*annual/i.test(s)) return 6;
+    var m=s.match(/\d+/); return m?Number(m[0]):null;
+  }
   function termText(t){ var m=termMonths(t);
     return m?(m===1?'1 month':m+' months'):(t||'total'); }
 
@@ -4566,13 +4605,21 @@
 
      So they sit in their own group at the bottom of the list, each labelled
      with its own length, and they can be picked like anything else. One row per
-     company, cheapest first, exactly as above. */
-  function otherTerms(rates){
-    var out=[], at={};
+     company, cheapest first, exactly as above.
+
+     A company already priced in the comparable list does not come back here.
+     The group's own heading says these companies did not quote a six-month
+     policy, and a second Progressive row underneath it would make that line
+     false while breaking the "one price per company" the page promises at the
+     top. The email does the same, for the same reason. */
+  function otherTerms(rates,already){
+    var out=[], at={}, have={};
+    (already||[]).forEach(function(r){ have[company(r.carrier)]=1; });
     (rates||[]).forEach(function(r){
       var m=termMonths(r.term);
       if(m===null||m===6||!usablePremium(r)) return;
       var k=company(r.carrier);
+      if(have[k]) return;
       if(!(k in at)){ at[k]=out.length; out.push(r); return; }
       if(Number(r.premium)<Number(out[at[k]].premium)) out[at[k]]=r;
     });
@@ -4741,7 +4788,7 @@
 
   function results(rates,meta){
     reportDropped(rates);
-    var list=sixMonth(rates), others=otherTerms(rates);
+    var list=sixMonth(rates), others=otherTerms(rates,list);
     // Filtering must never leave an empty price list on screen. Six months is
     // what we sell first, but a quote that only came back on other lengths is
     // still a quote with prices in it — the agent screen is for when there is
@@ -4991,6 +5038,14 @@
 
     // no backend wired, or a line we do not rate online: hand off by email
     if(!API || chosenType()!=='car'){ shortMail(); show('done'); return; }
+    // A state the rater cannot price. mailto(), not shortMail() — the agent
+    // gets every vehicle, driver and coverage, so quoting it by hand is not
+    // starting the conversation over.
+    if(!ratesOnline(p.state)){
+      console.warn('[quote] '+p.state+' is not in RATE_STATES — sent to an agent '
+                  +'instead of the rater. See RATE_STATES in quote.html.');
+      mailto(p); toAgent(p.state); return;
+    }
 
     show('rating');
     var started=Date.now(), msgAt=0, msgTimer=setInterval(function(){
