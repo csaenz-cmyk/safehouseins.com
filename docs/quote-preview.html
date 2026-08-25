@@ -267,6 +267,18 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
       font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:#9fb0c6;line-height:1.4}
   .rsplit::before,.rsplit::after{content:'';flex:1;height:1px;background:var(--line)}
   .rcard.other{background:#FBFCFE}
+  /* A policy that covers a different stretch of time. Distinct enough that
+     nobody reads its total as comparable with the six-month ones above, not so
+     distinct that it looks like a warning — it is a real option, and the whole
+     point of showing it is that it can be bought. */
+  .rterms{margin:0 2px 12px;font-size:12.3px;line-height:1.55;color:var(--muted);font-weight:600}
+  .rcard.term{background:#FCFBFF;border-color:#E2E0F4}
+  .rcard.term:hover{border-color:#CFCBEC}
+  .rcard.term.sel{background:#F5F3FF;border-color:#7B6CE8;box-shadow:0 0 0 4px rgba(123,108,232,.15)}
+  .rcard.term.sel .chk{background:#7B6CE8;border-color:#7B6CE8}
+  .rcard .tagterm{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.09em;
+      text-transform:uppercase;color:#5B4BD6;background:#EFECFF;border-radius:99px;
+      padding:2px 7px;margin-bottom:3px}
 
   .rlist{display:flex;flex-direction:column;gap:10px;margin-top:14px}
   /* A button, so the whole row is one tap on a phone. Two rows: the carrier
@@ -1339,7 +1351,8 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
     <section class="step" data-step="results">
       <h1>Your initial options</h1>
       <span class="tag">Subject to verification</span>
-      <p class="sub">Six-month policies, one price per company &mdash; lowest first.</p>
+      <p class="sub">One price per company, lowest first. Most are six-month policies
+        &mdash; any that covers a different length is marked and grouped on its own.</p>
 
       <!-- Coverages the carriers could not quote as asked. Above the prices,
            because the prices are for what is described here and not for what
@@ -4561,6 +4574,33 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
       return isFinite(p)&&p>0;                 // nothing to show or compare
     });
   }
+  function usablePremium(r){
+    if(r.premium===null||r.premium===undefined||r.premium==='') return false;
+    var p=Number(r.premium);
+    return isFinite(p)&&p>0;
+  }
+  /* Companies that only quoted a different policy length.
+
+     These used to be thrown away, which is how "GEICO no aparece" happened: a
+     twelve-month policy is a real policy somebody can buy, and dropping it lost
+     the sale rather than protecting the comparison. They are choices now — just
+     not choices that belong in the same column, because a twelve-month total
+     next to a six-month total is not the same number twice.
+
+     So they sit in their own group at the bottom of the list, each labelled
+     with its own length, and they can be picked like anything else. One row per
+     company, cheapest first, exactly as above. */
+  function otherTerms(rates){
+    var out=[], at={};
+    (rates||[]).forEach(function(r){
+      var m=termMonths(r.term);
+      if(m===null||m===6||!usablePremium(r)) return;
+      var k=company(r.carrier);
+      if(!(k in at)){ at[k]=out.length; out.push(r); return; }
+      if(Number(r.premium)<Number(out[at[k]].premium)) out[at[k]]=r;
+    });
+    return out.sort(function(a,b){ return Number(a.premium)-Number(b.premium); });
+  }
   /* One row per company, cheapest by whichever number the list is about.
      This runs INSIDE each tab, never across both: most carriers sell a
      pay-in-full program and an instalment program, and deduplicating before
@@ -4594,7 +4634,7 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
      type a tab is about still appears there, showing what it did quote and
      saying so — that way the visitor compares the same set of companies either
      way, and no monthly figure is ever invented by dividing a term total. */
-  function buildTabs(list){
+  function buildTabs(list,others){
     var mBest=bestPerCompany(list.filter(isMonthly),'installment'),
         fBest=bestPerCompany(list.filter(function(r){ return !isMonthly(r); }),'premium');
 
@@ -4603,19 +4643,30 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
     }
     // A row can belong to both tabs, so each tab gets its own copy. Tagging the
     // shared object instead would let the second tab overwrite the first's.
-    function tag(r,kind,other){
+    function tag(r,kind,other,term){
       var c={}; for(var k in r) c[k]=r[k];
-      c.__kind=kind; c.__other=!!other; return c;
+      c.__kind=kind; c.__other=!!other; c.__term=!!term; return c;
     }
-    function build(primary,primaryKind,others,otherKind){
+    /* A different policy length goes to the end of both tabs, in its own group.
+
+       Not filtered by payment type the way the rest of the list is: whether a
+       twelve-month policy is paid monthly or up front is a detail next to the
+       fact that it is a twelve-month policy, and hiding it from one tab would
+       be the disappearing act this is here to undo. It carries its own kind, so
+       the card still reads correctly whichever tab it is sitting in. */
+    function terms(){
+      return (others||[]).map(function(r){
+        return tag(r,isMonthly(r)?'monthly':'full',false,true); });
+    }
+    function build(primary,primaryKind,other,otherKind){
       var have=index(primary);
-      var rows=primary.map(function(r){ return tag(r,primaryKind,false); });
+      var rows=primary.map(function(r){ return tag(r,primaryKind,false,false); });
       var extra=[];
-      others.forEach(function(r){
-        if(!(company(r.carrier) in have)) extra.push(tag(r,otherKind,true));
+      other.forEach(function(r){
+        if(!(company(r.carrier) in have)) extra.push(tag(r,otherKind,true,false));
       });
       extra.sort(function(a,b){ return Number(a.premium)-Number(b.premium); });
-      return rows.concat(extra);
+      return rows.concat(extra).concat(terms());
     }
     PLANS.monthly=build(mBest,'monthly',fBest,'full');
     PLANS.full   =build(fBest,'full',mBest,'monthly');
@@ -4626,15 +4677,14 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
      "Carrier X is missing" is otherwise unanswerable from the outside: a
      carrier the AMS never sent and a carrier this page dropped look identical
      on screen. There is no cap on the list — every company that comes back
-     appears in both tabs — so anything absent was either dropped here for one
-     of these two reasons, or never arrived, and this says which. */
+     appears in both tabs — so anything absent either had no premium we could
+     read, or never arrived, and this says which. */
   function reportDropped(rates){
     var out=[];
     (rates||[]).forEach(function(r){
-      var m=termMonths(r.term);
-      if(m!==null&&m!==6) out.push(r.carrier+' — '+termText(r.term)+', not a six-month term');
-      else if(r.premium===null||r.premium===undefined||r.premium===''
-              ||!isFinite(Number(r.premium))||Number(r.premium)<=0)
+      // A term other than six months is no longer a reason to drop anything —
+      // it is grouped and labelled instead. A premium we cannot read still is.
+      if(!usablePremium(r))
         out.push(r.carrier+' — premium came back as '+JSON.stringify(r.premium));
     });
     if(out.length) console.warn('[quote] '+out.length+' rate(s) not shown:\n  '+out.join('\n  '));
@@ -4648,9 +4698,13 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
      quote was sent to that never answered at all.
 
      Until now this only went to the console, which nobody opens. From the
-     visitor's chair a carrier that quoted a twelve-month policy and a carrier
+     visitor's chair a carrier that answered with nothing usable and a carrier
      that never replied look identical: both are simply absent, and the page
-     reads as though we did not shop them. */
+     reads as though we did not shop them.
+
+     A different policy length is no longer one of these. Those are real
+     choices at the bottom of the list now, so they are in `shown` and never
+     reach this block. */
   function renderMore(rates,meta){
     var box=document.getElementById('rmore'); if(!box) return;
     var shown={}, seen={}, items=[];
@@ -4658,11 +4712,13 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
 
     (rates||[]).forEach(function(r){
       var c=company(r.carrier); if(shown[c]||seen[c]) return;
-      var m=termMonths(r.term), p=Number(r.premium), why;
-      if(m!==null&&m!==6)
-        why='quoted a '+m+'-month policy, so its price cannot be compared with the '
-           +'six-month ones above';
-      else if(!(isFinite(p)&&p>0)) why='answered without a price';
+      // A different policy length is a choice now, not an omission, so it is
+      // already in `shown` and never reaches here. What is left is a company
+      // that answered with nothing we can put a price on.
+      var m=termMonths(r.term), why;
+      if(!usablePremium(r)) why='answered without a price';
+      else if(m!==null&&m!==6)
+        why='quoted a '+m+'-month policy we could not read a price off';
       else return;                       // priced above under another program name
       seen[c]=1;
       items.push('<li><b>'+esc(String(r.carrier||c))+'</b> &mdash; '+why+'.</li>');
@@ -4684,8 +4740,8 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
     box.innerHTML='<b>'+items.length+' other '+(items.length===1?'company':'companies')
       +' we shopped, and why '+(items.length===1?'it is':'they are')
       +' not in the list above</b><ul>'+items.join('')+'</ul>'
-      +'<p>None of these is a dead end. Your agent can pull any of them up and quote it '
-      +'properly &mdash; including on a different term.</p>';
+      +'<p>None of these is a dead end. Your agent can pull any of them up and work it '
+      +'by hand when they call.</p>';
     box.hidden=false;
   }
 
@@ -4708,16 +4764,18 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
 
   function results(rates,meta){
     reportDropped(rates);
-    var list=sixMonth(rates);
-    // Filtering must never leave an empty price list on screen. If nothing
-    // six-month came back, this is a quote an agent has to work.
-    if(!list.length){
-      note('The AMS returned '+((rates||[]).length)+' rate(s), none of them a six-month '
-          +'term with a usable premium. Nothing was shown.');
-      console.warn('[quote] no six-month rates in',rates);
+    var list=sixMonth(rates), others=otherTerms(rates);
+    // Filtering must never leave an empty price list on screen. Six months is
+    // what we sell first, but a quote that only came back on other lengths is
+    // still a quote with prices in it — the agent screen is for when there is
+    // genuinely nothing to show.
+    if(!list.length && !others.length){
+      note('The AMS returned '+((rates||[]).length)+' rate(s), none of them with a '
+          +'usable premium. Nothing was shown.');
+      console.warn('[quote] no priceable rates in',rates);
       toAgent(); return;
     }
-    buildTabs(list);
+    buildTabs(list,others);
 
     // Open on the tab that actually has something in it.
     payTab=PLANS.monthly.length?'monthly':'full';
@@ -4742,16 +4800,26 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
       empty.style.display='block';
     } else {
       empty.style.display='none';
-      var shownDivider=false, html='';
+      var didOther=false, didTerm=false, html='';
       rows.forEach(function(r,i){
         // once, where the carriers that did not quote this payment type begin
-        if(r.__other && !shownDivider){
-          shownDivider=true;
+        if(r.__other && !didOther){
+          didOther=true;
           html+='<p class="rsplit">'+(payTab==='monthly'
             ? 'These carriers did not offer a payment plan &mdash; single payment only'
             : 'These carriers did not offer a single payment &mdash; payment plan only')+'</p>';
         }
-        html+=rateCard(r,i,i===0);
+        // and once where the different policy lengths begin
+        if(r.__term && !didTerm){
+          didTerm=true;
+          html+='<p class="rsplit">A different policy length</p>'
+             +  '<p class="rterms">These companies did not quote a six-month policy, so their '
+             +  'price covers a different stretch of time and cannot be lined up against the '
+             +  'ones above. They are still yours to pick &mdash; the length is on each one.</p>';
+        }
+        // "Lowest" is only meaningful inside the comparable list. A different
+        // policy length has nothing to be lowest of.
+        html+=rateCard(r,i,i===0&&!r.__other&&!r.__term);
       });
       el.innerHTML=html;
     }
@@ -4763,20 +4831,24 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
      single payment rather than being dressed up as a monthly one. */
   function rateCard(r,i,best){
     var sel=chosenRate&&chosenRate.__k===key(r), lines=[];
-    var big, foot;
+    // The total line has to name the length it is the total of. Hard-coding
+    // "6-month total" was right while six months was the only length on the
+    // screen and became a lie the moment a twelve-month policy could sit here.
+    var m=termMonths(r.term), big, foot;
     if(r.__kind==='monthly'){
       var n=Number(r.payments);
       big=money(r.installment); foot='per month';
       lines.push(money(r.downPayment)+' down, then '+n+' payments');
-      lines.push('6-month total '+money(r.premium));
+      lines.push((m?m+'-month':'Policy')+' total '+money(r.premium));
     } else {
       big=money(r.premium); foot=termText(r.term);
       lines.push('one payment, nothing due later');
     }
     return '<button type="button" class="rcard'+(best?' best':'')+(sel?' sel':'')
-      +(r.__other?' other':'')+'" data-i="'+i+'">'
+      +(r.__other?' other':'')+(r.__term?' term':'')+'" data-i="'+i+'">'
       +carrierMark(r.carrier)
       +'<span class="nm">'+(best?'<span class="tagbest">Lowest</span>':'')
+      +(r.__term?'<span class="tagterm">'+esc(termText(r.term))+'</span>':'')
       +'<b>'+esc(r.carrier||'Carrier')+'</b></span>'
       +'<span class="chk">✓</span>'
       +'<span class="meta">'+lines.map(function(t){
@@ -4810,9 +4882,13 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
     b.disabled=false;
     // the row's own kind, not the tab's — a single-payment carrier listed under
     // "Pay monthly" must not have "/mo" stuck on its price
+    // On a different policy length the price alone is ambiguous — $1,810 reads
+    // as expensive next to a six-month figure until you know it buys a year.
+    var mo=termMonths(chosenRate.term),
+        span=(chosenRate.__term&&mo)?' for '+mo+' months':'';
     b.textContent='Purchase '+(chosenRate.carrier||'this option')
       +' — '+(chosenRate.__kind==='monthly'?money(chosenRate.installment)+'/mo'
-                                           :money(chosenRate.premium));
+                                           :money(chosenRate.premium))+span;
   }
 
   document.getElementById('paytabs').addEventListener('click',function(e){
@@ -4910,7 +4986,9 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
       var n=Number(r.payments);
       rows.push(['Due today',money(r.downPayment)]);
       rows.push(['Then',n+(n===1?' payment of ':' payments of ')+money(r.installment)]);
-      rows.push(['Six-month total',money(r.premium)]);
+      // Named after the term the money actually buys — see rateCard().
+      var tm=termMonths(r.term);
+      rows.push([(tm?tm+'-month total':'Policy total'),money(r.premium)]);
     } else {
       rows.push(['Due today',money(r.premium)]);
       rows.push(['Then','nothing — paid in full']);

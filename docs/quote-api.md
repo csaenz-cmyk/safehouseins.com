@@ -373,12 +373,12 @@ pay-in-full, five-pay, EFT — and a raw list is not comparable: a $74 one-month
 sits above a $262 six-month and reads as the better deal. So `results()`
 narrows it:
 
-1. **Six-month terms only.** A rate is dropped when its `term` parses to a
-   number that is not 6. A term we cannot parse is kept — we only exclude what
-   we can positively identify.
-2. **A premium that is missing, zero or non-numeric is dropped.** `Number(null)`
+1. **A premium that is missing, zero or non-numeric is dropped.** `Number(null)`
    is `0`, which would otherwise render as *"$0"* and sort to the top as the
-   cheapest option on the page.
+   cheapest option on the page. This is the only rule that removes anything.
+2. **Six-month terms form the comparable list.** A rate whose `term` parses to
+   6, or to nothing at all, belongs here. A term we cannot parse is kept — we
+   only act on what we can positively identify.
 3. **One row per company, its cheapest.** The first meaningful word of
    `carrier` identifies the company; everything after it names the product, so
    "Apollo Monthly", "Apollo Select 1 MO" and "Apollo Newstar 6 MO" collapse to
@@ -386,25 +386,50 @@ narrows it:
 4. **Sorted by premium, ascending**, since filtering can disturb the order the
    AMS sent.
 
-If that leaves nothing, the visitor goes to the agent screen with a reason in
-the panel. An empty price list is never rendered.
+If that leaves nothing at all — no six-month rows and no other lengths either —
+the visitor goes to the agent screen with a reason in the panel. An empty price
+list is never rendered.
 
-#### Everything that was narrowed out is now named on the page
+#### A different policy length is a choice, not an omission — August 2026
 
-Steps 1 and 2 above used to happen silently, and the console was the only place
-that said so. From the visitor's chair a company that quoted a twelve-month
-policy and a company that never replied look identical — both are simply not
-there — and the page reads as though we never shopped them. That is the exact
-complaint we got: *"GEICO no aparece."*
+Any term that parses to a number other than 6 used to be **dropped**, and the
+console was the only place that said so. GEICO commonly quotes twelve months,
+so GEICO simply was not on the page, and from the visitor's chair that looks
+identical to a company we never shopped. That is the exact complaint we got:
+*"GEICO no aparece."*
+
+Dropping it was also the wrong trade. A twelve-month policy is a real policy
+somebody can buy; excluding it protected the comparison and lost the sale.
+
+So `otherTerms()` collects them — one row per company, cheapest, sorted — and
+they are appended to **both** tabs under their own divider:
+
+> **A DIFFERENT POLICY LENGTH**
+> These companies did not quote a six-month policy, so their price covers a
+> different stretch of time and cannot be lined up against the ones above. They
+> are still yours to pick — the length is on each one.
+
+Each card carries a `12 MONTHS` chip, is tinted differently from the
+comparable list, and is fully selectable — the buy button reads *"Purchase
+GEICO Choice — $299.96/mo for 12 months"*. **"Lowest" is never applied to
+one**: it has nothing in its own group to be lowest of, and against the
+six-month rows it would be comparing unlike numbers, which is the whole thing
+this grouping exists to prevent.
+
+Everywhere a total is printed it is now named after the term it is the total of
+— `12-month total $1,810`, not `6-month total`. That string was hard-coded and
+became wrong the moment another length could appear on the screen.
+
+#### What is still narrowed out is named on the page
 
 `renderMore()` fills a block under the list naming every company that answered
 but is not priced above, with the reason in plain words:
 
-> **GEICO Choice** — quoted a 12-month policy, so its price cannot be compared
-> with the six-month ones above.
 > **Elephant Standard** — answered without a price.
 
-It is hidden when everything that came back made it into the list.
+It is hidden when everything that came back made it into the list. Since other
+lengths became choices, this block is down to carriers with no readable
+premium — plus, if the AMS sends it, the ones below.
 
 **Optional, and not sent today: `shopped`.** If the bridge response carries
 `"shopped": ["Progressive", "GEICO", "Kemper", …]` — the companies the quote was

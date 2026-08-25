@@ -80,8 +80,8 @@ failure this is meant to remove.
 Match the website exactly, or the email will contradict the screen the visitor
 just saw:
 
-- **six-month terms only** — drop anything whose term parses to another number
-- **drop rates with no usable premium** — null, zero, non-numeric
+- **drop rates with no usable premium** — null, zero, non-numeric. This is the
+  only rule that removes a company entirely
 - **one row per company per payment type**, cheapest of each. The first
   meaningful word of the carrier name identifies the company; "Apollo Monthly"
   and "Apollo Newstar 6 MO" are one company, two programs
@@ -91,6 +91,29 @@ just saw:
 A row where `downPayment` equals `premium` reads *paid in full*. A row with
 `payments > 0` and `installment > 0` reads *$X down, then N payments of $Y*.
 Never divide a term total into a monthly figure that no carrier quoted.
+
+**Label every total with its own term.** *"6-month total $935"* is correct for a
+six-month policy and false for anything else, and the screen no longer shows
+six-month policies only.
+
+#### Other policy lengths — August 2026
+
+The page used to drop any term that was not six months. It does not any more:
+GEICO commonly quotes twelve months, so GEICO simply was not on the screen, and
+a twelve-month policy is a real policy somebody can buy. They now appear as
+selectable options in their own group at the bottom, each labelled with its
+length.
+
+**The email has to do the same**, in the same order, or it contradicts the
+screen the visitor just left:
+
+1. six-month rows first, cheapest first — the comparable list
+2. then a small heading, *"A different policy length"*, and the other terms —
+   one row per company, cheapest, each row saying **12 months** (or whatever it
+   is) next to the carrier name
+
+Never sort a twelve-month total into the six-month list. A $1,810 year sitting
+under a $935 half-year reads as the expensive one, and it is not.
 
 ### The row markup
 
