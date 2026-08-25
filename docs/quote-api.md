@@ -175,6 +175,16 @@ because the visitor is being shown a price for far less roadside than they
 asked for. Up and down are now separate sentences and the downward one says so
 plainly.
 
+**`vehicles` names which cars a warning is about.** Rental and roadside are
+chosen per vehicle, so a warning about either can be true of one car and false
+of the next. When the AMS sends `"vehicles": ["2018 Ford F-150"]` the page
+renders *"Roadside on your 2018 Ford F-150 was quoted lower than you asked
+for"*. The field is **absent when the warning applies to every vehicle on the
+policy** — four cars carrying the same rental limit raise one warning, not four
+— and an absent list produces no vehicle clause at all, which is correct: there
+is nothing to distinguish. Entries may be plain strings or objects with a
+`name`; anything else is skipped rather than printed as `[object Object]`.
+
 `ratedUnit` is what makes `rated` sayable: a bare `75` beside a price means
 nothing, `usd_per_disablement` turns it into "$75 per breakdown". A unit this
 page does not recognise yields nothing rather than a guess, and the sentence
@@ -378,6 +388,32 @@ narrows it:
 
 If that leaves nothing, the visitor goes to the agent screen with a reason in
 the panel. An empty price list is never rendered.
+
+#### Everything that was narrowed out is now named on the page
+
+Steps 1 and 2 above used to happen silently, and the console was the only place
+that said so. From the visitor's chair a company that quoted a twelve-month
+policy and a company that never replied look identical — both are simply not
+there — and the page reads as though we never shopped them. That is the exact
+complaint we got: *"GEICO no aparece."*
+
+`renderMore()` fills a block under the list naming every company that answered
+but is not priced above, with the reason in plain words:
+
+> **GEICO Choice** — quoted a 12-month policy, so its price cannot be compared
+> with the six-month ones above.
+> **Elephant Standard** — answered without a price.
+
+It is hidden when everything that came back made it into the list.
+
+**Optional, and not sent today: `shopped`.** If the bridge response carries
+`"shopped": ["Progressive", "GEICO", "Kemper", …]` — the companies the quote was
+actually sent to — anything in it that never came back at all is named too
+(*"did not return a price for this quote"*). Strings or `{carrier}` objects
+both work, the field is matched on the same first-word company rule as the
+rates, and the page behaves exactly as it does now when the field is absent.
+Without it, a carrier that never answered is still invisible and still
+unexplainable to whoever asks.
 
 ### Two lists, never one
 
@@ -598,6 +634,29 @@ can price it — but the enquiry is still worth taking.
 The wording travels with the answer, as the SMS consent does. What matters
 later is not that a box was ticked but what the person was shown when they
 ticked it, so `DISCLOSURE_TEXT` and the screen have to be changed together.
+
+It has been sent on every auto, home and motorcycle payload since the step was
+added. This is its exact shape — it is a legal acceptance and it is meant to be
+stored as a record, not logged as loose text:
+
+```jsonc
+"disclosure": {
+  "accepted": true,                       // false is unreachable: declining ends the quote
+  "text": "By continuing, you authorize Safe House Insurance and the …",
+  "version": "2026-08-25",                // bumped whenever `text` changes
+  "at": "2026-08-25T17:04:11.482Z",       // ISO 8601, UTC, browser clock
+  "source": "safehouseins.com/quote"
+}
+```
+
+The field is `at`, not `acceptedAt`. `text` is the full paragraph so the record
+is self-contained; `version` is dated rather than counted, because the question
+asked later is always *when was this wording live*, and it is the cheap way to
+answer it across thousands of rows without diffing paragraphs. `accepted:false`
+never reaches the AMS — declining stops the flow before a payload is built — so
+treat its absence as no record rather than as a refusal.
+
+The motorcycle flow sends the identical object under `motorcycle.disclosure`.
 
 `garagingZip` comes from the address step and `residence` is asked once, on the
 history step, in the words a motorcycle carrier uses. The auto flow's own/rent

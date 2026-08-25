@@ -304,6 +304,50 @@
   .rbadge i{display:block;color:#F0A82C;font-size:11px;letter-spacing:1px;font-style:normal;margin-top:2px}
   .rbadge small{display:block;font-size:11.5px;color:var(--muted);font-weight:600;margin-top:2px}
 
+  /* ---- the Google panel ----
+     The section used to be a centred stack of text, three chips and two
+     buttons floating on white, directly under another centred stack of text
+     that said something else. Two of those in a row read as one unfinished
+     block, which is what it looked like.
+
+     Same words, given a container: the card is the same white / --line / 24px
+     language as every other card on this page, and the Google side is tinted
+     so the eye lands on where the reviews actually live before it reads why
+     they are not printed here. */
+  .gpanel{margin-top:30px;background:#fff;border:1px solid var(--line);border-radius:26px;
+      overflow:hidden;box-shadow:0 30px 56px -40px rgba(10,33,72,.55);
+      display:grid;grid-template-columns:1fr;text-align:left}
+  .gside{background:var(--ice);border-bottom:1px solid var(--line);padding:26px 24px;
+      display:flex;flex-direction:column;justify-content:center;gap:14px}
+  .gid{display:flex;align-items:center;gap:13px}
+  .gmark{flex:0 0 auto;width:52px;height:52px;border-radius:99px;background:#fff;
+      display:grid;place-items:center;box-shadow:0 8px 20px -12px rgba(10,33,72,.7)}
+  .gmark svg{width:26px;height:26px;display:block}
+  .gid b{display:block;font-size:16.5px;font-weight:900;color:var(--navy);letter-spacing:-.015em;line-height:1.2}
+  /* Balanced, so the narrow column does not leave "TX" alone on a second line. */
+  .gid small{display:block;font-size:12.5px;color:var(--muted);font-weight:700;margin-top:3px;
+      text-wrap:balance}
+  .gside .btn{width:100%}
+  .gnote{font-size:12px;color:#8494ad;font-weight:700;line-height:1.45}
+  .gbody{padding:26px 24px 24px}
+  .gbody p{font-size:15.5px;line-height:1.65;color:#42506a;font-weight:500}
+  .gbody p+p{margin-top:12px;font-weight:700;color:var(--navy)}
+  .gchips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .gchips span{display:flex;align-items:baseline;gap:7px;background:var(--ice);
+      border:1px solid var(--ice2);border-radius:99px;padding:8px 13px}
+  .gchips b{font-size:13px;font-weight:900;color:var(--navy);line-height:1.2}
+  .gchips small{font-size:11.5px;color:var(--muted);font-weight:700}
+  .gbody .btn.out{margin-top:20px}
+  @media(min-width:860px){
+    /* 360, not 320: at 320 the call to action wrapped onto two lines with its
+       arrow stranded at the end of the first, which is the one element on this
+       panel that has to read as a single confident line. */
+    .gpanel{grid-template-columns:minmax(0,360px) minmax(0,1fr)}
+    .gside{border-bottom:0;border-right:1px solid var(--line);padding:32px 26px}
+    .gside .btn{padding-left:18px;padding-right:18px;font-size:15.5px}
+    .gbody{padding:32px 30px}
+  }
+
   .rgrid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:26px}
   .rq{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;
       display:flex;flex-direction:column;box-shadow:0 18px 34px -30px rgba(10,33,72,.5)}
@@ -848,17 +892,43 @@
   <div class="rv rhead">
     <span class="kick"><img src="assets/safehouse-heart.png" alt=""> Reviews</span>
     <h2>What our customers say.</h2>
-    <p class="sl">Real reviews, on Google, written by real customers &mdash; not retyped onto
-      this page by us. Read them where nobody can edit them.</p>
-    <div class="rbadge">
-      <span><b>Independent</b><small>We compare carriers, not one</small></span>
-      <span><b>Texas &amp; New Mexico</b><small>Licensed in both</small></span>
-      <span><b>Español</b><small>Bilingual team</small></span>
-    </div>
-    <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+    <p class="sl">Written by real customers, on Google, where nobody at Safe House
+      can edit them &mdash; so that is where we send you to read them.</p>
+  </div>
+
+  <div class="gpanel rv">
+    <div class="gside">
+      <div class="gid">
+        <span class="gmark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img" aria-label="Google">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+        </span>
+        <span>
+          <b>Safe House Insurance</b>
+          <small>Google Business Profile &middot; El Paso, TX</small>
+        </span>
+      </div>
       <a class="btn grad" href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">
-        Read our Google reviews &rarr;</a>
-      <a class="btn ghost" href="quote.html">Start my quote</a>
+        Read our Google reviews <svg class="i"><use href="#ar"/></svg></a>
+      <p class="gnote">Opens Google in a new tab.</p>
+    </div>
+
+    <div class="gbody">
+      <p>Plenty of agency websites print five glowing quotes with first names under them.
+        Anyone can type those. Ours live on our Google Business Profile, signed and dated by
+        the person who wrote them, in an order we do not control &mdash; including any we would
+        rather not have.</p>
+      <p>Read them there, then come back and see what we can do with your policy.</p>
+      <div class="gchips">
+        <span><b>Independent</b><small>We compare carriers, not one</small></span>
+        <span><b>Texas &amp; New Mexico</b><small>Licensed in both</small></span>
+        <span><b>Español</b><small>Bilingual team</small></span>
+      </div>
+      <a class="btn out" href="quote.html">Start my quote <svg class="i"><use href="#ar"/></svg></a>
     </div>
   </div>
 </div></section>

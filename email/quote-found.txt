@@ -3,7 +3,7 @@ Thank you for giving us the opportunity, {{firstName}}.
 We shopped your quote across the carriers we represent. Here is what came
 back -- and what happens next.
 
-YOUR QUOTE NUMBER: {{quoteId}}
+YOUR QUOTE NUMBER: {{quoteRef}}
 
 SOME OF THE PRICES WE FOUND
 {{rateRowsText}}
@@ -17,7 +17,7 @@ driving record and apply every discount you qualify for.
 You will get a second email with your real prices, and a licensed agent will
 contact you to go through them -- in English or Spanish.
 
-Would rather not wait? Call {{agentPhone}} and we will pull up {{quoteId}}.
+Would rather not wait? Call {{agentPhone}} and we will pull up {{quoteRef}}.
 
 --
 We use what you sent only to prepare your quote. The only people who contact

@@ -22,7 +22,9 @@ GSM_EXT = set("^{}\\[~]|€")
 # cannot leave the message starting with ", your quote..."
 SAMPLE = {
     '{{greeting}}': 'Carlos, ',
-    '{{quoteId}}':   'PQ-2026-004417',
+    # Q plus six digits. Longer than this is not a quote number the AMS issues,
+    # so measuring against a longer sample would budget characters nothing uses.
+    '{{quoteRef}}':  'Q481903',
     '{{bestPrice}}': '$131.84',
     '{{carriers}}':  '7',
     '{{agentPhone}}':'915-503-1207',

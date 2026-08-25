@@ -35,10 +35,45 @@ The client asked for these in his own words; all three are in the template:
 | Placeholder | From | Notes |
 |---|---|---|
 | `{{firstName}}` | the lead | falls back to "there" if blank |
-| `{{quoteId}}` | the quote | shown as the reference number |
+| `{{quoteRef}}` | the quote | the short reference &mdash; see below |
 | `{{rateRows}}` | `rates[]` | see below |
 | `{{agentPhone}}` | agency | `915-503-1207` |
 | `{{year}}` | send time | footer |
+
+### `{{quoteRef}}` — the short reference
+
+**Format: `Q` followed by exactly six digits.** `Q481903`. Seven characters,
+one letter and six numbers, nothing else — no dashes, no year, no letters after
+the Q.
+
+This is not the `quoteId`. The `quoteId` stays exactly as it is and remains the
+key between the website, the bridge and the AMS. `quoteRef` is the human half
+of the same record, and it exists because the UUID was going out on emails and
+texts:
+
+> Your Safe House quote — reference 47b3c498-e49a-41be-d6ab-7d0e8a1270f6
+
+Nobody can read that over the phone, nobody can write it down, and to somebody
+who has just been shown a price it looks like an error code rather than a
+reference. That is the opposite of what a confirmation email is for.
+
+What the AMS needs to do:
+
+1. **Generate it when the quote record is created**, alongside the `quoteId`.
+2. **Store it on the quote and make it searchable**, so an agent can type
+   `Q481903` into the AMS and land on the right quote. A reference that cannot
+   be looked up is worse than an ugly one that can.
+3. **Return it as `quoteRef`** on the bridge response — both on the initial
+   `POST` and on the polled `GET`, so the page has it whichever one carries the
+   rates. The page already reads it and falls back to showing the UUID while
+   the field is absent, so shipping this is not a breaking change in either
+   direction.
+4. **Keep it unique.** Six digits is a million values; if the generator ever
+   collides, retry rather than hand two quotes the same number.
+
+Do not derive it on the website. The page has no way to guarantee the AMS
+stored the same number, and a reference the agent cannot find is exactly the
+failure this is meant to remove.
 
 ### Which rates go in
 
@@ -83,7 +118,7 @@ optional, it is what keeps the message out of spam.
 **Do not put a price in the subject line.** It reads as a firm offer before
 anyone has verified the driving record.
 
-Suggested subject: `Your Safe House quote — reference {{quoteId}}`
+Suggested subject: `Your Safe House quote — reference {{quoteRef}}`
 Preheader: `Here are the prices we found. An agent is reviewing them now.`
 
 ## Files

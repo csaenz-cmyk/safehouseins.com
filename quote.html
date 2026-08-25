@@ -258,8 +258,42 @@
   .rcard .chk{grid-area:chk;width:22px;height:22px;border-radius:99px;border:2px solid var(--line);
       display:grid;place-items:center;color:#fff;font-size:12px;font-weight:900;align-self:start}
   .rcard.sel .chk{background:var(--blue);border-color:var(--blue)}
+  /* The waiting state used to be a grey button at 42% opacity, which is how a
+     broken button looks. It is not a button yet — it is an instruction — so it
+     is drawn as one: full contrast, a dashed edge, and text that says what to
+     do rather than what is disabled. */
   .buy{margin-top:16px}
-  .buy:disabled{background:#E7EEF8;color:#9fb0c6;box-shadow:none;cursor:not-allowed}
+  .buy:disabled{background:#F4F8FE;color:var(--blue-d);opacity:1;box-shadow:none;
+      border:2px dashed #B9D2F6;cursor:default;font-size:15.5px}
+  .buy:disabled::before{content:'\2191';font-size:17px;font-weight:900;margin-right:2px}
+
+  /* Why the price you are looking at is not the last word. Above the list, so
+     it is read before the numbers rather than after somebody has decided the
+     agency is expensive and closed the tab. */
+  .hcheck{display:flex;gap:13px;border:1.5px solid #BBD6FB;background:#F4F9FF;
+      border-radius:18px;padding:15px 16px;margin-top:16px}
+  .hcheck .hi{flex:0 0 auto;width:34px;height:34px;border-radius:11px;background:var(--grad);
+      display:grid;place-items:center;box-shadow:0 8px 18px -9px rgba(22,102,237,.9)}
+  .hcheck .hi .i{width:18px;height:18px;color:#fff;fill:none;stroke:#fff;stroke-width:2}
+  .hcheck b{display:block;font-size:14.5px;font-weight:900;color:var(--navy);line-height:1.35}
+  .hcheck p{margin-top:7px;font-size:13px;line-height:1.6;color:#3B4A63;font-weight:600}
+  .hcheck p+p{margin-top:7px}
+  .hcheck p b{display:inline;font-size:13px;color:var(--navy)}
+
+  /* Companies that answered but are not in the list above, and why.
+     "GEICO is missing" is otherwise unanswerable from the visitor's side: a
+     carrier that quoted a twelve-month policy and a carrier that never replied
+     look exactly the same on screen. */
+  .rmore{margin-top:18px;border:1px solid var(--line);border-radius:16px;background:#FBFCFE;
+      padding:14px 16px}
+  .rmore>b{display:block;font-size:13.5px;font-weight:900;color:var(--navy);line-height:1.35}
+  .rmore ul{list-style:none;margin-top:9px}
+  .rmore li{position:relative;padding-left:15px;font-size:12.8px;line-height:1.6;
+      color:var(--muted);font-weight:600;margin-top:6px}
+  .rmore li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;
+      border-radius:99px;background:#C3D3EA}
+  .rmore li b{color:var(--navy);font-weight:900}
+  .rmore>p{margin-top:10px;font-size:12.3px;line-height:1.55;color:#8494ad;font-weight:600}
 
   /* the chosen plan, repeated back so the visitor knows what they picked */
   .chosen{border:2px solid var(--blue);background:#F7FBFF;border-radius:18px;padding:15px;margin-top:16px}
@@ -432,6 +466,49 @@
   .covwarn li{font-size:13px;line-height:1.55;color:#6B4B18;font-weight:600;margin-top:5px}
   .covwarn li b{display:inline;font-size:13px;color:#5A3D0F}
   .covwarn>p{margin:10px 0 0;font-size:12.5px;line-height:1.5;color:#8A6A38;font-weight:600}
+
+  /* ---------------- the auto coverage screen ----------------
+     Nine dropdowns in one column, each under an 11px uppercase label, is what
+     "muy confuso" was: nothing on the screen said which of them belong
+     together, which are required, or where the policy stops being about other
+     people and starts being about your own car.
+
+     So they are grouped. Three cards, each with a number, a heading in plain
+     English and one line saying what the group is for. Inside a group the
+     labels are sentence case and readable, and every field carries a short
+     line under it — the long answer stays behind the "?" it already had. */
+  .covgrp{border:1.5px solid var(--line);border-radius:20px;background:#fff;
+      padding:18px;margin-top:16px;box-shadow:0 20px 38px -34px rgba(10,33,72,.55)}
+  .covgrp:first-child{margin-top:18px}
+  .covgh{display:flex;align-items:flex-start;gap:12px;padding-bottom:14px;
+      border-bottom:1px solid var(--line)}
+  .covgh .cn{flex:0 0 auto;width:28px;height:28px;border-radius:10px;background:var(--grad);
+      color:#fff;display:grid;place-items:center;font-size:13.5px;font-weight:900;
+      box-shadow:0 8px 16px -8px rgba(22,102,237,.9)}
+  .covgh b{display:block;font-size:16px;font-weight:900;color:var(--navy);letter-spacing:-.015em;
+      line-height:1.25}
+  .covgh small{display:block;font-size:12.5px;color:var(--muted);font-weight:600;
+      line-height:1.5;margin-top:4px}
+  .covgh .req{display:inline-block;margin-left:7px;padding:2px 7px;border-radius:99px;
+      background:#E8F1FE;color:var(--blue-d);font-size:9.5px;font-weight:900;
+      letter-spacing:.07em;text-transform:uppercase;vertical-align:2px}
+  /* Sentence case and legible. The uppercase micro-label works over a name or
+     a ZIP; over "Uninsured/Underinsured Motorist Bodily Injury" it reads as
+     shouting at somebody who is already unsure what it means. */
+  .covgrp .fl label{font-size:13.5px;font-weight:800;letter-spacing:-.005em;
+      text-transform:none;color:var(--navy);line-height:1.35}
+  .covgrp .fl .hint{font-size:12.2px;color:var(--muted);font-weight:600;margin-top:0;margin-bottom:7px}
+  .covgrp .fl select{font-size:15.5px}
+  /* Vehicle cards live inside the third group, so they drop their own border
+     and become rows of it instead of boxes inside a box. */
+  .covgrp .vcov{border:0;border-top:1px solid var(--line);border-radius:0;background:none;
+      padding:16px 0 0;margin-top:16px}
+  /* The first vehicle sits straight under the group heading, which already
+     draws a rule. :first-child cannot be used — the heading is the first
+     child — so it is matched as the one adjacent to it. */
+  .covgrp .covgh + .vcov{border-top:0;padding-top:14px;margin-top:0}
+  .covgrp .vch{margin-bottom:10px}
+  .covgrp .vch .vn{background:var(--ice);color:var(--blue-d)}
 
   .rec{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:99px;
       background:#E8F1FE;color:var(--blue-d);font-size:10px;font-weight:900;
@@ -1251,6 +1328,25 @@
            when they call &mdash; nothing here is final.</p>
       </div>
 
+      <!-- Read before the numbers, not after. A visitor who sees a figure
+           higher than they expected closes the tab, and the one thing that
+           would have stopped them is knowing a person has not looked at it
+           yet. Filled in plain HTML because it is true of every quote. -->
+      <div class="hcheck">
+        <span class="hi" aria-hidden="true"><svg class="i"><use href="#ph"/></svg></span>
+        <div>
+          <b>A person still has to look at these.</b>
+          <p>Online rating only applies the discounts the system can see by itself. It
+            regularly misses ones you qualify for &mdash; how long you have been insured,
+            paying in full or going paperless, a defensive driving course, another policy
+            with the same company, good student, military, homeowner. A licensed Safe House
+            agent goes through your quote by hand before anything is bought, and the price
+            more often goes down than up.</p>
+          <p><b>So if something below looks higher than you expected, do not close the tab.</b>
+            That is exactly what the call is for &mdash; and it costs you nothing.</p>
+        </div>
+      </div>
+
       <div class="segs" id="paytabs" role="tablist" aria-label="How you want to pay">
         <button class="seg on" type="button" data-pay="monthly" role="tab" aria-selected="true">Pay monthly</button>
         <button class="seg" type="button" data-pay="full" role="tab" aria-selected="false">Pay in full</button>
@@ -1259,7 +1355,11 @@
       <div class="rlist" id="rlist"></div>
       <p class="rempty" id="rempty" style="display:none"></p>
 
-      <button class="btn buy" id="buy" type="button" disabled>Pick an option above</button>
+      <!-- Companies that answered but are not priced above. Filled by
+           renderMore(); stays hidden when every answer made it into the list. -->
+      <div class="rmore" id="rmore" hidden></div>
+
+      <button class="btn buy" id="buy" type="button" disabled>Choose a company above to continue</button>
 
       <p class="estnote" id="note1">Prices are based on the information you provided and are subject to
         verification of your driving history.</p>
@@ -2120,13 +2220,22 @@
 
   /* ---------- drawing the auto coverages ---------- */
 
-  function covField(id,name,label,html,badge,tipKey){
+  function covField(id,name,label,html,badge,tipKey,hint){
     // Per-vehicle fields carry an index in their id, so the tooltip is matched
     // on data-tip instead — one key, however many vehicles are on the policy.
+    // The hint sits between the label and the control, because it is what tells
+    // somebody whether they need to open the "?" at all.
     return '<div class="fl"><label for="'+id+'">'+label
       +(badge?' <span class="rec">'+badge+'</span>':'')+'</label>'
+      +(hint?'<span class="hint">'+hint+'</span>':'')
       +'<select id="'+id+'" name="'+name+'"'+(tipKey?' data-tip="'+tipKey+'"':'')+'>'
       +html+'</select></div>';
+  }
+  /* A group card: number, heading, one line of why, then the fields. */
+  function covGroup(n,title,why,badge,inner){
+    return '<div class="covgrp"><div class="covgh"><span class="cn" aria-hidden="true">'+n+'</span>'
+      + '<span><b>'+title+(badge?'<span class="req">'+badge+'</span>':'')+'</b>'
+      + '<small>'+why+'</small></span></div>'+inner+'</div>';
   }
   function plain(list,cur){
     return list.map(function(o){
@@ -2137,20 +2246,32 @@
     var body=document.getElementById('covAutoBody');
     if(!body) return;
     body.innerHTML =
-      covField('liab','liability','Bodily Injury &amp; Property Damage',
-        LIAB.map(function(o){
-          return '<option value="'+esc(o.v)+'"'+(o.v==='50/100/50'?' selected':'')+'>'
-            +esc(o.v)+(o.note?' — '+o.note:'')+'</option>'; }).join(''))
-      + covField('umbi','umBodilyInjury','Uninsured/Underinsured Motorist Bodily Injury','')
-      + covField('umpd','umPropertyDamage','Uninsured/Underinsured Property Damage','')
-      + '<div class="umwhy" id="umWhy" hidden aria-live="polite"></div>'
-      + '<p class="cslnote" id="cslNote" hidden></p>'
-      + '<div class="g2">'
-      +   covField('medpay','medicalPayments','Medical Payment',plain(MEDPAY,'None'))
-      +   covField('pip','personalInjuryProtection','Personal Injury Protection',plain(PIP,'None'))
-      + '</div>'
-      + '<p class="warn2" id="mpWarn" hidden>A vehicle may have Medical Payments '
-      +   'or Personal Injury Protection, not both.</p>';
+      covGroup(1,'Cover for other people',
+        'What your policy pays when a crash is your fault. Every state requires '
+        +'some of this, and it pays nothing toward your own car.','Required',
+        covField('liab','liability','Bodily Injury &amp; Property Damage',
+          LIAB.map(function(o){
+            return '<option value="'+esc(o.v)+'"'+(o.v==='50/100/50'?' selected':'')+'>'
+              +esc(o.v)+(o.note?' — '+o.note:'')+'</option>'; }).join(''),'','',
+          'Injuries per person / per accident, then their property &mdash; in thousands.')
+        + covField('umbi','umBodilyInjury','Uninsured/Underinsured Motorist Bodily Injury','','','',
+            'Pays your injuries when the driver who hit you has no insurance, or not enough.')
+        + covField('umpd','umPropertyDamage','Uninsured/Underinsured Property Damage','','','',
+            'The same idea for your car, with a $250 deductible.')
+        + '<div class="umwhy" id="umWhy" hidden aria-live="polite"></div>'
+        + '<p class="cslnote" id="cslNote" hidden></p>')
+
+      + covGroup(2,'Medical bills for you and your passengers',
+        'Pays for the people in your car, whoever caused the crash. Pick one of '
+        +'the two &mdash; a vehicle cannot carry both.','Optional',
+        '<div class="g2">'
+        +   covField('medpay','medicalPayments','Medical Payment',plain(MEDPAY,'None'),'','',
+              'No deductible. Pays alongside your health insurance.')
+        +   covField('pip','personalInjuryProtection','Personal Injury Protection',plain(PIP,'None'),'','',
+              'Broader &mdash; can also pay lost wages.')
+        + '</div>'
+        + '<p class="warn2" id="mpWarn" hidden>A vehicle may have Medical Payments '
+        +   'or Personal Injury Protection, not both.</p>');
     covVehicles();
     syncUM(true);
     addTips();
@@ -2195,10 +2316,19 @@
     var n=vehCount(), out='';
     for(var i=0;i<n;i++){
       var k=keep[i]||{full:'yes'}, full=k.full!=='no';
+      // On one car the group heading has already said whose car this is, so the
+      // number chip would be counting to one. The name still earns its place
+      // when we have it — seeing "2018 Ford F-150" confirms the right car is
+      // being covered — but "Vehicle 1" over a single vehicle is just noise.
+      var nm=vehName(i), named=!/^Vehicle \d+$/.test(nm);
       out += '<div class="vcov" data-vi="'+i+'">'
-        + (n>1 ? '<div class="vch"><span class="vn">'+(i+1)+'</span><b>'+esc(vehName(i))+'</b></div>' : '')
+        + (n>1 ? '<div class="vch"><span class="vn">'+(i+1)+'</span><b>'+esc(nm)+'</b></div>'
+               : (named ? '<div class="vch"><b>'+esc(nm)+'</b></div>' : ''))
         + '<div class="fl"><label>Comprehensive and collision on '
-        +   (n>1?'this vehicle':'your vehicle')+'?</label><div class="pills">'
+        +   (n>1?'this vehicle':'your vehicle')+'?</label>'
+        +   '<span class="hint">Liability only is cheaper, but nothing then pays to fix '
+        +     'this car. A car with a loan on it almost always has to carry both.</span>'
+        +   '<div class="pills">'
         +   '<label class="pill"><input type="radio" name="fullcov'+i+'" value="yes" autocomplete="off"'
         +     (full?' checked':'')+'><span>Yes, full coverage</span></label>'
         +   '<label class="pill"><input type="radio" name="fullcov'+i+'" value="no" autocomplete="off"'
@@ -2206,12 +2336,16 @@
         + '</div></div>'
         + '<div class="vphys"'+(full?'':' hidden')+'>'
         +   '<div class="g2">'
-        +     covField('dcomp'+i,'compded'+i,'Comprehensive Deductible',plain(DEDUCT,k.dcomp||'$500'),'','dcomp')
-        +     covField('dcoll'+i,'collded'+i,'Collision Deductible',plain(DEDUCT,k.dcoll||'$500'),'','dcoll')
+        +     covField('dcomp'+i,'compded'+i,'Comprehensive Deductible',plain(DEDUCT,k.dcomp||'$500'),'','dcomp',
+                       'Hail, theft, fire, glass, an animal.')
+        +     covField('dcoll'+i,'collded'+i,'Collision Deductible',plain(DEDUCT,k.dcoll||'$500'),'','dcoll',
+                       'You hit something, whoever was at fault.')
         +   '</div>'
-        +   covField('rental'+i,'rental'+i,'Rental',plain(RENTAL,k.rental||'None'),'','rental')
+        +   covField('rental'+i,'rental'+i,'Rental',plain(RENTAL,k.rental||'None'),'','rental',
+                     'What it pays a day toward a hire car while this one is being repaired.')
         +   covField('roadside'+i,'roadside'+i,'Roadside/Trip Interruption',
-                     plain(ROADSIDE,k.road||'None'),'','roadside')
+                     plain(ROADSIDE,k.road||'None'),'','roadside',
+                     'Towing, jump start, fuel, a flat changed &mdash; what it pays per breakdown.')
         +   '<label class="consent tripw"'+(((k.road||'None')==='None')?' hidden':'')+'>'
         +     '<input type="checkbox"'+(k.trip?' checked':'')+'>'
         +     '<span class="box" aria-hidden="true"></span>'
@@ -2221,7 +2355,15 @@
         +       'pick, so the prices you see next will not include it.</span></label>'
         + '</div></div>';
     }
-    body.innerHTML=out;
+    // Group 3 of the screen. The heading says out loud where the policy stops
+    // being about other people and starts being about your own cars, which is
+    // the split nothing on this page used to make.
+    body.innerHTML=covGroup(3,
+      n>1?'Cover for your own cars':'Cover for your own car',
+      n>1?'Priced separately for each vehicle, so the financed one and the paid-off '
+         +'one do not have to carry the same thing.'
+        :'None of the above pays to fix your own car. This is the part that does.',
+      'Optional', out);
     addTips();
   }
 
@@ -4056,6 +4198,14 @@
     +'insurance history, driving history, claims information, and other information permitted '
     +'by law. Information may also be used to determine eligibility, pricing, discounts, and '
     +'available coverage options.';
+  /* Bump this whenever DISCLOSURE_TEXT above changes, in any way at all.
+
+     The AMS stores the disclosure as a record of what a person agreed to. The
+     full text travels with it so the record is self-contained, but a version
+     is what makes "which wording was live in March" answerable without diffing
+     paragraphs across thousands of rows. Date the change, do not increment a
+     counter — the question asked later is always "when". */
+  var DISCLOSURE_VERSION='2026-08-25';
 
   function toAms(){
     var ins=form.querySelector('input[name=insured]:checked'),
@@ -4077,7 +4227,8 @@
           // later is not that a button was pressed but what the person was
           // shown when they pressed it.
           disclosure:{ accepted: pick('mDisc')==='Agree',
-                       text: DISCLOSURE_TEXT, at: new Date().toISOString(),
+                       text: DISCLOSURE_TEXT, version: DISCLOSURE_VERSION,
+                       at: new Date().toISOString(),
                        source:'safehouseins.com/quote' },
           hasPriorInsurance: ins?ins.value==='yes':false,
           biLimit: liab,
@@ -4157,7 +4308,8 @@
 
     var o={
       disclosure:{ accepted: pick('mDisc')==='Agree',
-                   text: DISCLOSURE_TEXT, at: new Date().toISOString(),
+                   text: DISCLOSURE_TEXT, version: DISCLOSURE_VERSION,
+                   at: new Date().toISOString(),
                    source:'safehouseins.com/quote' },
       paperless: pick('mPaperless'),
       residence: document.getElementById('mRes').value,
@@ -4468,7 +4620,70 @@
                  return company(r.carrier); })).size)+' companies the AMS sent');
   }
 
-  function results(rates){
+  /* Every company that answered but is not priced above, named on the page
+     with the reason — and, when the AMS sends the list, every company the
+     quote was sent to that never answered at all.
+
+     Until now this only went to the console, which nobody opens. From the
+     visitor's chair a carrier that quoted a twelve-month policy and a carrier
+     that never replied look identical: both are simply absent, and the page
+     reads as though we did not shop them. */
+  function renderMore(rates,meta){
+    var box=document.getElementById('rmore'); if(!box) return;
+    var shown={}, seen={}, items=[];
+    (PLANS.monthly||[]).concat(PLANS.full||[]).forEach(function(r){ shown[company(r.carrier)]=1; });
+
+    (rates||[]).forEach(function(r){
+      var c=company(r.carrier); if(shown[c]||seen[c]) return;
+      var m=termMonths(r.term), p=Number(r.premium), why;
+      if(m!==null&&m!==6)
+        why='quoted a '+m+'-month policy, so its price cannot be compared with the '
+           +'six-month ones above';
+      else if(!(isFinite(p)&&p>0)) why='answered without a price';
+      else return;                       // priced above under another program name
+      seen[c]=1;
+      items.push('<li><b>'+esc(String(r.carrier||c))+'</b> &mdash; '+why+'.</li>');
+    });
+
+    // Optional, and absent today: the carriers the quote was actually sent to.
+    // Anything in it that never came back gets named rather than vanishing.
+    var shopped=(meta&&(meta.shopped||meta.carriersShopped))||[];
+    if(Object.prototype.toString.call(shopped)==='[object Array]')
+      shopped.forEach(function(name){
+        var label=(name&&name.carrier)||name, c=company(label);
+        if(!c||shown[c]||seen[c]) return;
+        seen[c]=1;
+        items.push('<li><b>'+esc(String(label))+'</b> &mdash; did not return a price for '
+                  +'this quote.</li>');
+      });
+
+    if(!items.length){ box.hidden=true; box.innerHTML=''; return; }
+    box.innerHTML='<b>'+items.length+' other '+(items.length===1?'company':'companies')
+      +' we shopped, and why '+(items.length===1?'it is':'they are')
+      +' not in the list above</b><ul>'+items.join('')+'</ul>'
+      +'<p>None of these is a dead end. Your agent can pull any of them up and quote it '
+      +'properly &mdash; including on a different term.</p>';
+    box.hidden=false;
+  }
+
+  /* The number the visitor is given, and the one they read back over the phone.
+
+     The AMS key is a UUID — 47b3c498-e49a-41be-d6ab-7d0e8a1270f6. That is the
+     right thing between two machines and the wrong thing in front of a person:
+     it cannot be read aloud, cannot be written on a napkin, and to somebody who
+     has just been quoted a price it looks like an error code. What we show is
+     Q plus six digits, generated by the AMS next to the UUID and stored on the
+     quote so an agent can search for it.
+
+     Until the AMS sends one this falls back to the UUID rather than inventing a
+     short number here: a tidy reference nobody can look up is worse than an
+     ugly one they can. */
+  function quoteRef(){
+    var q=window.__quote||{};
+    return q.quoteRef||q.quoteId||'';
+  }
+
+  function results(rates,meta){
     reportDropped(rates);
     var list=sixMonth(rates);
     // Filtering must never leave an empty price list on screen. If nothing
@@ -4491,6 +4706,7 @@
     });
     chosenRate=null;
     renderPlans();
+    renderMore(rates,meta);
     show('results');
   }
 
@@ -4567,7 +4783,7 @@
 
   function updateBuy(){
     var b=document.getElementById('buy');
-    if(!chosenRate){ b.disabled=true; b.textContent='Pick an option above'; return; }
+    if(!chosenRate){ b.disabled=true; b.textContent='Choose a company above to continue'; return; }
     b.disabled=false;
     // the row's own kind, not the tab's — a single-payment carrier listed under
     // "Pay monthly" must not have "/mo" stuck on its price
@@ -4607,8 +4823,7 @@
 
   document.getElementById('confirmBtn').addEventListener('click',function(){
     if(!chosenRate) return;
-    var q=(window.__quote&&window.__quote.quoteId)||'';
-    document.getElementById('qid').textContent=q||'pending — an agent has your details';
+    document.getElementById('qid').textContent=quoteRef()||'pending — an agent has your details';
     document.getElementById('chosen2').innerHTML=chosenHtml(chosenRate);
     var em=document.getElementById('cem').value.trim();
     document.getElementById('pickedP').textContent = em
@@ -4757,7 +4972,7 @@
         if(!d) return;
         if(d.ok===false){ stop(); note('ok:false from the bridge: '+(d.error||'no reason given')); toAgent(); return; }
         audit(d,p);
-        if(d.rates && d.rates.length){ stop(); results(d.rates); return; }
+        if(d.rates && d.rates.length){ stop(); results(d.rates,d); return; }
         if(!d.quoteId){ stop(); note('The bridge answered 200 with no quoteId and no rates: '
           +JSON.stringify(d).slice(0,200)); toAgent(); return; }
         var expect=Number(d.expectReadyMs)||50000;
@@ -4793,7 +5008,7 @@
           lastStatus=d.status||(d.ok===false?'ok:false':'200');
           if(d.ok===false||d.status==='failed'){ stop();
             note('Polling ended in failure: '+(d.error||d.status)); toAgent(); return; }
-          if(d.rates && d.rates.length){ stop(); results(d.rates); return; }
+          if(d.rates && d.rates.length){ stop(); results(d.rates,d); return; }
           setTimeout(function(){ poll(id,clientId); },pollEvery);
         })
         .catch(function(){ setTimeout(function(){ poll(id,clientId); },pollEvery); });
@@ -4963,12 +5178,32 @@
     return '';
   }
 
+  /* Which cars a warning is about.
+
+     Rental and roadside are chosen per vehicle, so a warning about them may be
+     true of one car and not the others. The AMS sends `vehicles` only in that
+     case — four cars carrying the same rental limit raise one warning with no
+     list, not four identical ones. An absent list therefore means "all of
+     them", which needs no words; a present list is the only case worth naming,
+     and without it the visitor is told a coverage changed with no way to tell
+     which car it changed on. */
+  function onVehicles(w){
+    var v=w&&w.vehicles;
+    if(Object.prototype.toString.call(v)!=='[object Array]'||!v.length) return '';
+    var names=v.map(function(x){ return esc(String((x&&x.name)||x||'')); })
+               .filter(function(s){ return !!s; });
+    if(!names.length) return '';
+    return ' on your '+(names.length===1 ? names[0]
+      : names.slice(0,-1).join(', ')+' and '+names[names.length-1]);
+  }
+
   function covWarnings(details){
     var box=document.getElementById('covWarn'), list=document.getElementById('covWarnList');
     if(!box||!list) return;
     var mine=(details||[]).filter(function(w){ return w && w.audience==='client'; });
     list.innerHTML=mine.map(function(w){
-      var name=COV_LABEL[w.field]||w.field, asked=w.asked?' (you asked for '+esc(w.asked)+')':'';
+      var name=COV_LABEL[w.field]||w.field, asked=w.asked?' (you asked for '+esc(w.asked)+')':'',
+          head='<li><b>'+name+'</b>'+onVehicles(w);
       /* Why a limit changed depends on the field and on which way it moved.
 
          Uninsured-motorist cover is capped by the liability underneath it,
@@ -4983,24 +5218,24 @@
          code, and the downward case is stated plainly rather than softened. */
       var dir=w.direction||(w.code==='coverage_increased'?'up':'');
       if(w.code==='coverage_reduced' && /^um/.test(w.field||''))
-        return '<li><b>'+name+'</b> was lowered to fit the liability limits you chose'+asked
+        return head+' was lowered to fit the liability limits you chose'+asked
              +'. It cannot be higher than they are.</li>';
       if(dir==='down' || (w.code==='coverage_reduced' && !dir))
-        return '<li><b>'+name+'</b> was quoted <b>lower than you asked for</b>'+asked
+        return head+' was quoted <b>lower than you asked for</b>'+asked
              +ratedAs(w)+'. These prices are for that lower amount, not the one you '
              +'picked &mdash; ask your agent what the carriers can actually write.</li>';
       if(dir==='up' || w.code==='coverage_increased')
-        return '<li><b>'+name+'</b> was quoted higher than you asked for'+asked+ratedAs(w)
+        return head+' was quoted higher than you asked for'+asked+ratedAs(w)
              +'. You are covered for more, and these prices include it.</li>';
       if(w.code==='coverage_dropped')
-        return '<li><b>'+name+'</b> was not quoted'+asked+'. A vehicle carries Medical Payments '
+        return head+' was not quoted'+asked+'. A vehicle carries Medical Payments '
              +'or Personal Injury Protection, not both.</li>';
       // Not "the carrier's own amount". Nobody at a carrier chose it — the AMS
       // picked a figure because this page did not send one, and it deliberately
       // picks a generous one so the price is never lower than the cover turns
       // out to be. Saying a carrier set it would be inventing a source.
       if(w.code==='coverage_assumed')
-        return '<li><b>'+name+'</b> was quoted at a standard amount'+asked
+        return head+' was quoted at a standard amount'+asked
              +' &mdash; we did not send a figure, so one was assumed. Your agent will '
              +'confirm it with you.</li>';
       // Trip interruption is a coverage_unavailable that means something else.
@@ -5009,13 +5244,13 @@
       // offer a thing they can in fact buy would be the wrong correction to a
       // problem we only just found.
       if(w.code==='coverage_unavailable' && w.field==='tripInterruption')
-        return '<li><b>'+name+'</b> is not priced online, so the prices below do not '
+        return head+' is not priced online, so the prices below do not '
              +'include it. Your agent can add it with the carrier you pick &mdash; tell '
              +'them you want it when they call.</li>';
       if(w.code==='coverage_unavailable')
-        return '<li><b>'+name+'</b> was not quoted'+asked+' &mdash; the carriers we sent this to '
+        return head+' was not quoted'+asked+' &mdash; the carriers we sent this to '
              +'do not offer it. These prices do not include it.</li>';
-      return '<li><b>'+name+'</b> was not quoted as asked'+asked+'.</li>';
+      return head+' was not quoted as asked'+asked+'.</li>';
     }).join('');
     box.hidden=!mine.length;
     if(mine.length){
@@ -5048,7 +5283,7 @@
       if(!ok) console.error('[quote] The visitor picked '+asked+' but the carriers were '
         +'quoted '+bi+'. The limit did not parse.');
     }
-    window.__quote={quoteId:d.quoteId,clientId:d.clientId,
+    window.__quote={quoteId:d.quoteId,quoteRef:d.quoteRef||'',clientId:d.clientId,
       ratedCoverage:d.ratedCoverage,warnings:d.warnings||[],
       warningDetails:d.warningDetails||[]};
   }

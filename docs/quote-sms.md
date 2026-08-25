@@ -75,7 +75,7 @@ Pick the language the visitor used, or the agency's default.
 | Placeholder | From |
 |---|---|
 | `{{greeting}}` | `"Carlos, "` — **including the comma and the space** — or an empty string when there is no name. It carries its own punctuation so a lead who gave only a phone number cannot produce *"Safe House Insurance: , your quote…"* |
-| `{{quoteId}}` | the quote |
+| `{{quoteRef}}` | the quote's short reference — `Q` plus six digits, e.g. `Q481903`. Not the UUID: it has to survive being read aloud on a call |
 | `{{carriers}}` | how many companies came back **after** the same filtering the page does |
 | `{{bestPrice}}` | the lowest monthly instalment, or the lowest premium if no carrier quoted a payment plan |
 

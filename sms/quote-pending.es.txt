@@ -1,1 +1,1 @@
-Safe House Insurance: {{greeting}}recibimos su solicitud {{quoteId}}. Un agente la trabaja ahora y le llama pronto con precios. Responda STOP para baja, HELP para ayuda.
+Safe House Insurance: {{greeting}}recibimos su solicitud {{quoteRef}}. Un agente la trabaja ahora y le llama pronto con precios. Responda STOP para baja, HELP para ayuda.
