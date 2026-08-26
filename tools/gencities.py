@@ -58,7 +58,7 @@ def rewrite(chunk, depth):
     for a in ('href="', 'src="'):
         for f in ('index.html','about.html','careers.html','quote.html',
                   'privacy.html','sms-terms.html','assets/','car-insurance/',
-                  'contact.html','pay/'):
+                  'contact.html','pay/','claims/'):
             chunk = chunk.replace(a + f, a + u + f)
     return chunk
 

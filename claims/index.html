@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report a Claim — Safe House Insurance</title>
+<meta name="description" content="Enter your policy number and we will show you your insurance company's claims number and claim page. Or call Safe House and a licensed agent files it with you. El Paso, TX. Se habla espanol.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/safehouse-heart.png">
+<link rel="canonical" href="https://safehouseins.com/claims/">
+<meta property="og:title" content="Report a Claim — Safe House Insurance">
+<meta property="og:description" content="Your carrier's claims number, or call us and a licensed agent files it with you.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://safehouseins.com/claims/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  /* ================= report a claim =================
+     Built on the same shell as /pay, deliberately: somebody who has used one
+     should recognise the other. What is not the same is which action leads.
+
+     On the payment page the link is the button and the phone number is the
+     alternative. Here it is the other way round. A claim starts with a
+     conversation — the carrier asks twenty questions the form cannot — and the
+     person reading this may be standing on a roadside. A phone number is the
+     thing that works with one hand. */
+  :root{ --pnavy:#08183A; --pblue:#1666ED; --pcyan:#22A7F0; --pline:#E5EBF6; }
+
+  .pay{position:relative;overflow:hidden;background:
+      radial-gradient(1100px 520px at 18% -12%, rgba(34,167,240,.34), transparent 62%),
+      radial-gradient(900px 460px at 88% 6%, rgba(22,102,237,.30), transparent 60%),
+      var(--pnavy);
+      padding:112px 20px 44px;color:#fff}
+  @media(max-width:700px){ .pay{padding-top:96px;padding-bottom:38px} }
+  .pay .in{max-width:660px;margin:0 auto;text-align:center;position:relative;z-index:2}
+  .pay .crumbs{font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+      font-weight:800;color:rgba(255,255,255,.55);margin-bottom:16px}
+  .pay .crumbs a{color:rgba(255,255,255,.75);text-decoration:none}
+  .pay h1{margin:0;font-size:clamp(34px,6vw,52px);line-height:1.04;font-weight:800;
+      letter-spacing:-.03em}
+  .pay h1 em{display:block;font-family:'Instrument Serif',serif;font-style:italic;
+      font-weight:400;color:#8FD0FF;letter-spacing:-.01em}
+  .pay .lede{margin:13px auto 0;max-width:46ch;font-size:16px;line-height:1.6;
+      color:rgba(255,255,255,.78);font-weight:500}
+
+  /* The one thing on this page that outranks everything else, including the
+     lookup. Somebody who lands here from a crash needs one number and it is
+     not a carrier's. Above the field on purpose. */
+  .now{max-width:660px;margin:22px auto 0;border:1.5px solid rgba(255,255,255,.22);
+      background:rgba(255,255,255,.08);border-radius:18px;padding:16px 18px;text-align:left;
+      display:flex;gap:13px;align-items:flex-start}
+  .now .ic{flex:0 0 auto;width:34px;height:34px;border-radius:11px;background:#fff;
+      display:flex;align-items:center;justify-content:center;font-size:17px}
+  .now b{display:block;font-size:15px;font-weight:800;color:#fff;line-height:1.35}
+  .now p{margin:6px 0 0;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.8);font-weight:600}
+  .now a{color:#8FD0FF;font-weight:800}
+
+  .pbox{margin:24px auto 0;max-width:520px;text-align:left}
+  .pbox label{display:block;font-size:12px;letter-spacing:.11em;text-transform:uppercase;
+      font-weight:800;color:rgba(255,255,255,.66);margin-bottom:9px}
+  .pfield{position:relative}
+  .pfield input{width:100%;border:0;border-radius:18px;padding:20px 20px 20px 54px;
+      font-family:'Geist Mono',monospace;font-size:19px;letter-spacing:.06em;
+      background:#fff;color:var(--pnavy);box-shadow:0 18px 44px rgba(0,0,0,.30)}
+  .pfield input::placeholder{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;
+      letter-spacing:0;color:#9FB0C6}
+  .pfield input:focus{outline:none;box-shadow:0 0 0 4px rgba(143,208,255,.55),0 18px 44px rgba(0,0,0,.30)}
+  .pfield .ic{position:absolute;left:19px;top:50%;transform:translateY(-50%);width:21px;height:21px;
+      fill:none;stroke:#9FB0C6;stroke-width:2}
+  .phint{margin:10px 2px 0;font-size:12.5px;line-height:1.55;color:rgba(255,255,255,.62);font-weight:600}
+
+  /* ---- the answer ---- */
+  .pres{max-width:660px;margin:-30px auto 0;padding:0 20px;position:relative;z-index:3}
+  .pcard{background:#fff;border-radius:24px;box-shadow:0 24px 60px rgba(8,24,58,.16);
+      border:1px solid var(--pline);padding:26px;animation:prise .3s ease-out}
+  @keyframes prise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){ .pcard{animation:none} }
+  .pcard .who{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+  .pcard .badge{width:52px;height:52px;flex:0 0 auto;border-radius:15px;
+      background:linear-gradient(140deg,#EAF2FE,#DCEBFD);display:flex;align-items:center;
+      justify-content:center;font-size:21px;font-weight:900;color:var(--pblue);overflow:hidden}
+  .pcard .badge img{width:100%;height:100%;object-fit:contain}
+  .pcard .eyebrow{font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;
+      font-weight:800;color:#7C8BA4}
+  .pcard h2{margin:2px 0 0;font-size:23px;font-weight:800;color:var(--pnavy);letter-spacing:-.02em}
+
+  /* The carrier's claims line, as the button. */
+  .pgo{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;
+      background:linear-gradient(100deg,var(--pblue),var(--pcyan));color:#fff;
+      border-radius:16px;padding:16px 20px;text-decoration:none;
+      box-shadow:0 12px 26px rgba(22,102,237,.28);transition:transform .16s}
+  .pgo:hover{transform:translateY(-2px)}
+  .pgo svg{width:19px;height:19px;flex:0 0 auto;fill:none;stroke:#fff;stroke-width:2;
+      stroke-linecap:round;stroke-linejoin:round}
+  .pgo s{display:block;text-decoration:none;font-size:11.5px;font-weight:700;
+      color:rgba(255,255,255,.8);letter-spacing:.06em;text-transform:uppercase}
+  .pgo b{display:block;font-size:20px;font-weight:800;font-family:'Geist Mono',monospace;
+      letter-spacing:-.01em}
+  .pweb{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;
+      border:2px solid var(--pline);border-radius:15px;padding:13px 16px;background:#fff;
+      text-decoration:none;font-size:14.5px;font-weight:800;color:var(--pnavy);
+      transition:border-color .16s}
+  .pweb:hover{border-color:#C6D8F5}
+  .pweb svg{width:15px;height:15px;flex:0 0 auto;fill:none;stroke:#9FB0C6;stroke-width:2}
+  .pcard .dest{display:flex;align-items:flex-start;gap:7px;margin:12px 0 0;font-size:12.5px;
+      line-height:1.5;font-weight:600;color:#7C8BA4}
+  .pcard .dest svg{width:14px;height:14px;flex:0 0 auto;margin-top:1px;fill:none;stroke:#9FB0C6;stroke-width:2}
+  .pcard .dest b{color:#42536D;font-weight:800}
+  .pnolink{margin:16px 0 0;border:1.5px dashed #D6E1F2;border-radius:14px;padding:14px;
+      font-size:13.5px;line-height:1.55;font-weight:600;color:#5C6A80;text-align:center}
+
+  .palt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  @media(max-width:520px){ .palt{grid-template-columns:1fr} }
+  .palt a{display:flex;align-items:center;gap:11px;border:2px solid var(--pline);
+      border-radius:15px;padding:13px 15px;text-decoration:none;background:#fff;
+      transition:border-color .16s,background .16s}
+  .palt a:hover{border-color:#C6D8F5;background:#FAFCFF}
+  .palt .i{width:34px;height:34px;flex:0 0 auto;border-radius:10px;background:#F1F6FE;
+      display:flex;align-items:center;justify-content:center}
+  .palt .i svg{width:17px;height:17px;fill:none;stroke:var(--pblue);stroke-width:2;
+      stroke-linecap:round;stroke-linejoin:round}
+  .palt s{display:block;text-decoration:none;font-size:11.5px;font-weight:700;color:#7C8BA4}
+  .palt b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);
+      font-family:'Geist Mono',monospace;letter-spacing:-.01em}
+
+  .pmiss{background:#fff;border-radius:24px;border:1px solid var(--pline);
+      box-shadow:0 24px 60px rgba(8,24,58,.12);padding:26px;text-align:center;
+      animation:prise .3s ease-out}
+  .pmiss b{display:block;font-size:17px;font-weight:800;color:var(--pnavy);margin-bottom:7px}
+  .pmiss p{margin:0 auto;max-width:46ch;font-size:14px;line-height:1.6;color:#5C6A80;font-weight:600}
+  .pmiss .palt{max-width:430px;margin-left:auto;margin-right:auto}
+
+  /* ---- the directory ----
+     The lookup only knows the six carriers whose policy numbers follow a rule
+     we have been given. The agency places business with more than that, and
+     anybody holding an insurance card already knows the company name. So the
+     full list is on the page, not behind the field. */
+  .dir{max-width:900px;margin:56px auto 0;padding:0 20px}
+  .dir h3{margin:0 0 6px;text-align:center;font-size:22px;font-weight:800;
+      color:var(--pnavy);letter-spacing:-.02em}
+  .dir .sub{margin:0 auto 22px;max-width:52ch;text-align:center;font-size:14px;
+      line-height:1.6;color:#5C6A80;font-weight:600}
+  .dgrid{display:grid;gap:12px;grid-template-columns:1fr}
+  @media(min-width:720px){ .dgrid{grid-template-columns:1fr 1fr} }
+  .drow{border:1.5px solid var(--pline);border-radius:18px;padding:16px 18px;background:#fff;
+      display:flex;align-items:center;gap:14px}
+  .drow .badge{width:44px;height:44px;flex:0 0 auto;border-radius:13px;
+      background:linear-gradient(140deg,#EAF2FE,#DCEBFD);display:flex;align-items:center;
+      justify-content:center;font-size:17px;font-weight:900;color:var(--pblue);overflow:hidden}
+  .drow .badge img{width:100%;height:100%;object-fit:contain}
+  .drow .t{flex:1 1 auto;min-width:0}
+  .drow .t b{display:block;font-size:15px;font-weight:800;color:var(--pnavy);line-height:1.25}
+  .drow .t a.tel{display:inline-block;margin-top:3px;font-family:'Geist Mono',monospace;
+      font-size:15px;font-weight:700;color:var(--pblue);text-decoration:none}
+  .drow .t a.tel:hover{text-decoration:underline}
+  .drow .t a.web{display:block;margin-top:3px;font-size:12.5px;font-weight:700;color:#7C8BA4;
+      text-decoration:none}
+  .drow .t a.web:hover{color:var(--pblue)}
+  .dnote{margin:16px 0 0;border:1.5px dashed #D6E1F2;border-radius:16px;padding:16px 18px;
+      font-size:13.5px;line-height:1.65;font-weight:600;color:#5C6A80}
+  .dnote b{color:var(--pnavy)}
+  .dnote a{color:var(--pblue);font-weight:800}
+
+  /* ---- below the fold ---- */
+  .pinfo{max-width:900px;margin:0 auto;padding:56px 20px 0}
+  .pinfo h3{margin:0 0 20px;text-align:center;font-size:22px;font-weight:800;
+      color:var(--pnavy);letter-spacing:-.02em}
+  .pcols{display:grid;gap:14px;grid-template-columns:1fr}
+  @media(min-width:760px){ .pcols{grid-template-columns:1fr 1fr 1fr} }
+  .pcol{border:1.5px solid var(--pline);border-radius:18px;padding:20px;background:#fff}
+  .pcol .n{width:30px;height:30px;border-radius:9px;background:#EAF2FE;color:var(--pblue);
+      display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;
+      margin-bottom:11px}
+  .pcol b{display:block;font-size:15px;font-weight:800;color:var(--pnavy);margin-bottom:5px}
+  .pcol p{margin:0;font-size:13.5px;line-height:1.6;color:#5C6A80;font-weight:600}
+
+  .pwarn{max-width:900px;margin:20px auto 0;padding:0 20px}
+  .pwarn .box{border:1.5px solid #F5DFB0;background:#FFFAF0;border-radius:18px;padding:20px 22px}
+  .pwarn b{display:block;font-size:15px;color:#8A5200;font-weight:900;margin-bottom:7px}
+  .pwarn p{margin:0;font-size:13.5px;line-height:1.65;color:#6B4B18;font-weight:600}
+  .pwarn p+p{margin-top:9px}
+
+  .plearn{max-width:900px;margin:34px auto 56px;padding:0 20px}
+  .plearn a{display:flex;align-items:center;gap:18px;border:1.5px solid var(--pline);
+      border-radius:20px;padding:22px 24px;background:#fff;text-decoration:none;
+      transition:border-color .16s,box-shadow .16s,transform .16s}
+  .plearn a:hover{border-color:#BBD6FB;box-shadow:0 14px 34px rgba(8,24,58,.09);transform:translateY(-2px)}
+  .plearn .t{flex:1 1 auto}
+  .plearn s{display:block;text-decoration:none;font-size:11.5px;letter-spacing:.11em;
+      text-transform:uppercase;font-weight:800;color:var(--pblue);margin-bottom:5px}
+  .plearn b{display:block;font-size:17px;font-weight:800;color:var(--pnavy);letter-spacing:-.02em}
+  .plearn .d{display:block;margin-top:6px;font-size:13.5px;line-height:1.6;color:#5C6A80;font-weight:600}
+  .plearn .ar{flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:#EAF2FE;
+      color:var(--pblue);display:flex;align-items:center;justify-content:center;
+      font-size:19px;font-weight:800}
+
+  .pfaq,.pelse{max-width:900px;margin:52px auto 0;padding:0 20px}
+  .pfaq h3,.pelse h3{margin:0 0 20px;text-align:center;font-size:22px;font-weight:800;
+      color:var(--pnavy);letter-spacing:-.02em}
+  .pfgrid{display:grid;gap:13px;grid-template-columns:1fr}
+  @media(min-width:700px){ .pfgrid{grid-template-columns:1fr 1fr} }
+  .pf{border:1.5px solid var(--pline);border-radius:18px;padding:19px 21px;background:#fff}
+  .pf b{display:block;font-size:15px;font-weight:800;color:var(--pnavy);margin-bottom:6px}
+  .pf p{margin:0;font-size:13.5px;line-height:1.65;color:#5C6A80;font-weight:600}
+  .pf a{color:var(--pblue);font-weight:800}
+
+  .pegrid{display:grid;gap:11px;grid-template-columns:1fr}
+  @media(min-width:600px){ .pegrid{grid-template-columns:1fr 1fr} }
+  @media(min-width:900px){ .pegrid{grid-template-columns:repeat(4,1fr)} }
+  .pegrid a{display:block;border:1.5px solid var(--pline);border-radius:16px;padding:17px 18px;
+      background:#fff;text-decoration:none;transition:border-color .16s,transform .16s}
+  .pegrid a:hover{border-color:#BBD6FB;transform:translateY(-2px)}
+  .pegrid b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);margin-bottom:4px}
+  .pegrid span{display:block;font-size:12.5px;line-height:1.5;color:#7C8BA4;font-weight:600}
+  /* Keyboard and screen-reader users get past the nav in one tab. Off-screen
+     until it is focused, which is the only time it is useful. */
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:#1666ED;color:#fff;
+      padding:12px 18px;border-radius:0 0 12px 0;font-weight:800;font-size:14px}
+  .skip:focus{left:0}
+</style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="topbar">
+    <span>📞 Call <a href="tel:+19155031207">915-503-1207</a> &middot; 💬 Text <a href="sms:+19155943777">915-594-3777</a></span>
+    <span>✉️ <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></span>
+    <span class="es">🇲🇽 Se habla español</span>
+    <span>El Paso, TX · Serving TX &amp; NM</span>
+  </div>
+
+  <header class="pay">
+    <nav>
+      <a href="../index.html"><img class="logo" src="../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+      <div class="links"><a href="../auto-insurance.html">Auto</a><a href="../home-insurance.html">Home</a><a href="../commercial-insurance.html">Commercial</a><a href="../about.html">About</a><a href="../index.html#faq">FAQ</a><a href="./" class="active">Claims</a><a href="../pay/">Make a payment</a></div>
+      <div class="nav-cta"><a class="signin" href="../contact.html">Contact</a><a class="btn white sm" href="../contact.html#quote">Get a quote</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button></div>
+    </nav>
+
+  <div class="drawer" id="drawer">
+    <a href="../index.html">Home</a>
+    <a href="../auto-insurance.html">Auto</a>
+    <a href="../home-insurance.html">Home insurance</a>
+    <a href="../commercial-insurance.html">Commercial</a>
+    <a href="../pay/">Make a payment</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+    <a class="btn white" href="tel:+19155031207">📞 Call 915-503-1207</a>
+    <a class="dr-mail" href="mailto:contact@safehouseins.com">contact@safehouseins.com · 🇲🇽 Se habla español</a>
+  </div>
+
+    <div class="in">
+      <div class="crumbs"><a href="../index.html">Home</a> &nbsp;/&nbsp; Report a claim</div>
+      <h1>Report a claim.<em>We&rsquo;ll do it with you.</em></h1>
+      <p class="lede">Enter your policy number and we&rsquo;ll show you your company&rsquo;s claims line.
+        Or skip it &mdash; call us and a licensed agent files it with you, start to finish.</p>
+
+      <div class="now">
+        <span class="ic" aria-hidden="true">&#9888;&#65039;</span>
+        <div>
+          <b>If anyone is hurt, call 911 first.</b>
+          <p>Insurance can wait fifteen minutes. Nothing on this page is more urgent than
+            that call, and no carrier will hold it against you that you rang them second.</p>
+        </div>
+      </div>
+
+      <div class="pbox">
+        <label for="pol">Policy number</label>
+        <div class="pfield">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18M7 15h4"/></svg>
+          <input id="pol" type="text" autocomplete="off" spellcheck="false"
+                 autocapitalize="characters" placeholder="e.g. AIM4471902"
+                 aria-describedby="polHint">
+        </div>
+        <p class="phint" id="polHint">Stays in your browser &mdash; nothing is sent or saved.
+          Spaces and dashes don&rsquo;t matter. Don&rsquo;t have it? The list below is by company name.</p>
+      </div>
+    </div>
+  </header>
+
+<main id="main">
+
+  <div class="pres" id="res" aria-live="polite"></div>
+
+  <section class="dir">
+    <h3>Claims numbers, by company</h3>
+    <p class="sub">Every company we place business with, and the line that takes a new
+      claim. Calling is usually faster than a form &mdash; they will ask questions no form
+      thinks to ask.</p>
+    <div class="dgrid" id="dgrid"></div>
+    <div class="dnote">
+      <b>Not sure which one is yours?</b> Call <a href="tel:+19155031207">915-503-1207</a>
+      or text <a href="sms:+19155943777">915-594-3777</a>. We hold your policy on our side,
+      so we can tell you the company and the claim number in about a minute &mdash; and we can
+      make the report with you on the line if you would rather not do it alone.
+    </div>
+  </section>
+
+  <section class="pinfo">
+    <h3>What to do before you leave the scene</h3>
+    <div class="pcols">
+      <div class="pcol"><div class="n">1</div>
+        <b>Photograph more than you think you need</b>
+        <p>Both cars from four corners, both plates, the damage close up, the whole
+          intersection, the street signs, the road surface. Photos taken later cannot be
+          taken at all.</p></div>
+      <div class="pcol"><div class="n">2</div>
+        <b>Get the other driver&rsquo;s insurance card</b>
+        <p>Company name, policy number, name on the policy, plate, and their phone.
+          Photograph the card rather than writing it down. Do not discuss whose fault
+          it was &mdash; that is not decided at the scene.</p></div>
+      <div class="pcol"><div class="n">3</div>
+        <b>Get the police report number</b>
+        <p>In Texas and New Mexico, officers give you a card or a case number before they
+          leave. Carriers ask for it on the first call, and chasing it afterwards costs
+          days.</p></div>
+    </div>
+  </section>
+
+  <div class="pwarn">
+    <div class="box">
+      <b>Report it even if you are not sure you want to claim.</b>
+      <p>Reporting and claiming are two different things. Telling your carrier what
+         happened is usually required by the policy itself, and it does not commit you to
+         filing. What does cause trouble is a carrier hearing about a crash weeks later
+         from the other driver&rsquo;s insurer instead of from you &mdash; that is when a claim gets
+         hard to pay.</p>
+      <p>If the damage looks smaller than your deductible and nobody else was involved,
+         call us before you decide. It takes one conversation to work out whether a claim
+         is worth making.</p>
+    </div>
+  </div>
+
+  <section class="pfaq">
+    <h3>Questions people ask us</h3>
+    <div class="pfgrid">
+      <div class="pf"><b>Should I call you or the insurance company?</b>
+        <p>Either works, and there is no penalty for calling us first. We are your agent,
+          not your insurer &mdash; the carrier decides and pays the claim, and we make sure it
+          is reported correctly, chase it when it goes quiet, and translate what they tell
+          you. A lot of people find that easier than starting alone.</p></div>
+      <div class="pf"><b>How long do I have to report it?</b>
+        <p>Policies say "promptly" rather than a number of days, which sounds vague and is
+          not: the clock that matters is how long the evidence lasts. Report it the same
+          day if you can. Late reporting is one of the few things that can genuinely cost
+          you a claim.</p></div>
+      <div class="pf"><b>Will my rate go up?</b>
+        <p>It depends on fault, on your record, and on the carrier &mdash; and it can go up
+          after a not-at-fault claim with some companies and not with others. Nobody can
+          promise you either way before the claim is decided. What we can do is re-shop
+          your policy at renewal if it does move.</p></div>
+      <div class="pf"><b>What is my deductible and when do I pay it?</b>
+        <p>It is on your declarations page, usually $500 or $1,000, and it comes out of
+          what the carrier pays for your own car &mdash; you never write us a cheque for it.
+          If the other driver is found at fault, you can often get it back. Call and we
+          will read your page with you.</p></div>
+      <div class="pf"><b>Do I get a rental car?</b>
+        <p>Only if the policy carries rental coverage, and only for a covered claim. It is
+          a separate coverage, it has a daily limit, and plenty of people find out they do
+          not have it on the day they need it. Ask us and we will tell you what is on your
+          policy right now.</p></div>
+      <div class="pf"><b>The other driver was at fault. Do I still call mine?</b>
+        <p>Yes. You can claim against their insurer instead, and sometimes that is the
+          right move &mdash; but tell yours what happened anyway. If the other carrier disputes
+          fault or the driver turns out to be uninsured, you are going to need your own
+          policy, and it is much easier when they already know.
+          <a href="guide/">How a claim actually works &rarr;</a></p></div>
+    </div>
+  </section>
+
+  <section class="pelse">
+    <h3>While you&rsquo;re here</h3>
+    <div class="pegrid">
+      <a href="tel:+19155031207"><b>Need your ID card</b><span>We can send a copy by text or email</span></a>
+      <a href="../pay/"><b>Make a payment</b><span>Straight to your carrier&rsquo;s payment page</span></a>
+      <a href="tel:+19155031207"><b>Add or remove a vehicle</b><span>Changes mid-policy are normal</span></a>
+      <a href="../quote.html"><b>See if you can pay less</b><span>Re-shop it across our carriers</span></a>
+    </div>
+  </section>
+
+  <div class="plearn">
+    <a href="guide/">
+      <span class="t"><s>Learn more</s><b>How a car insurance claim actually works</b>
+        <span class="d">Who decides fault, what a deductible really costs you, how long
+          each step takes, what a total loss means, and the mistakes that make a claim
+          harder than it needed to be.</span></span>
+      <span class="ar">&rarr;</span>
+    </a>
+  </div>
+
+</main>
+
+  <footer>
+ <div class="fshell">
+
+  <!-- Band 1 — where to go. Two-column city lists so twelve names read as a
+       list and not as a wall. -->
+  <div class="fband">
+   <div class="fdeck">
+    <div><h5>Car insurance in Texas</h5><div class="c2"><a href="../car-insurance/texas/houston/">Houston</a><a href="../car-insurance/texas/san-antonio/">San Antonio</a><a href="../car-insurance/texas/dallas/">Dallas</a><a href="../car-insurance/texas/austin/">Austin</a><a href="../car-insurance/texas/fort-worth/">Fort Worth</a><a href="../car-insurance/texas/el-paso/">El Paso</a><a href="../car-insurance/texas/arlington/">Arlington</a><a href="../car-insurance/texas/laredo/">Laredo</a><a href="../car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="../car-insurance/texas/mcallen/">McAllen</a><a href="../car-insurance/texas/brownsville/">Brownsville</a><a href="../car-insurance/texas/lubbock/">Lubbock</a></div>
+      <a class="more" href="../car-insurance/texas/">See all Texas cities &rarr;</a></div>
+
+    <div><h5>Car insurance in New Mexico</h5><div class="c2"><a href="../car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="../car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="../car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="../car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="../car-insurance/new-mexico/roswell/">Roswell</a><a href="../car-insurance/new-mexico/farmington/">Farmington</a><a href="../car-insurance/new-mexico/hobbs/">Hobbs</a><a href="../car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
+      <a class="more" href="../car-insurance/new-mexico/">See all New Mexico cities &rarr;</a></div>
+
+    <div><h5>What we insure</h5>
+      <a href="../quote.html?type=car">Car insurance</a>
+      <a href="../quote.html?type=home">Home insurance</a>
+      <a href="../quote.html?type=home">Renters insurance</a>
+      <a href="../quote.html?type=moto">Motorcycle insurance</a>
+      <a href="../quote.html?type=commercial">Commercial vehicles</a>
+      <a href="../quote.html?type=commercial">Work trucks and fleets</a>
+      <a class="more" href="../car-insurance/makes/">Car insurance by make &rarr;</a></div>
+
+    <div><h5>Already a customer</h5>
+      <a href="../pay/">Make a payment</a>
+      <a href="../pay/guide/">How paying works</a>
+      <a href="tel:+19155031207">Request an ID card</a>
+      <a href="../claims/">Report a claim</a>
+      <a href="tel:+19155031207">Change your policy</a>
+      <a href="../quote.html">Re-shop your rate</a></div>
+   </div>
+  </div>
+
+  <!-- Band 2 — reach a person. Everything here appeared twice in the old
+       footer: once in a link column and again in a centred block underneath. -->
+  <div class="fband">
+   <div class="fmid">
+    <div>
+     <h5>Reach us</h5>
+     <div class="fways">
+<div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><b>Call</b><a class="big" href="tel:+19155031207">915-503-1207</a><small>Mon&ndash;Fri, 11am&ndash;5pm Mountain</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span><b>Text</b><a class="big" href="sms:+19155943777">915-594-3777</a><small>A different line &mdash; this one receives texts</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 6.5L21 6"/></svg></span><b>Email</b><a class="big" href="mailto:contact@safehouseins.com">contact@safehouseins.com</a><small>Documents, questions, anything</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><b>Visit</b>
+       <address>Safe House Insurance LLC<br>6065 Montana Ave Ste C8<br>El Paso, TX 79925</address>
+       <p class="fhours">Mon&ndash;Fri, 11am&ndash;5pm Mountain</p>
+       <a href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">Open in Google Maps &rarr;</a></div>
+     </div>
+    </div>
+
+    <div>
+     <h5>Company</h5>
+     <div class="fcols">
+     <a href="../about.html">About us</a>
+     <a href="../careers.html">Careers</a>
+     <a href="../index.html#faq">FAQ</a>
+     <a href="../car-insurance/">Car insurance by city</a>
+     <a href="../car-insurance/makes/">Car insurance by make</a>
+     <a href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">Reviews on Google</a>
+     <a href="../contact.html">Contact</a>
+     </div>
+     <a class="more" href="../quote.html" style="display:inline-block;margin-top:14px;background:var(--grad);color:#fff;padding:12px 22px;border-radius:99px;font-size:14.5px;font-weight:800">Get a quote &rarr;</a>
+    </div>
+   </div>
+  </div>
+
+  <!-- Band 3 — the sign-off. -->
+  <div class="fend">
+   <img class="logo" src="../assets/safehouse-logo.png" alt="Safe House Insurance">
+   <p class="es">Licensed independent agency in El Paso, Texas &middot; 🇲🇽 Se habla español</p>
+   <p class="disc">Safe House Insurance LLC is an independent insurance agency licensed in Texas and New Mexico. Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy. Quotes are estimates and are not a guarantee of coverage or price. Carrier availability and eligibility vary by state and by applicant. &copy; 2026 Safe House Insurance.</p>
+   <p class="legal"><a href="../privacy.html">Privacy Policy</a> &middot; <a href="../sms-terms.html">SMS Terms</a> &middot; <a href="../quote.html">Get a quote</a></p>
+  </div>
+
+ </div>
+</footer>
+
+<script>
+(function(){
+  /* Carrier claims contacts.
+
+     Two independent things live in one list and they must not be confused:
+
+       starts / has — how a policy number is recognised. These are the same
+                      rules /pay uses, and they exist only for the carriers the
+                      agency has given us rules for.
+       tel / url    — where a claim is reported. Every carrier has these.
+
+     A carrier with no `starts` and no `has` simply never matches the lookup.
+     It still appears in the directory below, which is the point: the lookup is
+     a shortcut, not the only way in, and somebody holding an insurance card
+     already knows the name printed on it.
+
+     **Never guess a policy-number rule.** A wrong one is not a visible failure
+     — it hands somebody the wrong company's claims line on the day of a crash.
+     The same goes for these numbers: every one of them is verified against the
+     carrier's own site before this page goes live, and the checklist is in
+     docs/CLAIMS_CONTACTS_VERIFY.md. */
+  var CARRIERS=[
+    { name:'Progressive', starts:['9'],
+      tel:'1-888-671-4405', url:'https://fnol.progressive.com/begin' },
+    { name:'Acacia', starts:['AIM','AIL'],
+      tel:'1-844-238-4486', url:'https://www.acaciamga.com/claims-2/' },
+    { name:'Alinsco', starts:['EA'],
+      tel:'1-877-437-5007', url:'https://www.alinsco.com/claims.php' },
+    { name:'Commonwealth Casualty', starts:['TXA'],
+      tel:'1-877-603-1310', url:'https://www.commonwealthcasualty.com/file-a-claim' },
+    { name:'Safeway', has:['NMPP'],
+      tel:'1-888-203-5129', url:'https://www.mysafeway.com/' },
+    { name:'GEICO', starts:['6'],
+      tel:'1-800-841-3000', url:'https://claims.geico.com/ReportClaim' },
+    { name:'Kemper',
+      tel:'1-800-353-6737', url:'https://www.kemper.com/claims/report-a-claim' },
+    { name:'GAINSCO',
+      tel:'1-866-424-6726', url:'https://www.gainsco.com/customers/report-a-claim/' },
+    { name:'CONNECT, powered by American Family',
+      tel:'1-800-872-5246', url:'https://www.connectbyamfam.com/claims/' }
+  ];
+
+  var TEL='915-503-1207', SMS='915-594-3777';
+
+  var res=document.getElementById('res'), input=document.getElementById('pol'),
+      grid=document.getElementById('dgrid');
+
+  function esc(v){ return String(v==null?'':v).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function slug(n){ return String(n).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
+  function norm(s){ return String(s).toUpperCase().replace(/[^A-Z0-9]/g,''); }
+  function dial(t){ return '+1'+String(t).replace(/\D/g,'').replace(/^1/,''); }
+
+  /* The registrable domain, which is the part worth reading.
+     claims.geico.com tells somebody less than geico.com does, and the
+     subdomain is exactly where a lookalike hides. */
+  function host(u){
+    var m=String(u).match(/^https?:\/\/([^\/?#]+)/); if(!m) return u;
+    var h=m[1].replace(/^www\./,''), p=h.split('.');
+    return p.length>2 ? p.slice(-2).join('.') : h;
+  }
+  /* The name on the logo file and in the badge, without the legal tail.
+     "CONNECT, powered by American Family" is one company on a card. */
+  function short(n){ return String(n).split(',')[0]; }
+
+  var MIN_ALPHA=2, MIN_NUMERIC=6;
+  function fires(rule,n){
+    var r=norm(rule);
+    if(!r || n.indexOf(r)!==0) return false;
+    return /^[0-9]+$/.test(r) ? n.length>=MIN_NUMERIC : n.length>=Math.max(r.length,MIN_ALPHA);
+  }
+  function match(q){
+    var n=norm(q); if(n.length<MIN_ALPHA) return [];
+    return CARRIERS.filter(function(c){
+      return (c.starts||[]).some(function(p){ return fires(p,n); })
+          || (c.has||[]).some(function(s){ return n.length>=MIN_NUMERIC && n.indexOf(norm(s))>-1; });
+    });
+  }
+
+  var ICON_PH='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>',
+      ICON_SMS='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg>',
+      ICON_LOCK='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>',
+      ICON_EXT='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>';
+
+  function badge(c,cls){
+    return '<span class="badge'+(cls?' '+cls:'')+'"><img src="../assets/carriers/'+slug(short(c.name))+'.webp" alt=""'
+      + ' loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(\'span\'),'
+      + '{textContent:\''+esc(c.name.charAt(0))+'\'}))"></span>';
+  }
+
+  /* Us, next to them. Not underneath: the agency filing the claim with the
+     client is the thing this page is actually for, and a footnote does not
+     read as an offer. */
+  function alts(){
+    return '<div class="palt">'
+      + '<a href="tel:+1'+TEL.replace(/\D/g,'')+'"><span class="i">'+ICON_PH+'</span>'
+      +   '<span><s>Rather we did it with you? Call Safe House</s><b>'+TEL+'</b></span></a>'
+      + '<a href="sms:+1'+SMS.replace(/\D/g,'')+'"><span class="i">'+ICON_SMS+'</span>'
+      +   '<span><s>Text us what happened</s><b>'+SMS+'</b></span></a>'
+      + '</div>';
+  }
+
+  function found(c){
+    return '<div class="pcard"><div class="who">'+badge(c)
+      + '<div><div class="eyebrow">Your policy is with</div><h2>'+esc(c.name)+'</h2></div></div>'
+      + '<a class="pgo" href="tel:'+dial(c.tel)+'">'+ICON_PH
+      +   '<span><s>'+esc(short(c.name))+' claims</s><b>'+esc(c.tel)+'</b></span></a>'
+      + (c.url
+          ? '<a class="pweb" href="'+esc(c.url)+'" target="_blank" rel="noopener noreferrer">'
+            + ICON_EXT + 'Or start it online</a>'
+            + '<p class="dest">'+ICON_LOCK+'<span>Opens <b>'+esc(host(c.url))+'</b> in a new tab. '
+            + 'This page stays open behind it.</span></p>'
+          : '<p class="pnolink">'+esc(short(c.name))+' takes new claims by phone only.</p>')
+      + alts() + '</div>';
+  }
+
+  function missing(){
+    return '<div class="pmiss"><b>We do not recognise that number yet</b>'
+      + '<p>Only some companies number their policies in a way we can read, and a typo '
+      + 'looks the same as an unknown one. Find your company in the list below, or call '
+      + 'us the number and we will tell you who wrote it &mdash; it takes seconds.</p>'
+      + alts() + '</div>';
+  }
+
+  /* The directory. Built from the same array, so a carrier can never appear in
+     one place and not the other. */
+  grid.innerHTML = CARRIERS.map(function(c){
+    return '<div class="drow">'+badge(c)
+      + '<div class="t"><b>'+esc(c.name)+'</b>'
+      + '<a class="tel" href="tel:'+dial(c.tel)+'">'+esc(c.tel)+'</a>'
+      + (c.url ? '<a class="web" href="'+esc(c.url)+'" target="_blank" rel="noopener noreferrer">'
+                 + esc(host(c.url))+' &rarr;</a>' : '')
+      + '</div></div>';
+  }).join('');
+
+  var t=null;
+  input.addEventListener('input',function(){
+    input.value=input.value.toUpperCase();
+    clearTimeout(t);
+    var n=norm(input.value);
+    if(n.length<MIN_ALPHA){ res.innerHTML=''; return; }
+    var hits=match(input.value);
+    if(hits.length){ res.innerHTML=hits.map(found).join(''); return; }
+    t=setTimeout(function(){
+      if(!match(input.value).length && norm(input.value).length>=MIN_NUMERIC) res.innerHTML=missing();
+    },650);
+  });
+})();
+</script>
+
+<script>
+  (function(){
+    var burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
+    if(!burger||!drawer)return;
+    function setMenu(open){
+      if(open){var r=document.querySelector('nav').getBoundingClientRect();
+        drawer.style.paddingTop=Math.max(r.bottom+20,90)+'px';}
+      burger.classList.toggle('on',open);drawer.classList.toggle('on',open);
+      document.body.classList.toggle('locked',open);
+      burger.setAttribute('aria-expanded',open);
+      burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+    }
+    burger.addEventListener('click',function(){setMenu(!drawer.classList.contains('on'));});
+    Array.prototype.forEach.call(drawer.querySelectorAll('a'),function(a){a.addEventListener('click',function(){setMenu(false);});});
+    addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
+    addEventListener('resize',function(){if(innerWidth>960)setMenu(false);});
+  })();
+</script>
+</body>
+</html>

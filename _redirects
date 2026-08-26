@@ -35,3 +35,11 @@
 /pay.html                /pay/                301
 /payment                 /pay/                301
 /make-a-payment          /pay/                301
+
+# /claims — the claim reporting page. Same shape as the payment redirects: the
+# words people actually type, and the .html a linker might guess.
+/claim                   /claims/                301
+/claims.html             /claims/                301
+/file-a-claim            /claims/                301
+/report-a-claim          /claims/                301
+/claims/guide.html       /claims/guide/          301
