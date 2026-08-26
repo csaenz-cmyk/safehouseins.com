@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request an ID Card or Declarations Page — Safe House Insurance</title>
+<meta name="description" content="Request your insurance ID card or declarations page. Enter your policy number and tell us what you need. We send it to the phone and email already on your policy. Safe House Insurance, El Paso TX. Se habla espanol.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/safehouse-heart.png">
+<link rel="canonical" href="https://safehouseins.com/id-card/">
+<meta property="og:title" content="Request an ID Card or Declarations Page">
+<meta property="og:description" content="Tell us what you need and we send it to the contacts already on your policy.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://safehouseins.com/id-card/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  /* ================= request an ID card or dec page =================
+     Same shell as /pay and /claims. This one is a form rather than a lookup,
+     and the thing that makes it safe is stated on the page rather than assumed:
+     whatever is typed here, the documents go to the phone number and the email
+     already on the policy. A form that mailed a declarations page to whatever
+     address somebody typed would be a way to collect other people's policies. */
+
+  :root{ --pnavy:#08183A; --pblue:#1666ED; --pcyan:#22A7F0; --pline:#E5EBF6; }
+  .pay{position:relative;overflow:hidden;background:
+      radial-gradient(1100px 520px at 18% -12%, rgba(34,167,240,.34), transparent 62%),
+      radial-gradient(900px 460px at 88% 6%, rgba(22,102,237,.30), transparent 60%),
+      var(--pnavy);
+      padding:112px 20px 74px;color:#fff}
+  @media(max-width:700px){ .pay{padding-top:96px;padding-bottom:66px} }
+  .pay .in{max-width:660px;margin:0 auto;text-align:center;position:relative;z-index:2}
+  .pay .crumbs{font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+      font-weight:800;color:rgba(255,255,255,.55);margin-bottom:16px}
+  .pay .crumbs a{color:rgba(255,255,255,.75);text-decoration:none}
+  .pay h1{margin:0;font-size:clamp(34px,6vw,52px);line-height:1.04;font-weight:800;
+      letter-spacing:-.03em}
+  .pay h1 em{display:block;font-family:'Instrument Serif',serif;font-style:italic;
+      font-weight:400;color:#8FD0FF;letter-spacing:-.01em}
+  .pay .lede{margin:13px auto 0;max-width:48ch;font-size:16px;line-height:1.6;
+      color:rgba(255,255,255,.78);font-weight:500}
+  .pres{max-width:660px;margin:-46px auto 0;padding:0 20px;position:relative;z-index:3}
+
+  .pinfo{max-width:900px;margin:0 auto;padding:56px 20px 0}
+  .pinfo h3{margin:0 0 20px;text-align:center;font-size:22px;font-weight:800;
+      color:var(--pnavy);letter-spacing:-.02em}
+  .pcols{display:grid;gap:14px;grid-template-columns:1fr}
+  @media(min-width:760px){ .pcols{grid-template-columns:1fr 1fr} }
+  .pcol{border:1.5px solid var(--pline);border-radius:18px;padding:20px;background:#fff}
+  .pcol .n{width:30px;height:30px;border-radius:9px;background:#EAF2FE;color:var(--pblue);
+      display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;
+      margin-bottom:11px}
+  .pcol b{display:block;font-size:15px;font-weight:800;color:var(--pnavy);margin-bottom:5px}
+  .pcol p{margin:0;font-size:13.5px;line-height:1.6;color:#5C6A80;font-weight:600}
+  .pcol p+p{margin-top:9px}
+
+  .pfaq{max-width:900px;margin:52px auto 0;padding:0 20px}
+  .pfaq h3{margin:0 0 20px;text-align:center;font-size:22px;font-weight:800;
+      color:var(--pnavy);letter-spacing:-.02em}
+  .pfgrid{display:grid;gap:13px;grid-template-columns:1fr}
+  @media(min-width:700px){ .pfgrid{grid-template-columns:1fr 1fr} }
+  .pf{border:1.5px solid var(--pline);border-radius:18px;padding:19px 21px;background:#fff}
+  .pf b{display:block;font-size:15px;font-weight:800;color:var(--pnavy);margin-bottom:6px}
+  .pf p{margin:0;font-size:13.5px;line-height:1.65;color:#5C6A80;font-weight:600}
+  .pf a{color:var(--pblue);font-weight:800}
+
+  .pegrid{display:grid;gap:11px;grid-template-columns:1fr;max-width:900px;margin:52px auto 0;padding:0 20px}
+  @media(min-width:600px){ .pegrid{grid-template-columns:1fr 1fr} }
+  @media(min-width:900px){ .pegrid{grid-template-columns:repeat(4,1fr)} }
+  .pegrid a{display:block;border:1.5px solid var(--pline);border-radius:16px;padding:17px 18px;
+      background:#fff;text-decoration:none;transition:border-color .16s,transform .16s}
+  .pegrid a:hover{border-color:#BBD6FB;transform:translateY(-2px)}
+  .pegrid b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);margin-bottom:4px}
+  .pegrid span{display:block;font-size:12.5px;line-height:1.5;color:#7C8BA4;font-weight:600}
+  .ptail{height:60px}
+
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:#1666ED;color:#fff;
+      padding:12px 18px;border-radius:0 0 12px 0;font-weight:800;font-size:14px}
+  .skip:focus{left:0}
+
+  /* ---- the form ----
+     Shared by /id-card/ and /lienholder/. Kept in each page rather than in
+     assets/styles.css because those two are the only pages that carry a form
+     of this shape, and a rule nobody else uses does not belong in a stylesheet
+     every page downloads. */
+  .fcard{background:#fff;border-radius:24px;box-shadow:0 24px 60px rgba(8,24,58,.16);
+      border:1px solid var(--pline);padding:26px}
+  @media(min-width:640px){ .fcard{padding:30px 32px} }
+  .fstep{font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;font-weight:800;
+      color:#7C8BA4;margin:0 0 4px}
+  .fcard h2{margin:0 0 18px;font-size:20px;font-weight:800;color:var(--pnavy);letter-spacing:-.02em}
+  .fcard h2+.fsub{margin:-14px 0 18px;font-size:13.5px;line-height:1.6;color:#5C6A80;font-weight:600}
+  .frow{margin-top:16px}
+  .frow:first-of-type{margin-top:0}
+  .fg2{display:grid;gap:12px;grid-template-columns:1fr}
+  @media(min-width:560px){ .fg2{grid-template-columns:1fr 1fr} }
+  .fg3{display:grid;gap:12px;grid-template-columns:1fr}
+  @media(min-width:560px){ .fg3{grid-template-columns:1fr 1fr 1fr} }
+  label.fl{display:block;font-size:12.5px;font-weight:800;color:var(--pnavy);margin-bottom:6px}
+  label.fl .opt{font-weight:600;color:#9FB0C6;text-transform:none;letter-spacing:0}
+  .fhelp{display:block;font-size:12px;line-height:1.5;color:#7C8BA4;font-weight:600;margin:-2px 0 7px}
+  .fin{width:100%;border:2px solid var(--pline);border-radius:14px;padding:13px 15px;
+      font-family:inherit;font-size:15.5px;font-weight:600;color:var(--pnavy);background:#fff;
+      transition:border-color .16s,box-shadow .16s}
+  .fin::placeholder{color:#9FB0C6;font-weight:500}
+  .fin:focus{outline:none;border-color:var(--pblue);box-shadow:0 0 0 3px rgba(22,102,237,.16)}
+  .fin.mono{font-family:'Geist Mono',monospace;letter-spacing:.05em;text-transform:uppercase}
+  select.fin{-webkit-appearance:none;appearance:none;padding-right:40px;cursor:pointer;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235C6A80' stroke-width='2.4' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>");
+      background-repeat:no-repeat;background-position:right 14px center;background-size:17px}
+  textarea.fin{min-height:88px;resize:vertical;line-height:1.55}
+
+  /* A choice that is a decision, not a field. Big enough to hit with a thumb. */
+  .fpick{display:grid;gap:10px;grid-template-columns:1fr;margin-top:2px}
+  @media(min-width:560px){ .fpick.two{grid-template-columns:1fr 1fr} }
+  .fopt{display:flex;align-items:flex-start;gap:12px;border:2px solid var(--pline);
+      border-radius:16px;padding:15px 16px;background:#fff;cursor:pointer;
+      transition:border-color .16s,box-shadow .16s}
+  .fopt:hover{border-color:#C6D8F5}
+  .fopt input{position:absolute;opacity:0;width:0;height:0}
+  .fopt .bx{flex:0 0 auto;width:22px;height:22px;border:2px solid #C9D6EA;border-radius:7px;
+      margin-top:1px;display:grid;place-items:center;transition:.15s}
+  .fopt .bx.rd{border-radius:50%}
+  .fopt .bx::after{content:'\2713';color:#fff;font-size:13px;font-weight:900;opacity:0;transition:.15s}
+  .fopt .bx.rd::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+  .fopt input:checked+.bx{background:var(--pblue);border-color:var(--pblue)}
+  .fopt input:checked+.bx::after{opacity:1}
+  .fopt input:focus-visible+.bx{outline:3px solid #BBD6FF;outline-offset:2px}
+  .fopt:has(input:checked){border-color:var(--pblue);box-shadow:0 6px 18px rgba(22,102,237,.14)}
+  .fopt .tx b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);line-height:1.3}
+  .fopt .tx span{display:block;font-size:12.5px;line-height:1.55;color:#5C6A80;font-weight:600;margin-top:3px}
+
+  /* Questions that only exist because of an answer above them. */
+  .freveal{border-left:3px solid #DCE9FA;padding-left:16px;margin-top:16px}
+  .freveal[hidden]{display:none}
+
+  .ferr{display:none;margin-top:14px;border:1.5px solid #F3C7C7;background:#FFF6F6;
+      border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.55;
+      color:#9A2C2C;font-weight:700}
+  .ferr.on{display:block}
+
+  .fsend{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;margin-top:20px;
+      background:linear-gradient(100deg,var(--pblue),var(--pcyan));color:#fff;border:0;
+      border-radius:16px;padding:17px 20px;font-family:inherit;font-size:16.5px;font-weight:800;
+      cursor:pointer;box-shadow:0 12px 26px rgba(22,102,237,.28);transition:transform .16s}
+  .fsend:hover{transform:translateY(-2px)}
+  .fnote{margin:12px 0 0;font-size:12.5px;line-height:1.6;color:#7C8BA4;font-weight:600;text-align:center}
+
+  /* ---- the confirmation ---- */
+  .fdone{background:#fff;border-radius:24px;border:1px solid var(--pline);
+      box-shadow:0 24px 60px rgba(8,24,58,.16);padding:30px 28px;text-align:center}
+  .fdone .tick{width:60px;height:60px;border-radius:50%;margin:0 auto 16px;
+      background:linear-gradient(140deg,var(--pblue),var(--pcyan));color:#fff;
+      display:flex;align-items:center;justify-content:center;font-size:27px;font-weight:900;
+      box-shadow:0 16px 32px -14px rgba(22,102,237,.8)}
+  .fdone h2{margin:0;font-size:23px;font-weight:800;color:var(--pnavy);letter-spacing:-.02em}
+  .fdone .lead{margin:10px auto 0;max-width:48ch;font-size:15px;line-height:1.65;
+      color:#3B4A63;font-weight:600}
+  .fsum{margin:20px auto 0;max-width:460px;text-align:left;border:1.5px solid var(--pline);
+      border-radius:16px;padding:16px 18px;background:#FAFCFF}
+  .fsum div{display:flex;justify-content:space-between;gap:14px;padding:7px 0;
+      border-bottom:1px solid #EDF2FA;font-size:13.5px;font-weight:600;color:#5C6A80}
+  .fsum div:last-child{border-bottom:0}
+  .fsum b{color:var(--pnavy);font-weight:800;text-align:right}
+  .fwarn{margin:18px auto 0;max-width:52ch;border:1.5px solid #F5DFB0;background:#FFFAF0;
+      border-radius:16px;padding:15px 17px;text-align:left}
+  .fwarn b{display:block;font-size:14px;color:#8A5200;font-weight:900;margin-bottom:6px}
+  .fwarn p{margin:0;font-size:13px;line-height:1.6;color:#6B4B18;font-weight:600}
+  .fwarn a{color:#8A5200;font-weight:900}
+
+  .palt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+  @media(max-width:520px){ .palt{grid-template-columns:1fr} }
+  .palt a{display:flex;align-items:center;gap:11px;border:2px solid var(--pline);
+      border-radius:15px;padding:13px 15px;text-decoration:none;background:#fff;
+      transition:border-color .16s,background .16s;text-align:left}
+  .palt a:hover{border-color:#C6D8F5;background:#FAFCFF}
+  .palt .i{width:34px;height:34px;flex:0 0 auto;border-radius:10px;background:#F1F6FE;
+      display:flex;align-items:center;justify-content:center}
+  .palt .i svg{width:17px;height:17px;fill:none;stroke:var(--pblue);stroke-width:2;
+      stroke-linecap:round;stroke-linejoin:round}
+  .palt s{display:block;text-decoration:none;font-size:11.5px;font-weight:700;color:#7C8BA4}
+  .palt b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);
+      font-family:'Geist Mono',monospace;letter-spacing:-.01em}
+</style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="topbar">
+    <span>📞 Call <a href="tel:+19155031207">915-503-1207</a> &middot; 💬 Text <a href="sms:+19155943777">915-594-3777</a></span>
+    <span>✉️ <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></span>
+    <span class="es">🇲🇽 Se habla español</span>
+    <span>El Paso, TX · Serving TX &amp; NM</span>
+  </div>
+
+  <header class="pay">
+    <nav>
+      <a href="../index.html"><img class="logo" src="../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+      <div class="links"><a href="../auto-insurance.html">Auto</a><a href="../home-insurance.html">Home</a><a href="../commercial-insurance.html">Commercial</a><a href="../about.html">About</a><a href="../index.html#faq">FAQ</a><a href="../claims/">Claims</a><a href="../pay/">Make a payment</a></div>
+      <div class="nav-cta"><a class="signin" href="../contact.html">Contact</a><a class="btn white sm" href="../contact.html#quote">Get a quote</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button></div>
+    </nav>
+
+  <div class="drawer" id="drawer">
+    <a href="../index.html">Home</a>
+    <a href="../auto-insurance.html">Auto</a>
+    <a href="../home-insurance.html">Home insurance</a>
+    <a href="../commercial-insurance.html">Commercial</a>
+    <a href="../pay/">Make a payment</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+    <a class="btn white" href="tel:+19155031207">📞 Call 915-503-1207</a>
+    <a class="dr-mail" href="mailto:contact@safehouseins.com">contact@safehouseins.com · 🇲🇽 Se habla español</a>
+  </div>
+
+    <div class="in">
+      <div class="crumbs"><a href="../index.html">Home</a> &nbsp;/&nbsp; ID card &amp; documents</div>
+      <h1>Need your ID card?<em>Ask us here.</em></h1>
+      <p class="lede">Tell us your policy number and what you need. An agent sends it to the
+        phone and email already on your policy &mdash; usually the same business day.</p>
+    </div>
+  </header>
+
+<main id="main">
+  <div class="pres">
+    <form class="fcard" id="req" novalidate>
+      <p class="fstep">Step 1 of 1</p>
+      <h2>What do you need?</h2>
+      <p class="fsub">Everything here stays in your browser until you press send.</p>
+
+      <div class="frow">
+        <label class="fl" for="pol">Policy number</label>
+        <span class="fhelp">On your ID card, top left. Spaces and dashes don&rsquo;t matter.</span>
+        <input class="fin mono" id="pol" name="pol" type="text" autocomplete="off"
+               spellcheck="false" autocapitalize="characters" placeholder="AIM4471902">
+      </div>
+
+      <div class="frow fg2">
+        <div>
+          <label class="fl" for="fn">First name</label>
+          <input class="fin" id="fn" name="fn" type="text" autocomplete="given-name" placeholder="Christian">
+        </div>
+        <div>
+          <label class="fl" for="ln">Last name</label>
+          <input class="fin" id="ln" name="ln" type="text" autocomplete="family-name" placeholder="Saenz">
+        </div>
+      </div>
+
+      <div class="frow">
+        <label class="fl">Which documents?</label>
+        <div class="fpick two">
+          <label class="fopt">
+            <input type="checkbox" id="wantId" checked>
+            <span class="bx" aria-hidden="true"></span>
+            <span class="tx"><b>ID card</b><span>The card you keep in the car and show
+              to an officer. Proof the policy is active.</span></span>
+          </label>
+          <label class="fopt">
+            <input type="checkbox" id="wantDec">
+            <span class="bx" aria-hidden="true"></span>
+            <span class="tx"><b>Declarations page</b><span>The full summary: vehicles,
+              drivers, every coverage and limit, and the dates. Banks ask for this one.</span></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="freveal" id="decBox" hidden>
+        <div class="frow">
+          <label class="fl">Is the declarations page for a bank or lender?</label>
+          <span class="fhelp">If a lender is asking for proof of coverage, we can send it
+            straight to them as well as to you.</span>
+          <div class="fpick two">
+            <label class="fopt">
+              <input type="radio" name="forBank" value="yes">
+              <span class="bx rd" aria-hidden="true"></span>
+              <span class="tx"><b>Yes, a lender needs it</b></span>
+            </label>
+            <label class="fopt">
+              <input type="radio" name="forBank" value="no" checked>
+              <span class="bx rd" aria-hidden="true"></span>
+              <span class="tx"><b>No, it&rsquo;s just for me</b></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="freveal" id="bankBox" hidden style="border:0;padding-left:0">
+          <div class="frow">
+            <label class="fl" for="bank">Bank or lender name</label>
+            <input class="fin" id="bank" name="bank" type="text" placeholder="e.g. Navy Federal Credit Union">
+          </div>
+          <div class="frow">
+            <label class="fl" for="bmail">Where should we send it? <span class="opt">&mdash; optional</span></label>
+            <span class="fhelp">The lender&rsquo;s email or fax, if you have it. Leave it blank and
+              we will send it to you to forward.</span>
+            <input class="fin" id="bmail" name="bmail" type="text" inputmode="email"
+                   autocapitalize="none" spellcheck="false" placeholder="insurance@lender.com">
+          </div>
+        </div>
+      </div>
+
+      <div class="frow">
+        <label class="fl" for="notes">Anything else we should know? <span class="opt">&mdash; optional</span></label>
+        <textarea class="fin" id="notes" name="notes"
+                  placeholder="e.g. I only need the card for the truck, not both cars."></textarea>
+      </div>
+
+      <p class="ferr" id="err" role="alert"></p>
+      <button class="fsend" type="submit">Send my request</button>
+      <p class="fnote">This opens your email app with the details filled in. Nothing is sent
+        until you press send there. Rather text it? Use the button on the next screen.</p>
+    </form>
+  </div>
+
+  <div class="pres" id="doneWrap" hidden>
+    <div class="fdone">
+      <div class="tick" aria-hidden="true">&#10003;</div>
+      <h2>Request sent.</h2>
+      <p class="lead">An agent will put it together and send it to you &mdash;
+        <strong>by email and by text, to the contacts already on your policy</strong>. Usually
+        the same business day, always within one.</p>
+      <div class="fsum" id="sum"></div>
+      <div class="fwarn">
+        <b>Changed your phone number or email since you bought the policy?</b>
+        <p>Then it will go to the old ones and you will not see it. Call
+          <a href="tel:+19155031207">915-503-1207</a> or text
+          <a href="sms:+19155943777">915-594-3777</a> and we will update the policy and resend
+          it while you are on the line.</p>
+      </div>
+      <div class="palt">
+        <a href="tel:+19155031207"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+          <span><s>Need it right now? Call</s><b>915-503-1207</b></span></a>
+        <a id="smsLink" href="sms:+19155943777"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span>
+          <span><s>Or send the same request by text</s><b>915-594-3777</b></span></a>
+      </div>
+    </div>
+  </div>
+
+  <section class="pinfo">
+    <h3>What each document actually is</h3>
+    <div class="pcols">
+      <div class="pcol"><div class="n">1</div>
+        <b>The ID card</b>
+        <p>One small card per vehicle. It shows the company, the policy number, the dates the
+          policy runs, and which car it covers. It is what you hand to an officer at a traffic
+          stop and what a dealership wants before you drive off the lot.</p>
+        <p>Texas and New Mexico both accept it on your phone. You do not need the paper one.</p></div>
+      <div class="pcol"><div class="n">2</div>
+        <b>The declarations page</b>
+        <p>Usually called the <strong>dec page</strong>. It is the summary of the whole policy:
+          every vehicle, every driver, every coverage with its limit and deductible, the
+          premium, and the dates. Two or three pages, not a card.</p>
+        <p>This is the one a lender, a leasing company or a landlord asks for, because it
+          proves not just that you have insurance but that you have the specific coverage
+          they require.</p></div>
+    </div>
+  </section>
+
+  <section class="pfaq">
+    <h3>Questions that come with this</h3>
+    <div class="pfgrid">
+      <div class="pf"><b>How fast can I get it?</b>
+        <p>Same business day in almost every case, and within minutes if you call during
+          office hours rather than filling in this form. Mon&ndash;Fri, 11am&ndash;5pm Mountain.</p></div>
+      <div class="pf"><b>Why does it go to the contacts on my policy?</b>
+        <p>Because a declarations page lists your vehicles, your drivers and your address. If
+          we sent it to whatever address a form typed in, anyone with your policy number could
+          collect it. Sending it where the policy already points is the check.</p></div>
+      <div class="pf"><b>I do not have my policy number.</b>
+        <p>Call or text and we will look it up from your name and date of birth. We hold the
+          policy on our side, so it takes about a minute.</p></div>
+      <div class="pf"><b>My bank keeps saying they never got it.</b>
+        <p>That is usually a reference number problem rather than a sending problem &mdash; lenders
+          file by loan number, not by name. Send us the loan number and we will resend it
+          referenced properly. Your bank can also request it directly:
+          <a href="../lienholder/">the lienholder page &rarr;</a></p></div>
+      <div class="pf"><b>Can I get a card for just one car?</b>
+        <p>Yes. Put it in the notes box. By default we send a card for every vehicle on the
+          policy, which is what most people want.</p></div>
+      <div class="pf"><b>Do I need the paper card in my glovebox?</b>
+        <p>Not in Texas or New Mexico &mdash; a photo or the PDF on your phone is accepted. Keeping
+          a paper copy anyway costs nothing and phones run out of battery.</p></div>
+    </div>
+  </section>
+
+  <div class="pegrid">
+    <a href="../pay/"><b>Make a payment</b><span>Straight to your carrier&rsquo;s payment page</span></a>
+    <a href="../claims/"><b>Report a claim</b><span>We will start it with you</span></a>
+    <a href="../lienholder/"><b>For lenders</b><span>Banks can request documents here</span></a>
+    <a href="../quote.html"><b>See if you can pay less</b><span>Re-shop it across our carriers</span></a>
+  </div>
+  <div class="ptail"></div>
+</main>
+  <footer>
+ <div class="fshell">
+
+  <!-- Band 1 — where to go. Two-column city lists so twelve names read as a
+       list and not as a wall. -->
+  <div class="fband">
+   <div class="fdeck">
+    <div><h5>Car insurance in Texas</h5><div class="c2"><a href="../car-insurance/texas/houston/">Houston</a><a href="../car-insurance/texas/san-antonio/">San Antonio</a><a href="../car-insurance/texas/dallas/">Dallas</a><a href="../car-insurance/texas/austin/">Austin</a><a href="../car-insurance/texas/fort-worth/">Fort Worth</a><a href="../car-insurance/texas/el-paso/">El Paso</a><a href="../car-insurance/texas/arlington/">Arlington</a><a href="../car-insurance/texas/laredo/">Laredo</a><a href="../car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="../car-insurance/texas/mcallen/">McAllen</a><a href="../car-insurance/texas/brownsville/">Brownsville</a><a href="../car-insurance/texas/lubbock/">Lubbock</a></div>
+      <a class="more" href="../car-insurance/texas/">See all Texas cities &rarr;</a></div>
+
+    <div><h5>Car insurance in New Mexico</h5><div class="c2"><a href="../car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="../car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="../car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="../car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="../car-insurance/new-mexico/roswell/">Roswell</a><a href="../car-insurance/new-mexico/farmington/">Farmington</a><a href="../car-insurance/new-mexico/hobbs/">Hobbs</a><a href="../car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
+      <a class="more" href="../car-insurance/new-mexico/">See all New Mexico cities &rarr;</a></div>
+
+    <div><h5>What we insure</h5>
+      <a href="../quote.html?type=car">Car insurance</a>
+      <a href="../quote.html?type=home">Home insurance</a>
+      <a href="../quote.html?type=home">Renters insurance</a>
+      <a href="../quote.html?type=moto">Motorcycle insurance</a>
+      <a href="../quote.html?type=commercial">Commercial vehicles</a>
+      <a href="../quote.html?type=commercial">Work trucks and fleets</a>
+      <a class="more" href="../car-insurance/makes/">Car insurance by make &rarr;</a></div>
+
+    <div><h5>Already a customer</h5>
+      <a href="../pay/">Make a payment</a>
+      <a href="../pay/guide/">How paying works</a>
+      <a href="../id-card/">Request an ID card</a>
+      <a href="../claims/">Report a claim</a>
+      <a href="tel:+19155031207">Change your policy</a>
+      <a href="../quote.html">Re-shop your rate</a></div>
+   </div>
+  </div>
+
+  <!-- Band 2 — reach a person. Everything here appeared twice in the old
+       footer: once in a link column and again in a centred block underneath. -->
+  <div class="fband">
+   <div class="fmid">
+    <div>
+     <h5>Reach us</h5>
+     <div class="fways">
+<div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><b>Call</b><a class="big" href="tel:+19155031207">915-503-1207</a><small>Mon&ndash;Fri, 11am&ndash;5pm Mountain</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span><b>Text</b><a class="big" href="sms:+19155943777">915-594-3777</a><small>A different line &mdash; this one receives texts</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 6.5L21 6"/></svg></span><b>Email</b><a class="big" href="mailto:contact@safehouseins.com">contact@safehouseins.com</a><small>Documents, questions, anything</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><b>Visit</b>
+       <address>Safe House Insurance LLC<br>6065 Montana Ave Ste C8<br>El Paso, TX 79925</address>
+       <p class="fhours">Mon&ndash;Fri, 11am&ndash;5pm Mountain</p>
+       <a href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">Open in Google Maps &rarr;</a></div>
+     </div>
+    </div>
+
+    <div>
+     <h5>Company</h5>
+     <div class="fcols">
+     <a href="../about.html">About us</a>
+     <a href="../careers.html">Careers</a>
+     <a href="../index.html#faq">FAQ</a>
+     <a href="../car-insurance/">Car insurance by city</a>
+     <a href="../car-insurance/makes/">Car insurance by make</a>
+     <a href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">Reviews on Google</a>
+     <a href="../contact.html">Contact</a>
+     </div>
+     <a class="more" href="../quote.html" style="display:inline-block;margin-top:14px;background:var(--grad);color:#fff;padding:12px 22px;border-radius:99px;font-size:14.5px;font-weight:800">Get a quote &rarr;</a>
+    </div>
+   </div>
+  </div>
+
+  <!-- Band 3 — the sign-off. -->
+  <div class="fend">
+   <img class="logo" src="../assets/safehouse-logo.png" alt="Safe House Insurance">
+   <p class="es">Licensed independent agency in El Paso, Texas &middot; 🇲🇽 Se habla español</p>
+   <p class="disc">Safe House Insurance LLC is an independent insurance agency licensed in Texas and New Mexico. Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy. Quotes are estimates and are not a guarantee of coverage or price. Carrier availability and eligibility vary by state and by applicant. &copy; 2026 Safe House Insurance.</p>
+   <p class="legal"><a href="../privacy.html">Privacy Policy</a> &middot; <a href="../sms-terms.html">SMS Terms</a> &middot; <a href="../quote.html">Get a quote</a></p>
+  </div>
+
+ </div>
+</footer>
+
+<script>
+(function(){
+  var f=document.getElementById('req'), err=document.getElementById('err'),
+      decBox=document.getElementById('decBox'), bankBox=document.getElementById('bankBox'),
+      wantId=document.getElementById('wantId'), wantDec=document.getElementById('wantDec'),
+      doneWrap=document.getElementById('doneWrap'), sum=document.getElementById('sum'),
+      smsLink=document.getElementById('smsLink');
+  if(!f) return;
+
+  var TEL='915-503-1207', SMS='+19155943777', TO='contact@safehouseins.com';
+  function v(id){ var e=document.getElementById(id); return e ? e.value.trim() : ''; }
+  function bank(){ var r=f.querySelector('input[name=forBank]:checked'); return r?r.value:'no'; }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  /* A question only appears once the answer above it makes it mean something.
+     Asking "is this for a bank?" of somebody who only wants an ID card is a
+     question with no right answer. */
+  function sync(){
+    decBox.hidden = !wantDec.checked;
+    bankBox.hidden = !(wantDec.checked && bank()==='yes');
+  }
+  f.addEventListener('change', sync); sync();
+
+  function fail(msg){
+    err.textContent=msg; err.classList.add('on');
+    err.scrollIntoView({block:'center',behavior:'smooth'});
+    return false;
+  }
+
+  function payload(){
+    var docs=[];
+    if(wantId.checked)  docs.push('ID card');
+    if(wantDec.checked) docs.push('Declarations page');
+    var L=['SAFE HOUSE — DOCUMENT REQUEST','',
+           'Policy number: '+v('pol'),
+           'Name on policy: '+v('fn')+' '+v('ln'),
+           'Documents needed: '+docs.join(' + ')];
+    if(wantDec.checked && bank()==='yes'){
+      L.push('For a lender: YES');
+      L.push('Lender: '+(v('bank')||'(not given)'));
+      if(v('bmail')) L.push('Send to lender at: '+v('bmail'));
+    } else if(wantDec.checked){
+      L.push('For a lender: no');
+    }
+    if(v('notes')) L.push('', 'Notes: '+v('notes'));
+    L.push('', 'Sent from safehouseins.com/id-card/');
+    return { docs:docs, text:L.join('\n') };
+  }
+
+  f.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    err.classList.remove('on');
+
+    if(!v('pol')) return fail('We need the policy number. It is on your ID card, top left — or call us and we will look it up.');
+    if(!v('fn') || !v('ln')) return fail('Please give the first and last name on the policy, so we send the right one.');
+    if(!wantId.checked && !wantDec.checked) return fail('Pick at least one document — an ID card, a declarations page, or both.');
+    if(wantDec.checked && bank()==='yes' && !v('bank'))
+      return fail('Which bank or lender is asking for it? The name is enough.');
+
+    var p=payload();
+
+    /* The request leaves as an email from the visitor's own address. There is
+       no server here to post to — this is a static site — and a mailto is not
+       a workaround so much as the right shape: the message arrives from an
+       address tied to a person, which is worth something on a request for
+       policy documents. */
+    var subject='Document request — '+v('pol')+' — '+v('fn')+' '+v('ln');
+    location.href='mailto:'+TO+'?subject='+encodeURIComponent(subject)
+                 +'&body='+encodeURIComponent(p.text);
+
+    smsLink.href='sms:'+SMS+'?&body='+encodeURIComponent(p.text);
+
+    var rows=[['Policy', v('pol')],
+              ['Name', v('fn')+' '+v('ln')],
+              ['Sending', p.docs.join(' + ')]];
+    if(wantDec.checked && bank()==='yes') rows.push(['Lender', v('bank')]);
+    sum.innerHTML=rows.map(function(r){
+      return '<div><span>'+esc(r[0])+'</span><b>'+esc(r[1])+'</b></div>'; }).join('');
+
+    f.parentNode.hidden=true;
+    doneWrap.hidden=false;
+    doneWrap.scrollIntoView({block:'start',behavior:'smooth'});
+  });
+})();
+</script>
+
+<script>
+  (function(){
+    var burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
+    if(!burger||!drawer)return;
+    function setMenu(open){
+      if(open){var r=document.querySelector('nav').getBoundingClientRect();
+        drawer.style.paddingTop=Math.max(r.bottom+20,90)+'px';}
+      burger.classList.toggle('on',open);drawer.classList.toggle('on',open);
+      document.body.classList.toggle('locked',open);
+      burger.setAttribute('aria-expanded',open);
+      burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+    }
+    burger.addEventListener('click',function(){setMenu(!drawer.classList.contains('on'));});
+    Array.prototype.forEach.call(drawer.querySelectorAll('a'),function(a){a.addEventListener('click',function(){setMenu(false);});});
+    addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
+    addEventListener('resize',function(){if(innerWidth>960)setMenu(false);});
+  })();
+</script>
+</body>
+</html>

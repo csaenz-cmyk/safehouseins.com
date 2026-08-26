@@ -228,10 +228,11 @@ FOOTER = """
     <div><h5>Already a customer</h5>
       <a href="pay/">Make a payment</a>
       <a href="pay/guide/">How paying works</a>
-      <a href="tel:+19155031207">Request an ID card</a>
+      <a href="id-card/">Request an ID card</a>
       <a href="claims/">Report a claim</a>
       <a href="claims/guide/">How claims work</a>
       <a href="tel:+19155031207">Change your policy</a>
+      <a href="lienholder/">For lenders &amp; banks</a>
       <a href="quote.html">Re-shop your rate</a></div>
    </div>
   </div>

@@ -314,6 +314,27 @@
   .agt img{width:100%;height:100%;object-fit:cover;display:block;border-radius:14px}
   .agt.on{opacity:1;border-color:var(--blue);box-shadow:0 8px 18px -10px rgba(22,102,237,.8)}
   .agt:hover{opacity:1}
+  /* The team strip.
+
+     A scroller on a phone and a row on a laptop, from one rule: fixed-width
+     flex items with scroll-snap. It does not become a grid at any breakpoint —
+     five faces in a grid on a 390px screen are five 60px faces, and a face that
+     small is a smudge. Sideways with a snap keeps them the size a face needs to
+     be, and the gradient on the right edge is the only honest way to say there
+     are more of them off-screen. */
+  .agstrip{display:flex;gap:12px;margin-top:26px;overflow-x:auto;scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 22px 6px;
+      margin-left:-22px;margin-right:-22px}
+  .agstrip::-webkit-scrollbar{display:none}
+  .agstrip figure{flex:0 0 auto;width:180px;margin:0;scroll-snap-align:center;
+      border-radius:20px;overflow:hidden;background:var(--ice);
+      box-shadow:0 20px 40px -26px rgba(10,33,72,.65)}
+  .agstrip img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+  @media(min-width:760px){
+    .agstrip{justify-content:center;overflow:visible;padding-left:0;padding-right:0;
+        margin-left:0;margin-right:0;gap:16px}
+    .agstrip figure{width:min(200px,calc(20% - 13px))}
+  }
   .agnote{font-size:12.5px;color:var(--muted);font-weight:600;margin-top:14px}
   .agnote a{color:var(--blue-d);font-weight:700}
 
@@ -572,7 +593,12 @@
        break — scoped to this pair so the rest of the page keeps its rhythm. */
     .agents{padding:80px 0 48px}
     .agents + section{padding-top:52px}
-    .agin{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:64px;padding:0 40px}
+    /* One column. The two-column grid here was the old rotator's — copy on the
+       left, one large portrait on the right — and it has had nothing to put in
+       the second column since the rotator came out. With three children in it
+       the section laid out as a 180px-wide text column beside the photographs,
+       which is what a leftover layout rule looks like when nobody re-checks it. */
+    .agin{padding:0 40px}
     .agtext{max-width:52ch}
     .agstage{margin-top:0;width:min(34vw,420px);max-width:none}
     .agrow{margin-top:18px}
@@ -910,21 +936,37 @@
 <!-- ================= AGENTS ================= -->
 <section class="agents" id="agents" aria-label="Meet the agents">
   <div class="agin">
-    <!-- Four named agents with photographs, years of experience and personal
-         details lived here. None of them could be confirmed from this project,
-         and an insurance page is not the place to introduce people who may not
-         exist. The rotator markup is in git history: restore it the day the
-         names, roles and photographs are confirmed.
+    <!-- The photographs are back; the names are not.
 
-         What replaces it is true without naming anybody. -->
+         Four named agents with years of experience and personal details lived
+         here once and none of it could be confirmed, so all of it came out. The
+         client has now confirmed these are his agents, which settles the
+         photographs and settles nothing about the names — so the strip shows
+         the team without putting a name and a job title under a face that may
+         not match. Add them the day they are confirmed, one <figcaption> each.
+
+         The city came out too. The agency works across Texas and New Mexico and
+         its people are not all in one place, so "right here in El Paso" was
+         narrowing the promise rather than making it warmer. -->
     <div class="agtext rv" style="max-width:none;text-align:center;margin:0 auto">
       <span class="kick"><img src="assets/safehouse-heart.png" alt=""> Our team</span>
-      <h2>Real people. Right here in El Paso.</h2>
+      <h2>Real people, on the other end of the phone.</h2>
       <p class="sl" style="margin-left:auto;margin-right:auto">When you call or text Safe House you
         are talking to our team &mdash; not a call center somewhere else. Licensed agents who quote
         your policy, explain the coverage, make changes and pick up the phone after you buy.
         In English or Spanish, whichever the conversation starts in.</p>
-      <p class="agnote" style="margin-top:20px">Prefer to talk right now?
+    </div>
+
+    <div class="agstrip rv" aria-label="The Safe House team">
+      <figure><img src="assets/agent-1.jpg" alt="A Safe House Insurance agent" width="1040" height="1300" loading="lazy" decoding="async"></figure>
+      <figure><img src="assets/agent-2.jpg" alt="A Safe House Insurance agent" width="1040" height="1300" loading="lazy" decoding="async"></figure>
+      <figure><img src="assets/agent-3.jpg" alt="A Safe House Insurance agent" width="1040" height="1300" loading="lazy" decoding="async"></figure>
+      <figure><img src="assets/agent-4.jpg" alt="A Safe House Insurance agent" width="1040" height="1300" loading="lazy" decoding="async"></figure>
+      <figure><img src="assets/agent-5.jpg" alt="A Safe House Insurance agent" width="1040" height="1300" loading="lazy" decoding="async"></figure>
+    </div>
+
+    <div class="agtext rv" style="max-width:none;text-align:center;margin:0 auto">
+      <p class="agnote" style="margin-top:22px">Prefer to talk right now?
         <a href="tel:+19155031207">Call 915-503-1207</a> &middot;
         <a href="sms:+19155943777">Text 915-594-3777</a></p>
     </div>
@@ -1090,9 +1132,10 @@
     <div><h5>Already a customer</h5>
       <a href="pay/">Make a payment</a>
       <a href="pay/guide/">How paying works</a>
-      <a href="tel:+19155031207">Request an ID card</a>
+      <a href="id-card/">Request an ID card</a>
       <a href="claims/">Report a claim</a>
       <a href="tel:+19155031207">Change your policy</a>
+      <a href="lienholder/">For lenders &amp; banks</a>
       <a href="quote.html">Re-shop your rate</a></div>
    </div>
   </div>

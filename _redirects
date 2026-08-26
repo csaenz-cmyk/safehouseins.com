@@ -43,3 +43,15 @@
 /file-a-claim            /claims/                301
 /report-a-claim          /claims/                301
 /claims/guide.html       /claims/guide/          301
+
+# /id-card and /lienholder — document requests. Same shape as the others.
+/idcard                  /id-card/               301
+/id-cards                /id-card/                301
+/insurance-card          /id-card/                301
+/proof-of-insurance      /id-card/                301
+/declarations-page       /id-card/                301
+/dec-page                /id-card/                301
+/lienholders             /lienholder/             301
+/loss-payee              /lienholder/             301
+/lender                  /lienholder/             301
+/evidence-of-insurance   /lienholder/             301
