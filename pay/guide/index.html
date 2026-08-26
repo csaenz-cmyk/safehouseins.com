@@ -24,7 +24,9 @@
   .gh{position:relative;background:
       radial-gradient(900px 420px at 20% -10%, rgba(34,167,240,.28), transparent 62%),
       var(--gnavy);
-      padding:140px 20px 56px;color:#fff}
+      /* Down from 140. The shared nav used to end at 163px because styles.css
+         counted the topbar's height twice; it ends at 126 now. */
+      padding:120px 20px 56px;color:#fff}
   @media(max-width:700px){ .gh{padding-top:118px} }
   .gh .in{max-width:760px;margin:0 auto}
   .gh .crumbs{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;

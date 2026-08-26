@@ -29,11 +29,10 @@
          copy under it — this one is a heading and a single field, so the same
          reserve left a visible band of empty navy above the breadcrumb.
 
-         123px is the floor: the shared nav is absolutely positioned from 77px
-         to 163px and the topbar ends at 40, so anything less puts the
-         breadcrumb underneath the menu. The rest of the saving comes from the
-         gaps between the four things in here, not from the reserve. */
-      padding:132px 20px 44px;color:#fff}
+         The nav used to sit from 77px to 163px because styles.css counted the
+         topbar's height twice; it is 40 to 126 now, so this came down with it.
+         86px is the floor — anything less puts the breadcrumb under the menu. */
+      padding:112px 20px 44px;color:#fff}
   @media(max-width:700px){ .pay{padding-top:96px;padding-bottom:38px} }
   .pay .in{max-width:660px;margin:0 auto;text-align:center;position:relative;z-index:2}
   .pay .crumbs{font-size:12px;letter-spacing:.12em;text-transform:uppercase;

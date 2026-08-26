@@ -618,9 +618,22 @@
     .fitem{padding-left:20px}
     .float{display:flex;margin:104px 40px 0;max-width:360px}
     .hbody{margin-top:auto}
-    .hbody{padding:0 40px 52px;max-width:860px}
+    /* 1060, up from 860. The headline and the paragraph were reading as a
+       narrow column against a very wide photograph.
+
+       The trust chips are absolutely positioned inside this block — right:40px,
+       210px wide — so they travel with its right edge rather than with the
+       window. Widening it moves them out too, which is the point; what it also
+       does is put them in reach of the paragraph and the buttons, which is why
+       .hsub below is capped against this width and not in ch alone. */
+    .hbody{padding:0 40px 52px;max-width:1060px}
     h1{font-size:clamp(46px,4.6vw,66px)}
-    .hsub{font-size:19px;max-width:44ch}
+    /* Two ceilings, whichever bites first: about 56 characters, which is where
+       a line stops being comfortable to read, and whatever is left after the
+       chips take their 210px off the right of this block. The second one is
+       what holds at 900–1100px, where the block is narrower than 1060 and a
+       ch-only cap would run the paragraph straight under them. */
+    .hsub{font-size:20px;line-height:1.6;max-width:min(56ch,calc(100% - 250px))}
     .hacts{flex-direction:row;align-items:center}
     .hacts .btn{width:auto}
     .badges{position:absolute;right:40px;bottom:52px;grid-template-columns:1fr;margin-top:0;width:210px}

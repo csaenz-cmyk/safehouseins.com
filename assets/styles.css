@@ -24,7 +24,18 @@
   .topbar a{color:#fff}.topbar .es{background:rgba(255,255,255,.12);padding:2px 10px;border-radius:999px}
 
   /* NAV */
-  nav{position:absolute;top:37px;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px 28px}
+  /* top:0, not top:37px.
+
+     The 37 was there to clear the topbar. But nav is absolute and its offset
+     parent is the header underneath — .subhero, .pay, .gh — and that header
+     already begins below the topbar. So the topbar's height was being counted
+     twice, and the 37px it reserved a second time showed up as a band of empty
+     navy between the topbar and the menu on every page that uses this file:
+     auto, home, commercial, contact, /pay and /pay/guide.
+
+     Nothing else changes. Under 900px the topbar is hidden and nav is fixed at
+     top:0 already, so this only ever affected desktop. */
+  nav{position:absolute;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px 28px}
   nav .logo{height:30px;filter:brightness(0) invert(1)}
   .links{display:flex;gap:28px;align-items:center}
   .links a{color:rgba(255,255,255,.92);font-weight:700;font-size:14.5px;transition:opacity .15s}.links a:hover{opacity:.7}
