@@ -88,27 +88,47 @@
   .float small{font-size:11px;color:var(--muted);font-weight:600}
 
   .hbody{position:relative;z-index:15;margin-top:auto;padding:0 22px 22px}
-  /* Stepped down for the two-sentence headline. At the old clamp the H1 ran to
-     seven lines on a 390px phone and five on a laptop, which pushes the quote
-     button toward the fold and makes the sentence something to get through
-     rather than read. A shorter line is only free when the copy is short. */
-  h1{font-size:clamp(33px,8.4vw,50px);line-height:1.04;letter-spacing:-.03em;font-weight:900;color:#fff;
+  /* Sized against the copy, not picked once. The fixed half of the headline is
+     short again, so this can be large — but the ceiling is set by the longest
+     word in the rotator rather than by taste: .rot span is nowrap, so
+     "motorcycle riders." either fits its line or gets clipped, and it has to
+     fit at 320px. Change either the headline or the rotator list and re-measure
+     before changing this. */
+  h1{font-size:clamp(36px,9.2vw,56px);line-height:1.04;letter-spacing:-.03em;font-weight:900;color:#fff;
      text-shadow:0 4px 26px rgba(0,0,0,.45)}
   .rot{display:block;position:relative;height:1.1em;overflow:hidden}
   .rot span{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(70%);white-space:nowrap;
       transition:opacity .3s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
   .rot span.on{opacity:1;transform:none}
   .rot span.out{opacity:0;transform:translateY(-70%)}
-  .hsub{font-size:16.5px;color:rgba(255,255,255,.95);margin-top:14px;max-width:34ch;font-weight:500;
+  .hsub{font-size:16.5px;color:rgba(255,255,255,.95);margin-top:14px;max-width:38ch;font-weight:500;
       text-shadow:0 2px 14px rgba(0,0,0,.5)}
+  /* The opening sentence is the promise the rest of the paragraph explains, so
+     it is weighted rather than left to blend into the run of text. */
+  .hsub b{font-weight:800;color:#fff}
   .hacts{display:flex;flex-direction:column;gap:10px;margin-top:22px}
-  .badges{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:18px}
-  .bd{background:rgba(255,255,255,.95);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:9px;
+  /* minmax(0,1fr), not 1fr: a plain 1fr track floors at the content's min width,
+     so "Se habla español" pushed its chip past the right edge of the screen
+     instead of wrapping inside it. With three chips the odd one out spans the
+     row rather than sitting next to an empty cell. */
+  .badges{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:18px}
+  .badges .bd:nth-child(3):last-child{grid-column:1/-1}
+  /* Below ~360px two columns leave about 70px for the label, and "Independent"
+     on its own is wider than that. One column rather than a clipped word. */
+  @media(max-width:359px){ .badges{grid-template-columns:1fr} }
+  .bd{min-width:0;background:rgba(255,255,255,.95);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:9px;
       box-shadow:0 16px 32px -20px rgba(6,16,36,.7)}
   .bd .ic{width:30px;height:30px;border-radius:10px;background:var(--ice);display:grid;place-items:center;flex:0 0 auto;font-size:15px;line-height:1}
   .bd .ic.st{color:#F0A82C}
-  .bd b{display:block;font-size:12.5px;color:var(--navy);line-height:1.2;white-space:nowrap}
-  .bd>span span{font-size:10.5px;color:var(--muted);font-weight:600;white-space:nowrap}
+  /* nowrap was fine while there were two chips at half a screen each. At three
+     the columns are narrower and "Independent agency" ran out of its own card
+     — clipped, so it read as a rendering fault rather than as long text. It
+     wraps now, and the text block is allowed to shrink: a flex item defaults to
+     min-width:auto and will not go below its content, which is what pushed it
+     out in the first place. */
+  .bd>span:last-child{min-width:0}
+  .bd b{display:block;font-size:12.5px;color:var(--navy);line-height:1.2}
+  .bd>span span{display:block;font-size:10.5px;color:var(--muted);font-weight:600;line-height:1.3}
 
   /* ================= CATEGORY CARDS ================= */
   .cats{background:#fff;padding:24px 0 10px}
@@ -599,7 +619,7 @@
     .float{display:flex;margin:104px 40px 0;max-width:360px}
     .hbody{margin-top:auto}
     .hbody{padding:0 40px 52px;max-width:860px}
-    h1{font-size:clamp(42px,4.1vw,58px)}
+    h1{font-size:clamp(46px,4.6vw,66px)}
     .hsub{font-size:19px;max-width:44ch}
     .hacts{flex-direction:row;align-items:center}
     .hacts .btn{width:auto}
@@ -695,23 +715,32 @@
   </div>
 
   <div class="hbody">
-    <!-- "Compare insurance online" and not just "Compare online".
+    <!-- The rotator carries the audience words, so the fixed half stays short:
+         at eleven lines of copy the H1 was running to five and seven lines and
+         the quote button was being pushed toward the fold.
 
-         The client's shortlist all opened on "Compare online", which drops
-         every one of "insurance", "Texas" and "New Mexico" out of the H1 — the
-         three words the statewide positioning was built on. One word puts the
-         category back at no cost to how the line reads, and the geography
-         stays in the title tag and the sentence directly below. -->
-    <h1>Compare insurance online. We&rsquo;ll help you find the right coverage for
+         "Insurance" is no longer in the H1. It is the first noun of the line
+         directly underneath and it is in the title tag, which is where the
+         statewide positioning still lives — and the "Texas & New Mexico" chip
+         below the buttons is there because this paragraph no longer says it. -->
+    <h1>Compare options. We&rsquo;ll find the right fit for
       <span class="rot" id="rot">
         <span class="on gt">new drivers.</span>
         <span class="gt">families.</span>
+        <span class="gt">homeowners.</span>
         <span class="gt">work trucks.</span>
+        <span class="gt">fleets.</span>
         <span class="gt">SR-22 drivers.</span>
-        <span class="gt">your first home.</span>
+        <span class="gt">small businesses.</span>
+        <span class="gt">landlords.</span>
+        <span class="gt">motorcycle riders.</span>
+        <span class="gt">young drivers.</span>
+        <span class="gt">you.</span>
       </span>
     </h1>
-    <p class="hsub">An independent agency licensed in Texas and New Mexico. Quote online in minutes &mdash; a licensed bilingual agent reviews it and calls you with real options. Phone, text or email, wherever you are in either state.</p>
+    <p class="hsub"><b>Your quote deserves a second look.</b> Shop insurance online in
+      minutes. Then we take a closer look &mdash; a licensed bilingual team reviews the
+      details, hunts for extra savings, and helps you find coverage that fits better.</p>
     <div class="hacts">
       <a class="btn grad" href="quote.html">Get my free quote <svg class="i"><use href="#ar"/></svg></a>
       <a class="btn gh" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
@@ -719,6 +748,11 @@
     <div class="badges">
       <span class="bd"><span class="ic">🛡️</span><span><b>Independent agency</b><span>We compare carriers</span></span></span>
       <span class="bd"><span class="ic">🇲🇽</span><span><b><span lang="es">Se habla español</span></b><span>Bilingual team</span></span></span>
+      <!-- The hero paragraph used to open "licensed in Texas and New Mexico".
+           It does not any more, and those two states are the whole shape of
+           the business, so they get a chip rather than dropping off the screen
+           entirely between here and the footer. -->
+      <span class="bd"><span class="ic">📍</span><span><b>Texas &amp; New Mexico</b><span>Licensed in both</span></span></span>
     </div>
   </div>
 </header>
