@@ -62,5 +62,4 @@ Safe House Insurance LLC
 {{agentPhone}}
 Licensed in Texas and New Mexico. Nothing here binds coverage.
 (c) {{year}} Safe House Insurance LLC.
-
-Unsubscribe: {{unsubscribeUrl}}
+{{unsubscribeLineText}}

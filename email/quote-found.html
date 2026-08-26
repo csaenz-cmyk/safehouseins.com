@@ -312,7 +312,13 @@
       <p style="margin:14px 0 0 0;font-family:'Manrope','Segoe UI',Tahoma,Arial,sans-serif;font-size:12px;line-height:21px;color:#8496B5;">
         Safe House Insurance LLC &nbsp;&middot;&nbsp; 6065 Montana Ave Ste C8, El Paso, TX 79925 &nbsp;&middot;&nbsp; {{agentPhone}}<br>
         Licensed in Texas and New Mexico. Nothing here binds coverage / nada aquí obliga cobertura.<br>
-        &copy; {{year}} Safe House Insurance LLC. <a href="{{unsubscribeUrl}}" style="color:#8496B5;text-decoration:underline;">Unsubscribe / cancelar</a>
+        <!-- One placeholder, not a bare href. This message is the quote the
+             person asked for minutes ago, which reads as transactional rather
+             than as marketing, so an opt-out link is not the same requirement
+             it would be on a newsletter. Making it a whole line means the
+             email ships correctly either way instead of shipping a link to
+             the empty string. Fill it with the anchor, or with "". -->
+        &copy; {{year}} Safe House Insurance LLC. {{unsubscribeLine}}
       </p>
     </td>
   </tr>

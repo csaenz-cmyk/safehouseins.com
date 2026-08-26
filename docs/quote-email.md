@@ -64,7 +64,8 @@ unreplaced placeholder ships as literal `{{bestPrice}}` in somebody's inbox.
 | `{{textPhone}}` | agency | `915-594-3777` |
 | `{{textPhoneE164}}` | agency | `+19155943777` — the `sms:` href |
 | `{{year}}` | send time | footer |
-| `{{unsubscribeUrl}}` | your list tooling | required, see below |
+| `{{unsubscribeLine}}` | your list tooling | the whole opt-out line, or `""` — see below |
+| `{{unsubscribeLineText}}` | same | the plain-text half, or `""` |
 
 **The call line and the text line are different numbers.** `915-503-1207` does
 not receive SMS. The comp that this design came from had the SMS button
@@ -72,10 +73,35 @@ pointing at the call number; that is fixed here and must not come back. They
 are two placeholders on purpose so they cannot be collapsed into one by
 accident.
 
-**`{{unsubscribeUrl}}` is not optional.** This is a commercial message with a
-price in it, so CAN-SPAM applies: a working opt-out and a physical postal
-address. The address is hard-coded in the footer (6065 Montana Ave Ste C8, El
-Paso, TX 79925) because it does not change per send. The opt-out link does.
+**The opt-out is one placeholder, not a bare href, and it may be empty.**
+
+An earlier version of this file said an unsubscribe link was required. That was
+stated more firmly than the facts support, so: this email is the quote the
+person asked for a few minutes earlier, which reads as a transactional message
+rather than a commercial one, and CAN-SPAM's opt-out requirement is written for
+the second kind. It is very likely not legally required *on this specific
+email*. Have the agency's own counsel settle it rather than this document.
+
+Include one anyway. It costs a line, it is what a reader looks for when they
+want the mail to stop, and the moment the agency sends any follow-up off the
+same list the question stops being arguable.
+
+Because it is optional, it is a whole line rather than an href, so an empty
+value ships a correct footer instead of a link pointing at the empty string:
+
+```html
+<!-- {{unsubscribeLine}} — either this: -->
+<a href="https://…" style="color:#8496B5;text-decoration:underline;">Unsubscribe / cancelar</a>
+<!-- or the empty string. -->
+```
+
+```text
+{{unsubscribeLineText}} — either "\nUnsubscribe: https://…" or the empty string.
+```
+
+The **postal address is not optional and is already in the footer** — 6065
+Montana Ave Ste C8, El Paso, TX 79925. It is hard-coded because it does not
+change per send. Do not template it away.
 
 ### `{{quoteRef}}` — the short reference
 
