@@ -380,49 +380,54 @@
   .rbadge i{display:block;color:#F0A82C;font-size:11px;letter-spacing:1px;font-style:normal;margin-top:2px}
   .rbadge small{display:block;font-size:11.5px;color:var(--muted);font-weight:600;margin-top:2px}
 
-  /* ---- the Google panel ----
-     The section used to be a centred stack of text, three chips and two
-     buttons floating on white, directly under another centred stack of text
-     that said something else. Two of those in a row read as one unfinished
-     block, which is what it looked like.
+  /* ---- the review wall ----
+     Four reviews from the agency's Google Business Profile, printed on the page.
 
-     Same words, given a container: the card is the same white / --line / 24px
-     language as every other card on this page, and the Google side is tinted
-     so the eye lands on where the reviews actually live before it reads why
-     they are not printed here. */
-  .gpanel{margin-top:30px;background:#fff;border:1px solid var(--line);border-radius:26px;
-      overflow:hidden;box-shadow:0 30px 56px -40px rgba(10,33,72,.55);
-      display:grid;grid-template-columns:1fr;text-align:left}
-  .gside{background:var(--ice);border-bottom:1px solid var(--line);padding:26px 24px;
-      display:flex;flex-direction:column;justify-content:center;gap:14px}
-  .gid{display:flex;align-items:center;gap:13px}
-  .gmark{flex:0 0 auto;width:52px;height:52px;border-radius:99px;background:#fff;
-      display:grid;place-items:center;box-shadow:0 8px 20px -12px rgba(10,33,72,.7)}
-  .gmark svg{width:26px;height:26px;display:block}
-  .gid b{display:block;font-size:16.5px;font-weight:900;color:var(--navy);letter-spacing:-.015em;line-height:1.2}
-  /* Balanced, so the narrow column does not leave "TX" alone on a second line. */
-  .gid small{display:block;font-size:12.5px;color:var(--muted);font-weight:700;margin-top:3px;
-      text-wrap:balance}
-  .gside .btn{width:100%}
-  .gnote{font-size:12px;color:#8494ad;font-weight:700;line-height:1.45}
-  .gbody{padding:26px 24px 24px}
-  .gbody p{font-size:15.5px;line-height:1.65;color:#42506a;font-weight:500}
-  .gbody p+p{margin-top:12px;font-weight:700;color:var(--navy)}
-  .gchips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-  .gchips span{display:flex;align-items:baseline;gap:7px;background:var(--ice);
-      border:1px solid var(--ice2);border-radius:99px;padding:8px 13px}
-  .gchips b{font-size:13px;font-weight:900;color:var(--navy);line-height:1.2}
-  .gchips small{font-size:11.5px;color:var(--muted);font-weight:700}
-  .gbody .btn.out{margin-top:20px}
-  @media(min-width:860px){
-    /* 360, not 320: at 320 the call to action wrapped onto two lines with its
-       arrow stranded at the end of the first, which is the one element on this
-       panel that has to read as a single confident line. */
-    .gpanel{grid-template-columns:minmax(0,360px) minmax(0,1fr)}
-    .gside{border-bottom:0;border-right:1px solid var(--line);padding:32px 26px}
-    .gside .btn{padding-left:18px;padding-right:18px;font-size:15.5px}
-    .gbody{padding:32px 30px}
-  }
+     This section used to do the opposite — it said "anyone can type quotes with
+     first names under them" and sent people to Google instead of printing any.
+     The client has decided he does not want a link out to his profile, so that
+     argument cannot stay: a page cannot criticise printed testimonials in the
+     same breath as printing four of them. The copy makes the honest version of
+     the point instead — these are on Google under the reviewer's own account,
+     public, and searchable by anyone who wants to check.
+
+     Names are first name plus initial, matching how the client supplied them.
+     Google shows them in full; there is no reason for this page to. */
+  /* Columns, not a grid.
+
+     Real reviews are not the same length — one of these is a paragraph and one
+     is a sentence — and in a four-column grid the long one made a column three
+     times the height of its neighbours with a hole under them. CSS multi-column
+     balances the heights instead: the paragraph takes a column, the short ones
+     stack beside it, and the block ends level. break-inside:avoid is what stops
+     a card being sliced across the gutter. */
+  .rwall{columns:1;column-gap:12px;margin-top:28px}
+  @media(min-width:640px){ .rwall{columns:2} }
+  @media(min-width:1040px){ .rwall{columns:3} }
+  .rq2{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;
+      padding:22px 22px 18px;margin:0 0 12px;
+      break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+      box-shadow:0 22px 44px -34px rgba(10,33,72,.6)}
+  .rq2 .qm{position:absolute;top:12px;right:18px;font-family:Georgia,'Times New Roman',serif;
+      font-size:58px;line-height:1;color:rgba(22,102,237,.10);pointer-events:none;user-select:none}
+  .rq2 .s{color:#F0A82C;font-size:13px;letter-spacing:2.5px;font-style:normal;line-height:1}
+  .rq2 blockquote{margin:0}
+  .rq2 p{font-size:15px;line-height:1.6;font-weight:600;color:#2B3A54;margin-top:11px}
+  .rq2 footer{display:flex;align-items:center;gap:9px;margin-top:16px;padding-top:13px;
+      border-top:1px solid var(--line)}
+  .rq2 .g{width:26px;height:26px;flex:0 0 auto;border-radius:99px;background:#fff;
+      display:grid;place-items:center;box-shadow:0 3px 9px -3px rgba(6,16,36,.35)}
+  .rq2 .g svg{width:14px;height:14px;display:block}
+  .rq2 b{display:block;font-size:13.5px;font-weight:800;color:var(--navy);line-height:1.2}
+  .rq2 small{display:block;font-size:11.5px;color:var(--muted);font-weight:600;margin-top:1px}
+  /* No card spans two columns. Letting the long one do that made five units in
+     a four-column grid, which wrapped the fourth review onto a row of its own
+     beside two empty cells. Four equal columns with their tops aligned and
+     ragged bottoms is what a wall of real reviews looks like — they are not
+     the same length because people do not write the same length. */
+
+  .rfoot{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center}
+  .rnote{width:100%;text-align:center;font-size:12.5px;color:#8494ad;font-weight:600;margin-bottom:2px}
 
   .rgrid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:26px}
   .rq{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;
@@ -1079,44 +1084,42 @@
   <div class="rv rhead">
     <span class="kick"><img src="assets/safehouse-heart.png" alt=""> Reviews</span>
     <h2>What our customers say.</h2>
-    <p class="sl">Written by real customers, on Google, where nobody at Safe House
-      can edit them &mdash; so that is where we send you to read them.</p>
+    <p class="sl">Real reviews from our Google Business Profile, written by customers
+      under their own names.</p>
   </div>
 
-  <div class="gpanel rv">
-    <div class="gside">
-      <div class="gid">
-        <span class="gmark" aria-hidden="true">
-          <svg viewBox="0 0 48 48" role="img" aria-label="Google">
-            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-          </svg>
-        </span>
-        <span>
-          <b>Safe House Insurance</b>
-          <small>Google Business Profile &middot; El Paso, TX</small>
-        </span>
-      </div>
-      <a class="btn grad" href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">
-        Read our Google reviews <svg class="i"><use href="#ar"/></svg></a>
-      <p class="gnote">Opens Google in a new tab.</p>
-    </div>
+  <div class="rwall">
+    <figure class="rq2 rv">
+      <span class="qm" aria-hidden="true">&rdquo;</span>
+      <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <blockquote><p>I already had car insurance, but I was on the hunt for a better deal, and that&rsquo;s when I stumbled upon Safe House Insurance. With my driver&rsquo;s license, they were able to offer me an incredibly affordable and comprehensive plan. They stand out with their customer service &mdash; always ready to assist and genuinely attentive to my needs. If you&rsquo;re already insured but looking for more value and great service, I&rsquo;d highly recommend giving Safe House Insurance a try.</p></blockquote>
+      <footer><span class="g" aria-hidden="true"><svg viewBox="0 0 48 48" role="img" aria-label="Google"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span><figcaption><b>Cesar R.</b><small>Review on Google</small></figcaption></footer>
+    </figure>
+    <figure class="rq2 rv">
+      <span class="qm" aria-hidden="true">&rdquo;</span>
+      <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <blockquote><p>Amazing service. Never disappointed. I have 4 cars and my motorcycle and they give me a good rate. Currently working on my Home insurance.</p></blockquote>
+      <footer><span class="g" aria-hidden="true"><svg viewBox="0 0 48 48" role="img" aria-label="Google"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span><figcaption><b>Fernando R.</b><small>Review on Google</small></figcaption></footer>
+    </figure>
+    <figure class="rq2 rv">
+      <span class="qm" aria-hidden="true">&rdquo;</span>
+      <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <blockquote><p>Great service. Really love their attention! Really helped me out. Thank you so much.</p></blockquote>
+      <footer><span class="g" aria-hidden="true"><svg viewBox="0 0 48 48" role="img" aria-label="Google"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span><figcaption><b>Enrique A.</b><small>Review on Google</small></figcaption></footer>
+    </figure>
+    <figure class="rq2 rv">
+      <span class="qm" aria-hidden="true">&rdquo;</span>
+      <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <blockquote><p>Great pricing and great customer service, thank you!!!</p></blockquote>
+      <footer><span class="g" aria-hidden="true"><svg viewBox="0 0 48 48" role="img" aria-label="Google"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span><figcaption><b>Martha S.</b><small>Review on Google</small></figcaption></footer>
+    </figure>
+  </div>
 
-    <div class="gbody">
-      <p>Plenty of agency websites print five glowing quotes with first names under them.
-        Anyone can type those. Ours live on our Google Business Profile, signed and dated by
-        the person who wrote them, in an order we do not control &mdash; including any we would
-        rather not have.</p>
-      <p>Read them there, then come back and see what we can do with your policy.</p>
-      <div class="gchips">
-        <span><b>Independent</b><small>We compare carriers, not one</small></span>
-        <span><b>Texas &amp; New Mexico</b><small>Licensed in both</small></span>
-        <span><b>Español</b><small>Bilingual team</small></span>
-      </div>
-      <a class="btn out" href="quote.html">Start my quote <svg class="i"><use href="#ar"/></svg></a>
-    </div>
+  <div class="rfoot rv">
+    <p class="rnote">Every one of these is on our Google Business Profile, written by the
+      customer, under their own name.</p>
+    <a class="btn grad" href="quote.html">Start my quote <svg class="i"><use href="#ar"/></svg></a>
+    <a class="btn out" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
   </div>
 </div></section>
 
@@ -1143,7 +1146,7 @@
       </div>
       <div class="qa">
         <button class="qq" type="button" aria-expanded="false" aria-controls="qa4">Which insurance companies do you shop?<span class="pm" aria-hidden="true"></span></button>
-        <div class="qbody" id="qa4"><div><p>We place business with Progressive, GEICO, Acacia Insurance Managers, Connect, Alinsco, Commonwealth, Elephant, Root, Apollo, Kemper, Lemonade, Homeowners of America, GAINSCO and Next. Carrier availability and eligibility vary by state, by product and by applicant &mdash; not every company writes every risk.</p></div></div>
+        <div class="qbody" id="qa4"><div><p>Progressive, GEICO, Root, Lemonade, GAINSCO and more. Carrier availability and eligibility vary by state, by product and by applicant &mdash; not every company writes every risk, and the right one for you is whichever comes back best on the day we shop it.</p></div></div>
       </div>
       <div class="qa">
         <button class="qq" type="button" aria-expanded="false" aria-controls="qa5">What can you insure for me?<span class="pm" aria-hidden="true"></span></button>
@@ -1174,7 +1177,7 @@
      number, no hours and no social profiles until they are confirmed, because
      schema that contradicts the page is worse than no schema. -->
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"InsuranceAgency","@id":"https://safehouseins.com/#agency","name":"Safe House Insurance","legalName":"Safe House Insurance LLC","url":"https://safehouseins.com/","logo":"https://safehouseins.com/assets/safehouse-logo.png","image":"https://safehouseins.com/assets/safehouse-logo.png","telephone":"+19155031207","email":"contact@safehouseins.com","address":{"@type":"PostalAddress","streetAddress":"6065 Montana Ave Ste C8","addressLocality":"El Paso","addressRegion":"TX","postalCode":"79925","addressCountry":"US"},"areaServed":[{"@type":"State","name":"Texas"},{"@type":"State","name":"New Mexico"}],"knowsLanguage":["en","es"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Mo","Tu","We","Th","Fr"],"opens":"11:00","closes":"17:00"}],"sameAs":["https://maps.google.com/?cid=9791616154088810738"]},{"@type":"WebSite","@id":"https://safehouseins.com/#website","url":"https://safehouseins.com/","name":"Safe House Insurance","publisher":{"@id":"https://safehouseins.com/#agency"},"inLanguage":"en-US"},{"@type":"WebPage","@id":"https://safehouseins.com/#webpage","url":"https://safehouseins.com/","name":"Safe House Insurance — Independent Insurance Agency in El Paso, TX","isPartOf":{"@id":"https://safehouseins.com/#website"},"about":{"@id":"https://safehouseins.com/#agency"},"inLanguage":"en-US"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Safe House Insurance?", "acceptedAnswer": {"@type": "Answer", "text": "We are an independent insurance agency based in El Paso, Texas, licensed in Texas and New Mexico. Independent means we do not work for one company — we shop the carriers we represent and bring you the options."}}, {"@type": "Question", "name": "Can I buy a policy right here on the website?", "acceptedAnswer": {"@type": "Answer", "text": "Not quite — and that’s intentional. You can start your quote online and see your options, but before you buy, one of our licensed agents reviews your quote to make sure you’re getting the best option available. Online quotes can sometimes miss additional discounts or savings you may qualify for. Once we’ve reviewed everything with you and you’re happy with your coverage and price, we can activate your policy."}}, {"@type": "Question", "name": "Are the prices I see online final?", "acceptedAnswer": {"@type": "Answer", "text": "They’re a great starting point — and your final price could be even better. Before you decide, we run the required verifications and one of our licensed agents personally reviews your quote to make sure everything is accurate and all eligible discounts and savings have been applied. Then, we’ll confirm the final price with you, walk you through your options, and make sure you’re getting the right coverage at the best price available to you."}}, {"@type": "Question", "name": "Which insurance companies do you shop?", "acceptedAnswer": {"@type": "Answer", "text": "We place business with Progressive, GEICO, Acacia Insurance Managers, Connect, Alinsco, Commonwealth, Elephant, Root, Apollo, Kemper, Lemonade, Homeowners of America, GAINSCO and Next. Carrier availability and eligibility vary by state, by product and by applicant — not every company writes every risk."}}, {"@type": "Question", "name": "What can you insure for me?", "acceptedAnswer": {"@type": "Answer", "text": "From your car to your home, business, and more — we’ve got you covered. We offer auto, homeowners, renters, mobile home, commercial, work truck insurance, and more. Need more than one type of coverage? We can help bring it all together and look for every opportunity to save."}}, {"@type": "Question", "name": "Do you write SR-22 and high-risk policies?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Tickets, accidents, a lapse in coverage or an SR-22 requirement are all things we work with regularly. Tell your agent up front so they shop the right carriers the first time."}}, {"@type": "Question", "name": "¿Hablan español?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Todo el equipo es bilingüe. Puedes cotizar, preguntar y resolver en español, por teléfono o por mensaje, con una persona de verdad aquí en El Paso."}}, {"@type": "Question", "name": "Does it cost anything to get a quote?", "acceptedAnswer": {"@type": "Answer", "text": "No. Quoting is free and there is no obligation. If nothing we find fits you better than what you have, we will tell you that."}}, {"@type": "Question", "name": "How soon can my coverage start?", "acceptedAnswer": {"@type": "Answer", "text": "Most quotes come back the same day. When coverage actually starts depends on the carrier and on what they need from you — your agent tells you exactly what is missing and how soon it can be active."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Safe House Insurance?", "acceptedAnswer": {"@type": "Answer", "text": "We are an independent insurance agency based in El Paso, Texas, licensed in Texas and New Mexico. Independent means we do not work for one company — we shop the carriers we represent and bring you the options."}}, {"@type": "Question", "name": "Can I buy a policy right here on the website?", "acceptedAnswer": {"@type": "Answer", "text": "Not quite — and that’s intentional. You can start your quote online and see your options, but before you buy, one of our licensed agents reviews your quote to make sure you’re getting the best option available. Online quotes can sometimes miss additional discounts or savings you may qualify for. Once we’ve reviewed everything with you and you’re happy with your coverage and price, we can activate your policy."}}, {"@type": "Question", "name": "Are the prices I see online final?", "acceptedAnswer": {"@type": "Answer", "text": "They’re a great starting point — and your final price could be even better. Before you decide, we run the required verifications and one of our licensed agents personally reviews your quote to make sure everything is accurate and all eligible discounts and savings have been applied. Then, we’ll confirm the final price with you, walk you through your options, and make sure you’re getting the right coverage at the best price available to you."}}, {"@type": "Question", "name": "Which insurance companies do you shop?", "acceptedAnswer": {"@type": "Answer", "text": "Progressive, GEICO, Root, Lemonade, GAINSCO and more. Carrier availability and eligibility vary by state, by product and by applicant — not every company writes every risk, and the right one for you is whichever comes back best on the day we shop it."}}, {"@type": "Question", "name": "What can you insure for me?", "acceptedAnswer": {"@type": "Answer", "text": "From your car to your home, business, and more — we’ve got you covered. We offer auto, homeowners, renters, mobile home, commercial, work truck insurance, and more. Need more than one type of coverage? We can help bring it all together and look for every opportunity to save."}}, {"@type": "Question", "name": "Do you write SR-22 and high-risk policies?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Tickets, accidents, a lapse in coverage or an SR-22 requirement are all things we work with regularly. Tell your agent up front so they shop the right carriers the first time."}}, {"@type": "Question", "name": "¿Hablan español?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Todo el equipo es bilingüe. Puedes cotizar, preguntar y resolver en español, por teléfono o por mensaje, con una persona de verdad aquí en El Paso."}}, {"@type": "Question", "name": "Does it cost anything to get a quote?", "acceptedAnswer": {"@type": "Answer", "text": "No. Quoting is free and there is no obligation. If nothing we find fits you better than what you have, we will tell you that."}}, {"@type": "Question", "name": "How soon can my coverage start?", "acceptedAnswer": {"@type": "Answer", "text": "Most quotes come back the same day. When coverage actually starts depends on the carrier and on what they need from you — your agent tells you exactly what is missing and how soon it can be active."}}]}</script>
 
 <!-- ================= START BAND ================= -->
 <section class="start" aria-label="Start your quote"><div class="wrap">
@@ -1248,7 +1251,7 @@
      <a href="index.html#faq">FAQ</a>
      <a href="car-insurance/">Car insurance by city</a>
      <a href="car-insurance/makes/">Car insurance by make</a>
-     <a href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">Reviews on Google</a>
+     <a href="index.html#reviews">Customer reviews</a>
      <a href="contact.html">Contact</a>
      </div>
      <a class="more" href="quote.html" style="display:inline-block;margin-top:14px;background:var(--grad);color:#fff;padding:12px 22px;border-radius:99px;font-size:14.5px;font-weight:800">Get a quote &rarr;</a>
