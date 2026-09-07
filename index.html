@@ -77,15 +77,40 @@
   .drawer .dm{border-bottom:none;font-size:14px;font-weight:600;color:#93a9cc;text-align:center;padding-top:14px}
   body.locked{overflow:hidden}
 
-  .float{position:relative;z-index:15;margin:auto 22px 0;background:rgba(255,255,255,.96);border-radius:18px;padding:12px 14px;
-      display:none;gap:11px;align-items:center;max-width:330px;box-shadow:0 22px 44px -22px rgba(6,16,36,.6);
+  /* The review card in the hero.
+
+     It was a flat white rectangle with the brand heart in a blue square and
+     three lines of text beside it — which read as a notification, not as
+     somebody's words. It is a quotation now: the mark is a real quote glyph
+     rather than a logo, the sentence is the largest thing in the card, and the
+     Google G under it is doing the job the word "Google" was doing before,
+     which is telling you where the sentence can be checked.
+
+     The frosted glass matters more than it looks like it should. This sits over
+     a photograph whose brightness changes with the crop at every window size,
+     and an opaque white card against a sunset reads as a sticker pasted on top.
+     A blurred, half-transparent one belongs to the picture. */
+  .float{position:relative;z-index:15;margin:auto 22px 0;max-width:340px;
+      display:none;flex-direction:column;gap:11px;
+      background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(14px) saturate(1.25);
+      backdrop-filter:blur(14px) saturate(1.25);
+      border:1px solid rgba(255,255,255,.55);border-radius:20px;padding:16px 17px 14px;
+      box-shadow:0 26px 52px -24px rgba(6,16,36,.72);
       animation:fin .7s .35s cubic-bezier(.2,.8,.2,1) both}
   @keyframes fin{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
-  .float .av{width:40px;height:40px;border-radius:13px;background:var(--grad);display:grid;place-items:center;flex:0 0 auto}
-  .float .av img{width:22px;filter:brightness(0) invert(1)}
-  .float .s{color:#F0A82C;font-size:11px;letter-spacing:1px;display:block}
-  .float p{font-size:13px;font-weight:600;color:var(--navy);line-height:1.35;margin-top:2px}
-  .float small{font-size:11px;color:var(--muted);font-weight:600}
+  .float .qm{position:absolute;top:9px;right:15px;font-family:Georgia,'Times New Roman',serif;
+      font-size:52px;line-height:1;color:rgba(22,102,237,.16);pointer-events:none;user-select:none}
+  .float .s{color:#F0A82C;font-size:12.5px;letter-spacing:2.5px;display:block;line-height:1}
+  .float p{font-size:15px;font-weight:700;color:var(--navy);line-height:1.42;letter-spacing:-.01em}
+  /* A hairline rather than a gap: it says the name belongs to the sentence
+     above it and not to the card in general. */
+  .float footer{display:flex;align-items:center;gap:9px;padding-top:11px;
+      border-top:1px solid rgba(10,33,72,.10)}
+  .float .g{width:26px;height:26px;flex:0 0 auto;border-radius:99px;background:#fff;
+      display:grid;place-items:center;box-shadow:0 3px 9px -3px rgba(6,16,36,.5)}
+  .float .g svg{width:14px;height:14px;display:block}
+  .float b{font-size:13px;font-weight:800;color:var(--navy);line-height:1.2}
+  .float small{display:block;font-size:11px;color:var(--muted);font-weight:600;margin-top:1px}
 
   .hbody{position:relative;z-index:15;margin-top:auto;padding:0 22px 22px}
   /* Sized against the copy, not picked once. The fixed half of the headline is
@@ -770,14 +795,26 @@
     </div>
   </nav>
 
-  <div class="float">
-    <span class="av"><img src="assets/safehouse-heart.png" alt=""></span>
-    <span>
-      <span class="s" aria-hidden="true">★★★★★</span>
-      <p>"A real person explained everything — in Spanish."</p>
-      <small>Jazmín R. · Google review</small>
-    </span>
-  </div>
+  <!-- A real review from the agency's Google Business Profile, supplied by the
+       owner. The section further down the page argues that quotes with first
+       names under them are worth nothing unless they can be checked, so this
+       one says where to check it and links there. -->
+  <figure class="float">
+    <span class="qm" aria-hidden="true">&rdquo;</span>
+    <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+    <blockquote><p>Great pricing and great customer service, thank you!!!</p></blockquote>
+    <footer>
+      <span class="g" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="img" aria-label="Google">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+      </span>
+      <figcaption><b>Martha S.</b><small>Review on Google</small></figcaption>
+    </footer>
+  </figure>
 
   <div class="hbody">
     <!-- The rotator carries the audience words, so the fixed half stays short:

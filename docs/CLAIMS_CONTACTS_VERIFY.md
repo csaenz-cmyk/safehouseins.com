@@ -1,7 +1,7 @@
 # Claims contacts — verify every one of these before launch
 
-**Status: NOT VERIFIED. Do not put `/claims/` in front of customers until the
-boxes below are ticked.**
+**Status: 8 of 9 verified by the owner, 7 September 2026. One phone number
+left — Connect MGA. See the list.**
 
 ## Why this file exists
 
@@ -10,13 +10,13 @@ A wrong claims number sends somebody who has just been in a crash to a company
 that has never heard of them, at the one moment they have the least patience
 for it. It is the highest-consequence data on the whole site.
 
-Two of these came from the owner directly and are treated as authoritative.
-**Every other one came from a web search and could not be opened from the build
-environment** — outbound requests to carrier domains are blocked by the network
-policy here, so nothing below was confirmed against the carrier's own page by
-the person who wrote it down.
+Two of these came from the owner directly. **Every other one came from a web
+search and could not be opened from the build environment** — outbound requests
+to carrier domains are blocked by the network policy here, so nothing was
+confirmed against the carrier's own page by the person who wrote it down.
 
-That is not good enough for this page. Ten minutes of clicking closes it.
+That was not good enough for this page, and the check was worth running: one of
+the nine turned out to be a different company entirely. See below.
 
 ## How to check one
 
@@ -35,17 +35,41 @@ everywhere on the page.
 
 ## The list
 
-| ✔ | Carrier | Phone | Online | Where it came from |
+**Owner-verified 7 September 2026.** Seven of the nine were confirmed correct.
+Two were not, and one of those was wrong in a way worth reading about.
+
+| ✔ | Carrier | Phone | Online | State |
 |---|---|---|---|---|
-| ☐ | Progressive | 1-888-671-4405 | `https://fnol.progressive.com/begin` | **Owner** — treated as authoritative, still worth one click |
-| ☐ | Acacia | 1-844-238-4486 | `https://www.acaciamga.com/claims-2/` | **Owner** — same |
-| ☐ | GEICO | 1-800-841-3000 | `https://claims.geico.com/ReportClaim` | Search result on geico.com. High confidence — it is a very widely published number — but unopened |
-| ☐ | Kemper | 1-800-353-6737 | `https://www.kemper.com/claims/report-a-claim` | Search result on kemper.com. Unopened |
-| ☐ | GAINSCO | 1-866-424-6726 | `https://www.gainsco.com/customers/report-a-claim/` | Search result on gainsco.com. The number spells 1-866-GAINSCO, which is a good sign it is right |
-| ☐ | Alinsco | 1-877-437-5007 | `https://www.alinsco.com/claims.php` | Search result on alinsco.com. **Two numbers exist** — 5007 for claims, 5010 for customer service. Confirm which is which |
-| ☐ | Commonwealth Casualty | 1-877-603-1310 | `https://www.commonwealthcasualty.com/file-a-claim` | Search result on commonwealthcasualty.com. Unopened |
-| ☐ | CONNECT (American Family) | 1-800-872-5246 | `https://www.connectbyamfam.com/claims/` | Search result on connectbyamfam.com. The URL is the least certain part — some of their claim pages sit under a `/costco/` path |
-| ☐ | Safeway | 1-888-203-5129 | `https://www.mysafeway.com/` | **Least certain of the nine.** The number came from safewayinsurance.com, and it is worth confirming that the company behind the NM-PP policies we take payments for is the same Safeway |
+| ✅ | Progressive | 1-888-671-4405 | `https://fnol.progressive.com/begin` | Owner-supplied |
+| ✅ | Acacia | 1-844-238-4486 | `https://www.acaciamga.com/claims-2/` | Owner-supplied |
+| ✅ | GEICO | 1-800-841-3000 | `https://claims.geico.com/ReportClaim` | Owner-confirmed |
+| ✅ | Kemper | 1-800-353-6737 | `https://www.kemper.com/claims/report-a-claim` | Owner-confirmed |
+| ✅ | GAINSCO | 1-866-424-6726 | `https://www.gainsco.com/customers/report-a-claim/` | Owner-confirmed |
+| ✅ | Alinsco | 1-877-437-5007 | `https://www.alinsco.com/claims.php` | Owner-confirmed |
+| ✅ | Commonwealth Casualty | 1-877-603-1310 | `https://www.commonwealthcasualty.com/file-a-claim` | Owner-confirmed |
+| ✅ | Safeway | 1-888-203-5129 | `https://www.safewayinsurance.com/Claims/Claims.aspx` | Link corrected by owner |
+| ☐ | **Connect MGA** | **1-855-664-5050** | `https://tx.connectinsurance.com/portal/claim/report` | **Link corrected by owner. Phone still unverified — see below** |
+
+### The Connect entry was the wrong company
+
+This file was written on the assumption that "Connect" in the agency's carrier
+list meant **CONNECT, powered by American Family**. It does not. It is
+**Connect MGA LLC** of Plano, Texas — a different company with a similar name.
+
+The phone number sitting in that row was `1-800-872-5246`, which is American
+Family's. Nothing about it looks wrong: it is a real, working claims line at a
+real insurer. It would have answered. It would have been polite. And it would
+have had no record of the caller, on the day they crashed.
+
+That is the whole argument for this file. A wrong claims number does not throw
+an error, does not look broken, and does not get caught by any check that runs
+in a build.
+
+**The phone number still needs one call.** `1-855-664-5050` came from a search
+result describing it as the claims and claim-status line, in English and
+Spanish. A second number, `(888) 664-7127`, appears as the company's general
+Plano number. Ring 855-664-5050, confirm the recording says Connect, and tick
+the row.
 
 ## Carriers deliberately not on the page
 
@@ -65,7 +89,7 @@ rather than filling the gaps for symmetry.
 To add one, put it in the `CARRIERS` array in `claims/index.html`. A carrier
 with no `starts` or `has` rule simply never matches the policy-number lookup
 and appears in the directory only — which is correct, and is how Kemper,
-GAINSCO and CONNECT already work.
+GAINSCO and Connect MGA already work.
 
 ## What must never be guessed
 
