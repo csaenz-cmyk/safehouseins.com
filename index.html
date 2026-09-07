@@ -143,9 +143,15 @@
   .cat::after{content:"";position:absolute;inset:0;z-index:-1;
       background:linear-gradient(180deg,rgba(12,8,4,.52) 0%,rgba(12,8,4,.10) 34%,
                  rgba(10,6,3,.34) 62%,rgba(8,5,2,.80) 100%)}
+  /* A painted ground under every photograph. A card whose background-image is
+     missing otherwise renders white, with white text on it — invisible, and
+     indistinguishable from a broken page. The gradient is the brand's, so a
+     card waiting for its photograph reads as a design and not as a gap. */
+  .cat::before{background-color:#0A2148;background-image:linear-gradient(155deg,#12356E 0%,#0A2148 55%,#061530 100%)}
   .cat.a::before{background-image:url("assets/cat-auto.jpg")}
-  .cat.b::before{background-image:url("assets/cat-commercial.jpg")}
-  .cat.c::before{background-image:url("assets/cat-more.jpg")}
+  .cat.b::before{background-image:url("assets/cat-home.jpg")}
+  .cat.c::before{background-image:url("assets/cat-commercial.jpg")}
+  .cat.d::before{background-image:url("assets/cat-more.jpg")}
   .cat:hover{transform:translateY(-4px)}
   .cat .lb{font-size:12.5px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;
       text-shadow:0 2px 10px rgba(0,0,0,.55)}
@@ -570,12 +576,21 @@
     .logo{height:38px}
     .hero{background-position:center 30%}
     .cats{padding:38px 0 16px}
-    .catr{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;overflow:visible;
+    /* Two across here, four only once there is room for four.
+
+       Going straight from the mobile scroller to a four-column row at 900px
+       gives each card about 200px, and a sentence in a 200px column at this
+       type size is six lines tall. Two-up until 1200 keeps the cards the size
+       the photographs need to be. */
+    .catr{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;overflow:visible;
         max-width:1720px;margin:0 auto;padding:0 24px}
-    .cat{flex:none;max-width:none;padding:28px;border-radius:26px}
-    .cat .lb{font-size:15px;letter-spacing:.1em}
-    .cat p{font-size:clamp(19px,1.55vw,25px);max-width:17ch;line-height:1.24}
-    .cat .go{width:54px;height:54px}
+    .cat{flex:none;max-width:none;padding:24px;border-radius:26px}
+    .cat .lb{font-size:13.5px;letter-spacing:.1em}
+    /* Down from clamp(19px,1.55vw,25px). The row went from three columns to
+       four, so each card lost about a quarter of its width and the copy was
+       wrapping to five lines inside it. */
+    .cat p{font-size:clamp(16.5px,1.25vw,21px);max-width:19ch;line-height:1.26}
+    .cat .go{width:48px;height:48px}
     .cat .go svg{width:22px;height:22px}
     .kin{padding:44px 0 76px}
     .kl{font-size:min(8.4vw,104px)}
@@ -699,6 +714,17 @@
     .rbadge{gap:12px}
     .rbadge b{font-size:18px}
   }
+
+  /* Four across only once there is room for four. This has to come after the
+     900px block that sets two — same specificity, so the later rule wins.
+
+     It is its own block rather than a line added to the existing 1200px one
+     further down, because that block sits *inside* the run of rules the 900px
+     one opens: splitting the 900 block to insert this moved the kinetic
+     section and the flow section from "900 and up" to "1200 and up" without
+     touching a line of their CSS. Caught by reading the diff, not by looking
+     at the page. */
+  @media(min-width:1200px){ .catr{grid-template-columns:repeat(4,1fr)} }
   @media(hover:none){ .cc:hover{transform:none} }
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
@@ -813,25 +839,48 @@
 
 <!-- ================= CATEGORY CARDS ================= -->
 <section class="cats" aria-label="What we insure">
+  <!-- Four cards, and every one of them goes to the quote form rather than to
+       the service page it used to.
+
+       That is a deliberate reversal of an SEO change made earlier: the service
+       pages are indexable and the quote form is not, so pointing the four most
+       prominent cards on the home page at a noindex page hands them less
+       internal weight than they had. It is worth it. Somebody who taps a card
+       labelled "Car insurance" with a photograph of a car on it is telling you
+       they want a price, and routing them through a page of copy first is a
+       step they did not ask for. The service pages keep their links in the top
+       nav, the drawer and the footer of every page on the site, which is where
+       most of that weight came from anyway. -->
   <div class="catr">
-    <a class="cat a" href="auto-insurance.html">
+    <a class="cat a" href="quote.html?type=car">
       <span class="lb">Car insurance</span>
       <span class="bt">
         <p>Full coverage, liability and SR-22 &mdash; shopped across our carriers.</p>
         <span class="go"><svg class="i"><use href="#ar"/></svg></span>
       </span>
     </a>
-    <a class="cat b" href="commercial-insurance.html">
+    <a class="cat b" href="quote.html?type=home">
+      <span class="lb">Home insurance</span>
+      <span class="bt">
+        <p>Houses and mobile homes, covered for what it costs to rebuild them.</p>
+        <span class="go"><svg class="i"><use href="#ar"/></svg></span>
+      </span>
+    </a>
+    <a class="cat c" href="quote.html?type=commercial">
       <span class="lb">Commercial insurance</span>
       <span class="bt">
         <p>Work trucks, fleets and liability for El Paso businesses.</p>
         <span class="go"><svg class="i"><use href="#ar"/></svg></span>
       </span>
     </a>
-    <a class="cat c" href="home-insurance.html">
+    <!-- No ?type= on this one, on purpose. "& more" means "not the three cards
+         to the left of it", so the right landing is the picker itself rather
+         than a guess at whether they meant renters, motorcycle or mobile
+         home. -->
+    <a class="cat d" href="quote.html">
       <span class="lb">&amp; more</span>
       <span class="bt">
-        <p>Home, renters, mobile home and life &mdash; one agent for all of it.</p>
+        <p>Renters, motorcycle and mobile home &mdash; one agent for all of it.</p>
         <span class="go"><svg class="i"><use href="#ar"/></svg></span>
       </span>
     </a>
