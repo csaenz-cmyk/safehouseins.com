@@ -312,9 +312,12 @@
      product heroes — a missing image leaves a dark card with readable white
      text rather than a white one with white text on it. */
   .mix{padding:6px 0 4px}
-  .mixin{position:relative;overflow:hidden;border-radius:26px;isolation:isolate;
-      min-height:min(78vw,540px);display:flex;flex-direction:column;
-      justify-content:space-between;padding:20px 20px 32px;margin:0 22px;
+  /* Tall enough to be an event on the page rather than an illustration inside
+     the flow of it — same scale as the band on the product pages, so the two
+     read as one thing seen twice. */
+  .mixin{position:relative;overflow:hidden;border-radius:28px;isolation:isolate;
+      min-height:min(88vw,560px);display:flex;flex-direction:column;
+      justify-content:space-between;padding:22px 22px 34px;margin:0 20px;
       background:linear-gradient(150deg,#2A1D14 0%,#1A1410 55%,#0E0B08 100%);
       box-shadow:0 34px 60px -34px rgba(10,33,72,.7)}
   .mixin::before{content:"";position:absolute;inset:0;z-index:-2;
@@ -337,17 +340,17 @@
      out navy on a dark photograph, which is to say invisible. Third time a host
      rule has reached into a block dropped on top of a picture; every colour on
      one now gets stated rather than inherited. */
-  .mixsay h2{color:#fff;font-size:clamp(27px,6.4vw,54px);line-height:1.03;font-weight:900;
+  .mixsay h2{color:#fff;font-size:clamp(30px,6.6vw,62px);line-height:1.02;font-weight:900;
       letter-spacing:-.035em;text-transform:uppercase;text-shadow:0 3px 18px rgba(0,0,0,.6)}
-  .mixsay p{margin-top:12px;font-size:15px;line-height:1.6;font-weight:600;
+  .mixsay p{margin-top:14px;font-size:15px;line-height:1.6;font-weight:600;
       color:rgba(255,255,255,.92);text-shadow:0 2px 12px rgba(0,0,0,.7)}
   @media(min-width:900px){
     .mix{padding:26px 0 10px}
-    .mixin{margin:0 auto;max-width:1720px;min-height:520px;padding:28px 34px 48px;
-        border-radius:30px}
+    .mixin{margin:0 auto;max-width:1720px;min-height:min(64vh,660px);padding:32px 38px 56px;
+        border-radius:34px}
     .mixin{margin-left:24px;margin-right:24px}
     .mixsay{max-width:46ch}
-    .mixsay p{font-size:16.5px}
+    .mixsay p{font-size:18px}
   }
 
   /* ================= KINETIC SCROLL STATEMENT =================

@@ -120,7 +120,7 @@ PRODUCTS = [
              'yes to another.',
  'yes': ['Tickets, accidents and at-fault claims', 'SR-22 and state filings',
          'A lapse in coverage, however long', 'New drivers and teenagers',
-         'Foreign licences and matrículas', 'Non-owner and no-vehicle policies',
+         'Foreign licenses and matrículas', 'Non-owner and no-vehicle policies',
          'Multiple cars, multiple drivers', 'Rideshare and delivery use'],
 
  'faq': [
@@ -132,7 +132,7 @@ PRODUCTS = [
     'Often the same day. Tell the agent up front that you need one, because it changes '
     'which carriers are worth quoting and getting that right the first time is the '
     'difference between an afternoon and a week.'),
-   ('Can you insure me without a licence?',
+   ('Can you insure me without a license?',
     'Sometimes, depending on the situation and the state. It is a real question with a '
     'real answer — call and ask rather than assuming the answer is no.'),
    ('What if I have not had insurance for a while?',
@@ -278,7 +278,7 @@ PRODUCTS = [
     'loss. Hotel, meals, the difference in rent.'),
    ('Medical payments', 'Smaller bills for a guest who is hurt, paid without anybody '
     'arguing about fault.'),
-   ('Water and theft', 'Burst pipes, a neighbour’s overflow, break-ins. Read how each '
+   ('Water and theft', 'Burst pipes, a neighbor’s overflow, break-ins. Read how each '
     'is worded, because they are not worded the same everywhere.'),
    ('Scheduled items', 'A ring, a camera, an instrument. Anything valuable enough to be '
     'listed separately, because the standard limits on those categories are low.'),
@@ -300,7 +300,7 @@ PRODUCTS = [
     'covering and your deductible. We will quote it across the companies we represent '
     'rather than quoting you a number here we cannot stand behind.'),
    ('Does it cover my things outside the apartment?',
-    'Usually, including in your car and while travelling — this varies by policy, so it '
+    'Usually, including in your car and while traveling — this varies by policy, so it '
     'is worth asking about the one you are actually buying.'),
    ('My lease needs proof before I move in.',
     'Tell us the date and who it goes to. We can normally have the certificate in the '
@@ -331,7 +331,7 @@ PRODUCTS = [
                 'the driveway is often not the machine the policy describes.',
  'misses': [
    ('Everything you added to it',
-    'Pipes, bags, a seat, a windscreen, chrome, a stereo, paint. Accessory coverage is a '
+    'Pipes, bags, a seat, a windshield, chrome, a stereo, paint. Accessory coverage is a '
     'separate limit and the default is usually low or zero. A build worth several '
     'thousand dollars can be insured as though it left the factory.'),
    ('What the bike is worth to you versus to a book',
@@ -343,7 +343,7 @@ PRODUCTS = [
     'so, and often only up to a small limit. Worth knowing which yours is before the '
     'claim rather than after.'),
    ('The rider discounts',
-    'A completed rider course, a motorcycle endorsement on the licence, garaging, '
+    'A completed rider course, a motorcycle endorsement on the license, garaging, '
     'seasonal use, a club membership, multi-bike. Carriers weigh riders very differently '
     'from drivers and the differences are worth shopping.'),
  ],
@@ -506,12 +506,6 @@ CSS = """
       padding:12px 18px;border-radius:0 0 12px 0;font-weight:800;font-size:14px}
   .skip:focus{left:0}
 
-  .topbar{background:#0B1220;color:#cfe0ff;font-size:13px;font-weight:600;text-align:center;
-      padding:8px 16px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
-  .topbar a{color:#fff}
-  .topbar .es{background:rgba(255,255,255,.12);padding:2px 10px;border-radius:999px}
-  @media(max-width:960px){ .topbar{font-size:12px;gap:12px} }
-
   nav{position:absolute;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;
       justify-content:space-between;gap:14px;padding:22px 28px}
   nav .logo{height:46px;filter:brightness(0) invert(1)}
@@ -529,12 +523,22 @@ CSS = """
   body.locked .burger{opacity:0;visibility:hidden}
 
   /* ---- hero ---- */
+  /* The hero is a band you land in, not a strip above the content.
+
+     It was 594px on a laptop — tall enough to hold the copy and short enough
+     that the photograph read as decoration behind a headline. At 82vh the
+     picture is the thing you land in and the copy sits inside it, which is what
+     a full-bleed photograph is for. Capped at 820 so a very tall window does
+     not turn it into a wall. */
   .ph{position:relative;overflow:hidden;color:#fff;background:
       radial-gradient(1100px 520px at 18% -12%, rgba(34,167,240,.34), transparent 62%),
       radial-gradient(900px 460px at 88% 6%, rgba(22,102,237,.30), transparent 60%),
       var(--pnavy);
       padding:118px 20px 60px}
   @media(max-width:700px){ .ph{padding:100px 20px 48px} }
+  .ph.bg{min-height:min(82vh,820px);display:flex;align-items:center}
+  @media(max-width:700px){ .ph.bg{min-height:min(78vh,640px)} }
+  .ph.bg .in{width:100%}
   /* A full-bleed photograph hero, for the products that have a landscape shot.
 
      The navy gradient stays underneath rather than being replaced: if the
@@ -578,6 +582,10 @@ CSS = """
       color:rgba(255,255,255,.55);margin-bottom:16px}
   .crumbs a{color:rgba(255,255,255,.75)}
   .ph h1{font-size:clamp(34px,6.2vw,56px);line-height:1.04;font-weight:800;letter-spacing:-.03em}
+  .ph.bg h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;letter-spacing:-.035em}
+  .ph.bg .lede{font-size:clamp(16.5px,1.5vw,19.5px);max-width:46ch;margin-top:20px}
+  .ph.bg .pacts{margin-top:32px}
+  .ph.bg .pbtn{padding:18px 30px;font-size:17px}
   .ph h1 em{display:block;font-family:'Instrument Serif',serif;font-style:italic;
       font-weight:400;color:#8FD0FF;letter-spacing:-.01em}
   .ph .lede{margin-top:16px;max-width:52ch;font-size:16.5px;line-height:1.62;
@@ -691,13 +699,17 @@ CSS = """
      Same rule as the hero — a painted ground under the photograph, so a
      missing or slow image is a dark card with readable text rather than a
      white one with white text. */
-  .mix{max-width:1180px;margin:64px auto 0;padding:0 20px}
+  /* Near full-bleed, and tall enough to be an event on the page rather than an
+     illustration in the flow. It was 1180 wide and 440 tall inside a column of
+     1000-wide sections, which made it read as one more card. */
+  .mix{max-width:none;margin:72px auto 0;padding:0 20px}
+  @media(min-width:1100px){ .mix{padding:0 24px} }
   .mixin{position:relative;overflow:hidden;border-radius:28px;isolation:isolate;
-      min-height:min(74vw,520px);display:flex;flex-direction:column;
+      min-height:min(88vw,560px);display:flex;flex-direction:column;
       justify-content:space-between;padding:22px 22px 34px;
       background:linear-gradient(150deg,#2A1D14 0%,#1A1410 55%,#0E0B08 100%);
       box-shadow:0 34px 64px -34px rgba(8,24,58,.7)}
-  @media(min-width:760px){ .mixin{padding:28px 34px 44px;min-height:440px} }
+  @media(min-width:760px){ .mixin{padding:32px 38px 56px;min-height:min(64vh,660px);border-radius:34px} }
   .mixin::before{content:"";position:absolute;inset:0;z-index:-2;
       background-position:center 38%;background-size:cover;background-repeat:no-repeat}
   .mixin::after{content:"";position:absolute;inset:0;z-index:-1;
@@ -712,7 +724,7 @@ CSS = """
   .mchip .lg{width:34px;height:34px;flex:0 0 auto;border-radius:11px;
       background:linear-gradient(140deg,#EAF2FE,#DCEBFD);display:grid;place-items:center;
       font-size:15px;font-weight:900;color:var(--pblue)}
-  .mchip b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);line-height:1.2}
+  .mchip b{display:block;font-size:15px;font-weight:800;color:var(--pnavy);line-height:1.2}
   .mchip small{display:block;font-size:11.5px;font-weight:700;color:#7C8BA4;margin-top:1px}
   .mixsay{text-align:center;color:#fff;max-width:44ch;margin:0 auto}
   /* Every colour on this block is stated, never inherited. The home page has a
@@ -720,9 +732,10 @@ CSS = """
      from the parent, which put a navy headline on a dark photograph. These
      pages do not have that rule today; stating it means they cannot acquire
      one later without anybody noticing. */
-  .mixsay h2{color:#fff;font-size:clamp(26px,4.4vw,42px);line-height:1.06;font-weight:800;
+  .mixsay{max-width:46ch}
+  .mixsay h2{color:#fff;font-size:clamp(30px,5.6vw,62px);line-height:1.02;font-weight:800;
       letter-spacing:-.03em;text-transform:uppercase;text-shadow:0 3px 18px rgba(0,0,0,.6)}
-  .mixsay p{margin-top:12px;font-size:15.5px;line-height:1.6;font-weight:600;
+  .mixsay p{margin-top:14px;font-size:clamp(15px,1.4vw,18px);line-height:1.6;font-weight:600;
       color:rgba(255,255,255,.92);text-shadow:0 2px 12px rgba(0,0,0,.7)}
   body>footer{padding:0 0 34px;border-top:1px solid var(--line);background:#FBFCFE}
   body>footer .fshell{max-width:1180px;margin:0 auto;padding:0 22px}
@@ -776,7 +789,10 @@ CSS = """
       color:var(--blue);margin-top:7px}
 """ + menu.PANEL_CSS
 
-TOPBAR = """  <div class="topbar">
+# Not used on these pages any more — the nav sits straight on the photograph,
+# which is the whole point of a full-bleed hero. Kept because the two phone
+# numbers in it are still the ones the page uses further down.
+_TOPBAR_UNUSED = """  <div class="topbar">
     <span>&#128222; Call <a href="tel:%s">%s</a> &middot; &#128172; Text <a href="sms:%s">%s</a></span>
     <span>&#9993;&#65039; <a href="mailto:%s">%s</a></span>
     <span class="es">&#127474;&#127475; Se habla espa&ntilde;ol</span>
@@ -816,7 +832,6 @@ def page(p):
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-{topbar}
   <style>.mixin::before{{background-image:url("assets/mix-couch.jpg")}}</style>
   <header class="ph{bgcls}">{bgstyle}
     <nav>
@@ -945,7 +960,7 @@ def page(p):
 {js}
 """.format(
         title=e(p['title']), desc=e(p['desc']), site=SITE, slug=p['slug'], css=CSS,
-        topbar=TOPBAR, burger=menu.BURGER_HTML, panel=menu.panel(''),
+        burger=menu.BURGER_HTML, panel=menu.panel(''),
         eyebrow=e(p['eyebrow']), h1=p['h1'], h1em=p['h1em'], lede=p['lede'],
         type=p['type'], tel=nap.CALL_E164, call=nap.CALL,
         gridcls=(' has' if p['photo'] else ''),
