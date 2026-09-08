@@ -707,7 +707,12 @@ CSS = """
   .mchip b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);line-height:1.2}
   .mchip small{display:block;font-size:11.5px;font-weight:700;color:#7C8BA4;margin-top:1px}
   .mixsay{text-align:center;color:#fff;max-width:44ch;margin:0 auto}
-  .mixsay h2{font-size:clamp(26px,4.4vw,42px);line-height:1.06;font-weight:800;
+  /* Every colour on this block is stated, never inherited. The home page has a
+     global h2{color:var(--navy)} and an element selector beats inheriting white
+     from the parent, which put a navy headline on a dark photograph. These
+     pages do not have that rule today; stating it means they cannot acquire
+     one later without anybody noticing. */
+  .mixsay h2{color:#fff;font-size:clamp(26px,4.4vw,42px);line-height:1.06;font-weight:800;
       letter-spacing:-.03em;text-transform:uppercase;text-shadow:0 3px 18px rgba(0,0,0,.6)}
   .mixsay p{margin-top:12px;font-size:15.5px;line-height:1.6;font-weight:600;
       color:rgba(255,255,255,.92);text-shadow:0 2px 12px rgba(0,0,0,.7)}
