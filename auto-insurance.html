@@ -62,41 +62,58 @@
       var(--pnavy);
       padding:118px 20px 60px}
   @media(max-width:700px){ .ph{padding:100px 20px 48px} }
-  .ph.bg{min-height:min(82vh,820px);display:flex;align-items:center}
-  @media(max-width:700px){ .ph.bg{min-height:min(78vh,640px)} }
-  .ph.bg .in{width:100%}
+  /* The copy sits in the bottom-left corner of the frame, not floating in the
+     middle of it. A photograph has a subject; putting the headline over the
+     subject fights it, and putting it in the corner lets both be seen. */
+  .ph.bg{min-height:min(86vh,880px);display:flex;align-items:flex-end}
+  @media(max-width:700px){ .ph.bg{min-height:min(82vh,700px)} }
+  /* Hard against the left edge rather than inside the 1120 reading column the
+     rest of the page uses — that column is why the headline was sitting a
+     sixth of the way into the picture. */
+  .ph.bg .in{width:100%;max-width:none;margin:0;padding-right:20px}
+  @media(min-width:900px){ .ph.bg .in{max-width:none;padding-right:56px} }
   /* A full-bleed photograph hero, for the products that have a landscape shot.
 
      The navy gradient stays underneath rather than being replaced: if the
      photograph is missing or still loading the hero is a deliberate dark band
      with readable white text on it, not a white rectangle with white text.
 
-     The scrim is two stops rather than one — heavy at the top where the logo
-     and the menu sit, heavy again at the bottom under the buttons, and almost
-     clear across the middle so the picture is actually visible. A flat 50%
-     wash over the whole thing dims the photograph everywhere to solve a
-     contrast problem that only exists in two places. */
+     There is no scrim over the photograph. There used to be one — a navy wash
+     down the left-hand side to guarantee contrast under the headline — and it
+     was the first thing anyone noticed, a grey panel laid over a picture of a
+     sunset. The type carries its own shadow instead, and the copy sits in the
+     bottom-left corner where the frame is already dark. */
   .ph.bg{padding-top:150px;padding-bottom:76px}
   .ph.bg::before{content:"";position:absolute;inset:0;z-index:0;
       background-position:center 42%;background-size:cover;background-repeat:no-repeat}
   /* The phone crop is the hard one. The frame is 16:9 and the hero is nearly
-     square there, so `cover` throws away most of the width and the copy ends up
-     over whatever survives — on this photograph, a sunlit car body. The middle
-     of the wash is heavier here than on the desktop version for exactly that
-     reason, and the horizontal anchor is pulled right so it lands on the people
-     rather than on a wing mirror. */
+     square there, so `cover` throws away most of the width. The horizontal
+     anchor is pulled right so what survives is the people rather than a wing
+     mirror. */
   .ph.bg::before{background-position:62% 42%}
-  .ph.bg::after{content:"";position:absolute;inset:0;z-index:1;
-      background:linear-gradient(180deg,rgba(6,14,32,.86) 0%,rgba(6,14,32,.60) 26%,
-                 rgba(6,14,32,.70) 60%,rgba(6,14,32,.92) 100%)}
   @media(min-width:900px){
-    .ph.bg::after{background:
-      linear-gradient(100deg,rgba(6,14,32,.90) 0%,rgba(6,14,32,.66) 42%,rgba(6,14,32,.16) 72%),
-      linear-gradient(180deg,rgba(6,14,32,.55) 0%,transparent 26%,rgba(6,14,32,.55) 100%)}
+    /* Inset from the left edge, but a fraction of it rather than the sixth of
+       the frame the centred reading column was giving. */
+    .ph.bg{padding-left:clamp(28px,4.6vw,72px)}
     .ph.bg::before{background-position:center 42%}
     .ph.bg .phgrid{grid-template-columns:minmax(0,.62fr) minmax(0,.38fr)}
   }
   @media(max-width:700px){ .ph.bg{padding-top:118px;padding-bottom:56px} }
+  /* Every piece of type over the photograph states its own shadow, because
+     nothing is dimming what is behind it any more. */
+  .ph.bg .crumbs,.ph.bg h1,.ph.bg h1 em,.ph.bg .lede,.ph.bg .pnote{
+      text-shadow:0 1px 3px rgba(4,10,24,.62),0 4px 26px rgba(4,10,24,.72),
+                  0 14px 70px rgba(4,10,24,.55)}
+  /* The logo and the hamburger were relying on the scrim too. A white mark on
+     sunlit trees and a 16%-white button on a bright sky both disappear without
+     it, so both state their own contrast: the logo gets a drop shadow, the
+     button a dark translucent fill instead of a light one. */
+  .ph.bg .logo{filter:brightness(0) invert(1)
+      drop-shadow(0 2px 8px rgba(4,10,24,.7)) drop-shadow(0 8px 34px rgba(4,10,24,.55))}
+  .ph.bg .burger{background:rgba(8,18,40,.46);border-color:rgba(255,255,255,.52);
+      -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+      box-shadow:0 8px 26px -8px rgba(4,10,24,.8)}
+  .ph.bg .burger:hover{background:rgba(8,18,40,.62)}
   .ph .in{max-width:1120px;margin:0 auto;position:relative;z-index:2}
   .phgrid{display:grid;grid-template-columns:1fr;gap:32px;align-items:center}
   @media(min-width:900px){ .phgrid.has{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:52px} }
@@ -109,8 +126,11 @@
   .crumbs a{color:rgba(255,255,255,.75)}
   .ph h1{font-size:clamp(34px,6.2vw,56px);line-height:1.04;font-weight:800;letter-spacing:-.03em}
   .ph.bg h1{font-size:clamp(40px,7.4vw,74px);line-height:1.0;letter-spacing:-.035em}
-  .ph.bg .lede{font-size:clamp(16.5px,1.5vw,19.5px);max-width:46ch;margin-top:20px}
+  .ph.bg .lede{font-size:clamp(16.5px,1.5vw,19.5px);max-width:46ch;margin-top:20px;
+      color:rgba(255,255,255,.94)}
   .ph.bg .pacts{margin-top:32px}
+  .ph.bg .pnote{color:rgba(255,255,255,.80)}
+  .ph.bg .crumbs{color:rgba(255,255,255,.72)}
   .ph.bg .pbtn{padding:18px 30px;font-size:17px}
   .ph h1 em{display:block;font-family:'Instrument Serif',serif;font-style:italic;
       font-weight:400;color:#8FD0FF;letter-spacing:-.01em}
@@ -235,16 +255,22 @@
   .mix{max-width:none;margin:72px auto 0;padding:0 20px}
   @media(min-width:1100px){ .mix{padding:0 24px} }
   .mixin{position:relative;overflow:hidden;border-radius:28px;isolation:isolate;
-      min-height:min(106vw,620px);display:flex;flex-direction:column;
+      min-height:min(125vw,700px);display:flex;flex-direction:column;
       justify-content:space-between;padding:24px 22px 40px;
       background:linear-gradient(150deg,#2A1D14 0%,#1A1410 55%,#0E0B08 100%);
       box-shadow:0 34px 64px -34px rgba(8,24,58,.7)}
-  @media(min-width:760px){ .mixin{padding:36px 42px 64px;min-height:min(78vh,780px);border-radius:34px} }
+  @media(min-width:760px){ .mixin{padding:36px 42px 70px;min-height:min(90vh,900px);border-radius:34px} }
   .mixin::before{content:"";position:absolute;inset:0;z-index:-2;
       background-position:center 38%;background-size:cover;background-repeat:no-repeat}
-  /* No wash over the picture. There used to be a dark gradient across the whole
-     frame to guarantee contrast; the photograph is the point, so the type earns
-     its own contrast with a stacked shadow instead of dimming the image. */
+  /* A vignette, not a wash. The gradient this replaces ran the full height at
+     30% from the very first pixel, which greyed the sunlight the picture was
+     chosen for. This one is completely clear across the top two thirds — the
+     window, the plants, the woman all come through untouched — and only banks
+     up under the copy at the foot of the frame, which is what the reference
+     site does too. Contrast where the type is, nowhere else. */
+  .mixin::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+      background:linear-gradient(180deg,transparent 0%,transparent 34%,
+                 rgba(24,14,6,.30) 62%,rgba(14,8,3,.74) 100%)}
   /* The chips sit at the top, over the lightest part of the frame, which is
      why they are dark text on a light card rather than the reverse. */
   /* On a phone the frame is cropped hard and the bright wall lands right
@@ -268,18 +294,16 @@
      pages do not have that rule today; stating it means they cannot acquire
      one later without anybody noticing. */
   .mixsay{max-width:48ch}
-  /* The shadow is stacked rather than single: a tight dark halo that hugs the
-     letterform, then a wide soft one that lifts it off whatever is behind it.
-     That is what keeps white type legible over the bright wall in the top half
-     of the photograph now that nothing is dimming the photograph. */
+  /* One soft drop, wide and low-opacity. The version before this stacked a
+     tight black halo under a wide one to force contrast against the bright
+     wall; it worked and it looked like cheap word art, a black outline around
+     every letter. Contrast is the vignette's job now — see .mixin::after —
+     and the shadow's job is only to keep the edges from dissolving. */
   .mixsay h2{color:#fff;font-size:clamp(34px,6.2vw,72px);line-height:1.0;font-weight:800;
       letter-spacing:-.03em;text-transform:uppercase;
-      text-shadow:0 0 10px rgba(0,0,0,.78),0 2px 5px rgba(0,0,0,.8),
-      0 6px 30px rgba(0,0,0,.62),0 14px 70px rgba(0,0,0,.45)}
+      text-shadow:0 2px 24px rgba(10,6,2,.55)}
   .mixsay p{margin-top:16px;font-size:clamp(15.5px,1.5vw,19px);line-height:1.6;font-weight:600;
-      color:#fff;
-      text-shadow:0 0 8px rgba(0,0,0,.8),0 2px 4px rgba(0,0,0,.85),
-      0 5px 24px rgba(0,0,0,.7),0 12px 55px rgba(0,0,0,.5)}
+      color:rgba(255,255,255,.95);text-shadow:0 2px 16px rgba(10,6,2,.6)}
   body>footer{padding:0 0 34px;border-top:1px solid var(--line);background:#FBFCFE}
   body>footer .fshell{max-width:1180px;margin:0 auto;padding:0 22px}
   body>footer .fband{padding:34px 0;border-bottom:1px solid var(--line)}
@@ -330,6 +354,41 @@
   body>footer .fdeck .more{font-weight:800;color:var(--blue);margin-top:8px}
   body>footer .fway a:not(.big){display:inline-block;font-size:13px;font-weight:800;
       color:var(--blue);margin-top:7px}
+
+  /* ---- the carrier loop ----
+     A single row of carrier names that scrolls forever. The track holds the
+     list twice and translates by exactly -50%, so the moment the first copy
+     has left the frame the second is sitting where the first started and the
+     animation restarts on an identical frame. That is what makes the seam
+     invisible; any other width and it visibly jumps once per cycle.
+
+     The row is decoration, so the second copy is aria-hidden and the whole
+     strip is announced once, by the caption. */
+  .carr{background:#fff;border-bottom:1px solid var(--line);padding:26px 0 24px;
+      overflow:hidden}
+  .carrcap{text-align:center;font-size:11.5px;font-weight:800;letter-spacing:.14em;
+      text-transform:uppercase;color:#93A2B8;margin-bottom:18px}
+  .carrmask{position:relative;
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 13%,#000 87%,transparent);
+      mask-image:linear-gradient(90deg,transparent,#000 13%,#000 87%,transparent)}
+  .carrtrack{display:flex;width:max-content;animation:carrloop 46s linear infinite}
+  .carrmask:hover .carrtrack{animation-play-state:paused}
+  @keyframes carrloop{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+  .carrset{display:flex;align-items:center;flex:0 0 auto}
+  .carrname{flex:0 0 auto;padding:0 30px;font-size:19px;font-weight:800;
+      letter-spacing:-.01em;color:#8B99AE;white-space:nowrap;
+      transition:color .18s}
+  .carrname:hover{color:var(--pnavy)}
+  @media(min-width:900px){ .carrname{font-size:21px;padding:0 38px} }
+  /* Somebody who has asked the operating system to stop moving things gets a
+     static row rather than no row: the list still reads, it just does not
+     travel. */
+  @media(prefers-reduced-motion:reduce){
+    .carrtrack{animation:none}
+    .carrmask{-webkit-mask-image:none;mask-image:none}
+    .carrset:nth-child(2){display:none}
+    .carrset{flex-wrap:wrap;justify-content:center;row-gap:12px}
+  }
   /* ---- the menu panel ----
      A panel that comes in from the right rather than a sheet that drops from
      the top, and the same panel at every width — one menu to maintain instead
@@ -519,6 +578,17 @@
   </header>
 
 <main id="main">
+
+  <section class="carr" aria-label="Some of the companies we shop for you">
+    <p class="carrcap">Some of the companies we shop for you</p>
+    <div class="carrmask">
+      <div class="carrtrack">
+        <div class="carrset"><span class="carrname">Progressive</span><span class="carrname">GEICO</span><span class="carrname">Allstate</span><span class="carrname">State Farm</span><span class="carrname">Nationwide</span><span class="carrname">Lemonade</span><span class="carrname">Root</span><span class="carrname">Safeco</span><span class="carrname">Kemper</span><span class="carrname">GAINSCO</span><span class="carrname">Bristol West</span><span class="carrname">Dairyland</span><span class="carrname">National General</span><span class="carrname">Acacia</span><span class="carrname">Bluefire</span><span class="carrname">Alinsco</span><span class="carrname">Commonwealth</span><span class="carrname">Apollo</span><span class="carrname">Connect</span></div>
+        <div class="carrset" aria-hidden="true"><span class="carrname">Progressive</span><span class="carrname">GEICO</span><span class="carrname">Allstate</span><span class="carrname">State Farm</span><span class="carrname">Nationwide</span><span class="carrname">Lemonade</span><span class="carrname">Root</span><span class="carrname">Safeco</span><span class="carrname">Kemper</span><span class="carrname">GAINSCO</span><span class="carrname">Bristol West</span><span class="carrname">Dairyland</span><span class="carrname">National General</span><span class="carrname">Acacia</span><span class="carrname">Bluefire</span><span class="carrname">Alinsco</span><span class="carrname">Commonwealth</span><span class="carrname">Apollo</span><span class="carrname">Connect</span></div>
+      </div>
+    </div>
+  </section>
+
 
   <!-- The section this page exists for. See the module docstring. -->
   <section class="miss">
