@@ -65,8 +65,12 @@ PRODUCTS = [
  'lede': 'One form goes to every company we represent. Then a licensed agent reads what '
          'came back, hunts for what the computer missed, and calls you with the real '
          'number.',
- 'photo': 'assets/cat-auto.jpg',
- 'photo_alt': 'A car on a highway at sunset',
+ # A landscape photograph belongs behind the whole hero, not in a portrait card
+ # beside it. `hero_bg` and `photo` are mutually exclusive: whichever is set
+ # decides the shape of the hero.
+ 'hero_bg': 'assets/hero-auto.jpg',
+ 'photo': '',
+ 'photo_alt': '',
 
  # The signature section: what an online-only quote gets wrong, for this product.
  'misses_lede': 'A rating engine prices what you typed. It does not know the rest, and '
@@ -531,6 +535,30 @@ CSS = """
       var(--pnavy);
       padding:118px 20px 60px}
   @media(max-width:700px){ .ph{padding:100px 20px 48px} }
+  /* A full-bleed photograph hero, for the products that have a landscape shot.
+
+     The navy gradient stays underneath rather than being replaced: if the
+     photograph is missing or still loading the hero is a deliberate dark band
+     with readable white text on it, not a white rectangle with white text.
+
+     The scrim is two stops rather than one — heavy at the top where the logo
+     and the menu sit, heavy again at the bottom under the buttons, and almost
+     clear across the middle so the picture is actually visible. A flat 50%
+     wash over the whole thing dims the photograph everywhere to solve a
+     contrast problem that only exists in two places. */
+  .ph.bg{padding-top:150px;padding-bottom:76px}
+  .ph.bg::before{content:"";position:absolute;inset:0;z-index:0;
+      background-position:center 42%;background-size:cover;background-repeat:no-repeat}
+  .ph.bg::after{content:"";position:absolute;inset:0;z-index:1;
+      background:linear-gradient(180deg,rgba(6,14,32,.80) 0%,rgba(6,14,32,.38) 30%,
+                 rgba(6,14,32,.42) 58%,rgba(6,14,32,.86) 100%)}
+  @media(min-width:900px){
+    .ph.bg::after{background:
+      linear-gradient(100deg,rgba(6,14,32,.90) 0%,rgba(6,14,32,.66) 42%,rgba(6,14,32,.16) 72%),
+      linear-gradient(180deg,rgba(6,14,32,.55) 0%,transparent 26%,rgba(6,14,32,.55) 100%)}
+    .ph.bg .phgrid{grid-template-columns:minmax(0,.62fr) minmax(0,.38fr)}
+  }
+  @media(max-width:700px){ .ph.bg{padding-top:118px;padding-bottom:56px} }
   .ph .in{max-width:1120px;margin:0 auto;position:relative;z-index:2}
   .phgrid{display:grid;grid-template-columns:1fr;gap:32px;align-items:center}
   @media(min-width:900px){ .phgrid.has{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:52px} }
@@ -738,7 +766,7 @@ def page(p):
 <body>
   <a class="skip" href="#main">Skip to content</a>
 {topbar}
-  <header class="ph">
+  <header class="ph{bgcls}">{bgstyle}
     <nav>
       <a href="index.html" aria-label="Safe House Insurance home"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
       {burger}
@@ -850,6 +878,9 @@ def page(p):
         eyebrow=e(p['eyebrow']), h1=p['h1'], h1em=p['h1em'], lede=p['lede'],
         type=p['type'], tel=nap.CALL_E164, call=nap.CALL,
         gridcls=(' has' if p['photo'] else ''),
+        bgcls=(' bg' if p.get('hero_bg') else ''),
+        bgstyle=('\n    <style>.ph.bg::before{background-image:url("%s")}</style>'
+                 % p['hero_bg']) if p.get('hero_bg') else '',
         shot=('<div class="phshot"><img src="%s" alt="%s" width="1000" height="1280" '
               'loading="eager" decoding="async"></div>' % (p['photo'], e(p['photo_alt'])))
              if p['photo'] else '',
