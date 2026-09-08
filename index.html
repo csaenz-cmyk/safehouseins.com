@@ -86,11 +86,33 @@
      Full width on a phone, a little over half the screen on a laptop, with the
      photograph still visible beside it so it reads as a layer over the page
      and not as a different page. */
+  /* ---- the menu panel ----
+     A panel that comes in from the right rather than a sheet that drops from
+     the top, and the same panel at every width — one menu to maintain instead
+     of a desktop bar plus a phone drawer that drift apart.
+
+     Full width on a phone, a little over half the screen on a laptop, with the
+     photograph still visible beside it so it reads as a layer over the page
+     and not as a different page. */
   /* Above the nav, not below it. header nav is z-index:70, so at 59/60 the
      panel opened *underneath* the hamburger — and the panel's close button
      lands in exactly the corner the hamburger occupies, so the X was
      unclickable and the burger was painting on top of an open menu. Found by a
      click that timed out, not by looking at it. */
+  /* The panel carries its own palette.
+
+     It has to. assets/styles.css defines --ink/--muted/--line/--soft and no
+     --navy, --ice or --ice2 at all; shell.py defines a third set. Written
+     against the host's tokens the same rules produced white text on white on
+     eleven pages, silently, because an undefined custom property does not
+     error — it just yields nothing and the colour is inherited.
+
+     Prefixed --m* so nothing here can collide with a host token of the same
+     name, and set on .drawer and .scrim rather than :root so the panel cannot
+     leak its palette into the page it is sitting on. */
+  .scrim,.drawer{--mnavy:#0A2148;--mblue:#1666ED;--mblue-d:#0F4FBF;
+      --mice:#EFF5FF;--mice2:#DCEAFF;--mline:#E5EBF6;--mmuted:#5C6A80;
+      --mgrad:linear-gradient(115deg,#1666ED,#00C2FF)}
   .scrim{position:fixed;inset:0;z-index:79;background:rgba(4,10,24,.55);
       -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
       opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
@@ -99,24 +121,37 @@
       background:#fff;display:flex;flex-direction:column;overflow-y:auto;
       padding:22px 26px 30px;transform:translateX(101%);
       transition:transform .38s cubic-bezier(.2,.8,.2,1);visibility:hidden;
-      box-shadow:-30px 0 70px -30px rgba(4,10,24,.5)}
+      text-align:left;box-shadow:-30px 0 70px -30px rgba(4,10,24,.5)}
   .drawer.on{transform:none;visibility:visible}
   body.locked{overflow:hidden}
 
   .dtop{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:26px}
-  .dtop .btn{width:auto;margin:0;padding:12px 22px;font-size:14.5px}
-  .dclose{width:44px;height:44px;flex:0 0 auto;border-radius:99px;border:1.5px solid var(--line);
-      background:#fff;color:var(--navy);font-size:20px;line-height:1;cursor:pointer;
+  .dcta{display:inline-flex;align-items:center;justify-content:center;
+      background:var(--mgrad);color:#fff;border-radius:99px;padding:13px 24px;
+      font-size:14.5px;font-weight:800;text-decoration:none;white-space:nowrap;
+      box-shadow:0 12px 24px -12px rgba(22,102,237,.9)}
+  .dcta:hover{text-decoration:none;filter:brightness(1.05)}
+  .dclose{width:44px;height:44px;flex:0 0 auto;border-radius:99px;border:1.5px solid var(--mline);
+      background:#fff;color:var(--mnavy);font-size:20px;line-height:1;cursor:pointer;
       display:grid;place-items:center;transition:background .16s,border-color .16s}
-  .dclose:hover{background:var(--ice);border-color:#CFE0F8}
+  .dclose:hover{background:var(--mice);border-color:#CFE0F8}
 
   /* The three products, at the size of the decision they are. */
+  /* Everything in here is pinned to static on purpose.
+
+     The panel is dropped into three stylesheets that all style bare elements.
+     It used a <nav> for the three product links, and both hosts style that one
+     — assets/styles.css as position:absolute, shell.py as position:sticky — so
+     the links lifted out of the flow and landed on top of the columns below
+     them. It is a <div role="navigation"> now, and these are here so the next
+     host rule cannot do the same thing again. */
+  .dtop,.dbig,.dcols,.dcol,.dfoot{position:static}
   .dbig{display:flex;flex-direction:column}
   .dbig a{display:flex;align-items:center;justify-content:space-between;gap:16px;
-      padding:15px 0;border-bottom:1px solid var(--line);
+      padding:15px 0;border-bottom:1px solid var(--mline);
       font-size:clamp(27px,5.4vw,34px);font-weight:900;letter-spacing:-.03em;
-      color:var(--navy);text-transform:uppercase;line-height:1.1;transition:color .16s}
-  .dbig a:hover{color:var(--blue)}
+      color:var(--mnavy);text-transform:uppercase;line-height:1.1;transition:color .16s}
+  .dbig a:hover{color:var(--mblue)}
   .dbig a svg{width:26px;height:26px;flex:0 0 auto;stroke:currentColor;stroke-width:2;fill:none}
 
   .dcols{display:grid;grid-template-columns:1fr;gap:26px;margin-top:30px}
@@ -124,7 +159,7 @@
   .dcol h6{font-size:11px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;
       color:#9fb0c6;margin-bottom:11px}
   .dcol a{display:block;font-size:16px;font-weight:700;color:#33415a;padding:7px 0;transition:color .16s}
-  .dcol a:hover{color:var(--blue)}
+  .dcol a:hover{color:var(--mblue)}
 
   /* Two rows, full width, with the number as the loudest thing on them. They
      were a pair of thin outlined boxes in a two-column grid — the shape of a
@@ -134,24 +169,24 @@
   .dway{display:flex;align-items:center;gap:13px;border-radius:18px;padding:15px 17px;
       margin-top:10px;transition:transform .16s,filter .16s,box-shadow .16s}
   .dway:hover{transform:translateY(-2px);filter:brightness(1.04)}
-  .dway.call{background:var(--grad);box-shadow:0 14px 28px -14px rgba(22,102,237,.85)}
-  .dway.text{background:var(--ice);border:1.5px solid var(--ice2)}
+  .dway.call{background:var(--mgrad);box-shadow:0 14px 28px -14px rgba(22,102,237,.85)}
+  .dway.text{background:var(--mice);border:1.5px solid var(--mice2)}
   .dway .i{width:40px;height:40px;flex:0 0 auto;border-radius:13px;display:grid;place-items:center}
   .dway.call .i{background:rgba(255,255,255,.20)}
   .dway.text .i{background:#fff}
   .dway .i svg{width:19px;height:19px;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
   .dway.call .i svg{stroke:#fff}
-  .dway.text .i svg{stroke:var(--blue)}
+  .dway.text .i svg{stroke:var(--mblue)}
   .dway .t{flex:1;min-width:0}
   .dway s{display:block;text-decoration:none;font-size:11.5px;font-weight:700;letter-spacing:.04em}
   .dway.call s{color:rgba(255,255,255,.82)}
-  .dway.text s{color:var(--muted)}
+  .dway.text s{color:var(--mmuted)}
   .dway b{display:block;font-size:20px;font-weight:900;letter-spacing:-.02em;line-height:1.15}
   .dway.call b{color:#fff}
-  .dway.text b{color:var(--navy)}
+  .dway.text b{color:var(--mnavy)}
   .dway .ar{flex:0 0 auto;font-size:19px;font-weight:800;opacity:.75}
   .dway.call .ar{color:#fff}
-  .dway.text .ar{color:var(--blue)}
+  .dway.text .ar{color:var(--mblue)}
   .des{margin-top:14px;text-align:center;font-size:12.5px;font-weight:700;color:#9fb0c6}
 
   /* The review card in the hero.
@@ -942,15 +977,15 @@
 <div class="scrim" id="scrim" hidden></div>
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
   <div class="dtop">
-    <a class="btn grad" href="quote.html">Get a quote</a>
+    <a class="dcta" href="quote.html">Get a quote</a>
     <button class="dclose" id="dclose" type="button" aria-label="Close menu">&#10005;</button>
   </div>
 
-  <nav class="dbig" aria-label="What we insure">
+  <div class="dbig" role="navigation" aria-label="What we insure">
     <a href="auto-insurance.html">Car <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     <a href="home-insurance.html">Home <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     <a href="commercial-insurance.html">Commercial <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-  </nav>
+  </div>
 
   <div class="dcols">
     <div class="dcol">
