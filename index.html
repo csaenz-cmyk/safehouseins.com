@@ -316,16 +316,21 @@
      the flow of it — same scale as the band on the product pages, so the two
      read as one thing seen twice. */
   .mixin{position:relative;overflow:hidden;border-radius:28px;isolation:isolate;
-      min-height:min(88vw,560px);display:flex;flex-direction:column;
-      justify-content:space-between;padding:22px 22px 34px;margin:0 20px;
+      min-height:min(106vw,620px);display:flex;flex-direction:column;
+      justify-content:space-between;padding:24px 22px 40px;margin:0 20px;
       background:linear-gradient(150deg,#2A1D14 0%,#1A1410 55%,#0E0B08 100%);
       box-shadow:0 34px 60px -34px rgba(10,33,72,.7)}
   .mixin::before{content:"";position:absolute;inset:0;z-index:-2;
       background-image:url("assets/mix-couch.jpg");
       background-position:center 38%;background-size:cover;background-repeat:no-repeat}
-  .mixin::after{content:"";position:absolute;inset:0;z-index:-1;
-      background:linear-gradient(180deg,rgba(20,14,9,.30) 0%,rgba(20,14,9,.06) 34%,
-                 rgba(16,11,7,.52) 68%,rgba(12,8,5,.88) 100%)}
+  /* No wash over the picture. There used to be a dark gradient across the whole
+     frame to guarantee contrast; the photograph is the point, so the type earns
+     its own contrast with a stacked shadow instead of dimming the image. */
+  /* On a phone the frame is cropped hard and the bright wall lands right
+     behind the headline. Dropping the focal point pulls the darker couch up
+     into that band — the fix is which part of the picture you see, not a
+     layer painted over the picture. */
+  @media(max-width:759px){ .mixin::before{background-position:center 62%} }
   .mixchips{display:flex;flex-wrap:wrap;gap:9px;justify-content:center}
   .mchip{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.94);
       -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
@@ -340,17 +345,24 @@
      out navy on a dark photograph, which is to say invisible. Third time a host
      rule has reached into a block dropped on top of a picture; every colour on
      one now gets stated rather than inherited. */
-  .mixsay h2{color:#fff;font-size:clamp(30px,6.6vw,62px);line-height:1.02;font-weight:900;
-      letter-spacing:-.035em;text-transform:uppercase;text-shadow:0 3px 18px rgba(0,0,0,.6)}
-  .mixsay p{margin-top:14px;font-size:15px;line-height:1.6;font-weight:600;
-      color:rgba(255,255,255,.92);text-shadow:0 2px 12px rgba(0,0,0,.7)}
+  /* The shadow is stacked rather than single: a tight dark halo that hugs the
+     letterform, then a wide soft one that lifts it off whatever is behind it.
+     That is what keeps white type legible over the bright wall in the top half
+     of the photograph now that nothing is dimming the photograph. */
+  .mixsay h2{color:#fff;font-size:clamp(34px,7vw,72px);line-height:1.0;font-weight:900;
+      letter-spacing:-.035em;text-transform:uppercase;
+      text-shadow:0 0 10px rgba(0,0,0,.78),0 2px 5px rgba(0,0,0,.8),
+      0 6px 30px rgba(0,0,0,.62),0 14px 70px rgba(0,0,0,.45)}
+  .mixsay p{margin-top:16px;font-size:15.5px;line-height:1.6;font-weight:600;color:#fff;
+      text-shadow:0 0 8px rgba(0,0,0,.8),0 2px 4px rgba(0,0,0,.85),
+      0 5px 24px rgba(0,0,0,.7),0 12px 55px rgba(0,0,0,.5)}
   @media(min-width:900px){
     .mix{padding:26px 0 10px}
-    .mixin{margin:0 auto;max-width:1720px;min-height:min(64vh,660px);padding:32px 38px 56px;
+    .mixin{margin:0 auto;max-width:1720px;min-height:min(78vh,780px);padding:36px 42px 64px;
         border-radius:34px}
     .mixin{margin-left:24px;margin-right:24px}
-    .mixsay{max-width:46ch}
-    .mixsay p{font-size:18px}
+    .mixsay{max-width:48ch}
+    .mixsay p{font-size:19px}
   }
 
   /* ================= KINETIC SCROLL STATEMENT =================
