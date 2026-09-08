@@ -312,11 +312,11 @@ HEAD = """<!doctype html>
   <div class="dcols">
     <div class="dcol">
       <h6>Insurance types</h6>
-      <a href="quote.html?type=car">Car</a>
-      <a href="quote.html?type=home">Homeowners</a>
-      <a href="quote.html?type=home">Renters</a>
-      <a href="quote.html?type=moto">Motorcycle</a>
-      <a href="quote.html?type=commercial">Work trucks &amp; fleets</a>
+      <a href="auto-insurance.html">Car</a>
+      <a href="home-insurance.html">Homeowners</a>
+      <a href="renters-insurance.html">Renters</a>
+      <a href="motorcycle-insurance.html">Motorcycle</a>
+      <a href="commercial-insurance.html">Work trucks &amp; fleets</a>
     </div>
     <div class="dcol">
       <h6>Company</h6>
@@ -1062,7 +1062,8 @@ def to_dir(page, slug):
     # carry, and six of them 404ed from one directory down.
     for f in ('quote.html', 'about.html', 'careers.html', 'contact.html',
               'car-insurance/', 'pay/', 'claims/', 'id-card/', 'lienholder/',
-              'auto-insurance.html', 'home-insurance.html', 'commercial-insurance.html'):
+              'auto-insurance.html', 'home-insurance.html', 'commercial-insurance.html',
+              'renters-insurance.html', 'motorcycle-insurance.html'):
         page = page.replace('href="' + f, 'href="../' + f)
     return page
 

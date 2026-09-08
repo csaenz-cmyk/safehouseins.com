@@ -18,6 +18,12 @@
 /home-insurance.html       /home-insurance         301
 /commercial.html           /commercial-insurance   301
 /commercial-insurance.html /commercial-insurance   301
+/motorcycle-insurance.html /motorcycle-insurance  301
+/renters-insurance.html    /renters-insurance      301
+/moto-insurance            /motorcycle-insurance   301
+/motorcycle                /motorcycle-insurance   301
+/renters                   /renters-insurance      301
+/car-insurance-quote       /auto-insurance         301
 /about.html              /about               301
 /contact.html            /contact             301
 /careers.html            /careers             301

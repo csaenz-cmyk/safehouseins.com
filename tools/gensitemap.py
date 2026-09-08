@@ -26,12 +26,31 @@ SKIP_ROOT = {'index-b.html', 'option-1-lemonade.html', 'jerry-1.html', 'jerry-2.
              '404.html'}
 SKIP_DIRS = {'.git', 'assets', 'docs', 'tools', 'email', 'mockups', 'sms', '__pycache__'}
 
+def canonical_of(path):
+    """The URL the page itself says it is.
+
+    Eleven root pages declare an extensionless canonical — /auto-insurance, not
+    /auto-insurance.html — and this file was listing the filename. A sitemap
+    that lists a URL the page says is not canonical is two contradictory
+    signals, and Google resolves that by ignoring one of them. Which one is not
+    up to us.
+
+    Reading it out of the page means the two cannot drift again: change a
+    canonical and the sitemap follows on the next build.
+    """
+    with open(path, encoding='utf-8', errors='ignore') as fh:
+        head = fh.read(4096)
+    m = re.search(r'<link rel="canonical" href="([^"]+)"', head)
+    return m.group(1) if m else None
+
+
 def urls():
     out = []
     for f in sorted(os.listdir(ROOT)):
         if not f.endswith('.html') or f in SKIP_ROOT or re.match(r'option-\d+\.html', f):
             continue
-        out.append(SITE + '/' + ('' if f == 'index.html' else f))
+        c = canonical_of(os.path.join(ROOT, f))
+        out.append(c if c else SITE + '/' + ('' if f == 'index.html' else f))
     for dirpath, dirnames, filenames in os.walk(ROOT):
         dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS and not d.startswith('.')]
         if dirpath == ROOT or 'index.html' not in filenames:

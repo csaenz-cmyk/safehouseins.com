@@ -181,11 +181,22 @@ def main():
         locs = re.findall(r'<loc>(.*?)</loc>', open(sm, encoding='utf-8').read())
         for loc in locs:
             path = loc.replace(SITE, '').lstrip('/')
-            f = os.path.join(ROOT, path if path.endswith('.html') else os.path.join(path, 'index.html'))
-            if not os.path.exists(f):
+            # An extensionless URL is served by Cloudflare Pages from either
+            # <path>.html or <path>/index.html. This used to accept only the
+            # directory form, so when the sitemap started emitting each page's
+            # own canonical — /auto-insurance rather than /auto-insurance.html —
+            # eleven correct URLs were reported as missing files.
+            if path.endswith('.html'):
+                cands = [path]
+            elif path in ('', '/'):
+                cands = ['index.html']
+            else:
+                cands = [os.path.join(path, 'index.html'), path.rstrip('/') + '.html']
+            hit = next((c for c in cands if os.path.exists(os.path.join(ROOT, c))), None)
+            if not hit:
                 p0.append(('sitemap.xml', 'lists a URL with no file: ' + loc))
                 continue
-            h = open(f, encoding='utf-8').read()
+            h = open(os.path.join(ROOT, hit), encoding='utf-8').read()
             if re.search(r'<meta[^>]+name=["\']robots["\'][^>]*noindex', h, re.I):
                 p0.append(('sitemap.xml', 'lists a noindex page: ' + loc))
             if re.search(r'option-\d|jerry-|index-b', loc):

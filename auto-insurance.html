@@ -3,29 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auto Insurance in El Paso, TX — Safe House Insurance</title>
-<meta name="description" content="Auto insurance for every driver in El Paso, TX & New Mexico. Full coverage, liability, SR-22 filings, high-risk, non-owner & no-license policies — compared across top carriers in seconds. Se habla español.">
+<title>Car Insurance in Texas &amp; New Mexico | Safe House Insurance</title>
+<meta name="description" content="Car insurance shopped across the companies we represent — full coverage, liability, SR-22 and high-risk. A licensed bilingual agent reviews every quote before you buy. El Paso, TX.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/safehouse-heart.png">
 <link rel="canonical" href="https://safehouseins.com/auto-insurance">
-<link rel="stylesheet" href="assets/styles.css">
+<meta property="og:title" content="Car Insurance in Texas &amp; New Mexico | Safe House Insurance">
+<meta property="og:description" content="Car insurance shopped across the companies we represent — full coverage, liability, SR-22 and high-risk. A licensed bilingual agent reviews every quote before you buy. El Paso, TX.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://safehouseins.com/auto-insurance">
+<meta name="twitter:card" content="summary">
+<style>
+  :root{ --pnavy:#08183A; --pblue:#1666ED; --pcyan:#22A7F0; --pline:#E5EBF6; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;color:#0E1726;
+      background:#fff;line-height:1.55;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:var(--pblue);text-decoration:none}
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:#1666ED;color:#fff;
+      padding:12px 18px;border-radius:0 0 12px 0;font-weight:800;font-size:14px}
+  .skip:focus{left:0}
+
+  .topbar{background:#0B1220;color:#cfe0ff;font-size:13px;font-weight:600;text-align:center;
+      padding:8px 16px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+  .topbar a{color:#fff}
+  .topbar .es{background:rgba(255,255,255,.12);padding:2px 10px;border-radius:999px}
+  @media(max-width:960px){ .topbar{font-size:12px;gap:12px} }
+
+  nav{position:absolute;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;
+      justify-content:space-between;gap:14px;padding:22px 28px}
+  nav .logo{height:46px;filter:brightness(0) invert(1)}
+  @media(min-width:900px){ nav{padding:24px 40px} nav .logo{height:52px} }
+  .burger{width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.16);
+      border:1.5px solid rgba(255,255,255,.42);-webkit-backdrop-filter:blur(8px);
+      backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:5px;align-items:center;
+      justify-content:center;flex:0 0 auto;cursor:pointer;padding:0;
+      transition:opacity .25s,visibility .25s}
+  .burger span{display:block;width:18px;height:2.2px;background:#fff;border-radius:2px;
+      transition:transform .25s,opacity .2s}
+  .burger.on span:nth-child(1){transform:translateY(7.2px) rotate(45deg)}
+  .burger.on span:nth-child(2){opacity:0}
+  .burger.on span:nth-child(3){transform:translateY(-7.2px) rotate(-45deg)}
+  body.locked .burger{opacity:0;visibility:hidden}
+
+  /* ---- hero ---- */
+  .ph{position:relative;overflow:hidden;color:#fff;background:
+      radial-gradient(1100px 520px at 18% -12%, rgba(34,167,240,.34), transparent 62%),
+      radial-gradient(900px 460px at 88% 6%, rgba(22,102,237,.30), transparent 60%),
+      var(--pnavy);
+      padding:118px 20px 60px}
+  @media(max-width:700px){ .ph{padding:100px 20px 48px} }
+  .ph .in{max-width:1120px;margin:0 auto;position:relative;z-index:2}
+  .phgrid{display:grid;grid-template-columns:1fr;gap:32px;align-items:center}
+  @media(min-width:900px){ .phgrid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:52px} }
+  .crumbs{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;
+      color:rgba(255,255,255,.55);margin-bottom:16px}
+  .crumbs a{color:rgba(255,255,255,.75)}
+  .ph h1{font-size:clamp(34px,6.2vw,56px);line-height:1.04;font-weight:800;letter-spacing:-.03em}
+  .ph h1 em{display:block;font-family:'Instrument Serif',serif;font-style:italic;
+      font-weight:400;color:#8FD0FF;letter-spacing:-.01em}
+  .ph .lede{margin-top:16px;max-width:52ch;font-size:16.5px;line-height:1.62;
+      color:rgba(255,255,255,.80);font-weight:500}
+  .pacts{display:flex;flex-wrap:wrap;gap:11px;margin-top:26px}
+  .pbtn{display:inline-flex;align-items:center;gap:9px;border-radius:99px;padding:16px 26px;
+      font-size:16px;font-weight:800;transition:transform .16s,filter .16s}
+  .pbtn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+  .pbtn.p{background:linear-gradient(100deg,var(--pblue),var(--pcyan));color:#fff;
+      box-shadow:0 16px 32px -14px rgba(22,102,237,.9)}
+  .pbtn.s{background:rgba(255,255,255,.13);color:#fff;border:1.5px solid rgba(255,255,255,.34)}
+  .pnote{margin-top:16px;font-size:13px;font-weight:600;color:rgba(255,255,255,.60)}
+  .phshot{border-radius:24px;overflow:hidden;box-shadow:0 40px 70px -34px rgba(0,0,0,.75)}
+  .phshot img{width:100%;height:auto;aspect-ratio:1000/1280;object-fit:cover}
+  @media(max-width:899px){ .phshot{display:none} }
+
+  /* ---- the section that is the whole point ---- */
+  .miss{background:#F7FAFF;border-top:1px solid var(--pline);border-bottom:1px solid var(--pline);
+      padding:64px 20px}
+  .miss .in{max-width:1000px;margin:0 auto}
+  .kick{display:inline-block;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;
+      font-weight:900;color:var(--pblue);background:#E8F1FE;border-radius:99px;padding:6px 13px}
+  .miss h2,.sec h2{margin-top:14px;font-size:clamp(26px,3.6vw,38px);line-height:1.12;
+      font-weight:800;color:var(--pnavy);letter-spacing:-.03em;max-width:22ch}
+  .miss .sub{margin-top:14px;max-width:60ch;font-size:16px;line-height:1.66;color:#3B4A63;
+      font-weight:500}
+  .mgrid{display:grid;gap:14px;grid-template-columns:1fr;margin-top:32px}
+  @media(min-width:760px){ .mgrid{grid-template-columns:1fr 1fr} }
+  .mcard{background:#fff;border:1.5px solid var(--pline);border-radius:20px;padding:24px 24px 22px;
+      box-shadow:0 22px 44px -38px rgba(8,24,58,.7)}
+  .mcard .n{width:32px;height:32px;border-radius:10px;background:linear-gradient(140deg,var(--pblue),var(--pcyan));
+      color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;
+      font-weight:900;margin-bottom:13px}
+  .mcard b{display:block;font-size:17px;font-weight:800;color:var(--pnavy);line-height:1.3;
+      letter-spacing:-.015em}
+  .mcard p{margin-top:8px;font-size:14.5px;line-height:1.65;color:#4A5A74;font-weight:500}
+  .mfoot{margin-top:26px;display:flex;align-items:flex-start;gap:13px;background:#fff;
+      border:1.5px solid #BBD6FB;border-radius:18px;padding:18px 20px}
+  .mfoot .i{flex:0 0 auto;width:36px;height:36px;border-radius:12px;
+      background:linear-gradient(140deg,var(--pblue),var(--pcyan));display:grid;place-items:center}
+  .mfoot .i svg{width:19px;height:19px;stroke:#fff;stroke-width:2;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .mfoot b{display:block;font-size:15.5px;font-weight:800;color:var(--pnavy)}
+  .mfoot p{margin-top:5px;font-size:14px;line-height:1.6;color:#3B4A63;font-weight:500}
+
+  /* ---- generic sections ---- */
+  .sec{max-width:1000px;margin:0 auto;padding:64px 20px 0}
+  .sec .sub{margin-top:14px;max-width:60ch;font-size:16px;line-height:1.66;color:#3B4A63;
+      font-weight:500}
+  .cgrid{display:grid;gap:13px;grid-template-columns:1fr;margin-top:30px}
+  @media(min-width:640px){ .cgrid{grid-template-columns:1fr 1fr} }
+  @media(min-width:980px){ .cgrid{grid-template-columns:repeat(3,1fr)} }
+  .ccard{border:1.5px solid var(--pline);border-radius:18px;padding:21px 22px;background:#fff}
+  .ccard b{display:block;font-size:16px;font-weight:800;color:var(--pnavy);margin-bottom:7px}
+  .ccard p{font-size:14px;line-height:1.65;color:#4A5A74;font-weight:500}
+
+  .ygrid{display:grid;gap:10px;grid-template-columns:1fr;margin-top:26px}
+  @media(min-width:560px){ .ygrid{grid-template-columns:1fr 1fr} }
+  @media(min-width:980px){ .ygrid{grid-template-columns:1fr 1fr 1fr 1fr} }
+  .ycard{display:flex;align-items:flex-start;gap:10px;border:1.5px solid var(--pline);
+      border-radius:14px;padding:14px 16px;background:#fff;font-size:14.5px;font-weight:700;
+      color:var(--pnavy);line-height:1.35}
+  .ycard svg{width:17px;height:17px;flex:0 0 auto;margin-top:1px;stroke:var(--pblue);
+      stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+  .steps{display:grid;gap:14px;grid-template-columns:1fr;margin-top:30px;counter-reset:s}
+  @media(min-width:760px){ .steps{grid-template-columns:repeat(3,1fr)} }
+  .step{counter-increment:s;border:1.5px solid var(--pline);border-radius:18px;padding:22px;
+      background:#fff}
+  .step::before{content:counter(s);display:flex;align-items:center;justify-content:center;
+      width:32px;height:32px;border-radius:10px;background:#EAF2FE;color:var(--pblue);
+      font-weight:900;font-size:14px;margin-bottom:12px}
+  .step b{display:block;font-size:16px;font-weight:800;color:var(--pnavy);margin-bottom:6px}
+  .step p{font-size:14px;line-height:1.65;color:#4A5A74;font-weight:500}
+
+  .fgrid{display:grid;gap:13px;grid-template-columns:1fr;margin-top:30px}
+  @media(min-width:760px){ .fgrid{grid-template-columns:1fr 1fr} }
+  .fcard{border:1.5px solid var(--pline);border-radius:18px;padding:20px 22px;background:#fff}
+  .fcard b{display:block;font-size:15.5px;font-weight:800;color:var(--pnavy);margin-bottom:7px}
+  .fcard p{font-size:14px;line-height:1.68;color:#4A5A74;font-weight:500}
+  .fcard a{font-weight:800}
+
+  .end{max-width:1000px;margin:64px auto 0;padding:0 20px 72px}
+  .endin{border-radius:26px;padding:44px 30px;text-align:center;color:#fff;
+      background:linear-gradient(120deg,#0A2AA8 0%,var(--pblue) 55%,var(--pcyan) 100%);
+      box-shadow:0 30px 60px -34px rgba(22,102,237,.9)}
+  .endin h2{font-size:clamp(25px,3.4vw,34px);font-weight:800;letter-spacing:-.03em;line-height:1.15}
+  .endin p{margin:12px auto 24px;max-width:48ch;font-size:15.5px;line-height:1.6;
+      color:rgba(255,255,255,.9);font-weight:500}
+  .endin .row{display:flex;flex-wrap:wrap;gap:11px;justify-content:center}
+  .endin a{border-radius:99px;padding:15px 26px;font-size:15.5px;font-weight:800}
+  .endin .p{background:#fff;color:var(--pblue)}
+  .endin .s{background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.38)}
+
+  .also{max-width:1000px;margin:0 auto;padding:0 20px 8px}
+  .agrid{display:grid;gap:11px;grid-template-columns:1fr}
+  @media(min-width:640px){ .agrid{grid-template-columns:1fr 1fr} }
+  @media(min-width:980px){ .agrid{grid-template-columns:repeat(4,1fr)} }
+  .agrid a{display:block;border:1.5px solid var(--pline);border-radius:16px;padding:16px 18px;
+      background:#fff;transition:border-color .16s,transform .16s}
+  .agrid a:hover{border-color:#BBD6FB;transform:translateY(-2px)}
+  .agrid b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);margin-bottom:3px}
+  .agrid span{display:block;font-size:12.5px;line-height:1.5;color:#7C8BA4;font-weight:600}
+</style>
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
   <div class="topbar">
-    <span>📞 Call <a href="tel:+19155031207">915-503-1207</a> &middot; 💬 Text <a href="sms:+19155943777">915-594-3777</a></span>
-    <span>✉️ <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></span>
-    <span class="es">🇲🇽 Se habla español</span>
-    <span>El Paso, TX · Serving TX &amp; NM</span>
+    <span>&#128222; Call <a href="tel:+19155031207">915-503-1207</a> &middot; &#128172; Text <a href="sms:+19155943777">915-594-3777</a></span>
+    <span>&#9993;&#65039; <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></span>
+    <span class="es">&#127474;&#127475; Se habla espa&ntilde;ol</span>
+    <span>El Paso, TX &middot; Serving TX &amp; NM</span>
   </div>
 
-  <header class="subhero">
-    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
-    <div class="hearts" id="hearts"></div>
+  <header class="ph">
     <nav>
-      <a href="index.html"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
-      <div class="nav-cta"><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button></div>
+      <a href="index.html" aria-label="Safe House Insurance home"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
     </nav>
 
 <div class="scrim" id="scrim" hidden></div>
@@ -44,11 +199,11 @@
   <div class="dcols">
     <div class="dcol">
       <h6>Insurance types</h6>
-      <a href="quote.html?type=car">Car</a>
-      <a href="quote.html?type=home">Homeowners</a>
-      <a href="quote.html?type=home">Renters</a>
-      <a href="quote.html?type=moto">Motorcycle</a>
-      <a href="quote.html?type=commercial">Work trucks &amp; fleets</a>
+      <a href="auto-insurance.html">Car</a>
+      <a href="home-insurance.html">Homeowners</a>
+      <a href="renters-insurance.html">Renters</a>
+      <a href="motorcycle-insurance.html">Motorcycle</a>
+      <a href="commercial-insurance.html">Work trucks &amp; fleets</a>
     </div>
     <div class="dcol">
       <h6>Company</h6>
@@ -84,70 +239,135 @@
   </div>
 </div>
 
-    <div class="subhero-inner">
-      <div class="crumbs"><a href="index.html">Home</a> / Auto</div>
-      <h1>Auto insurance,<br><span class="it">for every driver.</span></h1>
-      <p>Good record or not — we compare top carriers to find coverage that fits your situation and your budget. SR-22 and high-risk welcome.</p>
-      <div class="hero-actions"><a class="btn white" href="contact.html#quote">Get my quote →</a><a class="btn ghost-w" href="tel:+19155031207">📞 Call 915-503-1207</a></div>
+    <div class="in">
+      <div class="phgrid">
+        <div>
+          <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; Car insurance</div>
+          <h1>Car insurance,<em>checked by a person.</em></h1>
+          <p class="lede">One form goes to every company we represent. Then a licensed agent reads what came back, hunts for what the computer missed, and calls you with the real number.</p>
+          <div class="pacts">
+            <a class="pbtn p" href="quote.html?type=car">Start my quote &rarr;</a>
+            <a class="pbtn s" href="tel:+19155031207">Call 915-503-1207</a>
+          </div>
+          <p class="pnote">Free, no obligation &middot; English or Spanish &middot; Licensed in Texas and New Mexico</p>
+        </div>
+        <div class="phshot"><img src="assets/cat-auto.jpg" alt="A car on a highway at sunset" width="1000" height="1280" loading="eager" decoding="async"></div>
+      </div>
     </div>
   </header>
 
-  <section>
-    <div class="wrap split">
-      <div class="prose reveal">
-        <span class="kicker">Our specialty</span>
-        <h3>Coverage that says "yes" — even when others say no.</h3>
-        <p>Most agencies turn away drivers with tickets, accidents, lapses or no license. We don't. As an independent agency we shop the carriers that specialize in exactly your situation, then bring you the best price.</p>
-        <ul class="checklist">
-          <li>Full coverage &amp; liability-only</li>
-          <li>SR-22 filings — often same day</li>
-          <li>High-risk, tickets &amp; prior accidents</li>
-          <li>Non-owner &amp; no-license policies</li>
-          <li>New &amp; young drivers, multi-car &amp; multi-policy</li>
-        </ul>
-        <a class="btn" href="contact.html#quote" style="margin-top:26px">Start my free quote →</a>
+<main id="main">
+
+  <!-- The section this page exists for. See the module docstring. -->
+  <section class="miss">
+    <div class="in">
+      <span class="kick">The second look</span>
+      <h2>What the online price misses</h2>
+      <p class="sub">A rating engine prices what you typed. It does not know the rest, and on a car policy the rest is usually worth more than the difference between two websites.</p>
+      <div class="mgrid">
+        <div class="mcard"><div class="n">1</div><b>How long you have really been insured</b><p>Prior-coverage credit is one of the largest discounts on a car policy, and the online form asks one blunt question about it. An agent asks the follow-up: whose policy, what dates, was there a gap and why. A month you forgot about is money.</p></div>
+        <div class="mcard"><div class="n">2</div><b>The discounts nobody volunteers</b><p>Defensive driving, good student, paid-in-full, paperless, multi-policy, homeowner, military, occupation, alumni. Every carrier has a different list and none of them is on the quote form.</p></div>
+        <div class="mcard"><div class="n">3</div><b>Whether the coverage you picked is the coverage you need</b><p>Most people choose limits by picking the cheapest row. An agent will tell you when that is fine and when it is a bad trade — especially the uninsured-motorist line, which matters more here than almost anywhere.</p></div>
+        <div class="mcard"><div class="n">4</div><b>Which company will still want you in six months</b><p>The cheapest quote today is sometimes from a carrier that will not renew you, or will renew you at a very different price. Knowing which is which is what a decade of placing business buys you.</p></div>
       </div>
-      <div class="panel grad reveal">
-        <div class="scanner" style="background:rgba(255,255,255,.12)">
-          <div class="top">turborater.compare( )<span class="live"><span class="d"></span>live rating</span></div>
-          <div class="qrow best"><span class="name">Progressive</span><div class="bar"><i style="width:58%"></i></div><span class="pr">$112</span><span class="tag">BEST</span></div>
-          <div class="qrow"><span class="name">Geico</span><div class="bar"><i style="width:71%"></i></div><span class="pr">$128</span></div>
-          <div class="qrow"><span class="name">Lemonade</span><div class="bar"><i style="width:83%"></i></div><span class="pr">$141</span></div>
-          <div class="qrow"><span class="name">Alinsco</span><div class="bar"><i style="width:96%"></i></div><span class="pr">$159</span></div>
+      <div class="mfoot">
+        <span class="i" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <div>
+          <b>This is the whole difference.</b>
+          <p>Anyone can show you a number. A licensed Safe House agent reads the quote
+             before you buy it, asks the questions above, and re-shops it when the answers
+             change something. It costs you nothing &mdash; it is what the commission on the
+             policy is for.</p>
         </div>
-        <p style="color:rgba(255,255,255,.92);font-size:14px;margin-top:18px;text-align:center">Real-time rates compared with TurboRater. Sample pricing shown.</p>
       </div>
     </div>
   </section>
 
-  <section class="why">
-    <div class="wrap">
-      <div class="reveal center" style="max-width:660px"><span class="kicker">What we cover</span><h2 class="h2">Pick the protection <span class="it grad-text">that fits you.</span></h2></div>
-      <div class="cov">
-        <div class="covc reveal"><div class="ico">🛡️</div><h4>Liability</h4><p>State-minimum and beyond — meet Texas &amp; New Mexico requirements, compared across the carriers we represent.</p></div>
-        <div class="covc reveal"><div class="ico">🚗</div><h4>Full Coverage</h4><p>Comprehensive &amp; collision to protect your vehicle from accidents, theft, weather and more.</p></div>
-        <div class="covc reveal"><div class="ico">📄</div><h4>SR-22 &amp; High-Risk</h4><p>Need an SR-22 or have a tough record? This is our specialty — fast filings, fair prices.</p></div>
+  <section class="sec">
+    <span class="kick">Coverage</span>
+    <h2>What a car policy is actually made of</h2>
+    <p class="sub">In plain words, so you can tell whether two quotes are actually the
+       same policy at different prices or two different policies.</p>
+    <div class="cgrid">
+      <div class="ccard"><b>Liability</b><p>Pays for the other people — their injuries and their property — when a crash is your fault. Required in both states, and the part that is never enough at the legal minimum.</p></div>
+      <div class="ccard"><b>Collision &amp; comprehensive</b><p>The two that pay for your own car. Collision when you hit something, comprehensive for hail, theft, fire, glass and animals. Each has its own deductible.</p></div>
+      <div class="ccard"><b>Uninsured motorist</b><p>Pays when the driver who hit you cannot. Both Texas and New Mexico require carriers to offer it, and declining it has to be in writing — which tells you what they think of the odds.</p></div>
+      <div class="ccard"><b>Medical payments or PIP</b><p>For you and whoever is in your car, whoever caused it, with no deductible. A vehicle carries one or the other, not both.</p></div>
+      <div class="ccard"><b>Rental and roadside</b><p>Priced per car, not per policy. Worth having on the car you cannot be without for a week, and worth skipping on the one you can.</p></div>
+      <div class="ccard"><b>SR-22 filing</b><p>Not coverage — a form the carrier files with the state to prove you are insured. We do these regularly and often the same day.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <span class="kick">Who we write</span>
+    <h2>The drivers other agencies turn away</h2>
+    <p class="sub">A hard record is not a reason to be sent somewhere else. It is a reason to be shopped properly, because the carrier that says no to one person says yes to another.</p>
+    <div class="ygrid">
+      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Tickets, accidents and at-fault claims</span></div>
+      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>SR-22 and state filings</span></div>
+      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>A lapse in coverage, however long</span></div>
+      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>New drivers and teenagers</span></div>
+      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Foreign licences and matrículas</span></div>
+      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Non-owner and no-vehicle policies</span></div>
+      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Multiple cars, multiple drivers</span></div>
+      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Rideshare and delivery use</span></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <span class="kick">How it works</span>
+    <h2>Three steps, and a person at every one</h2>
+    <div class="steps">
+      <div class="step"><b>You tell us once</b>
+        <p>Online in a few minutes, or on the phone if you would rather. One set of
+           answers goes to every company we represent.</p></div>
+      <div class="step"><b>We shop it, then read it</b>
+        <p>The carriers come back with prices. An agent goes through them, applies what
+           the form could not, and works out which one is actually right for you.</p></div>
+      <div class="step"><b>You decide</b>
+        <p>We call with the real number and explain what it buys. Nothing is bound and
+           nothing is charged until you say so.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <span class="kick">Questions</span>
+    <h2>What people ask us</h2>
+    <div class="fgrid">
+      <div class="fcard"><b>Do I have to buy anything to get a quote?</b><p>No. Quoting is free and there is no obligation. If nothing we find beats what you have, we will tell you that — it is a shorter conversation and it keeps you as somebody who calls us next year.</p></div>
+      <div class="fcard"><b>How fast can I get an SR-22?</b><p>Often the same day. Tell the agent up front that you need one, because it changes which carriers are worth quoting and getting that right the first time is the difference between an afternoon and a week.</p></div>
+      <div class="fcard"><b>Can you insure me without a licence?</b><p>Sometimes, depending on the situation and the state. It is a real question with a real answer — call and ask rather than assuming the answer is no.</p></div>
+      <div class="fcard"><b>What if I have not had insurance for a while?</b><p>Say so. A lapse changes the price and it changes which companies will write you, and hiding it only means being requoted later at a number that moved.</p></div>
+      <div class="fcard"><b>Will you use my current policy to beat itself?</b><p>Send us your declarations page and we will quote the same coverage, line for line, so you are comparing like with like instead of a cheaper policy that covers less.</p></div>
+      <div class="fcard"><b>Do you cover New Mexico?</b><p>Yes — we are licensed in both states. New Mexico quotes are prepared by an agent rather than by the online rater, so you get real New Mexico limits instead of a Texas price.</p></div>
+    </div>
+  </section>
+
+  <div class="end">
+    <div class="endin">
+      <h2>Let us take a second look.</h2>
+      <p>Start online and an agent picks it up, or call and we will do the whole thing
+         with you. In English or Spanish, whichever the conversation starts in.</p>
+      <div class="row">
+        <a class="p" href="quote.html?type=car">Get my free quote &rarr;</a>
+        <a class="s" href="tel:+19155031207">Call 915-503-1207</a>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section>
-    <div class="wrap center" style="max-width:720px">
-      <span class="kicker reveal">Carriers we shop</span>
-      <h2 class="h2 reveal">We compare the names <span class="it grad-text">you trust.</span></h2>
-      <p class="sec-lede center reveal">Progressive · Geico · Lemonade · Alinsco · Commonwealth — and more. One quick quote, the best price.</p>
-      <div class="reveal" style="margin-top:26px"><a class="btn" href="contact.html#quote">Compare my options →</a></div>
+  <section class="also">
+    <div class="agrid">
+      <a href="home-insurance.html"><b>Home insurance</b><span>Home &mdash; shopped the same way</span></a>
+      <a href="renters-insurance.html"><b>Renters insurance</b><span>Renters &mdash; shopped the same way</span></a>
+      <a href="motorcycle-insurance.html"><b>Motorcycle insurance</b><span>Motorcycle &mdash; shopped the same way</span></a>
+      <a href="commercial-insurance.html"><b>Commercial insurance</b><span>Commercial &mdash; shopped the same way</span></a>
+      <a href="claims/"><b>Report a claim</b><span>Claims numbers by company</span></a>
     </div>
   </section>
 
-  <section style="padding-top:10px"><div class="wrap"><div class="cta reveal">
-    <img class="heartbg" src="assets/safehouse-heart.png" alt="">
-    <h2 class="h2">Your better price is <span class="it">60 seconds away.</span></h2>
-    <p>Get a free auto quote — no obligation, in English or Spanish.</p>
-    <a class="btn white" href="contact.html#quote">Get my quote →</a>
-  </div></div></section>
+</main>
 
-  <footer>
+<footer>
  <div class="fshell">
 
   <!-- Band 1 — where to go. Two-column city lists so twelve names read as a
@@ -174,6 +394,7 @@
       <a href="pay/guide/">How paying works</a>
       <a href="id-card/">Request an ID card</a>
       <a href="claims/">Report a claim</a>
+      <a href="claims/guide/">How claims work</a>
       <a href="tel:+19155031207">Change your policy</a>
       <a href="lienholder/">For lenders &amp; banks</a>
       <a href="quote.html">Re-shop your rate</a></div>
@@ -221,13 +442,6 @@
  </div>
 </footer>
 
-  <script>
-    const hc=document.getElementById('hearts');
-    if(hc){for(let i=0;i<7;i++){const im=document.createElement('img');im.src='assets/safehouse-heart.png';const s=20+Math.random()*40;im.style.width=s+'px';im.style.left=(Math.random()*100)+'%';im.style.bottom=(-10-Math.random()*20)+'%';im.style.animationDuration=(13+Math.random()*12)+'s';im.style.animationDelay=(-Math.random()*15)+'s';hc.appendChild(im);}}
-    const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-  </script>
-
 <script>
 (function(){
   /* The menu panel.
@@ -263,3 +477,5 @@
 </script>
 </body>
 </html>
+
+
