@@ -126,19 +126,33 @@
   .dcol a{display:block;font-size:16px;font-weight:700;color:#33415a;padding:7px 0;transition:color .16s}
   .dcol a:hover{color:var(--blue)}
 
-  .dfoot{margin-top:auto;padding-top:28px}
-  .dways{display:grid;grid-template-columns:1fr;gap:9px}
-  @media(min-width:460px){ .dways{grid-template-columns:1fr 1fr} }
-  .dways a{display:flex;align-items:center;gap:11px;border:1.5px solid var(--line);border-radius:15px;
-      padding:12px 14px;background:#fff;transition:border-color .16s,background .16s}
-  .dways a:hover{border-color:#C6D8F5;background:#FAFCFF}
-  .dways .i{width:32px;height:32px;flex:0 0 auto;border-radius:10px;background:var(--ice);
-      display:grid;place-items:center}
-  .dways .i svg{width:16px;height:16px;stroke:var(--blue);stroke-width:2;fill:none;stroke-linecap:round}
-  .dways s{display:block;text-decoration:none;font-size:11px;font-weight:700;color:#9fb0c6}
-  .dways b{display:block;font-size:14.5px;font-weight:800;color:var(--navy)}
-  .dmail{display:block;margin-top:14px;font-size:13px;font-weight:600;color:var(--muted);text-align:center}
-  .dmail a{color:var(--blue);font-weight:800}
+  /* Two rows, full width, with the number as the loudest thing on them. They
+     were a pair of thin outlined boxes in a two-column grid — the shape of a
+     form field, not of a button somebody is meant to press. The email line came
+     out with them: on a phone, in a menu, nobody is composing an email. */
+  .dfoot{margin-top:auto;padding-top:26px}
+  .dway{display:flex;align-items:center;gap:13px;border-radius:18px;padding:15px 17px;
+      margin-top:10px;transition:transform .16s,filter .16s,box-shadow .16s}
+  .dway:hover{transform:translateY(-2px);filter:brightness(1.04)}
+  .dway.call{background:var(--grad);box-shadow:0 14px 28px -14px rgba(22,102,237,.85)}
+  .dway.text{background:var(--ice);border:1.5px solid var(--ice2)}
+  .dway .i{width:40px;height:40px;flex:0 0 auto;border-radius:13px;display:grid;place-items:center}
+  .dway.call .i{background:rgba(255,255,255,.20)}
+  .dway.text .i{background:#fff}
+  .dway .i svg{width:19px;height:19px;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .dway.call .i svg{stroke:#fff}
+  .dway.text .i svg{stroke:var(--blue)}
+  .dway .t{flex:1;min-width:0}
+  .dway s{display:block;text-decoration:none;font-size:11.5px;font-weight:700;letter-spacing:.04em}
+  .dway.call s{color:rgba(255,255,255,.82)}
+  .dway.text s{color:var(--muted)}
+  .dway b{display:block;font-size:20px;font-weight:900;letter-spacing:-.02em;line-height:1.15}
+  .dway.call b{color:#fff}
+  .dway.text b{color:var(--navy)}
+  .dway .ar{flex:0 0 auto;font-size:19px;font-weight:800;opacity:.75}
+  .dway.call .ar{color:#fff}
+  .dway.text .ar{color:var(--blue)}
+  .des{margin-top:14px;text-align:center;font-size:12.5px;font-weight:700;color:#9fb0c6}
 
   /* The review card in the hero.
 
@@ -153,27 +167,30 @@
      a photograph whose brightness changes with the crop at every window size,
      and an opaque white card against a sunset reads as a sticker pasted on top.
      A blurred, half-transparent one belongs to the picture. */
-  .float{position:relative;z-index:15;margin:auto 22px 0;max-width:340px;
+  /* Smaller, and no longer hard against the left edge — it was the first thing
+     in the frame and the same size as the headline's first line. It is a nice
+     thing somebody said, not the offer. */
+  .float{position:relative;z-index:15;margin:auto 22px 0;max-width:292px;
       display:none;flex-direction:column;gap:11px;
       background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(14px) saturate(1.25);
       backdrop-filter:blur(14px) saturate(1.25);
-      border:1px solid rgba(255,255,255,.55);border-radius:20px;padding:16px 17px 14px;
+      border:1px solid rgba(255,255,255,.55);border-radius:18px;padding:14px 15px 12px;
       box-shadow:0 26px 52px -24px rgba(6,16,36,.72);
       animation:fin .7s .35s cubic-bezier(.2,.8,.2,1) both}
   @keyframes fin{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
-  .float .qm{position:absolute;top:9px;right:15px;font-family:Georgia,'Times New Roman',serif;
-      font-size:52px;line-height:1;color:rgba(22,102,237,.16);pointer-events:none;user-select:none}
-  .float .s{color:#F0A82C;font-size:12.5px;letter-spacing:2.5px;display:block;line-height:1}
-  .float p{font-size:15px;font-weight:700;color:var(--navy);line-height:1.42;letter-spacing:-.01em}
+  .float .qm{position:absolute;top:7px;right:13px;font-family:Georgia,'Times New Roman',serif;
+      font-size:42px;line-height:1;color:rgba(22,102,237,.16);pointer-events:none;user-select:none}
+  .float .s{color:#F0A82C;font-size:11px;letter-spacing:2.2px;display:block;line-height:1}
+  .float p{font-size:13.5px;font-weight:700;color:var(--navy);line-height:1.42;letter-spacing:-.01em}
   /* A hairline rather than a gap: it says the name belongs to the sentence
      above it and not to the card in general. */
   .float footer{display:flex;align-items:center;gap:9px;padding-top:11px;
       border-top:1px solid rgba(10,33,72,.10)}
-  .float .g{width:26px;height:26px;flex:0 0 auto;border-radius:99px;background:#fff;
+  .float .g{width:23px;height:23px;flex:0 0 auto;border-radius:99px;background:#fff;
       display:grid;place-items:center;box-shadow:0 3px 9px -3px rgba(6,16,36,.5)}
   .float .g svg{width:14px;height:14px;display:block}
-  .float b{font-size:13px;font-weight:800;color:var(--navy);line-height:1.2}
-  .float small{display:block;font-size:11px;color:var(--muted);font-weight:600;margin-top:1px}
+  .float b{font-size:12px;font-weight:800;color:var(--navy);line-height:1.2}
+  .float small{display:block;font-size:10.5px;color:var(--muted);font-weight:600;margin-top:1px}
 
   .hbody{position:relative;z-index:15;margin-top:auto;padding:0 22px 22px}
   /* Sized against the copy, not picked once. The fixed half of the headline is
@@ -241,7 +258,7 @@
   .cat.c::before{background-image:url("assets/cat-commercial.jpg")}
   .cat.d::before{background-image:url("assets/cat-more.jpg")}
   .cat:hover{transform:translateY(-4px)}
-  .cat .lb{font-size:12.5px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;
+  .cat .lb{font-size:15px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;
       text-shadow:0 2px 10px rgba(0,0,0,.55)}
   .cat .bt{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
   .cat p{font-size:16px;font-weight:700;line-height:1.28;max-width:15ch;text-shadow:0 2px 12px rgba(0,0,0,.6)}
@@ -427,7 +444,7 @@
   @media(min-width:760px){
     .agstrip{justify-content:center;overflow:visible;padding-left:0;padding-right:0;
         margin-left:0;margin-right:0;gap:16px}
-    .agstrip figure{width:min(200px,calc(20% - 13px))}
+    .agstrip figure{width:min(210px,calc(25% - 12px))}
   }
   .agnote{font-size:12.5px;color:var(--muted);font-weight:600;margin-top:14px}
   .agnote a{color:var(--blue-d);font-weight:700}
@@ -676,7 +693,7 @@
     .catr{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;overflow:visible;
         max-width:1720px;margin:0 auto;padding:0 24px}
     .cat{flex:none;max-width:none;padding:24px;border-radius:26px}
-    .cat .lb{font-size:13.5px;letter-spacing:.1em}
+    .cat .lb{font-size:17px;letter-spacing:.08em}
     /* Down from clamp(19px,1.55vw,25px). The row went from three columns to
        four, so each card lost about a quarter of its width and the copy was
        wrapping to five lines inside it. */
@@ -748,7 +765,7 @@
     .fbtn b{font-size:20px}
     .fdesc p{font-size:16px;padding-bottom:17px}
     .fitem{padding-left:20px}
-    .float{display:flex;margin:104px 40px 0;max-width:360px}
+    .float{display:flex;margin:110px 40px 0 96px;max-width:300px}
     .hbody{margin-top:auto}
     /* 1060, up from 860. The headline and the paragraph were reading as a
        narrow column against a very wide photograph.
@@ -962,20 +979,19 @@
     <div class="dcol">
       <h6>For lenders</h6>
       <a href="lienholder/">Lienholder requests</a>
-      <a href="claims/guide/">How a claim works</a>
-      <a href="pay/guide/">How paying works</a>
     </div>
   </div>
 
   <div class="dfoot">
-    <div class="dways">
-      <a href="tel:+19155031207"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
-        <span><s>Call</s><b>915-503-1207</b></span></a>
-      <a href="sms:+19155943777"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span>
-        <span><s>Text</s><b>915-594-3777</b></span></a>
-    </div>
-    <p class="dmail"><a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a>
-      &middot; <span lang="es">Se habla espa&ntilde;ol</span></p>
+    <a class="dway call" href="tel:+19155031207">
+      <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+      <span class="t"><s>Call us</s><b>915-503-1207</b></span>
+      <span class="ar" aria-hidden="true">&rarr;</span></a>
+    <a class="dway text" href="sms:+19155943777">
+      <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span>
+      <span class="t"><s>Text us</s><b>915-594-3777</b></span>
+      <span class="ar" aria-hidden="true">&rarr;</span></a>
+    <p class="des"><span lang="es">Se habla espa&ntilde;ol</span> &middot; Mon&ndash;Fri, 11am&ndash;5pm Mountain</p>
   </div>
 </div>
 
@@ -1152,7 +1168,6 @@
     <div class="agstrip rv" aria-label="The Safe House team">
       <figure><img src="assets/agent-1.jpg" alt="A Safe House Insurance agent" width="1040" height="1300" loading="lazy" decoding="async"></figure>
       <figure><img src="assets/agent-2.jpg" alt="A Safe House Insurance agent" width="1040" height="1300" loading="lazy" decoding="async"></figure>
-      <figure><img src="assets/agent-3.jpg" alt="A Safe House Insurance agent" width="1040" height="1300" loading="lazy" decoding="async"></figure>
       <figure><img src="assets/agent-4.jpg" alt="A Safe House Insurance agent" width="1040" height="1300" loading="lazy" decoding="async"></figure>
       <figure><img src="assets/agent-5.jpg" alt="A Safe House Insurance agent" width="1040" height="1300" loading="lazy" decoding="async"></figure>
     </div>
