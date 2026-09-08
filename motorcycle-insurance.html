@@ -75,13 +75,21 @@
   .ph.bg{padding-top:150px;padding-bottom:76px}
   .ph.bg::before{content:"";position:absolute;inset:0;z-index:0;
       background-position:center 42%;background-size:cover;background-repeat:no-repeat}
+  /* The phone crop is the hard one. The frame is 16:9 and the hero is nearly
+     square there, so `cover` throws away most of the width and the copy ends up
+     over whatever survives — on this photograph, a sunlit car body. The middle
+     of the wash is heavier here than on the desktop version for exactly that
+     reason, and the horizontal anchor is pulled right so it lands on the people
+     rather than on a wing mirror. */
+  .ph.bg::before{background-position:62% 42%}
   .ph.bg::after{content:"";position:absolute;inset:0;z-index:1;
-      background:linear-gradient(180deg,rgba(6,14,32,.80) 0%,rgba(6,14,32,.38) 30%,
-                 rgba(6,14,32,.42) 58%,rgba(6,14,32,.86) 100%)}
+      background:linear-gradient(180deg,rgba(6,14,32,.86) 0%,rgba(6,14,32,.60) 26%,
+                 rgba(6,14,32,.70) 60%,rgba(6,14,32,.92) 100%)}
   @media(min-width:900px){
     .ph.bg::after{background:
       linear-gradient(100deg,rgba(6,14,32,.90) 0%,rgba(6,14,32,.66) 42%,rgba(6,14,32,.16) 72%),
       linear-gradient(180deg,rgba(6,14,32,.55) 0%,transparent 26%,rgba(6,14,32,.55) 100%)}
+    .ph.bg::before{background-position:center 42%}
     .ph.bg .phgrid{grid-template-columns:minmax(0,.62fr) minmax(0,.38fr)}
   }
   @media(max-width:700px){ .ph.bg{padding-top:118px;padding-bottom:56px} }
