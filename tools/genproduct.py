@@ -478,8 +478,20 @@ PRODUCTS = [
 ]
 
 # ------------------------------------------------------------------- shell ---
+# The page's own CSS. The panel and the footer bring their own — a page that
+# includes their markup and not their rules renders the drawer inline, in the
+# document flow, with every icon at its intrinsic size. That is what happened
+# the first time these were built: 24x24 SVGs came out several hundred pixels
+# tall and the page ran to 17,000 pixels. It passed a check for one <h1>, no
+# horizontal overflow and no JS errors, because none of those is the thing that
+# was wrong.
 CSS = """
-  :root{ --pnavy:#08183A; --pblue:#1666ED; --pcyan:#22A7F0; --pline:#E5EBF6; }
+  :root{ --pnavy:#08183A; --pblue:#1666ED; --pcyan:#22A7F0; --pline:#E5EBF6;
+         /* shell.py's tokens, because the shared footer below is written
+            against them and an undefined custom property is silent. */
+         --blue:#1666ED; --blue-d:#0F4FBF; --cyan:#00C2FF; --navy:#0A2148;
+         --ink:#0E1726; --muted:#5C6A80; --line:#E5EBF6; --ice:#EFF5FF;
+         --ice2:#DCEAFF; --grad:linear-gradient(115deg,#1666ED,#00C2FF); }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;color:#0E1726;
@@ -521,7 +533,11 @@ CSS = """
   @media(max-width:700px){ .ph{padding:100px 20px 48px} }
   .ph .in{max-width:1120px;margin:0 auto;position:relative;z-index:2}
   .phgrid{display:grid;grid-template-columns:1fr;gap:32px;align-items:center}
-  @media(min-width:900px){ .phgrid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:52px} }
+  @media(min-width:900px){ .phgrid.has{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:52px} }
+  /* Renters and motorcycle have no photograph of their own, and an empty
+     second column beside the headline reads as a picture that failed to
+     load. Those two get one wide column instead. */
+  .phgrid:not(.has) .lede{max-width:64ch}
   .crumbs{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;
       color:rgba(255,255,255,.55);margin-bottom:16px}
   .crumbs a{color:rgba(255,255,255,.75)}
@@ -629,7 +645,57 @@ CSS = """
   .agrid a:hover{border-color:#BBD6FB;transform:translateY(-2px)}
   .agrid b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);margin-bottom:3px}
   .agrid span{display:block;font-size:12.5px;line-height:1.5;color:#7C8BA4;font-weight:600}
-"""
+  body>footer{padding:0 0 34px;border-top:1px solid var(--line);background:#FBFCFE}
+  body>footer .fshell{max-width:1180px;margin:0 auto;padding:0 22px}
+  body>footer .fband{padding:34px 0;border-bottom:1px solid var(--line)}
+  body>footer .fband:last-of-type{border-bottom:0}
+
+  /* band 2 — reach a person */
+  body>footer .fmid{display:grid;gap:34px;grid-template-columns:1fr}
+  @media(min-width:760px){ body>footer .fmid{grid-template-columns:1.4fr 1fr} }
+  /* Company reads as a list, not a column of eight lonely words. */
+  body>footer .fcols{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+  @media(max-width:520px){ body>footer .fcols{grid-template-columns:1fr} }
+  body>footer .fways{display:grid;gap:20px;grid-template-columns:1fr}
+  @media(min-width:520px){ body>footer .fways{grid-template-columns:1fr 1fr} }
+  body>footer .fway .ic{width:30px;height:30px;border-radius:9px;background:var(--ice);
+      display:grid;place-items:center;margin-bottom:9px}
+  body>footer .fway .ic svg{width:15px;height:15px;fill:none;stroke:var(--blue);
+      stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  body>footer .fway b{display:block;font-size:11.5px;font-weight:900;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--muted)}
+  body>footer .fway a.big{display:block;font-size:17px;font-weight:800;color:var(--navy);
+      margin-top:3px;letter-spacing:-.01em}
+  body>footer .fway a.big:hover{color:var(--blue)}
+  body>footer .fway small{display:block;font-size:12.5px;color:var(--muted);
+      font-weight:600;margin-top:3px;line-height:1.5}
+  body>footer address{font-style:normal;font-size:15px;line-height:1.65;
+      color:var(--navy);font-weight:600;margin-top:3px}
+  body>footer .fhours{font-size:13px;color:var(--muted);font-weight:700;margin-top:7px}
+
+  /* band 3 — the sign-off */
+  body>footer .fend{padding-top:26px;text-align:center}
+  body>footer .logo{height:28px;filter:none;margin:0 auto}
+  body>footer .fend .es{font-size:13.5px;color:var(--muted);font-weight:700;margin-top:10px}
+  body>footer .disc{font-size:12px;color:#8A99AE;line-height:1.7;margin-top:14px;
+      max-width:72ch;margin-left:auto;margin-right:auto}
+  body>footer .legal{margin-top:12px;font-size:13.5px;font-weight:800}
+  body>footer .legal a{color:var(--blue)}
+  body>footer .fdeck{display:grid;gap:30px;text-align:left;
+      border-bottom:1px solid var(--line);display:grid;gap:26px}
+  @media(min-width:680px){ body>footer .fdeck{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:1000px){ body>footer .fdeck{grid-template-columns:repeat(4,1fr)} }
+  body>footer h5{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--navy);margin-bottom:12px}
+  body>footer .fdeck .c2{display:grid;grid-template-columns:1fr 1fr;gap:2px 14px}
+  body>footer .fdeck a,
+  body>footer .fcols a{display:block;font-size:14px;font-weight:600;color:var(--muted);padding:3px 0}
+  body>footer .fdeck a:hover,
+  body>footer .fcols a:hover{color:var(--blue)}
+  body>footer .fdeck .more{font-weight:800;color:var(--blue);margin-top:8px}
+  body>footer .fway a:not(.big){display:inline-block;font-size:13px;font-weight:800;
+      color:var(--blue);margin-top:7px}
+""" + menu.PANEL_CSS
 
 TOPBAR = """  <div class="topbar">
     <span>&#128222; Call <a href="tel:%s">%s</a> &middot; &#128172; Text <a href="sms:%s">%s</a></span>
@@ -681,7 +747,7 @@ def page(p):
 {panel}
 
     <div class="in">
-      <div class="phgrid">
+      <div class="phgrid{gridcls}">
         <div>
           <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; {eyebrow}</div>
           <h1>{h1}<em>{h1em}</em></h1>
@@ -783,9 +849,10 @@ def page(p):
         topbar=TOPBAR, burger=menu.BURGER_HTML, panel=menu.panel(''),
         eyebrow=e(p['eyebrow']), h1=p['h1'], h1em=p['h1em'], lede=p['lede'],
         type=p['type'], tel=nap.CALL_E164, call=nap.CALL,
+        gridcls=(' has' if p['photo'] else ''),
         shot=('<div class="phshot"><img src="%s" alt="%s" width="1000" height="1280" '
               'loading="eager" decoding="async"></div>' % (p['photo'], e(p['photo_alt'])))
-             if p['photo'] else '<div></div>',
+             if p['photo'] else '',
         misses_lede=p['misses_lede'], eye=EYE,
         misscards=''.join(
             '        <div class="mcard"><div class="n">%d</div><b>%s</b><p>%s</p></div>\n'
@@ -799,9 +866,8 @@ def page(p):
         faqcards=''.join('      <div class="fcard"><b>%s</b><p>%s</p></div>\n' % (q, a)
                          for q, a in p['faq']),
         alsocards=''.join(
-            '      <a href="%s"><b>%s insurance</b><span>%s</span></a>\n'
-            % (q['file'], q['nav'], q['eyebrow'].replace(' insurance', '').capitalize()
-               + ' &mdash; shopped the same way')
+            '      <a href="%s"><b>%s insurance</b><span>Shopped and read the same '
+            'way</span></a>\n' % (q['file'], q['nav'])
             for q in other) +
             '      <a href="claims/"><b>Report a claim</b><span>Claims numbers by company</span></a>\n',
         footer=FOOTER.replace('</body>', menu.JS + '\n</body>'), js='')
