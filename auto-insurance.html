@@ -199,6 +199,44 @@
   .agrid a:hover{border-color:#BBD6FB;transform:translateY(-2px)}
   .agrid b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);margin-bottom:3px}
   .agrid span{display:block;font-size:12.5px;line-height:1.5;color:#7C8BA4;font-weight:600}
+
+  /* ---- the mix-and-match band ----
+     A full-bleed photograph with two carrier chips floating over the top of it
+     and the message across the bottom. The point it makes is the one an
+     independent agency can make and a captive one cannot: the car and the
+     house do not have to come from the same company.
+
+     Same rule as the hero — a painted ground under the photograph, so a
+     missing or slow image is a dark card with readable text rather than a
+     white one with white text. */
+  .mix{max-width:1180px;margin:64px auto 0;padding:0 20px}
+  .mixin{position:relative;overflow:hidden;border-radius:28px;isolation:isolate;
+      min-height:min(74vw,520px);display:flex;flex-direction:column;
+      justify-content:space-between;padding:22px 22px 34px;
+      background:linear-gradient(150deg,#2A1D14 0%,#1A1410 55%,#0E0B08 100%);
+      box-shadow:0 34px 64px -34px rgba(8,24,58,.7)}
+  @media(min-width:760px){ .mixin{padding:28px 34px 44px;min-height:440px} }
+  .mixin::before{content:"";position:absolute;inset:0;z-index:-2;
+      background-position:center 38%;background-size:cover;background-repeat:no-repeat}
+  .mixin::after{content:"";position:absolute;inset:0;z-index:-1;
+      background:linear-gradient(180deg,rgba(20,14,9,.30) 0%,rgba(20,14,9,.06) 34%,
+                 rgba(16,11,7,.52) 68%,rgba(12,8,5,.88) 100%)}
+  /* The chips sit at the top, over the lightest part of the frame, which is
+     why they are dark text on a light card rather than the reverse. */
+  .mixchips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .mchip{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,.94);
+      -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+      border-radius:16px;padding:11px 15px;box-shadow:0 14px 30px -16px rgba(0,0,0,.6)}
+  .mchip .lg{width:34px;height:34px;flex:0 0 auto;border-radius:11px;
+      background:linear-gradient(140deg,#EAF2FE,#DCEBFD);display:grid;place-items:center;
+      font-size:15px;font-weight:900;color:var(--pblue)}
+  .mchip b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);line-height:1.2}
+  .mchip small{display:block;font-size:11.5px;font-weight:700;color:#7C8BA4;margin-top:1px}
+  .mixsay{text-align:center;color:#fff;max-width:44ch;margin:0 auto}
+  .mixsay h2{font-size:clamp(26px,4.4vw,42px);line-height:1.06;font-weight:800;
+      letter-spacing:-.03em;text-transform:uppercase;text-shadow:0 3px 18px rgba(0,0,0,.6)}
+  .mixsay p{margin-top:12px;font-size:15.5px;line-height:1.6;font-weight:600;
+      color:rgba(255,255,255,.92);text-shadow:0 2px 12px rgba(0,0,0,.7)}
   body>footer{padding:0 0 34px;border-top:1px solid var(--line);background:#FBFCFE}
   body>footer .fshell{max-width:1180px;margin:0 auto;padding:0 22px}
   body>footer .fband{padding:34px 0;border-bottom:1px solid var(--line)}
@@ -363,6 +401,7 @@
     <span>El Paso, TX &middot; Serving TX &amp; NM</span>
   </div>
 
+  <style>.mixin::before{background-image:url("assets/mix-couch.jpg")}</style>
   <header class="ph bg">
     <style>.ph.bg::before{background-image:url("assets/hero-auto.jpg")}</style>
     <nav>
@@ -527,6 +566,25 @@
       <div class="fcard"><b>What if I have not had insurance for a while?</b><p>Say so. A lapse changes the price and it changes which companies will write you, and hiding it only means being requoted later at a number that moved.</p></div>
       <div class="fcard"><b>Will you use my current policy to beat itself?</b><p>Send us your declarations page and we will quote the same coverage, line for line, so you are comparing like with like instead of a cheaper policy that covers less.</p></div>
       <div class="fcard"><b>Do you cover New Mexico?</b><p>Yes — we are licensed in both states. New Mexico quotes are prepared by an agent rather than by the online rater, so you get real New Mexico limits instead of a Texas price.</p></div>
+    </div>
+  </section>
+
+
+  <!-- The one thing a captive agent cannot say. -->
+  <section class="mix">
+    <div class="mixin">
+      <div class="mixchips">
+        <span class="mchip"><span class="lg" aria-hidden="true">P</span>
+          <span><b>Progressive</b><small>Auto insurance</small></span></span>
+        <span class="mchip"><span class="lg" aria-hidden="true">L</span>
+          <span><b>Lemonade</b><small>Home insurance</small></span></span>
+      </div>
+      <div class="mixsay">
+        <h2>Compare between companies</h2>
+        <p>You are not stuck buying everything from one insurer. We can put your car with
+           one company and your home with another &mdash; whichever pair actually comes out
+           better for you.</p>
+      </div>
     </div>
   </section>
 
