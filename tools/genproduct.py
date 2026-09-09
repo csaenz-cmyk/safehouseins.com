@@ -686,6 +686,80 @@ for _p in PRODUCTS:
     _p.update(EXTRA[_p['slug']])
     assert len(_p['panels']) == len(_p['misses']), _p['slug']
 
+# ------------------------------------------------------------- discounts ---
+# Only products with a 'discounts' key get the discount section; the others
+# skip it rather than being given a list nobody has checked. Today that is the
+# car page.
+#
+# WHAT IS NOT IN HERE, AND WHY
+#
+# Percentages. The reference this is modelled on prints "SAVE UP TO 9%" on
+# every card. We have no source for that: the amount attached to any of these
+# is set by the carrier, changes by state, changes by year, and is different
+# again for each applicant. A percentage here would be a number invented on
+# the page that talks about money, which is the one thing this site does not
+# do — the same reason the mock rating panel came off these pages and the
+# reason card two of the section above shows no prices.
+#
+# What is real, and is printed instead, is the count: this many discounts get
+# asked about on every car quote. That is a fact about how we work rather than
+# a promise about somebody's bill.
+DISCOUNTS = [
+ ('Prior insurance',
+  'Continuous coverage before this policy. One of the largest credits on a car '
+  'policy, and an online form asks about it once and moves on.'),
+ ('Multi-policy',
+  'A home, renters or mobile-home policy sitting with the same company as the car.'),
+ ('Multi-car',
+  'More than one vehicle on the same policy. Worth checking even when the second '
+  'car barely moves.'),
+ ('Homeowner',
+  'Owning the home you live in. At several companies this applies even when the '
+  'home policy is somewhere else.'),
+ ('Paid in full',
+  'Paying the six or twelve months up front instead of in instalments.'),
+ ('Automatic payments',
+  'Letting the carrier draft the premium so it is never late.'),
+ ('Paperless',
+  'Taking policy documents and bills by email instead of in the post.'),
+ ('Defensive driving',
+  'A state-approved course. Worth asking about again at renewal, not just when '
+  'the policy is written.'),
+ ('Good student',
+  'A B average or better for a student listed on the policy.'),
+ ('Student away at school',
+  'A student on the policy living far enough away that they are not driving the car.'),
+ ('Safe driver',
+  'A clean record across whatever period the carrier looks back over — and they '
+  'do not all look back the same distance.'),
+ ('Usage-based',
+  'Letting the carrier see how the car is actually driven, by app or plug-in '
+  'device. Not right for everyone, and an agent will say so.'),
+ ('Anti-theft',
+  'A factory or aftermarket alarm, immobiliser or tracker.'),
+ ('Safety features',
+  'Anti-lock brakes, airbags, backup camera, lane assist and the rest of what '
+  'the car already has.'),
+ ('Early shopping',
+  'Quoting before the current policy expires rather than on the day it does.'),
+ ('Occupation and affinity',
+  'Teachers, nurses, military, first responders, and a long list of employers, '
+  'unions and alumni associations.'),
+]
+
+DISCOUNT_HEAD = 'Every discount, checked by a person'
+DISCOUNT_LEDE = ('An online form asks about a handful of these. An agent asks about all '
+                 'of them, at every company we shop, and again when the policy comes up '
+                 'for renewal.')
+DISCOUNT_FINE = ('Not every company offers every discount, and eligibility varies by '
+                 'carrier and by state.')
+
+# Only the car page carries the discount section, because its list is the only
+# one that has been written. A product without a list skips the section rather
+# than being handed somebody else's.
+for _p in PRODUCTS:
+    _p['discounts'] = DISCOUNTS if _p['slug'] == 'auto-insurance' else []
+
 # ------------------------------------------------------------------- shell ---
 # The page's own CSS. The panel and the footer bring their own — a page that
 # includes their markup and not their rules renders the drawer inline, in the
@@ -1094,6 +1168,74 @@ CSS = """
   .ezlist .tk svg{width:9px;height:9px;stroke:var(--pblue);stroke-width:3.2;fill:none;
       stroke-linecap:round;stroke-linejoin:round}
 
+  /* ---- the discount carousel ----
+     Statement on the left, one discount at a time in a big card on the right.
+     Deliberately quiet: two colours, one card, a lot of air. The loud part is
+     the size of the type and nothing else.
+
+     All sixteen cards are in the HTML and fifteen are hidden. With the script
+     blocked you get the first discount and a static section rather than an
+     empty box, and every one of them is still on the page for a search engine
+     to read. */
+  /* Bottom padding, unlike the other sections, because the scroll statement
+     that follows draws a rule across the top of itself and the quote button
+     was landing flat against it. */
+  .dsc{max-width:1260px;margin:0 auto;padding:72px 20px 26px}
+  @media(min-width:900px){ .dsc{padding:104px 24px 40px} }
+  .dscgrid{display:grid;gap:30px;grid-template-columns:1fr;align-items:center}
+  @media(min-width:960px){
+    .dscgrid{grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:56px}
+  }
+  .dschd h2{margin-top:14px;font-size:clamp(29px,4.2vw,46px);line-height:1.07;
+      font-weight:900;letter-spacing:-.034em;color:var(--pnavy);max-width:15ch;
+      text-wrap:balance}
+  .dschd p{margin-top:16px;max-width:46ch;font-size:16px;line-height:1.7;
+      color:#3B4A63;font-weight:500}
+  /* The one number in this section, and it is a count of our own list rather
+     than a claim about anybody's premium. */
+  .dsccount{margin-top:24px;display:flex;align-items:center;gap:13px}
+  .dsccount b{font-size:44px;line-height:1;font-weight:900;letter-spacing:-.04em;
+      background:linear-gradient(140deg,var(--pblue),var(--pcyan));
+      -webkit-background-clip:text;background-clip:text;color:transparent}
+  .dsccount span{font-size:14px;line-height:1.45;font-weight:700;color:#5A6B85;
+      max-width:20ch}
+  .dscact{margin-top:26px;display:inline-flex;border-radius:99px;padding:16px 28px;
+      font-size:16px;font-weight:800;color:#fff;
+      background:linear-gradient(100deg,var(--pblue),var(--pcyan));
+      box-shadow:0 18px 34px -16px rgba(22,102,237,.95)}
+
+  .dsccard{position:relative;border-radius:28px;padding:26px 24px 28px;
+      background:linear-gradient(160deg,#E6F0FE 0%,#D2E3FD 52%,#BAD3FA 100%);
+      border:1px solid rgba(22,102,237,.14);
+      box-shadow:0 34px 66px -44px rgba(8,24,58,.8)}
+  @media(min-width:700px){ .dsccard{padding:34px 36px 36px;border-radius:34px;
+      min-height:420px;display:flex;flex-direction:column} }
+  .dsctop{display:flex;align-items:center;gap:14px}
+  .dsceyebrow{font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+      font-weight:900;color:#5C7AA8}
+  .dscnav{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .dscbtn{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(10,33,80,.16);
+      background:rgba(255,255,255,.7);display:grid;place-items:center;cursor:pointer;
+      transition:background .16s,border-color .16s}
+  .dscbtn:hover{background:#fff;border-color:rgba(10,33,80,.3)}
+  .dscbtn:focus-visible{outline:2px solid var(--pblue);outline-offset:2px}
+  .dscbtn svg{width:15px;height:15px;stroke:var(--pnavy);stroke-width:2.4;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .dsccnt{font-size:13.5px;font-weight:800;color:#3E5A85;min-width:52px;text-align:center;
+      font-variant-numeric:tabular-nums}
+  /* The slot the names sit in. A fixed minimum so the card does not resize
+     under the pointer every time a shorter name comes round. */
+  .dscslot{position:relative;margin-top:auto;padding-top:34px;min-height:170px}
+  @media(min-width:700px){ .dscslot{min-height:200px} }
+  .dscitem{position:absolute;left:0;right:0;bottom:0}
+  .dscitem[hidden]{display:none}
+  .dscitem b{display:block;font-size:clamp(30px,4.6vw,54px);line-height:1.02;
+      font-weight:900;letter-spacing:-.038em;color:var(--pnavy);text-wrap:balance}
+  .dscitem p{margin-top:14px;max-width:44ch;font-size:15px;line-height:1.6;
+      font-weight:600;color:#3E5A85}
+  .dscfine{margin-top:26px;padding-top:16px;border-top:1px solid rgba(10,33,80,.12);
+      font-size:12px;line-height:1.55;font-weight:600;color:#5C7AA8}
+
   /* ---- generic sections ---- */
   .sec{max-width:1000px;margin:0 auto;padding:64px 20px 0}
   .sec .sub{margin-top:14px;max-width:60ch;font-size:16px;line-height:1.66;color:#3B4A63;
@@ -1423,6 +1565,52 @@ def ezsection():
         '  </section>\n')
 
 
+ARROW_L = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>'
+ARROW_R = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>'
+
+
+def discounts(p):
+    """The discount carousel, or nothing at all for a product without a list."""
+    if not p['discounts']:
+        return ''
+    items = ''.join(
+        '        <div class="dscitem" id="dsc%d"%s><b>%s</b><p>%s</p></div>\n'
+        % (i, '' if i == 0 else ' hidden', name, body)
+        for i, (name, body) in enumerate(p['discounts']))
+    n = len(p['discounts'])
+    return (
+        '  <section class="dsc" aria-labelledby="dsch">\n'
+        '    <div class="dscgrid">\n'
+        '      <div class="dschd">\n'
+        '        <span class="kick">Discounts</span>\n'
+        '        <h2 id="dsch">' + DISCOUNT_HEAD + '</h2>\n'
+        '        <p>' + DISCOUNT_LEDE + '</p>\n'
+        '        <p class="dsccount"><b>' + str(n) + '</b>'
+        '<span>asked about on every car quote</span></p>\n'
+        '        <a class="dscact" href="quote.html?type=' + p['type'] + '">'
+        'Start my quote &rarr;</a>\n'
+        '      </div>\n'
+        # aria-live so the name is announced when it changes rather than the
+        # change happening silently for anyone not looking at it.
+        '      <div class="dsccard" id="dsccard">\n'
+        '        <div class="dsctop">\n'
+        '          <span class="dsceyebrow">Discount</span>\n'
+        '          <div class="dscnav">\n'
+        '            <button class="dscbtn" type="button" id="dscprev" '
+        'aria-label="Previous discount">' + ARROW_L + '</button>\n'
+        '            <span class="dsccnt" id="dsccnt">1 / ' + str(n) + '</span>\n'
+        '            <button class="dscbtn" type="button" id="dscnext" '
+        'aria-label="Next discount">' + ARROW_R + '</button>\n'
+        '          </div>\n'
+        '        </div>\n'
+        '        <div class="dscslot" aria-live="polite">\n' + items +
+        '        </div>\n'
+        '        <p class="dscfine">' + DISCOUNT_FINE + '</p>\n'
+        '      </div>\n'
+        '    </div>\n'
+        '  </section>\n')
+
+
 def figure(spec):
     """The small illustration inside a miss card. See EXTRA for the shapes."""
     kind = spec[0]
@@ -1570,6 +1758,43 @@ SECTION_JS = """
     });
   }
 
+  var card=document.getElementById('dsccard');
+  if(card){
+    var items=[].slice.call(card.querySelectorAll('.dscitem')),
+        cnt=document.getElementById('dsccnt'), at=0, timer=null;
+    function go(n){
+      items[at].hidden=true;
+      at=(n+items.length)%items.length;
+      items[at].hidden=false;
+      cnt.textContent=(at+1)+' / '+items.length;
+    }
+    /* Advancing on its own is what makes the section read as alive rather
+       than as a list somebody has to operate. It stops for good the moment
+       the visitor takes over, because continuing to move under them after
+       they have chosen a card is the annoying version of this. */
+    function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+    function start(){
+      if(timer) return;
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      timer=setInterval(function(){ go(at+1); },4600);
+    }
+    document.getElementById('dscprev').addEventListener('click',function(){ stop(); go(at-1); });
+    document.getElementById('dscnext').addEventListener('click',function(){ stop(); go(at+1); });
+    card.addEventListener('mouseenter',stop);
+    card.addEventListener('keydown',function(ev){
+      if(ev.key==='ArrowLeft'){ stop(); go(at-1); }
+      if(ev.key==='ArrowRight'){ stop(); go(at+1); }
+    });
+    /* Only run while the section is actually on screen — a timer ticking
+       through sixteen states at the top of a page nobody has scrolled to is
+       work for nothing. */
+    if(window.IntersectionObserver){
+      new IntersectionObserver(function(es){
+        es.forEach(function(e){ e.isIntersecting ? start() : stop(); });
+      },{threshold:.25}).observe(card);
+    } else { start(); }
+  }
+
   var big=document.querySelector('.stmt');
   if(big && !matchMedia('(prefers-reduced-motion: reduce)').matches){
     var tick=false;
@@ -1677,6 +1902,7 @@ def page(p):
 {covercards}    </div>
   </section>
 
+{discounts}
 {bigstatement}
   <section class="sec">
     <span class="kick">Who we write</span>
@@ -1761,6 +1987,7 @@ def page(p):
              if p['photo'] else '',
         misses_lede=p['misses_lede'], eye=EYE,
         misscards=misscards(p), picker=picker(p), bigstatement=bigstatement(p),
+        discounts=discounts(p),
         cover_head=e(p['cover_head']),
         covercards=''.join('      <div class="ccard"><b>%s</b><p>%s</p></div>\n' % (t, b)
                            for t, b in p['cover']),

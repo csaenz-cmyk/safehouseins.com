@@ -415,6 +415,74 @@
   .ezlist .tk svg{width:9px;height:9px;stroke:var(--pblue);stroke-width:3.2;fill:none;
       stroke-linecap:round;stroke-linejoin:round}
 
+  /* ---- the discount carousel ----
+     Statement on the left, one discount at a time in a big card on the right.
+     Deliberately quiet: two colours, one card, a lot of air. The loud part is
+     the size of the type and nothing else.
+
+     All sixteen cards are in the HTML and fifteen are hidden. With the script
+     blocked you get the first discount and a static section rather than an
+     empty box, and every one of them is still on the page for a search engine
+     to read. */
+  /* Bottom padding, unlike the other sections, because the scroll statement
+     that follows draws a rule across the top of itself and the quote button
+     was landing flat against it. */
+  .dsc{max-width:1260px;margin:0 auto;padding:72px 20px 26px}
+  @media(min-width:900px){ .dsc{padding:104px 24px 40px} }
+  .dscgrid{display:grid;gap:30px;grid-template-columns:1fr;align-items:center}
+  @media(min-width:960px){
+    .dscgrid{grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:56px}
+  }
+  .dschd h2{margin-top:14px;font-size:clamp(29px,4.2vw,46px);line-height:1.07;
+      font-weight:900;letter-spacing:-.034em;color:var(--pnavy);max-width:15ch;
+      text-wrap:balance}
+  .dschd p{margin-top:16px;max-width:46ch;font-size:16px;line-height:1.7;
+      color:#3B4A63;font-weight:500}
+  /* The one number in this section, and it is a count of our own list rather
+     than a claim about anybody's premium. */
+  .dsccount{margin-top:24px;display:flex;align-items:center;gap:13px}
+  .dsccount b{font-size:44px;line-height:1;font-weight:900;letter-spacing:-.04em;
+      background:linear-gradient(140deg,var(--pblue),var(--pcyan));
+      -webkit-background-clip:text;background-clip:text;color:transparent}
+  .dsccount span{font-size:14px;line-height:1.45;font-weight:700;color:#5A6B85;
+      max-width:20ch}
+  .dscact{margin-top:26px;display:inline-flex;border-radius:99px;padding:16px 28px;
+      font-size:16px;font-weight:800;color:#fff;
+      background:linear-gradient(100deg,var(--pblue),var(--pcyan));
+      box-shadow:0 18px 34px -16px rgba(22,102,237,.95)}
+
+  .dsccard{position:relative;border-radius:28px;padding:26px 24px 28px;
+      background:linear-gradient(160deg,#E6F0FE 0%,#D2E3FD 52%,#BAD3FA 100%);
+      border:1px solid rgba(22,102,237,.14);
+      box-shadow:0 34px 66px -44px rgba(8,24,58,.8)}
+  @media(min-width:700px){ .dsccard{padding:34px 36px 36px;border-radius:34px;
+      min-height:420px;display:flex;flex-direction:column} }
+  .dsctop{display:flex;align-items:center;gap:14px}
+  .dsceyebrow{font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+      font-weight:900;color:#5C7AA8}
+  .dscnav{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .dscbtn{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(10,33,80,.16);
+      background:rgba(255,255,255,.7);display:grid;place-items:center;cursor:pointer;
+      transition:background .16s,border-color .16s}
+  .dscbtn:hover{background:#fff;border-color:rgba(10,33,80,.3)}
+  .dscbtn:focus-visible{outline:2px solid var(--pblue);outline-offset:2px}
+  .dscbtn svg{width:15px;height:15px;stroke:var(--pnavy);stroke-width:2.4;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .dsccnt{font-size:13.5px;font-weight:800;color:#3E5A85;min-width:52px;text-align:center;
+      font-variant-numeric:tabular-nums}
+  /* The slot the names sit in. A fixed minimum so the card does not resize
+     under the pointer every time a shorter name comes round. */
+  .dscslot{position:relative;margin-top:auto;padding-top:34px;min-height:170px}
+  @media(min-width:700px){ .dscslot{min-height:200px} }
+  .dscitem{position:absolute;left:0;right:0;bottom:0}
+  .dscitem[hidden]{display:none}
+  .dscitem b{display:block;font-size:clamp(30px,4.6vw,54px);line-height:1.02;
+      font-weight:900;letter-spacing:-.038em;color:var(--pnavy);text-wrap:balance}
+  .dscitem p{margin-top:14px;max-width:44ch;font-size:15px;line-height:1.6;
+      font-weight:600;color:#3E5A85}
+  .dscfine{margin-top:26px;padding-top:16px;border-top:1px solid rgba(10,33,80,.12);
+      font-size:12px;line-height:1.55;font-weight:600;color:#5C7AA8}
+
   /* ---- generic sections ---- */
   .sec{max-width:1000px;margin:0 auto;padding:64px 20px 0}
   .sec .sub{margin-top:14px;max-width:60ch;font-size:16px;line-height:1.66;color:#3B4A63;
@@ -965,6 +1033,7 @@
     </div>
   </section>
 
+
   <section class="stmt" aria-label="A human reads every quote">
     <span class="stmtline a" style="font-size:clamp(38px,11.54vw,300px)" aria-hidden="true">A human reads</span>
     <span class="stmtline b" style="font-size:clamp(38px,13.64vw,300px)" aria-hidden="true">every quote</span>
@@ -1195,6 +1264,43 @@
         if(n!==null){ ev.preventDefault(); show(n,true); }
       });
     });
+  }
+
+  var card=document.getElementById('dsccard');
+  if(card){
+    var items=[].slice.call(card.querySelectorAll('.dscitem')),
+        cnt=document.getElementById('dsccnt'), at=0, timer=null;
+    function go(n){
+      items[at].hidden=true;
+      at=(n+items.length)%items.length;
+      items[at].hidden=false;
+      cnt.textContent=(at+1)+' / '+items.length;
+    }
+    /* Advancing on its own is what makes the section read as alive rather
+       than as a list somebody has to operate. It stops for good the moment
+       the visitor takes over, because continuing to move under them after
+       they have chosen a card is the annoying version of this. */
+    function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+    function start(){
+      if(timer) return;
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      timer=setInterval(function(){ go(at+1); },4600);
+    }
+    document.getElementById('dscprev').addEventListener('click',function(){ stop(); go(at-1); });
+    document.getElementById('dscnext').addEventListener('click',function(){ stop(); go(at+1); });
+    card.addEventListener('mouseenter',stop);
+    card.addEventListener('keydown',function(ev){
+      if(ev.key==='ArrowLeft'){ stop(); go(at-1); }
+      if(ev.key==='ArrowRight'){ stop(); go(at+1); }
+    });
+    /* Only run while the section is actually on screen — a timer ticking
+       through sixteen states at the top of a page nobody has scrolled to is
+       work for nothing. */
+    if(window.IntersectionObserver){
+      new IntersectionObserver(function(es){
+        es.forEach(function(e){ e.isIntersecting ? start() : stop(); });
+      },{threshold:.25}).observe(card);
+    } else { start(); }
   }
 
   var big=document.querySelector('.stmt');
