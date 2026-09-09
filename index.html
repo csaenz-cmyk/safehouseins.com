@@ -305,30 +305,43 @@
   /* carriers:css:start */
 
   /* ---- the carrier loop ----
-     A single row of carrier names that scrolls forever. The track holds the
+     A single row of carrier marks that scrolls forever. The track holds the
      list twice and translates by exactly -50%, so the moment the first copy
      has left the frame the second is sitting where the first started and the
      animation restarts on an identical frame. That is what makes the seam
      invisible; any other width and it visibly jumps once per cycle.
 
-     The row is decoration, so the second copy is aria-hidden and the whole
-     strip is announced once, by the caption. */
-  .carr{background:#fff;border-bottom:1px solid #E6ECF5;padding:26px 0 24px;
+     The row carries no visible heading — it is a row of logos and it explains
+     itself. It still has an accessible name, and the second copy is
+     aria-hidden, so it is announced once rather than thirty-eight times. */
+  .carr{background:#fff;border-bottom:1px solid #E6ECF5;padding:26px 0;
       overflow:hidden}
-  .carrcap{text-align:center;font-size:11.5px;font-weight:800;letter-spacing:.14em;
-      text-transform:uppercase;color:#93A2B8;margin-bottom:18px}
+  @media(min-width:900px){ .carr{padding:32px 0} }
   .carrmask{position:relative;
-      -webkit-mask-image:linear-gradient(90deg,transparent,#000 13%,#000 87%,transparent);
-      mask-image:linear-gradient(90deg,transparent,#000 13%,#000 87%,transparent)}
-  .carrtrack{display:flex;width:max-content;animation:carrloop 46s linear infinite}
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+      mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .carrtrack{display:flex;width:max-content;animation:carrloop 52s linear infinite}
   .carrmask:hover .carrtrack{animation-play-state:paused}
   @keyframes carrloop{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
   .carrset{display:flex;align-items:center;flex:0 0 auto}
-  .carrname{flex:0 0 auto;padding:0 30px;font-size:19px;font-weight:800;
-      letter-spacing:-.01em;color:#8B99AE;white-space:nowrap;
-      transition:color .18s}
-  .carrname:hover{color:#0A2150}
-  @media(min-width:900px){ .carrname{font-size:21px;padding:0 38px} }
+  /* One tile per carrier. A carrier with a logo file shows the logo on its
+     own; a carrier without one shows its initial on a tile in its own colour,
+     next to the name. Both are the same height and the same vertical rhythm,
+     so a half-filled row does not look half-broken. */
+  .carrc{flex:0 0 auto;display:flex;align-items:center;gap:11px;padding:0 26px;
+      white-space:nowrap}
+  @media(min-width:900px){ .carrc{padding:0 32px} }
+  .carrc .lg{width:38px;height:38px;flex:0 0 auto;border-radius:12px;display:grid;
+      place-items:center;font-size:16px;font-weight:900;line-height:1}
+  .carrc .lgimg{background:#fff;border:1px solid rgba(16,32,64,.07);padding:4px}
+  .carrc .lgimg img{width:100%;height:100%;object-fit:contain;display:block}
+  .carrc b{font-size:17px;font-weight:800;letter-spacing:-.012em;color:#7C8CA4}
+  @media(min-width:900px){ .carrc b{font-size:18.5px} }
+  /* A carrier that has its own artwork does not also need its name set beside
+     it — the logo is the name. */
+  .carrc.haslogo{gap:0}
+  .carrc.haslogo .lg{width:auto;height:38px;min-width:44px;padding:0}
+  .carrc.haslogo .lgimg img{width:auto;height:100%}
   /* Somebody who has asked the operating system to stop moving things gets a
      static row rather than no row: the list still reads, it just does not
      travel. */
@@ -336,7 +349,7 @@
     .carrtrack{animation:none}
     .carrmask{-webkit-mask-image:none;mask-image:none}
     .carrset:nth-child(2){display:none}
-    .carrset{flex-wrap:wrap;justify-content:center;row-gap:12px}
+    .carrset{flex-wrap:wrap;justify-content:center;row-gap:14px}
   }
   /* carriers:css:end */
 
@@ -1143,11 +1156,10 @@
      here by hand are lost. -->
 <!-- carriers:start -->
   <section class="carr" aria-label="Some of the companies we shop for you">
-    <p class="carrcap">Some of the companies we shop for you</p>
     <div class="carrmask">
       <div class="carrtrack">
-        <div class="carrset"><span class="carrname">Progressive</span><span class="carrname">GEICO</span><span class="carrname">Allstate</span><span class="carrname">State Farm</span><span class="carrname">Nationwide</span><span class="carrname">Lemonade</span><span class="carrname">Root</span><span class="carrname">Safeco</span><span class="carrname">Kemper</span><span class="carrname">GAINSCO</span><span class="carrname">Bristol West</span><span class="carrname">Dairyland</span><span class="carrname">National General</span><span class="carrname">Acacia</span><span class="carrname">Bluefire</span><span class="carrname">Alinsco</span><span class="carrname">Commonwealth</span><span class="carrname">Apollo</span><span class="carrname">Connect</span></div>
-        <div class="carrset" aria-hidden="true"><span class="carrname">Progressive</span><span class="carrname">GEICO</span><span class="carrname">Allstate</span><span class="carrname">State Farm</span><span class="carrname">Nationwide</span><span class="carrname">Lemonade</span><span class="carrname">Root</span><span class="carrname">Safeco</span><span class="carrname">Kemper</span><span class="carrname">GAINSCO</span><span class="carrname">Bristol West</span><span class="carrname">Dairyland</span><span class="carrname">National General</span><span class="carrname">Acacia</span><span class="carrname">Bluefire</span><span class="carrname">Alinsco</span><span class="carrname">Commonwealth</span><span class="carrname">Apollo</span><span class="carrname">Connect</span></div>
+        <div class="carrset"><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7F0FC;color:#0B4DA2">P</span><b>Progressive</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E6EFF8;color:#004B8D">G</span><b>GEICO</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5F1F9;color:#0069AA">A</span><b>Allstate</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FCE9EC;color:#C8102E">S</span><b>State Farm</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EEF7;color:#00539B">N</span><b>Nationwide</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FFE7F3;color:#FF0083">L</span><b>Lemonade</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E3F7F0;color:#00A66C">R</span><b>Root</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FBEAEB;color:#D4262C">S</span><b>Safeco</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E6E9ED;color:#0C2340">K</span><b>Kemper</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FDE9EC;color:#E4002B">G</span><b>GAINSCO</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EEF7;color:#00539B">B</span><b>Bristol West</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EFF9;color:#005EB8">D</span><b>Dairyland</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EBF6;color:#003DA5">N</span><b>National General</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7F3EE;color:#2E7D5B">A</span><b>Acacia</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7EFFB;color:#1D5FBF">B</span><b>Bluefire</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#F9E9EA;color:#B01E28">A</span><b>Alinsco</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7EBF3;color:#1B3A6B">C</span><b>Commonwealth</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#EEE9F8;color:#5B34A8">A</span><b>Apollo</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E8F1FE;color:#1668ED">C</span><b>Connect</b></span></div>
+        <div class="carrset" aria-hidden="true"><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7F0FC;color:#0B4DA2">P</span><b>Progressive</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E6EFF8;color:#004B8D">G</span><b>GEICO</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5F1F9;color:#0069AA">A</span><b>Allstate</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FCE9EC;color:#C8102E">S</span><b>State Farm</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EEF7;color:#00539B">N</span><b>Nationwide</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FFE7F3;color:#FF0083">L</span><b>Lemonade</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E3F7F0;color:#00A66C">R</span><b>Root</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FBEAEB;color:#D4262C">S</span><b>Safeco</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E6E9ED;color:#0C2340">K</span><b>Kemper</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FDE9EC;color:#E4002B">G</span><b>GAINSCO</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EEF7;color:#00539B">B</span><b>Bristol West</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EFF9;color:#005EB8">D</span><b>Dairyland</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EBF6;color:#003DA5">N</span><b>National General</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7F3EE;color:#2E7D5B">A</span><b>Acacia</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7EFFB;color:#1D5FBF">B</span><b>Bluefire</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#F9E9EA;color:#B01E28">A</span><b>Alinsco</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7EBF3;color:#1B3A6B">C</span><b>Commonwealth</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#EEE9F8;color:#5B34A8">A</span><b>Apollo</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E8F1FE;color:#1668ED">C</span><b>Connect</b></span></div>
       </div>
     </div>
   </section>

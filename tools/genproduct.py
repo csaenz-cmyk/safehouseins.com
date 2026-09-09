@@ -481,6 +481,211 @@ PRODUCTS = [
 },
 ]
 
+# --------------------------------------------------------- the second half ---
+# Kept out of PRODUCTS above and merged in below, because the five dictionaries
+# were already long enough to lose your place in. Same rule applies to every
+# string here as to every string up there: no price, no saving, no percentage,
+# no rating. Nothing in this table is a Safe House product name either — these
+# are the shapes a policy can take at any carrier, which is what makes them
+# safe to describe without a quote in hand.
+#
+# 'panels'  one per entry in 'misses', in the same order. The little
+#           illustration inside each card. Three kinds:
+#             ('check', [rows])            a checklist
+#             ('pick', label, [(row, on)]) options with one selected
+#             ('note', text)               something an agent would say
+# 'picks'   the coverage chooser: (label, blurb, [what is included]).
+#           Ordered least to most, and the middle one opens by default.
+# 'big'     the two lines of the scroll statement.
+EXTRA = {
+
+'auto-insurance': {
+ 'panels': [
+   ('check', ['Who the policy was with', 'The exact start and end dates',
+              'Why the gap happened, if there was one']),
+   ('check', ['Defensive driving', 'Paid in full', 'Homeowner', 'Paperless']),
+   ('pick', 'Uninsured motorist', [('30/60 &mdash; the state minimum', False),
+                                   ('100/300 &mdash; what we usually suggest', True)]),
+   ('note', 'This one is the cheapest today and it non-renews a lot of drivers after '
+            'the first claim. The one under it holds. That is worth knowing before '
+            'you sign, not after.'),
+ ],
+ 'pick_head': 'We lay the options out. You pick.',
+ 'pick_lede': 'Every quote comes back with more than one way to cover the same car. An '
+              'agent walks you through what each one actually changes &mdash; then it is '
+              'your call, not a default a website chose for you.',
+ 'picks': [
+   ('Liability only',
+    'The legal minimum and whatever you add on top of it. Pays for the other people '
+    'and their property. Pays nothing towards your own car.',
+    ['Bodily injury liability', 'Property damage liability',
+     'Uninsured motorist, if you keep it', 'SR-22 filing, if you need one']),
+   ('Full coverage',
+    'Adds the two that pay for your car. This is what a lender means when it says '
+    'full coverage, and it is required while the car is financed or leased.',
+    ['Everything in liability only', 'Collision', 'Comprehensive',
+     'The deductibles you choose on each']),
+   ('Full coverage, built up',
+    'Full coverage with the lines people skip to save a little and then miss badly '
+    'on the day something happens.',
+    ['Everything in full coverage', 'Higher uninsured-motorist limits',
+     'Rental reimbursement', 'Roadside assistance', 'Medical payments or PIP']),
+ ],
+ 'big': ('A licensed human', 'reads every quote'),
+},
+
+'home-insurance': {
+ 'panels': [
+   ('pick', 'Dwelling limit', [('What the house would sell for', False),
+                               ('What it would cost to rebuild', True)]),
+   ('pick', 'Roof settlement', [('Actual cash value &mdash; depreciated by age', False),
+                                ('Replacement cost', True)]),
+   ('check', ['Roof age and material', 'Impact-resistant shingles',
+              'Alarm, and a water shutoff', 'New-home credit']),
+   ('note', 'Flood and earthquake are never inside a home policy, anywhere. If you '
+            'need them they are separate &mdash; and you should hear that from us now, '
+            'not from an adjuster later.'),
+ ],
+ 'pick_head': 'We lay the options out. You pick.',
+ 'pick_lede': 'Home policies come in forms, and the form decides what is covered before '
+              'any limit or deductible does. An agent tells you which one you are '
+              'looking at and what changes if you move up.',
+ 'picks': [
+   ('Named perils',
+    'Covers the causes of loss the policy lists by name, and nothing else. The '
+    'cheapest form, and the one that surprises people at claim time.',
+    ['Fire, lightning and smoke', 'Wind and hail', 'Theft and vandalism',
+     'The other causes named in the form']),
+   ('Open perils on the house',
+    'The common form. The building is covered for anything the policy does not '
+    'specifically exclude; your belongings stay on the named list.',
+    ['The building, for anything not excluded', 'Belongings, for the named causes',
+     'Personal liability', 'Loss of use while it is repaired']),
+   ('Open perils on both',
+    'The building and your belongings both covered for anything not excluded, and '
+    'usually written with replacement cost throughout.',
+    ['The building, for anything not excluded',
+     'Belongings, for anything not excluded', 'Replacement cost, not depreciated',
+     'Higher personal liability', 'Scheduled items for the valuable things']),
+ ],
+ 'big': ('A licensed human', 'reads every policy'),
+},
+
+'renters-insurance': {
+ 'panels': [
+   ('check', ['Furniture, room by room', 'Clothing and shoes',
+              'Electronics, tools and bikes', 'The kitchen, all of it']),
+   ('pick', 'Personal property', [('Actual cash value &mdash; depreciated', False),
+                                  ('Replacement cost', True)]),
+   ('check', ['A guest hurt inside your place', 'Water that reaches the unit below',
+              'The dog, in most cases']),
+   ('note', 'A renters policy often pays for a good part of itself through the '
+            'multi-policy credit on the car. Ask what the two cost together before '
+            'you decide it is not worth it.'),
+ ],
+ 'pick_head': 'We lay the options out. You pick.',
+ 'pick_lede': 'A renters policy is small enough that the choices inside it get skipped. '
+              'They are the whole difference between a cheque that replaces your things '
+              'and one that does not.',
+ 'picks': [
+   ('Actual cash value',
+    'Pays what your things were worth on the day, age taken off. The cheapest way '
+    'to write it and the reason people feel short-changed.',
+    ['Personal property, depreciated', 'Personal liability',
+     'Loss of use', 'Medical payments to others']),
+   ('Replacement cost',
+    'Pays what it costs to buy the thing again today. The upgrade that matters most '
+    'and usually costs the least.',
+    ['Personal property, not depreciated', 'Personal liability',
+     'Loss of use', 'Medical payments to others']),
+   ('Replacement cost, with the valuables scheduled',
+    'Rings, instruments, cameras and tools sit under a low sub-limit unless they are '
+    'listed by name. Listing them removes the sub-limit and usually the deductible.',
+    ['Everything in replacement cost', 'Jewellery listed individually',
+     'Instruments, cameras, tools', 'Higher personal liability']),
+ ],
+ 'big': ('A licensed human', 'reads every quote'),
+},
+
+'motorcycle-insurance': {
+ 'panels': [
+   ('check', ['Pipes and exhaust', 'Seat, bars and pegs',
+              'Stereo and lighting', 'Paint, chrome and bags']),
+   ('pick', 'How the bike is valued', [('Actual cash value &mdash; by the book', False),
+                                       ('Agreed value &mdash; the number you set', True)]),
+   ('check', ['Helmet', 'Jacket and armour', 'Boots and gloves']),
+   ('check', ['A completed rider course', 'Endorsement on the license',
+              'Garaged at the house', 'More than one bike']),
+ ],
+ 'pick_head': 'We lay the options out. You pick.',
+ 'pick_lede': 'A bike is not a small car and it should not be quoted like one. These are '
+              'the three shapes a motorcycle policy takes, and which one is right depends '
+              'on what the bike is worth to you.',
+ 'picks': [
+   ('Liability only',
+    'Pays for the other people and their property. Nothing towards the bike. What a '
+    'lot of older bikes are written on, deliberately.',
+    ['Bodily injury liability', 'Property damage liability',
+     'Uninsured motorist, if you keep it']),
+   ('Liability plus physical damage',
+    'Adds collision and comprehensive, so the bike is paid for too &mdash; at book '
+    'value, with your deductible taken off.',
+    ['Everything in liability only', 'Collision', 'Comprehensive',
+     'Accessory coverage up to the policy limit']),
+   ('Agreed value, fully built',
+    'You and the carrier agree what the bike is worth now, in writing, and that is '
+    'the number at a total loss. For anything custom, restored or simply cared for.',
+    ['Everything in physical damage', 'Agreed value, set in advance',
+     'Accessories scheduled by name', 'Riding gear coverage',
+     'Roadside and trip interruption']),
+ ],
+ 'big': ('A licensed human', 'reads every quote'),
+},
+
+'commercial-insurance': {
+ 'panels': [
+   ('note', 'A personal auto policy can exclude business use outright. The truck is '
+            'insured right up until the claim is for work, and then it is not. That is '
+            'a five-minute conversation that saves a company.'),
+   ('check', ['The limits the contract requires', 'Additional insured wording',
+              'Waiver of subrogation', 'Primary and non-contributory']),
+   ('check', ['Every driver listed by name', 'Motor vehicle records pulled',
+              'Anyone excluded, in writing']),
+   ('note', 'Tell us the deadline when you call. A certificate takes minutes when the '
+            'policy is already right and a week when it is not.'),
+ ],
+ 'pick_head': 'We lay the options out. You pick.',
+ 'pick_lede': 'Commercial cover is assembled, not bought off a shelf. What you need is '
+              'decided by what you do and by what you have signed &mdash; so an agent '
+              'reads both before quoting any of it.',
+ 'picks': [
+   ('Commercial auto only',
+    'The vehicles and the people driving them. Where most small operations start, '
+    'and enough on its own for some of them.',
+    ['Commercial auto liability', 'Physical damage on each unit',
+     'Hired and non-owned auto', 'Filings, where the state requires them']),
+   ('Auto plus general liability',
+    'Adds the half that happens off the road &mdash; on a job site, at a customer, in '
+    'your own premises. Most contracts ask for both.',
+    ['Everything in commercial auto', 'General liability',
+     'Certificates for the people who need them', 'Additional insured endorsements']),
+   ('The whole operation',
+    'Auto, liability, the things you carry and the tools you carry them with, written '
+    'together so nothing falls between two policies.',
+    ['Everything in auto plus general liability', 'Cargo coverage',
+     'Tools and equipment', 'Waivers and contract wording',
+     'Certificates issued the same day']),
+ ],
+ 'big': ('A licensed human', 'reads every policy'),
+},
+}
+
+for _p in PRODUCTS:
+    # A missing key here is a page that silently ships without one of its three
+    # new sections, so this is a KeyError on purpose rather than a .get().
+    _p.update(EXTRA[_p['slug']])
+    assert len(_p['panels']) == len(_p['misses']), _p['slug']
+
 # ------------------------------------------------------------------- shell ---
 # The page's own CSS. The panel and the footer bring their own — a page that
 # includes their markup and not their rules renders the drawer inline, in the
@@ -642,7 +847,9 @@ CSS = """
   .mcard b{display:block;font-size:17px;font-weight:800;color:var(--pnavy);line-height:1.3;
       letter-spacing:-.015em}
   .mcard p{margin-top:8px;font-size:14.5px;line-height:1.65;color:#4A5A74;font-weight:500}
-  .mfoot{margin-top:26px;display:flex;align-items:flex-start;gap:13px;background:#fff;
+  /* The section header is centred; this footnote is not, and it sits inside
+     the same .in that centres it. */
+  .mfoot{text-align:left;margin-top:26px;display:flex;align-items:flex-start;gap:13px;background:#fff;
       border:1.5px solid #BBD6FB;border-radius:18px;padding:18px 20px}
   .mfoot .i{flex:0 0 auto;width:36px;height:36px;border-radius:12px;
       background:linear-gradient(140deg,var(--pblue),var(--pcyan));display:grid;place-items:center}
@@ -650,6 +857,127 @@ CSS = """
       stroke-linecap:round;stroke-linejoin:round}
   .mfoot b{display:block;font-size:15.5px;font-weight:800;color:var(--pnavy)}
   .mfoot p{margin-top:5px;font-size:14px;line-height:1.6;color:#3B4A63;font-weight:500}
+
+  /* The header of this section is centred, and the cards below carry a small
+     illustration each. Both are borrowed deliberately: a centred statement
+     over a row of illustrated cards is the shape every good comparison site
+     uses for its one big claim, and this is ours. */
+  .miss .in{text-align:center}
+  .miss h2,.miss .sub{margin-left:auto;margin-right:auto}
+  .miss h2{max-width:20ch;text-wrap:balance}
+  .mcard{text-align:left;display:flex;flex-direction:column}
+  /* ---- the illustration inside a miss card ----
+     Small, flat, and made of the same parts the real product is made of: a
+     checklist, a pair of options with one chosen, or something an agent would
+     actually say. Nothing in here is a number. */
+  .mfig{margin-top:16px;background:#F6F9FF;border:1px solid var(--pline);
+      border-radius:14px;padding:14px 15px;flex:1 1 auto}
+  .mfig ul{list-style:none;display:grid;gap:9px}
+  .mfig li{display:flex;align-items:flex-start;gap:9px;font-size:13.5px;line-height:1.45;
+      font-weight:700;color:#31415C}
+  .mfig .tick{flex:0 0 auto;width:17px;height:17px;border-radius:6px;margin-top:1px;
+      background:linear-gradient(140deg,var(--pblue),var(--pcyan));display:grid;
+      place-items:center}
+  .mfig .tick svg{width:10px;height:10px;stroke:#fff;stroke-width:3.2;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .mfig .lab{font-size:11px;letter-spacing:.11em;text-transform:uppercase;font-weight:900;
+      color:#8C9BB2;margin-bottom:10px}
+  .mfig .opt{display:flex;align-items:center;gap:10px;background:#fff;
+      border:1.5px solid var(--pline);border-radius:11px;padding:10px 12px;
+      font-size:13px;line-height:1.35;font-weight:700;color:#5A6B85}
+  .mfig .opt + .opt{margin-top:8px}
+  .mfig .opt .dot{flex:0 0 auto;width:15px;height:15px;border-radius:50%;
+      border:2px solid #C4D2E6;background:#fff}
+  .mfig .opt.on{border-color:var(--pblue);background:#F4F8FF;color:var(--pnavy)}
+  .mfig .opt.on .dot{border-color:var(--pblue);
+      background:radial-gradient(circle at 50% 50%,var(--pblue) 0 4px,#fff 4px)}
+  .mfig .say{display:flex;gap:10px;align-items:flex-start}
+  .mfig .say .av{flex:0 0 auto;width:26px;height:26px;border-radius:9px;
+      background:linear-gradient(140deg,var(--pblue),var(--pcyan));display:grid;
+      place-items:center;color:#fff;font-size:11px;font-weight:900}
+  .mfig .say p{margin:0;font-size:13.5px;line-height:1.55;font-weight:600;color:#31415C}
+
+  /* ---- the coverage chooser ----
+     Options down the left, what each one contains on the right. It is the one
+     section on the page that answers a visitor rather than telling them
+     something, and it works with the keyboard because it is built out of real
+     buttons rather than divs with click handlers. */
+  .pk{max-width:1180px;margin:0 auto;padding:72px 20px 0}
+  .pk .hd{max-width:60ch}
+  .pkgrid{display:grid;gap:22px;grid-template-columns:1fr;margin-top:30px;
+      align-items:start}
+  @media(min-width:940px){ .pkgrid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:38px} }
+  .pkopt{width:100%;text-align:left;display:block;background:none;border:0;
+      border-top:1.5px solid var(--pline);padding:20px 4px 20px 18px;cursor:pointer;
+      position:relative;font:inherit;color:inherit}
+  .pkopt:last-child{border-bottom:1.5px solid var(--pline)}
+  /* The rail on the left is the selected marker. It is drawn on the button
+     rather than swapped in, so nothing moves when the selection changes. */
+  .pkopt::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:3px;
+      border-radius:3px;background:var(--pline);transition:background .18s}
+  .pkopt b{display:block;font-size:17.5px;font-weight:800;letter-spacing:-.02em;
+      color:#6B7B95;transition:color .18s}
+  @media(min-width:940px){ .pkopt b{font-size:19px} }
+  .pkopt p{margin-top:8px;font-size:14.5px;line-height:1.62;color:#5A6B85;font-weight:500;
+      display:none}
+  .pkopt[aria-selected="true"]::before{background:linear-gradient(180deg,var(--pblue),var(--pcyan))}
+  .pkopt[aria-selected="true"] b{color:var(--pnavy)}
+  .pkopt[aria-selected="true"] p{display:block}
+  .pkopt:hover b{color:var(--pnavy)}
+  .pkopt:focus-visible{outline:2px solid var(--pblue);outline-offset:3px;border-radius:8px}
+  .pkcard{background:#fff;border:1.5px solid var(--pline);border-radius:22px;
+      padding:24px 24px 26px;box-shadow:0 30px 60px -40px rgba(8,24,58,.75)}
+  @media(min-width:940px){ .pkcard{position:sticky;top:26px;padding:30px 30px 32px} }
+  .pkcard .top{display:flex;align-items:center;gap:11px;padding-bottom:16px;
+      border-bottom:1px solid var(--pline)}
+  .pkcard .top .i{flex:0 0 auto;width:34px;height:34px;border-radius:11px;
+      background:linear-gradient(140deg,var(--pblue),var(--pcyan));display:grid;
+      place-items:center}
+  .pkcard .top .i svg{width:17px;height:17px;stroke:#fff;stroke-width:2.4;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .pkcard .top b{font-size:16px;font-weight:800;color:var(--pnavy);letter-spacing:-.02em}
+  .pkcard .lab{margin-top:18px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+      font-weight:900;color:#8C9BB2}
+  .pkcard ul{list-style:none;margin-top:12px;display:grid;gap:11px}
+  .pkcard li{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.5;
+      font-weight:600;color:#31415C}
+  .pkcard li .tick{flex:0 0 auto;width:19px;height:19px;border-radius:7px;margin-top:1px;
+      background:#E8F1FE;display:grid;place-items:center}
+  .pkcard li .tick svg{width:11px;height:11px;stroke:var(--pblue);stroke-width:3.2;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .pkcard .fin{margin-top:20px;padding-top:16px;border-top:1px solid var(--pline);
+      font-size:13px;line-height:1.6;color:#6B7B95;font-weight:600}
+  .pkcta{margin-top:20px;display:inline-flex;border-radius:99px;padding:15px 26px;
+      font-size:15.5px;font-weight:800;color:#fff;
+      background:linear-gradient(100deg,var(--pblue),var(--pcyan));
+      box-shadow:0 16px 32px -14px rgba(22,102,237,.9)}
+
+  /* ---- the scroll statement ----
+     Two lines of very large pale type that travel in opposite directions as
+     the page moves past them. The travel is decoration: the JS sets a custom
+     property and the CSS uses it, so with JS off, or with reduced motion asked
+     for, the lines simply sit still and the sentence still reads. */
+  .stmt{position:relative;overflow:hidden;padding:96px 0 88px;background:#fff;
+      border-top:1px solid var(--pline)}
+  @media(min-width:900px){ .stmt{padding:130px 0 120px} }
+  /* No font-size here on purpose. A fixed vw size that fits "A LICENSED HUMAN"
+     runs "READS EVERY POLICY" off both edges at once, and every product has a
+     different phrase. Each line is sized from its own character count when the
+     page is built — see stmtsize() — and set inline. */
+  .stmtline{display:block;white-space:nowrap;font-weight:900;letter-spacing:-.045em;
+      line-height:.92;color:#DCE9FC;text-transform:uppercase;will-change:transform}
+  .stmtline.a{transform:translate3d(calc(var(--stmtp,0) * -58px),0,0)}
+  .stmtline.b{transform:translate3d(calc(var(--stmtp,0) * 58px),0,0);text-align:right;
+      color:#EAF2FE}
+  .stmtsay{position:relative;max-width:1000px;margin:0 auto;padding:0 20px;
+      margin-top:44px;text-align:center}
+  @media(min-width:900px){ .stmtsay{margin-top:64px} }
+  .stmtsay p{max-width:52ch;margin:0 auto;font-size:clamp(16px,1.6vw,19px);line-height:1.62;
+      font-weight:600;color:#3B4A63}
+  .stmtsay p b{color:var(--pnavy);font-weight:800}
+  @media(prefers-reduced-motion:reduce){
+    .stmtline.a,.stmtline.b{transform:none}
+  }
 
   /* ---- generic sections ---- */
   .sec{max-width:1000px;margin:0 auto;padding:64px 20px 0}
@@ -849,6 +1177,179 @@ EYE = ('<svg viewBox="0 0 24 24" aria-hidden="true">'
        '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/>'
        '<circle cx="12" cy="12" r="3"/></svg>')
 
+SHIELD = ('<svg viewBox="0 0 24 24" aria-hidden="true">'
+          '<path d="M12 3l7.5 3v5.4c0 4.6-3.1 8.4-7.5 9.6-4.4-1.2-7.5-5-7.5-9.6V6z"/>'
+          '<path d="M9 12.2l2.2 2.2L15.4 10"/></svg>')
+
+
+def figure(spec):
+    """The small illustration inside a miss card. See EXTRA for the shapes."""
+    kind = spec[0]
+    if kind == 'check':
+        return ('<div class="mfig"><ul>' + ''.join(
+            '<li><span class="tick">' + CHECK + '</span><span>' + row + '</span></li>'
+            for row in spec[1]) + '</ul></div>')
+    if kind == 'pick':
+        return ('<div class="mfig"><p class="lab">' + spec[1] + '</p>' + ''.join(
+            '<div class="opt' + (' on' if on else '') + '">'
+            '<span class="dot" aria-hidden="true"></span><span>' + row + '</span></div>'
+            for row, on in spec[2]) + '</div>')
+    if kind == 'note':
+        # The initials are the agency's, not a named person's — we are not
+        # putting words in a specific agent's mouth on a page they did not see.
+        return ('<div class="mfig"><div class="say">'
+                '<span class="av" aria-hidden="true">SH</span>'
+                '<p>' + spec[1] + '</p></div></div>')
+    raise SystemExit('figure: unknown kind %r' % (kind,))
+
+
+def misscards(p):
+    out = []
+    for i, ((title, body), fig) in enumerate(zip(p['misses'], p['panels']), 1):
+        out.append(
+            '        <div class="mcard">\n'
+            '          <span class="n" aria-hidden="true">' + str(i) + '</span>\n'
+            '          <b>' + title + '</b>\n'
+            '          <p>' + body + '</p>\n'
+            '          ' + figure(fig) + '\n'
+            '        </div>\n')
+    return ''.join(out)
+
+
+def picker(p):
+    """The coverage chooser.
+
+    Every option's card is rendered into the page and all but one are hidden,
+    rather than one card being rewritten by script. It costs a few hundred
+    bytes and it means the whole section is in the HTML: readable with the
+    script blocked, indexable, and printable.
+    """
+    mid = 1 if len(p['picks']) > 2 else 0
+    opts, cards = [], []
+    for i, (label, blurb, items) in enumerate(p['picks']):
+        on = 'true' if i == mid else 'false'
+        opts.append(
+            '        <button class="pkopt" type="button" role="tab" id="pkt%d" '
+            'aria-selected="%s" aria-controls="pkp%d">'
+            '<b>%s</b><p>%s</p></button>\n' % (i, on, i, label, blurb))
+        cards.append(
+            '        <div class="pkcard" id="pkp%d" role="tabpanel" aria-labelledby="pkt%d"%s>\n'
+            '          <div class="top"><span class="i" aria-hidden="true">%s</span>'
+            '<b>%s</b></div>\n'
+            '          <p class="lab">What is included</p>\n'
+            '          <ul>%s</ul>\n'
+            '          <p class="fin">Availability and wording vary by company and by '
+            'state. Your agent confirms what each one costs and what it actually says '
+            'before anything is bought.</p>\n'
+            '          <a class="pkcta" href="quote.html?type=%s">Start my quote &rarr;</a>\n'
+            '        </div>\n'
+            % (i, i, '' if i == mid else ' hidden', SHIELD, label,
+               ''.join('<li><span class="tick">' + CHECK + '</span><span>' + it
+                       + '</span></li>' for it in items), p['type']))
+    return (
+        '  <section class="pk" aria-labelledby="pkh">\n'
+        '    <div class="hd">\n'
+        '      <span class="kick">Your call</span>\n'
+        '      <h2 id="pkh">' + p['pick_head'] + '</h2>\n'
+        '      <p class="sub">' + p['pick_lede'] + '</p>\n'
+        '    </div>\n'
+        '    <div class="pkgrid">\n'
+        '      <div role="tablist" aria-label="Coverage options">\n'
+        + ''.join(opts) +
+        '      </div>\n'
+        '      <div>\n' + ''.join(cards) + '      </div>\n'
+        '    </div>\n'
+        '  </section>\n')
+
+
+def stmtsize(text):
+    """An inline font-size that makes this line about as wide as the viewport.
+
+    A heavy grotesque averages roughly 0.62em of advance per character, so a
+    line of n characters is about 0.62n ems wide and the size that fills the
+    viewport is 100vw / 0.62n. The 1.5 below is that, rounded down a little, so
+    the line reaches the edges and the scroll drift carries it just past them
+    rather than starting outside the frame and never being readable at all.
+
+    Capped both ways: never so small on a phone that it stops being a
+    statement, never so large on a 27-inch monitor that two lines fill the
+    screen.
+    """
+    v = round(150.0 / max(len(text), 1), 2)
+    cap = int(min(210, max(120, 1500 // max(len(text), 1) * 10)))
+    return 'font-size:clamp(38px,%svw,%dpx)' % (v, cap)
+
+
+def bigstatement(p):
+    a, b = p['big']
+    return (
+        '  <section class="stmt" aria-label="' + a + ' ' + b + '">\n'
+        '    <span class="stmtline a" style="' + stmtsize(a) + '" aria-hidden="true">'
+        + a + '</span>\n'
+        '    <span class="stmtline b" style="' + stmtsize(b) + '" aria-hidden="true">'
+        + b + '</span>\n'
+        '    <div class="stmtsay">\n'
+        '      <p>' + a + ' ' + b + '. <b>That is the whole product.</b> The form is '
+        'the fast part; the part worth paying an agency for is somebody who has placed '
+        'this a thousand times looking at what came back before you buy it.</p>\n'
+        '    </div>\n'
+        '  </section>\n')
+
+
+# The two behaviours the new sections need. Both degrade to nothing: the
+# chooser starts with a valid option already selected in the HTML, and the
+# scroll statement starts at --stmtp:0, which is where it also ends up if this
+# never runs.
+SECTION_JS = """
+<script>
+(function(){
+  var list=document.querySelector('.pk [role="tablist"]');
+  if(list){
+    var tabs=[].slice.call(list.querySelectorAll('.pkopt'));
+    function show(i,focus){
+      tabs.forEach(function(t,n){
+        t.setAttribute('aria-selected',n===i?'true':'false');
+        t.tabIndex = n===i ? 0 : -1;
+        var panel=document.getElementById(t.getAttribute('aria-controls'));
+        if(panel) panel.hidden = n!==i;
+      });
+      if(focus) tabs[i].focus();
+    }
+    tabs.forEach(function(t,i){
+      t.tabIndex = t.getAttribute('aria-selected')==='true' ? 0 : -1;
+      t.addEventListener('click',function(){ show(i,false); });
+      t.addEventListener('keydown',function(ev){
+        var k=ev.key, n=null;
+        if(k==='ArrowDown'||k==='ArrowRight') n=(i+1)%tabs.length;
+        if(k==='ArrowUp'||k==='ArrowLeft') n=(i-1+tabs.length)%tabs.length;
+        if(k==='Home') n=0;
+        if(k==='End') n=tabs.length-1;
+        if(n!==null){ ev.preventDefault(); show(n,true); }
+      });
+    });
+  }
+
+  var big=document.querySelector('.stmt');
+  if(big && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var tick=false;
+    function place(){
+      tick=false;
+      var r=big.getBoundingClientRect(), vh=innerHeight||1;
+      /* -1 when the band is entirely below the fold, +1 when entirely above,
+         0 when it is centred. The two lines read it with opposite signs. */
+      var p=(vh/2-(r.top+r.height/2))/((vh+r.height)/2);
+      big.style.setProperty('--stmtp', Math.max(-1,Math.min(1,p)).toFixed(4));
+    }
+    addEventListener('scroll',function(){
+      if(!tick){ tick=true; requestAnimationFrame(place); }
+    },{passive:true});
+    addEventListener('resize',place,{passive:true});
+    place();
+  }
+})();
+</script>
+"""
+
 
 def page(p):
     other = [q for q in PRODUCTS if q['file'] != p['file']]
@@ -924,6 +1425,7 @@ def page(p):
     </div>
   </section>
 
+{picker}
   <section class="sec">
     <span class="kick">Coverage</span>
     <h2>{cover_head}</h2>
@@ -933,6 +1435,7 @@ def page(p):
 {covercards}    </div>
   </section>
 
+{bigstatement}
   <section class="sec">
     <span class="kick">Who we write</span>
     <h2>{yes_head}</h2>
@@ -1015,9 +1518,7 @@ def page(p):
               'loading="eager" decoding="async"></div>' % (p['photo'], e(p['photo_alt'])))
              if p['photo'] else '',
         misses_lede=p['misses_lede'], eye=EYE,
-        misscards=''.join(
-            '        <div class="mcard"><div class="n">%d</div><b>%s</b><p>%s</p></div>\n'
-            % (i + 1, t, b) for i, (t, b) in enumerate(p['misses'])),
+        misscards=misscards(p), picker=picker(p), bigstatement=bigstatement(p),
         cover_head=e(p['cover_head']),
         covercards=''.join('      <div class="ccard"><b>%s</b><p>%s</p></div>\n' % (t, b)
                            for t, b in p['cover']),
@@ -1031,7 +1532,7 @@ def page(p):
             'way</span></a>\n' % (q['file'], q['nav'])
             for q in other) +
             '      <a href="claims/"><b>Report a claim</b><span>Claims numbers by company</span></a>\n',
-        footer=FOOTER.replace('</body>', menu.JS + '\n</body>'), js='')
+        footer=FOOTER.replace('</body>', menu.JS + SECTION_JS + '</body>'), js='')
 
 
 if __name__ == '__main__':

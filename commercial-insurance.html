@@ -168,7 +168,9 @@
   .mcard b{display:block;font-size:17px;font-weight:800;color:var(--pnavy);line-height:1.3;
       letter-spacing:-.015em}
   .mcard p{margin-top:8px;font-size:14.5px;line-height:1.65;color:#4A5A74;font-weight:500}
-  .mfoot{margin-top:26px;display:flex;align-items:flex-start;gap:13px;background:#fff;
+  /* The section header is centred; this footnote is not, and it sits inside
+     the same .in that centres it. */
+  .mfoot{text-align:left;margin-top:26px;display:flex;align-items:flex-start;gap:13px;background:#fff;
       border:1.5px solid #BBD6FB;border-radius:18px;padding:18px 20px}
   .mfoot .i{flex:0 0 auto;width:36px;height:36px;border-radius:12px;
       background:linear-gradient(140deg,var(--pblue),var(--pcyan));display:grid;place-items:center}
@@ -176,6 +178,127 @@
       stroke-linecap:round;stroke-linejoin:round}
   .mfoot b{display:block;font-size:15.5px;font-weight:800;color:var(--pnavy)}
   .mfoot p{margin-top:5px;font-size:14px;line-height:1.6;color:#3B4A63;font-weight:500}
+
+  /* The header of this section is centred, and the cards below carry a small
+     illustration each. Both are borrowed deliberately: a centred statement
+     over a row of illustrated cards is the shape every good comparison site
+     uses for its one big claim, and this is ours. */
+  .miss .in{text-align:center}
+  .miss h2,.miss .sub{margin-left:auto;margin-right:auto}
+  .miss h2{max-width:20ch;text-wrap:balance}
+  .mcard{text-align:left;display:flex;flex-direction:column}
+  /* ---- the illustration inside a miss card ----
+     Small, flat, and made of the same parts the real product is made of: a
+     checklist, a pair of options with one chosen, or something an agent would
+     actually say. Nothing in here is a number. */
+  .mfig{margin-top:16px;background:#F6F9FF;border:1px solid var(--pline);
+      border-radius:14px;padding:14px 15px;flex:1 1 auto}
+  .mfig ul{list-style:none;display:grid;gap:9px}
+  .mfig li{display:flex;align-items:flex-start;gap:9px;font-size:13.5px;line-height:1.45;
+      font-weight:700;color:#31415C}
+  .mfig .tick{flex:0 0 auto;width:17px;height:17px;border-radius:6px;margin-top:1px;
+      background:linear-gradient(140deg,var(--pblue),var(--pcyan));display:grid;
+      place-items:center}
+  .mfig .tick svg{width:10px;height:10px;stroke:#fff;stroke-width:3.2;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .mfig .lab{font-size:11px;letter-spacing:.11em;text-transform:uppercase;font-weight:900;
+      color:#8C9BB2;margin-bottom:10px}
+  .mfig .opt{display:flex;align-items:center;gap:10px;background:#fff;
+      border:1.5px solid var(--pline);border-radius:11px;padding:10px 12px;
+      font-size:13px;line-height:1.35;font-weight:700;color:#5A6B85}
+  .mfig .opt + .opt{margin-top:8px}
+  .mfig .opt .dot{flex:0 0 auto;width:15px;height:15px;border-radius:50%;
+      border:2px solid #C4D2E6;background:#fff}
+  .mfig .opt.on{border-color:var(--pblue);background:#F4F8FF;color:var(--pnavy)}
+  .mfig .opt.on .dot{border-color:var(--pblue);
+      background:radial-gradient(circle at 50% 50%,var(--pblue) 0 4px,#fff 4px)}
+  .mfig .say{display:flex;gap:10px;align-items:flex-start}
+  .mfig .say .av{flex:0 0 auto;width:26px;height:26px;border-radius:9px;
+      background:linear-gradient(140deg,var(--pblue),var(--pcyan));display:grid;
+      place-items:center;color:#fff;font-size:11px;font-weight:900}
+  .mfig .say p{margin:0;font-size:13.5px;line-height:1.55;font-weight:600;color:#31415C}
+
+  /* ---- the coverage chooser ----
+     Options down the left, what each one contains on the right. It is the one
+     section on the page that answers a visitor rather than telling them
+     something, and it works with the keyboard because it is built out of real
+     buttons rather than divs with click handlers. */
+  .pk{max-width:1180px;margin:0 auto;padding:72px 20px 0}
+  .pk .hd{max-width:60ch}
+  .pkgrid{display:grid;gap:22px;grid-template-columns:1fr;margin-top:30px;
+      align-items:start}
+  @media(min-width:940px){ .pkgrid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:38px} }
+  .pkopt{width:100%;text-align:left;display:block;background:none;border:0;
+      border-top:1.5px solid var(--pline);padding:20px 4px 20px 18px;cursor:pointer;
+      position:relative;font:inherit;color:inherit}
+  .pkopt:last-child{border-bottom:1.5px solid var(--pline)}
+  /* The rail on the left is the selected marker. It is drawn on the button
+     rather than swapped in, so nothing moves when the selection changes. */
+  .pkopt::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:3px;
+      border-radius:3px;background:var(--pline);transition:background .18s}
+  .pkopt b{display:block;font-size:17.5px;font-weight:800;letter-spacing:-.02em;
+      color:#6B7B95;transition:color .18s}
+  @media(min-width:940px){ .pkopt b{font-size:19px} }
+  .pkopt p{margin-top:8px;font-size:14.5px;line-height:1.62;color:#5A6B85;font-weight:500;
+      display:none}
+  .pkopt[aria-selected="true"]::before{background:linear-gradient(180deg,var(--pblue),var(--pcyan))}
+  .pkopt[aria-selected="true"] b{color:var(--pnavy)}
+  .pkopt[aria-selected="true"] p{display:block}
+  .pkopt:hover b{color:var(--pnavy)}
+  .pkopt:focus-visible{outline:2px solid var(--pblue);outline-offset:3px;border-radius:8px}
+  .pkcard{background:#fff;border:1.5px solid var(--pline);border-radius:22px;
+      padding:24px 24px 26px;box-shadow:0 30px 60px -40px rgba(8,24,58,.75)}
+  @media(min-width:940px){ .pkcard{position:sticky;top:26px;padding:30px 30px 32px} }
+  .pkcard .top{display:flex;align-items:center;gap:11px;padding-bottom:16px;
+      border-bottom:1px solid var(--pline)}
+  .pkcard .top .i{flex:0 0 auto;width:34px;height:34px;border-radius:11px;
+      background:linear-gradient(140deg,var(--pblue),var(--pcyan));display:grid;
+      place-items:center}
+  .pkcard .top .i svg{width:17px;height:17px;stroke:#fff;stroke-width:2.4;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .pkcard .top b{font-size:16px;font-weight:800;color:var(--pnavy);letter-spacing:-.02em}
+  .pkcard .lab{margin-top:18px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+      font-weight:900;color:#8C9BB2}
+  .pkcard ul{list-style:none;margin-top:12px;display:grid;gap:11px}
+  .pkcard li{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.5;
+      font-weight:600;color:#31415C}
+  .pkcard li .tick{flex:0 0 auto;width:19px;height:19px;border-radius:7px;margin-top:1px;
+      background:#E8F1FE;display:grid;place-items:center}
+  .pkcard li .tick svg{width:11px;height:11px;stroke:var(--pblue);stroke-width:3.2;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .pkcard .fin{margin-top:20px;padding-top:16px;border-top:1px solid var(--pline);
+      font-size:13px;line-height:1.6;color:#6B7B95;font-weight:600}
+  .pkcta{margin-top:20px;display:inline-flex;border-radius:99px;padding:15px 26px;
+      font-size:15.5px;font-weight:800;color:#fff;
+      background:linear-gradient(100deg,var(--pblue),var(--pcyan));
+      box-shadow:0 16px 32px -14px rgba(22,102,237,.9)}
+
+  /* ---- the scroll statement ----
+     Two lines of very large pale type that travel in opposite directions as
+     the page moves past them. The travel is decoration: the JS sets a custom
+     property and the CSS uses it, so with JS off, or with reduced motion asked
+     for, the lines simply sit still and the sentence still reads. */
+  .stmt{position:relative;overflow:hidden;padding:96px 0 88px;background:#fff;
+      border-top:1px solid var(--pline)}
+  @media(min-width:900px){ .stmt{padding:130px 0 120px} }
+  /* No font-size here on purpose. A fixed vw size that fits "A LICENSED HUMAN"
+     runs "READS EVERY POLICY" off both edges at once, and every product has a
+     different phrase. Each line is sized from its own character count when the
+     page is built — see stmtsize() — and set inline. */
+  .stmtline{display:block;white-space:nowrap;font-weight:900;letter-spacing:-.045em;
+      line-height:.92;color:#DCE9FC;text-transform:uppercase;will-change:transform}
+  .stmtline.a{transform:translate3d(calc(var(--stmtp,0) * -58px),0,0)}
+  .stmtline.b{transform:translate3d(calc(var(--stmtp,0) * 58px),0,0);text-align:right;
+      color:#EAF2FE}
+  .stmtsay{position:relative;max-width:1000px;margin:0 auto;padding:0 20px;
+      margin-top:44px;text-align:center}
+  @media(min-width:900px){ .stmtsay{margin-top:64px} }
+  .stmtsay p{max-width:52ch;margin:0 auto;font-size:clamp(16px,1.6vw,19px);line-height:1.62;
+      font-weight:600;color:#3B4A63}
+  .stmtsay p b{color:var(--pnavy);font-weight:800}
+  @media(prefers-reduced-motion:reduce){
+    .stmtline.a,.stmtline.b{transform:none}
+  }
 
   /* ---- generic sections ---- */
   .sec{max-width:1000px;margin:0 auto;padding:64px 20px 0}
@@ -356,30 +479,43 @@
       color:var(--blue);margin-top:7px}
 
   /* ---- the carrier loop ----
-     A single row of carrier names that scrolls forever. The track holds the
+     A single row of carrier marks that scrolls forever. The track holds the
      list twice and translates by exactly -50%, so the moment the first copy
      has left the frame the second is sitting where the first started and the
      animation restarts on an identical frame. That is what makes the seam
      invisible; any other width and it visibly jumps once per cycle.
 
-     The row is decoration, so the second copy is aria-hidden and the whole
-     strip is announced once, by the caption. */
-  .carr{background:#fff;border-bottom:1px solid var(--line);padding:26px 0 24px;
+     The row carries no visible heading — it is a row of logos and it explains
+     itself. It still has an accessible name, and the second copy is
+     aria-hidden, so it is announced once rather than thirty-eight times. */
+  .carr{background:#fff;border-bottom:1px solid var(--line);padding:26px 0;
       overflow:hidden}
-  .carrcap{text-align:center;font-size:11.5px;font-weight:800;letter-spacing:.14em;
-      text-transform:uppercase;color:#93A2B8;margin-bottom:18px}
+  @media(min-width:900px){ .carr{padding:32px 0} }
   .carrmask{position:relative;
-      -webkit-mask-image:linear-gradient(90deg,transparent,#000 13%,#000 87%,transparent);
-      mask-image:linear-gradient(90deg,transparent,#000 13%,#000 87%,transparent)}
-  .carrtrack{display:flex;width:max-content;animation:carrloop 46s linear infinite}
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+      mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .carrtrack{display:flex;width:max-content;animation:carrloop 52s linear infinite}
   .carrmask:hover .carrtrack{animation-play-state:paused}
   @keyframes carrloop{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
   .carrset{display:flex;align-items:center;flex:0 0 auto}
-  .carrname{flex:0 0 auto;padding:0 30px;font-size:19px;font-weight:800;
-      letter-spacing:-.01em;color:#8B99AE;white-space:nowrap;
-      transition:color .18s}
-  .carrname:hover{color:var(--pnavy)}
-  @media(min-width:900px){ .carrname{font-size:21px;padding:0 38px} }
+  /* One tile per carrier. A carrier with a logo file shows the logo on its
+     own; a carrier without one shows its initial on a tile in its own colour,
+     next to the name. Both are the same height and the same vertical rhythm,
+     so a half-filled row does not look half-broken. */
+  .carrc{flex:0 0 auto;display:flex;align-items:center;gap:11px;padding:0 26px;
+      white-space:nowrap}
+  @media(min-width:900px){ .carrc{padding:0 32px} }
+  .carrc .lg{width:38px;height:38px;flex:0 0 auto;border-radius:12px;display:grid;
+      place-items:center;font-size:16px;font-weight:900;line-height:1}
+  .carrc .lgimg{background:#fff;border:1px solid rgba(16,32,64,.07);padding:4px}
+  .carrc .lgimg img{width:100%;height:100%;object-fit:contain;display:block}
+  .carrc b{font-size:17px;font-weight:800;letter-spacing:-.012em;color:#7C8CA4}
+  @media(min-width:900px){ .carrc b{font-size:18.5px} }
+  /* A carrier that has its own artwork does not also need its name set beside
+     it — the logo is the name. */
+  .carrc.haslogo{gap:0}
+  .carrc.haslogo .lg{width:auto;height:38px;min-width:44px;padding:0}
+  .carrc.haslogo .lgimg img{width:auto;height:100%}
   /* Somebody who has asked the operating system to stop moving things gets a
      static row rather than no row: the list still reads, it just does not
      travel. */
@@ -387,7 +523,7 @@
     .carrtrack{animation:none}
     .carrmask{-webkit-mask-image:none;mask-image:none}
     .carrset:nth-child(2){display:none}
-    .carrset{flex-wrap:wrap;justify-content:center;row-gap:12px}
+    .carrset{flex-wrap:wrap;justify-content:center;row-gap:14px}
   }
   /* ---- the menu panel ----
      A panel that comes in from the right rather than a sheet that drops from
@@ -579,11 +715,10 @@
 <main id="main">
 
   <section class="carr" aria-label="Some of the companies we shop for you">
-    <p class="carrcap">Some of the companies we shop for you</p>
     <div class="carrmask">
       <div class="carrtrack">
-        <div class="carrset"><span class="carrname">Progressive</span><span class="carrname">GEICO</span><span class="carrname">Allstate</span><span class="carrname">State Farm</span><span class="carrname">Nationwide</span><span class="carrname">Lemonade</span><span class="carrname">Root</span><span class="carrname">Safeco</span><span class="carrname">Kemper</span><span class="carrname">GAINSCO</span><span class="carrname">Bristol West</span><span class="carrname">Dairyland</span><span class="carrname">National General</span><span class="carrname">Acacia</span><span class="carrname">Bluefire</span><span class="carrname">Alinsco</span><span class="carrname">Commonwealth</span><span class="carrname">Apollo</span><span class="carrname">Connect</span></div>
-        <div class="carrset" aria-hidden="true"><span class="carrname">Progressive</span><span class="carrname">GEICO</span><span class="carrname">Allstate</span><span class="carrname">State Farm</span><span class="carrname">Nationwide</span><span class="carrname">Lemonade</span><span class="carrname">Root</span><span class="carrname">Safeco</span><span class="carrname">Kemper</span><span class="carrname">GAINSCO</span><span class="carrname">Bristol West</span><span class="carrname">Dairyland</span><span class="carrname">National General</span><span class="carrname">Acacia</span><span class="carrname">Bluefire</span><span class="carrname">Alinsco</span><span class="carrname">Commonwealth</span><span class="carrname">Apollo</span><span class="carrname">Connect</span></div>
+        <div class="carrset"><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7F0FC;color:#0B4DA2">P</span><b>Progressive</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E6EFF8;color:#004B8D">G</span><b>GEICO</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5F1F9;color:#0069AA">A</span><b>Allstate</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FCE9EC;color:#C8102E">S</span><b>State Farm</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EEF7;color:#00539B">N</span><b>Nationwide</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FFE7F3;color:#FF0083">L</span><b>Lemonade</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E3F7F0;color:#00A66C">R</span><b>Root</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FBEAEB;color:#D4262C">S</span><b>Safeco</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E6E9ED;color:#0C2340">K</span><b>Kemper</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FDE9EC;color:#E4002B">G</span><b>GAINSCO</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EEF7;color:#00539B">B</span><b>Bristol West</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EFF9;color:#005EB8">D</span><b>Dairyland</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EBF6;color:#003DA5">N</span><b>National General</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7F3EE;color:#2E7D5B">A</span><b>Acacia</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7EFFB;color:#1D5FBF">B</span><b>Bluefire</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#F9E9EA;color:#B01E28">A</span><b>Alinsco</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7EBF3;color:#1B3A6B">C</span><b>Commonwealth</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#EEE9F8;color:#5B34A8">A</span><b>Apollo</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E8F1FE;color:#1668ED">C</span><b>Connect</b></span></div>
+        <div class="carrset" aria-hidden="true"><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7F0FC;color:#0B4DA2">P</span><b>Progressive</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E6EFF8;color:#004B8D">G</span><b>GEICO</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5F1F9;color:#0069AA">A</span><b>Allstate</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FCE9EC;color:#C8102E">S</span><b>State Farm</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EEF7;color:#00539B">N</span><b>Nationwide</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FFE7F3;color:#FF0083">L</span><b>Lemonade</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E3F7F0;color:#00A66C">R</span><b>Root</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FBEAEB;color:#D4262C">S</span><b>Safeco</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E6E9ED;color:#0C2340">K</span><b>Kemper</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#FDE9EC;color:#E4002B">G</span><b>GAINSCO</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EEF7;color:#00539B">B</span><b>Bristol West</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EFF9;color:#005EB8">D</span><b>Dairyland</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EBF6;color:#003DA5">N</span><b>National General</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7F3EE;color:#2E7D5B">A</span><b>Acacia</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7EFFB;color:#1D5FBF">B</span><b>Bluefire</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#F9E9EA;color:#B01E28">A</span><b>Alinsco</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7EBF3;color:#1B3A6B">C</span><b>Commonwealth</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#EEE9F8;color:#5B34A8">A</span><b>Apollo</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E8F1FE;color:#1668ED">C</span><b>Connect</b></span></div>
       </div>
     </div>
   </section>
@@ -596,10 +731,30 @@
       <h2>What the online price misses</h2>
       <p class="sub">Commercial is where an online quote stops being merely imprecise and starts being the wrong policy entirely.</p>
       <div class="mgrid">
-        <div class="mcard"><div class="n">1</div><b>Whether a personal policy is quietly covering nothing</b><p>A truck used for work, on a personal auto policy, is a claim waiting to be denied. It is the most expensive mistake in this category and it is invisible until the day it matters.</p></div>
-        <div class="mcard"><div class="n">2</div><b>What your contracts actually require</b><p>Limits, additional insured, waiver of subrogation, primary and non-contributory. The customer or the landlord who hired you wrote those words into an agreement, and a quote that ignores them buys a policy that fails the audit.</p></div>
-        <div class="mcard"><div class="n">3</div><b>Who is actually driving</b><p>Employees, subcontractors, a family member on weekends. Who is scheduled and who is merely permitted changes both the price and whether a claim is paid.</p></div>
-        <div class="mcard"><div class="n">4</div><b>The certificate that has to exist by Friday</b><p>Half of commercial insurance is documents — certificates, filings, additional insureds, lienholder letters. That is not a rating problem. It is a phone-answering problem, and it is the reason to have an agent at all.</p></div>
+        <div class="mcard">
+          <span class="n" aria-hidden="true">1</span>
+          <b>Whether a personal policy is quietly covering nothing</b>
+          <p>A truck used for work, on a personal auto policy, is a claim waiting to be denied. It is the most expensive mistake in this category and it is invisible until the day it matters.</p>
+          <div class="mfig"><div class="say"><span class="av" aria-hidden="true">SH</span><p>A personal auto policy can exclude business use outright. The truck is insured right up until the claim is for work, and then it is not. That is a five-minute conversation that saves a company.</p></div></div>
+        </div>
+        <div class="mcard">
+          <span class="n" aria-hidden="true">2</span>
+          <b>What your contracts actually require</b>
+          <p>Limits, additional insured, waiver of subrogation, primary and non-contributory. The customer or the landlord who hired you wrote those words into an agreement, and a quote that ignores them buys a policy that fails the audit.</p>
+          <div class="mfig"><ul><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>The limits the contract requires</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Additional insured wording</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Waiver of subrogation</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Primary and non-contributory</span></li></ul></div>
+        </div>
+        <div class="mcard">
+          <span class="n" aria-hidden="true">3</span>
+          <b>Who is actually driving</b>
+          <p>Employees, subcontractors, a family member on weekends. Who is scheduled and who is merely permitted changes both the price and whether a claim is paid.</p>
+          <div class="mfig"><ul><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Every driver listed by name</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Motor vehicle records pulled</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Anyone excluded, in writing</span></li></ul></div>
+        </div>
+        <div class="mcard">
+          <span class="n" aria-hidden="true">4</span>
+          <b>The certificate that has to exist by Friday</b>
+          <p>Half of commercial insurance is documents — certificates, filings, additional insureds, lienholder letters. That is not a rating problem. It is a phone-answering problem, and it is the reason to have an agent at all.</p>
+          <div class="mfig"><div class="say"><span class="av" aria-hidden="true">SH</span><p>Tell us the deadline when you call. A certificate takes minutes when the policy is already right and a week when it is not.</p></div></div>
+        </div>
       </div>
       <div class="mfoot">
         <span class="i" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
@@ -609,6 +764,44 @@
              before you buy it, asks the questions above, and re-shops it when the answers
              change something. It costs you nothing &mdash; it is what the commission on the
              policy is for.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pk" aria-labelledby="pkh">
+    <div class="hd">
+      <span class="kick">Your call</span>
+      <h2 id="pkh">We lay the options out. You pick.</h2>
+      <p class="sub">Commercial cover is assembled, not bought off a shelf. What you need is decided by what you do and by what you have signed &mdash; so an agent reads both before quoting any of it.</p>
+    </div>
+    <div class="pkgrid">
+      <div role="tablist" aria-label="Coverage options">
+        <button class="pkopt" type="button" role="tab" id="pkt0" aria-selected="false" aria-controls="pkp0"><b>Commercial auto only</b><p>The vehicles and the people driving them. Where most small operations start, and enough on its own for some of them.</p></button>
+        <button class="pkopt" type="button" role="tab" id="pkt1" aria-selected="true" aria-controls="pkp1"><b>Auto plus general liability</b><p>Adds the half that happens off the road &mdash; on a job site, at a customer, in your own premises. Most contracts ask for both.</p></button>
+        <button class="pkopt" type="button" role="tab" id="pkt2" aria-selected="false" aria-controls="pkp2"><b>The whole operation</b><p>Auto, liability, the things you carry and the tools you carry them with, written together so nothing falls between two policies.</p></button>
+      </div>
+      <div>
+        <div class="pkcard" id="pkp0" role="tabpanel" aria-labelledby="pkt0" hidden>
+          <div class="top"><span class="i" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7.5 3v5.4c0 4.6-3.1 8.4-7.5 9.6-4.4-1.2-7.5-5-7.5-9.6V6z"/><path d="M9 12.2l2.2 2.2L15.4 10"/></svg></span><b>Commercial auto only</b></div>
+          <p class="lab">What is included</p>
+          <ul><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Commercial auto liability</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Physical damage on each unit</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Hired and non-owned auto</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Filings, where the state requires them</span></li></ul>
+          <p class="fin">Availability and wording vary by company and by state. Your agent confirms what each one costs and what it actually says before anything is bought.</p>
+          <a class="pkcta" href="quote.html?type=commercial">Start my quote &rarr;</a>
+        </div>
+        <div class="pkcard" id="pkp1" role="tabpanel" aria-labelledby="pkt1">
+          <div class="top"><span class="i" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7.5 3v5.4c0 4.6-3.1 8.4-7.5 9.6-4.4-1.2-7.5-5-7.5-9.6V6z"/><path d="M9 12.2l2.2 2.2L15.4 10"/></svg></span><b>Auto plus general liability</b></div>
+          <p class="lab">What is included</p>
+          <ul><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Everything in commercial auto</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>General liability</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Certificates for the people who need them</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Additional insured endorsements</span></li></ul>
+          <p class="fin">Availability and wording vary by company and by state. Your agent confirms what each one costs and what it actually says before anything is bought.</p>
+          <a class="pkcta" href="quote.html?type=commercial">Start my quote &rarr;</a>
+        </div>
+        <div class="pkcard" id="pkp2" role="tabpanel" aria-labelledby="pkt2" hidden>
+          <div class="top"><span class="i" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7.5 3v5.4c0 4.6-3.1 8.4-7.5 9.6-4.4-1.2-7.5-5-7.5-9.6V6z"/><path d="M9 12.2l2.2 2.2L15.4 10"/></svg></span><b>The whole operation</b></div>
+          <p class="lab">What is included</p>
+          <ul><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Everything in auto plus general liability</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Cargo coverage</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Tools and equipment</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Waivers and contract wording</span></li><li><span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Certificates issued the same day</span></li></ul>
+          <p class="fin">Availability and wording vary by company and by state. Your agent confirms what each one costs and what it actually says before anything is bought.</p>
+          <a class="pkcta" href="quote.html?type=commercial">Start my quote &rarr;</a>
         </div>
       </div>
     </div>
@@ -626,6 +819,14 @@
       <div class="ccard"><b>Hired and non-owned auto</b><p>Rented vehicles, and employees driving their own cars for you. A very common gap and a cheap one to close.</p></div>
       <div class="ccard"><b>Cargo and equipment</b><p>What you are carrying and what you carry it with. Tools and equipment are usually not covered by the auto policy at all.</p></div>
       <div class="ccard"><b>Filings and certificates</b><p>Federal and state filings where the operation needs them, certificates for the people who hired you, and lienholder documents for the bank.</p></div>
+    </div>
+  </section>
+
+  <section class="stmt" aria-label="A licensed human reads every policy">
+    <span class="stmtline a" style="font-size:clamp(38px,9.38vw,210px)" aria-hidden="true">A licensed human</span>
+    <span class="stmtline b" style="font-size:clamp(38px,8.33vw,210px)" aria-hidden="true">reads every policy</span>
+    <div class="stmtsay">
+      <p>A licensed human reads every policy. <b>That is the whole product.</b> The form is the fast part; the part worth paying an agency for is somebody who has placed this a thousand times looking at what came back before you buy it.</p>
     </div>
   </section>
 
@@ -823,6 +1024,53 @@
   drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
   addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
 
+})();
+</script>
+<script>
+(function(){
+  var list=document.querySelector('.pk [role="tablist"]');
+  if(list){
+    var tabs=[].slice.call(list.querySelectorAll('.pkopt'));
+    function show(i,focus){
+      tabs.forEach(function(t,n){
+        t.setAttribute('aria-selected',n===i?'true':'false');
+        t.tabIndex = n===i ? 0 : -1;
+        var panel=document.getElementById(t.getAttribute('aria-controls'));
+        if(panel) panel.hidden = n!==i;
+      });
+      if(focus) tabs[i].focus();
+    }
+    tabs.forEach(function(t,i){
+      t.tabIndex = t.getAttribute('aria-selected')==='true' ? 0 : -1;
+      t.addEventListener('click',function(){ show(i,false); });
+      t.addEventListener('keydown',function(ev){
+        var k=ev.key, n=null;
+        if(k==='ArrowDown'||k==='ArrowRight') n=(i+1)%tabs.length;
+        if(k==='ArrowUp'||k==='ArrowLeft') n=(i-1+tabs.length)%tabs.length;
+        if(k==='Home') n=0;
+        if(k==='End') n=tabs.length-1;
+        if(n!==null){ ev.preventDefault(); show(n,true); }
+      });
+    });
+  }
+
+  var big=document.querySelector('.stmt');
+  if(big && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var tick=false;
+    function place(){
+      tick=false;
+      var r=big.getBoundingClientRect(), vh=innerHeight||1;
+      /* -1 when the band is entirely below the fold, +1 when entirely above,
+         0 when it is centred. The two lines read it with opposite signs. */
+      var p=(vh/2-(r.top+r.height/2))/((vh+r.height)/2);
+      big.style.setProperty('--stmtp', Math.max(-1,Math.min(1,p)).toFixed(4));
+    }
+    addEventListener('scroll',function(){
+      if(!tick){ tick=true; requestAnimationFrame(place); }
+    },{passive:true});
+    addEventListener('resize',place,{passive:true});
+    place();
+  }
 })();
 </script>
 </body>
