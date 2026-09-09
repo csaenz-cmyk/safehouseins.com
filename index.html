@@ -228,20 +228,19 @@
   .float small{display:block;font-size:10.5px;color:var(--muted);font-weight:600;margin-top:1px}
 
   .hbody{position:relative;z-index:15;margin-top:auto;padding:0 22px 22px}
-  /* Sized against the copy, not picked once. The fixed half of the headline is
-     short again, so this can be large — but the ceiling is set by the longest
-     word in the rotator rather than by taste: .rot span is nowrap, so
-     "motorcycle riders." either fits its line or gets clipped, and it has to
-     fit at 320px. Change either the headline or the rotator list and re-measure
-     before changing this. */
-  h1{font-size:clamp(36px,9.2vw,56px);line-height:1.04;letter-spacing:-.03em;font-weight:900;color:#fff;
+  /* Sized against the copy, not picked once. The rotating list of audiences
+     that used to finish this headline is gone, so the old ceiling — whatever
+     "motorcycle riders." needed in order not to clip at 320px — no longer
+     applies and this can breathe.
+
+     The <br> puts the break after "start" on any screen wide enough for the
+     line to fit. On a phone it is not: "Better options start" needs about
+     31px to sit on one 390px line, which is too small to be a hero, so the
+     headline runs to four lines there and that is the right trade. Measured,
+     not assumed. */
+  h1{font-size:clamp(33px,9.6vw,60px);line-height:1.05;letter-spacing:-.03em;font-weight:900;color:#fff;
      text-shadow:0 4px 26px rgba(0,0,0,.45)}
-  .rot{display:block;position:relative;height:1.1em;overflow:hidden}
-  .rot span{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(70%);white-space:nowrap;
-      transition:opacity .3s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
-  .rot span.on{opacity:1;transform:none}
-  .rot span.out{opacity:0;transform:translateY(-70%)}
-  .hsub{font-size:16.5px;color:rgba(255,255,255,.95);margin-top:14px;max-width:38ch;font-weight:500;
+  .hsub{font-size:16.5px;color:rgba(255,255,255,.95);margin-top:16px;max-width:44ch;font-weight:500;
       text-shadow:0 2px 14px rgba(0,0,0,.5)}
   /* The opening sentence is the promise the rest of the paragraph explains, so
      it is weighted rather than left to blend into the run of text. */
@@ -1052,32 +1051,20 @@
   </figure>
 
   <div class="hbody">
-    <!-- The rotator carries the audience words, so the fixed half stays short:
-         at eleven lines of copy the H1 was running to five and seven lines and
-         the quote button was being pushed toward the fold.
+    <!-- The rotating list of audiences that used to finish this headline is
+         gone. It was doing the work of naming who we write for; this line does
+         a different and better job — it names what makes us different from the
+         thing the visitor was doing thirty seconds ago, which was typing into
+         somebody else's form.
 
-         "Insurance" is no longer in the H1. It is the first noun of the line
+         "Insurance" is not in the H1. It is the first noun of the line
          directly underneath and it is in the title tag, which is where the
          statewide positioning still lives — and the "Texas & New Mexico" chip
          below the buttons is there because this paragraph no longer says it. -->
-    <h1>Compare options. We&rsquo;ll find the right fit for
-      <span class="rot" id="rot">
-        <span class="on gt">new drivers.</span>
-        <span class="gt">families.</span>
-        <span class="gt">homeowners.</span>
-        <span class="gt">work trucks.</span>
-        <span class="gt">fleets.</span>
-        <span class="gt">SR-22 drivers.</span>
-        <span class="gt">small businesses.</span>
-        <span class="gt">landlords.</span>
-        <span class="gt">motorcycle riders.</span>
-        <span class="gt">young drivers.</span>
-        <span class="gt">you.</span>
-      </span>
-    </h1>
-    <p class="hsub"><b>Your quote deserves a second look.</b> Shop insurance online in
-      minutes. Then we take a closer look &mdash; a licensed bilingual team reviews the
-      details, hunts for extra savings, and helps you find coverage that fits better.</p>
+    <h1>Better options start<br><span class="gt">with a real person.</span></h1>
+    <p class="hsub"><b>Shop for insurance online, without losing the human touch.</b>
+      Our technology compares your options, then a licensed agent reviews your quote to
+      make sure you&rsquo;re getting a competitive rate with the coverage that fits you.</p>
     <div class="hacts">
       <a class="btn grad" href="quote.html">Get my free quote <svg class="i"><use href="#ar"/></svg></a>
       <a class="btn gh" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
@@ -1605,18 +1592,6 @@
   scrim.addEventListener('click',function(){setMenu(false);});
   drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
   addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
-
-  // ===== rotating headline =====
-  (function(){
-    var w=document.getElementById('rot'); if(!w) return;
-    var it=[].slice.call(w.children), i=0;
-    setInterval(function(){
-      it[i].classList.remove('on'); it[i].classList.add('out');
-      var prev=i; i=(i+1)%it.length;
-      it[i].classList.remove('out'); it[i].classList.add('on');
-      setTimeout(function(){ it[prev].classList.remove('out'); },620);
-    },2600);
-  })();
 
   // ===== kinetic statement: the lines fly across the screen as you scroll =====
   // Each line starts a full screen-width off to one side — left, right, left — and
