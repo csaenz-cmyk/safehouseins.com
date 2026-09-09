@@ -531,7 +531,7 @@ EXTRA = {
     ['Everything in full coverage', 'Higher uninsured-motorist limits',
      'Rental reimbursement', 'Roadside assistance', 'Medical payments or PIP']),
  ],
- 'big': ('A licensed human', 'reads every quote'),
+ 'big': ('A human reads', 'every quote'),
 },
 
 'home-insurance': {
@@ -568,7 +568,7 @@ EXTRA = {
      'Belongings, for anything not excluded', 'Replacement cost, not depreciated',
      'Higher personal liability', 'Scheduled items for the valuable things']),
  ],
- 'big': ('A licensed human', 'reads every policy'),
+ 'big': ('A human reads', 'every policy'),
 },
 
 'renters-insurance': {
@@ -604,7 +604,7 @@ EXTRA = {
     ['Everything in replacement cost', 'Jewellery listed individually',
      'Instruments, cameras, tools', 'Higher personal liability']),
  ],
- 'big': ('A licensed human', 'reads every quote'),
+ 'big': ('A human reads', 'every quote'),
 },
 
 'motorcycle-insurance': {
@@ -639,7 +639,7 @@ EXTRA = {
      'Accessories scheduled by name', 'Riding gear coverage',
      'Roadside and trip interruption']),
  ],
- 'big': ('A licensed human', 'reads every quote'),
+ 'big': ('A human reads', 'every quote'),
 },
 
 'commercial-insurance': {
@@ -676,7 +676,7 @@ EXTRA = {
      'Tools and equipment', 'Waivers and contract wording',
      'Certificates issued the same day']),
  ],
- 'big': ('A licensed human', 'reads every policy'),
+ 'big': ('A human reads', 'every policy'),
 },
 }
 
@@ -1276,7 +1276,7 @@ def stmtsize(text):
     screen.
     """
     v = round(150.0 / max(len(text), 1), 2)
-    cap = int(min(210, max(120, 1500 // max(len(text), 1) * 10)))
+    cap = int(min(300, max(140, 1500 // max(len(text), 1) * 10)))
     return 'font-size:clamp(38px,%svw,%dpx)' % (v, cap)
 
 

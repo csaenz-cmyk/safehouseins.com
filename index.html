@@ -352,6 +352,110 @@
   }
   /* carriers:css:end */
 
+  /* ================= MORE THAN JUST AN ONLINE QUOTE =================
+     Centred statement over three cards, and every card carries a small flat
+     illustration of the thing it describes. The illustrations are drawn in
+     HTML rather than dropped in as pictures for two reasons: they stay sharp
+     at any size and in dark mode, and — the one that matters — they cannot
+     quietly acquire a number that is not true. There are no prices anywhere
+     in this section, on purpose. The card that shows carriers shows what we
+     actually do to them, which is read them.
+
+     Everything here is prefixed ez- because this page has been bitten twice
+     by a new block borrowing a class the footer or a host rule already owns. */
+  .ez{background:#F7FAFF;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+      padding:64px 20px}
+  @media(min-width:900px){ .ez{padding:88px 24px} }
+  .ezhd{max-width:900px;margin:0 auto;text-align:center}
+  .ezhd h2{font-size:clamp(28px,4.4vw,46px);line-height:1.1;font-weight:900;
+      letter-spacing:-.032em;color:var(--navy);max-width:20ch;margin:0 auto;
+      text-wrap:balance}
+  .ezhd p{margin:16px auto 0;max-width:64ch;font-size:clamp(15.5px,1.5vw,17.5px);
+      line-height:1.68;color:#3B4A63;font-weight:500}
+  .ezgrid{display:grid;gap:16px;grid-template-columns:1fr;margin:38px auto 0;
+      max-width:1220px;align-items:stretch}
+  @media(min-width:820px){ .ezgrid{grid-template-columns:repeat(3,1fr);gap:20px} }
+  .ezcard{background:#fff;border:1.5px solid var(--line);border-radius:24px;
+      padding:26px 24px 24px;display:flex;flex-direction:column;
+      box-shadow:0 26px 52px -40px rgba(8,24,58,.7)}
+  @media(min-width:900px){ .ezcard{padding:30px 28px 28px} }
+  .ezcard .step{display:inline-flex;align-items:center;gap:8px;font-size:11px;
+      letter-spacing:.13em;text-transform:uppercase;font-weight:900;color:var(--blue)}
+  .ezcard .step i{width:20px;height:20px;border-radius:7px;background:var(--grad);
+      color:#fff;display:grid;place-items:center;font-size:10.5px;font-style:normal;
+      font-weight:900}
+  .ezcard h3{margin-top:13px;font-size:19.5px;line-height:1.25;font-weight:800;
+      letter-spacing:-.022em;color:var(--navy)}
+  @media(min-width:900px){ .ezcard h3{font-size:21px} }
+  .ezcard>p{margin-top:10px;font-size:14.8px;line-height:1.68;color:#4A5A74;
+      font-weight:500}
+
+  /* ---- the illustration ---- */
+  /* The figure stretches to the foot of the card so all three line up, and
+     its contents sit in the middle of whatever height that turns out to be —
+     the cards have paragraphs of different lengths, and flex-end left a band
+     of empty blue above the short ones. */
+  .ezfig{margin-top:20px;flex:1 1 auto;display:flex;flex-direction:column;
+      justify-content:center;background:#F6F9FF;border:1px solid var(--line);
+      border-radius:16px;padding:16px}
+  .ezfield{display:flex;align-items:center;gap:10px;background:#fff;
+      border:1.5px solid var(--line);border-radius:12px;padding:12px 13px;
+      font-size:13.5px;font-weight:600;color:#93A2B8}
+  .ezfield + .ezfield{margin-top:9px}
+  .ezfield svg{width:16px;height:16px;flex:0 0 auto;stroke:#A8B6CC;stroke-width:1.9;
+      fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .ezfield .cv{margin-left:auto;width:9px;height:9px;border-right:2px solid #C4D2E6;
+      border-bottom:2px solid #C4D2E6;transform:rotate(45deg) translate(-2px,-2px)}
+  .ezbtn{margin-top:11px;border-radius:99px;padding:12px;text-align:center;
+      background:var(--grad);color:#fff;font-size:13.5px;font-weight:800;
+      box-shadow:0 12px 24px -12px rgba(22,102,237,.9)}
+  .ezsecure{margin-top:10px;text-align:center;font-size:11px;font-weight:700;
+      color:#93A2B8;display:flex;align-items:center;justify-content:center;gap:6px}
+  .ezsecure svg{width:11px;height:11px;stroke:#A8B6CC;stroke-width:2.2;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+
+  /* Card 2. Carrier rows with no prices on them — what is being shown is that
+     each one was read, which is the claim the card actually makes. */
+  .ezrow{display:flex;align-items:center;gap:10px;background:#fff;
+      border:1.5px solid var(--line);border-radius:12px;padding:11px 13px}
+  .ezrow + .ezrow{margin-top:9px}
+  .ezrow.on{border-color:#A9CBFA;background:#F4F8FF}
+  .ezrow .lg{width:26px;height:26px;flex:0 0 auto;border-radius:9px;display:grid;
+      place-items:center;font-size:12px;font-weight:900;line-height:1}
+  .ezrow b{font-size:13.5px;font-weight:800;color:var(--navy);letter-spacing:-.01em}
+  .ezrow .rd{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:11px;
+      font-weight:800;color:#3E8E6A}
+  .ezrow .rd svg{width:12px;height:12px;stroke:#3E8E6A;stroke-width:3;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .ezsay{margin-top:11px;display:flex;align-items:center;gap:10px;background:#fff;
+      border:1.5px solid var(--line);border-radius:14px;padding:11px 13px;
+      box-shadow:0 14px 28px -20px rgba(8,24,58,.8)}
+  .ezsay .av{width:28px;height:28px;flex:0 0 auto;border-radius:50%;background:var(--grad);
+      display:grid;place-items:center}
+  .ezsay .av svg{width:15px;height:15px;stroke:#fff;stroke-width:2;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .ezsay b{display:block;font-size:12.5px;font-weight:800;color:var(--navy);line-height:1.3}
+  .ezsay small{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-top:1px}
+
+  /* Card 3. */
+  .ezbell{display:flex;align-items:flex-start;gap:11px;background:#fff;
+      border:1.5px solid var(--line);border-radius:14px;padding:12px 13px}
+  .ezbell .i{width:30px;height:30px;flex:0 0 auto;border-radius:10px;background:var(--ice);
+      display:grid;place-items:center}
+  .ezbell .i svg{width:15px;height:15px;stroke:var(--blue);stroke-width:2;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .ezbell b{display:block;font-size:13px;font-weight:800;color:var(--navy);line-height:1.35}
+  .ezbell small{display:block;font-size:11.5px;font-weight:600;color:var(--muted);
+      line-height:1.5;margin-top:2px}
+  .ezlist{margin-top:11px;list-style:none;display:grid;gap:0}
+  .ezlist li{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;
+      color:#31415C;padding:9px 2px}
+  .ezlist li + li{border-top:1px solid var(--line)}
+  .ezlist .tk{margin-left:auto;width:17px;height:17px;border-radius:50%;background:var(--ice);
+      display:grid;place-items:center}
+  .ezlist .tk svg{width:9px;height:9px;stroke:var(--blue);stroke-width:3.2;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+
   /* ================= MIX AND MATCH BAND =================
      A full-bleed photograph with two carrier chips over the top of it and the
      message across the bottom. The claim it makes is the one an independent
@@ -1151,6 +1255,95 @@
     </div>
   </section>
 <!-- carriers:end -->
+
+<!-- ================= MORE THAN JUST AN ONLINE QUOTE ================= -->
+<section class="ez" aria-labelledby="ezh">
+  <div class="ezhd">
+    <h2 id="ezh">More than just an online quote</h2>
+    <p>Simple online. Personal where it matters. Start your quote online, have a licensed
+       agent review your options, and count on us to keep an eye on your policy. If a
+       better option comes up, we&rsquo;ll be here to help you take a look.</p>
+  </div>
+
+  <div class="ezgrid">
+
+    <div class="ezcard">
+      <span class="step"><i aria-hidden="true">1</i>Step one</span>
+      <h3>Get your quote online</h3>
+      <p>Start with a simple online form. No long back-and-forth, no complicated process
+         &mdash; just a faster, easier way to start shopping for coverage.</p>
+      <!-- Not a working form. It is a picture of the first screen of the real
+           one, drawn in HTML so it stays sharp and cannot be typed into by
+           mistake; aria-hidden keeps it out of the tab order and off screen
+           readers, which read the paragraph above instead. -->
+      <div class="ezfig" aria-hidden="true">
+        <div class="ezfield">
+          <svg viewBox="0 0 24 24"><path d="M5 16.5V19h2.5v-2.5M16.5 16.5V19H19v-2.5"/><path d="M4 16.5h16l-1-5.5-1.6-3.6a2 2 0 0 0-1.8-1.2H8.4a2 2 0 0 0-1.8 1.2L5 11z"/><circle cx="7.5" cy="13.5" r="1"/><circle cx="16.5" cy="13.5" r="1"/></svg>
+          <span>Vehicle make</span><span class="cv"></span>
+        </div>
+        <div class="ezfield">
+          <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>ZIP code</span>
+        </div>
+        <div class="ezfield">
+          <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3.5v3M16 3.5v3"/></svg>
+          <span>Date of birth</span>
+        </div>
+        <div class="ezbtn">Get my quote &rarr;</div>
+        <p class="ezsecure"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Secure and confidential</p>
+      </div>
+    </div>
+
+    <div class="ezcard">
+      <span class="step"><i aria-hidden="true">2</i>Step two</span>
+      <h3>A real person reviews your options</h3>
+      <p>Not just a quote &mdash; a quote checked by a person. Our technology helps gather
+         and compare options, then a licensed Safe House agent reviews your rates,
+         coverage, and details to help you find the right fit.</p>
+      <!-- Carrier names, no prices. Every figure this card could show would be
+           invented, and an invented price beside a real carrier's name on the
+           page that promises honest pricing is the one thing this site does
+           not do. What it shows instead is the actual claim: each one read. -->
+      <div class="ezfig" aria-hidden="true">
+        <div class="ezrow">
+          <span class="lg" style="background:#FFE7F3;color:#FF0083">L</span><b>Lemonade</b>
+          <span class="rd"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Read</span>
+        </div>
+        <div class="ezrow on">
+          <span class="lg" style="background:#E7F0FC;color:#0B4DA2">P</span><b>Progressive</b>
+          <span class="rd"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Read</span>
+        </div>
+        <div class="ezrow">
+          <span class="lg" style="background:#E6EFF8;color:#004B8D">G</span><b>GEICO</b>
+          <span class="rd"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Read</span>
+        </div>
+        <div class="ezsay">
+          <span class="av"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="8" r="4"/></svg></span>
+          <span><b>Reviewed by a licensed agent</b><small>Real people. Better options.</small></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ezcard">
+      <span class="step"><i aria-hidden="true">3</i>Step three</span>
+      <h3>We watch for better rates</h3>
+      <p>We keep an eye on your policy, let you know when better options come up, and help
+         you stay on top of renewals &mdash; with real support in English or Spanish.</p>
+      <div class="ezfig" aria-hidden="true">
+        <div class="ezbell">
+          <span class="i"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 1 0-12 0c0 6-2 7-2 7h16s-2-1-2-7"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/></svg></span>
+          <span><b>Your renewal is coming up</b><small>We will look again before it does.</small></span>
+        </div>
+        <ul class="ezlist">
+          <li><span>We keep an eye on it</span><span class="tk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span></li>
+          <li><span>You hear from us</span><span class="tk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span></li>
+          <li><span>In English or Spanish</span><span class="tk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 <!-- ================= CATEGORY CARDS ================= -->
 <section class="cats" aria-label="What we insure">
