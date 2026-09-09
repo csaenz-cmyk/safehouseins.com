@@ -61,10 +61,10 @@ PRODUCTS = [
          'liability, SR-22 and high-risk. A licensed bilingual agent reviews every quote '
          'before you buy. El Paso, TX.',
  'eyebrow': 'Car insurance',
- 'h1': 'Car insurance,', 'h1em': 'checked by a person.',
- 'lede': 'One form goes to every company we represent. Then a licensed agent reads what '
-         'came back, hunts for what the computer missed, and calls you with the real '
-         'number.',
+ 'h1': 'Better options start', 'h1em': 'with a real person.',
+ 'lede': 'Shop for insurance online, without losing the human touch. Our technology '
+         'compares your options, then a licensed agent reviews your quote to make sure '
+         'you&rsquo;re getting a competitive rate with the coverage that fits you.',
  # A landscape photograph belongs behind the whole hero, not in a portrait card
  # beside it. `hero_bg` and `photo` are mutually exclusive: whichever is set
  # decides the shape of the hero.
@@ -979,6 +979,121 @@ CSS = """
     .stmtline.a,.stmtline.b{transform:none}
   }
 
+  /* ---- "More than just an online quote" ----
+     A statement over three cards, each with a picture of the thing it
+     describes. Deliberately the loudest block above the fold-and-a-half: a
+     tinted ground, a rule of gradient across the top of every card, a real
+     number badge, and the illustration sitting in its own well rather than
+     floating on the card. The flat version of this read as three paragraphs
+     with some grey boxes under them.
+
+     The pictures come from assets/ez/. A card with no file drawn its
+     illustration in HTML instead — see ezfig() — so the section is complete
+     before any art exists and each card can be swapped independently. */
+  .ez{position:relative;overflow:hidden;padding:74px 20px 78px;
+      background:linear-gradient(180deg,#F4F8FF 0%,#FFFFFF 62%);
+      border-top:1px solid var(--pline);border-bottom:1px solid var(--pline)}
+  @media(min-width:900px){ .ez{padding:104px 24px 108px} }
+  /* A very soft blue bloom behind the heading, so the section has a centre
+     of gravity instead of being a flat panel. */
+  .ez::before{content:"";position:absolute;left:50%;top:-220px;width:940px;height:560px;
+      transform:translateX(-50%);pointer-events:none;
+      background:radial-gradient(closest-side,rgba(22,102,237,.13),transparent 72%)}
+  .ezhd{position:relative;max-width:940px;margin:0 auto;text-align:center}
+  .ezhd h2{margin-top:14px;font-size:clamp(30px,4.8vw,52px);line-height:1.06;
+      font-weight:900;letter-spacing:-.034em;color:var(--pnavy);max-width:19ch;
+      margin-left:auto;margin-right:auto;text-wrap:balance}
+  .ezhd p{margin:18px auto 0;max-width:64ch;font-size:clamp(15.5px,1.5vw,17.5px);
+      line-height:1.7;color:#3B4A63;font-weight:500}
+  .ezgrid{position:relative;display:grid;gap:18px;grid-template-columns:1fr;
+      margin:46px auto 0;max-width:1260px;align-items:stretch}
+  @media(min-width:860px){ .ezgrid{grid-template-columns:repeat(3,1fr);gap:24px} }
+  .ezcard{position:relative;overflow:hidden;background:#fff;border:1px solid var(--pline);
+      border-radius:26px;padding:28px 24px 24px;display:flex;flex-direction:column;
+      box-shadow:0 30px 60px -42px rgba(8,24,58,.85);
+      transition:transform .2s ease,box-shadow .2s ease}
+  @media(min-width:900px){ .ezcard{padding:34px 30px 30px} }
+  .ezcard:hover{transform:translateY(-4px);box-shadow:0 40px 76px -44px rgba(8,24,58,.9)}
+  /* The gradient rule across the top. Drawn on the card so it follows the
+     rounded corners instead of sitting square across them. */
+  .ezcard::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;
+      background:linear-gradient(90deg,var(--pblue),var(--pcyan))}
+  .ezstep{display:flex;align-items:center;gap:10px}
+  .ezstep i{width:34px;height:34px;flex:0 0 auto;border-radius:12px;font-style:normal;
+      background:linear-gradient(140deg,var(--pblue),var(--pcyan));color:#fff;
+      display:grid;place-items:center;font-size:15px;font-weight:900;
+      box-shadow:0 10px 20px -10px rgba(22,102,237,.95)}
+  .ezstep span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+      font-weight:900;color:#93A2B8}
+  .ezcard h3{margin-top:16px;font-size:20px;line-height:1.24;font-weight:800;
+      letter-spacing:-.024em;color:var(--pnavy)}
+  @media(min-width:900px){ .ezcard h3{font-size:22px} }
+  .ezcard>p{margin-top:11px;font-size:14.8px;line-height:1.7;color:#4A5A74;font-weight:500}
+
+  /* The well the illustration sits in. Same shape whether what lands in it is
+     a photograph or the drawn fallback. */
+  .ezwell{margin-top:22px;flex:1 1 auto;display:flex;flex-direction:column;
+      justify-content:center;background:linear-gradient(170deg,#F2F7FF,#E9F1FE);
+      border:1px solid #DCE7F8;border-radius:18px;padding:16px;
+      box-shadow:inset 0 1px 0 #fff}
+  .ezwell img{display:block;width:100%;height:auto;border-radius:12px}
+  .ezcap{margin-top:10px;text-align:center;font-size:11px;font-weight:700;
+      color:#8C9BB2;line-height:1.45}
+
+  /* ---- the drawn fallback ---- */
+  .ezfield{display:flex;align-items:center;gap:10px;background:#fff;
+      border:1.5px solid var(--pline);border-radius:12px;padding:12px 13px;
+      font-size:13.5px;font-weight:600;color:#93A2B8}
+  .ezfield + .ezfield{margin-top:9px}
+  .ezfield svg{width:16px;height:16px;flex:0 0 auto;stroke:#A8B6CC;stroke-width:1.9;
+      fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .ezfield .cv{margin-left:auto;width:9px;height:9px;border-right:2px solid #C4D2E6;
+      border-bottom:2px solid #C4D2E6;transform:rotate(45deg) translate(-2px,-2px)}
+  .ezbtn{margin-top:11px;border-radius:99px;padding:12px;text-align:center;
+      background:linear-gradient(100deg,var(--pblue),var(--pcyan));color:#fff;
+      font-size:13.5px;font-weight:800;box-shadow:0 12px 24px -12px rgba(22,102,237,.9)}
+  .ezsecure{margin-top:10px;display:flex;align-items:center;justify-content:center;gap:6px;
+      font-size:11px;font-weight:700;color:#93A2B8}
+  .ezsecure svg{width:11px;height:11px;stroke:#A8B6CC;stroke-width:2.2;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .ezrow{display:flex;align-items:center;gap:10px;background:#fff;
+      border:1.5px solid var(--pline);border-radius:12px;padding:11px 13px}
+  .ezrow + .ezrow{margin-top:9px}
+  .ezrow.on{border-color:#A9CBFA;background:#F4F8FF}
+  .ezrow .lg{width:26px;height:26px;flex:0 0 auto;border-radius:9px;display:grid;
+      place-items:center;font-size:12px;font-weight:900;line-height:1}
+  .ezrow b{font-size:13.5px;font-weight:800;color:var(--pnavy);letter-spacing:-.01em}
+  .ezrow .rd{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:11px;
+      font-weight:800;color:#3E8E6A}
+  .ezrow .rd svg{width:12px;height:12px;stroke:#3E8E6A;stroke-width:3;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .ezsay{margin-top:11px;display:flex;align-items:center;gap:10px;background:#fff;
+      border:1.5px solid var(--pline);border-radius:14px;padding:11px 13px;
+      box-shadow:0 14px 28px -20px rgba(8,24,58,.8)}
+  .ezsay .av{width:28px;height:28px;flex:0 0 auto;border-radius:50%;
+      background:linear-gradient(140deg,var(--pblue),var(--pcyan));display:grid;place-items:center}
+  .ezsay .av svg{width:15px;height:15px;stroke:#fff;stroke-width:2;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .ezsay b{display:block;font-size:12.5px;font-weight:800;color:var(--pnavy);line-height:1.3}
+  .ezsay small{display:block;font-size:11px;font-weight:600;color:#7C8BA4;margin-top:1px}
+  .ezbell{display:flex;align-items:flex-start;gap:11px;background:#fff;
+      border:1.5px solid var(--pline);border-radius:14px;padding:12px 13px}
+  .ezbell .i{width:30px;height:30px;flex:0 0 auto;border-radius:10px;background:#E8F1FE;
+      display:grid;place-items:center}
+  .ezbell .i svg{width:15px;height:15px;stroke:var(--pblue);stroke-width:2;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .ezbell b{display:block;font-size:13px;font-weight:800;color:var(--pnavy);line-height:1.35}
+  .ezbell small{display:block;font-size:11.5px;font-weight:600;color:#7C8BA4;
+      line-height:1.5;margin-top:2px}
+  .ezlist{margin-top:11px;list-style:none;display:grid;gap:0}
+  .ezlist li{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;
+      color:#31415C;padding:9px 2px}
+  .ezlist li + li{border-top:1px solid var(--pline)}
+  .ezlist .tk{margin-left:auto;width:17px;height:17px;border-radius:50%;background:#E8F1FE;
+      display:grid;place-items:center}
+  .ezlist .tk svg{width:9px;height:9px;stroke:var(--pblue);stroke-width:3.2;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+
   /* ---- generic sections ---- */
   .sec{max-width:1000px;margin:0 auto;padding:64px 20px 0}
   .sec .sub{margin-top:14px;max-width:60ch;font-size:16px;line-height:1.66;color:#3B4A63;
@@ -1180,6 +1295,132 @@ EYE = ('<svg viewBox="0 0 24 24" aria-hidden="true">'
 SHIELD = ('<svg viewBox="0 0 24 24" aria-hidden="true">'
           '<path d="M12 3l7.5 3v5.4c0 4.6-3.1 8.4-7.5 9.6-4.4-1.2-7.5-5-7.5-9.6V6z"/>'
           '<path d="M9 12.2l2.2 2.2L15.4 10"/></svg>')
+
+
+# ------------------------------------------ more than just an online quote ---
+# One picture per card, dropped into assets/ez/ as step-1/2/3 with any of the
+# extensions below. A card with no file draws its illustration in HTML
+# instead, so the section is finished before any art exists and the three can
+# be swapped in one at a time. assets/ez/README.md is the instructions.
+EZ_DIR = os.path.join(ROOT, 'assets', 'ez')
+EZ_EXT = ('.webp', '.png', '.jpg', '.jpeg', '.svg')
+
+EZ_HEAD = 'More than just an online quote'
+EZ_LEDE = ('Simple online. Personal where it matters. Start your quote online, have a '
+           'licensed agent review your options, and count on us to keep an eye on your '
+           'policy. If a better option comes up, we&rsquo;ll be here to help you take '
+           'a look.')
+
+# 'caption' prints under the picture. It is empty on all three today. If art
+# that shows dollar figures beside carrier names ever goes in card two, this is
+# where it says the picture is an example rather than a rate.
+EZ = [
+ {'n': 1, 'step': 'Step one', 'file': 'step-1', 'caption': '',
+  'alt': 'The first screen of the online quote form: vehicle make, ZIP code and date '
+         'of birth, with a button to get the quote.',
+  'h': 'Get your quote online',
+  'p': 'Start with a simple online form. No long back-and-forth, no complicated process '
+       '&mdash; just a faster, easier way to start shopping for coverage.'},
+ {'n': 2, 'step': 'Step two', 'file': 'step-2', 'caption': '',
+  'alt': 'A list of insurance companies with one highlighted, and a note that a licensed '
+         'agent reviewed them.',
+  'h': 'A real person reviews your options',
+  'p': 'Not just a quote &mdash; a quote checked by a person. Our technology helps gather '
+       'and compare options, then a licensed Safe House agent reviews your rates, '
+       'coverage, and details to help you find the right fit.'},
+ {'n': 3, 'step': 'Step three', 'file': 'step-3', 'caption': '',
+  'alt': 'A renewal reminder above a short checklist: we keep an eye on it, you hear '
+         'from us, in English or Spanish.',
+  'h': 'We watch for better rates',
+  'p': 'We keep an eye on your policy, let you know when better options come up, and help '
+       'you stay on top of renewals &mdash; with real support in English or Spanish.'},
+]
+
+# The drawn fallbacks, in card order. aria-hidden: the paragraph above each one
+# already says what it says, and a form nobody can type into should not be read
+# out as a form.
+EZ_DRAWN = [
+ '<div class="ezfield">'
+ '<svg viewBox="0 0 24 24"><path d="M5 16.5V19h2.5v-2.5M16.5 16.5V19H19v-2.5"/>'
+ '<path d="M4 16.5h16l-1-5.5-1.6-3.6a2 2 0 0 0-1.8-1.2H8.4a2 2 0 0 0-1.8 1.2L5 11z"/>'
+ '<circle cx="7.5" cy="13.5" r="1"/><circle cx="16.5" cy="13.5" r="1"/></svg>'
+ '<span>Vehicle make</span><span class="cv"></span></div>'
+ '<div class="ezfield">'
+ '<svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/>'
+ '<circle cx="12" cy="10" r="3"/></svg><span>ZIP code</span></div>'
+ '<div class="ezfield">'
+ '<svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/>'
+ '<path d="M3.5 10h17M8 3.5v3M16 3.5v3"/></svg><span>Date of birth</span></div>'
+ '<div class="ezbtn">Get my quote &rarr;</div>'
+ '<p class="ezsecure"><svg viewBox="0 0 24 24">'
+ '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'
+ '</svg>Secure and confidential</p>',
+
+ # Carrier names, no figures. Every number this card could show would be
+ # invented, and an invented price beside a real carrier's name is the one
+ # thing this site does not do. It shows the claim it actually makes instead.
+ '<div class="ezrow"><span class="lg" style="background:#FFE7F3;color:#FF0083">L</span>'
+ '<b>Lemonade</b><span class="rd">%(t)sRead</span></div>'
+ '<div class="ezrow on"><span class="lg" style="background:#E7F0FC;color:#0B4DA2">P</span>'
+ '<b>Progressive</b><span class="rd">%(t)sRead</span></div>'
+ '<div class="ezrow"><span class="lg" style="background:#E6EFF8;color:#004B8D">G</span>'
+ '<b>GEICO</b><span class="rd">%(t)sRead</span></div>'
+ '<div class="ezsay"><span class="av"><svg viewBox="0 0 24 24">'
+ '<path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="8" r="4"/></svg></span>'
+ '<span><b>Reviewed by a licensed agent</b>'
+ '<small>Real people. Better options.</small></span></div>',
+
+ '<div class="ezbell"><span class="i"><svg viewBox="0 0 24 24">'
+ '<path d="M18 8a6 6 0 1 0-12 0c0 6-2 7-2 7h16s-2-1-2-7"/>'
+ '<path d="M13.7 20a2 2 0 0 1-3.4 0"/></svg></span>'
+ '<span><b>Your renewal is coming up</b>'
+ '<small>We will look again before it does.</small></span></div>'
+ '<ul class="ezlist">'
+ '<li><span>We keep an eye on it</span><span class="tk">%(t)s</span></li>'
+ '<li><span>You hear from us</span><span class="tk">%(t)s</span></li>'
+ '<li><span>In English or Spanish</span><span class="tk">%(t)s</span></li></ul>',
+]
+
+
+def ez_image(name):
+    for ext in EZ_EXT:
+        if os.path.exists(os.path.join(EZ_DIR, name + ext)):
+            return 'assets/ez/' + name + ext
+    return None
+
+
+def ezsection():
+    cards = []
+    for c, drawn in zip(EZ, EZ_DRAWN):
+        img = ez_image(c['file'])
+        if img:
+            # width/height are not known without decoding the file, and a wrong
+            # pair is worse than none — aspect-ratio on .ezwell img is what
+            # holds the space instead.
+            well = ('<img src="%s" alt="%s" loading="lazy" decoding="async">'
+                    % (img, e(c['alt'])))
+            cap = ('<p class="ezcap">%s</p>' % c['caption']) if c['caption'] else ''
+        else:
+            well, cap = drawn % {'t': CHECK}, ''
+        cards.append(
+            '      <div class="ezcard">\n'
+            '        <span class="ezstep"><i aria-hidden="true">%d</i><span>%s</span></span>\n'
+            '        <h3>%s</h3>\n'
+            '        <p>%s</p>\n'
+            '        <div class="ezwell"%s>%s</div>%s\n'
+            '      </div>\n'
+            % (c['n'], c['step'], c['h'], c['p'],
+               '' if img else ' aria-hidden="true"', well, cap))
+    return (
+        '  <section class="ez" aria-labelledby="ezh">\n'
+        '    <div class="ezhd">\n'
+        '      <span class="kick">How this works</span>\n'
+        '      <h2 id="ezh">' + EZ_HEAD + '</h2>\n'
+        '      <p>' + EZ_LEDE + '</p>\n'
+        '    </div>\n'
+        '    <div class="ezgrid">\n' + ''.join(cards) +
+        '    </div>\n'
+        '  </section>\n')
 
 
 def figure(spec):
@@ -1403,6 +1644,7 @@ def page(p):
 <main id="main">
 
 {carrstrip}
+{ezsection}
 
   <!-- The section this page exists for. See the module docstring. -->
   <section class="miss">
@@ -1506,7 +1748,7 @@ def page(p):
 {js}
 """.format(
         title=e(p['title']), desc=e(p['desc']), site=SITE, slug=p['slug'], css=CSS,
-        carrstrip=carriers.html('  '),
+        carrstrip=carriers.html('  '), ezsection=ezsection(),
         burger=menu.BURGER_HTML, panel=menu.panel(''),
         eyebrow=e(p['eyebrow']), h1=p['h1'], h1em=p['h1em'], lede=p['lede'],
         type=p['type'], tel=nap.CALL_E164, call=nap.CALL,
@@ -1540,8 +1782,4 @@ if __name__ == '__main__':
         out = page(p)
         open(os.path.join(ROOT, p['file']), 'w', encoding='utf-8').write(out)
         print(p['file'], len(out), 'bytes')
-    # The home page is hand-maintained, so the carrier strip is pushed into it
-    # rather than pulled. Without this the two lists drift.
-    idx = os.path.join(ROOT, 'index.html')
-    print('index.html carrier strip', 'updated' if carriers.sync_index(idx) else 'unchanged')
     print('run tools/gensitemap.py to refresh sitemap.xml')

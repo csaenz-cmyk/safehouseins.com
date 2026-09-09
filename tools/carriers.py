@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""The carrier strip — the looping row of company names under the hero.
+"""The carrier strip — the looping row of company marks under the hero.
 
-One source of truth for two consumers: tools/genproduct.py builds the five
-product pages, and sync_index() rewrites the same block inside index.html
-between its markers. index.html is hand-maintained, so without the sync the
-two lists drift apart within a month and the home page ends up claiming a
-carrier the product pages do not.
+Built into the five product pages by tools/genproduct.py. It was on the home
+page too for a while and was taken off again by request; the push-into-
+index.html sync went with it, along with the markers it wrote between. If it
+ever goes back, it goes back through a generator rather than by hand — the
+list has to agree with the product pages and a hand-maintained copy will not.
 
 LOGOS
 
@@ -125,13 +125,6 @@ CSS = """
   }
 """
 
-# The home page defines its own token names; --line and --pnavy are the product
-# pages'. Anything that consumes CSS from here on a different host restates the
-# two colours it needs rather than hoping they exist — an undefined custom
-# property fails silently and paints nothing.
-CSS_INDEX = CSS.replace('var(--line)', '#E6ECF5').replace('var(--pnavy)', '#0A2150')
-
-
 # Where a carrier's artwork goes, and the extensions we will pick up. Checked
 # on disk at build time rather than guessed, so a file that is not there cannot
 # become a broken image on a live page.
@@ -183,30 +176,3 @@ def html(indent='  ', up=''):
         + i + '    </div>\n'
         + i + '  </div>\n'
         + i + '</section>\n')
-
-
-# Markers in index.html. The content between them is generated; anything
-# written there by hand is overwritten on the next run.
-M0, M1 = '<!-- carriers:start -->', '<!-- carriers:end -->'
-C0, C1 = '/* carriers:css:start */', '/* carriers:css:end */'
-
-
-def sync_index(path):
-    """Rewrite the marked markup and CSS blocks inside index.html.
-
-    Returns True if the file changed. Missing markers are a hard error rather
-    than a silent skip: a no-op sync that reports success is how the two lists
-    drift apart without anybody noticing.
-    """
-    src = open(path, encoding='utf-8').read()
-    out = src
-    for a, b, body in ((M0, M1, '\n' + html('  ')),
-                       (C0, C1, '\n' + CSS_INDEX.rstrip() + '\n  ')):
-        i, j = out.find(a), out.find(b)
-        if i < 0 or j < 0:
-            raise SystemExit('carriers: %s missing %s/%s' % (path, a, b))
-        out = out[:i + len(a)] + body + out[j:]
-    if out != src:
-        open(path, 'w', encoding='utf-8').write(out)
-        return True
-    return False
