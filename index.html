@@ -251,25 +251,6 @@
      so "Se habla español" pushed its chip past the right edge of the screen
      instead of wrapping inside it. With three chips the odd one out spans the
      row rather than sitting next to an empty cell. */
-  .badges{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:18px}
-  .badges .bd:nth-child(3):last-child{grid-column:1/-1}
-  /* Below ~360px two columns leave about 70px for the label, and "Independent"
-     on its own is wider than that. One column rather than a clipped word. */
-  @media(max-width:359px){ .badges{grid-template-columns:1fr} }
-  .bd{min-width:0;background:rgba(255,255,255,.95);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:9px;
-      box-shadow:0 16px 32px -20px rgba(6,16,36,.7)}
-  .bd .ic{width:30px;height:30px;border-radius:10px;background:var(--ice);display:grid;place-items:center;flex:0 0 auto;font-size:15px;line-height:1}
-  .bd .ic.st{color:#F0A82C}
-  /* nowrap was fine while there were two chips at half a screen each. At three
-     the columns are narrower and "Independent agency" ran out of its own card
-     — clipped, so it read as a rendering fault rather than as long text. It
-     wraps now, and the text block is allowed to shrink: a flex item defaults to
-     min-width:auto and will not go below its content, which is what pushed it
-     out in the first place. */
-  .bd>span:last-child{min-width:0}
-  .bd b{display:block;font-size:12.5px;color:var(--navy);line-height:1.2}
-  .bd>span span{display:block;font-size:10.5px;color:var(--muted);font-weight:600;line-height:1.3}
-
   /* ================= CATEGORY CARDS ================= */
   .cats{background:#fff;padding:24px 0 10px}
   .catr{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:22px;scrollbar-width:none;
@@ -302,75 +283,7 @@
   .cat .go svg{width:19px;height:19px;stroke-width:2.2}
 
 
-    /* ================= MIX AND MATCH BAND =================
-     A full-bleed photograph with two carrier chips over the top of it and the
-     message across the bottom. The claim it makes is the one an independent
-     agency can make and a captive one structurally cannot: the car and the
-     house do not have to come from the same insurer.
-
-     Painted ground under the photograph, same as the category cards and the
-     product heroes — a missing image leaves a dark card with readable white
-     text rather than a white one with white text on it. */
-  .mix{padding:6px 0 4px}
-  /* Tall enough to be an event on the page rather than an illustration inside
-     the flow of it — same scale as the band on the product pages, so the two
-     read as one thing seen twice. */
-  .mixin{position:relative;overflow:hidden;border-radius:28px;isolation:isolate;
-      min-height:min(125vw,700px);display:flex;flex-direction:column;
-      justify-content:space-between;padding:24px 22px 40px;margin:0 20px;
-      background:linear-gradient(150deg,#2A1D14 0%,#1A1410 55%,#0E0B08 100%);
-      box-shadow:0 34px 60px -34px rgba(10,33,72,.7)}
-  .mixin::before{content:"";position:absolute;inset:0;z-index:-2;
-      background-image:url("assets/mix-couch.jpg");
-      background-position:center 38%;background-size:cover;background-repeat:no-repeat}
-  /* A vignette, not a wash. The gradient this replaces ran the full height at
-     30% from the very first pixel, which greyed the sunlight the picture was
-     chosen for. This one is completely clear across the top two thirds — the
-     window, the plants, the woman all come through untouched — and only banks
-     up under the copy at the foot of the frame. Contrast where the type is,
-     nowhere else. */
-  .mixin::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-      background:linear-gradient(180deg,transparent 0%,transparent 34%,
-                 rgba(24,14,6,.30) 62%,rgba(14,8,3,.74) 100%)}
-  /* On a phone the frame is cropped hard and the bright wall lands right
-     behind the headline. Dropping the focal point pulls the darker couch up
-     into that band — the fix is which part of the picture you see, not a
-     layer painted over the picture. */
-  @media(max-width:759px){ .mixin::before{background-position:center 62%} }
-  .mixchips{display:flex;flex-wrap:wrap;gap:9px;justify-content:center}
-  .mchip{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.94);
-      -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-      border-radius:15px;padding:10px 14px;box-shadow:0 14px 30px -16px rgba(0,0,0,.6)}
-  .mchip .lg{width:32px;height:32px;flex:0 0 auto;border-radius:10px;background:var(--ice);
-      display:grid;place-items:center;font-size:14px;font-weight:900;color:var(--blue-d)}
-  .mchip b{display:block;font-size:14px;font-weight:800;color:var(--navy);line-height:1.2}
-  .mchip small{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-top:1px}
-  .mixsay{text-align:center;color:#fff;max-width:42ch;margin:0 auto}
-  /* color, explicitly. This page has a global h2{color:var(--navy)}, and an
-     element selector beats inheriting white from .mixsay — so the headline came
-     out navy on a dark photograph, which is to say invisible. Third time a host
-     rule has reached into a block dropped on top of a picture; every colour on
-     one now gets stated rather than inherited. */
-  /* One soft drop, wide and low-opacity. The version before this stacked a
-     tight black halo under a wide one to force contrast against the bright
-     wall; it worked and it looked like cheap word art, a black outline around
-     every letter. Contrast is the vignette's job now — see .mixin::after —
-     and the shadow's job is only to keep the edges from dissolving. */
-  .mixsay h2{color:#fff;font-size:clamp(34px,7vw,72px);line-height:1.0;font-weight:900;
-      letter-spacing:-.035em;text-transform:uppercase;
-      text-shadow:0 2px 24px rgba(10,6,2,.55)}
-  .mixsay p{margin-top:16px;font-size:15.5px;line-height:1.6;font-weight:600;
-      color:rgba(255,255,255,.95);text-shadow:0 2px 16px rgba(10,6,2,.6)}
-  @media(min-width:900px){
-    .mix{padding:26px 0 10px}
-    .mixin{margin:0 auto;max-width:1720px;min-height:min(90vh,900px);padding:36px 42px 70px;
-        border-radius:34px}
-    .mixin{margin-left:24px;margin-right:24px}
-    .mixsay{max-width:48ch}
-    .mixsay p{font-size:19px}
-  }
-
-  /* ================= KINETIC SCROLL STATEMENT =================
+    /* ================= KINETIC SCROLL STATEMENT =================
      A tall scroll track with a sticky, full-height stage. Everything inside is driven
      by one scroll-progress value (see the JS at the bottom): the three giant lines slide
      in from alternating sides and unmask, the carrier names stream past behind them, and
@@ -473,7 +386,7 @@
   /* ================= OWNERSHIP CARD ================= */
   .own{padding:0 0 8px}
   .owncard{position:relative;border-radius:26px;overflow:hidden;isolation:isolate;
-      height:min(72svh,520px);display:flex;flex-direction:column;justify-content:flex-end;
+      height:min(88svh,780px);display:flex;flex-direction:column;justify-content:flex-end;
       background:#2a1a10 url("assets/own-mobile.jpg") 46% 44% / cover no-repeat;
       box-shadow:0 34px 60px -34px rgba(10,33,72,.55)}
   .owncard::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -487,8 +400,8 @@
   .ownbub .av{width:34px;height:34px;border-radius:11px;background:var(--grad);display:grid;place-items:center;flex:0 0 auto}
   .ownbub .av img{width:18px;filter:brightness(0) invert(1)}
   .ownbub p{font-size:12.5px;font-weight:600;color:var(--navy);line-height:1.35}
-  .ownin{position:relative;z-index:2;padding:0 18px 20px;text-align:center}
-  .ownin h2{font-size:clamp(23px,6.4vw,34px);line-height:1.06;letter-spacing:-.02em;font-weight:900;
+  .ownin{position:relative;z-index:2;padding:0 18px 30px;text-align:center}
+  .ownin h2{font-size:clamp(29px,8vw,46px);line-height:1.02;letter-spacing:-.028em;font-weight:900;
       color:#fff;text-transform:uppercase;text-shadow:0 3px 18px rgba(0,0,0,.5)}
   .ownin .btn{margin-top:16px}
   .ownlist{display:grid;grid-template-columns:repeat(2,auto);justify-content:center;gap:13px 26px;margin-top:20px}
@@ -677,8 +590,10 @@
   .qbody a{color:var(--blue-d);font-weight:700}
 
   /* ================= START BAND ================= */
+  /* Sized to be an event on the page rather than a card at the foot of it —
+     the same treatment the product heroes and the mix band got. */
   .start{background:#fff;padding:6px 0 26px}
-  .startcard{position:relative;overflow:hidden;isolation:isolate;border-radius:26px;
+  .startcard{position:relative;overflow:hidden;isolation:isolate;border-radius:28px;
       display:flex;align-items:center;justify-content:center;text-align:center;
       min-height:min(72svh,520px);padding:46px 20px;
       background:#2a1a0e url("assets/start-mobile.jpg") 62% center / cover no-repeat;
@@ -686,9 +601,9 @@
   .startcard::after{content:"";position:absolute;inset:0;z-index:-1;
       background:linear-gradient(180deg,rgba(18,10,4,.66) 0%,rgba(18,10,4,.52) 46%,rgba(10,6,3,.84) 100%)}
   .startcard .in{position:relative;max-width:420px;width:100%}
-  .startcard h2{color:#fff;text-transform:uppercase;font-size:clamp(24px,6.5vw,42px);line-height:1.06;
+  .startcard h2{color:#fff;text-transform:uppercase;font-size:clamp(30px,8vw,50px);line-height:1.02;
       letter-spacing:-.02em;text-shadow:0 3px 20px rgba(0,0,0,.6)}
-  .startcard p{color:rgba(255,255,255,.95);font-size:15px;font-weight:600;margin-top:13px;max-width:330px;margin-left:auto;margin-right:auto;
+  .startcard p{color:rgba(255,255,255,.95);font-size:16px;font-weight:600;margin-top:15px;max-width:360px;margin-left:auto;margin-right:auto;
       text-shadow:0 2px 14px rgba(0,0,0,.7)}
   .startcard .acts{display:flex;flex-direction:column;gap:10px;align-items:center;margin-top:24px}
   .startcard .btn{width:100%;max-width:300px}
@@ -886,10 +801,12 @@
        chips take their 210px off the right of this block. The second one is
        what holds at 900–1100px, where the block is narrower than 1060 and a
        ch-only cap would run the paragraph straight under them. */
-    .hsub{font-size:20px;line-height:1.6;max-width:min(56ch,calc(100% - 250px))}
+    /* The 250px reserve was for the three chips that sat to the right of this
+       paragraph. They are gone, so the line length is set by reading comfort
+       alone again. */
+    .hsub{font-size:20px;line-height:1.6;max-width:58ch}
     .hacts{flex-direction:row;align-items:center}
     .hacts .btn{width:auto}
-    .badges{position:absolute;right:40px;bottom:52px;grid-template-columns:1fr;margin-top:0;width:210px}
     section{padding:80px 0}
     .rgrid{grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
     .rq{padding:22px}
@@ -902,7 +819,7 @@
     .rvid .soon{top:28px;left:78px}
     .rvid figcaption b{font-size:14px}
     .start{padding:14px 0 40px}
-    .startcard{min-height:min(70vh,560px);padding:64px 40px;border-radius:34px;
+    .startcard{min-height:min(88vh,860px);padding:80px 44px;border-radius:36px;
         background-image:url("assets/start.jpg");background-position:center 46%}
 
     /* ---- wall to wall ----
@@ -912,14 +829,23 @@
        and they get wide rather than tall: 2000/1600 is almost square, which is
        what made them look like boxes. */
     .own .wrap,.start .wrap{max-width:none;padding:0 26px}
-    .owncard{aspect-ratio:auto;height:min(74vh,640px);background-position:center 42%}
-    .startcard{min-height:min(64vh,520px)}
-    .startcard .in{max-width:640px}
-    .startcard p{max-width:520px}
-    .startcard h2{font-size:clamp(36px,4vw,54px)}
-    .startcard p{font-size:18.5px;margin-top:16px}
-    .startcard .acts{flex-direction:row;justify-content:center;gap:14px;margin-top:30px}
-    .startcard .btn{width:auto}
+    .owncard{aspect-ratio:auto;height:min(88vh,880px);background-position:center 42%}
+    .ownin{padding:0 26px 46px}
+    .ownin h2{font-size:clamp(42px,5vw,70px)}
+    .ownin .btn{margin-top:24px;padding:17px 30px;font-size:16.5px}
+    .ownlist{grid-template-columns:repeat(4,auto);gap:0 40px;margin-top:28px}
+    .ownlist span{font-size:13px}
+    .ownlist svg{width:22px;height:22px}
+    .startcard{min-height:min(84vh,820px)}
+    /* Wide enough that each half of the headline stays on its own line at
+       the new size. The <br> puts the break after 'quote'; at 760px both
+       halves wrapped again and it came out as four lines. */
+    .startcard .in{max-width:900px}
+    .startcard p{max-width:560px}
+    .startcard h2{font-size:clamp(44px,5.4vw,76px)}
+    .startcard p{font-size:20px;margin-top:20px}
+    .startcard .acts{flex-direction:row;justify-content:center;gap:14px;margin-top:34px}
+    .startcard .btn{width:auto;padding:17px 30px;font-size:16.5px}
     .faq{padding:80px 0 88px}
     .qq{font-size:17.5px;padding:20px 22px}
     .qbody p{font-size:16px;padding:0 22px 20px}
@@ -1031,15 +957,6 @@
       <a class="btn grad" href="quote.html">Get my free quote <svg class="i"><use href="#ar"/></svg></a>
       <a class="btn gh" href="tel:+19155031207"><svg class="i"><use href="#ph"/></svg> Call 915-503-1207</a>
     </div>
-    <div class="badges">
-      <span class="bd"><span class="ic">🛡️</span><span><b>Independent agency</b><span>We compare carriers</span></span></span>
-      <span class="bd"><span class="ic">🇲🇽</span><span><b><span lang="es">Se habla español</span></b><span>Bilingual team</span></span></span>
-      <!-- The hero paragraph used to open "licensed in Texas and New Mexico".
-           It does not any more, and those two states are the whole shape of
-           the business, so they get a chip rather than dropping off the screen
-           entirely between here and the footer. -->
-      <span class="bd"><span class="ic">📍</span><span><b>Texas &amp; New Mexico</b><span>Licensed in both</span></span></span>
-    </div>
   </div>
 </header>
 
@@ -1146,27 +1063,6 @@
         <span class="go"><svg class="i"><use href="#ar"/></svg></span>
       </span>
     </a>
-  </div>
-</section>
-
-<!-- ================= MIX AND MATCH =================
-     The one thing a captive agent cannot say. Placed between the category cards
-     and the kinetic statement because that is where the page stops listing what
-     we sell and starts arguing why us. -->
-<section class="mix" aria-label="Compare between companies">
-  <div class="mixin rv">
-    <div class="mixchips">
-      <span class="mchip"><span class="lg" aria-hidden="true">P</span>
-        <span><b>Progressive</b><small>Auto insurance</small></span></span>
-      <span class="mchip"><span class="lg" aria-hidden="true">L</span>
-        <span><b>Lemonade</b><small>Home insurance</small></span></span>
-    </div>
-    <div class="mixsay">
-      <h2>Compare between companies</h2>
-      <p>You are not stuck buying everything from one insurer. We can put your car with
-         one company and your home with another &mdash; whichever pair actually comes out
-         better for you.</p>
-    </div>
   </div>
 </section>
 
