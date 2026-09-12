@@ -1102,14 +1102,7 @@ CSS = """
      rounded corners instead of sitting square across them. */
   .ezcard::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;
       background:linear-gradient(90deg,var(--pblue),var(--pcyan))}
-  .ezstep{display:flex;align-items:center;gap:10px}
-  .ezstep i{width:34px;height:34px;flex:0 0 auto;border-radius:12px;font-style:normal;
-      background:linear-gradient(140deg,var(--pblue),var(--pcyan));color:#fff;
-      display:grid;place-items:center;font-size:15px;font-weight:900;
-      box-shadow:0 10px 20px -10px rgba(22,102,237,.95)}
-  .ezstep span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-      font-weight:900;color:#93A2B8}
-  .ezcard h3{margin-top:16px;font-size:20px;line-height:1.24;font-weight:800;
+  .ezcard h3{margin-top:0;font-size:20px;line-height:1.24;font-weight:800;
       letter-spacing:-.024em;color:var(--pnavy)}
   @media(min-width:900px){ .ezcard h3{font-size:22px} }
   .ezcard>p{margin-top:11px;font-size:14.8px;line-height:1.7;color:#4A5A74;font-weight:500}
@@ -1498,6 +1491,32 @@ CSS = """
   body>footer .fdeck .more{font-weight:800;color:var(--blue);margin-top:8px}
   body>footer .fway a:not(.big){display:inline-block;font-size:13px;font-weight:800;
       color:var(--blue);margin-top:7px}
+
+  /* The petal rules live at the very end of this stylesheet on purpose.
+     .cats, .faq and .agents each set a `background:` shorthand, and the
+     shorthand resets background-image to none — so with the petals declared
+     earlier, three of the four tinted sections silently painted nothing.
+     Same specificity, later wins. Keep these last. */
+  /* ---- petals ----
+     Very soft blooms of brand colour in the background of the quiet sections,
+     so a long white page has some weather in it. Two rules about them:
+
+     They are background-image on the section itself, not a pseudo-element and
+     not a stray div. Half the blocks on this site already use ::before or
+     ::after for a scrim or a photograph, and three separate bugs on this site
+     have come from a decoration reaching into a block that was already using
+     the slot it wanted.
+
+     And they are faint on purpose — 4-6% of a colour, blurred across several
+     hundred pixels. At the point where somebody notices them as shapes they
+     have stopped being atmosphere and started being decoration. */
+  .petal1{background-image:
+      radial-gradient(460px 460px at 90% 4%, rgba(22,102,237,.055), transparent 68%),
+      radial-gradient(560px 560px at -8% 82%, rgba(0,194,255,.05), transparent 70%)}
+  .petal2{background-image:
+      radial-gradient(520px 520px at 6% 8%, rgba(22,102,237,.05), transparent 70%),
+      radial-gradient(420px 420px at 96% 72%, rgba(0,194,255,.055), transparent 68%)}
+
 """ + carriers.CSS + menu.PANEL_CSS
 
 # Not used on these pages any more — the nav sits straight on the photograph,
@@ -1538,11 +1557,15 @@ EZ_LEDE = ('Simple online. Personal where it matters. Start your quote online, h
            'policy. If a better option comes up, we&rsquo;ll be here to help you take '
            'a look.')
 
+# The numbered "Step one / Step two" chips came off these cards by request, so
+# the data no longer carries 'n' or 'step'. The order of the list is the order
+# of the cards and that is all the sequence they need.
+#
 # 'caption' prints under the picture. It is empty on all three today. If art
 # that shows dollar figures beside carrier names ever goes in card two, this is
 # where it says the picture is an example rather than a rate.
 EZ = [
- {'n': 1, 'step': 'Step one', 'file': 'step-1', 'caption': '',
+ {'file': 'step-1', 'caption': '',
   'alt': 'The first screen of the online quote form: vehicle make, ZIP code and date '
          'of birth, with a button to get the quote.',
   'h': 'Get your quote online',
@@ -1553,7 +1576,7 @@ EZ = [
  # owner's and he asked for it, so it stays — but a made-up number beside a
  # real carrier's name has to be labelled as an illustration rather than left
  # to read as a rate. Empty this string to take the line off.
- {'n': 2, 'step': 'Step two', 'file': 'step-2',
+ {'file': 'step-2',
   'caption': 'Illustration only &mdash; the figures shown are not real quotes.',
   'alt': 'A list of insurance companies with one highlighted, and a note that a licensed '
          'agent reviewed them.',
@@ -1561,7 +1584,7 @@ EZ = [
   'p': 'Not just a quote &mdash; a quote checked by a person. Our technology helps gather '
        'and compare options, then a licensed Safe House agent reviews your rates, '
        'coverage, and details to help you find the right fit.'},
- {'n': 3, 'step': 'Step three', 'file': 'step-3', 'caption': '',
+ {'file': 'step-3', 'caption': '',
   'alt': 'A renewal reminder above a short checklist: we keep an eye on it, you hear '
          'from us, in English or Spanish.',
   'h': 'We watch for better rates',
@@ -1676,12 +1699,11 @@ def ezsection():
             well, cap = drawn % {'t': CHECK}, ''
         cards.append(
             '      <div class="ezcard">\n'
-            '        <span class="ezstep"><i aria-hidden="true">%d</i><span>%s</span></span>\n'
             '        <h3>%s</h3>\n'
             '        <p>%s</p>\n'
             '        <div class="ezwell%s"%s>%s</div>%s\n'
             '      </div>\n'
-            % (c['n'], c['step'], c['h'], c['p'], ' shot' if img else '',
+            % (c['h'], c['p'], ' shot' if img else '',
                '' if img else ' aria-hidden="true"', well, cap))
     return (
         '  <section class="ez" aria-labelledby="ezh">\n'
@@ -1747,7 +1769,7 @@ def resources(p):
     rest = [g for g in gs if not g.get('featured')]
     shot = 'assets/hero-auto.jpg'
     return (
-        '  <section class="res" aria-labelledby="resh">\n'
+        '  <section class="res petal2" aria-labelledby="resh">\n'
         '    <div class="reshd">\n'
         '      <span class="kick">Car Insurance 101</span>\n'
         '      <h2 id="resh">Shop smarter, with the answers first</h2>\n'
@@ -1787,7 +1809,7 @@ def discounts(p):
         for i, (name, body) in enumerate(p['discounts']))
     n = len(p['discounts'])
     return (
-        '  <section class="dsc" aria-labelledby="dsch">\n'
+        '  <section class="dsc petal1" aria-labelledby="dsch">\n'
         '    <div class="dscgrid">\n'
         '      <div class="dschd">\n'
         '        <span class="kick">Discounts</span>\n'
@@ -1884,7 +1906,7 @@ def picker(p):
                ''.join('<li><span class="tick">' + CHECK + '</span><span>' + it
                        + '</span></li>' for it in items), p['type']))
     return (
-        '  <section class="pk" aria-labelledby="pkh">\n'
+        '  <section class="pk petal2" aria-labelledby="pkh">\n'
         '    <div class="hd">\n'
         '      <span class="kick">Your call</span>\n'
         '      <h2 id="pkh">' + p['pick_head'] + '</h2>\n'
@@ -2118,7 +2140,7 @@ def page(p):
 {yescards}    </div>
   </section>
 
-  <section class="sec">
+  <section class="sec petal1">
     <span class="kick">Questions</span>
     <h2>What people ask us</h2>
     <div class="fgrid">

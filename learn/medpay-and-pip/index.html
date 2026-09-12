@@ -177,6 +177,32 @@
       color:#4A5A74;font-weight:450;flex:1 1 auto}
   .hgrid em{display:block;margin-top:14px;font-style:normal;font-size:13px;
       font-weight:800;color:var(--pblue)}
+
+  /* The petal rules live at the very end of this stylesheet on purpose.
+     .cats, .faq and .agents each set a `background:` shorthand, and the
+     shorthand resets background-image to none — so with the petals declared
+     earlier, three of the four tinted sections silently painted nothing.
+     Same specificity, later wins. Keep these last. */
+  /* ---- petals ----
+     Very soft blooms of brand colour in the background of the quiet sections,
+     so a long white page has some weather in it. Two rules about them:
+
+     They are background-image on the section itself, not a pseudo-element and
+     not a stray div. Half the blocks on this site already use ::before or
+     ::after for a scrim or a photograph, and three separate bugs on this site
+     have come from a decoration reaching into a block that was already using
+     the slot it wanted.
+
+     And they are faint on purpose — 4-6% of a colour, blurred across several
+     hundred pixels. At the point where somebody notices them as shapes they
+     have stopped being atmosphere and started being decoration. */
+  .petal1{background-image:
+      radial-gradient(460px 460px at 90% 4%, rgba(22,102,237,.055), transparent 68%),
+      radial-gradient(560px 560px at -8% 82%, rgba(0,194,255,.05), transparent 70%)}
+  .petal2{background-image:
+      radial-gradient(520px 520px at 6% 8%, rgba(22,102,237,.05), transparent 70%),
+      radial-gradient(420px 420px at 96% 72%, rgba(0,194,255,.055), transparent 68%)}
+
   body>footer{padding:0 0 34px;border-top:1px solid var(--line);background:#FBFCFE}
   body>footer .fshell{max-width:1180px;margin:0 auto;padding:0 22px}
   body>footer .fband{padding:34px 0;border-bottom:1px solid var(--line)}
@@ -227,6 +253,32 @@
   body>footer .fdeck .more{font-weight:800;color:var(--blue);margin-top:8px}
   body>footer .fway a:not(.big){display:inline-block;font-size:13px;font-weight:800;
       color:var(--blue);margin-top:7px}
+
+  /* The petal rules live at the very end of this stylesheet on purpose.
+     .cats, .faq and .agents each set a `background:` shorthand, and the
+     shorthand resets background-image to none — so with the petals declared
+     earlier, three of the four tinted sections silently painted nothing.
+     Same specificity, later wins. Keep these last. */
+  /* ---- petals ----
+     Very soft blooms of brand colour in the background of the quiet sections,
+     so a long white page has some weather in it. Two rules about them:
+
+     They are background-image on the section itself, not a pseudo-element and
+     not a stray div. Half the blocks on this site already use ::before or
+     ::after for a scrim or a photograph, and three separate bugs on this site
+     have come from a decoration reaching into a block that was already using
+     the slot it wanted.
+
+     And they are faint on purpose — 4-6% of a colour, blurred across several
+     hundred pixels. At the point where somebody notices them as shapes they
+     have stopped being atmosphere and started being decoration. */
+  .petal1{background-image:
+      radial-gradient(460px 460px at 90% 4%, rgba(22,102,237,.055), transparent 68%),
+      radial-gradient(560px 560px at -8% 82%, rgba(0,194,255,.05), transparent 70%)}
+  .petal2{background-image:
+      radial-gradient(520px 520px at 6% 8%, rgba(22,102,237,.05), transparent 70%),
+      radial-gradient(420px 420px at 96% 72%, rgba(0,194,255,.055), transparent 68%)}
+
 
   /* ---- the carrier loop ----
      A single row of carrier marks that scrolls forever. The track holds the
@@ -577,7 +629,7 @@
     </div>
   </article>
 
-  <section class="gfaq" aria-labelledby="gfaqh">
+  <section class="gfaq petal2" aria-labelledby="gfaqh">
     <h2 id="gfaqh">Common questions</h2>
     <div class="q"><b>Does it cover my passengers?</b><p>Yes — anyone in the vehicle, and in many cases you as a pedestrian or in someone else’s car. The exact reach varies by carrier.</p></div>
     <div class="q"><b>How much should I carry?</b><p>The step up from the minimum offer is usually small. Given that it pays first, with no deductible, and covers everyone in the car, it is rarely the place to economise.</p></div>
@@ -590,7 +642,7 @@
     <div class="row"><a class="p" href="../../quote.html?type=car">Get my free quote &rarr;</a><a class="s" href="tel:+19155031207">Call 915-503-1207</a></div>
   </div>
 
-  <section class="more" aria-labelledby="moreh">
+  <section class="more petal1" aria-labelledby="moreh">
     <h2 id="moreh">More from Car Insurance 101</h2>
     <div class="mlist">
       <a href="../compare-car-insurance-quotes/"><b>How to Compare Quotes</b><span>What actually makes two quotes comparable, and the four places a cheaper one is usually cheaper.</span></a>

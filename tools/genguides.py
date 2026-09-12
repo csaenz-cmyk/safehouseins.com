@@ -247,6 +247,32 @@ CSS = """
       color:#4A5A74;font-weight:450;flex:1 1 auto}
   .hgrid em{display:block;margin-top:14px;font-style:normal;font-size:13px;
       font-weight:800;color:var(--pblue)}
+
+  /* The petal rules live at the very end of this stylesheet on purpose.
+     .cats, .faq and .agents each set a `background:` shorthand, and the
+     shorthand resets background-image to none — so with the petals declared
+     earlier, three of the four tinted sections silently painted nothing.
+     Same specificity, later wins. Keep these last. */
+  /* ---- petals ----
+     Very soft blooms of brand colour in the background of the quiet sections,
+     so a long white page has some weather in it. Two rules about them:
+
+     They are background-image on the section itself, not a pseudo-element and
+     not a stray div. Half the blocks on this site already use ::before or
+     ::after for a scrim or a photograph, and three separate bugs on this site
+     have come from a decoration reaching into a block that was already using
+     the slot it wanted.
+
+     And they are faint on purpose — 4-6% of a colour, blurred across several
+     hundred pixels. At the point where somebody notices them as shapes they
+     have stopped being atmosphere and started being decoration. */
+  .petal1{background-image:
+      radial-gradient(460px 460px at 90% 4%, rgba(22,102,237,.055), transparent 68%),
+      radial-gradient(560px 560px at -8% 82%, rgba(0,194,255,.05), transparent 70%)}
+  .petal2{background-image:
+      radial-gradient(520px 520px at 6% 8%, rgba(22,102,237,.05), transparent 70%),
+      radial-gradient(420px 420px at 96% 72%, rgba(0,194,255,.055), transparent 68%)}
+
 """ + FOOTER_CSS + menu.PANEL_CSS
 
 
@@ -311,6 +337,35 @@ def block(b):
     return ''.join(out)
 
 
+def cta(g):
+    """The block at the foot of a guide.
+
+    A guide may override it with its own ('heading', 'paragraph') — the Mexico
+    page does, because the online form has no Mexico option and sending
+    somebody there would be a dead end. An overridden CTA drops the quote
+    button and offers call and text instead.
+    """
+    if g.get('cta'):
+        head, body = g['cta']
+        row = ('<a class="p" href="tel:' + nap.CALL_E164 + '">Call ' + nap.CALL
+               + '</a><a class="s" href="sms:' + nap.TEXT_E164 + '">Text '
+               + nap.TEXT + '</a>')
+    else:
+        head = 'Still want it checked by a person?'
+        body = ('Start online and an agent picks it up, or call and we will do the '
+                'whole thing with you. In English or Spanish, whichever the '
+                'conversation starts in.')
+        row = ('<a class="p" href="' + UP + 'quote.html?type=car">'
+               'Get my free quote &rarr;</a>'
+               '<a class="s" href="tel:' + nap.CALL_E164 + '">Call ' + nap.CALL
+               + '</a>')
+    return ('  <div class="gcta">\n'
+            '    <h2>' + head + '</h2>\n'
+            '    <p>' + body + '</p>\n'
+            '    <div class="row">' + row + '</div>\n'
+            '  </div>\n\n')
+
+
 def guide_page(g):
     # Same collection first: somebody reading about a lapse is better served
     # by the DWI page than by an explainer on deductibles.
@@ -353,21 +408,13 @@ def guide_page(g):
                   for k in g['key'])
         + '</ul>\n    </div>\n'
         + '  </article>\n\n'
-        + '  <section class="gfaq" aria-labelledby="gfaqh">\n'
+        + '  <section class="gfaq petal2" aria-labelledby="gfaqh">\n'
         + '    <h2 id="gfaqh">Common questions</h2>\n'
         + ''.join('    <div class="q"><b>' + q + '</b><p>' + a + '</p></div>\n'
                   for q, a in g['faq'])
         + '  </section>\n\n'
-        + '  <div class="gcta">\n'
-        + '    <h2>Still want it checked by a person?</h2>\n'
-        + '    <p>Start online and an agent picks it up, or call and we will do the '
-          'whole thing with you. In English or Spanish, whichever the conversation '
-          'starts in.</p>\n'
-        + '    <div class="row"><a class="p" href="' + UP + 'quote.html?type=car">'
-          'Get my free quote &rarr;</a>'
-          '<a class="s" href="tel:' + nap.CALL_E164 + '">Call ' + nap.CALL + '</a></div>\n'
-        + '  </div>\n\n'
-        + '  <section class="more" aria-labelledby="moreh">\n'
+        + cta(g)
+        + '  <section class="more petal1" aria-labelledby="moreh">\n'
         + '    <h2 id="moreh">More from Car Insurance 101</h2>\n'
         + '    <div class="mlist">\n'
         + ''.join('      <a href="' + UP1 + o['slug'] + '/"><b>' + o['nav']

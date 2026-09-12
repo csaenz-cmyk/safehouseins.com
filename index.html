@@ -709,16 +709,21 @@
        gives each card about 200px, and a sentence in a 200px column at this
        type size is six lines tall. Two-up until 1200 keeps the cards the size
        the photographs need to be. */
-    .catr{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;overflow:visible;
+    .catr{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;overflow:visible;
         max-width:1720px;margin:0 auto;padding:0 24px}
-    .cat{flex:none;max-width:none;padding:24px;border-radius:26px}
-    .cat .lb{font-size:17px;letter-spacing:.08em}
+    /* Taller than the mobile card and taller than they were. Four across
+       will never be as wide as a three-across row, so the size has to come
+       out of the height — 1000/1440 against the old 1000/1280 is about 12%
+       more card for the same width. */
+    .cat{flex:none;max-width:none;padding:28px;border-radius:28px;
+        aspect-ratio:1000/1440}
+    .cat .lb{font-size:18px;letter-spacing:.08em}
     /* Down from clamp(19px,1.55vw,25px). The row went from three columns to
        four, so each card lost about a quarter of its width and the copy was
        wrapping to five lines inside it. */
-    .cat p{font-size:clamp(16.5px,1.25vw,21px);max-width:19ch;line-height:1.26}
-    .cat .go{width:48px;height:48px}
-    .cat .go svg{width:22px;height:22px}
+    .cat p{font-size:clamp(17.5px,1.45vw,24px);max-width:18ch;line-height:1.22}
+    .cat .go{width:52px;height:52px}
+    .cat .go svg{width:23px;height:23px}
     .kin{padding:44px 0 76px}
     .kl{font-size:min(8.4vw,104px)}
     .klines{margin-left:2vw}
@@ -862,7 +867,18 @@
      section and the flow section from "900 and up" to "1200 and up" without
      touching a line of their CSS. Caught by reading the diff, not by looking
      at the page. */
-  @media(min-width:1200px){ .catr{grid-template-columns:repeat(4,1fr)} }
+  /* Four across only from 1300. At 1200 four columns left each card 275px
+     wide, and at the larger type the cards now carry that is a column, not
+     a card. Two-up below that, which makes them very large indeed. */
+  @media(min-width:1300px){
+    .catr{grid-template-columns:repeat(4,1fr)}
+    /* Four across is the narrowest the cards ever get, and at the larger type
+       the sentence and the arrow were fighting for the same line — the copy
+       wrapped to five lines and ran into the button. The arrow drops to its
+       own row here and the sentence gets the full width of the card. */
+    .cat .bt{flex-direction:column;align-items:flex-start;gap:16px}
+    .cat p{max-width:none;font-size:clamp(18px,1.35vw,23px)}
+  }
   @media(hover:none){ .cc:hover{transform:none} }
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
@@ -873,6 +889,32 @@
     .fdot i{animation:none!important}
     .fdesc{grid-template-rows:1fr!important}
   }
+
+  /* The petal rules live at the very end of this stylesheet on purpose.
+     .cats, .faq and .agents each set a `background:` shorthand, and the
+     shorthand resets background-image to none — so with the petals declared
+     earlier, three of the four tinted sections silently painted nothing.
+     Same specificity, later wins. Keep these last. */
+  /* ---- petals ----
+     Very soft blooms of brand colour in the background of the quiet sections,
+     so a long white page has some weather in it. Two rules about them:
+
+     They are background-image on the section itself, not a pseudo-element and
+     not a stray div. Half the blocks on this site already use ::before or
+     ::after for a scrim or a photograph, and three separate bugs on this site
+     have come from a decoration reaching into a block that was already using
+     the slot it wanted.
+
+     And they are faint on purpose — 4-6% of a colour, blurred across several
+     hundred pixels. At the point where somebody notices them as shapes they
+     have stopped being atmosphere and started being decoration. */
+  .petal1{background-image:
+      radial-gradient(460px 460px at 90% 4%, rgba(22,102,237,.055), transparent 68%),
+      radial-gradient(560px 560px at -8% 82%, rgba(0,194,255,.05), transparent 70%)}
+  .petal2{background-image:
+      radial-gradient(520px 520px at 6% 8%, rgba(22,102,237,.05), transparent 70%),
+      radial-gradient(420px 420px at 96% 72%, rgba(0,194,255,.055), transparent 68%)}
+
 </style>
 </head>
 <body>
@@ -1017,7 +1059,7 @@
 </div>
 
 <!-- ================= CATEGORY CARDS ================= -->
-<section class="cats" aria-label="What we insure">
+<section class="cats petal1" aria-label="What we insure">
   <!-- Four cards, and every one of them goes to the quote form rather than to
        the service page it used to.
 
@@ -1163,7 +1205,7 @@
 </div></section>
 
 <!-- ================= AGENTS ================= -->
-<section class="agents" id="agents" aria-label="Meet the agents">
+<section class="agents petal1" id="agents" aria-label="Meet the agents">
   <div class="agin">
     <!-- The photographs are back; the names are not.
 
@@ -1225,7 +1267,7 @@
       under their own names.</p>
   </div>
 
-  <div class="rwall">
+  <div class="rwall petal2">
     <figure class="rq2 rv">
       <span class="qm" aria-hidden="true">&rdquo;</span>
       <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
@@ -1261,7 +1303,7 @@
 </div></section>
 
 <!-- ================= FAQ ================= -->
-<section class="faq" id="faq" aria-label="Common questions"><div class="in">
+<section class="faq petal2" id="faq" aria-label="Common questions"><div class="in">
   <div class="rhead rv">
     <span class="kick"><img src="assets/safehouse-heart.png" alt=""> Common questions</span>
     <h2>Everything people ask us.</h2>

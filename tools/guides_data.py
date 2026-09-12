@@ -1246,6 +1246,14 @@ SITUATIONS = [
 {
  'group': 'situations',
  'slug': 'mexico-auto-insurance',
+ # The online quote form knows car, home, commercial, moto and renters. It does
+ # not know Mexico, so the usual "Get my free quote" button would drop somebody
+ # on a picker with no option for what they came for. This page gets a call-and-
+ # text CTA instead, until the form learns the product.
+ 'cta': ('Crossing this week?',
+         'Tell us the dates, the vehicle and where you are going. We quote it across '
+         'several authorized Mexican carriers and you will have it before you leave '
+         '\u2014 in English or Spanish.'),
  'nav': 'Driving Into Mexico',
  'card': ('Your US policy does not cover you south of the border. What is actually required and '
  'what happens without it.'),
@@ -1296,10 +1304,16 @@ SITUATIONS = [
      'Make sure the vehicle on the policy is the vehicle you are actually taking.',
      'If the car is financed, check whether the lender requires anything in '
      'writing.'])]),
- ('Ask us before you cross',
-  ['We are in El Paso, and this comes up constantly. Call and we will tell you exactly '
-   'what your current policy does at the border and what you need for the trip you are '
-   'making, in English or Spanish.'])],
+ ('We write it, and we shop it',
+  ['We sell Mexican auto insurance, and we shop it the same way we shop everything '
+   'else \u2014 across several authorized Mexican carriers rather than whichever one '
+   'comes up first. The limits, the deductible and what the legal assistance actually '
+   'includes are not the same at all of them.',
+   'A short trip can be written in minutes. Call or text us with the dates, the vehicle '
+   'and where you are going, and you will have it before you leave.',
+   ('es',
+    'S\u00ed, vendemos seguro mexicano y lo cotizamos con varias compa\u00f1\u00edas. '
+    'Ll\u00e1manos o mand\u00e1nos un mensaje.')])],
  'key': ['A US policy does not cover liability in Mexico. Mexico does not recognise it.',
  'Mexican law requires liability from a company authorised in Mexico.',
  'An injury accident is a criminal matter there until fault is settled.',

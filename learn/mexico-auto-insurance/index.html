@@ -177,6 +177,32 @@
       color:#4A5A74;font-weight:450;flex:1 1 auto}
   .hgrid em{display:block;margin-top:14px;font-style:normal;font-size:13px;
       font-weight:800;color:var(--pblue)}
+
+  /* The petal rules live at the very end of this stylesheet on purpose.
+     .cats, .faq and .agents each set a `background:` shorthand, and the
+     shorthand resets background-image to none — so with the petals declared
+     earlier, three of the four tinted sections silently painted nothing.
+     Same specificity, later wins. Keep these last. */
+  /* ---- petals ----
+     Very soft blooms of brand colour in the background of the quiet sections,
+     so a long white page has some weather in it. Two rules about them:
+
+     They are background-image on the section itself, not a pseudo-element and
+     not a stray div. Half the blocks on this site already use ::before or
+     ::after for a scrim or a photograph, and three separate bugs on this site
+     have come from a decoration reaching into a block that was already using
+     the slot it wanted.
+
+     And they are faint on purpose — 4-6% of a colour, blurred across several
+     hundred pixels. At the point where somebody notices them as shapes they
+     have stopped being atmosphere and started being decoration. */
+  .petal1{background-image:
+      radial-gradient(460px 460px at 90% 4%, rgba(22,102,237,.055), transparent 68%),
+      radial-gradient(560px 560px at -8% 82%, rgba(0,194,255,.05), transparent 70%)}
+  .petal2{background-image:
+      radial-gradient(520px 520px at 6% 8%, rgba(22,102,237,.05), transparent 70%),
+      radial-gradient(420px 420px at 96% 72%, rgba(0,194,255,.055), transparent 68%)}
+
   body>footer{padding:0 0 34px;border-top:1px solid var(--line);background:#FBFCFE}
   body>footer .fshell{max-width:1180px;margin:0 auto;padding:0 22px}
   body>footer .fband{padding:34px 0;border-bottom:1px solid var(--line)}
@@ -227,6 +253,32 @@
   body>footer .fdeck .more{font-weight:800;color:var(--blue);margin-top:8px}
   body>footer .fway a:not(.big){display:inline-block;font-size:13px;font-weight:800;
       color:var(--blue);margin-top:7px}
+
+  /* The petal rules live at the very end of this stylesheet on purpose.
+     .cats, .faq and .agents each set a `background:` shorthand, and the
+     shorthand resets background-image to none — so with the petals declared
+     earlier, three of the four tinted sections silently painted nothing.
+     Same specificity, later wins. Keep these last. */
+  /* ---- petals ----
+     Very soft blooms of brand colour in the background of the quiet sections,
+     so a long white page has some weather in it. Two rules about them:
+
+     They are background-image on the section itself, not a pseudo-element and
+     not a stray div. Half the blocks on this site already use ::before or
+     ::after for a scrim or a photograph, and three separate bugs on this site
+     have come from a decoration reaching into a block that was already using
+     the slot it wanted.
+
+     And they are faint on purpose — 4-6% of a colour, blurred across several
+     hundred pixels. At the point where somebody notices them as shapes they
+     have stopped being atmosphere and started being decoration. */
+  .petal1{background-image:
+      radial-gradient(460px 460px at 90% 4%, rgba(22,102,237,.055), transparent 68%),
+      radial-gradient(560px 560px at -8% 82%, rgba(0,194,255,.05), transparent 70%)}
+  .petal2{background-image:
+      radial-gradient(520px 520px at 6% 8%, rgba(22,102,237,.05), transparent 70%),
+      radial-gradient(420px 420px at 96% 72%, rgba(0,194,255,.055), transparent 68%)}
+
 
   /* ---- the carrier loop ----
      A single row of carrier marks that scrolls forever. The track holds the
@@ -570,15 +622,17 @@
       <ul><li>A day in Ciudad Ju&aacute;rez. The distance is short; the border is still the border.</li><li>A weekend in Chihuahua or on the coast.</li><li>Driving a rental or somebody else’s car across.</li><li>A work trip in a company vehicle — commercial use has its own requirements.</li></ul>
       <h2>Before you go</h2>
       <ul><li>Buy the Mexican coverage before you cross, not at the bridge.</li><li>Carry the policy in the vehicle, printed.</li><li>Check that the dates cover the whole trip, including the day you come back.</li><li>Make sure the vehicle on the policy is the vehicle you are actually taking.</li><li>If the car is financed, check whether the lender requires anything in writing.</li></ul>
-      <h2>Ask us before you cross</h2>
-      <p>We are in El Paso, and this comes up constantly. Call and we will tell you exactly what your current policy does at the border and what you need for the trip you are making, in English or Spanish.</p>
+      <h2>We write it, and we shop it</h2>
+      <p>We sell Mexican auto insurance, and we shop it the same way we shop everything else — across several authorized Mexican carriers rather than whichever one comes up first. The limits, the deductible and what the legal assistance actually includes are not the same at all of them.</p>
+      <p>A short trip can be written in minutes. Call or text us with the dates, the vehicle and where you are going, and you will have it before you leave.</p>
+      <p class="es" lang="es">Sí, vendemos seguro mexicano y lo cotizamos con varias compañías. Llámanos o mandános un mensaje.</p>
     <div class="key">
       <b class="t">What to take away</b>
       <ul><li><span class="tk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>A US policy does not cover liability in Mexico. Mexico does not recognise it.</span></li><li><span class="tk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Mexican law requires liability from a company authorised in Mexico.</span></li><li><span class="tk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>An injury accident is a criminal matter there until fault is settled.</span></li><li><span class="tk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Buy before you cross, carry it printed, check the dates both ways.</span></li></ul>
     </div>
   </article>
 
-  <section class="gfaq" aria-labelledby="gfaqh">
+  <section class="gfaq petal2" aria-labelledby="gfaqh">
     <h2 id="gfaqh">Common questions</h2>
     <div class="q"><b>Does my policy cover me just across the bridge?</b><p>Some policies extend physical damage a short distance — often around 25 miles — but not liability, which is the coverage Mexico requires. Read your declarations page, and call us if it is not clear.</p></div>
     <div class="q"><b>What about a rental car?</b><p>Most US rental agreements prohibit taking the vehicle into Mexico at all. Check the agreement before you plan the trip.</p></div>
@@ -586,12 +640,12 @@
   </section>
 
   <div class="gcta">
-    <h2>Still want it checked by a person?</h2>
-    <p>Start online and an agent picks it up, or call and we will do the whole thing with you. In English or Spanish, whichever the conversation starts in.</p>
-    <div class="row"><a class="p" href="../../quote.html?type=car">Get my free quote &rarr;</a><a class="s" href="tel:+19155031207">Call 915-503-1207</a></div>
+    <h2>Crossing this week?</h2>
+    <p>Tell us the dates, the vehicle and where you are going. We quote it across several authorized Mexican carriers and you will have it before you leave — in English or Spanish.</p>
+    <div class="row"><a class="p" href="tel:+19155031207">Call 915-503-1207</a><a class="s" href="sms:+19155943777">Text 915-594-3777</a></div>
   </div>
 
-  <section class="more" aria-labelledby="moreh">
+  <section class="more petal1" aria-labelledby="moreh">
     <h2 id="moreh">More from Car Insurance 101</h2>
     <div class="mlist">
       <a href="../car-insurance-without-a-license/"><b>Insurance Without a License</b><span>Foreign licenses, matrículas, a permit, or no license at all — what is actually possible and what it takes.</span></a>

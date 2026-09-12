@@ -124,7 +124,7 @@ see the rules at the top of `tools/guides_data.py`.
 
 | Question | Where | Who answers it | Confirmed |
 | -------- | ----- | -------------- | --------- |
-| Does the agency sell Mexican tourist auto insurance, or do we refer it out? | `learn/mexico-auto-insurance/` | Carlos | ☐ |
+| ~~Does the agency sell Mexican tourist auto insurance?~~ **Answered: yes, and we shop it across several Mexican carriers.** Page updated. | `learn/mexico-auto-insurance/` | Carlos | ☑ |
 | SR-22 filing period: 2 years TX / 3 years NM | `learn/sr-22-texas-new-mexico/`, `learn/car-insurance-after-a-dwi/` | TX DPS / NM MVD | ☐ |
 
 The Mexico page currently explains the problem and says to call us. It does
@@ -132,3 +132,9 @@ The Mexico page currently explains the problem and says to call us. It does
 do, the page should say so plainly and get a proper call to action; if we refer
 it, the page should say who to. Either is better than the neutral version that
 is there now.
+
+**Still open on the Mexico page:** the online quote form knows car, home,
+commercial, moto and renters — it does not know Mexico. The page's call to
+action is call-and-text for that reason. Adding a Mexico option to the form is
+a change to `quote.html` and to whatever the AMS does with the submission, not
+a copy change.
