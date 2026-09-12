@@ -120,10 +120,17 @@ PRODUCTS = [
  'yes_lede': 'A hard record is not a reason to be sent somewhere else. It is a reason to '
              'be shopped properly, because the carrier that says no to one person says '
              'yes to another.',
- 'yes': ['Tickets, accidents and at-fault claims', 'SR-22 and state filings',
-         'A lapse in coverage, however long', 'New drivers and teenagers',
-         'Foreign licenses and matrículas', 'Non-owner and no-vehicle policies',
-         'Multiple cars, multiple drivers', 'Rideshare and delivery use'],
+ # Where a guide exists for the situation, the item links to it. This list is
+ # the single best place on the site to catch somebody who arrived searching
+ # for their own circumstance and is looking for the line that describes them.
+ 'yes': [('Tickets, accidents and at-fault claims', 'car-insurance-after-a-dwi'),
+         ('SR-22 and state filings', 'sr-22-texas-new-mexico'),
+         ('A lapse in coverage, however long', 'car-insurance-after-a-lapse'),
+         ('New drivers and teenagers', 'new-driver-car-insurance'),
+         ('Foreign licenses and matrículas', 'car-insurance-without-a-license'),
+         ('Non-owner and no-vehicle policies', 'non-owner-car-insurance'),
+         ('Multiple cars, multiple drivers', ''),
+         ('Rideshare and delivery use', 'rideshare-and-delivery-insurance')],
 
  'faq': [
    ('Do I have to buy anything to get a quote?',
@@ -1324,6 +1331,15 @@ CSS = """
       color:var(--pnavy);line-height:1.35}
   .ycard svg{width:17px;height:17px;flex:0 0 auto;margin-top:1px;stroke:var(--pblue);
       stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  /* A row that links to its own guide. It has to look clickable without
+     turning the grid into a wall of blue — the arrow appears and the border
+     warms, and nothing moves. */
+  a.ycard{transition:border-color .16s,background .16s}
+  a.ycard:hover{border-color:#A9CBFA;background:#F7FAFF}
+  a.ycard i{margin-left:auto;font-style:normal;color:var(--pblue);opacity:.55;
+      transition:opacity .16s,transform .16s}
+  a.ycard:hover i{opacity:1;transform:translateX(2px)}
+  a.ycard:focus-visible{outline:2px solid var(--pblue);outline-offset:2px}
 
   .steps{display:grid;gap:14px;grid-template-columns:1fr;margin-top:30px;counter-reset:s}
   @media(min-width:760px){ .steps{grid-template-columns:repeat(3,1fr)} }
@@ -1700,12 +1716,33 @@ def missection(p):
             .replace('{eye}', EYE))
 
 
+def yescard(item):
+    """One row of "who we write".
+
+    Takes a plain string or a (label, guide-slug) pair. The pair renders as a
+    link; an empty slug renders as a plain row, so a situation can be listed
+    before its page exists without anything breaking.
+    """
+    if isinstance(item, tuple):
+        label, slug = item
+        if slug:
+            return ('      <a class="ycard" href="learn/%s/">%s<span>%s</span>'
+                    '<i aria-hidden="true">&rarr;</i></a>\n' % (slug, CHECK, label))
+    else:
+        label = item
+    return '      <div class="ycard">%s<span>%s</span></div>\n' % (CHECK, label)
+
+
 def resources(p):
     """Car Insurance 101, on the pages that have a library to point at."""
     if p['slug'] != 'auto-insurance':
         return ''
     import guides_data
-    gs = guides_data.GUIDES
+    # The 101 collection only. The seven situation pages are linked from "the
+    # drivers other agencies turn away" a little further up, which is where
+    # somebody with that circumstance is already looking — and twenty-two cards
+    # in this grid is a list, not a section.
+    gs = [g for g in guides_data.GUIDES if g['group'] == '101']
     feat = next(g for g in gs if g.get('featured'))
     rest = [g for g in gs if not g.get('featured')]
     shot = 'assets/hero-auto.jpg'
@@ -2128,8 +2165,7 @@ def page(p):
         covercards=''.join('      <div class="ccard"><b>%s</b><p>%s</p></div>\n' % (t, b)
                            for t, b in p['cover']),
         yes_head=e(p['yes_head']), yes_lede=p['yes_lede'],
-        yescards=''.join('      <div class="ycard">%s<span>%s</span></div>\n' % (CHECK, t)
-                         for t in p['yes']),
+        yescards=''.join(yescard(t) for t in p['yes']),
         faqcards=''.join('      <div class="fcard"><b>%s</b><p>%s</p></div>\n' % (q, a)
                          for q, a in p['faq']),
         alsocards=''.join(

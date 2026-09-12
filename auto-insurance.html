@@ -569,6 +569,15 @@
       color:var(--pnavy);line-height:1.35}
   .ycard svg{width:17px;height:17px;flex:0 0 auto;margin-top:1px;stroke:var(--pblue);
       stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  /* A row that links to its own guide. It has to look clickable without
+     turning the grid into a wall of blue — the arrow appears and the border
+     warms, and nothing moves. */
+  a.ycard{transition:border-color .16s,background .16s}
+  a.ycard:hover{border-color:#A9CBFA;background:#F7FAFF}
+  a.ycard i{margin-left:auto;font-style:normal;color:var(--pblue);opacity:.55;
+      transition:opacity .16s,transform .16s}
+  a.ycard:hover i{opacity:1;transform:translateX(2px)}
+  a.ycard:focus-visible{outline:2px solid var(--pblue);outline-offset:2px}
 
   .steps{display:grid;gap:14px;grid-template-columns:1fr;margin-top:30px;counter-reset:s}
   @media(min-width:760px){ .steps{grid-template-columns:repeat(3,1fr)} }
@@ -1163,14 +1172,14 @@
     <h2>The drivers other agencies turn away</h2>
     <p class="sub">A hard record is not a reason to be sent somewhere else. It is a reason to be shopped properly, because the carrier that says no to one person says yes to another.</p>
     <div class="ygrid">
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Tickets, accidents and at-fault claims</span></div>
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>SR-22 and state filings</span></div>
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>A lapse in coverage, however long</span></div>
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>New drivers and teenagers</span></div>
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Foreign licenses and matrículas</span></div>
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Non-owner and no-vehicle policies</span></div>
+      <a class="ycard" href="learn/car-insurance-after-a-dwi/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Tickets, accidents and at-fault claims</span><i aria-hidden="true">&rarr;</i></a>
+      <a class="ycard" href="learn/sr-22-texas-new-mexico/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>SR-22 and state filings</span><i aria-hidden="true">&rarr;</i></a>
+      <a class="ycard" href="learn/car-insurance-after-a-lapse/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>A lapse in coverage, however long</span><i aria-hidden="true">&rarr;</i></a>
+      <a class="ycard" href="learn/new-driver-car-insurance/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>New drivers and teenagers</span><i aria-hidden="true">&rarr;</i></a>
+      <a class="ycard" href="learn/car-insurance-without-a-license/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Foreign licenses and matrículas</span><i aria-hidden="true">&rarr;</i></a>
+      <a class="ycard" href="learn/non-owner-car-insurance/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Non-owner and no-vehicle policies</span><i aria-hidden="true">&rarr;</i></a>
       <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Multiple cars, multiple drivers</span></div>
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Rideshare and delivery use</span></div>
+      <a class="ycard" href="learn/rideshare-and-delivery-insurance/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Rideshare and delivery use</span><i aria-hidden="true">&rarr;</i></a>
     </div>
   </section>
 

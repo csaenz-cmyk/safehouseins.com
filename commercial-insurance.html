@@ -569,6 +569,15 @@
       color:var(--pnavy);line-height:1.35}
   .ycard svg{width:17px;height:17px;flex:0 0 auto;margin-top:1px;stroke:var(--pblue);
       stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  /* A row that links to its own guide. It has to look clickable without
+     turning the grid into a wall of blue — the arrow appears and the border
+     warms, and nothing moves. */
+  a.ycard{transition:border-color .16s,background .16s}
+  a.ycard:hover{border-color:#A9CBFA;background:#F7FAFF}
+  a.ycard i{margin-left:auto;font-style:normal;color:var(--pblue);opacity:.55;
+      transition:opacity .16s,transform .16s}
+  a.ycard:hover i{opacity:1;transform:translateX(2px)}
+  a.ycard:focus-visible{outline:2px solid var(--pblue);outline-offset:2px}
 
   .steps{display:grid;gap:14px;grid-template-columns:1fr;margin-top:30px;counter-reset:s}
   @media(min-width:760px){ .steps{grid-template-columns:repeat(3,1fr)} }

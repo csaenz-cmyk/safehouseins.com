@@ -95,6 +95,12 @@
       border-radius:50%;background:linear-gradient(140deg,var(--pblue),var(--pcyan))}
   .art li b{color:var(--pnavy);font-weight:800}
   .art p b{color:var(--pnavy);font-weight:800}
+  /* The one Spanish sentence on the pages whose readers are most likely to be
+     searching in Spanish. Set apart rather than dropped into the English run,
+     so it reads as an aside rather than as a translation error. */
+  .art p.es{margin-top:18px;padding:14px 18px;border-left:3px solid var(--pblue);
+      background:#F4F8FF;border-radius:0 12px 12px 0;font-size:16px;font-weight:600;
+      color:var(--pnavy)}
 
   /* ---- takeaways ---- */
   .key{margin-top:52px;background:linear-gradient(160deg,#F2F7FF,#E9F1FE);
@@ -151,6 +157,11 @@
 
   /* ---- the hub ---- */
   .hub{padding:0 0 76px}
+  .hsec{font-size:clamp(22px,2.8vw,30px);font-weight:900;letter-spacing:-.028em;
+      color:var(--pnavy);margin-top:52px}
+  .hsec:first-child{margin-top:0}
+  .hsub2{margin:10px 0 22px;max-width:58ch;font-size:16px;line-height:1.66;
+      color:#3B4A63;font-weight:500}
   .hgrid{display:grid;gap:14px;grid-template-columns:1fr}
   @media(min-width:760px){ .hgrid{grid-template-columns:1fr 1fr;gap:16px} }
   @media(min-width:1060px){ .hgrid{grid-template-columns:1fr 1fr 1fr} }
@@ -535,7 +546,7 @@
   </div>
 </div>
     <div class="ghin">
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> <i>/</i> <a href="../../auto-insurance.html">Car insurance</a> <i>/</i><a href="../">Car Insurance 101</a></nav>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> <i>/</i> <a href="../../auto-insurance.html">Car insurance</a> <i>/</i><a href="../">Learn</a></nav>
 
       <span class="kick">Car Insurance 101</span>
       <h1>Collision and comprehensive</h1>

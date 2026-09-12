@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Car Insurance 101 &middot; Safe House Insurance</title>
+<title>Car insurance, explained &middot; Safe House Insurance</title>
 <meta name="description" content="Plain answers about car insurance from a licensed independent agency in El Paso: how to compare quotes, how rates are calculated, how much coverage you need, and what Texas and New Mexico require.">
 <link rel="canonical" href="https://safehouseins.com/learn/">
 <link rel="icon" href="../assets/safehouse-heart.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;450;500;600;700;800;900&display=swap" rel="stylesheet">
-<meta property="og:title" content="Car Insurance 101 &middot; Safe House Insurance">
+<meta property="og:title" content="Car insurance, explained &middot; Safe House Insurance">
 <meta property="og:description" content="Plain answers about car insurance from a licensed independent agency in El Paso: how to compare quotes, how rates are calculated, how much coverage you need, and what Texas and New Mexico require.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://safehouseins.com/learn/">
@@ -95,6 +95,12 @@
       border-radius:50%;background:linear-gradient(140deg,var(--pblue),var(--pcyan))}
   .art li b{color:var(--pnavy);font-weight:800}
   .art p b{color:var(--pnavy);font-weight:800}
+  /* The one Spanish sentence on the pages whose readers are most likely to be
+     searching in Spanish. Set apart rather than dropped into the English run,
+     so it reads as an aside rather than as a translation error. */
+  .art p.es{margin-top:18px;padding:14px 18px;border-left:3px solid var(--pblue);
+      background:#F4F8FF;border-radius:0 12px 12px 0;font-size:16px;font-weight:600;
+      color:var(--pnavy)}
 
   /* ---- takeaways ---- */
   .key{margin-top:52px;background:linear-gradient(160deg,#F2F7FF,#E9F1FE);
@@ -151,6 +157,11 @@
 
   /* ---- the hub ---- */
   .hub{padding:0 0 76px}
+  .hsec{font-size:clamp(22px,2.8vw,30px);font-weight:900;letter-spacing:-.028em;
+      color:var(--pnavy);margin-top:52px}
+  .hsec:first-child{margin-top:0}
+  .hsub2{margin:10px 0 22px;max-width:58ch;font-size:16px;line-height:1.66;
+      color:#3B4A63;font-weight:500}
   .hgrid{display:grid;gap:14px;grid-template-columns:1fr}
   @media(min-width:760px){ .hgrid{grid-template-columns:1fr 1fr;gap:16px} }
   @media(min-width:1060px){ .hgrid{grid-template-columns:1fr 1fr 1fr} }
@@ -538,29 +549,42 @@
       <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> <i>/</i> <a href="../auto-insurance.html">Car insurance</a></nav>
 
       <span class="kick">Learn</span>
-      <h1>Car Insurance 101</h1>
-      <p class="glede">Plain answers to the questions people actually ask before they buy a policy. No sales pitch, no invented numbers &mdash; written by the agents who place this business every day.</p>
+      <h1>Car insurance, explained</h1>
+      <p class="glede">How the product works, and what to do when your situation is the one everybody says is a problem. No sales pitch, no invented numbers &mdash; written by the agents who place this business every day.</p>
     </div>
   </header>
 
 <main id="main">
   <div class="hub">
-  <div class="hgrid">
-    <a href="compare-car-insurance-quotes/"><b>How to Compare Quotes</b><span>What actually makes two quotes comparable, and the four places a cheaper one is usually cheaper.</span><em>Read &rarr;</em></a>
-    <a href="how-car-insurance-is-calculated/"><b>How Your Rate Is Calculated</b><span>What a rating engine is actually weighing, and which of those things you can still do something about.</span><em>Read &rarr;</em></a>
-    <a href="how-much-car-insurance-you-need/"><b>How Much Coverage You Need</b><span>Why the state minimum is a floor rather than a recommendation, and how to pick limits you can defend.</span><em>Read &rarr;</em></a>
-    <a href="car-insurance-discounts/"><b>Car Insurance Discounts</b><span>The sixteen we ask about on every quote, why an online form only finds some of them, and when to ask again.</span><em>Read &rarr;</em></a>
-    <a href="how-to-save-on-car-insurance/"><b>How to Save on Car Insurance</b><span>The levers that actually move the number, in order, and the two that look like savings and are not.</span><em>Read &rarr;</em></a>
-    <a href="types-of-car-insurance/"><b>The 6 Main Types of Coverage</b><span>The six coverages a car policy is built from, what each one pays for, and which are required.</span><em>Read &rarr;</em></a>
-    <a href="liability-car-insurance/"><b>Liability Coverage</b><span>The coverage the law requires, what the three numbers mean, and what happens when they run out.</span><em>Read &rarr;</em></a>
-    <a href="collision-and-comprehensive/"><b>Collision & Comprehensive</b><span>The two coverages that pay for your own car, how the deductibles work, and when they stop being worth it.</span><em>Read &rarr;</em></a>
-    <a href="uninsured-motorist-coverage/"><b>Uninsured Motorist</b><span>The coverage that pays when the driver who hit you cannot — and why both states make you refuse it in writing.</span><em>Read &rarr;</em></a>
-    <a href="medpay-and-pip/"><b>MedPay & PIP</b><span>The two coverages that pay your own medical bills regardless of fault, and how they differ.</span><em>Read &rarr;</em></a>
-    <a href="roadside-and-rental/"><b>Roadside & Rental</b><span>The two small add-ons people skip and then need, and what they actually include.</span><em>Read &rarr;</em></a>
-    <a href="sr-22-texas-new-mexico/"><b>SR-22 Filings</b><span>What an SR-22 actually is, how fast one can be filed, and what it does to the price.</span><em>Read &rarr;</em></a>
-    <a href="texas-car-insurance-requirements/"><b>Texas Requirements</b><span>The minimum limits Texas requires, what else has to be offered, and what happens if you drive without it.</span><em>Read &rarr;</em></a>
-    <a href="new-mexico-car-insurance-requirements/"><b>New Mexico Requirements</b><span>The minimum limits New Mexico requires, how the state verifies them, and why the minimum is thin.</span><em>Read &rarr;</em></a>
-  </div>
+    <h2 class="hsec">Car Insurance 101</h2>
+    <p class="hsub2">How the product works, in plain words. Worth twenty minutes before you buy anything.</p>
+    <div class="hgrid">
+      <a href="compare-car-insurance-quotes/"><b>How to Compare Quotes</b><span>What actually makes two quotes comparable, and the four places a cheaper one is usually cheaper.</span><em>Read &rarr;</em></a>
+      <a href="how-car-insurance-is-calculated/"><b>How Your Rate Is Calculated</b><span>What a rating engine is actually weighing, and which of those things you can still do something about.</span><em>Read &rarr;</em></a>
+      <a href="how-much-car-insurance-you-need/"><b>How Much Coverage You Need</b><span>Why the state minimum is a floor rather than a recommendation, and how to pick limits you can defend.</span><em>Read &rarr;</em></a>
+      <a href="car-insurance-discounts/"><b>Car Insurance Discounts</b><span>The sixteen we ask about on every quote, why an online form only finds some of them, and when to ask again.</span><em>Read &rarr;</em></a>
+      <a href="how-to-save-on-car-insurance/"><b>How to Save on Car Insurance</b><span>The levers that actually move the number, in order, and the two that look like savings and are not.</span><em>Read &rarr;</em></a>
+      <a href="types-of-car-insurance/"><b>The 6 Main Types of Coverage</b><span>The six coverages a car policy is built from, what each one pays for, and which are required.</span><em>Read &rarr;</em></a>
+      <a href="liability-car-insurance/"><b>Liability Coverage</b><span>The coverage the law requires, what the three numbers mean, and what happens when they run out.</span><em>Read &rarr;</em></a>
+      <a href="collision-and-comprehensive/"><b>Collision & Comprehensive</b><span>The two coverages that pay for your own car, how the deductibles work, and when they stop being worth it.</span><em>Read &rarr;</em></a>
+      <a href="uninsured-motorist-coverage/"><b>Uninsured Motorist</b><span>The coverage that pays when the driver who hit you cannot — and why both states make you refuse it in writing.</span><em>Read &rarr;</em></a>
+      <a href="medpay-and-pip/"><b>MedPay & PIP</b><span>The two coverages that pay your own medical bills regardless of fault, and how they differ.</span><em>Read &rarr;</em></a>
+      <a href="roadside-and-rental/"><b>Roadside & Rental</b><span>The two small add-ons people skip and then need, and what they actually include.</span><em>Read &rarr;</em></a>
+      <a href="sr-22-texas-new-mexico/"><b>SR-22 Filings</b><span>What an SR-22 actually is, how fast one can be filed, and what it does to the price.</span><em>Read &rarr;</em></a>
+      <a href="texas-car-insurance-requirements/"><b>Texas Requirements</b><span>The minimum limits Texas requires, what else has to be offered, and what happens if you drive without it.</span><em>Read &rarr;</em></a>
+      <a href="new-mexico-car-insurance-requirements/"><b>New Mexico Requirements</b><span>The minimum limits New Mexico requires, how the state verifies them, and why the minimum is thin.</span><em>Read &rarr;</em></a>
+    </div>
+    <h2 class="hsec">If this is your situation</h2>
+    <p class="hsub2">The circumstances people are told are a problem. Most of them are not, and all of them are business we place.</p>
+    <div class="hgrid">
+      <a href="car-insurance-without-a-license/"><b>Insurance Without a License</b><span>Foreign licenses, matrículas, a permit, or no license at all — what is actually possible and what it takes.</span><em>Read &rarr;</em></a>
+      <a href="new-driver-car-insurance/"><b>New and Teen Drivers</b><span>Why the first policy costs what it does, when to add a teen to yours, and the credits nobody mentions.</span><em>Read &rarr;</em></a>
+      <a href="mexico-auto-insurance/"><b>Driving Into Mexico</b><span>Your US policy does not cover you south of the border. What is actually required and what happens without it.</span><em>Read &rarr;</em></a>
+      <a href="non-owner-car-insurance/"><b>Non-Owner Policies</b><span>Liability coverage when you drive but do not own a car — and how it carries an SR-22.</span><em>Read &rarr;</em></a>
+      <a href="car-insurance-after-a-dwi/"><b>After a DWI</b><span>What actually happens to your policy, how long it follows you, and why the first company to say yes is rarely the right one.</span><em>Read &rarr;</em></a>
+      <a href="car-insurance-after-a-lapse/"><b>After a Lapse</b><span>What a gap in coverage actually costs, how long it counts against you, and how to stop it happening again.</span><em>Read &rarr;</em></a>
+      <a href="rideshare-and-delivery-insurance/"><b>Rideshare & Delivery</b><span>The gap between your personal policy and the app — and what actually closes it.</span><em>Read &rarr;</em></a>
+    </div>
   </div>
 
 </main>

@@ -117,3 +117,18 @@ act on directly, so they get the same treatment as the claims numbers.
 
 Everything else in those guides is explanation rather than a citable number —
 see the rules at the top of `tools/guides_data.py`.
+
+---
+
+## Two things to confirm on the situation pages
+
+| Question | Where | Who answers it | Confirmed |
+| -------- | ----- | -------------- | --------- |
+| Does the agency sell Mexican tourist auto insurance, or do we refer it out? | `learn/mexico-auto-insurance/` | Carlos | ☐ |
+| SR-22 filing period: 2 years TX / 3 years NM | `learn/sr-22-texas-new-mexico/`, `learn/car-insurance-after-a-dwi/` | TX DPS / NM MVD | ☐ |
+
+The Mexico page currently explains the problem and says to call us. It does
+**not** claim we issue the policy, because nobody has said whether we do. If we
+do, the page should say so plainly and get a proper call to action; if we refer
+it, the page should say who to. Either is better than the neutral version that
+is there now.

@@ -36,10 +36,24 @@ GUIDES = guides_data.GUIDES
 UP = '../../'          # learn/<slug>/index.html is two deep
 UP1 = '../'            # learn/index.html is one deep
 
-HUB_TITLE = 'Car Insurance 101'
-HUB_LEDE = ('Plain answers to the questions people actually ask before they buy '
-            'a policy. No sales pitch, no invented numbers &mdash; written by the '
-            'agents who place this business every day.')
+# The hub's two sections, in order. A group with no guides in it simply does
+# not print.
+GROUPS = [
+ ('101', 'Car Insurance 101',
+  'How the product works, in plain words. Worth twenty minutes before you buy '
+  'anything.'),
+ ('situations', 'If this is your situation',
+  'The circumstances people are told are a problem. Most of them are not, and '
+  'all of them are business we place.'),
+]
+
+# The page title, not a group title. The hub carries two collections now and
+# "Car Insurance 101" is the name of one of them — using it for both put the
+# same words in the h1 and in the first h2.
+HUB_TITLE = 'Car insurance, explained'
+HUB_LEDE = ('How the product works, and what to do when your situation is the one '
+            'everybody says is a problem. No sales pitch, no invented numbers '
+            '&mdash; written by the agents who place this business every day.')
 
 
 def e(s):
@@ -151,6 +165,12 @@ CSS = """
       border-radius:50%;background:linear-gradient(140deg,var(--pblue),var(--pcyan))}
   .art li b{color:var(--pnavy);font-weight:800}
   .art p b{color:var(--pnavy);font-weight:800}
+  /* The one Spanish sentence on the pages whose readers are most likely to be
+     searching in Spanish. Set apart rather than dropped into the English run,
+     so it reads as an aside rather than as a translation error. */
+  .art p.es{margin-top:18px;padding:14px 18px;border-left:3px solid var(--pblue);
+      background:#F4F8FF;border-radius:0 12px 12px 0;font-size:16px;font-weight:600;
+      color:var(--pnavy)}
 
   /* ---- takeaways ---- */
   .key{margin-top:52px;background:linear-gradient(160deg,#F2F7FF,#E9F1FE);
@@ -207,6 +227,11 @@ CSS = """
 
   /* ---- the hub ---- */
   .hub{padding:0 0 76px}
+  .hsec{font-size:clamp(22px,2.8vw,30px);font-weight:900;letter-spacing:-.028em;
+      color:var(--pnavy);margin-top:52px}
+  .hsec:first-child{margin-top:0}
+  .hsub2{margin:10px 0 22px;max-width:58ch;font-size:16px;line-height:1.66;
+      color:#3B4A63;font-weight:500}
   .hgrid{display:grid;gap:14px;grid-template-columns:1fr}
   @media(min-width:760px){ .hgrid{grid-template-columns:1fr 1fr;gap:16px} }
   @media(min-width:1060px){ .hgrid{grid-template-columns:1fr 1fr 1fr} }
@@ -267,11 +292,18 @@ HEAD = """<!DOCTYPE html>
 
 
 def block(b):
-    """One (heading, parts) pair. A part is a paragraph or ('ul', [items])."""
+    """One (heading, parts) pair.
+
+    A part is a paragraph, ('ul', [items]) or ('es', 'one line in Spanish').
+    The Spanish line carries lang="es" so a screen reader switches voice and so
+    a translator leaves it alone.
+    """
     head, parts = b[0], b[1]
     out = ['      <h2>' + head + '</h2>\n']
     for part in parts:
-        if isinstance(part, tuple) and part[0] == 'ul':
+        if isinstance(part, tuple) and part[0] == 'es':
+            out.append('      <p class="es" lang="es">' + part[1] + '</p>\n')
+        elif isinstance(part, tuple) and part[0] == 'ul':
             out.append('      <ul>' + ''.join('<li>' + i + '</li>' for i in part[1])
                        + '</ul>\n')
         else:
@@ -280,7 +312,11 @@ def block(b):
 
 
 def guide_page(g):
-    others = [x for x in GUIDES if x['slug'] != g['slug']][:6]
+    # Same collection first: somebody reading about a lapse is better served
+    # by the DWI page than by an explainer on deductibles.
+    same = [x for x in GUIDES if x['slug'] != g['slug'] and x['group'] == g['group']]
+    rest = [x for x in GUIDES if x['slug'] != g['slug'] and x['group'] != g['group']]
+    others = (same + rest)[:6]
     canon = SITE + '/learn/' + g['slug'] + '/'
     faq_ld = {
         "@context": "https://schema.org", "@type": "FAQPage",
@@ -304,8 +340,12 @@ def guide_page(g):
             crumbs='      <nav class="crumbs" aria-label="Breadcrumb">'
                    '<a href="' + UP + 'index.html">Home</a> <i>/</i> '
                    '<a href="' + UP + 'auto-insurance.html">Car insurance</a> '
-                   '<i>/</i><a href="' + UP1 + '">Car Insurance 101</a></nav>\n',
-            kick='Car Insurance 101', h1=g['h1'], lede=g['lede'])
+                   '<i>/</i><a href="' + UP1 + '">Learn</a></nav>\n',
+            # The chip says which collection the page belongs to. A page
+            # about driving into Mexico labelled "Car Insurance 101" is
+            # telling the reader they are in the wrong place.
+            kick=dict((k, t) for k, t, _ in GROUPS)[g['group']],
+            h1=g['h1'], lede=g['lede'])
         + '  <article class="art">\n'
         + ''.join(block(b) for b in g['body'])
         + '    <div class="key">\n      <b class="t">What to take away</b>\n      <ul>'
@@ -358,11 +398,17 @@ def hub_page():
         # Straight into the <main> HEAD already opened. An earlier draft closed
         # it and opened a second one to escape main's width; two <main>
         # elements is a landmark error that no screenshot would ever show.
-        + '  <div class="hub">\n  <div class="hgrid">\n'
-        + ''.join('    <a href="' + g['slug'] + '/"><b>' + g['nav'] + '</b>'
-                  '<span>' + g['card'] + '</span><em>Read &rarr;</em></a>\n'
-                  for g in GUIDES)
-        + '  </div>\n  </div>\n'
+        + '  <div class="hub">\n'
+        + ''.join(
+            '    <h2 class="hsec">' + title + '</h2>\n'
+            '    <p class="hsub2">' + blurb + '</p>\n'
+            '    <div class="hgrid">\n'
+            + ''.join('      <a href="' + g['slug'] + '/"><b>' + g['nav'] + '</b>'
+                      '<span>' + g['card'] + '</span><em>Read &rarr;</em></a>\n'
+                      for g in GUIDES if g['group'] == key)
+            + '    </div>\n'
+            for key, title, blurb in GROUPS)
+        + '  </div>\n'
         + rewrite(genproduct.FOOTER.replace('</body>', menu.JS + '</body>'), 1))
 
 
