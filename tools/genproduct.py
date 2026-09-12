@@ -116,21 +116,25 @@ PRODUCTS = [
     'are insured. We do these regularly and often the same day.'),
  ],
 
- 'yes_head': 'The drivers other agencies turn away',
- 'yes_lede': 'A hard record is not a reason to be sent somewhere else. It is a reason to '
-             'be shopped properly, because the carrier that says no to one person says '
-             'yes to another.',
+ 'yes_head': 'Turned down somewhere else? Start here.',
+ 'yes_lede': 'None of these are edge cases for us &mdash; they are most of a normal week. '
+             'The carrier that says no to one person says yes to another, and knowing '
+             'which is which is the job.',
  # Where a guide exists for the situation, the item links to it. This list is
  # the single best place on the site to catch somebody who arrived searching
  # for their own circumstance and is looking for the line that describes them.
- 'yes': [('Tickets, accidents and at-fault claims', 'car-insurance-after-a-dwi'),
-         ('SR-22 and state filings', 'sr-22-texas-new-mexico'),
-         ('A lapse in coverage, however long', 'car-insurance-after-a-lapse'),
-         ('New drivers and teenagers', 'new-driver-car-insurance'),
-         ('Foreign licenses and matrículas', 'car-insurance-without-a-license'),
-         ('Non-owner and no-vehicle policies', 'non-owner-car-insurance'),
-         ('Multiple cars, multiple drivers', ''),
-         ('Rideshare and delivery use', 'rideshare-and-delivery-insurance')],
+ # Two or three words each. This section is scanned, not read — somebody who
+ # has been turned down somewhere else is hunting for the picture of their own
+ # situation, and eight full sentences is the opposite of that. The long
+ # version of each one is the guide it links to.
+ 'yes': [('Tickets &amp; accidents', 'car-insurance-after-a-dwi', 'alert'),
+         ('SR-22 filings', 'sr-22-texas-new-mexico', 'form'),
+         ('A lapse in coverage', 'car-insurance-after-a-lapse', 'gap'),
+         ('New &amp; teen drivers', 'new-driver-car-insurance', 'learner'),
+         ('Foreign license or matr&iacute;cula', 'car-insurance-without-a-license', 'id'),
+         ('Driver with no car', 'non-owner-car-insurance', 'key'),
+         ('Several cars or drivers', '', 'cars'),
+         ('Rideshare &amp; delivery', 'rideshare-and-delivery-insurance', 'app')],
 
  'faq': [
    ('Do I have to buy anything to get a quote?',
@@ -1294,14 +1298,31 @@ CSS = """
   .resfeat .go{transition:transform .18s}
   .reslist{display:grid;gap:12px;grid-template-columns:1fr}
   @media(min-width:620px){ .reslist{grid-template-columns:1fr 1fr} }
-  .reslist a{display:block;background:#F7FAFF;border:1.5px solid var(--pline);
-      border-radius:16px;padding:18px 20px;
-      transition:border-color .16s,transform .16s,background .16s}
-  .reslist a:hover{border-color:#A9CBFA;background:#fff;transform:translateY(-2px)}
-  .reslist b{display:block;font-size:15.5px;font-weight:800;color:var(--pnavy);
-      letter-spacing:-.018em;line-height:1.3}
-  .reslist span{display:block;margin-top:7px;font-size:13.5px;line-height:1.55;
+  /* A card rather than a tinted box. White ground, a rule of gradient that
+     draws itself across the top on hover, and an arrow that was always there
+     but only colours in when you are on it. The flat version read as a list
+     of links with a border around each one. */
+  .reslist a{position:relative;overflow:hidden;display:block;background:#fff;
+      border:1px solid var(--pline);border-radius:18px;padding:20px 22px 20px;
+      box-shadow:0 18px 36px -34px rgba(8,24,58,.9);
+      transition:border-color .18s,transform .18s,box-shadow .18s}
+  .reslist a::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+      background:linear-gradient(90deg,var(--pblue),var(--pcyan));
+      transform:scaleX(0);transform-origin:left;transition:transform .22s ease}
+  .reslist a:hover{border-color:#C9DDFA;transform:translateY(-3px);
+      box-shadow:0 26px 46px -30px rgba(8,24,58,.95)}
+  .reslist a:hover::before{transform:scaleX(1)}
+  .reslist a:focus-visible{outline:2px solid var(--pblue);outline-offset:3px}
+  .reslist b{display:block;font-size:16px;font-weight:800;color:var(--pnavy);
+      letter-spacing:-.02em;line-height:1.28;padding-right:22px}
+  .reslist span{display:block;margin-top:8px;font-size:13.5px;line-height:1.58;
       color:#5A6B85;font-weight:500}
+  /* The arrow is drawn with a border rather than set as a glyph, so it is the
+     same weight as everything else on the card at every zoom level. */
+  .reslist a::after{content:"";position:absolute;right:20px;top:22px;width:7px;height:7px;
+      border-right:2px solid #C4D2E6;border-top:2px solid #C4D2E6;
+      transform:rotate(45deg);transition:border-color .18s,transform .18s}
+  .reslist a:hover::after{border-color:var(--pblue);transform:rotate(45deg) translate(2px,-2px)}
   .resall{margin-top:22px;display:inline-flex;align-items:center;gap:8px;
       font-size:15px;font-weight:800;color:var(--pblue)}
 
@@ -1316,23 +1337,32 @@ CSS = """
   .ccard b{display:block;font-size:16px;font-weight:800;color:var(--pnavy);margin-bottom:7px}
   .ccard p{font-size:14px;line-height:1.65;color:#4A5A74;font-weight:500}
 
-  .ygrid{display:grid;gap:10px;grid-template-columns:1fr;margin-top:26px}
-  @media(min-width:560px){ .ygrid{grid-template-columns:1fr 1fr} }
-  @media(min-width:980px){ .ygrid{grid-template-columns:1fr 1fr 1fr 1fr} }
-  .ycard{display:flex;align-items:flex-start;gap:10px;border:1.5px solid var(--pline);
-      border-radius:14px;padding:14px 16px;background:#fff;font-size:14.5px;font-weight:700;
-      color:var(--pnavy);line-height:1.35}
-  .ycard svg{width:17px;height:17px;flex:0 0 auto;margin-top:1px;stroke:var(--pblue);
-      stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
-  /* A row that links to its own guide. It has to look clickable without
-     turning the grid into a wall of blue — the arrow appears and the border
-     warms, and nothing moves. */
-  a.ycard{transition:border-color .16s,background .16s}
-  a.ycard:hover{border-color:#A9CBFA;background:#F7FAFF}
-  a.ycard i{margin-left:auto;font-style:normal;color:var(--pblue);opacity:.55;
-      transition:opacity .16s,transform .16s}
-  a.ycard:hover i{opacity:1;transform:translateX(2px)}
-  a.ycard:focus-visible{outline:2px solid var(--pblue);outline-offset:2px}
+  /* Two across even on the smallest phone. These are pictures with two words
+     under them now, not sentences, so they fit — and two columns is what makes
+     the whole set visible at a glance instead of scrolled through. */
+  .ygrid{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:30px}
+  @media(min-width:760px){ .ygrid{grid-template-columns:repeat(4,1fr);gap:14px} }
+  /* Picture first, two or three words under it, centred. The row version of
+     this — a check mark and a sentence — made the visitor read eight lines to
+     find out whether they were welcome. */
+  .ycard{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+      gap:12px;text-align:center;border:1px solid var(--pline);border-radius:18px;
+      padding:22px 14px 20px;background:#fff;
+      box-shadow:0 16px 32px -32px rgba(8,24,58,.9)}
+  .ycard b{font-size:14.5px;font-weight:800;color:var(--pnavy);line-height:1.3;
+      letter-spacing:-.012em}
+  @media(min-width:760px){ .ycard{padding:26px 16px 22px} .ycard b{font-size:15.5px} }
+  .ycard .yi{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
+      background:linear-gradient(150deg,#EAF2FE,#DCEAFE);flex:0 0 auto}
+  @media(min-width:760px){ .ycard .yi{width:58px;height:58px;border-radius:18px} }
+  .ycard .yi svg{width:26px;height:26px;stroke:var(--pblue);stroke-width:1.8;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  @media(min-width:760px){ .ycard .yi svg{width:28px;height:28px} }
+  a.ycard{transition:border-color .18s,transform .18s,box-shadow .18s}
+  a.ycard:hover{border-color:#C9DDFA;transform:translateY(-3px);
+      box-shadow:0 24px 44px -30px rgba(8,24,58,.95)}
+  a.ycard:hover .yi{background:linear-gradient(150deg,#DCEAFE,#C9DDFA)}
+  a.ycard:focus-visible{outline:2px solid var(--pblue);outline-offset:3px}
 
   .steps{display:grid;gap:14px;grid-template-columns:1fr;margin-top:30px;counter-reset:s}
   @media(min-width:760px){ .steps{grid-template-columns:repeat(3,1fr)} }
@@ -1738,21 +1768,64 @@ def missection(p):
             .replace('{eye}', EYE))
 
 
-def yescard(item):
-    """One row of "who we write".
+# ---------------------------------------------------------------- glyphs ---
+# One per row of "who we write". Drawn rather than written, because that
+# section is scanned and not read: somebody who has been turned down elsewhere
+# is looking for the picture of their own situation, and eight sentences in a
+# row is the opposite of that.
+GLYPH = {
+ # a warning triangle — tickets, accidents, claims
+ 'alert': '<path d="M12 4.5 21 19.5H3z"/><path d="M12 10v4"/><path d="M12 17h.01"/>',
+ # a filed form — SR-22
+ 'form': '<rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M8.5 8.5h7M8.5 12h7'
+         'M8.5 15.5h4"/>',
+ # a calendar with a piece missing — a lapse
+ 'gap': '<rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v3'
+        'M16 3v3"/><path d="M10 14h4" stroke-dasharray="2 2.4"/>',
+ # a learner plate — new and teen drivers
+ 'learner': '<rect x="4" y="4.5" width="16" height="15" rx="3"/><path d="M10 9v6h4.5"/>',
+ # an identity card — foreign licences and matrículas
+ 'id': '<rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><circle cx="8.5" cy="11.5" '
+       'r="2"/><path d="M5.5 16c.6-1.4 1.7-2 3-2s2.4.6 3 2M14.5 10.5h4M14.5 13.5h4"/>',
+ # a key — a driver with no car of their own
+ 'key': '<circle cx="8" cy="13" r="3.5"/><path d="M11.2 11.4 20 6.5M17.2 8.7l1.6 2.4'
+        'M19.6 7.3l1.6 2.4"/>',
+ # two cars — more than one vehicle on the policy
+ 'cars': '<path d="M2.5 14.5h9l-.8-3-1-2a1.4 1.4 0 0 0-1.2-.8H5.5a1.4 1.4 0 0 0-1.2.8l-1 2z"/>'
+         '<circle cx="5" cy="16.5" r="1"/><circle cx="9" cy="16.5" r="1"/>'
+         '<path d="M13.5 11.5h8l-.7-2.6-.9-1.7a1.3 1.3 0 0 0-1.1-.7h-2.6a1.3 1.3 0 0 0-1.1.7z"/>'
+         '<circle cx="15.8" cy="13.3" r="1"/><circle cx="19.3" cy="13.3" r="1"/>',
+ # a phone with a drop pin — rideshare and delivery
+ 'app': '<rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M12 18.5h.01"/>'
+        '<path d="M12 6c1.7 0 3 1.3 3 3 0 2.2-3 5-3 5s-3-2.8-3-5c0-1.7 1.3-3 3-3z"/>',
+ # the fallback, for the four products whose rows have no glyph of their own
+ 'check': '<path d="M20 6 9 17l-5-5"/>',
+}
 
-    Takes a plain string or a (label, guide-slug) pair. The pair renders as a
-    link; an empty slug renders as a plain row, so a situation can be listed
-    before its page exists without anything breaking.
+
+def glyph(name):
+    return ('<svg viewBox="0 0 24 24" aria-hidden="true">' + GLYPH.get(name, GLYPH['check'])
+            + '</svg>')
+
+
+def yescard(item):
+    """One tile of "who we write".
+
+    Takes a plain string, or (label, guide-slug, glyph). The three-part form
+    renders a picture and two or three words; a plain string falls back to a
+    check mark and its own text, which is what the four non-car products still
+    supply.
     """
+    slug = icon = ''
     if isinstance(item, tuple):
-        label, slug = item
-        if slug:
-            return ('      <a class="ycard" href="learn/%s/">%s<span>%s</span>'
-                    '<i aria-hidden="true">&rarr;</i></a>\n' % (slug, CHECK, label))
+        label, slug, icon = (list(item) + ['', ''])[:3]
     else:
         label = item
-    return '      <div class="ycard">%s<span>%s</span></div>\n' % (CHECK, label)
+    inner = ('<span class="yi">' + glyph(icon) + '</span>'
+             '<b>' + label + '</b>')
+    if slug:
+        return '      <a class="ycard" href="learn/%s/">%s</a>\n' % (slug, inner)
+    return '      <div class="ycard">%s</div>\n' % inner
 
 
 def resources(p):

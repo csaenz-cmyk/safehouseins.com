@@ -532,14 +532,31 @@
   .resfeat .go{transition:transform .18s}
   .reslist{display:grid;gap:12px;grid-template-columns:1fr}
   @media(min-width:620px){ .reslist{grid-template-columns:1fr 1fr} }
-  .reslist a{display:block;background:#F7FAFF;border:1.5px solid var(--pline);
-      border-radius:16px;padding:18px 20px;
-      transition:border-color .16s,transform .16s,background .16s}
-  .reslist a:hover{border-color:#A9CBFA;background:#fff;transform:translateY(-2px)}
-  .reslist b{display:block;font-size:15.5px;font-weight:800;color:var(--pnavy);
-      letter-spacing:-.018em;line-height:1.3}
-  .reslist span{display:block;margin-top:7px;font-size:13.5px;line-height:1.55;
+  /* A card rather than a tinted box. White ground, a rule of gradient that
+     draws itself across the top on hover, and an arrow that was always there
+     but only colours in when you are on it. The flat version read as a list
+     of links with a border around each one. */
+  .reslist a{position:relative;overflow:hidden;display:block;background:#fff;
+      border:1px solid var(--pline);border-radius:18px;padding:20px 22px 20px;
+      box-shadow:0 18px 36px -34px rgba(8,24,58,.9);
+      transition:border-color .18s,transform .18s,box-shadow .18s}
+  .reslist a::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+      background:linear-gradient(90deg,var(--pblue),var(--pcyan));
+      transform:scaleX(0);transform-origin:left;transition:transform .22s ease}
+  .reslist a:hover{border-color:#C9DDFA;transform:translateY(-3px);
+      box-shadow:0 26px 46px -30px rgba(8,24,58,.95)}
+  .reslist a:hover::before{transform:scaleX(1)}
+  .reslist a:focus-visible{outline:2px solid var(--pblue);outline-offset:3px}
+  .reslist b{display:block;font-size:16px;font-weight:800;color:var(--pnavy);
+      letter-spacing:-.02em;line-height:1.28;padding-right:22px}
+  .reslist span{display:block;margin-top:8px;font-size:13.5px;line-height:1.58;
       color:#5A6B85;font-weight:500}
+  /* The arrow is drawn with a border rather than set as a glyph, so it is the
+     same weight as everything else on the card at every zoom level. */
+  .reslist a::after{content:"";position:absolute;right:20px;top:22px;width:7px;height:7px;
+      border-right:2px solid #C4D2E6;border-top:2px solid #C4D2E6;
+      transform:rotate(45deg);transition:border-color .18s,transform .18s}
+  .reslist a:hover::after{border-color:var(--pblue);transform:rotate(45deg) translate(2px,-2px)}
   .resall{margin-top:22px;display:inline-flex;align-items:center;gap:8px;
       font-size:15px;font-weight:800;color:var(--pblue)}
 
@@ -554,23 +571,32 @@
   .ccard b{display:block;font-size:16px;font-weight:800;color:var(--pnavy);margin-bottom:7px}
   .ccard p{font-size:14px;line-height:1.65;color:#4A5A74;font-weight:500}
 
-  .ygrid{display:grid;gap:10px;grid-template-columns:1fr;margin-top:26px}
-  @media(min-width:560px){ .ygrid{grid-template-columns:1fr 1fr} }
-  @media(min-width:980px){ .ygrid{grid-template-columns:1fr 1fr 1fr 1fr} }
-  .ycard{display:flex;align-items:flex-start;gap:10px;border:1.5px solid var(--pline);
-      border-radius:14px;padding:14px 16px;background:#fff;font-size:14.5px;font-weight:700;
-      color:var(--pnavy);line-height:1.35}
-  .ycard svg{width:17px;height:17px;flex:0 0 auto;margin-top:1px;stroke:var(--pblue);
-      stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
-  /* A row that links to its own guide. It has to look clickable without
-     turning the grid into a wall of blue — the arrow appears and the border
-     warms, and nothing moves. */
-  a.ycard{transition:border-color .16s,background .16s}
-  a.ycard:hover{border-color:#A9CBFA;background:#F7FAFF}
-  a.ycard i{margin-left:auto;font-style:normal;color:var(--pblue);opacity:.55;
-      transition:opacity .16s,transform .16s}
-  a.ycard:hover i{opacity:1;transform:translateX(2px)}
-  a.ycard:focus-visible{outline:2px solid var(--pblue);outline-offset:2px}
+  /* Two across even on the smallest phone. These are pictures with two words
+     under them now, not sentences, so they fit — and two columns is what makes
+     the whole set visible at a glance instead of scrolled through. */
+  .ygrid{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:30px}
+  @media(min-width:760px){ .ygrid{grid-template-columns:repeat(4,1fr);gap:14px} }
+  /* Picture first, two or three words under it, centred. The row version of
+     this — a check mark and a sentence — made the visitor read eight lines to
+     find out whether they were welcome. */
+  .ycard{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+      gap:12px;text-align:center;border:1px solid var(--pline);border-radius:18px;
+      padding:22px 14px 20px;background:#fff;
+      box-shadow:0 16px 32px -32px rgba(8,24,58,.9)}
+  .ycard b{font-size:14.5px;font-weight:800;color:var(--pnavy);line-height:1.3;
+      letter-spacing:-.012em}
+  @media(min-width:760px){ .ycard{padding:26px 16px 22px} .ycard b{font-size:15.5px} }
+  .ycard .yi{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
+      background:linear-gradient(150deg,#EAF2FE,#DCEAFE);flex:0 0 auto}
+  @media(min-width:760px){ .ycard .yi{width:58px;height:58px;border-radius:18px} }
+  .ycard .yi svg{width:26px;height:26px;stroke:var(--pblue);stroke-width:1.8;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  @media(min-width:760px){ .ycard .yi svg{width:28px;height:28px} }
+  a.ycard{transition:border-color .18s,transform .18s,box-shadow .18s}
+  a.ycard:hover{border-color:#C9DDFA;transform:translateY(-3px);
+      box-shadow:0 24px 44px -30px rgba(8,24,58,.95)}
+  a.ycard:hover .yi{background:linear-gradient(150deg,#DCEAFE,#C9DDFA)}
+  a.ycard:focus-visible{outline:2px solid var(--pblue);outline-offset:3px}
 
   .steps{display:grid;gap:14px;grid-template-columns:1fr;margin-top:30px;counter-reset:s}
   @media(min-width:760px){ .steps{grid-template-columns:repeat(3,1fr)} }
@@ -1158,14 +1184,14 @@
     <h2>Who this is for</h2>
     <p class="sub">Anyone who does not own the walls. It costs less than most people assume and it is the only policy that covers you personally where you live.</p>
     <div class="ygrid">
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Apartments</span></div>
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Rented houses and duplexes</span></div>
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Rooms and shared leases</span></div>
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Students</span></div>
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Furnished and short-term rentals</span></div>
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Leases that require proof</span></div>
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Bundled with your car policy</span></div>
-      <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Renters with pets</span></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Apartments</b></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Rented houses and duplexes</b></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Rooms and shared leases</b></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Students</b></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Furnished and short-term rentals</b></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Leases that require proof</b></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Bundled with your car policy</b></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Renters with pets</b></div>
     </div>
   </section>
 
