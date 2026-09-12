@@ -98,3 +98,22 @@ they are the same rules `/pay/` uses. **Never invent one.** A wrong prefix does
 not fail visibly — it confidently hands somebody the wrong company's claims
 line on the worst day of their year. Six carriers have rules because the owner
 supplied them. The rest are directory-only on purpose.
+
+---
+
+## Statutory limits in the Car Insurance 101 guides
+
+Added with `learn/`. These are the only facts on those pages a visitor could
+act on directly, so they get the same treatment as the claims numbers.
+
+| Fact | Where | Source to check | Verified |
+| ---- | ----- | --------------- | -------- |
+| Texas minimum liability **30/60/25** | `learn/texas-car-insurance-requirements/` | tdi.texas.gov | ☐ |
+| Texas requires PIP to be offered, rejection in writing | same | tdi.texas.gov | ☐ |
+| Texas requires UM/UIM to be offered, rejection in writing | same | tdi.texas.gov | ☐ |
+| New Mexico minimum liability **25/50/10** | `learn/new-mexico-car-insurance-requirements/` | osi.state.nm.us | ☐ |
+| New Mexico requires UM/UIM to be offered, rejection in writing | same | osi.state.nm.us | ☐ |
+| SR-22 period: 2 years TX / 3 years NM | `learn/sr-22-texas-new-mexico/` | TX DPS / NM MVD | ☐ |
+
+Everything else in those guides is explanation rather than a citable number —
+see the rules at the top of `tools/guides_data.py`.

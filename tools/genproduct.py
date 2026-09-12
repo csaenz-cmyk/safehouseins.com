@@ -55,6 +55,8 @@ def e(s):
 PRODUCTS = [
 {
  'file': 'auto-insurance.html', 'slug': 'auto-insurance', 'type': 'car',
+ # Off on this page only. See missection().
+ 'misses_on': False,
  'nav': 'Car',
  'title': 'Car Insurance in Texas & New Mexico | Safe House Insurance',
  'desc': 'Car insurance shopped across the companies we represent — full coverage, '
@@ -1031,8 +1033,9 @@ CSS = """
      the page moves past them. The travel is decoration: the JS sets a custom
      property and the CSS uses it, so with JS off, or with reduced motion asked
      for, the lines simply sit still and the sentence still reads. */
-  .stmt{position:relative;overflow:hidden;padding:96px 0 88px;background:#fff;
-      border-top:1px solid var(--pline)}
+  /* No border-top. The discount section sits directly above this one and a
+     hairline between the two read as a seam across the page. */
+  .stmt{position:relative;overflow:hidden;padding:96px 0 88px;background:#fff}
   @media(min-width:900px){ .stmt{padding:130px 0 120px} }
   /* No font-size here on purpose. A fixed vw size that fits "A LICENSED HUMAN"
      runs "READS EVERY POLICY" off both edges at once, and every product has a
@@ -1245,6 +1248,62 @@ CSS = """
       font-weight:600;color:#3E5A85}
   .dscfine{margin-top:26px;padding-top:16px;border-top:1px solid rgba(10,33,80,.12);
       font-size:12px;line-height:1.55;font-weight:600;color:#5C7AA8}
+
+  /* ---- Car Insurance 101 ----
+     A featured guide in a tall card on the left and the rest of the library in
+     a grid beside it. The featured card carries a photograph; everything else
+     is type, because fourteen thumbnails would be fourteen more images to
+     source and the titles are what people are actually scanning. */
+  .res{max-width:1260px;margin:0 auto;padding:80px 20px 8px}
+  @media(min-width:900px){ .res{padding:104px 24px 8px} }
+  .reshd h2{margin-top:14px;font-size:clamp(28px,4.2vw,46px);line-height:1.07;
+      font-weight:900;letter-spacing:-.034em;color:var(--pnavy);max-width:17ch;
+      text-wrap:balance}
+  .reshd p{margin-top:14px;max-width:52ch;font-size:16.5px;line-height:1.68;
+      color:#3B4A63;font-weight:500}
+  .resgrid{display:grid;gap:18px;grid-template-columns:1fr;margin-top:34px;
+      align-items:stretch}
+  @media(min-width:1000px){ .resgrid{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:24px} }
+  /* The featured card. Painted ground under the photograph for the same reason
+     every other image block on this site has one: a slow or missing file
+     leaves a dark card with readable white text, not a white one. */
+  .resfeat{position:relative;overflow:hidden;border-radius:26px;isolation:isolate;
+      min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;
+      padding:26px 24px 26px;color:#fff;
+      background:linear-gradient(150deg,#123A6B 0%,#0C2A55 55%,#08183A 100%)}
+  @media(min-width:1000px){ .resfeat{min-height:100%;padding:32px 30px 32px} }
+  .resfeat::before{content:"";position:absolute;inset:0;z-index:-2;
+      background-size:cover;background-position:center 38%}
+  .resfeat::after{content:"";position:absolute;inset:0;z-index:-1;
+      background:linear-gradient(180deg,rgba(6,14,32,.22) 0%,rgba(6,14,32,.30) 42%,
+                 rgba(6,14,32,.86) 100%)}
+  .resfeat .tag{font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+      font-weight:900;color:rgba(255,255,255,.85)}
+  .resfeat b{display:block;margin-top:12px;font-size:clamp(24px,2.6vw,32px);
+      line-height:1.14;font-weight:900;letter-spacing:-.028em;color:#fff;
+      text-shadow:0 2px 20px rgba(4,10,24,.6)}
+  .resfeat span{display:block;margin-top:10px;max-width:34ch;font-size:15px;
+      line-height:1.6;font-weight:500;color:rgba(255,255,255,.9);
+      text-shadow:0 2px 14px rgba(4,10,24,.7)}
+  .resfeat .go{margin-top:20px;width:46px;height:46px;border-radius:50%;
+      background:linear-gradient(100deg,var(--pblue),var(--pcyan));display:grid;
+      place-items:center;box-shadow:0 14px 28px -12px rgba(22,102,237,.95)}
+  .resfeat .go svg{width:18px;height:18px;stroke:#fff;stroke-width:2.4;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .resfeat:hover .go{transform:translateX(3px)}
+  .resfeat .go{transition:transform .18s}
+  .reslist{display:grid;gap:12px;grid-template-columns:1fr}
+  @media(min-width:620px){ .reslist{grid-template-columns:1fr 1fr} }
+  .reslist a{display:block;background:#F7FAFF;border:1.5px solid var(--pline);
+      border-radius:16px;padding:18px 20px;
+      transition:border-color .16s,transform .16s,background .16s}
+  .reslist a:hover{border-color:#A9CBFA;background:#fff;transform:translateY(-2px)}
+  .reslist b{display:block;font-size:15.5px;font-weight:800;color:var(--pnavy);
+      letter-spacing:-.018em;line-height:1.3}
+  .reslist span{display:block;margin-top:7px;font-size:13.5px;line-height:1.55;
+      color:#5A6B85;font-weight:500}
+  .resall{margin-top:22px;display:inline-flex;align-items:center;gap:8px;
+      font-size:15px;font-weight:800;color:var(--pblue)}
 
   /* ---- generic sections ---- */
   .sec{max-width:1000px;margin:0 auto;padding:64px 20px 0}
@@ -1624,6 +1683,63 @@ ARROW_L = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/
 ARROW_R = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>'
 
 
+def missection(p):
+    """"What the online price misses", or nothing for a page that has
+    opted out of it.
+
+    The car page has. Between "More than just an online quote" above it
+    and the discount carousel below it, three sections were making the
+    same argument in a row, and it was the longest of the three. The
+    other four pages keep it — they have neither of the other two.
+    """
+    if not p.get('misses_on', True):
+        return ''
+    return ('  <!-- The section this page exists for. See the module docstring. -->\n  <section class="miss">\n    <div class="in">\n      <span class="kick">The second look</span>\n      <h2>What the online price misses</h2>\n      <p class="sub">{misses_lede}</p>\n      <div class="mgrid">\n{misscards}      </div>\n      <div class="mfoot">\n        <span class="i" aria-hidden="true">{eye}</span>\n        <div>\n          <b>This is the whole difference.</b>\n          <p>Anyone can show you a number. A licensed Safe House agent reads the quote\n             before you buy it, asks the questions above, and re-shops it when the answers\n             change something. It costs you nothing &mdash; it is what the commission on the\n             policy is for.</p>\n        </div>\n      </div>\n    </div>\n  </section>\n\n'
+            .replace('{misses_lede}', p['misses_lede'])
+            .replace('{misscards}', misscards(p))
+            .replace('{eye}', EYE))
+
+
+def resources(p):
+    """Car Insurance 101, on the pages that have a library to point at."""
+    if p['slug'] != 'auto-insurance':
+        return ''
+    import guides_data
+    gs = guides_data.GUIDES
+    feat = next(g for g in gs if g.get('featured'))
+    rest = [g for g in gs if not g.get('featured')]
+    shot = 'assets/hero-auto.jpg'
+    return (
+        '  <section class="res" aria-labelledby="resh">\n'
+        '    <div class="reshd">\n'
+        '      <span class="kick">Car Insurance 101</span>\n'
+        '      <h2 id="resh">Shop smarter, with the answers first</h2>\n'
+        '      <p>Plain answers to what people actually ask before they buy. No sales '
+        'pitch and no invented numbers &mdash; written by the agents who place this '
+        'business every day.</p>\n'
+        '    </div>\n'
+        '    <div class="resgrid">\n'
+        '      <a class="resfeat" href="learn/' + feat['slug'] + '/" '
+        'style="--x:0">\n'
+        '        <style>.resfeat::before{background-image:url("' + shot + '")}</style>\n'
+        '        <span class="tag">Featured guide</span>\n'
+        '        <b>' + feat['nav'] + '</b>\n'
+        '        <span>' + feat['card'] + '</span>\n'
+        '        <span class="go" aria-hidden="true">'
+        '<svg viewBox="0 0 24 24"><path d="M5 12h13M12 5l7 7-7 7"/></svg></span>\n'
+        '      </a>\n'
+        '      <div>\n'
+        '        <div class="reslist">\n'
+        + ''.join('          <a href="learn/' + g['slug'] + '/"><b>' + g['nav']
+                  + '</b><span>' + g['card'] + '</span></a>\n' for g in rest)
+        + '        </div>\n'
+        '        <a class="resall" href="learn/">See all ' + str(len(gs))
+        + ' guides &rarr;</a>\n'
+        '      </div>\n'
+        '    </div>\n'
+        '  </section>\n')
+
+
 def discounts(p):
     """The discount carousel, or nothing at all for a product without a list."""
     if not p['discounts']:
@@ -1926,72 +2042,8 @@ def page(p):
 {carrstrip}
 {ezsection}
 
-  <!-- The section this page exists for. See the module docstring. -->
-  <section class="miss">
-    <div class="in">
-      <span class="kick">The second look</span>
-      <h2>What the online price misses</h2>
-      <p class="sub">{misses_lede}</p>
-      <div class="mgrid">
-{misscards}      </div>
-      <div class="mfoot">
-        <span class="i" aria-hidden="true">{eye}</span>
-        <div>
-          <b>This is the whole difference.</b>
-          <p>Anyone can show you a number. A licensed Safe House agent reads the quote
-             before you buy it, asks the questions above, and re-shops it when the answers
-             change something. It costs you nothing &mdash; it is what the commission on the
-             policy is for.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
+{misses}
 {picker}
-  <section class="sec">
-    <span class="kick">Coverage</span>
-    <h2>{cover_head}</h2>
-    <p class="sub">In plain words, so you can tell whether two quotes are actually the
-       same policy at different prices or two different policies.</p>
-    <div class="cgrid">
-{covercards}    </div>
-  </section>
-
-{discounts}
-{bigstatement}
-  <section class="sec">
-    <span class="kick">Who we write</span>
-    <h2>{yes_head}</h2>
-    <p class="sub">{yes_lede}</p>
-    <div class="ygrid">
-{yescards}    </div>
-  </section>
-
-  <section class="sec">
-    <span class="kick">How it works</span>
-    <h2>Three steps, and a person at every one</h2>
-    <div class="steps">
-      <div class="step"><b>You tell us once</b>
-        <p>Online in a few minutes, or on the phone if you would rather. One set of
-           answers goes to every company we represent.</p></div>
-      <div class="step"><b>We shop it, then read it</b>
-        <p>The carriers come back with prices. An agent goes through them, applies what
-           the form could not, and works out which one is actually right for you.</p></div>
-      <div class="step"><b>You decide</b>
-        <p>We call with the real number and explain what it buys. Nothing is bound and
-           nothing is charged until you say so.</p></div>
-    </div>
-  </section>
-
-  <section class="sec">
-    <span class="kick">Questions</span>
-    <h2>What people ask us</h2>
-    <div class="fgrid">
-{faqcards}    </div>
-  </section>
-
-
-  <!-- The one thing a captive agent cannot say. -->
   <section class="mix">
     <div class="mixin">
       <div class="mixchips">
@@ -2009,6 +2061,35 @@ def page(p):
     </div>
   </section>
 
+  <section class="sec">
+    <span class="kick">Coverage</span>
+    <h2>{cover_head}</h2>
+    <p class="sub">In plain words, so you can tell whether two quotes are actually the
+       same policy at different prices or two different policies.</p>
+    <div class="cgrid">
+{covercards}    </div>
+  </section>
+
+{discounts}
+{bigstatement}
+{resources}
+  <section class="sec">
+    <span class="kick">Who we write</span>
+    <h2>{yes_head}</h2>
+    <p class="sub">{yes_lede}</p>
+    <div class="ygrid">
+{yescards}    </div>
+  </section>
+
+  <section class="sec">
+    <span class="kick">Questions</span>
+    <h2>What people ask us</h2>
+    <div class="fgrid">
+{faqcards}    </div>
+  </section>
+
+
+  <!-- The one thing a captive agent cannot say. -->
   <div class="end">
     <div class="endin">
       <h2>Let us take a second look.</h2>
@@ -2041,8 +2122,8 @@ def page(p):
               'loading="eager" decoding="async"></div>' % (p['photo'], e(p['photo_alt'])))
              if p['photo'] else '',
         misses_lede=p['misses_lede'], eye=EYE,
-        misscards=misscards(p), picker=picker(p), bigstatement=bigstatement(p),
-        discounts=discounts(p),
+        misses=missection(p), picker=picker(p), bigstatement=bigstatement(p),
+        discounts=discounts(p), resources=resources(p),
         cover_head=e(p['cover_head']),
         covercards=''.join('      <div class="ccard"><b>%s</b><p>%s</p></div>\n' % (t, b)
                            for t, b in p['cover']),

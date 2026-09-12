@@ -278,8 +278,9 @@
      the page moves past them. The travel is decoration: the JS sets a custom
      property and the CSS uses it, so with JS off, or with reduced motion asked
      for, the lines simply sit still and the sentence still reads. */
-  .stmt{position:relative;overflow:hidden;padding:96px 0 88px;background:#fff;
-      border-top:1px solid var(--pline)}
+  /* No border-top. The discount section sits directly above this one and a
+     hairline between the two read as a seam across the page. */
+  .stmt{position:relative;overflow:hidden;padding:96px 0 88px;background:#fff}
   @media(min-width:900px){ .stmt{padding:130px 0 120px} }
   /* No font-size here on purpose. A fixed vw size that fits "A LICENSED HUMAN"
      runs "READS EVERY POLICY" off both edges at once, and every product has a
@@ -492,6 +493,62 @@
       font-weight:600;color:#3E5A85}
   .dscfine{margin-top:26px;padding-top:16px;border-top:1px solid rgba(10,33,80,.12);
       font-size:12px;line-height:1.55;font-weight:600;color:#5C7AA8}
+
+  /* ---- Car Insurance 101 ----
+     A featured guide in a tall card on the left and the rest of the library in
+     a grid beside it. The featured card carries a photograph; everything else
+     is type, because fourteen thumbnails would be fourteen more images to
+     source and the titles are what people are actually scanning. */
+  .res{max-width:1260px;margin:0 auto;padding:80px 20px 8px}
+  @media(min-width:900px){ .res{padding:104px 24px 8px} }
+  .reshd h2{margin-top:14px;font-size:clamp(28px,4.2vw,46px);line-height:1.07;
+      font-weight:900;letter-spacing:-.034em;color:var(--pnavy);max-width:17ch;
+      text-wrap:balance}
+  .reshd p{margin-top:14px;max-width:52ch;font-size:16.5px;line-height:1.68;
+      color:#3B4A63;font-weight:500}
+  .resgrid{display:grid;gap:18px;grid-template-columns:1fr;margin-top:34px;
+      align-items:stretch}
+  @media(min-width:1000px){ .resgrid{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:24px} }
+  /* The featured card. Painted ground under the photograph for the same reason
+     every other image block on this site has one: a slow or missing file
+     leaves a dark card with readable white text, not a white one. */
+  .resfeat{position:relative;overflow:hidden;border-radius:26px;isolation:isolate;
+      min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;
+      padding:26px 24px 26px;color:#fff;
+      background:linear-gradient(150deg,#123A6B 0%,#0C2A55 55%,#08183A 100%)}
+  @media(min-width:1000px){ .resfeat{min-height:100%;padding:32px 30px 32px} }
+  .resfeat::before{content:"";position:absolute;inset:0;z-index:-2;
+      background-size:cover;background-position:center 38%}
+  .resfeat::after{content:"";position:absolute;inset:0;z-index:-1;
+      background:linear-gradient(180deg,rgba(6,14,32,.22) 0%,rgba(6,14,32,.30) 42%,
+                 rgba(6,14,32,.86) 100%)}
+  .resfeat .tag{font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+      font-weight:900;color:rgba(255,255,255,.85)}
+  .resfeat b{display:block;margin-top:12px;font-size:clamp(24px,2.6vw,32px);
+      line-height:1.14;font-weight:900;letter-spacing:-.028em;color:#fff;
+      text-shadow:0 2px 20px rgba(4,10,24,.6)}
+  .resfeat span{display:block;margin-top:10px;max-width:34ch;font-size:15px;
+      line-height:1.6;font-weight:500;color:rgba(255,255,255,.9);
+      text-shadow:0 2px 14px rgba(4,10,24,.7)}
+  .resfeat .go{margin-top:20px;width:46px;height:46px;border-radius:50%;
+      background:linear-gradient(100deg,var(--pblue),var(--pcyan));display:grid;
+      place-items:center;box-shadow:0 14px 28px -12px rgba(22,102,237,.95)}
+  .resfeat .go svg{width:18px;height:18px;stroke:#fff;stroke-width:2.4;fill:none;
+      stroke-linecap:round;stroke-linejoin:round}
+  .resfeat:hover .go{transform:translateX(3px)}
+  .resfeat .go{transition:transform .18s}
+  .reslist{display:grid;gap:12px;grid-template-columns:1fr}
+  @media(min-width:620px){ .reslist{grid-template-columns:1fr 1fr} }
+  .reslist a{display:block;background:#F7FAFF;border:1.5px solid var(--pline);
+      border-radius:16px;padding:18px 20px;
+      transition:border-color .16s,transform .16s,background .16s}
+  .reslist a:hover{border-color:#A9CBFA;background:#fff;transform:translateY(-2px)}
+  .reslist b{display:block;font-size:15.5px;font-weight:800;color:var(--pnavy);
+      letter-spacing:-.018em;line-height:1.3}
+  .reslist span{display:block;margin-top:7px;font-size:13.5px;line-height:1.55;
+      color:#5A6B85;font-weight:500}
+  .resall{margin-top:22px;display:inline-flex;align-items:center;gap:8px;
+      font-size:15px;font-weight:800;color:var(--pblue)}
 
   /* ---- generic sections ---- */
   .sec{max-width:1000px;margin:0 auto;padding:64px 20px 0}
@@ -990,6 +1047,7 @@
     </div>
   </section>
 
+
   <section class="pk" aria-labelledby="pkh">
     <div class="hd">
       <span class="kick">Your call</span>
@@ -1028,6 +1086,23 @@
     </div>
   </section>
 
+  <section class="mix">
+    <div class="mixin">
+      <div class="mixchips">
+        <span class="mchip"><span class="lg" aria-hidden="true">P</span>
+          <span><b>Progressive</b><small>Auto insurance</small></span></span>
+        <span class="mchip"><span class="lg" aria-hidden="true">L</span>
+          <span><b>Lemonade</b><small>Home insurance</small></span></span>
+      </div>
+      <div class="mixsay">
+        <h2>Compare between companies</h2>
+        <p>You are not stuck buying everything from one insurer. We can put your car with
+           one company and your home with another &mdash; whichever pair actually comes out
+           better for you.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="sec">
     <span class="kick">Coverage</span>
     <h2>What a renters policy is actually made of</h2>
@@ -1052,6 +1127,7 @@
     </div>
   </section>
 
+
   <section class="sec">
     <span class="kick">Who we write</span>
     <h2>Who this is for</h2>
@@ -1065,22 +1141,6 @@
       <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Leases that require proof</span></div>
       <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Bundled with your car policy</span></div>
       <div class="ycard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Renters with pets</span></div>
-    </div>
-  </section>
-
-  <section class="sec">
-    <span class="kick">How it works</span>
-    <h2>Three steps, and a person at every one</h2>
-    <div class="steps">
-      <div class="step"><b>You tell us once</b>
-        <p>Online in a few minutes, or on the phone if you would rather. One set of
-           answers goes to every company we represent.</p></div>
-      <div class="step"><b>We shop it, then read it</b>
-        <p>The carriers come back with prices. An agent goes through them, applies what
-           the form could not, and works out which one is actually right for you.</p></div>
-      <div class="step"><b>You decide</b>
-        <p>We call with the real number and explain what it buys. Nothing is bound and
-           nothing is charged until you say so.</p></div>
     </div>
   </section>
 
@@ -1099,23 +1159,6 @@
 
 
   <!-- The one thing a captive agent cannot say. -->
-  <section class="mix">
-    <div class="mixin">
-      <div class="mixchips">
-        <span class="mchip"><span class="lg" aria-hidden="true">P</span>
-          <span><b>Progressive</b><small>Auto insurance</small></span></span>
-        <span class="mchip"><span class="lg" aria-hidden="true">L</span>
-          <span><b>Lemonade</b><small>Home insurance</small></span></span>
-      </div>
-      <div class="mixsay">
-        <h2>Compare between companies</h2>
-        <p>You are not stuck buying everything from one insurer. We can put your car with
-           one company and your home with another &mdash; whichever pair actually comes out
-           better for you.</p>
-      </div>
-    </div>
-  </section>
-
   <div class="end">
     <div class="endin">
       <h2>Let us take a second look.</h2>
