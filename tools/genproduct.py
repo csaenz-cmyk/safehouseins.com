@@ -1111,6 +1111,16 @@ CSS = """
       border:1px solid #DCE7F8;border-radius:18px;padding:16px;
       box-shadow:inset 0 1px 0 #fff}
   .ezwell img{display:block;width:100%;height:auto;border-radius:12px}
+  /* A card holding a picture drops the well entirely: no inner padding, no
+     tint, no border, and the image runs out to the card's own edges. The
+     artwork already carries its own pale ground and its own margin, so the
+     well was a frame around a frame and it cost the illustration about a
+     third of its width. Full-bleed here is the difference between a thumbnail
+     and something you can actually read. */
+  .ezwell.shot{padding:0;background:none;border:0;margin-top:24px;
+      margin-left:-24px;margin-right:-24px;border-radius:0}
+  @media(min-width:900px){ .ezwell.shot{margin-left:-30px;margin-right:-30px} }
+  .ezwell.shot img{border-radius:0}
   .ezcap{margin-top:10px;text-align:center;font-size:11px;font-weight:700;
       color:#8C9BB2;line-height:1.45}
 
@@ -1463,7 +1473,13 @@ EZ = [
   'h': 'Get your quote online',
   'p': 'Start with a simple online form. No long back-and-forth, no complicated process '
        '&mdash; just a faster, easier way to start shopping for coverage.'},
- {'n': 2, 'step': 'Step two', 'file': 'step-2', 'caption': '',
+ # The artwork for this card shows $92, $105 and $118 next to Lemonade,
+ # Progressive and GEICO. No quote produced those figures. The picture is the
+ # owner's and he asked for it, so it stays — but a made-up number beside a
+ # real carrier's name has to be labelled as an illustration rather than left
+ # to read as a rate. Empty this string to take the line off.
+ {'n': 2, 'step': 'Step two', 'file': 'step-2',
+  'caption': 'Illustration only &mdash; the figures shown are not real quotes.',
   'alt': 'A list of insurance companies with one highlighted, and a note that a licensed '
          'agent reviewed them.',
   'h': 'A real person reviews your options',
@@ -1524,6 +1540,43 @@ EZ_DRAWN = [
 ]
 
 
+def img_size(path):
+    """(width, height) from the file header. No decode, no dependency.
+
+    Enough of PNG, WebP and JPEG to cover what actually lands in assets/ez/.
+    A format it does not know raises rather than guessing, because a wrong
+    pair of numbers on an <img> is worse than none at all.
+    """
+    with open(path, 'rb') as f:
+        b = f.read(32)
+        if b[:8] == b'\x89PNG\r\n\x1a\n':
+            return (int.from_bytes(b[16:20], 'big'), int.from_bytes(b[20:24], 'big'))
+        if b[:4] == b'RIFF' and b[8:12] == b'WEBP':
+            f.seek(0)
+            d = f.read()
+            if d[12:16] == b'VP8X':
+                return (int.from_bytes(d[24:27], 'little') + 1,
+                        int.from_bytes(d[27:30], 'little') + 1)
+            if d[12:16] == b'VP8L':
+                n = int.from_bytes(d[21:25], 'little')
+                return ((n & 0x3FFF) + 1, ((n >> 14) & 0x3FFF) + 1)
+            if d[12:16] == b'VP8 ':
+                return (int.from_bytes(d[26:28], 'little') & 0x3FFF,
+                        int.from_bytes(d[28:30], 'little') & 0x3FFF)
+        if b[:2] == b'\xff\xd8':
+            f.seek(2)
+            while True:
+                m = f.read(2)
+                if len(m) < 2 or m[0] != 0xFF:
+                    break
+                ln = int.from_bytes(f.read(2), 'big')
+                if 0xC0 <= m[1] <= 0xCF and m[1] not in (0xC4, 0xC8, 0xCC):
+                    d = f.read(5)
+                    return (int.from_bytes(d[3:5], 'big'), int.from_bytes(d[1:3], 'big'))
+                f.seek(ln - 2, 1)
+    raise SystemExit('img_size: cannot read dimensions of ' + path)
+
+
 def ez_image(name):
     for ext in EZ_EXT:
         if os.path.exists(os.path.join(EZ_DIR, name + ext)):
@@ -1536,11 +1589,13 @@ def ezsection():
     for c, drawn in zip(EZ, EZ_DRAWN):
         img = ez_image(c['file'])
         if img:
-            # width/height are not known without decoding the file, and a wrong
-            # pair is worse than none — aspect-ratio on .ezwell img is what
-            # holds the space instead.
-            well = ('<img src="%s" alt="%s" loading="lazy" decoding="async">'
-                    % (img, e(c['alt'])))
+            # Real pixel dimensions, read off the file. Without them the three
+            # cards jump to their final height only once the images arrive,
+            # which is the layout shift seocheck flags on every other image on
+            # the site. With them the browser reserves the box up front.
+            w, h = img_size(os.path.join(ROOT, img))
+            well = ('<img src="%s" alt="%s" width="%d" height="%d" '
+                    'loading="lazy" decoding="async">' % (img, e(c['alt']), w, h))
             cap = ('<p class="ezcap">%s</p>' % c['caption']) if c['caption'] else ''
         else:
             well, cap = drawn % {'t': CHECK}, ''
@@ -1549,9 +1604,9 @@ def ezsection():
             '        <span class="ezstep"><i aria-hidden="true">%d</i><span>%s</span></span>\n'
             '        <h3>%s</h3>\n'
             '        <p>%s</p>\n'
-            '        <div class="ezwell"%s>%s</div>%s\n'
+            '        <div class="ezwell%s"%s>%s</div>%s\n'
             '      </div>\n'
-            % (c['n'], c['step'], c['h'], c['p'],
+            % (c['n'], c['step'], c['h'], c['p'], ' shot' if img else '',
                '' if img else ' aria-hidden="true"', well, cap))
     return (
         '  <section class="ez" aria-labelledby="ezh">\n'
