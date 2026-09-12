@@ -12,6 +12,40 @@ website's.
 
 ---
 
+## Filling this folder without downloading anything
+
+`tools/getlogos.py` does the whole job: it reads the carrier list out of
+`tools/carriers.py`, finds each carrier's artwork, trims and resizes it to the
+two shapes below, writes it here under the right name, and fills in the
+JavaScript map in `quote.html`.
+
+```
+python3 tools/getlogos.py            # fetch every carrier still missing one
+python3 tools/getlogos.py --check    # report what is here, fetch nothing
+python3 tools/getlogos.py --selftest # check the conversion, no network needed
+python3 tools/getlogos.py --only GEICO --force
+```
+
+It looks at the carrier's own site first, because that is the only source that
+gives a real SVG, then at the logo and favicon services. Anything it fetches is
+checked before it lands: it has to decode, be big enough, be the right shape for
+the slot, and not be one of the flat placeholder tiles those services hand back
+instead of a 404. A carrier it cannot get keeps its initial tile.
+
+It never publishes anything — the files sit here until the generators run and
+somebody commits them. That gap is deliberate: it is where the appointment
+paperwork above gets checked.
+
+On a locked-down network (CI, a sandboxed agent session) the logo hosts are
+usually blocked at the proxy. The run reports that as `blocked by network
+policy` rather than as a missing logo, so it is clear the fix is a different
+machine and not a different source list.
+
+Everything below is what the script is doing, and what to do by hand for a
+carrier it cannot reach.
+
+---
+
 ## 1. The looping strip under the hero
 
 Home page and all five product pages. **Nothing to edit — just add the file.**
@@ -48,14 +82,24 @@ stays sharp on a phone.
 
 ## 2. The rate rows inside the quote form
 
-`quote.html` only. This one still needs a line adding, because the key is
-whatever the rater calls the carrier rather than a name we chose:
+`quote.html` only. The file name is the carrier's slug plus `-sq.webp`:
+`progressive-sq.webp`, `state-farm-sq.webp`.
+
+This one needs a line in a map as well as a file, because the key is whatever
+the rater calls the carrier rather than a name we chose. `tools/getlogos.py`
+writes that map between the two markers, so a hand-added file only needs a hand-
+added line if you are not running the script:
 
 ```js
 var CARRIER_LOGO = {
-  'PROGRESSIVE': 'progressive.webp',
+    // getlogos:begin
+    'PROGRESSIVE': 'progressive-sq.webp',
+    // getlogos:end
 };
 ```
+
+Anything between those markers is rewritten on the next run; anything outside
+them is left alone.
 
 The key is what `company()` returns for that carrier's name — the first
 meaningful word, uppercased — so `Progressive Insurance`, `Progressive Monthly`
@@ -66,5 +110,14 @@ or `.png`. They render at 38×38 **inside a square**, so a wide wordmark comes
 out unreadable here — use the badge or symbol version where the carrier
 publishes one.
 
-A carrier can have both: `progressive.svg` for the strip and
-`progressive.webp` for the rate rows.
+A carrier can have both, and most should: `progressive.svg` for the strip and
+`progressive-sq.webp` for the rate rows.
+
+The `-sq` suffix is there because the two slots want opposite shapes and only
+one of them can have the plain name. A carrier that publishes an SVG could get
+away with `progressive.svg` and `progressive.webp` — but a carrier that
+publishes no SVG needs a wide raster for the strip *and* a square raster for the
+rate rows, and both would want to be `progressive.webp`. Suffixing the square
+one makes the two slots independent, so every carrier works the same way
+whether or not it has an SVG. The strip's `logo_file()` in `tools/carriers.py`
+only looks for the plain name, so a `-sq` file can never end up in the loop.

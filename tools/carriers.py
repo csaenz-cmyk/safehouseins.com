@@ -13,9 +13,14 @@ A carrier shows its real logo the moment a file for it exists in
 assets/carriers/ — the filename is the carrier's slug, any of .svg .webp .png
 .jpg. Nothing else has to change: no list to edit, no code to touch, no
 deploy step. Drop the file in, rerun the generator, that carrier is now a
-logo. Everything without a file falls back to its initial on a tinted tile
-next to the name, which is what lets the row be filled in one carrier at a
-time instead of waiting until all nineteen are in hand.
+logo.
+
+tools/getlogos.py fills that folder without anyone downloading a file by hand,
+and reads NAMES below as its worklist — so this stays the only list.
+
+Everything without a file falls back to its initial on a tinted tile next to
+the name, which is what lets the row be filled in one carrier at a time
+instead of waiting until all nineteen are in hand.
 
 That fallback is a deliberate design, not a placeholder to be embarrassed
 about: nineteen mismatched raster logos at nineteen different weights and
@@ -103,17 +108,27 @@ CSS = """
   .carrc{flex:0 0 auto;display:flex;align-items:center;gap:11px;padding:0 26px;
       white-space:nowrap}
   @media(min-width:900px){ .carrc{padding:0 32px} }
+  /* grid-template-rows is not decoration. The mark inside is sized with a
+     percentage height so it is driven by the tile rather than by whatever pixel
+     height the carrier happens to export at — and a percentage height on a grid
+     item resolves against its row track, not against this box. Left implicit
+     the track is auto, the percentage has nothing definite to resolve against,
+     and it falls back to the image's own intrinsic height: a 300px logo then
+     renders 300px tall and shoots straight through the row. Pinning the track
+     to 100% makes it definite and the percentage inside resolves to the tile. */
   .carrc .lg{width:38px;height:38px;flex:0 0 auto;border-radius:12px;display:grid;
-      place-items:center;font-size:16px;font-weight:900;line-height:1}
+      grid-template-rows:100%;place-items:center;font-size:16px;font-weight:900;
+      line-height:1}
   .carrc .lgimg{background:#fff;border:1px solid rgba(16,32,64,.07);padding:4px}
-  .carrc .lgimg img{width:100%;height:100%;object-fit:contain;display:block}
+  .carrc .lgimg img{max-width:100%;max-height:100%;width:auto;height:100%;
+      object-fit:contain;display:block}
   .carrc b{font-size:17px;font-weight:800;letter-spacing:-.012em;color:#7C8CA4}
   @media(min-width:900px){ .carrc b{font-size:18.5px} }
   /* A carrier that has its own artwork does not also need its name set beside
      it — the logo is the name. */
   .carrc.haslogo{gap:0}
   .carrc.haslogo .lg{width:auto;height:38px;min-width:44px;padding:0}
-  .carrc.haslogo .lgimg img{width:auto;height:100%}
+  .carrc.haslogo .lgimg img{width:auto;height:100%;max-width:none}
   /* Somebody who has asked the operating system to stop moving things gets a
      static row rather than no row: the list still reads, it just does not
      travel. */

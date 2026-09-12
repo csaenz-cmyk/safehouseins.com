@@ -327,11 +327,17 @@
       color:var(--muted)}
   .qnum b{display:block;font-size:22px;font-weight:900;color:var(--navy);margin-top:4px;
       font-family:ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all}
+  /* grid-template-rows:100% pins the row so the mark's percentage height below
+     has something definite to resolve against. Without it the track is auto,
+     the percentage falls back to the image's intrinsic height, and a 192px
+     badge renders 192px tall inside this 38px box. */
   .rcard .lg{grid-area:lg;width:38px;height:38px;border-radius:12px;background:var(--ice);
-      color:var(--blue-d);display:grid;place-items:center;font-weight:900;font-size:15px}
+      color:var(--blue-d);display:grid;grid-template-rows:100%;place-items:center;
+      font-weight:900;font-size:15px}
   /* a real carrier mark sits on white, since most are drawn for a light ground */
   .rcard .lgimg{background:#fff;border:1px solid var(--line);padding:3px}
-  .rcard .lgimg img{width:100%;height:100%;object-fit:contain;display:block}
+  .rcard .lgimg img{max-width:100%;max-height:100%;width:100%;height:100%;
+      object-fit:contain;display:block}
   .rcard .nm{grid-area:name;min-width:0}
   .rcard .nm b{display:block;font-size:15px;font-weight:800;color:var(--navy);line-height:1.25}
   .rcard .meta{grid-area:meta;min-width:0}
@@ -4890,9 +4896,8 @@
      Anything not listed falls back to the initial, which is what lets this be
      filled in one carrier at a time instead of all or nothing. */
   var CARRIER_LOGO = {
-    // 'PROGRESSIVE': 'progressive.webp',
-    // 'GAINSCO':     'gainsco.webp',
-    // 'KEMPER':      'kemper.webp',
+    // getlogos:begin
+    // getlogos:end
   };
   function carrierMark(name){
     var f = CARRIER_LOGO[company(name)];
