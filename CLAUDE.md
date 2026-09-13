@@ -12,8 +12,20 @@ and change that. A hand edit survives until the next person runs the generator,
 which is usually the same afternoon, and then it is gone with no trace of what
 it was for.
 
-Everything at the repo root except `404.html` is generated. So is everything
-under `car-insurance/`, `learn/` and `docs/quote-preview.html`.
+Everything under `car-insurance/`, `learn/` and `docs/quote-preview.html` is
+generated, and so are most root pages — `about.html`, `careers.html`,
+`privacy.html`, `sms-terms.html` and the five product pages.
+
+**Three root pages are hand-maintained and have no generator:** `index.html`,
+`quote.html` and `contact.html`. Edit those directly; that is how they are
+kept. `quote.html` is the subtle one — it is hand-maintained, but it contains a
+generated block: `tools/getlogos.py` rewrites everything between the
+`// getlogos:begin` and `// getlogos:end` markers in `CARRIER_LOGO`. Edit
+around them, never inside.
+
+To find out who owns a page, touch it and see which generator rewrites it —
+grepping for the filename is misleading, because several generators carry a
+list of every root page for rewriting links.
 
 ## Rebuilding
 
@@ -46,6 +58,7 @@ insurance hub *and* all 21 guide pages, because guides carry the strip too.
 | `makes.py` / `lineup.py` | Vehicle makes and their per-brand angle. |
 | `states.py` | Statutory limits and state-level facts. |
 | `shell.py`, `brandkit.py`, `citykit.py` | Shared page architecture. |
+| `geninvestors.py` | `investors.html`. States no financial figure — read its docstring first. |
 
 ## Conventions that are not obvious
 
@@ -78,6 +91,20 @@ whole site changed when nothing did. CI must check out with full history
 the wide wordmark for the strip; `<slug>-sq.webp` is the square badge for the
 rate rows in `quote.html`. They are different files because the slots want
 opposite shapes, and a wordmark squeezed into the square is unreadable.
+
+**Adding a root page means six link-rewrite lists, not one.** A page in a
+subdirectory needs its links to the root prefixed with `../`, and each of
+`menu.py`, `gencities.py`, `genguides.py`, `genmakes.py`, `genlegal.py` and
+`shell.py` carries its own list of root filenames to rewrite. Leaving a new
+page out of one does not error — it emits a link that 404s from every page at
+that depth. `index.html` also carries its own copy of the footer, by hand.
+
+**The investor page states no financial figures, deliberately.** None has been
+established, and a number on an investor page is a representation somebody may
+act on with their own money. `tools/geninvestors.py` renders its metrics band
+only when `METRICS` is filled in, and the page is written as an invitation to
+make contact rather than an offer of securities. Read that file's docstring
+before changing anything on it.
 
 ## Checking your work
 

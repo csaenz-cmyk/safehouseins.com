@@ -357,6 +357,7 @@ def head(title, desc, suffix=' · Safe House Insurance', canonical=None):
       <a href="index.html#reviews">Reviews</a>
       <a href="index.html#faq">FAQ</a>
       <a href="careers.html">Careers</a>
+      <a href="investors.html">Investors</a>
       <a href="contact.html">Contact</a>
     </div>
     <div class="dcol">
@@ -479,6 +480,7 @@ FOOTER = """
      <div class="fcols">
      <a href="about.html">About us</a>
      <a href="careers.html">Careers</a>
+     <a href="investors.html">Investors</a>
      <a href="index.html#faq">FAQ</a>
      <a href="car-insurance/">Car insurance by city</a>
      <a href="car-insurance/makes/">Car insurance by make</a>

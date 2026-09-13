@@ -45,7 +45,7 @@ def pick(key, options):
 def rewrite(chunk, depth):
     u = '../' * depth
     for a in ('href="', 'src="'):
-        for f in ('index.html', 'about.html', 'careers.html', 'quote.html',
+        for f in ('index.html', 'about.html', 'careers.html', 'investors.html', 'quote.html',
                   'privacy.html', 'sms-terms.html', 'assets/', 'car-insurance/',
                   'contact.html', 'pay/', 'claims/', 'id-card/', 'lienholder/',
                   'auto-insurance.html', 'home-insurance.html', 'commercial-insurance.html',

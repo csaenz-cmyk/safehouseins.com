@@ -208,6 +208,7 @@ _PANEL = """<div class="scrim" id="scrim" hidden></div>
       <a href="#reviews">Reviews</a>
       <a href="#faq">FAQ</a>
       <a href="careers.html">Careers</a>
+      <a href="investors.html">Investors</a>
       <a href="contact.html">Contact</a>
     </div>
     <div class="dcol">
@@ -256,7 +257,7 @@ def panel(up='', home=False):
         out = out.replace('href="#faq"', 'href="' + up + 'index.html#faq"')
         out = out.replace('href="#reviews"', 'href="' + up + 'index.html#reviews"')
     if up:
-        for f in ('index.html', 'about.html', 'careers.html', 'contact.html',
+        for f in ('index.html', 'about.html', 'careers.html', 'investors.html', 'contact.html',
                   'quote.html', 'auto-insurance.html', 'home-insurance.html',
                   'commercial-insurance.html', 'renters-insurance.html',
                   'motorcycle-insurance.html', 'pay/', 'claims/', 'id-card/',

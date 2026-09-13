@@ -324,6 +324,7 @@ HEAD = """<!doctype html>
       <a href="index.html#reviews">Reviews</a>
       <a href="index.html#faq">FAQ</a>
       <a href="careers.html">Careers</a>
+      <a href="investors.html">Investors</a>
       <a href="contact.html">Contact</a>
     </div>
     <div class="dcol">
@@ -449,6 +450,7 @@ FOOT = """</div></main>
      <div class="fcols">
      <a href="about.html">About us</a>
      <a href="careers.html">Careers</a>
+     <a href="investors.html">Investors</a>
      <a href="index.html#faq">FAQ</a>
      <a href="car-insurance/">Car insurance by city</a>
      <a href="car-insurance/makes/">Car insurance by make</a>
@@ -1060,7 +1062,7 @@ def to_dir(page, slug):
     page = page.replace('href="sms-terms.html"', 'href="../sms-terms/"')
     # The shared footer arrived with more root-relative links than this used to
     # carry, and six of them 404ed from one directory down.
-    for f in ('quote.html', 'about.html', 'careers.html', 'contact.html',
+    for f in ('quote.html', 'about.html', 'careers.html', 'investors.html', 'contact.html',
               'car-insurance/', 'pay/', 'claims/', 'id-card/', 'lienholder/',
               'auto-insurance.html', 'home-insurance.html', 'commercial-insurance.html',
               'renters-insurance.html', 'motorcycle-insurance.html'):
