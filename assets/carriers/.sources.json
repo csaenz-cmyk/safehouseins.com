@@ -1,1 +1,51 @@
-{}
+{
+ "acacia": {
+  "square": "https://static.wixstatic.com/media/b14db4_46fb310647c5446f9da5d0e376b00669%7Emv2.gif/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/b14db4_46fb310647c5446f9da5d0e376b00669%7Emv2.gif"
+ },
+ "alinsco": {
+  "square": "https://static.wixstatic.com/media/191622_41fa292fcc9d4582b8350f8cf089f468%7Emv2.png/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/191622_41fa292fcc9d4582b8350f8cf089f468%7Emv2.png"
+ },
+ "allstate": {
+  "square": "https://www.allstate.com/apple-touch-icon.png"
+ },
+ "bluefire": {
+  "square": "https://www.google.com/s2/favicons?domain=bluefireinsurance.com&sz=256"
+ },
+ "bristol-west": {
+  "square": "https://www.google.com/s2/favicons?domain=bristolwest.com&sz=256"
+ },
+ "commonwealth": {
+  "square": "https://ioausa.com/wp-content/uploads/2024/07/cropped-favicon-80x80.png"
+ },
+ "dairyland": {
+  "square": "https://www.dairylandinsurance.com/favicon-96x96.png"
+ },
+ "gainsco": {
+  "square": "https://www.gainsco.com/wp-content/uploads/2016/06/cropped-Site_Icon-192x192.png"
+ },
+ "geico": {
+  "square": "https://www.geico.com/favicon.ico"
+ },
+ "kemper": {
+  "strip": "https://www.kemper.com/themes/custom/kemper_cohesion_subtheme/images/printlogo.png"
+ },
+ "lemonade": {
+  "square": "https://www.lemonade.com/apple-touch-icon.png"
+ },
+ "national-general": {
+  "square": "https://www.nationalgeneral.com/imgs/favicons/favicon.ico"
+ },
+ "progressive": {
+  "square": "https://www.progressive.com/apple-touch-icon.png",
+  "strip": "https://images.contentstack.io/v3/assets/blt62d40591b3650da3/blt483e097d64d66a25/66476d224ac76ee67740f2d5/logo-progressive.svg"
+ },
+ "root": {
+  "square": "https://www.joinroot.com/icons/icon-48x48.png?v=5b243589c73c9e4dd34932f3c84ab8b8"
+ },
+ "safeco": {
+  "square": "https://www.safeco.com/apple-touch-icon.png"
+ },
+ "state-farm": {
+  "square": "https://www.statefarm.com/favicon.ico"
+ }
+}
