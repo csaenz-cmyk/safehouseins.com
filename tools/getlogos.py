@@ -10,6 +10,8 @@
     python3 tools/getlogos.py --sheet      # fetch, and write a page to eyeball
     python3 tools/getlogos.py --sheet-only # just write that page, fetch nothing
     python3 tools/getlogos.py --reject Lemonade --why 'not their mark'
+    python3 tools/getlogos.py --import logo.png=Bluefire   # artwork we were given
+    python3 tools/getlogos.py --import-dir ~/logos/        # a whole drop of them
 
 It reads the carrier list out of tools/carriers.py rather than keeping a second
 copy, so the two can never drift: add a name to NAMES there and it is fetched
@@ -699,6 +701,69 @@ def write_quote_map(pairs):
     return True
 
 
+# ---- artwork somebody hands us -----------------------------------------
+
+def import_file(path, name, dry=False):
+    """Put a file we were given through the same mill as a fetched one.
+
+    A logo that arrives by email or from the carrier's marketing pack is the
+    best source there is — it is unambiguously the right company's artwork,
+    which is the one thing fetching cannot guarantee. It still has to be
+    trimmed, sized and named the way the two call sites expect, and doing that
+    by hand is how you get a row of marks at nine different heights. So it goes
+    through make_strip and make_square exactly as a fetched file does.
+
+    Written to both slots when the shape suits both, and to whichever one it
+    suits when it does not: a wide wordmark is unreadable in the rate rows'
+    square and a square badge loses the company name in the strip.
+    """
+    sl = slug(name)
+    with open(path, 'rb') as f:
+        b = f.read()
+    out = []
+    if is_svg(b):
+        b = clean_svg(b)
+        if not svg_ok(b):
+            return [], 'not usable as an SVG'
+        fine, why = svg_is_wordmark(b)
+        if not fine:
+            return [], why
+        if not dry:
+            with open(os.path.join(OUT, sl + '.svg'), 'wb') as f:
+                f.write(b)
+        SOURCE.setdefault(sl, {})['strip'] = 'imported: ' + os.path.basename(path)
+        return [(sl + '.svg', len(b))], None
+
+    why_strip = why_sq = None
+    im, why_strip = make_strip(b)
+    if im is not None:
+        n = 0 if dry else save_webp(im, os.path.join(OUT, sl + '.webp'), STRIP_KB)
+        SOURCE.setdefault(sl, {})['strip'] = 'imported: ' + os.path.basename(path)
+        out.append((sl + '.webp', n))
+    im, why_sq = make_square(b)
+    if im is not None:
+        n = 0 if dry else save_webp(im, os.path.join(OUT, sl + '-sq.webp'), SQ_KB)
+        SOURCE.setdefault(sl, {})['square'] = 'imported: ' + os.path.basename(path)
+        out.append((sl + '-sq.webp', n))
+    if not out:
+        return [], '; '.join(x for x in (why_strip, why_sq) if x)
+    return out, None
+
+
+def match_name(fn):
+    """Guess the carrier from a file name, or None when it is not obvious."""
+    stem = re.sub(r'[^a-z0-9]+', '', os.path.splitext(os.path.basename(fn))[0].lower())
+    hits = [n for n in NAMES if re.sub(r'[^a-z0-9]', '', n.lower()) in stem]
+    if len(hits) == 1:
+        return hits[0]
+    for n in NAMES:                       # first word, for "gainsco-logo-2024.png"
+        first = re.sub(r'[^a-z0-9]', '', n.split()[0].lower())
+        if len(first) > 3 and first in stem:
+            hits.append(n)
+    hits = list(dict.fromkeys(hits))
+    return hits[0] if len(hits) == 1 else None
+
+
 # ---- looking at what came down ----------------------------------------
 
 def sheet(path):
@@ -902,6 +967,32 @@ def selftest():
         SOURCE.clear(); SOURCE.update(_keep[3])
         _sh.rmtree(_box, ignore_errors=True)
 
+    # Artwork handed to us is the best source there is — it is unambiguously
+    # the right company's — but it still has to be sized like everything else.
+    import tempfile as _t2, shutil as _s2
+    _o, _sf = OUT, SOURCE_FILE
+    _b2, _d2 = _t2.mkdtemp(), _t2.mkdtemp()
+    try:
+        globals()['OUT'] = _b2
+        globals()['SOURCE_FILE'] = os.path.join(_b2, '.s.json')
+        word.save(os.path.join(_d2, 'w.png'))
+        badge.save(os.path.join(_d2, 'b.png'))
+        got, why = import_file(os.path.join(_d2, 'w.png'), 'Bluefire')
+        ck([f for f, _ in got] == ['bluefire.webp'],
+           'an imported wordmark becomes the strip mark only: %s' % (got or why))
+        got, why = import_file(os.path.join(_d2, 'b.png'), 'Apollo')
+        ck([f for f, _ in got] == ['apollo-sq.webp'],
+           'an imported badge becomes the rate-row mark only: %s' % (got or why))
+        ck(match_name('/x/gainsco-logo-2024.png') == 'GAINSCO',
+           'a carrier is read off the file name')
+        ck(match_name('/x/national-general.svg') == 'National General',
+           'a two-word carrier is read off the file name')
+        ck(match_name('/x/logo_final_v3.png') is None,
+           'an unguessable name is refused rather than assigned to someone')
+    finally:
+        globals()['OUT'], globals()['SOURCE_FILE'] = _o, _sf
+        _s2.rmtree(_b2, ignore_errors=True); _s2.rmtree(_d2, ignore_errors=True)
+
     # A run that fetches nothing and exits 0 is the worst failure there is:
     # every check downstream passes and nothing happened.
     ck(not sheet_only(['--sheet']), '--sheet fetches as well as writing a sheet')
@@ -1004,6 +1095,51 @@ def main(argv):
         on_disk = [(x, slug(x) + '-sq.webp') for x in NAMES
                    if os.path.exists(os.path.join(OUT, slug(x) + '-sq.webp'))]
         write_quote_map(on_disk)
+        return 0
+
+    # --import file.png=Carrier, or --import-dir folder/ to take a whole drop
+    imports = []
+    for i, a in enumerate(argv):
+        if a.startswith('--import='):
+            imports.append(a.split('=', 1)[1])
+        elif a == '--import' and i + 1 < len(argv):
+            imports.append(argv[i + 1])
+        elif a.startswith('--import-dir=') or (a == '--import-dir' and i + 1 < len(argv)):
+            d = a.split('=', 1)[1] if '=' in a else argv[i + 1]
+            for fn in sorted(os.listdir(d)):
+                if os.path.splitext(fn)[1].lower() in (
+                        '.svg', '.png', '.jpg', '.jpeg', '.webp', '.gif'):
+                    imports.append(os.path.join(d, fn))
+    if imports:
+        wrote = 0
+        for spec in imports:
+            path, _, name = spec.partition('=')
+            if not name:
+                name = match_name(path)
+                if not name:
+                    print('  ? %-34s cannot tell which carrier — name it:'
+                          ' --import "%s=Carrier Name"'
+                          % (os.path.basename(path), path))
+                    continue
+            if not os.path.exists(path):
+                print('  - %-34s no such file' % os.path.basename(path))
+                continue
+            files, why = import_file(path, name, dry='--dry-run' in argv)
+            if files:
+                wrote += 1
+                print('  + %-18s %s' % (name, '  '.join(
+                    '%s (%.1f KB)' % (f, n / 1024) for f, n in files)))
+            else:
+                print('  - %-18s %s' % (name, why or 'nothing usable in it'))
+        if '--dry-run' not in argv:
+            save_sources()
+            on_disk = [(x, slug(x) + '-sq.webp') for x in NAMES
+                       if os.path.exists(os.path.join(OUT, slug(x) + '-sq.webp'))]
+            write_quote_map(on_disk)
+            print('\n%d imported. quote.html rebuilt (%d badges).'
+                  % (wrote, len(on_disk)))
+            print('Rebuild the pages:  python3 tools/genproduct.py'
+                  ' && python3 tools/gencities.py && python3 tools/gensitemap.py')
         return 0
 
     if sheet_only(argv):

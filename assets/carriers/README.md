@@ -27,6 +27,24 @@ python3 tools/getlogos.py --selftest   # check the conversion, no network needed
 python3 tools/getlogos.py --only GEICO --force
 ```
 
+### Artwork somebody hands you
+
+A logo from the carrier's marketing pack, or one an underwriter emailed over,
+is the best source there is: it is unambiguously the right company's mark,
+which is the single thing fetching cannot guarantee. Put it through the same
+mill rather than resizing it by hand —
+
+```
+python3 tools/getlogos.py --import bluefire.png=Bluefire
+python3 tools/getlogos.py --import-dir ~/Downloads/logos/
+```
+
+It trims, sizes and names it the way both call sites expect, writes it to
+whichever of the two slots its shape suits, and rebuilds the map in
+`quote.html`. `--import-dir` reads the carrier off each file name and says so
+when it cannot tell, rather than guessing and assigning a mark to the wrong
+company.
+
 ### Look at the sheet. Every time.
 
 `--sheet` writes `_review.html` into this folder: every mark at the size the
