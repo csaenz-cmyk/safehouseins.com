@@ -378,8 +378,12 @@ def make_square(b):
         return None, 'placeholder tile'
     if max(im.width, im.height) < MIN_SQ:
         return None, 'too small (%dx%d)' % (im.width, im.height)
-    if im.width > im.height * 2.4:
-        return None, 'wordmark, unreadable in a square'
+    # 1.5, not 2.4. The rate rows draw this 30px wide inside a 38px tile, so a
+    # 2.2:1 wordmark lands about 14px tall and is a grey smudge — GAINSCO's
+    # shipped that way under the old threshold. Only a near-square mark survives
+    # the shrink, and a carrier refused here keeps its initial, which is legible.
+    if im.width > im.height * 1.5:
+        return None, 'a wordmark this wide is unreadable at 30px square'
     inner = int(SQ * 0.88)
     s = inner / max(im.width, im.height)
     im = im.resize((max(1, round(im.width * s)), max(1, round(im.height * s))),
@@ -897,6 +901,16 @@ def selftest():
     ck(make_strip(png(tiny))[0] is None, 'a 16px favicon is refused as a strip mark')
     ck(make_square(png(word))[0] is None,
        'a wordmark is refused as a badge, where it would be unreadable')
+    wide2 = Image.new('RGBA', (218, 96), (0, 0, 0, 0))
+    dw = ImageDraw.Draw(wide2)
+    for i in range(7):
+        x = 10 + i * 29
+        dw.rectangle([x, 20, x + 20, 76], fill=(200, 40, 40, 255))
+        dw.rectangle([x + 5, 34, x + 15, 62], fill=(0, 0, 0, 0))
+    ck(make_square(png(wide2))[0] is None,
+       'a 2.3:1 wordmark is refused too — it shipped as a smudge once')
+    ck(make_strip(png(wide2))[0] is not None,
+       'but that same wordmark is still fine in the strip')
     ck(make_strip(png(badge))[0] is None,
        'a square badge is refused as a strip mark, where it would lose the name')
     ck(is_svg(b'<svg xmlns="x"><path d="M0 0h4v4z"/></svg>'), 'an SVG is recognised')

@@ -8,17 +8,28 @@
  "allstate": {
   "square": "https://www.allstate.com/apple-touch-icon.png"
  },
+ "apollo": {
+  "square": "imported: apollo.png"
+ },
  "bluefire": {
-  "square": "https://www.google.com/s2/favicons?domain=bluefireinsurance.com&sz=256"
+  "square": "https://www.google.com/s2/favicons?domain=bluefireinsurance.com&sz=256",
+  "strip": "imported: bluefire.png"
  },
  "bristol-west": {
   "square": "https://www.google.com/s2/favicons?domain=bristolwest.com&sz=256"
+ },
+ "commonwealth": {
+  "strip": "imported: commonwealth.png"
+ },
+ "connect": {
+  "strip": "imported: connect.png"
  },
  "dairyland": {
   "square": "https://www.dairylandinsurance.com/favicon-96x96.png"
  },
  "gainsco": {
-  "square": "https://www.gainsco.com/wp-content/uploads/2016/06/cropped-Site_Icon-192x192.png"
+  "square": "imported: gainsco.png",
+  "strip": "imported: gainsco.png"
  },
  "geico": {
   "square": "https://www.geico.com/favicon.ico"
