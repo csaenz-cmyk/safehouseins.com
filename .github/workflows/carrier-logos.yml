@@ -30,6 +30,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history, not the default single commit. gensitemap.py reads
+          # each page's lastmod out of git log, and on a shallow clone that
+          # returns nothing for every file the one commit did not touch, so it
+          # falls back to the file's mtime — which on a fresh checkout is now.
+          # A run then stamped all 224 pages as modified today, telling a
+          # crawler everything changed when nothing had, and destroying the one
+          # thing the lastmod dates are for.
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
