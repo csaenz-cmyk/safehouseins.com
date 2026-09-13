@@ -263,6 +263,64 @@ def load(b):
         return None
 
 
+def border_colour(im):
+    """The flat colour the artwork is sitting on, or None if it is not flat.
+
+    Sampled from the edge rather than the corners alone, so a mark that touches
+    one corner does not fool it.
+    """
+    px, w, h = im.convert('RGB'), im.width, im.height
+    pts = []
+    for i in range(0, w, max(1, w // 24)):
+        pts.append((i, 0)); pts.append((i, h - 1))
+    for j in range(0, h, max(1, h // 24)):
+        pts.append((0, j)); pts.append((w - 1, j))
+    # The most common edge colour, not the average. A wordmark whose letters run
+    # to the top and bottom edges — which is most of them, once exported tight —
+    # puts its own ink in the sample, and an average of black ground and orange
+    # letters is neither.
+    import collections
+    vals = [px.getpixel(p) for p in pts]
+    q = collections.Counter(tuple(c // 12 for c in v) for v in vals)
+    key, n = q.most_common(1)[0]
+    if n < len(vals) * 0.6:
+        return None                     # no one colour owns the edge
+    same = [v for v in vals if tuple(c // 12 for c in v) == key]
+    return tuple(sum(v[c] for v in same) // len(same) for c in range(3))
+
+
+def unmultiply_dark(im):
+    """Lift a logo off a flat dark ground onto transparency.
+
+    Brands ship an "on dark" export as often as an "on light" one, and dropped
+    onto this site's white strip it is a black rectangle with the mark inside.
+    Trimming cannot help: the black IS the image.
+
+    For flat-colour artwork the recovery is exact rather than a guess. A pixel
+    halfway between the ground and the mark is halfway opaque, so the channel
+    maximum is the alpha, and dividing the colour back out recovers the mark's
+    own colour — including on the anti-aliased edge, which is what keeps the
+    result clean instead of fringed.
+    """
+    from PIL import Image, ImageChops
+    r, g, b = im.convert('RGB').split()
+    # Against black the channel maximum IS the coverage: a pixel half-covered by
+    # the mark is half the mark's brightness.
+    alpha = ImageChops.lighter(ImageChops.lighter(r, g), b)
+    out = Image.merge('RGBA', (r, g, b, alpha))
+    px = out.load()
+    for y in range(out.height):
+        for x in range(out.width):
+            cr, cg, cb, ca = px[x, y]
+            if ca == 0:
+                px[x, y] = (0, 0, 0, 0)
+            elif ca < 255:
+                k = 255.0 / ca
+                px[x, y] = (min(255, int(cr * k)), min(255, int(cg * k)),
+                            min(255, int(cb * k)), ca)
+    return out
+
+
 def _ink_mask(im):
     """A mask of the pixels that are actually artwork, or None if there are none.
 
@@ -340,13 +398,26 @@ def save_webp(im, path, budget_kb):
     return 0
 
 
+def on_dark(im):
+    """An opaque file sitting on a flat dark ground, lifted onto transparency.
+
+    Left alone it would publish as a black rectangle with the mark inside it.
+    """
+    if im.getchannel('A').getextrema()[0] < 250:
+        return im                      # already has transparency to work with
+    bg = border_colour(im)
+    if bg is None or max(bg) > 110:
+        return im                      # not flat, or not dark: nothing to lift
+    return unmultiply_dark(im)
+
+
 def make_strip(b):
     """The wide mark for the loop: trimmed, STRIP_H tall, transparent."""
     from PIL import Image
     im = load(b)
     if im is None:
         return None, 'not an image'
-    im = trim(im)
+    im = trim(on_dark(im))
     if im is None:
         return None, 'blank'
     if boring(im):
@@ -371,7 +442,7 @@ def make_square(b):
     im = load(b)
     if im is None:
         return None, 'not an image'
-    im = trim(im)
+    im = trim(on_dark(im))
     if im is None:
         return None, 'blank'
     if boring(im):
