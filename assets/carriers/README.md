@@ -20,11 +20,30 @@ two shapes below, writes it here under the right name, and fills in the
 JavaScript map in `quote.html`.
 
 ```
-python3 tools/getlogos.py            # fetch every carrier still missing one
-python3 tools/getlogos.py --check    # report what is here, fetch nothing
-python3 tools/getlogos.py --selftest # check the conversion, no network needed
+python3 tools/getlogos.py --sheet      # fetch, and write a page to check them on
+python3 tools/getlogos.py --check      # report what is here, fetch nothing
+python3 tools/getlogos.py --sheet-only # just that page, fetch nothing
+python3 tools/getlogos.py --selftest   # check the conversion, no network needed
 python3 tools/getlogos.py --only GEICO --force
 ```
+
+### Look at the sheet. Every time.
+
+`--sheet` writes `_review.html` into this folder: every mark at the size the
+site draws it, beside the carrier it claims to belong to and the URL it came
+from. Open it before trusting a run. The GitHub workflow uploads the same page
+as an artifact.
+
+This is not a nicety. Validation can check that a file decodes, is big enough,
+is the right shape and is not a blank tile — it cannot check that the artwork
+belongs to the right company, and that is the failure that actually happens.
+The first real run published The Wall Street Journal's logo as Root's, American
+Family's as CONNECT's, an unrelated insurer's as Commonwealth's, and a
+photograph of a sunset as a carrier badge. Every automatic check passed all
+four. Ten seconds of looking caught them.
+
+When one is wrong: delete the file, and rerun that carrier with the right
+domain — `--only Apollo --domain "Apollo=example.com" --force`.
 
 It looks at the carrier's own site first, because that is the only source that
 gives a real SVG, then at the logo and favicon services. Anything it fetches is
