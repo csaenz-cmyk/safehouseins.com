@@ -1,0 +1,87 @@
+# Fetches the carrier marks and commits them, so nobody has to download a logo,
+# resize it, name it correctly and upload it.
+#
+# Run it from the Actions tab: "Carrier logos" -> "Run workflow".
+#
+# It exists because the machine that writes this site's code cannot reach the
+# carriers' websites — a sandboxed session has its outbound traffic filtered, and
+# every host that serves a logo is on the wrong side of that filter. A GitHub
+# runner has ordinary internet access, so the fetch happens here instead, and the
+# result is committed back to whatever branch you ran it on.
+name: Carrier logos
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Refetch carriers that already have a mark'
+        type: boolean
+        default: false
+      only:
+        description: 'Limit to one carrier, e.g. GEICO (blank = all of them)'
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Pillow
+        run: python -m pip install --quiet --upgrade pip Pillow
+
+      # Fails the run before anything is fetched if the conversion path is
+      # broken, so a bad threshold cannot quietly write 19 grey squares.
+      - name: Check the conversion path
+        run: python3 tools/getlogos.py --selftest
+
+      - name: Fetch the marks
+        id: fetch
+        run: |
+          ARGS=""
+          if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          if [ -n "${{ inputs.only }}" ]; then ARGS="$ARGS --only=${{ inputs.only }}"; fi
+          python3 tools/getlogos.py $ARGS 2>&1 | tee /tmp/fetch.log
+
+      - name: Rebuild the pages that show them
+        run: |
+          python3 tools/genproduct.py
+          python3 tools/gensitemap.py
+
+      # The run's summary page is where you look to see what it got. Reading it
+      # should not mean opening the logs.
+      - name: Report
+        if: always()
+        run: |
+          {
+            echo '## What came down'
+            echo '```'
+            cat /tmp/fetch.log 2>/dev/null || echo 'the fetch step did not run'
+            echo '```'
+            echo '## What the folder holds now'
+            echo '```'
+            python3 tools/getlogos.py --check
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit whatever it found
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add -A assets/carriers quote.html ./*.html
+          if git diff --cached --quiet; then
+            echo 'Nothing changed — no carrier had new artwork to add.'
+            exit 0
+          fi
+          git commit -m 'Carrier marks fetched by tools/getlogos.py
+
+          Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+          git push origin HEAD:${{ github.ref_name }}

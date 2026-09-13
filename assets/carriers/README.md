@@ -36,10 +36,20 @@ It never publishes anything — the files sit here until the generators run and
 somebody commits them. That gap is deliberate: it is where the appointment
 paperwork above gets checked.
 
-On a locked-down network (CI, a sandboxed agent session) the logo hosts are
-usually blocked at the proxy. The run reports that as `blocked by network
-policy` rather than as a missing logo, so it is clear the fix is a different
-machine and not a different source list.
+### Or let GitHub run it
+
+There is nothing to install and no command to type: open the repo's **Actions**
+tab, pick **Carrier logos**, press **Run workflow**. It fetches, rebuilds the
+pages and commits the result to the branch you ran it on, and the run's summary
+page lists what it got and what it missed.
+
+This is the usual way to run it, because the machine that writes this site's
+code generally cannot reach the carriers' websites — a sandboxed session has its
+outbound traffic filtered and every logo host is on the wrong side of that
+filter. A GitHub runner has ordinary internet access. When a run is blocked that
+way the report says `blocked by network policy` rather than showing a missing
+logo, so it is clear the fix is a different machine and not a different source
+list.
 
 Everything below is what the script is doing, and what to do by hand for a
 carrier it cannot reach.
