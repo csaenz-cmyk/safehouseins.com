@@ -988,10 +988,15 @@ def main(argv):
         if not names:
             print('no carrier matched %s' % ', '.join(rejects))
             return 2
+        # Both spellings, like --only and --domain. The documented example uses
+        # the spaced form, and accepting only --why= dropped the reason without
+        # saying so — leaving a rejection recorded with no record of why.
         why = 'reviewed and turned down'
-        for a in argv:
+        for i, a in enumerate(argv):
             if a.startswith('--why='):
                 why = a.split('=', 1)[1]
+            elif a == '--why' and i + 1 < len(argv):
+                why = argv[i + 1]
         n = reject(names, why)
         print('%d source%s turned down for %s; reruns will not take %s again.'
               % (n, '' if n == 1 else 's', ', '.join(names),
