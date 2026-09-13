@@ -7,7 +7,8 @@
     python3 tools/getlogos.py --only GEICO --only Root
     python3 tools/getlogos.py --domain Apollo=apolloins.com
     python3 tools/getlogos.py --selftest   # check the conversion, no network
-    python3 tools/getlogos.py --sheet      # write a page to eyeball them all
+    python3 tools/getlogos.py --sheet      # fetch, and write a page to eyeball
+    python3 tools/getlogos.py --sheet-only # just write that page, fetch nothing
 
 It reads the carrier list out of tools/carriers.py rather than keeping a second
 copy, so the two can never drift: add a name to NAMES there and it is fetched
@@ -808,6 +809,14 @@ def selftest():
     ck(svg_box(b'<svg width="219" height="80" viewBox="0 0 219 80">') == (219.0, 80.0),
        'svg_box reads the viewBox')
 
+    # A run that fetches nothing and exits 0 is the worst failure there is:
+    # every check downstream passes and nothing happened.
+    ck(not sheet_only(['--sheet']), '--sheet fetches as well as writing a sheet')
+    ck(not sheet_only(['--force', '--sheet']), '--sheet still fetches beside other flags')
+    ck(sheet_only(['--sheet-only']), '--sheet-only writes a sheet instead of fetching')
+    ck(sheet_only(['--sheet-only=/tmp/x.html']), '--sheet-only=PATH likewise')
+    ck(not sheet_only([]), 'a bare run fetches')
+
     import tempfile
     tmp = tempfile.mkdtemp()
     n = save_webp(st, os.path.join(tmp, 'a.webp'), STRIP_KB)
@@ -848,17 +857,32 @@ def selftest():
 
 # ---- run ---------------------------------------------------------------
 
+def sheet_only(argv):
+    """Whether this invocation writes a sheet INSTEAD of fetching.
+
+    Its own function so it can be tested. When "--sheet alone" meant this, the
+    workflow's `getlogos.py $ARGS --sheet` — with ARGS empty, the ordinary case
+    — wrote a sheet of the marks already on disk, fetched nothing, and exited 0.
+    Every step went green and the run did no work at all.
+    """
+    return any(a == '--sheet-only' or a.startswith('--sheet-only=') for a in argv)
+
+
 def main(argv):
     if '--selftest' in argv:
         return selftest()
     load_sources()
+    # --sheet means "write the review sheet as well as fetching". Writing one
+    # WITHOUT fetching is --sheet-only, and it is a separate flag rather than
+    # "--sheet on its own" because that made the commonest invocation of all —
+    # a plain fetch that also wants a sheet — silently fetch nothing.
     want_sheet = None
     for a in argv:
-        if a == '--sheet':
+        if a in ('--sheet', '--sheet-only'):
             want_sheet = os.path.join(OUT, '_review.html')
-        elif a.startswith('--sheet='):
+        elif a.startswith('--sheet=') or a.startswith('--sheet-only='):
             want_sheet = a.split('=', 1)[1]
-    if want_sheet and len(argv) == 1:
+    if sheet_only(argv):
         print('review sheet: ' + sheet(want_sheet))
         return 0
     check = '--check' in argv
