@@ -114,22 +114,17 @@ MIN_SQ = 48
 DOMAIN = {
     'Progressive':      'progressive.com',
     'GEICO':            'geico.com',
-    'Allstate':         'allstate.com',
-    'State Farm':       'statefarm.com',
-    'Nationwide':       'nationwide.com',
     'Lemonade':         'lemonade.com',
     'Root':             'joinroot.com',
-    'Safeco':           'safeco.com',
     'Kemper':           'kemper.com',
     'GAINSCO':          'gainsco.com',
-    'Bristol West':     'bristolwest.com',
-    'Dairyland':        'dairylandinsurance.com',
+    'NEXT':             'nextinsurance.com',
+    'Hagerty':          'hagerty.com',
     'National General': 'nationalgeneral.com',
     # The regional carriers and MGAs below are the ones worth confirming first
     # if they come back empty — several trade under a name that is not their
     # domain, and one wrong guess here is indistinguishable from a carrier that
     # simply publishes no usable artwork.
-    'Acacia':           'acaciains.com',
     'Bluefire':         'bluefireinsurance.com',
     'Alinsco':          'alinsco.com',
     'Commonwealth':     'commonwealthins.com',

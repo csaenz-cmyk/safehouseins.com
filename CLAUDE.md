@@ -68,11 +68,24 @@ Anywhere but the end of the sheet, the shorthand resets them and they silently
 do not paint.
 
 **`carriers.py::NAMES` is the carrier list, but not the only place a carrier is
-named.** A carrier we represent also appears in `genabout.py::CARRIERS` and in
-the privacy policy in `genlegal.py`, in both languages. Removing one means all
-three — the privacy policy names the companies we send an application to, so
-listing a company we do not represent is a false statement about what happens
-to a customer's data.
+named.** `genabout.py` now derives its About-page list from `NAMES` rather than
+keeping its own — the two had drifted until the same page said Acacia in one
+list and not the other, and neither mentioned Hagerty or National General. It
+adds `EXTRA` for appointments the strip does not carry, which is a real
+category.
+
+Still needing a hand when an appointment changes: the privacy policy in
+`genlegal.py`, **in both languages**, which names the companies we send an
+application to — listing one we do not represent is a false statement about
+where a customer's data goes — and the sample SMS in the same file, which names
+a carrier and a policy prefix.
+
+**Do not remove a dropped carrier from the payment and claims routers.**
+`pay/` and `claims/` map a policy-number prefix to that carrier's portal, and
+losing an appointment does not cancel policies already in force. A customer
+holding an AIM policy still has to pay it until it expires; deleting the entry
+breaks that for them. Marketing lists drop a carrier the day the appointment
+ends. Servicing keeps it until the last policy runs off.
 
 **Carrier artwork is never trusted without a person looking at it.** Validation
 can check that a file decodes, is the right shape and is not a placeholder; it
@@ -91,6 +104,13 @@ whole site changed when nothing did. CI must check out with full history
 the wide wordmark for the strip; `<slug>-sq.webp` is the square badge for the
 rate rows in `quote.html`. They are different files because the slots want
 opposite shapes, and a wordmark squeezed into the square is unreadable.
+
+**The compare band takes no invented prices.** `COMPARE` in
+`tools/genproduct.py` puts two carriers above "Compare between companies" and
+can show what each quoted. A figure there sits beside two named competitors'
+logos on a page selling insurance, which makes it comparative advertising —
+invented, it is a false statement about what those companies charge. The band
+renders the marks without figures until a real, evidenceable pair is set.
 
 **Adding a root page means six link-rewrite lists, not one.** A page in a
 subdirectory needs its links to the root prefixed with `../`, and each of

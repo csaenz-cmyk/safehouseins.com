@@ -9,7 +9,7 @@ page is the last place to start guessing.
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import shell
+import shell, carriers
 
 TEAM = [
     ('Alexa M.',   'Licensed agent',   '11 years', 'agent-2-t.jpg'),
@@ -21,9 +21,19 @@ TEAM = [
 # 11 + 9 + 8 + 7, the licensed ones. Customer service is not a licensed seat.
 LICENSED_YEARS = 11 + 9 + 8 + 7
 
-CARRIERS = ['Progressive','GEICO','Lemonade','Root','Kemper','GAINSCO','Dairyland',
-            'National General','Acacia','Bluefire','Alinsco','Commonwealth',
-            'Apollo','Connect']
+# Appointments this page names. Taken from carriers.NAMES rather than typed
+# again: this list and the strip's were separately maintained, drifted, and
+# ended up contradicting each other on the same page — one said Acacia, the
+# other did not, and neither mentioned Hagerty or National General.
+#
+# EXTRA is for appointments the strip does not carry, which is a real category:
+# a carrier can be one we place business with and still have no artwork or no
+# place in the loop. Written out in full here because this is the page where
+# the whole name matters.
+EXTRA = ['Elephant', 'Homeowners of America']
+FULL_NAME = {'Acacia': 'Acacia Insurance Managers'}
+
+CARRIERS = [FULL_NAME.get(n, n) for n in carriers.NAMES] + EXTRA
 
 def people():
     out = []
@@ -138,7 +148,7 @@ BODY = """
   <p>Appointments change &mdash; carriers open and close their appetite by state, by class, sometimes
      by month. This is who we work with today:</p>
   <div class="chips">
-    <span>Progressive</span><span>GEICO</span><span>Acacia Insurance Managers</span><span>Connect</span><span>Alinsco</span><span>Commonwealth</span><span>Elephant</span><span>Root</span><span>Apollo</span><span>Kemper</span><span>Lemonade</span><span>Homeowners of America</span><span>GAINSCO</span><span>Next</span>
+    {carrier_chips}
   </div>
   <p>If none of them wants your risk at a price that makes sense, we say that too. An agency that
      can only ever find you a yes is not shopping.</p>
@@ -198,7 +208,9 @@ if __name__ == '__main__':
     out = (shell.head('About us',
              'Safe House Insurance is an independent, bilingual agency in El Paso, Texas, '
              'licensed in Texas and New Mexico. How we work and why.', canonical='https://safehouseins.com/about')
-           + BODY + shell.FOOTER)
+           + BODY.replace('{carrier_chips}',
+                          ''.join('<span>' + c + '</span>' for c in CARRIERS))
+           + shell.FOOTER)
     path = os.path.join(root, 'about.html')
     open(path, 'w', encoding='utf-8').write(out)
     print('about.html', len(out), 'bytes')

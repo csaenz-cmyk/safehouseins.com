@@ -36,6 +36,9 @@
   "square": "https://www.geico.com/favicon.ico",
   "strip": "imported: geico.png"
  },
+ "hagerty": {
+  "strip": "imported: hagerty.png"
+ },
  "kemper": {
   "strip": "https://www.kemper.com/themes/custom/kemper_cohesion_subtheme/images/printlogo.png"
  },
@@ -44,7 +47,11 @@
   "strip": "imported: lemonade.png"
  },
  "national-general": {
-  "square": "https://www.nationalgeneral.com/imgs/favicons/favicon.ico"
+  "square": "https://www.nationalgeneral.com/imgs/favicons/favicon.ico",
+  "strip": "imported: national-general.png"
+ },
+ "next": {
+  "strip": "imported: next.png"
  },
  "progressive": {
   "square": "https://www.progressive.com/apple-touch-icon.png",

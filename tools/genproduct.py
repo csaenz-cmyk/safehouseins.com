@@ -35,7 +35,7 @@ is to be believed about prices, next to real carrier names, that is the worst
 possible thing to make up, and the rest of this site spends a lot of effort not
 doing it. There are no prices on these pages at all.
 """
-import os, sys, html
+import os, sys, html, re
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import carriers, menu, nap, shell
 
@@ -1494,6 +1494,35 @@ CSS = """
       font-size:15px;font-weight:900;color:var(--pblue)}
   .mchip b{display:block;font-size:15px;font-weight:800;color:var(--pnavy);line-height:1.2}
   .mchip small{display:block;font-size:11.5px;font-weight:700;color:#7C8BA4;margin-top:1px}
+  /* With the name dropped, the label carries the chip on its own and can take
+     the weight the name used to have. */
+  .mchip .lgm + span small{font-size:12.5px;color:#5A6B85}
+  /* A carrier with artwork shows it; the tile keeps its shape either way so two
+     chips side by side line up whether or not both marks exist. object-fit
+     contain rather than a crop, because these are wordmarks of every aspect. */
+  /* A wordmark does not go in a square. Progressive's is better than eight to
+     one, so fitted into the 34px tile it came out three pixels tall — a speck.
+     The mark keeps its own width and is sized by height, exactly as the strip
+     does it. grid-template-rows pins the row so the percentage height below has
+     something definite to resolve against; left implicit it falls back to the
+     file's intrinsic height and bursts out of the chip. */
+  .mchip .lg{grid-template-rows:100%}
+  .mchip .lgm{width:auto;height:24px;min-width:30px;max-width:96px;padding:0;
+      background:none;border-radius:0}
+  .mchip .lgm img{width:auto;height:100%;max-width:100%;object-fit:contain;display:block}
+  /* The price, when there is a real one to show. Tabular figures so two chips
+     compare as numbers rather than as differently-spaced strings. */
+  .mchip em{display:block;font-style:normal;font-size:16px;font-weight:900;
+      color:var(--pnavy);line-height:1.15;margin-top:2px;
+      font-variant-numeric:tabular-nums}
+  .mchip.mlow{box-shadow:0 0 0 2px var(--pblue),0 14px 30px -16px rgba(0,0,0,.6)}
+  .mchip.mlow em{color:var(--pblue)}
+  .mchip.mlow::after{content:"lower";position:absolute;top:-9px;right:10px;
+      background:var(--pblue);color:#fff;font-size:10px;font-weight:900;
+      letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:99px}
+  .mchip{position:relative}
+  .mixnote{margin:12px auto 0;max-width:52ch;text-align:center;color:rgba(255,255,255,.8);
+      font-size:12.5px;font-weight:600;line-height:1.5}
   .mixsay{text-align:center;color:#fff;max-width:44ch;margin:0 auto}
   /* Every colour on this block is stated, never inherited. The home page has a
      global h2{color:var(--navy)} and an element selector beats inheriting white
@@ -1914,6 +1943,70 @@ def resources(p):
         '  </section>\n')
 
 
+# The two carriers shown side by side above "Compare between companies", and
+# what each of them quoted.
+#
+# THE PRICES ARE NOT SET AND MUST NOT BE MADE UP. A figure here sits beside two
+# named competitors' logos on a page selling insurance, which makes it
+# comparative advertising: invented, it is a false statement about what those
+# companies charge, and it is the same rule the guides already follow about
+# never inventing a premium, with more behind it.
+#
+# To use it: put a real pair from one real quote — same driver, same car, same
+# coverage, same day — as ('$118', '$164') or whatever they were, and set
+# COMPARE_NOTE to say what the quote was for. Both must be evidenceable, and
+# they should be refreshed or pulled when they go stale, because a rate from
+# two years ago presented as current is the same problem wearing a date.
+#
+# Until then the band renders the two marks without figures, which still makes
+# the point the section is there to make.
+COMPARE = [
+    ('Progressive', 'Auto insurance', None),
+    ('GEICO', 'Auto insurance', None),
+]
+COMPARE_NOTE = ''      # e.g. 'Same driver, same 2019 Silverado, same limits, March 2026.'
+
+
+def mixchips(up=''):
+    """The two carriers above the compare headline.
+
+    Shows each carrier's real mark where we have the file and its initial on a
+    tile where we do not — the same fallback the strip uses, so a carrier
+    without artwork degrades to something finished rather than to a gap.
+    """
+    priced = [c for c in COMPARE if c[2]]
+    best = None
+    if len(priced) == len(COMPARE) and len(COMPARE) > 1:
+        def money(v):
+            try:
+                return float(re.sub(r'[^0-9.]', '', v))
+            except ValueError:
+                return float('inf')
+        best = min(COMPARE, key=lambda c: money(c[2]))[0]
+
+    out = []
+    for name, line, price in COMPARE:
+        f = carriers.logo_file(name)
+        if f:
+            mark = ('<span class="lg lgm"><img src="' + up + 'assets/carriers/' + f
+                    + '" alt="' + name + '" decoding="async"></span>')
+        else:
+            fg, bg = carriers.TINT.get(name, carriers.DEFAULT_TINT)
+            mark = ('<span class="lg" aria-hidden="true" style="background:' + bg
+                    + ';color:' + fg + '">' + name[0] + '</span>')
+        sub = ('<em>' + price + '</em>') if price else ('<small>' + line + '</small>')
+        # A carrier with artwork does not also need its name set beside it — the
+        # logo is the name. Same rule the strip makes, and without it the chip
+        # reads "PROGRESSIVE Progressive".
+        title = '' if f else '<b>' + name + '</b>'
+        low = ' mlow' if best and name == best else ''
+        out.append('<span class="mchip' + low + '">' + mark
+                   + '<span>' + title + sub + '</span></span>')
+
+    note = ('<p class="mixnote">' + COMPARE_NOTE + '</p>') if (COMPARE_NOTE and priced) else ''
+    return ('<div class="mixchips">' + ''.join(out) + '</div>' + note)
+
+
 def discounts(p):
     """The discount carousel, or nothing at all for a product without a list."""
     if not p['discounts']:
@@ -2220,17 +2313,13 @@ def page(p):
 {picker}
   <section class="mix">
     <div class="mixin">
-      <div class="mixchips">
-        <span class="mchip"><span class="lg" aria-hidden="true">P</span>
-          <span><b>Progressive</b><small>Auto insurance</small></span></span>
-        <span class="mchip"><span class="lg" aria-hidden="true">L</span>
-          <span><b>Lemonade</b><small>Home insurance</small></span></span>
-      </div>
+      {mixchips}
       <div class="mixsay">
         <h2>Compare between companies</h2>
-        <p>You are not stuck buying everything from one insurer. We can put your car with
-           one company and your home with another &mdash; whichever pair actually comes out
-           better for you.</p>
+        <p>The same driver, the same car, the same coverage &mdash; and the companies
+           disagree, often by hundreds. One quote cannot tell you whether you are being
+           charged too much, because there is nothing to compare it against. We put your
+           details to every company we represent and show you what each one said.</p>
       </div>
     </div>
   </section>
@@ -2285,6 +2374,7 @@ def page(p):
 """.format(
         title=e(p['title']), desc=e(p['desc']), site=SITE, slug=p['slug'], css=CSS,
         carrstrip=carriers.html('  '), ezsection=ezsection(),
+        mixchips=mixchips(),
         burger=menu.BURGER_HTML, panel=menu.panel(''),
         eyebrow=e(p['eyebrow']), h1=p['h1'], h1em=p['h1em'], lede=p['lede'],
         type=p['type'], tel=nap.CALL_E164, call=nap.CALL,

@@ -728,6 +728,35 @@
       font-size:15px;font-weight:900;color:var(--pblue)}
   .mchip b{display:block;font-size:15px;font-weight:800;color:var(--pnavy);line-height:1.2}
   .mchip small{display:block;font-size:11.5px;font-weight:700;color:#7C8BA4;margin-top:1px}
+  /* With the name dropped, the label carries the chip on its own and can take
+     the weight the name used to have. */
+  .mchip .lgm + span small{font-size:12.5px;color:#5A6B85}
+  /* A carrier with artwork shows it; the tile keeps its shape either way so two
+     chips side by side line up whether or not both marks exist. object-fit
+     contain rather than a crop, because these are wordmarks of every aspect. */
+  /* A wordmark does not go in a square. Progressive's is better than eight to
+     one, so fitted into the 34px tile it came out three pixels tall — a speck.
+     The mark keeps its own width and is sized by height, exactly as the strip
+     does it. grid-template-rows pins the row so the percentage height below has
+     something definite to resolve against; left implicit it falls back to the
+     file's intrinsic height and bursts out of the chip. */
+  .mchip .lg{grid-template-rows:100%}
+  .mchip .lgm{width:auto;height:24px;min-width:30px;max-width:96px;padding:0;
+      background:none;border-radius:0}
+  .mchip .lgm img{width:auto;height:100%;max-width:100%;object-fit:contain;display:block}
+  /* The price, when there is a real one to show. Tabular figures so two chips
+     compare as numbers rather than as differently-spaced strings. */
+  .mchip em{display:block;font-style:normal;font-size:16px;font-weight:900;
+      color:var(--pnavy);line-height:1.15;margin-top:2px;
+      font-variant-numeric:tabular-nums}
+  .mchip.mlow{box-shadow:0 0 0 2px var(--pblue),0 14px 30px -16px rgba(0,0,0,.6)}
+  .mchip.mlow em{color:var(--pblue)}
+  .mchip.mlow::after{content:"lower";position:absolute;top:-9px;right:10px;
+      background:var(--pblue);color:#fff;font-size:10px;font-weight:900;
+      letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:99px}
+  .mchip{position:relative}
+  .mixnote{margin:12px auto 0;max-width:52ch;text-align:center;color:rgba(255,255,255,.8);
+      font-size:12.5px;font-weight:600;line-height:1.5}
   .mixsay{text-align:center;color:#fff;max-width:44ch;margin:0 auto}
   /* Every colour on this block is stated, never inherited. The home page has a
      global h2{color:var(--navy)} and an element selector beats inheriting white
@@ -1078,8 +1107,8 @@
   <section class="carr" aria-label="Some of the companies we shop for you">
     <div class="carrmask">
       <div class="carrtrack">
-        <div class="carrset"><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/progressive.svg" alt="Progressive" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/geico.webp" alt="GEICO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/lemonade.webp" alt="Lemonade" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/root.webp" alt="Root" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/kemper.webp" alt="Kemper" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/gainsco.webp" alt="GAINSCO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/dairyland.webp" alt="Dairyland" decoding="async" fetchpriority="low"></span></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EBF6;color:#003DA5">N</span><b>National General</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7F3EE;color:#2E7D5B">A</span><b>Acacia</b></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/bluefire.webp" alt="Bluefire" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/alinsco.webp" alt="Alinsco" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/commonwealth.webp" alt="Commonwealth" decoding="async" fetchpriority="low"></span></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#EEE9F8;color:#5B34A8">A</span><b>Apollo</b></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/connect.webp" alt="Connect" decoding="async" fetchpriority="low"></span></span></div>
-        <div class="carrset" aria-hidden="true"><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/progressive.svg" alt="Progressive" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/geico.webp" alt="GEICO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/lemonade.webp" alt="Lemonade" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/root.webp" alt="Root" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/kemper.webp" alt="Kemper" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/gainsco.webp" alt="GAINSCO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/dairyland.webp" alt="Dairyland" decoding="async" fetchpriority="low"></span></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E5EBF6;color:#003DA5">N</span><b>National General</b></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#E7F3EE;color:#2E7D5B">A</span><b>Acacia</b></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/bluefire.webp" alt="Bluefire" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/alinsco.webp" alt="Alinsco" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/commonwealth.webp" alt="Commonwealth" decoding="async" fetchpriority="low"></span></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#EEE9F8;color:#5B34A8">A</span><b>Apollo</b></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/connect.webp" alt="Connect" decoding="async" fetchpriority="low"></span></span></div>
+        <div class="carrset"><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/progressive.svg" alt="Progressive" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/geico.webp" alt="GEICO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/lemonade.webp" alt="Lemonade" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/root.webp" alt="Root" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/kemper.webp" alt="Kemper" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/next.webp" alt="NEXT" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/gainsco.webp" alt="GAINSCO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/hagerty.webp" alt="Hagerty" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/national-general.webp" alt="National General" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/bluefire.webp" alt="Bluefire" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/alinsco.webp" alt="Alinsco" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/commonwealth.webp" alt="Commonwealth" decoding="async" fetchpriority="low"></span></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#EEE9F8;color:#5B34A8">A</span><b>Apollo</b></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/connect.webp" alt="Connect" decoding="async" fetchpriority="low"></span></span></div>
+        <div class="carrset" aria-hidden="true"><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/progressive.svg" alt="Progressive" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/geico.webp" alt="GEICO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/lemonade.webp" alt="Lemonade" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/root.webp" alt="Root" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/kemper.webp" alt="Kemper" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/next.webp" alt="NEXT" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/gainsco.webp" alt="GAINSCO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/hagerty.webp" alt="Hagerty" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/national-general.webp" alt="National General" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/bluefire.webp" alt="Bluefire" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/alinsco.webp" alt="Alinsco" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/commonwealth.webp" alt="Commonwealth" decoding="async" fetchpriority="low"></span></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#EEE9F8;color:#5B34A8">A</span><b>Apollo</b></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/connect.webp" alt="Connect" decoding="async" fetchpriority="low"></span></span></div>
       </div>
     </div>
   </section>
@@ -1196,17 +1225,13 @@
 
   <section class="mix">
     <div class="mixin">
-      <div class="mixchips">
-        <span class="mchip"><span class="lg" aria-hidden="true">P</span>
-          <span><b>Progressive</b><small>Auto insurance</small></span></span>
-        <span class="mchip"><span class="lg" aria-hidden="true">L</span>
-          <span><b>Lemonade</b><small>Home insurance</small></span></span>
-      </div>
+      <div class="mixchips"><span class="mchip"><span class="lg lgm"><img src="assets/carriers/progressive.svg" alt="Progressive" decoding="async"></span><span><small>Auto insurance</small></span></span><span class="mchip"><span class="lg lgm"><img src="assets/carriers/geico.webp" alt="GEICO" decoding="async"></span><span><small>Auto insurance</small></span></span></div>
       <div class="mixsay">
         <h2>Compare between companies</h2>
-        <p>You are not stuck buying everything from one insurer. We can put your car with
-           one company and your home with another &mdash; whichever pair actually comes out
-           better for you.</p>
+        <p>The same driver, the same car, the same coverage &mdash; and the companies
+           disagree, often by hundreds. One quote cannot tell you whether you are being
+           charged too much, because there is nothing to compare it against. We put your
+           details to every company we represent and show you what each one said.</p>
       </div>
     </div>
   </section>

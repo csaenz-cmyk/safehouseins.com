@@ -567,7 +567,7 @@ third-party advertising.</p>
 law requires it. Specifically:</p>
 <p><strong>Insurance companies and their agents.</strong> To quote and place your coverage, we share
 your application information with the carriers we represent &mdash; including Progressive, GEICO,
-Acacia, Dairyland, GAINSCO, Kemper, National General, Bluefire, and others
+GAINSCO, Kemper, National General, Bluefire, Hagerty, and others
 &mdash; and with their managing general agents and underwriters.</p>
 <p><strong>Rating and comparison services.</strong> We use ITC/Zywave (TurboRater) to send your
 application to multiple carriers at once and return their prices.</p>
@@ -716,7 +716,7 @@ publicidad de terceros.</p>
 nos pidi&oacute;, o cuando la ley lo exige:</p>
 <p><strong>Compa&ntilde;&iacute;as de seguros y sus agentes.</strong> Para cotizar y colocar su
 cobertura compartimos su solicitud con las aseguradoras que representamos &mdash; incluyendo
-Progressive, GEICO, Acacia, Dairyland, GAINSCO, Kemper, National General, Bluefire
+Progressive, GEICO, GAINSCO, Kemper, National General, Bluefire, Hagerty
 y otras &mdash; y con sus agentes generales administradores y suscriptores.</p>
 <p><strong>Servicios de cotizaci&oacute;n.</strong> Usamos ITC/Zywave (TurboRater) para enviar su
 solicitud a varias aseguradoras a la vez y obtener sus precios.</p>
@@ -838,7 +838,7 @@ disclosures by August 5, 2026 or it will cancel. Call 915-503-1207. Reply STOP t
 <div class="msg">Safe House Insurance: We did not receive the monthly payment for your auto policy.
 To avoid cancellation, please make your payment before August 5, 2026. You can reply to this message
 or call us at (915) 503-1207. Reply STOP to opt out.</div>
-<div class="msg">Safe House Insurance: FINAL NOTICE. Your Acacia policy AIM25349856 cancels
+<div class="msg">Safe House Insurance: FINAL NOTICE. Your Kemper policy KMP25349856 cancels
 August 5, 2026. Call 915-503-1207 NOW to save your coverage. Reply STOP to opt out.</div>
 
 <h3>3. How you opt in</h3>

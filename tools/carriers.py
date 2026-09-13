@@ -42,9 +42,9 @@ import os
 # Ordered so the two most recognisable names land early in the loop, and so
 # no two visually similar wordmarks sit next to each other.
 NAMES = [
-    'Progressive', 'GEICO', 'Lemonade', 'Root', 'Kemper', 'GAINSCO',
-    'Dairyland', 'National General', 'Acacia', 'Bluefire', 'Alinsco',
-    'Commonwealth', 'Apollo', 'Connect',
+    'Progressive', 'GEICO', 'Lemonade', 'Root', 'Kemper', 'NEXT', 'GAINSCO',
+    'Hagerty', 'National General', 'Bluefire', 'Alinsco', 'Commonwealth',
+    'Apollo', 'Connect',
 ]
 
 # Not printed on the page — the row carries no heading, by request. It is the
@@ -63,9 +63,9 @@ TINT = {
     'Root':             ('#00A66C', '#E3F7F0'),
     'Kemper':           ('#0C2340', '#E6E9ED'),
     'GAINSCO':          ('#E4002B', '#FDE9EC'),
-    'Dairyland':        ('#005EB8', '#E5EFF9'),
+    'NEXT':             ('#00B4E0', '#E2F7FD'),
+    'Hagerty':          ('#1A1A1A', '#ECEDEF'),
     'National General': ('#003DA5', '#E5EBF6'),
-    'Acacia':           ('#2E7D5B', '#E7F3EE'),
     'Bluefire':         ('#1D5FBF', '#E7EFFB'),
     'Alinsco':          ('#B01E28', '#F9E9EA'),
     'Commonwealth':     ('#1B3A6B', '#E7EBF3'),
