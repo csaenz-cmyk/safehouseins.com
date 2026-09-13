@@ -501,7 +501,15 @@
       color:#3B4A63;font-weight:500}
   .resgrid{display:grid;gap:18px;grid-template-columns:1fr;margin-top:34px;
       align-items:stretch}
-  @media(min-width:1000px){ .resgrid{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:24px} }
+  @media(min-width:1000px){
+    /* align-items:start, not stretch: the photo was matching the height of a
+       thirteen-card list and coming out as a 1400px column. Given its own
+       sensible height it reads as a photograph again, and sticky keeps it
+       alongside the list instead of scrolling away at the first card. */
+    .resgrid{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:24px;
+        align-items:start}
+    .resfeat{position:sticky;top:22px;height:min(560px,calc(100vh - 44px))}
+  }
   /* The featured card. Painted ground under the photograph for the same reason
      every other image block on this site has one: a slow or missing file
      leaves a dark card with readable white text, not a white one. */
@@ -509,7 +517,7 @@
       min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;
       padding:26px 24px 26px;color:#fff;
       background:linear-gradient(150deg,#123A6B 0%,#0C2A55 55%,#08183A 100%)}
-  @media(min-width:1000px){ .resfeat{min-height:100%;padding:32px 30px 32px} }
+  @media(min-width:1000px){ .resfeat{padding:32px 30px 32px} }
   .resfeat::before{content:"";position:absolute;inset:0;z-index:-2;
       background-size:cover;background-position:center 38%}
   .resfeat::after{content:"";position:absolute;inset:0;z-index:-1;
@@ -536,27 +544,59 @@
      draws itself across the top on hover, and an arrow that was always there
      but only colours in when you are on it. The flat version read as a list
      of links with a border around each one. */
-  .reslist a{position:relative;overflow:hidden;display:block;background:#fff;
-      border:1px solid var(--pline);border-radius:18px;padding:20px 22px 20px;
-      box-shadow:0 18px 36px -34px rgba(8,24,58,.9);
-      transition:border-color .18s,transform .18s,box-shadow .18s}
-  .reslist a::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+  .reslist a{position:relative;isolation:isolate;display:block;border-radius:18px;
+      padding:20px 52px 20px 22px;border:1px solid var(--pline);
+      background:linear-gradient(168deg,#fff 0%,#FBFCFE 58%,#F4F8FE 100%);
+      box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 18px 34px -32px rgba(8,24,58,.85);
+      transition:border-color .2s,transform .2s,box-shadow .2s}
+  /* Two painted layers, both idle until the pointer arrives. A wash of brand
+     colour blooming out of the top right corner, and a rule of the gradient
+     drawing itself along the top edge. Flat white with a grey hairline read as
+     a list of links in boxes; the point of a card is that it looks like an
+     object you can pick up. */
+  .reslist a::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;
+      background:radial-gradient(120% 150% at 100% 0%,rgba(34,167,240,.16) 0%,
+                 rgba(22,102,237,.09) 38%,transparent 72%);
+      opacity:0;transition:opacity .24s ease}
+  .reslist a::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+      border-radius:18px 18px 0 0;
       background:linear-gradient(90deg,var(--pblue),var(--pcyan));
-      transform:scaleX(0);transform-origin:left;transition:transform .22s ease}
-  .reslist a:hover{border-color:#C9DDFA;transform:translateY(-3px);
-      box-shadow:0 26px 46px -30px rgba(8,24,58,.95)}
-  .reslist a:hover::before{transform:scaleX(1)}
+      transform:scaleX(0);transform-origin:left;transition:transform .26s ease}
+  .reslist a:hover{border-color:#BFD8FB;transform:translateY(-4px);
+      box-shadow:0 1px 0 rgba(255,255,255,.9) inset,
+                 0 30px 54px -30px rgba(22,102,237,.5)}
+  .reslist a:hover::before{opacity:1}
+  .reslist a:hover::after{transform:scaleX(1)}
   .reslist a:focus-visible{outline:2px solid var(--pblue);outline-offset:3px}
   .reslist b{display:block;font-size:16px;font-weight:800;color:var(--pnavy);
-      letter-spacing:-.02em;line-height:1.28;padding-right:22px}
+      letter-spacing:-.02em;line-height:1.28;transition:color .2s}
+  .reslist a:hover b{color:var(--pblue)}
   .reslist span{display:block;margin-top:8px;font-size:13.5px;line-height:1.58;
       color:#5A6B85;font-weight:500}
-  /* The arrow is drawn with a border rather than set as a glyph, so it is the
-     same weight as everything else on the card at every zoom level. */
-  .reslist a::after{content:"";position:absolute;right:20px;top:22px;width:7px;height:7px;
-      border-right:2px solid #C4D2E6;border-top:2px solid #C4D2E6;
-      transform:rotate(45deg);transition:border-color .18s,transform .18s}
-  .reslist a:hover::after{border-color:var(--pblue);transform:rotate(45deg) translate(2px,-2px)}
+  /* The arrow sits in a chip that fills with the brand gradient on hover — the
+     same move the featured card's button makes, so the two read as one family.
+     Drawn with a border rather than set as a glyph, so it keeps the weight of
+     everything around it at any zoom. */
+  /* Selector carries .reslist a so it outweighs `.reslist span`, which the
+     description shares and which would otherwise force display:block on the
+     chip — and an inline ::after ignores width and height, so the arrow
+     collapsed into a hairline. */
+  .reslist a .reschev{position:absolute;right:16px;top:50%;margin:-14px 0 0;
+      width:28px;height:28px;border-radius:50%;background:#F0F5FD;
+      display:grid;place-items:center;
+      transition:background .22s,box-shadow .22s,transform .22s}
+  .reslist a .reschev::after{content:"";display:block;width:6px;height:6px;
+      margin-left:-2px;border-right:2px solid #93A9C6;border-top:2px solid #93A9C6;
+      transform:rotate(45deg);transition:border-color .22s}
+  .reslist a:hover .reschev{background:linear-gradient(100deg,var(--pblue),var(--pcyan));
+      transform:translateX(3px);box-shadow:0 10px 20px -10px rgba(22,102,237,.95)}
+  .reslist a:hover .reschev::after{border-color:#fff}
+  @media(prefers-reduced-motion:reduce){
+    .reslist a,.reslist a::before,.reslist a::after,
+    .reslist a .reschev,.reslist a .reschev::after{transition:none}
+    .reslist a:hover{transform:none}
+    .reslist a:hover .reschev{transform:none}
+  }
   .resall{margin-top:22px;display:inline-flex;align-items:center;gap:8px;
       font-size:15px;font-weight:800;color:var(--pblue)}
 
