@@ -92,7 +92,13 @@ jobs:
           git config user.name  'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           rm -f assets/carriers/_review.html
-          git add -A assets/carriers quote.html ./*.html car-insurance
+          # Everything the run produced, not a hand-listed subset. The rebuild
+          # steps also write sitemap.xml, and a pathspec that missed it left the
+          # tree dirty — which does not fail the commit, it fails the *rebase*
+          # further down with "cannot rebase: You have unstaged changes", so the
+          # recovery path could never run. The review sheet is gitignored; the
+          # rm above is belt and braces.
+          git add -A
           if git diff --cached --quiet; then
             echo 'Nothing changed — no carrier had new artwork to add.'
             exit 0
