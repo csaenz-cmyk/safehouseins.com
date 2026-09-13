@@ -21,9 +21,9 @@ TEAM = [
 # 11 + 9 + 8 + 7, the licensed ones. Customer service is not a licensed seat.
 LICENSED_YEARS = 11 + 9 + 8 + 7
 
-CARRIERS = ['Progressive','GEICO','Allstate','State Farm','Nationwide','Safeco','Kemper',
-            'GAINSCO','Bristol West','Dairyland','Acacia','Bluefire','Alinsco',
-            'Commonwealth','Apollo','Connect']
+CARRIERS = ['Progressive','GEICO','Lemonade','Root','Kemper','GAINSCO','Dairyland',
+            'National General','Acacia','Bluefire','Alinsco','Commonwealth',
+            'Apollo','Connect']
 
 def people():
     out = []
