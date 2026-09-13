@@ -100,4 +100,28 @@ jobs:
           git commit -m 'Carrier marks fetched by tools/getlogos.py
 
           Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
-          git push origin HEAD:${{ github.ref_name }}
+
+          # A fetch takes a couple of minutes and the branch can move under it —
+          # somebody pushing meanwhile is ordinary, not exceptional, and the
+          # run's own work is worth keeping when it happens. Rebase onto
+          # whatever arrived and try again rather than failing the run and
+          # throwing the artwork away.
+          BRANCH='${{ github.ref_name }}'
+          for attempt in 1 2 3; do
+            if git push origin "HEAD:$BRANCH"; then
+              echo "pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "push rejected; rebasing onto origin/$BRANCH and retrying"
+            git fetch origin "$BRANCH"
+            git rebase "origin/$BRANCH" || {
+              git rebase --abort || true
+              echo 'Could not rebase cleanly. The marks are in this run'\''s'
+              echo 'review artifact — download it rather than rerunning blind.'
+              exit 1
+            }
+            sleep $((attempt * 5))
+          done
+          echo 'Still rejected after three tries. Something else is pushing to'
+          echo 'this branch continuously; the artwork is in the run artifact.'
+          exit 1

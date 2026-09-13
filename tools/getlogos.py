@@ -9,6 +9,7 @@
     python3 tools/getlogos.py --selftest   # check the conversion, no network
     python3 tools/getlogos.py --sheet      # fetch, and write a page to eyeball
     python3 tools/getlogos.py --sheet-only # just write that page, fetch nothing
+    python3 tools/getlogos.py --reject Lemonade --why 'not their mark'
 
 It reads the carrier list out of tools/carriers.py rather than keeping a second
 copy, so the two can never drift: add a name to NAMES there and it is fetched
@@ -46,6 +47,18 @@ an image, be big enough to matter, and not be a blank or single-colour tile.
 A source that 404s, redirects to a login wall or hands back a placeholder is
 skipped and the next one is tried.
 
+WHEN A MARK IS WRONG
+
+Deleting the file does not decide anything — the next run fetches it straight
+back, which makes reviewing the sheet pointless work. Turn it down instead:
+
+    python3 tools/getlogos.py --reject Lemonade --why "not their mark"
+
+That deletes the files and records the URLs they came from in rejected.json, so
+no later run takes them again. It records the URL rather than the carrier, so a
+carrier whose domain turns out to be wrong still fetches from the corrected one
+— what was turned down is that piece of artwork, not that company.
+
 BEFORE YOU RUN THIS, CHECK THE APPOINTMENT PAPERWORK. Most carrier agreements
 set out how their marks may be used on an agency site and some require written
 approval first. Fetching a logo is not permission to publish it — that is the
@@ -72,6 +85,13 @@ OUT = os.path.join(ROOT, 'assets', 'carriers')
 # turns out to be the wrong company's artwork.
 SOURCE = {}
 SOURCE_FILE = os.path.join(OUT, '.sources.json')
+
+# URLs a person looked at and turned down. Deleting a file is not a decision
+# that survives anything — the next run fetches it straight back, which makes
+# reviewing the sheet pointless work. This is where a rejection is kept so it
+# sticks, and it is committed with the artwork for the same reason.
+REJECT = {}
+REJECT_FILE = os.path.join(OUT, 'rejected.json')
 QUOTE = os.path.join(ROOT, 'quote.html')
 
 # The strip draws the mark 38px tall; 3x that stays sharp on a phone. The rate
@@ -491,6 +511,49 @@ def fallbacks(domain):
 
 # ---- one carrier -------------------------------------------------------
 
+def load_rejects():
+    try:
+        with open(REJECT_FILE, encoding='utf-8') as f:
+            REJECT.update(json.load(f))
+    except Exception:
+        pass
+
+
+def save_rejects():
+    with open(REJECT_FILE, 'w', encoding='utf-8') as f:
+        json.dump(REJECT, f, indent=1, sort_keys=True)
+        f.write('\n')
+
+
+def rejected(url):
+    return url in REJECT
+
+
+def reject(names, why):
+    """Turn down what these carriers currently have, so no rerun brings it back.
+
+    Records the URL rather than the carrier, so a carrier whose domain is later
+    corrected still fetches from the new one — what was turned down is that
+    piece of artwork, not that company.
+    """
+    n = 0
+    for name in names:
+        sl = slug(name)
+        for slot, url in SOURCE.get(sl, {}).items():
+            REJECT[url] = {'carrier': name, 'slot': slot, 'why': why}
+            n += 1
+        for f in (sl + '.svg', sl + '.webp', sl + '.png', sl + '.jpg',
+                  sl + '-sq.webp'):
+            path = os.path.join(OUT, f)
+            if os.path.exists(path):
+                os.remove(path)
+                print('  removed ' + f)
+        SOURCE.pop(sl, None)
+    save_rejects()
+    save_sources()
+    return n
+
+
 def load_sources():
     try:
         with open(SOURCE_FILE, encoding='utf-8') as f:
@@ -539,6 +602,8 @@ def fetch_carrier(name, timeout, dry):
 
     # --- the wide mark for the strip
     for u in site_wide + fb_wide:
+        if rejected(u):
+            continue
         try:
             b, ctype = get(u, timeout=timeout)
         except Blocked:
@@ -572,6 +637,8 @@ def fetch_carrier(name, timeout, dry):
 
     # --- the square badge for the rate rows
     for u in site_sq + fb_sq:
+        if rejected(u):
+            continue
         try:
             b, ctype = get(u, timeout=timeout)
         except Blocked:
@@ -809,6 +876,32 @@ def selftest():
     ck(svg_box(b'<svg width="219" height="80" viewBox="0 0 219 80">') == (219.0, 80.0),
        'svg_box reads the viewBox')
 
+    # A rejection has to outlive the run that made it, or reviewing the sheet
+    # is work that undoes itself.
+    import tempfile as _tf, shutil as _sh
+    _keep = (REJECT_FILE, SOURCE_FILE, dict(REJECT), dict(SOURCE))
+    _box = _tf.mkdtemp()
+    try:
+        globals()['REJECT_FILE'] = os.path.join(_box, 'rejected.json')
+        globals()['SOURCE_FILE'] = os.path.join(_box, 'sources.json')
+        REJECT.clear(); SOURCE.clear()
+        SOURCE['acme'] = {'strip': 'https://acme.example/press/wsj.svg'}
+        ck(not rejected('https://acme.example/press/wsj.svg'),
+           'a source nobody has turned down is fetched')
+        REJECT['https://acme.example/press/wsj.svg'] = {'why': 'x'}
+        ck(rejected('https://acme.example/press/wsj.svg'),
+           'a source somebody turned down is skipped')
+        save_rejects(); REJECT.clear(); load_rejects()
+        ck(rejected('https://acme.example/press/wsj.svg'),
+           'the rejection survives being reloaded, so a rerun honours it')
+        ck(not rejected('https://acme.example/img/acme-logo.svg'),
+           'turning one source down does not turn the carrier down')
+    finally:
+        globals()['REJECT_FILE'], globals()['SOURCE_FILE'] = _keep[0], _keep[1]
+        REJECT.clear(); REJECT.update(_keep[2])
+        SOURCE.clear(); SOURCE.update(_keep[3])
+        _sh.rmtree(_box, ignore_errors=True)
+
     # A run that fetches nothing and exits 0 is the worst failure there is:
     # every check downstream passes and nothing happened.
     ck(not sheet_only(['--sheet']), '--sheet fetches as well as writing a sheet')
@@ -872,6 +965,7 @@ def main(argv):
     if '--selftest' in argv:
         return selftest()
     load_sources()
+    load_rejects()
     # --sheet means "write the review sheet as well as fetching". Writing one
     # WITHOUT fetching is --sheet-only, and it is a separate flag rather than
     # "--sheet on its own" because that made the commonest invocation of all —
@@ -882,6 +976,31 @@ def main(argv):
             want_sheet = os.path.join(OUT, '_review.html')
         elif a.startswith('--sheet=') or a.startswith('--sheet-only='):
             want_sheet = a.split('=', 1)[1]
+    rejects = []
+    for i, a in enumerate(argv):
+        if a.startswith('--reject='):
+            rejects.append(a.split('=', 1)[1])
+        elif a == '--reject' and i + 1 < len(argv):
+            rejects.append(argv[i + 1])
+    if rejects:
+        low = [r.lower() for r in rejects]
+        names = [n for n in NAMES if n.lower() in low or slug(n) in low]
+        if not names:
+            print('no carrier matched %s' % ', '.join(rejects))
+            return 2
+        why = 'reviewed and turned down'
+        for a in argv:
+            if a.startswith('--why='):
+                why = a.split('=', 1)[1]
+        n = reject(names, why)
+        print('%d source%s turned down for %s; reruns will not take %s again.'
+              % (n, '' if n == 1 else 's', ', '.join(names),
+                 'it' if n == 1 else 'them'))
+        on_disk = [(x, slug(x) + '-sq.webp') for x in NAMES
+                   if os.path.exists(os.path.join(OUT, slug(x) + '-sq.webp'))]
+        write_quote_map(on_disk)
+        return 0
+
     if sheet_only(argv):
         print('review sheet: ' + sheet(want_sheet))
         return 0
