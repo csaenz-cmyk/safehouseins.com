@@ -49,7 +49,7 @@ jobs:
           ARGS=""
           if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
           if [ -n "${{ inputs.only }}" ]; then ARGS="$ARGS --only=${{ inputs.only }}"; fi
-          python3 tools/getlogos.py $ARGS 2>&1 | tee /tmp/fetch.log
+          python3 tools/getlogos.py $ARGS --sheet 2>&1 | tee /tmp/fetch.log
 
       - name: Rebuild the pages that show them
         run: |
@@ -72,11 +72,27 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
+      # The only check no code can do is "is this the right company's logo".
+      # A fetch happily returns another insurer's mark, a press-mention logo or
+      # a share-card photograph, and every automatic test passes it. Download
+      # this and look before trusting a run.
+      - name: Upload the review sheet
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: carrier-marks-review
+          path: |
+            assets/carriers/_review.html
+            assets/carriers/*.svg
+            assets/carriers/*.webp
+          if-no-files-found: ignore
+
       - name: Commit whatever it found
         run: |
           git config user.name  'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add -A assets/carriers quote.html ./*.html
+          rm -f assets/carriers/_review.html
+          git add -A assets/carriers quote.html ./*.html car-insurance
           if git diff --cached --quiet; then
             echo 'Nothing changed — no carrier had new artwork to add.'
             exit 0

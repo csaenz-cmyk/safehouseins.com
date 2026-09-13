@@ -7,6 +7,7 @@
     python3 tools/getlogos.py --only GEICO --only Root
     python3 tools/getlogos.py --domain Apollo=apolloins.com
     python3 tools/getlogos.py --selftest   # check the conversion, no network
+    python3 tools/getlogos.py --sheet      # write a page to eyeball them all
 
 It reads the carrier list out of tools/carriers.py rather than keeping a second
 copy, so the two can never drift: add a name to NAMES there and it is fetched
@@ -64,6 +65,12 @@ from carriers import NAMES, slug  # the one list, not a copy of it
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'assets', 'carriers')
+
+# slug -> {'strip': url, 'square': url}, filled as marks are fetched and read
+# back by the review sheet. A mark's source is the first thing wanted when it
+# turns out to be the wrong company's artwork.
+SOURCE = {}
+SOURCE_FILE = os.path.join(OUT, '.sources.json')
 QUOTE = os.path.join(ROOT, 'quote.html')
 
 # The strip draws the mark 38px tall; 3x that stays sharp on a phone. The rate
@@ -163,6 +170,47 @@ def svg_ok(b):
         return False  # a sprite reference, useless on its own
     return (b'<path' in low or b'<polygon' in low or b'<circle' in low
             or b'<rect' in low or b'<text' in low or b'<ellipse' in low)
+
+
+def svg_box(b):
+    """The SVG's drawn shape as (w, h) in user units, or None if it declares none.
+
+    viewBox first, because width/height are often absent or set in millimetres
+    by an export tool, and the ratio is all that is wanted here.
+    """
+    m = re.search(rb'viewBox\s*=\s*["\']\s*([-\d.eE]+)[,\s]+([-\d.eE]+)'
+                  rb'[,\s]+([-\d.eE]+)[,\s]+([-\d.eE]+)', b, re.I)
+    if m:
+        try:
+            w, h = float(m.group(3)), float(m.group(4))
+            if w > 0 and h > 0:
+                return w, h
+        except ValueError:
+            pass
+    def attr(name):
+        a = re.search(name.encode() + rb'\s*=\s*["\']\s*([\d.]+)', b[:600], re.I)
+        return float(a.group(1)) if a else 0.0
+    w, h = attr('width'), attr('height')
+    return (w, h) if w > 0 and h > 0 else None
+
+
+def svg_is_wordmark(b):
+    """Whether an SVG is the wide mark the strip wants, and why not if it is not.
+
+    Rasters get this judgement from their pixels in make_strip; SVGs used to get
+    no judgement at all, and a carrier that serves a 24x24 interface icon on its
+    home page had that icon adopted as its logo — drawn as an anonymous dot in a
+    row where the tile it replaced at least carried the company name.
+    """
+    box = svg_box(b)
+    if not box:
+        return False, 'no viewBox or size to judge the shape by'
+    w, h = box
+    if w < h * 1.6:
+        return False, 'too square for the strip (%gx%g)' % (w, h)
+    if max(w, h) < 24:
+        return False, 'drawn smaller than an icon (%gx%g)' % (w, h)
+    return True, None
 
 
 def clean_svg(b):
@@ -322,6 +370,46 @@ def make_square(b):
 
 LOGO_HINT = re.compile(r'(logo|wordmark|brand|/logos?/)', re.I)
 
+# Words that are part of how insurers name themselves rather than part of the
+# name, so they cannot be what identifies a file as this carrier's own.
+FILLER = {'insurance', 'ins', 'the', 'group', 'company', 'co', 'corp', 'auto',
+          'general', 'national', 'american', 'mutual', 'casualty', 'join', 'my',
+          'get', 'www', 'com', 'direct', 'by'}
+
+
+def name_tokens(name, domain):
+    """The words that would identify a file as belonging to this carrier.
+
+    Built from the carrier's name and its domain label, minus the words every
+    insurer uses. 'National General' keeps 'general' only via its domain label
+    'nationalgeneral', which is the distinctive string anyway.
+    """
+    raw = re.split(r'[^a-z0-9]+', name.lower())
+    raw += re.split(r'[^a-z0-9]+', domain.lower().rsplit('.', 1)[0])
+    toks = {t for t in raw if len(t) > 2 and t not in FILLER}
+    joined = re.sub(r'[^a-z0-9]', '', name.lower())
+    if len(joined) > 2:
+        toks.add(joined)
+    return toks
+
+
+def own_artwork(url, toks):
+    """Whether a wide mark scraped off a carrier's own page is the carrier's own.
+
+    Insurers put other companies' logos on their home pages — press mentions
+    ("as seen in"), partner and underwriter marks, app-store badges — and they
+    sit at exactly the sort of path a logo sits at, so no amount of looking at
+    the URL shape tells them apart. What does tell them apart is whose name is
+    on the file: this carrier's own mark is essentially always served from a
+    path carrying its own name. Without this rule Root adopted The Wall Street
+    Journal's logo from its press strip, and CONNECT adopted American Family's.
+    """
+    # The path only. The host carries the carrier's name on every URL it serves,
+    # including the ones pointing at other companies' logos, so matching the
+    # whole URL would accept exactly what this is meant to reject.
+    path = re.sub(r'^[a-z]+://[^/]*', '', url.lower().split('?')[0])
+    return any(t in path for t in toks)
+
 
 def absolutise(u, domain):
     if u.startswith('//'):
@@ -333,7 +421,7 @@ def absolutise(u, domain):
     return 'https://www.' + domain + '/' + u
 
 
-def site_candidates(domain, timeout):
+def site_candidates(carrier, domain, timeout):
     """Read the carrier's home page and list its artwork, best shape first.
 
     Returns (wide, square) — two lists of URLs. Separated because the two output
@@ -372,8 +460,17 @@ def site_candidates(domain, timeout):
             u = absolutise(href.group(1), domain)
             if 'apple-touch-icon' in rel or rel in ('icon', 'shortcut icon', 'mask-icon'):
                 square.append(u)
-            elif prop in ('og:image', 'og:logo') or 'image_src' in rel:
-                (wide if LOGO_HINT.search(u) else square).append(u)
+            elif prop == 'og:logo':
+                wide.append(u)
+            elif prop == 'og:image' or 'image_src' in rel:
+                # Only when the URL itself says logo. An og:image is a share
+                # card: it is a photograph or a banner by design, and taking it
+                # for the badge is how a carrier ended up represented by a
+                # sunset. Never offered for the square.
+                if LOGO_HINT.search(u):
+                    wide.append(u)
+        toks = name_tokens(carrier, domain)
+        wide = [u for u in wide if own_artwork(u, toks)]
         # An SVG beats a PNG of the same mark every time.
         wide.sort(key=lambda u: 0 if u.lower().split('?')[0].endswith('.svg') else 1)
     # Conventional paths, tried whether or not the home page parsed.
@@ -392,6 +489,25 @@ def fallbacks(domain):
 
 
 # ---- one carrier -------------------------------------------------------
+
+def load_sources():
+    try:
+        with open(SOURCE_FILE, encoding='utf-8') as f:
+            SOURCE.update(json.load(f))
+    except Exception:
+        pass
+
+
+def save_sources():
+    """Keep where every mark came from. It is the first question asked when one
+    turns out to be the wrong company's artwork, and nothing else records it."""
+    try:
+        with open(SOURCE_FILE, 'w', encoding='utf-8') as f:
+            json.dump(SOURCE, f, indent=1, sort_keys=True)
+            f.write('\n')
+    except Exception:
+        pass
+
 
 def existing(sl):
     out = {}
@@ -414,7 +530,7 @@ def fetch_carrier(name, timeout, dry):
         return res
     blocked = []
     try:
-        site_wide, site_sq = site_candidates(domain, timeout)
+        site_wide, site_sq = site_candidates(name, domain, timeout)
     except Blocked as e:
         site_wide, site_sq = [], []
         blocked.append(domain)
@@ -433,10 +549,14 @@ def fetch_carrier(name, timeout, dry):
             b = clean_svg(b)
             if not svg_ok(b):
                 continue
+            fine, why = svg_is_wordmark(b)
+            if not fine:
+                continue
             if not dry:
                 with open(os.path.join(OUT, sl + '.svg'), 'wb') as f:
                     f.write(b)
             res['strip'] = (sl + '.svg', u, len(b))
+            SOURCE.setdefault(sl, {})['strip'] = u
             break
         im, why = make_strip(b)
         if im is None:
@@ -446,6 +566,7 @@ def fetch_carrier(name, timeout, dry):
         else:
             n = 0
         res['strip'] = (sl + '.webp', u, n)
+        SOURCE.setdefault(sl, {})['strip'] = u
         break
 
     # --- the square badge for the rate rows
@@ -467,6 +588,7 @@ def fetch_carrier(name, timeout, dry):
         else:
             n = 0
         res['square'] = (sl + '-sq.webp', u, n)
+        SOURCE.setdefault(sl, {})['square'] = u
         break
 
     if blocked and not (res['strip'] or res['square']):
@@ -507,6 +629,76 @@ def write_quote_map(pairs):
     with open(QUOTE, 'w', encoding='utf-8') as f:
         f.write(src)
     return True
+
+
+# ---- looking at what came down ----------------------------------------
+
+def sheet(path):
+    """Write a page showing every mark at the size the site draws it.
+
+    The one thing no amount of validation can do is tell whether the artwork
+    belongs to the right company. A fetch can return a perfectly well-formed
+    image that happens to be a different insurer's logo, or a share-card
+    photograph, or last year's campaign banner, and every automatic check will
+    pass it. So the marks get laid out at their real rendered size, next to the
+    carrier they are claiming to be and the URL they came from, and somebody
+    looks. It takes about ten seconds and it is the only check that catches a
+    wrong company.
+
+    HTML rather than a generated image because an SVG then renders as an SVG,
+    which is the whole point of preferring them.
+    """
+    rows = []
+    for n in NAMES:
+        sl = slug(n)
+        e = existing(sl)
+        src = SOURCE.get(sl, {})
+        def cell(fn, cls):
+            if not fn:
+                return '<td class="none">initial tile</td>'
+            return ('<td class="' + cls + '"><img src="' + fn + '" alt="">'
+                    '<code>' + fn + '</code></td>')
+        rows.append('<tr><th>' + n + '</th>'
+                    + cell(e.get('strip'), 'strip')
+                    + cell(e.get('square'), 'sq')
+                    + '<td class="src">' + '<br>'.join(
+                        '<span>' + k + '</span> ' + v for k, v in src.items())
+                    + '</td></tr>')
+    doc = ("""<!doctype html><meta charset=utf-8>
+<title>Carrier marks to review</title>
+<style>
+ body{font:14px/1.5 system-ui,sans-serif;margin:0;padding:28px;color:#12203c;background:#fff}
+ h1{font-size:20px;margin:0 0 4px}
+ p.note{color:#5b6b85;margin:0 0 22px;max-width:70ch}
+ table{border-collapse:collapse;width:100%}
+ th,td{border-top:1px solid #e6eaf1;padding:12px 10px;text-align:left;vertical-align:middle}
+ thead th{border:0;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#5b6b85}
+ tbody th{font-weight:800;width:150px}
+ td.strip{background:#fff}
+ td.strip img{height:38px;width:auto;display:block}
+ td.sq img{width:38px;height:38px;object-fit:contain;display:block;
+     border:1px solid #e6eaf1;border-radius:10px;padding:3px;background:#fff}
+ td code{display:block;font-size:11px;color:#8d9bb2;margin-top:5px}
+ td.none{color:#b9c3d2;font-style:italic}
+ td.src{font-size:11px;color:#8d9bb2;word-break:break-all;max-width:34ch}
+ td.src span{display:inline-block;min-width:44px;font-weight:700;color:#5b6b85}
+</style>
+<h1>Carrier marks to review</h1>
+<p class=note>Every mark at the size the page draws it. Check each one is the
+right company's artwork &mdash; that is the only thing the automatic checks
+cannot do for you. Anything wrong: delete the file and rerun for that carrier
+with a corrected <code>--domain</code>.</p>
+<table><thead><tr><th>Carrier</th><th>Strip mark (38px)</th><th>Rate-row badge</th>
+<th>Fetched from</th></tr></thead><tbody>
+""" + '\n'.join(rows) + """
+</tbody></table>""")
+    d = os.path.dirname(os.path.abspath(path))
+    os.makedirs(d, exist_ok=True)
+    # The <img> paths are bare file names, so the sheet has to sit in the folder
+    # the marks are in for them to resolve.
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(doc)
+    return path
 
 
 # ---- proving the conversion works before a real run --------------------
@@ -586,6 +778,36 @@ def selftest():
     ck(b'<!--' not in c and b'onclick' not in c,
        'clean_svg drops comments and event handlers')
 
+    # Whose logo is it. Every False here is a mark that actually shipped once.
+    for carrier, dom, url, want in [
+            ('Root', 'joinroot.com', 'https://www.joinroot.com/logos/wsj.svg', False),
+            ('Root', 'joinroot.com', 'https://www.joinroot.com/img/root-logo.svg', True),
+            ('Connect', 'connectbyamfam.com',
+             'https://www.connectbyamfam.com/a/american-family-insurance.svg', False),
+            ('Connect', 'connectbyamfam.com',
+             'https://www.connectbyamfam.com/a/connect-logo.svg', True),
+            ('National General', 'nationalgeneral.com',
+             'https://www.nationalgeneral.com/small_use_icons/megaphone.svg', False),
+            ('Progressive', 'progressive.com',
+             'https://www.progressive.com/content/logo-progressive.svg', True),
+            ('Kemper', 'kemper.com',
+             'https://www.kemper.com/o/kemper-theme/images/logo.png', True),
+            ('Lemonade', 'lemonade.com',
+             'https://www.lemonade.com/img/press/forbes.svg', False)]:
+        got = own_artwork(url, name_tokens(carrier, dom))
+        ck(got == want, "%s %s %s" % (carrier, 'keeps' if want else 'rejects',
+                                      url.rsplit('/', 1)[1]))
+
+    # SVG shape. A carrier that serves a 24x24 interface icon had it adopted.
+    ck(svg_is_wordmark(b'<svg viewBox="0 0 456 54"><path d="M0 0z"/></svg>')[0],
+       'a wide SVG is accepted as a strip mark')
+    ck(not svg_is_wordmark(b'<svg viewBox="0 0 24 24"><path d="M0 0z"/></svg>')[0],
+       'a 24x24 interface icon is refused as a strip mark')
+    ck(not svg_is_wordmark(b'<svg><path d="M0 0z"/></svg>')[0],
+       'an SVG that declares no size is refused rather than guessed at')
+    ck(svg_box(b'<svg width="219" height="80" viewBox="0 0 219 80">') == (219.0, 80.0),
+       'svg_box reads the viewBox')
+
     import tempfile
     tmp = tempfile.mkdtemp()
     n = save_webp(st, os.path.join(tmp, 'a.webp'), STRIP_KB)
@@ -629,6 +851,16 @@ def selftest():
 def main(argv):
     if '--selftest' in argv:
         return selftest()
+    load_sources()
+    want_sheet = None
+    for a in argv:
+        if a == '--sheet':
+            want_sheet = os.path.join(OUT, '_review.html')
+        elif a.startswith('--sheet='):
+            want_sheet = a.split('=', 1)[1]
+    if want_sheet and len(argv) == 1:
+        print('review sheet: ' + sheet(want_sheet))
+        return 0
     check = '--check' in argv
     force = '--force' in argv
     dry = '--dry-run' in argv
@@ -707,9 +939,21 @@ def main(argv):
 
     print('\n%d fetched, %d missed, %d carriers total.'
           % (len(got), len(missed), len(names)))
-    if squares and not dry:
-        if write_quote_map(sorted(set(squares))):
-            print('quote.html CARRIER_LOGO updated (%d marks).' % len(set(squares)))
+    if not dry:
+        # Always rebuilt from what is on disk across every carrier, never from
+        # the ones this run touched: a --only run would otherwise rewrite the
+        # map with its single entry and drop the rest, and a badge deleted by
+        # hand would linger in it pointing at a file that is gone.
+        on_disk = [(n, slug(n) + '-sq.webp') for n in NAMES
+                   if os.path.exists(os.path.join(OUT, slug(n) + '-sq.webp'))]
+        if write_quote_map(on_disk):
+            print('quote.html CARRIER_LOGO rebuilt (%d badges).' % len(on_disk))
+    if not dry:
+        save_sources()
+        if want_sheet:
+            print('\nReview sheet: ' + sheet(want_sheet)
+                  + '\nOpen it and check every mark is the right company —'
+                  ' nothing automatic can.')
     if got and not dry:
         print('\nNow rebuild so the pages pick them up:'
               '\n  python3 tools/genproduct.py && python3 tools/gensitemap.py')

@@ -18,6 +18,7 @@ whole job is to be trusted is worse than no page.
 import os, re, sys, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import shell, cities, places as PL, citykit as CK, states as ST, brandkit as BK
+import carriers
 
 SITE = 'https://safehouseins.com'
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -1200,7 +1201,11 @@ def hub():
     head = rewrite(shell.head('Car insurance by city',
         'Car insurance in Texas and New Mexico from Safe House Insurance — independent, licensed, '
         'bilingual. Find your city and compare carriers.'), 1)
-    head = head.replace('</head>', '<link rel="canonical" href="' + url + '">\n</head>')
+    # The strip's CSS rides on this page alone. write() puts EXTRA_CSS on every
+    # page this generator produces, and the several hundred city pages have no
+    # carrier strip on them, so it does not belong there.
+    head = head.replace('</head>', '<link rel="canonical" href="' + url + '">\n'
+                        '<style>' + carriers.CSS + '</style>\n</head>')
     return head + """
 <header class="pg"><div class="wrap">
   <span class="kick">By city</span>
@@ -1210,6 +1215,7 @@ def hub():
   <div class="acts"><a class="btn" href="../quote.html">Get my free quote</a></div>
 </div></header>
 
+""" + carriers.html('', up='../') + """
 <section class="blk"><div class="wrap">
 """ + ''.join(out) + """
 </div></section>

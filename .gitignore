@@ -3,3 +3,6 @@ safehouse-site.zip
 *.zip
 
 __pycache__/
+
+# the review sheet is generated for eyeballing, never part of the site
+assets/carriers/_review.html
