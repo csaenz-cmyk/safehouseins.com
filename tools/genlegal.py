@@ -316,6 +316,7 @@ HEAD = """<!doctype html>
       <a href="home-insurance.html">Homeowners</a>
       <a href="renters-insurance.html">Renters</a>
       <a href="motorcycle-insurance.html">Motorcycle</a>
+      <a href="rideshare-insurance.html">Rideshare &amp; delivery</a>
       <a href="commercial-insurance.html">Work trucks &amp; fleets</a>
     </div>
     <div class="dcol">
@@ -1065,7 +1066,8 @@ def to_dir(page, slug):
     for f in ('quote.html', 'about.html', 'careers.html', 'investors.html', 'contact.html',
               'car-insurance/', 'pay/', 'claims/', 'id-card/', 'lienholder/',
               'auto-insurance.html', 'home-insurance.html', 'commercial-insurance.html',
-              'renters-insurance.html', 'motorcycle-insurance.html'):
+              'renters-insurance.html', 'motorcycle-insurance.html',
+              'rideshare-insurance.html'):
         page = page.replace('href="' + f, 'href="../' + f)
     return page
 

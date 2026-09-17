@@ -54,6 +54,154 @@ def e(s):
 # is the one mistake that cannot be walked back.
 PRODUCTS = [
 {
+ # The page somebody lands on searching "insurance for uber drivers". The
+ # argument it has to make in the first screen is that a personal policy
+ # already does not cover this, because most drivers do not know that and it
+ # is the whole reason to call an agent.
+ 'slug': 'rideshare-insurance',
+ 'file': 'rideshare-insurance.html',
+ 'type': 'car',
+ 'nav': 'Rideshare',
+ 'eyebrow': 'Rideshare &amp; delivery',
+ 'title': 'Uber & Lyft Insurance in Texas & New Mexico | Rideshare Coverage',
+ 'desc': 'Insurance for Uber, Lyft, DoorDash and delivery drivers in Texas and New '
+         'Mexico. Your personal policy stops when the app goes on — we shop the '
+         'carriers that write rideshare and close the gap.',
+ 'h1': 'Your personal policy stops',
+ 'h1em': 'when the app goes on.',
+ 'lede': 'Almost every personal auto policy excludes driving for hire, and most drivers '
+         'find that out after a claim rather than before one. Uber and Lyft cover part '
+         'of your day, not all of it. We write the part they do not.',
+ 'hero_bg': 'assets/hero-auto.jpg',
+ 'photo': '',
+ 'photo_alt': '',
+ 'big': ('A human reads', 'every quote'),
+
+ # This is the section that earns the page. Everything else on it is ordinary
+ # product copy; this is the thing a driver did not know.
+ 'misses_on': True,
+ 'misses_lede': 'Uber and Lyft do carry insurance, and drivers reasonably assume that '
+                'settles it. What it actually does is cover some periods of your shift '
+                'and not others, and the places it stops are not obvious from the app.',
+ 'misses': [
+   ('The app is on and nobody has matched yet',
+    'This is the gap almost everyone has. You are logged in and waiting, so your '
+    'personal policy treats you as working and the platform has not put you on a trip '
+    'yet. Both sides point at the other. Coverage in this window exists but it is much '
+    'smaller than what applies once you are on a trip, and it is usually liability only '
+    '&mdash; nothing toward your own car.'),
+   ('Your own vehicle, most of the time',
+    'The platform\'s comprehensive and collision generally only applies once you are '
+    'matched or carrying a passenger, and it carries a deductible in the thousands. If '
+    'you do not carry comprehensive and collision on your own policy, damage to your '
+    'car in the waiting window is simply yours.'),
+   ('Delivery is not rideshare',
+    'DoorDash, Uber Eats, Instacart, Amazon Flex and Shipt are a different exposure, and '
+    'a rideshare endorsement frequently excludes them by name. A driver who added '
+    'rideshare coverage and then started delivering is often uninsured for the delivery '
+    'and does not know it.'),
+   ('A policy that does not know what you do',
+    'If the carrier was never told you drive for a platform, the endorsement is not on '
+    'the policy and the exclusion still is. The worst version of this is a claim denied '
+    'for a trip you were being paid for, on a policy you had been paying for the whole '
+    'time.'),
+ ],
+
+ 'cover_head': 'What actually has to be in place',
+ 'cover': [
+   ('Rideshare endorsement',
+    'An addition to your own auto policy that extends it into the window where the app '
+    'is on and nobody has matched. It is the cheapest fix for the biggest gap, and not '
+    'every company offers one &mdash; which is most of the reason to shop this rather '
+    'than accept the first answer.'),
+   ('Liability',
+    'The other driver\'s injuries and property when a crash is your fault. It is the '
+    'coverage the state requires and the one a platform\'s limits are built around, '
+    'which is exactly why the gap between periods matters so much.'),
+   ('Comprehensive and collision',
+    'Your own vehicle. The car is your income here, not just transport, which changes '
+    'the arithmetic on whether to carry it and on how high a deductible you can '
+    'actually absorb.'),
+   ('Uninsured and underinsured motorist',
+    'Pays when the driver who hit you cannot. Worth more to somebody driving forty hours '
+    'a week than to somebody commuting twice a day, for the obvious reason.'),
+   ('Medical payments or PIP',
+    'Your own medical bills regardless of fault. More exposure per week on the road '
+    'means more chance of using it.'),
+   ('Gap or loan payoff',
+    'If the car is financed and totalled, the settlement is what it is worth, not what '
+    'you owe. A vehicle bought to drive for a platform depreciates on a working '
+    'schedule.'),
+ ],
+
+ 'pick_head': 'Three ways drivers cover this',
+ 'pick_lede': 'Which one is right depends on how many hours you drive, whether you also '
+              'deliver, and whether the car is financed. We will tell you which of these '
+              'you actually need rather than selling you the largest one.',
+ 'picks': [
+   ('Personal policy plus a rideshare endorsement',
+    'The usual answer for somebody driving part time on one platform. Keeps your '
+    'ordinary rate for ordinary driving and extends it into the waiting window.',
+    ['Your normal personal coverage', 'Extended while the app is on and unmatched',
+     'Often extends your own comp and collision']),
+   ('Endorsement that also covers delivery',
+    'For drivers who do both, or who deliver only. Fewer companies offer this and the '
+    'wording matters &mdash; "rideshare" and "delivery" are not the same word on a '
+    'policy.',
+    ['Everything above', 'Food and parcel delivery included by name',
+     'Checked against the platforms you actually use']),
+   ('Commercial auto',
+    'For higher mileage, a vehicle owned by a business, or somebody running more than '
+    'one car. More coverage and more cost; the right answer when the driving stops '
+    'looking like a side job.',
+    ['Written for business use from the start', 'Higher limits available',
+     'Covers employees and additional drivers']),
+ ],
+
+ 'yes_kick': 'Who we write',
+ 'yes_head': 'Every platform, and the drivers other agencies find awkward.',
+ 'yes_lede': 'Driving for a platform is not an edge case here. Neither is doing it with '
+             'a record that makes a carrier think twice.',
+ 'yes': ['Uber and Lyft drivers', 'Food and parcel delivery', 'Both at once',
+         'New to the platform', 'Tickets or an at-fault claim', 'SR-22 on file',
+         'Foreign license or matr&iacute;cula', 'More than one car on the policy'],
+
+ 'discounts': [],
+
+ 'faq': [
+   ('Does my regular car insurance cover me driving for Uber?',
+    'Almost certainly not while the app is on. A personal auto policy generally excludes '
+    'carrying passengers or goods for a fee, and that exclusion is the default rather '
+    'than the exception. It is worth reading your own policy for the words "livery" or '
+    '"for hire" &mdash; and worth telling us what you drive for so the right endorsement '
+    'goes on.'),
+   ('Doesn\'t Uber already insure me?',
+    'For part of your shift. Uber and Lyft both publish third-party liability of one '
+    'million dollars while you are on the way to a rider and while a rider is in the '
+    'car. Before either of those &mdash; app on, waiting for a request &mdash; the '
+    'coverage is much smaller, and their comprehensive and collision only applies on a '
+    'trip and carries a deductible in the thousands. The waiting window is where most '
+    'drivers are uninsured without knowing it.'),
+   ('I only deliver food. Is that the same thing?',
+    'No, and this is the mistake that costs people. Many rideshare endorsements exclude '
+    'delivery by name, so a driver who added rideshare coverage and then started '
+    'delivering can be uninsured for the delivery. Tell us every platform you drive for '
+    '&mdash; the wording has to match what you actually do.'),
+   ('Will telling my insurance company raise my rate?',
+    'Usually it costs something, and it costs far less than a denied claim. The larger '
+    'risk is not the premium: it is a carrier discovering after a crash that you were '
+    'working, which can mean the claim is denied and the policy cancelled. Tell them.'),
+   ('Which companies write rideshare in Texas and New Mexico?',
+    'Not all of them, and the list changes. That is what makes this worth shopping '
+    'rather than accepting a single answer &mdash; the same driver can be quoted very '
+    'differently depending on which carriers will write the exposure at all.'),
+   ('How fast can I get proof of insurance for the platform?',
+    'Usually the same day. Tell the agent up front that you need it for Uber or Lyft, '
+    'because it changes which companies are worth quoting and getting that right the '
+    'first time is the difference between driving tomorrow and not.'),
+ ],
+},
+{
  'file': 'auto-insurance.html', 'slug': 'auto-insurance', 'type': 'car',
  # Off on this page only. See missection().
  'misses_on': False,
@@ -523,6 +671,68 @@ PRODUCTS = [
 #           Ordered least to most, and the middle one opens by default.
 # 'big'     the two lines of the scroll statement.
 EXTRA = {
+
+'rideshare-insurance': {
+ 'panels': [
+   ('check', ['Uber', 'Lyft', 'DoorDash', 'Uber Eats']),
+   ('check', ['Instacart', 'Amazon Flex', 'Grubhub', 'Shipt']),
+   ('check', ['Part time and full time', 'One car or several',
+              'Financed or owned outright']),
+   ('check', ['Same-day proof of insurance', 'Bilingual, start to finish',
+              'Told plainly if we cannot beat what you have']),
+ ],
+ 'pick_head': 'Three ways drivers cover this',
+ 'pick_lede': 'Which one is right depends on how many hours you drive, whether you also '
+              'deliver, and whether the car is financed. We will tell you which of these '
+              'you actually need rather than selling you the largest one.',
+ 'picks': [
+   ('Personal policy plus a rideshare endorsement',
+    'The usual answer for somebody driving part time on one platform. Keeps your '
+    'ordinary rate for ordinary driving and extends it into the waiting window.',
+    ['Your normal personal coverage', 'Extended while the app is on and unmatched',
+     'Often extends your own comp and collision']),
+   ('An endorsement that also names delivery',
+    'For drivers who do both, or who deliver only. Fewer companies offer this and the '
+    'wording matters &mdash; "rideshare" and "delivery" are not the same word on a '
+    'policy.',
+    ['Everything above', 'Food and parcel delivery included by name',
+     'Checked against the platforms you actually use']),
+   ('Commercial auto',
+    'For higher mileage, a vehicle owned by a business, or somebody running more than '
+    'one car. More coverage and more cost; the right answer when the driving stops '
+    'looking like a side job.',
+    ['Written for business use from the start', 'Higher limits available',
+     'Covers employees and additional drivers']),
+ ],
+ 'misses_on': True,
+ 'misses_lede': 'Uber and Lyft do carry insurance, and drivers reasonably assume that '
+                'settles it. What it actually does is cover some periods of your shift '
+                'and not others, and the places it stops are not obvious from the app.',
+ 'misses': [
+   ('The app is on and nobody has matched yet',
+    'This is the gap almost everyone has. You are logged in and waiting, so your '
+    'personal policy treats you as working and the platform has not put you on a trip '
+    'yet. Coverage in this window exists but it is much smaller than what applies once '
+    'you are on a trip, and it is usually liability only &mdash; nothing toward your '
+    'own car.'),
+   ('Your own vehicle, most of the time',
+    'The platform&rsquo;s comprehensive and collision generally only applies once you '
+    'are matched or carrying a passenger, and it carries a deductible in the thousands. '
+    'If you do not carry comprehensive and collision on your own policy, damage to your '
+    'car in the waiting window is simply yours.'),
+   ('Delivery is not rideshare',
+    'DoorDash, Uber Eats, Instacart, Amazon Flex and Shipt are a different exposure, and '
+    'a rideshare endorsement frequently excludes them by name. A driver who added '
+    'rideshare coverage and then started delivering is often uninsured for the delivery '
+    'and does not know it.'),
+   ('A policy that does not know what you do',
+    'If the carrier was never told you drive for a platform, the endorsement is not on '
+    'the policy and the exclusion still is. The worst version is a claim denied for a '
+    'trip you were being paid for, on a policy you had been paying for all along.'),
+ ],
+ 'big': ('A human reads', 'every quote'),
+},
+
 
 'auto-insurance': {
  'panels': [
@@ -2335,6 +2545,44 @@ SECTION_JS = """
 """
 
 
+def strip_tags(t):
+    return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', str(t))).strip()
+
+
+def schema(p):
+    """FAQPage and Service blocks for a product page.
+
+    The guides and the city pages have carried structured data for a long time;
+    the six product pages carried none, which is the wrong way round — these are
+    the pages the money searches land on. The FAQ block is what puts the
+    questions in a search result directly, and it is built from the same `faq`
+    list the page already renders, so the two cannot disagree.
+    """
+    import json
+    out = []
+    if p.get('faq'):
+        out.append({
+            "@context": "https://schema.org", "@type": "FAQPage",
+            "mainEntity": [{"@type": "Question", "name": strip_tags(q),
+                            "acceptedAnswer": {"@type": "Answer",
+                                               "text": strip_tags(a)}}
+                           for q, a in p['faq']]})
+    out.append({
+        "@context": "https://schema.org", "@type": "Service",
+        "name": strip_tags(p['eyebrow']),
+        "description": strip_tags(p['desc']),
+        "serviceType": strip_tags(p['eyebrow']),
+        "provider": {"@type": "InsuranceAgency",
+                     "name": nap.LEGAL_NAME,
+                     "telephone": nap.CALL_E164,
+                     "url": SITE},
+        "areaServed": [{"@type": "State", "name": "Texas"},
+                       {"@type": "State", "name": "New Mexico"}],
+        "url": SITE + '/' + p['slug']})
+    return ''.join('<script type="application/ld+json">' + json.dumps(b)
+                   + '</script>\n' for b in out)
+
+
 def page(p):
     other = [q for q in PRODUCTS if q['file'] != p['file']]
     return """<!DOCTYPE html>
@@ -2355,7 +2603,7 @@ def page(p):
 <meta property="og:url" content="{site}/{slug}">
 <meta name="twitter:card" content="summary">
 <style>{css}</style>
-</head>
+{schema}</head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <style>.mixin::before{{background-image:url("assets/mix-couch.jpg")}}</style>
@@ -2471,6 +2719,7 @@ def page(p):
         cover_head=e(p['cover_head']),
         covercards=''.join('      <div class="ccard"><b>%s</b><p>%s</p></div>\n' % (t, b)
                            for t, b in p['cover']),
+        schema=schema(p),
         yes_kick=p.get('yes_kick', 'Who we write'),
         yes_head=e(p['yes_head']), yes_lede=p['yes_lede'],
         yescards=''.join(yescard(t) for t in p['yes']),

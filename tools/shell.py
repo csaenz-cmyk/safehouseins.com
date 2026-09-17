@@ -349,6 +349,7 @@ def head(title, desc, suffix=' · Safe House Insurance', canonical=None):
       <a href="home-insurance.html">Homeowners</a>
       <a href="renters-insurance.html">Renters</a>
       <a href="motorcycle-insurance.html">Motorcycle</a>
+      <a href="rideshare-insurance.html">Rideshare &amp; delivery</a>
       <a href="commercial-insurance.html">Work trucks &amp; fleets</a>
     </div>
     <div class="dcol">

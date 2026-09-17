@@ -61,7 +61,7 @@ def rewrite(chunk, depth):
                   'privacy.html','sms-terms.html','assets/','car-insurance/',
                   'contact.html','pay/','claims/','id-card/','lienholder/',
                   'auto-insurance.html','home-insurance.html','commercial-insurance.html',
-                  'renters-insurance.html','motorcycle-insurance.html'):
+                  'renters-insurance.html','motorcycle-insurance.html','rideshare-insurance.html'):
             chunk = chunk.replace(a + f, a + u + f)
     return chunk
 
