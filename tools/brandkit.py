@@ -105,8 +105,13 @@ CSS = """
       transition:transform .18s cubic-bezier(.2,.8,.3,1),border-color .18s,box-shadow .18s}
   .mtab:hover{transform:translateY(-3px);border-color:var(--acc-line);
       box-shadow:0 18px 30px -22px rgba(10,33,72,.6)}
-  .mtab .msvg{display:block;width:100%;height:38px;margin-bottom:8px}
-  .mtab .msvg svg{width:100%;height:100%}
+  /* The thumbnail takes the artwork's own proportion instead of a fixed 38px.
+     At 38 the 420x232 frame scaled to 16%, which drew the vehicle two thirds of
+     the way across the tile and squashed the roof-height difference between an
+     SUV, a sedan and a coupe into about three pixels — so all three models in a
+     lineup looked like the same car. */
+  .mtab .msvg{display:block;width:100%;aspect-ratio:396/200;margin-bottom:8px}
+  .mtab .msvg svg{width:100%;height:100%;display:block}
   .mtab b{display:block;font-size:14.5px;font-weight:900;color:var(--navy);line-height:1.2}
   .mtab small{display:block;font-size:11.5px;color:var(--muted);font-weight:700;margin-top:3px}
   .mtab[aria-selected="true"]{border-color:var(--acc);background:var(--acc-soft);

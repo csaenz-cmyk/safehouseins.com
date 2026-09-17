@@ -30,6 +30,16 @@ just looks like a long saloon:
 # glass    — the glasshouse, drawn on top
 # wheels   — centres; radius comes from `wr`
 # belt     — the shoulder line the highlight sweeps along
+# The drawn frame. Tighter than the 420x232 canvas, which carries empty air
+# above the tallest roof and below the shadow — at thumbnail size that air was
+# most of the picture, and the vehicle shrank to fit around it.
+#
+# It is deliberately ONE frame for every body style rather than each shape's own
+# bounds. Cropping per body would scale a low coupe and a tall SUV to the same
+# height, which normalises away the one thing these drawings exist to show: roof
+# height over length is what separates the body styles.
+VIEWBOX = '12 22 396 200'
+
 SHAPES = {
 
   # ---- three-box saloon: long bonnet, separate boot, low roof ----
@@ -142,7 +152,7 @@ def silhouette(body, accent, ident, wide=False):
       '</g>'.format(x=x, y=y, r=r, h=round(r * 0.5), a=accent) for x, y in s['wheels'])
     extra = ('<path d="' + s['extra'] + '" fill="#0A2148" opacity=".2"/>') if s.get('extra') else ''
     return (
-      '<svg class="vsil' + (' wide' if wide else '') + '" viewBox="0 0 420 232" '
+      '<svg class="vsil' + (' wide' if wide else '') + '" viewBox="' + VIEWBOX + '" '
       'fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">'
       '<defs>'
         '<linearGradient id="' + g + '" x1=".15" y1="0" x2=".6" y2="1">'
