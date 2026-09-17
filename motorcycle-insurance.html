@@ -574,39 +574,41 @@
      but only colours in when you are on it. The flat version read as a list
      of links with a border around each one. */
   /* ---- who we insure ----
-     Six cards with a picture on each, not eight tiles with a glyph. The
-     illustration does the work the label used to: somebody who has been turned
-     down elsewhere is scanning for the picture of their own situation, and a
-     picture is found faster than two words are read. A card whose artwork has
-     not arrived yet keeps the glyph and sits the same height, so the grid never
-     looks half-built. */
-  .ygrid{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:30px}
-  @media(min-width:760px){ .ygrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px} }
+     Six cards, and the restraint is the point. The first pass had 168px
+     illustrations on a tinted plate inside a gradient card with a coloured
+     shadow — every element asking for attention at once, which reads as a
+     brochure rather than as a product. This is the same information at about
+     two thirds the size: the artwork sits on the card with no plate behind it,
+     the surface is flat white with a hairline, and the only thing that moves on
+     hover is a border and one pixel of lift. */
+  .ygrid{display:grid;gap:10px;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:26px}
+  @media(min-width:760px){ .ygrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px} }
   .ycard{position:relative;display:flex;flex-direction:column;align-items:center;
-      text-align:center;gap:12px;padding:22px 16px 20px;border-radius:20px;
-      border:1px solid var(--pline);text-decoration:none;
-      background:linear-gradient(170deg,#fff 0%,#FBFCFE 60%,#F3F8FE 100%);
-      box-shadow:0 18px 34px -32px rgba(8,24,58,.85);
-      transition:border-color .2s,transform .2s,box-shadow .2s}
-  @media(min-width:760px){ .ycard{padding:26px 20px 24px;gap:14px} }
-  a.ycard:hover{border-color:#BFD8FB;transform:translateY(-4px);text-decoration:none;
-      box-shadow:0 30px 52px -30px rgba(22,102,237,.45)}
-  .ycard .ypic{display:block;width:100%;max-width:168px;aspect-ratio:1;
-      border-radius:16px;overflow:hidden;background:#F2F7FE}
+      text-align:center;gap:2px;padding:18px 14px 16px;border-radius:14px;
+      border:1px solid var(--pline);background:#fff;text-decoration:none;
+      transition:border-color .18s,transform .18s,box-shadow .18s}
+  @media(min-width:760px){ .ycard{padding:20px 16px 18px} }
+  a.ycard:hover{border-color:#C6DBFA;transform:translateY(-2px);text-decoration:none;
+      box-shadow:0 12px 24px -18px rgba(8,24,58,.55)}
+  /* No plate behind the artwork. These illustrations carry their own pale
+     ground, so a tinted box around them was a second background on top of the
+     first. */
+  .ycard .ypic{display:block;width:96px;height:96px}
   .ycard .ypic img{width:100%;height:100%;object-fit:contain;display:block}
-  /* The glyph fallback takes the same footprint as a picture so a half
-     illustrated grid still lines up row to row. */
-  .ycard .yi{display:grid;place-items:center;width:100%;max-width:168px;aspect-ratio:1;
-      border-radius:16px;background:#EDF4FE}
-  .ycard .yi svg{width:46px;height:46px;fill:none;stroke:var(--pblue);stroke-width:1.7;
+  @media(min-width:760px){ .ycard .ypic{width:104px;height:104px} }
+  /* The glyph keeps the same footprint so a card without artwork sits at the
+     same height as one with it. */
+  .ycard .yi{display:grid;place-items:center;width:96px;height:96px}
+  @media(min-width:760px){ .ycard .yi{width:104px;height:104px} }
+  .ycard .yi svg{width:30px;height:30px;fill:none;stroke:var(--pblue);stroke-width:1.6;
       stroke-linecap:round;stroke-linejoin:round}
   .ycard .ytx{display:block}
-  .ycard b{display:block;font-size:15.5px;font-weight:900;letter-spacing:-.018em;
-      color:var(--pnavy);line-height:1.25}
-  @media(min-width:760px){ .ycard b{font-size:17px} }
-  .ycard small{display:block;margin-top:5px;font-size:12.5px;line-height:1.45;
-      color:#64748F;font-weight:600}
-  @media(min-width:760px){ .ycard small{font-size:13.5px} }
+  .ycard b{display:block;font-size:14px;font-weight:800;letter-spacing:-.014em;
+      color:var(--pnavy);line-height:1.3}
+  @media(min-width:760px){ .ycard b{font-size:15px} }
+  .ycard small{display:block;margin-top:3px;font-size:11.5px;line-height:1.4;
+      color:#8091AB;font-weight:600}
+  @media(min-width:760px){ .ycard small{font-size:12px} }
   a.ycard:hover b{color:var(--pblue)}
   @media(prefers-reduced-motion:reduce){
     .ycard{transition:none} a.ycard:hover{transform:none}
