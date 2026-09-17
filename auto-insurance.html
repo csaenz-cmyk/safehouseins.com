@@ -99,6 +99,35 @@
     .ph.bg .phgrid{grid-template-columns:minmax(0,.62fr) minmax(0,.38fr)}
   }
   @media(max-width:700px){ .ph.bg{padding-top:118px;padding-bottom:56px} }
+  /* A veil, for the heroes that need one.
+     Named phveil and not scrim: menu.py already owns .scrim for the panel's
+     backdrop, which is position:fixed inset:0 z-index:79. Reusing that word
+     turned the whole hero into a fixed full-screen overlay and the page
+     rendered starting at the carrier strip.
+     The note above is right that a flat grey panel over a sunset is the first
+     thing anyone sees, and the car hero needs nothing because that photograph
+     is a dusk street: dark exactly where the copy sits. A bright photograph
+     breaks that assumption rather than the rule. Measured over the house, the
+     headline sat at 1.9:1 against white and parts of the lede at 1.1:1, which
+     is white text on white.
+     So this is opt-in per page, and it is a directional gradient in the brand
+     navy rather than a panel: full strength at the left edge where the type is,
+     gone by the middle of the frame, so the right-hand two thirds of the
+     picture are untouched. */
+  .ph.bg.phveil::after{content:"";position:absolute;inset:0;z-index:0;
+      pointer-events:none;
+      background:linear-gradient(100deg,rgba(6,16,38,.90) 0%,rgba(6,16,38,.78) 30%,
+                 rgba(6,16,38,.44) 56%,rgba(6,16,38,0) 78%)}
+  @media(max-width:899px){
+    /* Narrow, the copy spans the frame rather than sitting in a column, and it
+       starts near the top rather than the bottom — the headline sits at about a
+       fifth of the way down. A bottom-up gradient puts its weakest end exactly
+       there, which measured 2.8:1 under the headline. So this one is close to
+       even across the frame and only eases off below the buttons. */
+    .ph.bg.phveil::after{background:linear-gradient(180deg,rgba(6,16,38,.80) 0%,
+                 rgba(6,16,38,.86) 26%,rgba(6,16,38,.88) 62%,rgba(6,16,38,.74) 100%)}
+  }
+  .ph.bg.phveil .phin,.ph.bg.phveil .phgrid{position:relative;z-index:1}
   /* Every piece of type over the photograph states its own shadow, because
      nothing is dimming what is behind it any more. */
   .ph.bg .crumbs,.ph.bg h1,.ph.bg h1 em,.ph.bg .lede,.ph.bg .pnote{
@@ -1324,9 +1353,9 @@
     <p class="sub">From clean records to more complicated situations, we shop multiple companies to help more people find coverage.</p>
     <div class="ygrid">
       <div class="ycard yfull"><span class="ypic"><img src="assets/who/everyday.webp" alt="" loading="lazy" decoding="async"></span><span class="ytx"><b>Everyday drivers</b><small>Clean record, families, commuters</small></span></div>
-      <a class="ycard" href="learn/new-driver-car-insurance/"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4.5" width="16" height="15" rx="3"/><path d="M10 9v6h4.5"/></svg></span><span class="ytx"><b>New drivers</b><small>First-time drivers and teenagers</small></span></a>
-      <a class="ycard" href="learn/car-insurance-after-a-dwi/"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5 21 19.5H3z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg></span><span class="ytx"><b>Tickets or accidents</b><small>Drivers with violations or claims</small></span></a>
-      <a class="ycard" href="learn/sr-22-texas-new-mexico/"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4"/></svg></span><span class="ytx"><b>SR-22</b><small>State filings and special requirements</small></span></a>
+      <a class="ycard yfull" href="learn/new-driver-car-insurance/"><span class="ypic"><img src="assets/who/new-drivers.webp" alt="" loading="lazy" decoding="async"></span><span class="ytx"><b>New drivers</b><small>First-time drivers and teenagers</small></span></a>
+      <a class="ycard yfull" href="learn/car-insurance-after-a-dwi/"><span class="ypic"><img src="assets/who/tickets.webp" alt="" loading="lazy" decoding="async"></span><span class="ytx"><b>Tickets or accidents</b><small>Drivers with violations or claims</small></span></a>
+      <a class="ycard yfull" href="learn/sr-22-texas-new-mexico/"><span class="ypic"><img src="assets/who/sr22.webp" alt="" loading="lazy" decoding="async"></span><span class="ytx"><b>SR-22</b><small>State filings and special requirements</small></span></a>
       <a class="ycard yfull" href="learn/car-insurance-without-a-license/"><span class="ypic"><img src="assets/who/foreign-license.webp" alt="" loading="lazy" decoding="async"></span><span class="ytx"><b>Foreign licenses</b><small>Matr&iacute;cula, passport or international license</small></span></a>
       <a class="ycard yfull" href="learn/car-insurance-without-a-license/"><span class="ypic"><img src="assets/who/no-license.webp" alt="" loading="lazy" decoding="async"></span><span class="ytx"><b>No license</b><small>Yes, this is something we can quote</small></span></a>
     </div>

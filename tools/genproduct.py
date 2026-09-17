@@ -282,11 +282,11 @@ PRODUCTS = [
  'yes': [('Everyday drivers', '', 'cars',
           'Clean record, families, commuters', 'everyday'),
          ('New drivers', 'new-driver-car-insurance', 'learner',
-          'First-time drivers and teenagers', ''),
+          'First-time drivers and teenagers', 'new-drivers'),
          ('Tickets or accidents', 'car-insurance-after-a-dwi', 'alert',
-          'Drivers with violations or claims', ''),
+          'Drivers with violations or claims', 'tickets'),
          ('SR-22', 'sr-22-texas-new-mexico', 'form',
-          'State filings and special requirements', ''),
+          'State filings and special requirements', 'sr22'),
          ('Foreign licenses', 'car-insurance-without-a-license', 'id',
           'Matr&iacute;cula, passport or international license', 'foreign-license'),
          # Not "we insure everyone". No agency can promise that, the carriers
@@ -332,8 +332,13 @@ PRODUCTS = [
  'lede': 'Houses and mobile homes, quoted across the companies we represent — and then '
          'read line by line by a licensed agent, because a home policy is where the '
          'expensive surprises hide.',
- 'photo': 'assets/cat-home.jpg',
- 'photo_alt': 'A house at sunset with mountains behind it',
+ 'hero_bg': 'assets/hero-home.jpg',
+ # Sunset behind the house: the brightest part of the frame is the bottom left,
+ # which is where the headline goes. Measured, the type was failing contrast
+ # badly without this.
+ 'hero_scrim': True,
+ 'photo': '',
+ 'photo_alt': '',
 
  'misses_lede': 'A home quote is only as good as the numbers it was built on, and an '
                 'online form lets you get every one of them wrong without saying a word.',
@@ -1087,6 +1092,35 @@ CSS = """
     .ph.bg .phgrid{grid-template-columns:minmax(0,.62fr) minmax(0,.38fr)}
   }
   @media(max-width:700px){ .ph.bg{padding-top:118px;padding-bottom:56px} }
+  /* A veil, for the heroes that need one.
+     Named phveil and not scrim: menu.py already owns .scrim for the panel's
+     backdrop, which is position:fixed inset:0 z-index:79. Reusing that word
+     turned the whole hero into a fixed full-screen overlay and the page
+     rendered starting at the carrier strip.
+     The note above is right that a flat grey panel over a sunset is the first
+     thing anyone sees, and the car hero needs nothing because that photograph
+     is a dusk street: dark exactly where the copy sits. A bright photograph
+     breaks that assumption rather than the rule. Measured over the house, the
+     headline sat at 1.9:1 against white and parts of the lede at 1.1:1, which
+     is white text on white.
+     So this is opt-in per page, and it is a directional gradient in the brand
+     navy rather than a panel: full strength at the left edge where the type is,
+     gone by the middle of the frame, so the right-hand two thirds of the
+     picture are untouched. */
+  .ph.bg.phveil::after{content:"";position:absolute;inset:0;z-index:0;
+      pointer-events:none;
+      background:linear-gradient(100deg,rgba(6,16,38,.90) 0%,rgba(6,16,38,.78) 30%,
+                 rgba(6,16,38,.44) 56%,rgba(6,16,38,0) 78%)}
+  @media(max-width:899px){
+    /* Narrow, the copy spans the frame rather than sitting in a column, and it
+       starts near the top rather than the bottom — the headline sits at about a
+       fifth of the way down. A bottom-up gradient puts its weakest end exactly
+       there, which measured 2.8:1 under the headline. So this one is close to
+       even across the frame and only eases off below the buttons. */
+    .ph.bg.phveil::after{background:linear-gradient(180deg,rgba(6,16,38,.80) 0%,
+                 rgba(6,16,38,.86) 26%,rgba(6,16,38,.88) 62%,rgba(6,16,38,.74) 100%)}
+  }
+  .ph.bg.phveil .phin,.ph.bg.phveil .phgrid{position:relative;z-index:1}
   /* Every piece of type over the photograph states its own shadow, because
      nothing is dimming what is behind it any more. */
   .ph.bg .crumbs,.ph.bg h1,.ph.bg h1 em,.ph.bg .lede,.ph.bg .pnote{
@@ -2707,7 +2741,8 @@ def page(p):
         eyebrow=e(p['eyebrow']), h1=p['h1'], h1em=p['h1em'], lede=p['lede'],
         type=p['type'], tel=nap.CALL_E164, call=nap.CALL,
         gridcls=(' has' if p['photo'] else ''),
-        bgcls=(' bg' if p.get('hero_bg') else ''),
+        bgcls=((' bg' + (' phveil' if p.get('hero_scrim') else ''))
+               if p.get('hero_bg') else ''),
         bgstyle=('\n    <style>.ph.bg::before{background-image:url("%s")}</style>'
                  % p['hero_bg']) if p.get('hero_bg') else '',
         shot=('<div class="phshot"><img src="%s" alt="%s" width="1000" height="1280" '
