@@ -63,7 +63,7 @@ PRODUCTS = [
  'type': 'car',
  'nav': 'Rideshare',
  'eyebrow': 'Rideshare &amp; delivery',
- 'title': 'Uber & Lyft Insurance in Texas & New Mexico | Rideshare Coverage',
+ 'title': 'Uber & Lyft Insurance in Texas & New Mexico',
  'desc': 'Insurance for Uber, Lyft, DoorDash and delivery drivers in Texas and New '
          'Mexico. Your personal policy stops when the app goes on — we shop the '
          'carriers that write rideshare and close the gap.',
