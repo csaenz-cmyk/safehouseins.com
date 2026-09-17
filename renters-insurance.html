@@ -697,12 +697,41 @@
   .step b{display:block;font-size:16px;font-weight:800;color:var(--pnavy);margin-bottom:6px}
   .step p{font-size:14px;line-height:1.65;color:#4A5A74;font-weight:500}
 
-  .fgrid{display:grid;gap:13px;grid-template-columns:1fr;margin-top:30px}
-  @media(min-width:760px){ .fgrid{grid-template-columns:1fr 1fr} }
-  .fcard{border:1.5px solid var(--pline);border-radius:18px;padding:20px 22px;background:#fff}
-  .fcard b{display:block;font-size:15.5px;font-weight:800;color:var(--pnavy);margin-bottom:7px}
-  .fcard p{font-size:14px;line-height:1.68;color:#4A5A74;font-weight:500}
-  .fcard a{font-weight:800}
+  /* ---- what people ask us ----
+     A list, not a wall of cards. Six boxes in two columns made the reader scan
+     left-right-left for a question they might not have, and every answer was
+     open whether or not it was wanted. One column of questions reads as a list
+     of questions, which is what it is; the answers open on the one you actually
+     have.
+     Built on <details>, so it works with no JavaScript, is keyboard operable
+     and gets found by in-page search — the browser opens a closed <details>
+     when the text inside it matches a Ctrl-F. */
+  .faqlist{margin-top:30px;border-top:1px solid var(--pline);max-width:860px}
+  .fq{border-bottom:1px solid var(--pline)}
+  .fq summary{list-style:none;cursor:pointer;display:flex;align-items:flex-start;
+      gap:16px;padding:19px 4px;font-size:16px;font-weight:800;letter-spacing:-.014em;
+      color:var(--pnavy);line-height:1.4;transition:color .16s}
+  .fq summary::-webkit-details-marker{display:none}
+  .fq summary span{flex:1;min-width:0}
+  .fq summary:hover{color:var(--pblue)}
+  .fq[open] summary{color:var(--pblue)}
+  @media(min-width:760px){ .fq summary{font-size:17px;padding:21px 4px} }
+  /* The marker is drawn from two rules that cross, and the vertical one folds
+     away when the row opens — a plus becoming a minus. Drawn rather than set as
+     a glyph so it keeps its weight at any zoom, the same as the chevrons on the
+     guide cards. */
+  .fq summary::after{content:"";flex:0 0 auto;position:relative;width:13px;height:13px;
+      margin-top:5px;
+      background:
+        linear-gradient(var(--pblue),var(--pblue)) center/13px 2px no-repeat,
+        linear-gradient(var(--pblue),var(--pblue)) center/2px 13px no-repeat;
+      transition:transform .22s ease,background-size .22s ease}
+  .fq[open] summary::after{transform:rotate(180deg);
+      background:linear-gradient(var(--pblue),var(--pblue)) center/13px 2px no-repeat}
+  .fqa{padding:0 4px 20px;max-width:68ch}
+  .fqa p{font-size:14.5px;line-height:1.72;color:#4A5A74;font-weight:500}
+  .fq a{font-weight:800}
+  @media(prefers-reduced-motion:reduce){ .fq summary::after{transition:none} }
 
   /* Scaled to sit under the mix band without looking like a caption for it.
      Wider than the 1000px reading column the rest of the page uses, because it
@@ -1165,8 +1194,8 @@
   <section class="carr" aria-label="Some of the companies we shop for you">
     <div class="carrmask">
       <div class="carrtrack">
-        <div class="carrset"><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/progressive.svg" alt="Progressive" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/geico.webp" alt="GEICO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/lemonade.webp" alt="Lemonade" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/root.webp" alt="Root" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/kemper.webp" alt="Kemper" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/next.webp" alt="NEXT" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/gainsco.webp" alt="GAINSCO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/hagerty.webp" alt="Hagerty" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/national-general.webp" alt="National General" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/bluefire.webp" alt="Bluefire" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/alinsco.webp" alt="Alinsco" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/commonwealth.webp" alt="Commonwealth" decoding="async" fetchpriority="low"></span></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#EEE9F8;color:#5B34A8">A</span><b>Apollo</b></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/connect.webp" alt="Connect" decoding="async" fetchpriority="low"></span></span></div>
-        <div class="carrset" aria-hidden="true"><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/progressive.svg" alt="Progressive" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/geico.webp" alt="GEICO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/lemonade.webp" alt="Lemonade" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/root.webp" alt="Root" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/kemper.webp" alt="Kemper" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/next.webp" alt="NEXT" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/gainsco.webp" alt="GAINSCO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/hagerty.webp" alt="Hagerty" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/national-general.webp" alt="National General" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/bluefire.webp" alt="Bluefire" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/alinsco.webp" alt="Alinsco" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/commonwealth.webp" alt="Commonwealth" decoding="async" fetchpriority="low"></span></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#EEE9F8;color:#5B34A8">A</span><b>Apollo</b></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/connect.webp" alt="Connect" decoding="async" fetchpriority="low"></span></span></div>
+        <div class="carrset"><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/progressive.svg" alt="Progressive" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/geico.webp" alt="GEICO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/lemonade.webp" alt="Lemonade" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/root.webp" alt="Root" decoding="async" fetchpriority="low"></span></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#EAE7FC;color:#3B23D6">C</span><b>Clearcover</b></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/kemper.webp" alt="Kemper" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/next.webp" alt="NEXT" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/gainsco.webp" alt="GAINSCO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/hagerty.webp" alt="Hagerty" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/national-general.webp" alt="National General" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/bluefire.webp" alt="Bluefire" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/alinsco.webp" alt="Alinsco" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/commonwealth.webp" alt="Commonwealth" decoding="async" fetchpriority="low"></span></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#EEE9F8;color:#5B34A8">A</span><b>Apollo</b></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/connect.webp" alt="Connect" decoding="async" fetchpriority="low"></span></span></div>
+        <div class="carrset" aria-hidden="true"><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/progressive.svg" alt="Progressive" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/geico.webp" alt="GEICO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/lemonade.webp" alt="Lemonade" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/root.webp" alt="Root" decoding="async" fetchpriority="low"></span></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#EAE7FC;color:#3B23D6">C</span><b>Clearcover</b></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/kemper.webp" alt="Kemper" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/next.webp" alt="NEXT" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/gainsco.webp" alt="GAINSCO" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/hagerty.webp" alt="Hagerty" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/national-general.webp" alt="National General" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/bluefire.webp" alt="Bluefire" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/alinsco.webp" alt="Alinsco" decoding="async" fetchpriority="low"></span></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/commonwealth.webp" alt="Commonwealth" decoding="async" fetchpriority="low"></span></span><span class="carrc"><span class="lg" aria-hidden="true" style="background:#EEE9F8;color:#5B34A8">A</span><b>Apollo</b></span><span class="carrc haslogo"><span class="lg lgimg"><img src="assets/carriers/connect.webp" alt="Connect" decoding="async" fetchpriority="low"></span></span></div>
       </div>
     </div>
   </section>
@@ -1294,21 +1323,6 @@
     </div>
   </section>
 
-  <section class="sec">
-    <span class="kick">Coverage</span>
-    <h2>What a renters policy is actually made of</h2>
-    <p class="sub">In plain words, so you can tell whether two quotes are actually the
-       same policy at different prices or two different policies.</p>
-    <div class="cgrid">
-      <div class="ccard"><b>Personal property</b><p>Your things — at home and, usually, outside it. A laptop taken from a car is generally a renters claim, not a car claim.</p></div>
-      <div class="ccard"><b>Personal liability</b><p>When somebody is injured in your place or you damage the building. This is the part your lease is really asking for.</p></div>
-      <div class="ccard"><b>Loss of use</b><p>Somewhere to stay when the apartment is not liveable after a covered loss. Hotel, meals, the difference in rent.</p></div>
-      <div class="ccard"><b>Medical payments</b><p>Smaller bills for a guest who is hurt, paid without anybody arguing about fault.</p></div>
-      <div class="ccard"><b>Water and theft</b><p>Burst pipes, a neighbor’s overflow, break-ins. Read how each is worded, because they are not worded the same everywhere.</p></div>
-      <div class="ccard"><b>Scheduled items</b><p>A ring, a camera, an instrument. Anything valuable enough to be listed separately, because the standard limits on those categories are low.</p></div>
-    </div>
-  </section>
-
 
   <section class="stmt" aria-label="A human reads every quote">
     <span class="stmtline a" style="font-size:clamp(38px,11.54vw,300px)" aria-hidden="true">A human reads</span>
@@ -1338,13 +1352,13 @@
   <section class="sec petal1">
     <span class="kick">Questions</span>
     <h2>What people ask us</h2>
-    <div class="fgrid">
-      <div class="fcard"><b>My landlord already has insurance. Why do I need this?</b><p>Because theirs covers the building and nothing of yours. If the place burns, they get a new building and you get nothing — unless you carry your own policy.</p></div>
-      <div class="fcard"><b>How much does renters insurance cost?</b><p>Less than most people guess, and it depends on where you live, what you are covering and your deductible. We will quote it across the companies we represent rather than quoting you a number here we cannot stand behind.</p></div>
-      <div class="fcard"><b>Does it cover my things outside the apartment?</b><p>Usually, including in your car and while traveling — this varies by policy, so it is worth asking about the one you are actually buying.</p></div>
-      <div class="fcard"><b>My lease needs proof before I move in.</b><p>Tell us the date and who it goes to. We can normally have the certificate in the leasing office the same day.</p></div>
-      <div class="fcard"><b>Does it cover my roommate?</b><p>Generally not unless they are named on the policy. Two people, two policies is the usual answer, and it is cheap enough that it is rarely worth arguing about.</p></div>
-      <div class="fcard"><b>Will it lower my car insurance?</b><p>Often, yes. Most carriers give a multi-policy discount, and it can offset a good part of what the renters policy costs. Ask us to quote both together.</p></div>
+    <div class="faqlist">
+      <details class="fq"><summary><span>My landlord already has insurance. Why do I need this?</span></summary><div class="fqa"><p>Because theirs covers the building and nothing of yours. If the place burns, they get a new building and you get nothing — unless you carry your own policy.</p></div></details>
+      <details class="fq"><summary><span>How much does renters insurance cost?</span></summary><div class="fqa"><p>Less than most people guess, and it depends on where you live, what you are covering and your deductible. We will quote it across the companies we represent rather than quoting you a number here we cannot stand behind.</p></div></details>
+      <details class="fq"><summary><span>Does it cover my things outside the apartment?</span></summary><div class="fqa"><p>Usually, including in your car and while traveling — this varies by policy, so it is worth asking about the one you are actually buying.</p></div></details>
+      <details class="fq"><summary><span>My lease needs proof before I move in.</span></summary><div class="fqa"><p>Tell us the date and who it goes to. We can normally have the certificate in the leasing office the same day.</p></div></details>
+      <details class="fq"><summary><span>Does it cover my roommate?</span></summary><div class="fqa"><p>Generally not unless they are named on the policy. Two people, two policies is the usual answer, and it is cheap enough that it is rarely worth arguing about.</p></div></details>
+      <details class="fq"><summary><span>Will it lower my car insurance?</span></summary><div class="fqa"><p>Often, yes. Most carriers give a multi-policy discount, and it can offset a good part of what the renters policy costs. Ask us to quote both together.</p></div></details>
     </div>
   </section>
 

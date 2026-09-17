@@ -1690,12 +1690,41 @@ CSS = """
   .step b{display:block;font-size:16px;font-weight:800;color:var(--pnavy);margin-bottom:6px}
   .step p{font-size:14px;line-height:1.65;color:#4A5A74;font-weight:500}
 
-  .fgrid{display:grid;gap:13px;grid-template-columns:1fr;margin-top:30px}
-  @media(min-width:760px){ .fgrid{grid-template-columns:1fr 1fr} }
-  .fcard{border:1.5px solid var(--pline);border-radius:18px;padding:20px 22px;background:#fff}
-  .fcard b{display:block;font-size:15.5px;font-weight:800;color:var(--pnavy);margin-bottom:7px}
-  .fcard p{font-size:14px;line-height:1.68;color:#4A5A74;font-weight:500}
-  .fcard a{font-weight:800}
+  /* ---- what people ask us ----
+     A list, not a wall of cards. Six boxes in two columns made the reader scan
+     left-right-left for a question they might not have, and every answer was
+     open whether or not it was wanted. One column of questions reads as a list
+     of questions, which is what it is; the answers open on the one you actually
+     have.
+     Built on <details>, so it works with no JavaScript, is keyboard operable
+     and gets found by in-page search — the browser opens a closed <details>
+     when the text inside it matches a Ctrl-F. */
+  .faqlist{margin-top:30px;border-top:1px solid var(--pline);max-width:860px}
+  .fq{border-bottom:1px solid var(--pline)}
+  .fq summary{list-style:none;cursor:pointer;display:flex;align-items:flex-start;
+      gap:16px;padding:19px 4px;font-size:16px;font-weight:800;letter-spacing:-.014em;
+      color:var(--pnavy);line-height:1.4;transition:color .16s}
+  .fq summary::-webkit-details-marker{display:none}
+  .fq summary span{flex:1;min-width:0}
+  .fq summary:hover{color:var(--pblue)}
+  .fq[open] summary{color:var(--pblue)}
+  @media(min-width:760px){ .fq summary{font-size:17px;padding:21px 4px} }
+  /* The marker is drawn from two rules that cross, and the vertical one folds
+     away when the row opens — a plus becoming a minus. Drawn rather than set as
+     a glyph so it keeps its weight at any zoom, the same as the chevrons on the
+     guide cards. */
+  .fq summary::after{content:"";flex:0 0 auto;position:relative;width:13px;height:13px;
+      margin-top:5px;
+      background:
+        linear-gradient(var(--pblue),var(--pblue)) center/13px 2px no-repeat,
+        linear-gradient(var(--pblue),var(--pblue)) center/2px 13px no-repeat;
+      transition:transform .22s ease,background-size .22s ease}
+  .fq[open] summary::after{transform:rotate(180deg);
+      background:linear-gradient(var(--pblue),var(--pblue)) center/13px 2px no-repeat}
+  .fqa{padding:0 4px 20px;max-width:68ch}
+  .fqa p{font-size:14.5px;line-height:1.72;color:#4A5A74;font-weight:500}
+  .fq a{font-weight:800}
+  @media(prefers-reduced-motion:reduce){ .fq summary::after{transition:none} }
 
   /* Scaled to sit under the mix band without looking like a caption for it.
      Wider than the 1000px reading column the rest of the page uses, because it
@@ -2219,7 +2248,11 @@ def resources(p):
     gs = [g for g in guides_data.GUIDES if g['group'] == '101']
     feat = next(g for g in gs if g.get('featured'))
     rest = [g for g in gs if not g.get('featured')]
-    shot = 'assets/hero-auto.jpg'
+    # Its own picture rather than the hero's. The featured card is a tall
+    # portrait well and the hero photograph is a 16:9 landscape, so it was being
+    # cropped to a slice of itself — and it is also the same image the visitor
+    # passed thirty seconds earlier at the top of the page.
+    shot = 'assets/guide-featured.jpg'
     return (
         '  <section class="res petal2" aria-labelledby="resh">\n'
         '    <div class="reshd">\n'
@@ -2688,15 +2721,6 @@ def page(p):
     </div>
   </section>
 
-  <section class="sec">
-    <span class="kick">Coverage</span>
-    <h2>{cover_head}</h2>
-    <p class="sub">In plain words, so you can tell whether two quotes are actually the
-       same policy at different prices or two different policies.</p>
-    <div class="cgrid">
-{covercards}    </div>
-  </section>
-
 {discounts}
 {bigstatement}
 {resources}
@@ -2711,7 +2735,7 @@ def page(p):
   <section class="sec petal1">
     <span class="kick">Questions</span>
     <h2>What people ask us</h2>
-    <div class="fgrid">
+    <div class="faqlist">
 {faqcards}    </div>
   </section>
 
@@ -2753,14 +2777,12 @@ def page(p):
         misses_lede=p['misses_lede'], eye=EYE,
         misses=missection(p), picker=picker(p), bigstatement=bigstatement(p),
         discounts=discounts(p), resources=resources(p),
-        cover_head=e(p['cover_head']),
-        covercards=''.join('      <div class="ccard"><b>%s</b><p>%s</p></div>\n' % (t, b)
-                           for t, b in p['cover']),
         schema=schema(p),
         yes_kick=p.get('yes_kick', 'Who we write'),
         yes_head=e(p['yes_head']), yes_lede=p['yes_lede'],
         yescards=''.join(yescard(t) for t in p['yes']),
-        faqcards=''.join('      <div class="fcard"><b>%s</b><p>%s</p></div>\n' % (q, a)
+        faqcards=''.join('      <details class="fq"><summary><span>%s</span></summary>'
+                         '<div class="fqa"><p>%s</p></div></details>\n' % (q, a)
                          for q, a in p['faq']),
         alsocards=''.join(
             '      <a href="%s"><b>%s insurance</b><span>Shopped and read the same '

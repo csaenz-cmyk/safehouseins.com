@@ -42,7 +42,8 @@ import os
 # Ordered so the two most recognisable names land early in the loop, and so
 # no two visually similar wordmarks sit next to each other.
 NAMES = [
-    'Progressive', 'GEICO', 'Lemonade', 'Root', 'Kemper', 'NEXT', 'GAINSCO',
+    'Progressive', 'GEICO', 'Lemonade', 'Root', 'Clearcover', 'Kemper', 'NEXT',
+    'GAINSCO',
     'Hagerty', 'National General', 'Bluefire', 'Alinsco', 'Commonwealth',
     'Apollo', 'Connect',
 ]
@@ -64,6 +65,7 @@ TINT = {
     'Kemper':           ('#0C2340', '#E6E9ED'),
     'GAINSCO':          ('#E4002B', '#FDE9EC'),
     'NEXT':             ('#00B4E0', '#E2F7FD'),
+    'Clearcover':       ('#3B23D6', '#EAE7FC'),
     'Hagerty':          ('#1A1A1A', '#ECEDEF'),
     'National General': ('#003DA5', '#E5EBF6'),
     'Bluefire':         ('#1D5FBF', '#E7EFFB'),

@@ -119,6 +119,7 @@ DOMAIN = {
     'Kemper':           'kemper.com',
     'GAINSCO':          'gainsco.com',
     'NEXT':             'nextinsurance.com',
+    'Clearcover':       'clearcover.com',
     'Hagerty':          'hagerty.com',
     'National General': 'nationalgeneral.com',
     # The regional carriers and MGAs below are the ones worth confirming first
