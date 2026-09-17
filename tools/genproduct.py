@@ -116,10 +116,10 @@ PRODUCTS = [
     'are insured. We do these regularly and often the same day.'),
  ],
 
- 'yes_head': 'Turned down somewhere else? Start here.',
- 'yes_lede': 'None of these are edge cases for us &mdash; they are most of a normal week. '
-             'The carrier that says no to one person says yes to another, and knowing '
-             'which is which is the job.',
+ 'yes_kick': 'Who we insure',
+ 'yes_head': 'Coverage for more drivers than you might think.',
+ 'yes_lede': 'From clean records to more complicated situations, we shop multiple '
+             'companies to help more people find coverage.',
  # Where a guide exists for the situation, the item links to it. This list is
  # the single best place on the site to catch somebody who arrived searching
  # for their own circumstance and is looking for the line that describes them.
@@ -127,14 +127,26 @@ PRODUCTS = [
  # has been turned down somewhere else is hunting for the picture of their own
  # situation, and eight full sentences is the opposite of that. The long
  # version of each one is the guide it links to.
- 'yes': [('Tickets &amp; accidents', 'car-insurance-after-a-dwi', 'alert'),
-         ('SR-22 filings', 'sr-22-texas-new-mexico', 'form'),
-         ('A lapse in coverage', 'car-insurance-after-a-lapse', 'gap'),
-         ('New &amp; teen drivers', 'new-driver-car-insurance', 'learner'),
-         ('Foreign license or matr&iacute;cula', 'car-insurance-without-a-license', 'id'),
-         ('Driver with no car', 'non-owner-car-insurance', 'key'),
-         ('Several cars or drivers', '', 'cars'),
-         ('Rideshare &amp; delivery', 'rideshare-and-delivery-insurance', 'app')],
+ # (label, guide slug, glyph, sub-line, picture). The picture is a file in
+ # assets/who/ without its extension; a card with no picture yet falls back to
+ # its glyph, so the six can be illustrated one at a time rather than all at
+ # once.
+ 'yes': [('Everyday drivers', '', 'cars',
+          'Clean record, families, commuters', 'everyday'),
+         ('New drivers', 'new-driver-car-insurance', 'learner',
+          'First-time drivers and teenagers', ''),
+         ('Tickets or accidents', 'car-insurance-after-a-dwi', 'alert',
+          'Drivers with violations or claims', ''),
+         ('SR-22', 'sr-22-texas-new-mexico', 'form',
+          'State filings and special requirements', ''),
+         ('Foreign licenses', 'car-insurance-without-a-license', 'id',
+          'Matr&iacute;cula, passport or international license', 'foreign-license'),
+         # Not "we insure everyone". No agency can promise that, the carriers
+         # decide, and the About page already says out loud that an agency
+         # which can only ever find you a yes is not shopping. This keeps the
+         # door open without making a promise the next page contradicts.
+         ('No license', 'car-insurance-without-a-license', 'key',
+          'Yes, this is something we can quote', 'no-license')],
 
  'faq': [
    ('Do I have to buy anything to get a quote?',
@@ -1310,6 +1322,45 @@ CSS = """
      draws itself across the top on hover, and an arrow that was always there
      but only colours in when you are on it. The flat version read as a list
      of links with a border around each one. */
+  /* ---- who we insure ----
+     Six cards with a picture on each, not eight tiles with a glyph. The
+     illustration does the work the label used to: somebody who has been turned
+     down elsewhere is scanning for the picture of their own situation, and a
+     picture is found faster than two words are read. A card whose artwork has
+     not arrived yet keeps the glyph and sits the same height, so the grid never
+     looks half-built. */
+  .ygrid{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:30px}
+  @media(min-width:760px){ .ygrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px} }
+  .ycard{position:relative;display:flex;flex-direction:column;align-items:center;
+      text-align:center;gap:12px;padding:22px 16px 20px;border-radius:20px;
+      border:1px solid var(--pline);text-decoration:none;
+      background:linear-gradient(170deg,#fff 0%,#FBFCFE 60%,#F3F8FE 100%);
+      box-shadow:0 18px 34px -32px rgba(8,24,58,.85);
+      transition:border-color .2s,transform .2s,box-shadow .2s}
+  @media(min-width:760px){ .ycard{padding:26px 20px 24px;gap:14px} }
+  a.ycard:hover{border-color:#BFD8FB;transform:translateY(-4px);text-decoration:none;
+      box-shadow:0 30px 52px -30px rgba(22,102,237,.45)}
+  .ycard .ypic{display:block;width:100%;max-width:168px;aspect-ratio:1;
+      border-radius:16px;overflow:hidden;background:#F2F7FE}
+  .ycard .ypic img{width:100%;height:100%;object-fit:contain;display:block}
+  /* The glyph fallback takes the same footprint as a picture so a half
+     illustrated grid still lines up row to row. */
+  .ycard .yi{display:grid;place-items:center;width:100%;max-width:168px;aspect-ratio:1;
+      border-radius:16px;background:#EDF4FE}
+  .ycard .yi svg{width:46px;height:46px;fill:none;stroke:var(--pblue);stroke-width:1.7;
+      stroke-linecap:round;stroke-linejoin:round}
+  .ycard .ytx{display:block}
+  .ycard b{display:block;font-size:15.5px;font-weight:900;letter-spacing:-.018em;
+      color:var(--pnavy);line-height:1.25}
+  @media(min-width:760px){ .ycard b{font-size:17px} }
+  .ycard small{display:block;margin-top:5px;font-size:12.5px;line-height:1.45;
+      color:#64748F;font-weight:600}
+  @media(min-width:760px){ .ycard small{font-size:13.5px} }
+  a.ycard:hover b{color:var(--pblue)}
+  @media(prefers-reduced-motion:reduce){
+    .ycard{transition:none} a.ycard:hover{transform:none}
+  }
+
   .reslist a{position:relative;isolation:isolate;display:block;border-radius:18px;
       padding:20px 52px 20px 22px;border:1px solid var(--pline);
       background:linear-gradient(168deg,#fff 0%,#FBFCFE 58%,#F4F8FE 100%);
@@ -1377,32 +1428,11 @@ CSS = """
   .ccard b{display:block;font-size:16px;font-weight:800;color:var(--pnavy);margin-bottom:7px}
   .ccard p{font-size:14px;line-height:1.65;color:#4A5A74;font-weight:500}
 
-  /* Two across even on the smallest phone. These are pictures with two words
-     under them now, not sentences, so they fit — and two columns is what makes
-     the whole set visible at a glance instead of scrolled through. */
-  .ygrid{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:30px}
-  @media(min-width:760px){ .ygrid{grid-template-columns:repeat(4,1fr);gap:14px} }
-  /* Picture first, two or three words under it, centred. The row version of
-     this — a check mark and a sentence — made the visitor read eight lines to
-     find out whether they were welcome. */
-  .ycard{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
-      gap:12px;text-align:center;border:1px solid var(--pline);border-radius:18px;
-      padding:22px 14px 20px;background:#fff;
-      box-shadow:0 16px 32px -32px rgba(8,24,58,.9)}
-  .ycard b{font-size:14.5px;font-weight:800;color:var(--pnavy);line-height:1.3;
-      letter-spacing:-.012em}
-  @media(min-width:760px){ .ycard{padding:26px 16px 22px} .ycard b{font-size:15.5px} }
-  .ycard .yi{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
-      background:linear-gradient(150deg,#EAF2FE,#DCEAFE);flex:0 0 auto}
-  @media(min-width:760px){ .ycard .yi{width:58px;height:58px;border-radius:18px} }
-  .ycard .yi svg{width:26px;height:26px;stroke:var(--pblue);stroke-width:1.8;fill:none;
-      stroke-linecap:round;stroke-linejoin:round}
-  @media(min-width:760px){ .ycard .yi svg{width:28px;height:28px} }
-  a.ycard{transition:border-color .18s,transform .18s,box-shadow .18s}
-  a.ycard:hover{border-color:#C9DDFA;transform:translateY(-3px);
-      box-shadow:0 24px 44px -30px rgba(8,24,58,.95)}
-  a.ycard:hover .yi{background:linear-gradient(150deg,#DCEAFE,#C9DDFA)}
-  a.ycard:focus-visible{outline:2px solid var(--pblue);outline-offset:3px}
+  /* The illustrated version of these cards is defined higher up, with the rest
+     of the "who we insure" block. The eight-tile version that used to live here
+     was replaced by six cards with a picture each, and leaving its rules behind
+     meant the old ones won on source order: four columns instead of three, and
+     a 52px glyph where a 168px illustration should be. */
 
   .steps{display:grid;gap:14px;grid-template-columns:1fr;margin-top:30px;counter-reset:s}
   @media(min-width:760px){ .steps{grid-template-columns:repeat(3,1fr)} }
@@ -1515,6 +1545,12 @@ CSS = """
   .mchip em{display:block;font-style:normal;font-size:16px;font-weight:900;
       color:var(--pnavy);line-height:1.15;margin-top:2px;
       font-variant-numeric:tabular-nums}
+  .mchip em i{font-style:normal;font-size:11.5px;font-weight:800;color:#7C8BA4;
+      letter-spacing:.01em}
+  /* The masked figure. Deliberately unreadable as a number: it holds the shape
+     of a price comparison without claiming a price we do not have. */
+  .mchip em.mmask{color:#9DB0C9;letter-spacing:.06em}
+  .mchip em.mmask i{color:#B8C6D8}
   .mchip.mlow{box-shadow:0 0 0 2px var(--pblue),0 14px 30px -16px rgba(0,0,0,.6)}
   .mchip.mlow em{color:var(--pblue)}
   .mchip.mlow::after{content:"lower";position:absolute;top:-9px;right:10px;
@@ -1877,24 +1913,52 @@ def glyph(name):
             + '</svg>')
 
 
-def yescard(item):
-    """One tile of "who we write".
+WHO_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                       'assets', 'who')
 
-    Takes a plain string, or (label, guide-slug, glyph). The three-part form
-    renders a picture and two or three words; a plain string falls back to a
+
+def who_picture(name):
+    """The card's illustration if the file is there, else None.
+
+    Checked on disk at build time rather than assumed, so a name typed here
+    before the artwork arrives falls back to the glyph instead of becoming a
+    broken image on a live page — which is how the six get illustrated one at a
+    time rather than all at once.
+    """
+    if not name:
+        return None
+    for ext in ('.webp', '.png', '.jpg', '.svg'):
+        if os.path.exists(os.path.join(WHO_DIR, name + ext)):
+            return 'assets/who/' + name + ext
+    return None
+
+
+def yescard(item):
+    """One card of "who we insure".
+
+    Takes a plain string, or (label, guide-slug, glyph, sub-line, picture).
+    The long form renders an illustrated card; a plain string falls back to a
     check mark and its own text, which is what the four non-car products still
     supply.
     """
-    slug = icon = ''
+    slug = icon = sub = pic = ''
     if isinstance(item, tuple):
-        label, slug, icon = (list(item) + ['', ''])[:3]
+        label, slug, icon, sub, pic = (list(item) + ['', '', '', ''])[:5]
     else:
         label = item
-    inner = ('<span class="yi">' + glyph(icon) + '</span>'
-             '<b>' + label + '</b>')
+
+    src = who_picture(pic)
+    if src:
+        art = ('<span class="ypic"><img src="' + src + '" alt="" '
+               'loading="lazy" decoding="async"></span>')
+    else:
+        art = '<span class="yi">' + glyph(icon) + '</span>'
+    inner = (art + '<span class="ytx"><b>' + label + '</b>'
+             + ('<small>' + sub + '</small>' if sub else '') + '</span>')
+    cls = 'ycard' + (' yfull' if src else '')
     if slug:
-        return '      <a class="ycard" href="learn/%s/">%s</a>\n' % (slug, inner)
-    return '      <div class="ycard">%s</div>\n' % inner
+        return '      <a class="%s" href="learn/%s/">%s</a>\n' % (cls, slug, inner)
+    return '      <div class="%s">%s</div>\n' % (cls, inner)
 
 
 def resources(p):
@@ -1966,6 +2030,13 @@ COMPARE = [
 ]
 COMPARE_NOTE = ''      # e.g. 'Same driver, same 2019 Silverado, same limits, March 2026.'
 
+# With no real pair set, the chips still read as a price comparison — two
+# carriers, two per-month slots side by side — but the figures are masked
+# rather than made up. That is the honest way to show the shape of the thing:
+# it promises the reader two numbers to compare without telling them what
+# Progressive and GEICO charge, which we do not know and must not assert.
+COMPARE_MASK = '$&bull;&bull;&bull;'
+
 
 def mixchips(up=''):
     """The two carriers above the compare headline.
@@ -1994,7 +2065,10 @@ def mixchips(up=''):
             fg, bg = carriers.TINT.get(name, carriers.DEFAULT_TINT)
             mark = ('<span class="lg" aria-hidden="true" style="background:' + bg
                     + ';color:' + fg + '">' + name[0] + '</span>')
-        sub = ('<em>' + price + '</em>') if price else ('<small>' + line + '</small>')
+        if price:
+            sub = '<em>' + price + '<i>/mo</i></em>'
+        else:
+            sub = ('<em class="mmask">' + COMPARE_MASK + '<i>/mo</i></em>')
         # A carrier with artwork does not also need its name set beside it — the
         # logo is the name. Same rule the strip makes, and without it the chip
         # reads "PROGRESSIVE Progressive".
@@ -2003,7 +2077,13 @@ def mixchips(up=''):
         out.append('<span class="mchip' + low + '">' + mark
                    + '<span>' + title + sub + '</span></span>')
 
-    note = ('<p class="mixnote">' + COMPARE_NOTE + '</p>') if (COMPARE_NOTE and priced) else ''
+    if priced and COMPARE_NOTE:
+        note = '<p class="mixnote">' + COMPARE_NOTE + '</p>'
+    elif not priced:
+        note = ('<p class="mixnote">Your two numbers, side by side &mdash; '
+                'from a real quote, in about five minutes.</p>')
+    else:
+        note = ''
     return ('<div class="mixchips">' + ''.join(out) + '</div>' + note)
 
 
@@ -2337,7 +2417,7 @@ def page(p):
 {bigstatement}
 {resources}
   <section class="sec">
-    <span class="kick">Who we write</span>
+    <span class="kick">{yes_kick}</span>
     <h2>{yes_head}</h2>
     <p class="sub">{yes_lede}</p>
     <div class="ygrid">
@@ -2391,6 +2471,7 @@ def page(p):
         cover_head=e(p['cover_head']),
         covercards=''.join('      <div class="ccard"><b>%s</b><p>%s</p></div>\n' % (t, b)
                            for t, b in p['cover']),
+        yes_kick=p.get('yes_kick', 'Who we write'),
         yes_head=e(p['yes_head']), yes_lede=p['yes_lede'],
         yescards=''.join(yescard(t) for t in p['yes']),
         faqcards=''.join('      <div class="fcard"><b>%s</b><p>%s</p></div>\n' % (q, a)

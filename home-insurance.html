@@ -544,6 +544,45 @@
      draws itself across the top on hover, and an arrow that was always there
      but only colours in when you are on it. The flat version read as a list
      of links with a border around each one. */
+  /* ---- who we insure ----
+     Six cards with a picture on each, not eight tiles with a glyph. The
+     illustration does the work the label used to: somebody who has been turned
+     down elsewhere is scanning for the picture of their own situation, and a
+     picture is found faster than two words are read. A card whose artwork has
+     not arrived yet keeps the glyph and sits the same height, so the grid never
+     looks half-built. */
+  .ygrid{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:30px}
+  @media(min-width:760px){ .ygrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px} }
+  .ycard{position:relative;display:flex;flex-direction:column;align-items:center;
+      text-align:center;gap:12px;padding:22px 16px 20px;border-radius:20px;
+      border:1px solid var(--pline);text-decoration:none;
+      background:linear-gradient(170deg,#fff 0%,#FBFCFE 60%,#F3F8FE 100%);
+      box-shadow:0 18px 34px -32px rgba(8,24,58,.85);
+      transition:border-color .2s,transform .2s,box-shadow .2s}
+  @media(min-width:760px){ .ycard{padding:26px 20px 24px;gap:14px} }
+  a.ycard:hover{border-color:#BFD8FB;transform:translateY(-4px);text-decoration:none;
+      box-shadow:0 30px 52px -30px rgba(22,102,237,.45)}
+  .ycard .ypic{display:block;width:100%;max-width:168px;aspect-ratio:1;
+      border-radius:16px;overflow:hidden;background:#F2F7FE}
+  .ycard .ypic img{width:100%;height:100%;object-fit:contain;display:block}
+  /* The glyph fallback takes the same footprint as a picture so a half
+     illustrated grid still lines up row to row. */
+  .ycard .yi{display:grid;place-items:center;width:100%;max-width:168px;aspect-ratio:1;
+      border-radius:16px;background:#EDF4FE}
+  .ycard .yi svg{width:46px;height:46px;fill:none;stroke:var(--pblue);stroke-width:1.7;
+      stroke-linecap:round;stroke-linejoin:round}
+  .ycard .ytx{display:block}
+  .ycard b{display:block;font-size:15.5px;font-weight:900;letter-spacing:-.018em;
+      color:var(--pnavy);line-height:1.25}
+  @media(min-width:760px){ .ycard b{font-size:17px} }
+  .ycard small{display:block;margin-top:5px;font-size:12.5px;line-height:1.45;
+      color:#64748F;font-weight:600}
+  @media(min-width:760px){ .ycard small{font-size:13.5px} }
+  a.ycard:hover b{color:var(--pblue)}
+  @media(prefers-reduced-motion:reduce){
+    .ycard{transition:none} a.ycard:hover{transform:none}
+  }
+
   .reslist a{position:relative;isolation:isolate;display:block;border-radius:18px;
       padding:20px 52px 20px 22px;border:1px solid var(--pline);
       background:linear-gradient(168deg,#fff 0%,#FBFCFE 58%,#F4F8FE 100%);
@@ -611,32 +650,11 @@
   .ccard b{display:block;font-size:16px;font-weight:800;color:var(--pnavy);margin-bottom:7px}
   .ccard p{font-size:14px;line-height:1.65;color:#4A5A74;font-weight:500}
 
-  /* Two across even on the smallest phone. These are pictures with two words
-     under them now, not sentences, so they fit — and two columns is what makes
-     the whole set visible at a glance instead of scrolled through. */
-  .ygrid{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:30px}
-  @media(min-width:760px){ .ygrid{grid-template-columns:repeat(4,1fr);gap:14px} }
-  /* Picture first, two or three words under it, centred. The row version of
-     this — a check mark and a sentence — made the visitor read eight lines to
-     find out whether they were welcome. */
-  .ycard{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
-      gap:12px;text-align:center;border:1px solid var(--pline);border-radius:18px;
-      padding:22px 14px 20px;background:#fff;
-      box-shadow:0 16px 32px -32px rgba(8,24,58,.9)}
-  .ycard b{font-size:14.5px;font-weight:800;color:var(--pnavy);line-height:1.3;
-      letter-spacing:-.012em}
-  @media(min-width:760px){ .ycard{padding:26px 16px 22px} .ycard b{font-size:15.5px} }
-  .ycard .yi{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
-      background:linear-gradient(150deg,#EAF2FE,#DCEAFE);flex:0 0 auto}
-  @media(min-width:760px){ .ycard .yi{width:58px;height:58px;border-radius:18px} }
-  .ycard .yi svg{width:26px;height:26px;stroke:var(--pblue);stroke-width:1.8;fill:none;
-      stroke-linecap:round;stroke-linejoin:round}
-  @media(min-width:760px){ .ycard .yi svg{width:28px;height:28px} }
-  a.ycard{transition:border-color .18s,transform .18s,box-shadow .18s}
-  a.ycard:hover{border-color:#C9DDFA;transform:translateY(-3px);
-      box-shadow:0 24px 44px -30px rgba(8,24,58,.95)}
-  a.ycard:hover .yi{background:linear-gradient(150deg,#DCEAFE,#C9DDFA)}
-  a.ycard:focus-visible{outline:2px solid var(--pblue);outline-offset:3px}
+  /* The illustrated version of these cards is defined higher up, with the rest
+     of the "who we insure" block. The eight-tile version that used to live here
+     was replaced by six cards with a picture each, and leaving its rules behind
+     meant the old ones won on source order: four columns instead of three, and
+     a 52px glyph where a 168px illustration should be. */
 
   .steps{display:grid;gap:14px;grid-template-columns:1fr;margin-top:30px;counter-reset:s}
   @media(min-width:760px){ .steps{grid-template-columns:repeat(3,1fr)} }
@@ -749,6 +767,12 @@
   .mchip em{display:block;font-style:normal;font-size:16px;font-weight:900;
       color:var(--pnavy);line-height:1.15;margin-top:2px;
       font-variant-numeric:tabular-nums}
+  .mchip em i{font-style:normal;font-size:11.5px;font-weight:800;color:#7C8BA4;
+      letter-spacing:.01em}
+  /* The masked figure. Deliberately unreadable as a number: it holds the shape
+     of a price comparison without claiming a price we do not have. */
+  .mchip em.mmask{color:#9DB0C9;letter-spacing:.06em}
+  .mchip em.mmask i{color:#B8C6D8}
   .mchip.mlow{box-shadow:0 0 0 2px var(--pblue),0 14px 30px -16px rgba(0,0,0,.6)}
   .mchip.mlow em{color:var(--pblue)}
   .mchip.mlow::after{content:"lower";position:absolute;top:-9px;right:10px;
@@ -1225,7 +1249,7 @@
 
   <section class="mix">
     <div class="mixin">
-      <div class="mixchips"><span class="mchip"><span class="lg lgm"><img src="assets/carriers/progressive.svg" alt="Progressive" decoding="async"></span><span><small>Auto insurance</small></span></span><span class="mchip"><span class="lg lgm"><img src="assets/carriers/geico.webp" alt="GEICO" decoding="async"></span><span><small>Auto insurance</small></span></span></div>
+      <div class="mixchips"><span class="mchip"><span class="lg lgm"><img src="assets/carriers/progressive.svg" alt="Progressive" decoding="async"></span><span><em class="mmask">$&bull;&bull;&bull;<i>/mo</i></em></span></span><span class="mchip"><span class="lg lgm"><img src="assets/carriers/geico.webp" alt="GEICO" decoding="async"></span><span><em class="mmask">$&bull;&bull;&bull;<i>/mo</i></em></span></span></div><p class="mixnote">Your two numbers, side by side &mdash; from a real quote, in about five minutes.</p>
       <div class="mixsay">
         <h2>Compare between companies</h2>
         <p>The same driver, the same car, the same coverage &mdash; and the companies
@@ -1266,14 +1290,14 @@
     <h2>What we write</h2>
     <p class="sub">Homeowners is not one product. What you own and how you use it decides which companies will even look at it.</p>
     <div class="ygrid">
-      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Houses you live in</b></div>
-      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Mobile and manufactured homes</b></div>
-      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Renters and condo</b></div>
-      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>A second home or a rental you own</b></div>
-      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Older homes and older roofs</b></div>
-      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>New construction</b></div>
-      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Bundled with your cars</b></div>
-      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Homes with a lienholder</b></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="ytx"><b>Houses you live in</b></span></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="ytx"><b>Mobile and manufactured homes</b></span></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="ytx"><b>Renters and condo</b></span></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="ytx"><b>A second home or a rental you own</b></span></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="ytx"><b>Older homes and older roofs</b></span></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="ytx"><b>New construction</b></span></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="ytx"><b>Bundled with your cars</b></span></div>
+      <div class="ycard"><span class="yi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span class="ytx"><b>Homes with a lienholder</b></span></div>
     </div>
   </section>
 
