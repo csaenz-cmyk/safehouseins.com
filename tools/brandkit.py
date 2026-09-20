@@ -236,6 +236,7 @@ CSS = """
   .pblock p{font-size:15.5px;color:#25344b;font-weight:500;margin-top:12px;line-height:1.66}
   .pblock .tagx{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.12em;
       text-transform:uppercase;color:var(--acc);margin-bottom:12px}
+  @media(max-width:760px){ .pblock .tagx,.tagx{font-size:11.5px} }
 
   /* ---------------- proof ---------------- */
   .proof{display:grid;gap:14px;margin-top:32px}

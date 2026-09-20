@@ -119,13 +119,27 @@
       background:linear-gradient(100deg,rgba(6,16,38,.90) 0%,rgba(6,16,38,.78) 30%,
                  rgba(6,16,38,.44) 56%,rgba(6,16,38,0) 78%)}
   @media(max-width:899px){
-    /* Narrow, the copy spans the frame rather than sitting in a column, and it
-       starts near the top rather than the bottom — the headline sits at about a
-       fifth of the way down. A bottom-up gradient puts its weakest end exactly
-       there, which measured 2.8:1 under the headline. So this one is close to
-       even across the frame and only eases off below the buttons. */
-    .ph.bg.phveil::after{background:linear-gradient(180deg,rgba(6,16,38,.80) 0%,
+    /* On a phone EVERY photographic hero gets the veil, opt-in or not. The
+       per-page flag is a desktop judgement: there the copy sits in a column
+       over a part of the frame somebody chose, so a dark photograph needs
+       nothing. Narrow, none of that holds — the copy spans the full width and
+       `cover` throws away most of the picture, so which part of it lands under
+       the headline is decided by the crop rather than by anyone. Measured on
+       the car hero at 390, which passes comfortably on desktop with no veil,
+       the headline had spots at 1.02:1 and the lede at 1.06:1. That is white
+       text on white.
+       The copy also starts near the top rather than the bottom, so this runs
+       close to even across the frame and only eases off below the buttons; a
+       bottom-up gradient puts its weakest end right under the headline. */
+    /* Both selectors, because a page that opted in for desktop carries
+       .ph.bg.phveil and that outweighs a bare .ph.bg — so the desktop
+       left-to-right gradient would win here and its weak end is the right of
+       the frame, which on a phone is under the text rather than beside it. */
+    .ph.bg::after,.ph.bg.phveil::after{content:"";position:absolute;inset:0;z-index:0;
+        pointer-events:none;
+        background:linear-gradient(180deg,rgba(6,16,38,.80) 0%,
                  rgba(6,16,38,.86) 26%,rgba(6,16,38,.88) 62%,rgba(6,16,38,.74) 100%)}
+    .ph.bg .phin,.ph.bg .phgrid{position:relative;z-index:1}
   }
   .ph.bg.phveil .phin,.ph.bg.phveil .phgrid{position:relative;z-index:1}
   /* Every piece of type over the photograph states its own shadow, because
@@ -858,6 +872,27 @@
       text-shadow:0 2px 24px rgba(10,6,2,.55)}
   .mixsay p{margin-top:16px;font-size:clamp(15.5px,1.5vw,19px);line-height:1.6;font-weight:600;
       color:rgba(255,255,255,.95);text-shadow:0 2px 16px rgba(10,6,2,.6)}
+  @media(max-width:700px){
+    /* This block was laid out for a wide frame and inherited badly on a phone.
+       Three things were wrong and they compound: a 34px uppercase headline took
+       three lines, fifty-three words of bold body were centred under it, and
+       the price note sat between the chips and the headline where it read as a
+       caption belonging to neither. Centred ragged text is the expensive one —
+       every line starts in a different place, so on a narrow measure the eye
+       has to find the start of each one. */
+    /* justify-content:space-between spreads the children across the block's
+       min-height, which with three of them put the headline hard against the
+       chips. Stack from the top with a stated gap instead. */
+    .mixin{padding-bottom:30px;justify-content:flex-start;gap:26px}
+    .mixchips{gap:8px;justify-content:flex-start}
+    .mixnote{order:3;margin:auto 0 0;font-size:12px;line-height:1.45;
+        max-width:34ch;text-align:left;color:rgba(255,255,255,.72)}
+    .mixsay{text-align:left;max-width:none}
+    .mixsay h2{font-size:26px;line-height:1.08;letter-spacing:-.022em;
+        text-transform:none}
+    .mixsay p{margin-top:12px;font-size:15px;line-height:1.62;font-weight:500;
+        color:rgba(255,255,255,.92)}
+  }
   body>footer{padding:0 0 34px;border-top:1px solid var(--line);background:#FBFCFE}
   body>footer .fshell{max-width:1180px;margin:0 auto;padding:0 22px}
   body>footer .fband{padding:34px 0;border-bottom:1px solid var(--line)}
@@ -905,6 +940,23 @@
   body>footer .fcols a{display:block;font-size:14px;font-weight:600;color:var(--muted);padding:3px 0}
   body>footer .fdeck a:hover,
   body>footer .fcols a:hover{color:var(--blue)}
+
+  /* ---- phone ergonomics ----
+     Two measured things, both about the finger rather than the eye.
+
+     A footer link was a 28px row and "See all 14 guides" was 23px, against a
+     44px guideline. Neither is a small font — they are tight rows — so this
+     buys the height back with padding, which grows the target without changing
+     a single type size or reflowing the column.
+
+     And the uppercase micro-labels sat at 11px. Uppercase with letter-spacing
+     is a label convention rather than body copy, so this is a nudge and not a
+     correction — but 11px of tracked caps on a phone is the edge of it. */
+  @media(max-width:760px){
+    body>footer .fcols a{padding:9px 0}
+    .resall{padding:9px 0;display:inline-flex}
+    .pkcard .lab,.mfig .lab,.lab,.dsceyebrow,.resfeat .tag,.kick{font-size:11.5px}
+  }
   body>footer .fdeck .more{font-weight:800;color:var(--blue);margin-top:8px}
   body>footer .fway a:not(.big){display:inline-block;font-size:13px;font-weight:800;
       color:var(--blue);margin-top:7px}
@@ -1108,7 +1160,7 @@
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <style>.mixin::before{background-image:url("assets/mix-couch.jpg")}</style>
-  <header class="ph bg">
+  <header class="ph bg phveil">
     <style>.ph.bg::before{background-image:url("assets/hero-auto.jpg")}</style>
     <nav>
       <a href="index.html" aria-label="Safe House Insurance home"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>

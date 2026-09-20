@@ -250,6 +250,23 @@
   body>footer .fcols a{display:block;font-size:14px;font-weight:600;color:var(--muted);padding:3px 0}
   body>footer .fdeck a:hover,
   body>footer .fcols a:hover{color:var(--blue)}
+
+  /* ---- phone ergonomics ----
+     Two measured things, both about the finger rather than the eye.
+
+     A footer link was a 28px row and "See all 14 guides" was 23px, against a
+     44px guideline. Neither is a small font — they are tight rows — so this
+     buys the height back with padding, which grows the target without changing
+     a single type size or reflowing the column.
+
+     And the uppercase micro-labels sat at 11px. Uppercase with letter-spacing
+     is a label convention rather than body copy, so this is a nudge and not a
+     correction — but 11px of tracked caps on a phone is the edge of it. */
+  @media(max-width:760px){
+    body>footer .fcols a{padding:9px 0}
+    .resall{padding:9px 0;display:inline-flex}
+    .pkcard .lab,.mfig .lab,.lab,.dsceyebrow,.resfeat .tag,.kick{font-size:11.5px}
+  }
   body>footer .fdeck .more{font-weight:800;color:var(--blue);margin-top:8px}
   body>footer .fway a:not(.big){display:inline-block;font-size:13px;font-weight:800;
       color:var(--blue);margin-top:7px}

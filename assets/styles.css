@@ -488,3 +488,10 @@
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   }
+
+/* Phone ergonomics: a 28px footer row against a 44px touch guideline. Not a
+   small font — a tight row — so the height is bought back with padding, which
+   grows the target without changing a type size or reflowing the column. */
+@media(max-width:760px){
+  body>footer .fcols a,footer .fcols a,.fcols a{padding:9px 0}
+}

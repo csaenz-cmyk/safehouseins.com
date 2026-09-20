@@ -277,6 +277,13 @@ HEAD = """<!doctype html>
   footer .fdeck .c2{display:grid;grid-template-columns:1fr 1fr;gap:2px 14px}
   footer .fdeck a,
   footer .fcols a{display:block;font-size:14px;font-weight:600;color:var(--muted);padding:3px 0}
+
+  /* Phone ergonomics: a 28px footer row against a 44px touch guideline. Not a
+     small font — a tight row — so the height is bought back with padding, which
+     grows the target without changing a type size or reflowing the column. */
+  @media(max-width:760px){
+    body>footer .fcols a,footer .fcols a{padding:9px 0}
+  }
   footer .fdeck a:hover,
   footer .fcols a:hover{color:var(--blue)}
   footer .fdeck .more{font-weight:800;color:var(--blue);margin-top:8px}

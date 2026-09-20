@@ -640,6 +640,31 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
     .opt .tx b{font-size:17.5px}
   }
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+  /* ---- the form on a phone ----
+     Two things, and the first is not cosmetic. iOS Safari zooms the whole page
+     when a field smaller than 16px takes focus, and thirty-four of these sat at
+     15 or 15.5 — so tapping any of them threw the layout sideways and left the
+     visitor pinching back out mid-application. Sixteen is the threshold, not a
+     preference.
+     The second is that a form is mostly labels, and at 11px they were the
+     smallest type on the page carrying the most important job on it. The
+     required marker and the optional tag were at 9.5. */
+  @media(max-width:760px){
+    /* Specificity matched to what is already there: .blk .fl select and
+       .covgrp .fl select set these, and a bare type selector loses to both. */
+    .blk .fl input,.blk .fl select,.blk .fl textarea,
+    .covgrp .fl select,.covgrp .fl input,
+    input,select,textarea{font-size:16px}
+    .fl label,.covgrp .fl label,label{font-size:13px;letter-spacing:.02em}
+    .opt2,span.opt2{font-size:12.5px}
+    /* These three carry a class whose rule sits inside a more specific
+       ancestor selector, so the flat version above loses. The .diag block is
+       left alone on purpose — it is the diagnostic panel and says so. */
+    .covgh .req,b .req,.fl b .req,.req,span.req{font-size:11.5px}
+    .step .tag,.tag,span.tag{font-size:11.5px}
+    .qnum small,.fl small,small{font-size:12px}
+  }
 </style>
 
 
