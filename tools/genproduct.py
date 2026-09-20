@@ -1093,7 +1093,10 @@ CSS = """
      square there, so `cover` throws away most of the width. The horizontal
      anchor is pulled right so what survives is the people rather than a wing
      mirror. */
-  .ph.bg::before{background-position:62% 42%}
+  /* Framed on the people, not on the middle. The couple sit at about 72% across
+     and 40% down; at 62% the narrow phone crop cut one of them off and filled
+     the rest with the car's dark flank, which is what the band was showing. */
+  .ph.bg::before{background-position:72% 38%}
   @media(min-width:900px){
     /* Inset from the left edge, but a fraction of it rather than the sixth of
        the frame the centred reading column was giving. */
@@ -1122,27 +1125,30 @@ CSS = """
       background:linear-gradient(100deg,rgba(6,16,38,.90) 0%,rgba(6,16,38,.78) 30%,
                  rgba(6,16,38,.44) 56%,rgba(6,16,38,0) 78%)}
   @media(max-width:899px){
-    /* On a phone EVERY photographic hero gets the veil, opt-in or not. The
-       per-page flag is a desktop judgement: there the copy sits in a column
-       over a part of the frame somebody chose, so a dark photograph needs
-       nothing. Narrow, none of that holds — the copy spans the full width and
-       `cover` throws away most of the picture, so which part of it lands under
-       the headline is decided by the crop rather than by anyone. Measured on
-       the car hero at 390, which passes comfortably on desktop with no veil,
-       the headline had spots at 1.02:1 and the lede at 1.06:1. That is white
-       text on white.
-       The copy also starts near the top rather than the bottom, so this runs
-       close to even across the frame and only eases off below the buttons; a
-       bottom-up gradient puts its weakest end right under the headline. */
-    /* Both selectors, because a page that opted in for desktop carries
-       .ph.bg.phveil and that outweighs a bare .ph.bg — so the desktop
-       left-to-right gradient would win here and its weak end is the right of
-       the frame, which on a phone is under the text rather than beside it. */
-    .ph.bg::after,.ph.bg.phveil::after{content:"";position:absolute;inset:0;z-index:0;
-        pointer-events:none;
-        background:linear-gradient(180deg,rgba(6,16,38,.80) 0%,
-                 rgba(6,16,38,.86) 26%,rgba(6,16,38,.88) 62%,rgba(6,16,38,.74) 100%)}
-    .ph.bg .phin,.ph.bg .phgrid{position:relative;z-index:1}
+    /* On a phone the photograph stops being a background and becomes a band.
+       The copy here runs from a fifth of the way down to about four fifths, so
+       there is no part of the frame it does not cover — and `cover` at 390x760
+       against a 16:9 photograph keeps under a third of its width, so whatever
+       the picture was of is mostly cropped away before the text even lands on
+       it. Darkening it enough to read the text then finishes the job: the
+       result is a dim rectangle with a headline on it.
+       So: the picture gets the top of the hero to itself, framed on its
+       subject, and the words sit underneath on the brand navy where they need
+       no veil at all. Nothing is dimmed, nothing is cropped through a face, and
+       the type is on a solid ground rather than fighting a photograph. */
+    .ph.bg{padding-top:0;background:linear-gradient(170deg,#0B1E44 0%,#0A1A3A 60%,#081428 100%)}
+    .ph.bg::before{inset:0 0 auto 0;height:58vw;max-height:300px;min-height:200px;
+        border-radius:0}
+    .ph.bg::after{content:"";position:absolute;left:0;right:0;top:0;height:58vw;
+        max-height:300px;min-height:200px;pointer-events:none;
+        background:linear-gradient(180deg,rgba(8,20,40,.30) 0%,rgba(8,20,40,0) 34%,
+                   rgba(8,20,40,.55) 100%)}
+    .ph.bg .phin,.ph.bg .phgrid{position:relative;z-index:1;
+        padding-top:calc(58vw + 26px)}
+    @media(min-height:1px){
+      .ph.bg .phin{padding-top:0}
+      .ph.bg .phgrid{padding-top:calc(min(58vw,300px) + 26px)}
+    }
   }
   .ph.bg.phveil .phin,.ph.bg.phveil .phgrid{position:relative;z-index:1}
   /* Every piece of type over the photograph states its own shadow, because
@@ -1813,7 +1819,11 @@ CSS = """
      behind the headline. Dropping the focal point pulls the darker couch up
      into that band — the fix is which part of the picture you see, not a
      layer painted over the picture. */
-  @media(max-width:759px){ .mixin::before{background-position:center 62%} }
+  /* Framed on her, not on the middle. She is about 72% across and 74% down; a
+     phone crops this card to roughly 40% of the photograph's width, so centred
+     it stopped at 70% and the band showed a sofa and a pair of legs with the
+     subject of the picture just outside the frame. */
+  @media(max-width:759px){ .mixin::before{background-position:70% 72%} }
   .mixchips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
   .mchip{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,.94);
       -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
@@ -1886,10 +1896,21 @@ CSS = """
     /* justify-content:space-between spreads the children across the block's
        min-height, which with three of them put the headline hard against the
        chips. Stack from the top with a stated gap instead. */
-    .mixin{padding-bottom:30px;justify-content:flex-start;gap:26px}
+    /* Same move as the hero: the picture gets a band of its own with the chips
+       sitting on it, and the words go underneath on a solid ground. Overlaid,
+       fifty-three words ran straight across her face — reframing the crop put
+       her in the shot and the paragraph then covered her. */
+    .mixin{padding:0 0 26px;justify-content:flex-start;gap:0;
+        background:linear-gradient(170deg,#241A12 0%,#181210 60%,#0D0A08 100%)}
+    .mixin::before{inset:0 0 auto 0;height:62vw;max-height:300px;min-height:210px}
+    .mixin::after{inset:0 0 auto 0;height:62vw;max-height:300px;min-height:210px;
+        background:linear-gradient(180deg,rgba(10,7,4,.34) 0%,rgba(10,7,4,0) 40%,
+                   rgba(10,7,4,.62) 100%)}
+    .mixchips{padding:18px 18px 0}
+    .mixsay{padding:0 18px;margin-top:calc(min(62vw,300px) - 96px)}
     .mixchips{gap:8px;justify-content:flex-start}
-    .mixnote{order:3;margin:auto 0 0;font-size:12px;line-height:1.45;
-        max-width:34ch;text-align:left;color:rgba(255,255,255,.72)}
+    .mixnote{order:3;margin:18px 0 0;padding:0 18px;font-size:12px;line-height:1.45;
+        max-width:36ch;text-align:left;color:rgba(255,255,255,.66)}
     .mixsay{text-align:left;max-width:none}
     .mixsay h2{font-size:26px;line-height:1.08;letter-spacing:-.022em;
         text-transform:none}

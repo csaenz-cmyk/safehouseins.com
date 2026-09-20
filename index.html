@@ -387,7 +387,9 @@
   .own{padding:0 0 8px}
   .owncard{position:relative;border-radius:26px;overflow:hidden;isolation:isolate;
       height:min(88svh,780px);display:flex;flex-direction:column;justify-content:flex-end;
-      background:#2a1a10 url("assets/own-mobile.jpg") 46% 44% / cover no-repeat;
+      /* Framed on him rather than on the middle: at 46% the phone crop cut
+         his face against the right edge of the card. */
+      background:#2a1a10 url("assets/own-mobile.jpg") 57% 42% / cover no-repeat;
       box-shadow:0 34px 60px -34px rgba(10,33,72,.55)}
   .owncard::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
       background:linear-gradient(180deg,rgba(28,16,6,.34) 0%,rgba(28,16,6,0) 24%,
