@@ -239,7 +239,10 @@ CSS = """
 
   nav{position:absolute;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;
       justify-content:space-between;gap:14px;padding:22px 28px}
-  nav .logo{height:46px;filter:brightness(0) invert(1)}
+  /* contain: on a folded phone the header gives the logo less than its width,
+     and it scales down whole instead of being squeezed flat. */
+  nav .logo{height:46px;filter:brightness(0) invert(1);
+      object-fit:contain;object-position:left center}
   @media(min-width:900px){ nav{padding:24px 40px} nav .logo{height:52px} }
   .burger{width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.16);
       border:1.5px solid rgba(255,255,255,.42);-webkit-backdrop-filter:blur(8px);
@@ -396,8 +399,11 @@ CSS = """
   .ph .lede{margin-top:16px;max-width:52ch;font-size:16.5px;line-height:1.62;
       color:rgba(255,255,255,.80);font-weight:500}
   .pacts{display:flex;flex-wrap:wrap;gap:11px;margin-top:26px}
+  /* Every pill on these pages centres a label that wraps and splits it
+     evenly — the Spanish ones wrap on a small phone. */
   .pbtn{display:inline-flex;align-items:center;gap:9px;border-radius:99px;padding:16px 26px;
-      font-size:16px;font-weight:800;transition:transform .16s,filter .16s}
+      font-size:16px;font-weight:800;text-align:center;text-wrap:balance;
+      transition:transform .16s,filter .16s}
   .pbtn:hover{transform:translateY(-2px);filter:brightness(1.05)}
   .pbtn.p{background:linear-gradient(100deg,var(--pblue),var(--pcyan));color:#fff;
       box-shadow:0 16px 32px -14px rgba(22,102,237,.9)}
@@ -528,7 +534,7 @@ CSS = """
   .pkcard .fin{margin-top:20px;padding-top:16px;border-top:1px solid var(--pline);
       font-size:13px;line-height:1.6;color:#6B7B95;font-weight:600}
   .pkcta{margin-top:20px;display:inline-flex;border-radius:99px;padding:15px 26px;
-      font-size:15.5px;font-weight:800;color:#fff;
+      font-size:15.5px;font-weight:800;color:#fff;text-align:center;text-wrap:balance;
       background:linear-gradient(100deg,var(--pblue),var(--pcyan));
       box-shadow:0 16px 32px -14px rgba(22,102,237,.9)}
 
@@ -692,7 +698,7 @@ CSS = """
      was landing flat against it. */
   .dsc{max-width:1260px;margin:0 auto;padding:72px 20px 26px}
   @media(min-width:900px){ .dsc{padding:104px 24px 40px} }
-  .dscgrid{display:grid;gap:30px;grid-template-columns:1fr;align-items:center}
+  .dscgrid{display:grid;gap:30px;grid-template-columns:minmax(0,1fr);align-items:center}
   @media(min-width:960px){
     .dscgrid{grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:56px}
   }
@@ -710,6 +716,7 @@ CSS = """
   .dsccount span{font-size:14px;line-height:1.45;font-weight:700;color:#5A6B85;
       max-width:20ch}
   .dscact{margin-top:26px;display:inline-flex;border-radius:99px;padding:16px 28px;
+      text-align:center;text-wrap:balance;
       font-size:16px;font-weight:800;color:#fff;
       background:linear-gradient(100deg,var(--pblue),var(--pcyan));
       box-shadow:0 18px 34px -16px rgba(22,102,237,.95)}
@@ -732,13 +739,26 @@ CSS = """
   .dscbtn svg{width:15px;height:15px;stroke:var(--pnavy);stroke-width:2.4;fill:none;
       stroke-linecap:round;stroke-linejoin:round}
   .dsccnt{font-size:13.5px;font-weight:800;color:#3E5A85;min-width:52px;text-align:center;
-      font-variant-numeric:tabular-nums}
-  /* The slot the names sit in. A fixed minimum so the card does not resize
-     under the pointer every time a shorter name comes round. */
-  .dscslot{position:relative;margin-top:auto;padding-top:34px;min-height:170px}
+      font-variant-numeric:tabular-nums;white-space:nowrap}
+  /* The eyebrow, the counter and both arrows share one row; on a small phone
+     ("DESCUENTO" runs a letter longer) they need their gaps tightened to fit,
+     and on the narrowest, a folded phone, the arrows take a row of their own
+     rather than squeezing "12 / 16" onto two lines. */
+  @media(max-width:359.98px){ .dsccard{padding-left:18px;padding-right:18px}
+      .dsctop{gap:10px;flex-wrap:wrap} .dscnav{gap:4px} .dsccnt{min-width:0;flex:none} }
+  /* The slot the names sit in. Every name is stacked in the one grid cell and
+     the ones not showing are invisible rather than removed, so the slot is as
+     tall as the longest name at this width: the card does not resize under
+     the pointer as a shorter one comes round, and a long one cannot climb up
+     over the counter. (It did, when the names were pinned to the bottom of a
+     fixed-height slot: at 320px "Según cómo manejas" and its sentence ran
+     49px up over the counter and the arrows.) The minimum keeps a short list
+     from looking cramped. */
+  .dscslot{display:grid;align-content:end;align-items:end;margin-top:auto;
+      padding-top:34px;min-height:170px}
   @media(min-width:700px){ .dscslot{min-height:200px} }
-  .dscitem{position:absolute;left:0;right:0;bottom:0}
-  .dscitem[hidden]{display:none}
+  .dscitem{grid-area:1/1;min-width:0}
+  .dscitem[hidden]{display:block;visibility:hidden}
   .dscitem b{display:block;font-size:clamp(30px,4.6vw,54px);line-height:1.02;
       font-weight:900;letter-spacing:-.038em;color:var(--pnavy);text-wrap:balance}
   .dscitem p{margin-top:14px;max-width:44ch;font-size:15px;line-height:1.6;
@@ -975,7 +995,8 @@ CSS = """
   .endin p{margin:16px auto 30px;max-width:52ch;font-size:clamp(16px,1.5vw,19px);line-height:1.6;
       color:rgba(255,255,255,.92);font-weight:500}
   .endin .row{display:flex;flex-wrap:wrap;gap:13px;justify-content:center}
-  .endin a{border-radius:99px;padding:18px 32px;font-size:17px;font-weight:800}
+  .endin a{border-radius:99px;padding:18px 32px;font-size:17px;font-weight:800;
+      text-align:center;text-wrap:balance}
   .endin .p{background:#fff;color:var(--pblue)}
   .endin .s{background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.38)}
 

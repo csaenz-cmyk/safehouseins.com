@@ -109,7 +109,9 @@ CSS = """
   header.gh > nav{display:flex;align-items:center;justify-content:space-between;
       gap:16px;padding:18px 20px;max-width:1180px;margin:0 auto}
   @media(min-width:900px){ header.gh > nav{padding:22px 28px} }
-  header.gh > nav .logo{height:40px;width:auto}
+  /* contain: on a folded phone the header gives the logo less than its width,
+     and it scales down whole instead of being squeezed flat. */
+  header.gh > nav .logo{height:40px;width:auto;object-fit:contain;object-position:left center}
   @media(min-width:900px){ header.gh > nav .logo{height:46px} }
   .burger{width:46px;height:46px;border-radius:14px;background:#fff;
       border:1.5px solid var(--pline);display:flex;flex-direction:column;gap:5px;
@@ -201,7 +203,8 @@ CSS = """
   .gcta p{margin:14px auto 24px;max-width:48ch;font-size:16px;line-height:1.65;
       color:rgba(255,255,255,.92);font-weight:500}
   .gcta .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
-  .gcta a{border-radius:99px;padding:16px 28px;font-size:16px;font-weight:800}
+  .gcta a{border-radius:99px;padding:16px 28px;font-size:16px;font-weight:800;
+      text-align:center;text-wrap:balance}
   .gcta .p{background:#fff;color:var(--pblue)}
   .gcta .s{background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.38)}
   /* The header's right-hand pair: the language switch and the menu button. */

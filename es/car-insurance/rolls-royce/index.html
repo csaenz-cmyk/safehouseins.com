@@ -41,7 +41,13 @@
   nav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.93);
       backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
   nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:70px}
-  nav .logo{height:38px}
+  /* The logo keeps its shape at every width. It used to be the flex item that
+     gave way, and with its height fixed it was squeezed flat: 49px wide
+     instead of 95 on a 320px phone in Spanish, whose quote button is the
+     longer one, and still narrowed at 390. */
+  nav .wrap>a:first-child{flex:none}
+  nav .logo{height:38px;max-width:none}
+  nav .nr{display:flex;align-items:center;gap:12px}
   nav .nl a{font-size:14.5px;font-weight:700;color:var(--ink)}
   nav .cta{background:var(--grad);color:#fff;border-radius:99px;padding:10px 20px;
       font-size:14.5px;font-weight:800;white-space:nowrap}
@@ -58,10 +64,17 @@
     nav .cta .ctal{display:none}
     nav .cta .ctas{display:inline}
   }
-  @media(max-width:380px){
+  @media(max-width:420px){
     nav .wrap{padding:0 16px;gap:10px}
+    nav .nr{gap:8px}
     nav .cta{padding:10px 14px}
   }
+  @media(max-width:374.98px){ nav .logo{height:34px} }
+  /* Under 360px the logo, the language switch, the quote button and the menu
+     no longer fit at a size anyone can read, and the quote button is the one
+     that steps aside: every page has its own in the page, and the menu has
+     one. */
+  @media(max-width:359.98px){ nav .cta{display:none} nav .logo{height:38px} }
   @media(min-width:900px){ nav .logo{height:44px} }
 
   .burger{width:44px;height:44px;border-radius:14px;background:#fff;
@@ -131,6 +144,12 @@
   body.locked{overflow:hidden}
 
   .dtop{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:26px}
+  /* On a phone the switch, the quote button and the close button do not fit
+     on one line (see tools/menu.py): the quote button takes a line of its own. */
+  @media(max-width:439.98px){
+    .dtop{flex-wrap:wrap;row-gap:14px}
+    .dtop .dcta{order:3;flex:1 1 100%}
+  }
   .dtop .lsw{margin-right:auto}
   .dcta{display:inline-flex;align-items:center;justify-content:center;
       background:var(--mgrad);color:#fff;border-radius:99px;padding:13px 24px;
@@ -242,9 +261,13 @@
   .chips span{font-size:13.5px;font-weight:800;color:var(--navy);background:#fff;
       border:1.5px solid var(--line);border-radius:99px;padding:8px 15px}
 
+  /* text-align and balance: a label that wraps on a small phone (the Spanish
+     ones do: "Cotiza tu Grand Marquis →") stays centred in the pill and
+     splits evenly. */
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
       background:var(--grad);color:#fff;border:0;border-radius:99px;padding:15px 28px;
       font:inherit;font-size:16px;font-weight:800;cursor:pointer;
+      text-align:center;text-wrap:balance;
       box-shadow:0 18px 34px -18px rgba(22,102,237,.9)}
   .btn:hover{text-decoration:none;filter:brightness(1.05)}
   .btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line);box-shadow:none}
@@ -429,6 +452,13 @@
   .tbar .t .ic svg{width:20px;height:20px}
   .tbar .t b{display:block;font-size:14.5px;font-weight:900;color:var(--navy);line-height:1.25}
   .tbar .t small{display:block;font-size:12.5px;color:var(--muted);font-weight:600;margin-top:3px;line-height:1.45}
+  /* On a small phone a cell beside its icon is narrower than a long word
+     ("aseguradoras"), and the column grew past the screen. The icon goes above
+     the words there, and below 300px the four facts take a row each. */
+  @media(max-width:389.98px){ .tbar .row{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .tbar .t{flex-direction:column;gap:10px} }
+  @media(max-width:299.98px){ .tbar .row{grid-template-columns:minmax(0,1fr)}
+      .tbar .t{flex-direction:row;gap:12px} }
 
   /* ---------------- model selector ---------------- */
   .msel{margin-top:30px}
@@ -648,7 +678,7 @@
 
 <nav><div class="wrap">
   <a href="../../index.html" aria-label="Inicio de Safe House Insurance"><img class="logo" src="../../../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
-  <span style="display:flex;align-items:center;gap:12px">
+  <span class="nr">
     <div class="lsw tight" role="group" aria-label="Idioma / Language"><a href="../../../car-insurance/rolls-royce/" hreflang="en" lang="en" data-lang="en" title="View this page in English"><span aria-hidden="true">EN</span><span class="lvh">English</span></a><span lang="es-MX" aria-current="true"><span aria-hidden="true">ES</span><span class="lvh">Español</span></span></div>
     <a class="cta" href="../../quote.html"><span class="ctal">Obtén tu cotización gratis</span><span class="ctas">Cotiza gratis</span></a>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>

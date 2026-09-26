@@ -153,6 +153,9 @@ BODY = """
       background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px 15px;
       outline:none;transition:.18s}
   .fl textarea{resize:vertical;min-height:110px}
+  /* The whole answer, under a select too narrow to show it (see echo()). */
+  .selfull{display:block;margin-top:6px;font-size:13px;line-height:1.4;font-weight:600;
+      color:var(--muted)}
   .fl input:focus,.fl select:focus,.fl textarea:focus{border-color:var(--blue);
       box-shadow:0 0 0 4px rgba(22,102,237,.13)}
   .fl input[type=file]{padding:12px;background:#fff}
@@ -191,6 +194,27 @@ BODY = """
   if(!API){
     hint.textContent=T('noUpload');
   }
+
+  /* A native select cannot wrap its text, so on a narrow phone the longest
+     answers are cut off once chosen ("No, but I am willing to get licensed"
+     at 320px). The whole answer is repeated on a line under the select then,
+     as the quote form does. These selects keep the browser's own arrow, which
+     takes its room out of the text's: 28px allows for it. */
+  var fitCtx=document.createElement('canvas').getContext('2d');
+  function echo(s){
+    var cs=getComputedStyle(s), o=s.options[s.selectedIndex],
+        t=o&&o.value?o.text.trim():'', e=s.parentNode.querySelector('.selfull'),
+        arrow=(cs.appearance||cs.webkitAppearance)==='none'?0:28;
+    fitCtx.font=cs.fontStyle+' '+cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily;
+    var full=!!t&&s.offsetWidth>0&&fitCtx.measureText(t).width>
+        s.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)-arrow+0.5;
+    if(full&&!e){ e=document.createElement('small'); e.className='selfull';
+      e.setAttribute('aria-hidden','true'); s.insertAdjacentElement('afterend',e); }
+    if(e){ e.textContent=full?t:''; e.hidden=!full; }
+  }
+  var selects=[].slice.call(form.querySelectorAll('select'));
+  selects.forEach(function(s){ s.addEventListener('change',function(){ echo(s); }); });
+  window.addEventListener('resize',function(){ selects.forEach(echo); });
 
   function fail(msg){ err.querySelector('span').textContent=msg; err.style.display='block'; return false; }
   function val(id){ return document.getElementById(id).value.trim(); }

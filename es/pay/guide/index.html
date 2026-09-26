@@ -96,6 +96,9 @@
   .gcall p{margin:0;font-size:14px;line-height:1.68;color:#6B4B18;font-weight:600}
 
   .gmin{display:grid;gap:11px;grid-template-columns:1fr 1fr;margin:18px 0 0}
+  /* Side by side, each column needs about 140px for "25/50/10" in mono type;
+     on a folded phone there is not that much, and the pair ran off the screen. */
+  @media(max-width:339.98px){ .gmin{grid-template-columns:minmax(0,1fr)} }
   .gmincol{border:1.5px solid var(--gline);border-radius:15px;padding:16px 18px;background:#fff}
   .gmincol s{display:block;text-decoration:none;font-size:11.5px;letter-spacing:.09em;
       text-transform:uppercase;font-weight:800;color:#7C8BA4}

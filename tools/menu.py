@@ -11,7 +11,8 @@ gets, `up` being the '../' prefix for however deep the page sits.
 
 index.html carries its own inline copy because it has no stylesheet to share —
 it is a single self-contained file by design. If you edit the panel, edit it
-there too. There is a check for that: tools/seocheck.py counts the menu links
+there too — and in the copies in tools/shell.py, tools/genlegal.py and
+assets/styles.css, which the pages built on those carry. There is a check for that: tools/seocheck.py counts the menu links
 on the home page against MENU below.
 
 The panel carries its own --m* palette, scoped to .drawer and .scrim. It has
@@ -69,6 +70,14 @@ PANEL_CSS = """  /* ---- the menu panel ----
   /* The language switch takes the left end of the top row; the quote button
      and the close button keep the right, where they have always been. */
   .dtop .lsw{margin-right:auto}
+  /* On a phone the three do not fit on one line: they need about 360px and a
+     390px phone has 338, so the row spilled off the left edge of the panel —
+     "English" cut off entirely at 320px. There the quote button takes a line
+     of its own, full width, under the switch and the close button. */
+  @media(max-width:439.98px){
+    .dtop{flex-wrap:wrap;row-gap:14px}
+    .dtop .dcta{order:3;flex:1 1 100%}
+  }
   .dcta{display:inline-flex;align-items:center;justify-content:center;
       background:var(--mgrad);color:#fff;border-radius:99px;padding:13px 24px;
       font-size:14.5px;font-weight:800;text-decoration:none;white-space:nowrap;

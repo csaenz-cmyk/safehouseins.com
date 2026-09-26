@@ -148,7 +148,10 @@
       color:var(--pnavy);letter-spacing:-.02em}
   .dir .sub{margin:0 auto 22px;max-width:52ch;text-align:center;font-size:14px;
       line-height:1.6;color:#5C6A80;font-weight:600}
-  .dgrid{display:grid;gap:12px;grid-template-columns:1fr}
+  /* minmax(0,1fr): a bare 1fr column grows to its longest unbreakable line,
+     and on a folded phone that was "commonwealthcasualty.com", which pushed
+     every row 35px wider than the screen. */
+  .dgrid{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
   @media(min-width:720px){ .dgrid{grid-template-columns:1fr 1fr} }
   .drow{border:1.5px solid var(--pline);border-radius:18px;padding:16px 18px;background:#fff;
       display:flex;align-items:center;gap:14px}
@@ -162,7 +165,7 @@
       font-size:15px;font-weight:700;color:var(--pblue);text-decoration:none}
   .drow .t a.tel:hover{text-decoration:underline}
   .drow .t a.web{display:block;margin-top:3px;font-size:12.5px;font-weight:700;color:#7C8BA4;
-      text-decoration:none}
+      text-decoration:none;overflow-wrap:anywhere}
   .drow .t a.web:hover{color:var(--pblue)}
   .dnote{margin:16px 0 0;border:1.5px dashed #D6E1F2;border-radius:16px;padding:16px 18px;
       font-size:13.5px;line-height:1.65;font-weight:600;color:#5C6A80}

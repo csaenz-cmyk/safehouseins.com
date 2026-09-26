@@ -96,6 +96,13 @@ pages, `genlocale.py` for the hand-kept ones — and adds the one CSS rule that
 keeps it whole. Write numbers in the catalogs as plain text. Before this a
 button read "Llama al 915-503-" with "1207" on the next line, at 390px.
 
+**Mobile rules go after the base rule they change.** A media query written
+above `.btn{…}` or `.qcard{…}` loses to it, because the later rule of the same
+weight wins — the quote form's small-screen rules were silently doing nothing
+until they were moved below. The menu panel's styles have copies in
+`menu.py`, `shell.py`, `genlegal.py`, `index.html` and `assets/styles.css`;
+change all five.
+
 **`carriers.py::NAMES` is the carrier list, but not the only place a carrier is
 named.** `genabout.py` now derives its About-page list from `NAMES` rather than
 keeping its own — the two had drifted until the same page said Acacia in one

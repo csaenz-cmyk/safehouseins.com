@@ -51,7 +51,9 @@
   header.gh > nav{display:flex;align-items:center;justify-content:space-between;
       gap:16px;padding:18px 20px;max-width:1180px;margin:0 auto}
   @media(min-width:900px){ header.gh > nav{padding:22px 28px} }
-  header.gh > nav .logo{height:40px;width:auto}
+  /* contain: on a folded phone the header gives the logo less than its width,
+     and it scales down whole instead of being squeezed flat. */
+  header.gh > nav .logo{height:40px;width:auto;object-fit:contain;object-position:left center}
   @media(min-width:900px){ header.gh > nav .logo{height:46px} }
   .burger{width:46px;height:46px;border-radius:14px;background:#fff;
       border:1.5px solid var(--pline);display:flex;flex-direction:column;gap:5px;
@@ -143,7 +145,8 @@
   .gcta p{margin:14px auto 24px;max-width:48ch;font-size:16px;line-height:1.65;
       color:rgba(255,255,255,.92);font-weight:500}
   .gcta .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
-  .gcta a{border-radius:99px;padding:16px 28px;font-size:16px;font-weight:800}
+  .gcta a{border-radius:99px;padding:16px 28px;font-size:16px;font-weight:800;
+      text-align:center;text-wrap:balance}
   .gcta .p{background:#fff;color:var(--pblue)}
   .gcta .s{background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.38)}
   /* The header's right-hand pair: the language switch and the menu button. */
@@ -411,6 +414,14 @@
   /* The language switch takes the left end of the top row; the quote button
      and the close button keep the right, where they have always been. */
   .dtop .lsw{margin-right:auto}
+  /* On a phone the three do not fit on one line: they need about 360px and a
+     390px phone has 338, so the row spilled off the left edge of the panel —
+     "English" cut off entirely at 320px. There the quote button takes a line
+     of its own, full width, under the switch and the close button. */
+  @media(max-width:439.98px){
+    .dtop{flex-wrap:wrap;row-gap:14px}
+    .dtop .dcta{order:3;flex:1 1 100%}
+  }
   .dcta{display:inline-flex;align-items:center;justify-content:center;
       background:var(--mgrad);color:#fff;border-radius:99px;padding:13px 24px;
       font-size:14.5px;font-weight:800;text-decoration:none;white-space:nowrap;
@@ -547,6 +558,14 @@
   /* The language switch takes the left end of the top row; the quote button
      and the close button keep the right, where they have always been. */
   .dtop .lsw{margin-right:auto}
+  /* On a phone the three do not fit on one line: they need about 360px and a
+     390px phone has 338, so the row spilled off the left edge of the panel —
+     "English" cut off entirely at 320px. There the quote button takes a line
+     of its own, full width, under the switch and the close button. */
+  @media(max-width:439.98px){
+    .dtop{flex-wrap:wrap;row-gap:14px}
+    .dtop .dcta{order:3;flex:1 1 100%}
+  }
   .dcta{display:inline-flex;align-items:center;justify-content:center;
       background:var(--mgrad);color:#fff;border-radius:99px;padding:13px 24px;
       font-size:14.5px;font-weight:800;text-decoration:none;white-space:nowrap;

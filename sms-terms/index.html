@@ -98,6 +98,12 @@
   body.locked{overflow:hidden}
 
   .dtop{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:26px}
+  /* On a phone the switch, the quote button and the close button do not fit
+     on one line (see tools/menu.py): the quote button takes a line of its own. */
+  @media(max-width:439.98px){
+    .dtop{flex-wrap:wrap;row-gap:14px}
+    .dtop .dcta{order:3;flex:1 1 100%}
+  }
   .dcta{display:inline-flex;align-items:center;justify-content:center;
       background:var(--mgrad);color:#fff;border-radius:99px;padding:13px 24px;
       font-size:14.5px;font-weight:800;text-decoration:none;white-space:nowrap;
@@ -131,6 +137,10 @@
   .dcol h6{font-size:11px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;
       color:#9fb0c6;margin-bottom:11px}
   .dcol a{display:block;font-size:16px;font-weight:700;color:#33415a;padding:7px 0;transition:color .16s}
+  /* These pages keep the browser's underline on links, which is right in a
+     policy's running text and wrong in the menu, where every entry was
+     underlined. */
+  .drawer a{text-decoration:none}
   .dcol a:hover{color:var(--mblue)}
 
   /* Two rows, full width, with the number as the loudest thing on them. They

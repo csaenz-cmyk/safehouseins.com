@@ -12,8 +12,11 @@
   .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
   .grad-text{background:var(--grad2);-webkit-background-clip:text;background-clip:text;color:transparent}
 
+  /* text-align and balance: a label that wraps (the Spanish ones do, on a
+     small phone) stays centred in the pill and splits evenly instead of
+     hugging its left edge. */
   .btn{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;border:none;border-radius:999px;
-       padding:15px 28px;font-weight:800;font-size:15.5px;font-family:inherit;cursor:pointer;transition:transform .18s,box-shadow .18s;box-shadow:0 12px 30px -10px rgba(22,102,237,.6)}
+       padding:15px 28px;font-weight:800;font-size:15.5px;font-family:inherit;cursor:pointer;text-align:center;text-wrap:balance;transition:transform .18s,box-shadow .18s;box-shadow:0 12px 30px -10px rgba(22,102,237,.6)}
   .btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 20px 44px -12px rgba(22,102,237,.8)}
   .btn.white{background:#fff;color:var(--blue)}.btn.white:hover{box-shadow:0 20px 44px -12px rgba(0,0,0,.3)}
   .btn.ghost-w{background:rgba(255,255,255,.14);color:#fff;box-shadow:none;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.35)}
@@ -101,6 +104,12 @@
   body.locked{overflow:hidden}
 
   .dtop{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:26px}
+  /* On a phone the switch, the quote button and the close button do not fit
+     on one line (see tools/menu.py): the quote button takes a line of its own. */
+  @media(max-width:439.98px){
+    .dtop{flex-wrap:wrap;row-gap:14px}
+    .dtop .dcta{order:3;flex:1 1 100%}
+  }
   .dcta{display:inline-flex;align-items:center;justify-content:center;
       background:var(--mgrad);color:#fff;border-radius:99px;padding:13px 24px;
       font-size:14.5px;font-weight:800;text-decoration:none;white-space:nowrap;

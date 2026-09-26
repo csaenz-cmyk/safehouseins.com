@@ -65,13 +65,13 @@
       "personal": "Seguros personales",
       "commercial": "Seguros comerciales",
       "service": "Servicio al cliente",
-      "open": "Todavía no sé &mdash; me interesa lo que sea"
+      "open": "Todavía no sé &mdash; me interesa todo"
     },
     "lic": "¿Tienes licencia?",
     "licOpt": {
       "tx": "Sí &mdash; General Lines de Texas",
       "other": "Sí &mdash; de otro estado",
-      "willing": "No, pero estoy dispuesto a sacarla",
+      "willing": "No, pero me interesa sacarla",
       "no": "No"
     },
     "exp": "Años en seguros",

@@ -98,6 +98,13 @@ CSS = """
   .tbar .t .ic svg{width:20px;height:20px}
   .tbar .t b{display:block;font-size:14.5px;font-weight:900;color:var(--navy);line-height:1.25}
   .tbar .t small{display:block;font-size:12.5px;color:var(--muted);font-weight:600;margin-top:3px;line-height:1.45}
+  /* On a small phone a cell beside its icon is narrower than a long word
+     ("aseguradoras"), and the column grew past the screen. The icon goes above
+     the words there, and below 300px the four facts take a row each. */
+  @media(max-width:389.98px){ .tbar .row{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .tbar .t{flex-direction:column;gap:10px} }
+  @media(max-width:299.98px){ .tbar .row{grid-template-columns:minmax(0,1fr)}
+      .tbar .t{flex-direction:row;gap:12px} }
 
   /* ---------------- model selector ---------------- */
   .msel{margin-top:30px}

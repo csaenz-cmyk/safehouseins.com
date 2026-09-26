@@ -157,7 +157,9 @@ function check(ok, what) {
     'auto-insurance.html', 'home-insurance.html', 'rideshare-insurance.html', 'learn/', 'learn/sr-22-texas-new-mexico/',
     'car-insurance/', 'car-insurance/texas/el-paso/', 'car-insurance/toyota/', 'pay/', 'pay/guide/', 'claims/',
     'claims/guide/', 'id-card/', 'lienholder/', 'privacy/', 'sms-terms/'];
-  for (const w of [390, 1440]) {
+  // 320px as well as 390: the narrowest phone in common use is where Spanish,
+  // about a third longer, runs out of room first.
+  for (const w of [320, 390, 1440]) {
     const ctx = await b.newContext({ viewport: { width: w, height: 900 } });
     for (const lang of ['en', 'es']) {
       for (const s of SAMPLE) {
@@ -165,17 +167,46 @@ function check(ok, what) {
         const p = await page(ctx, log);
         const url = BASE + '/' + (lang === 'es' ? 'es/' : '') + s;
         await p.goto(url);
-        const r = await p.evaluate(() => ({
-          lang: document.documentElement.lang,
-          text: document.body.innerText,
-          sw: document.documentElement.scrollWidth
-        }));
+        const r = await p.evaluate(() => {
+          // A phone number broken over two lines ("915-503-" / "1207"); the
+          // build keeps every one whole (i18n.nobreak).
+          const split = [];
+          const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+          for (let n; (n = tw.nextNode());) {
+            const el = n.parentElement;
+            if (!el || !el.offsetParent || el.closest('script,style,option') ||
+                getComputedStyle(el).visibility === 'hidden') continue;
+            const re = /\d{3}-\d{3}-\d{4}|\(\d{3}\) \d{3}-\d{4}/g;
+            for (let m; (m = re.exec(n.nodeValue));) {
+              const rg = document.createRange();
+              rg.setStart(n, m.index); rg.setEnd(n, m.index + m[0].length);
+              const tops = new Set([...rg.getClientRects()].filter(q => q.width > 1).map(q => Math.round(q.top)));
+              if (tops.size > 1) split.push(m[0]);
+            }
+          }
+          // A picture in the header drawn out of its shape: the logo used to be
+          // squeezed flat when the header ran out of room.
+          const squashed = [...document.images].filter(i => {
+            const q = i.getBoundingClientRect();
+            return i.complete && i.naturalWidth && i.offsetParent && q.top < 140 && q.height &&
+              getComputedStyle(i).objectFit === 'fill' &&
+              Math.abs((q.width / q.height) / (i.naturalWidth / i.naturalHeight) - 1) > 0.02;
+          }).map(i => i.getAttribute('src').split('/').pop());
+          return {
+            lang: document.documentElement.lang,
+            text: document.body.innerText,
+            sw: document.documentElement.scrollWidth,
+            split, squashed
+          };
+        });
         const shown = [...r.text.matchAll(/\b[a-z]+(?:\.[A-Za-z0-9_-]+){2,}\b/g)].map(m => m[0]).filter(k => keys.has(k));
         const probs = [];
         if (r.lang !== (lang === 'es' ? 'es-MX' : 'en')) probs.push('lang is ' + r.lang);
         if (/\[\[[\w.-]+\]\]|missing_translation/.test(r.text)) probs.push('an unrendered marker');
         if (shown.length) probs.push('keys shown: ' + shown.slice(0, 3).join(', '));
         if (r.sw > w) probs.push('scrolls sideways (' + r.sw + 'px)');
+        if (r.split.length) probs.push('a phone number broken over two lines: ' + r.split[0]);
+        if (r.squashed.length) probs.push('drawn out of shape: ' + r.squashed.join(', '));
         probs.push(...log);
         check(!probs.length, w + 'px ' + (lang === 'es' ? '/es/' : '/') + s + (probs.length ? ' — ' + probs.join('; ') : ''));
         await p.close();

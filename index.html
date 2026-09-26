@@ -43,9 +43,12 @@
   .gtd{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
   .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
+  /* text-align and balance: a label that wraps (the Spanish ones do, at
+     320px) stays centred in the pill and splits evenly instead of hugging
+     its left edge. */
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--blue);color:#fff;border:none;
        border-radius:999px;padding:16px 30px;font-weight:800;font-size:16.5px;font-family:inherit;cursor:pointer;
-       transition:transform .18s,filter .18s;box-shadow:0 14px 30px -12px rgba(22,102,237,.8)}
+       text-align:center;text-wrap:balance;transition:transform .18s,filter .18s;box-shadow:0 14px 30px -12px rgba(22,102,237,.8)}
   .btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
   .btn.grad{background:var(--grad)}
   .btn.wt{background:#fff;color:var(--blue-d);box-shadow:0 14px 30px -16px rgba(0,0,0,.45)}
@@ -66,7 +69,10 @@
   /* Bigger, at every width. It is the only place the brand name appears above
      the fold and it was competing with eight nav links for the eye; with the
      links gone it can be the thing you see first. */
-  .logo{height:44px;filter:brightness(0) invert(1);display:block}
+  /* contain: on a folded phone the header gives the logo less than its width,
+     and it scales down whole instead of being squeezed flat. */
+  .logo{height:44px;filter:brightness(0) invert(1);display:block;
+        object-fit:contain;object-position:left center}
   /* The horizontal nav is gone at every width, not just on phones. Eight links
      across the top of a photograph is a menu the visitor has to read before
      they can look at anything else, and none of the eight is what they came
@@ -132,6 +138,12 @@
   body.locked{overflow:hidden}
 
   .dtop{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:26px}
+  /* On a phone the switch, the quote button and the close button do not fit
+     on one line (see tools/menu.py): the quote button takes a line of its own. */
+  @media(max-width:439.98px){
+    .dtop{flex-wrap:wrap;row-gap:14px}
+    .dtop .dcta{order:3;flex:1 1 100%}
+  }
   .dcta{display:inline-flex;align-items:center;justify-content:center;
       background:var(--mgrad);color:#fff;border-radius:99px;padding:13px 24px;
       font-size:14.5px;font-weight:800;text-decoration:none;white-space:nowrap;
@@ -247,7 +259,12 @@
      stay on the bottom of the photograph instead of climbing over it. Its
      rotator phrases are measured the same way as the English ones above. */
   @media(max-width:899.98px){ html:lang(es) h1{font-size:clamp(30px,8vw,56px)} }
-  .rot{display:block;position:relative;height:1.1em;overflow:hidden}
+  /* The clip hides the phrase coming in and the one going out, so it has to
+     reach below the line or it takes the descenders too: at 1.1em it cut the
+     "p" of "tu primer carro.", the "g" of "tu negocio." and "young drivers.",
+     and the "j" of "tus hijos". 1.36em with the extra .26em taken back by the
+     margin, so the line and everything under it sit where they did. */
+  .rot{display:block;position:relative;height:1.36em;margin-bottom:-.26em;overflow:hidden}
   .rot span{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(70%);white-space:nowrap;
       transition:opacity .3s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
   .rot span.on{opacity:1;transform:none}

@@ -92,6 +92,7 @@ CSS = """
   .ivhero .acts{margin-top:30px;display:flex;flex-wrap:wrap;gap:12px}
   .ivhero .btn2{display:inline-flex;align-items:center;gap:9px;border-radius:99px;
       padding:15px 26px;font-weight:800;font-size:15.5px;text-decoration:none;
+      text-align:center;text-wrap:balance;
       border:1px solid rgba(255,255,255,.3);color:#fff}
   .ivhero .btn2:hover{background:rgba(255,255,255,.1);text-decoration:none}
 
@@ -110,6 +111,9 @@ CSS = """
   .pill p{margin-top:9px;font-size:15.5px;line-height:1.66;color:#3B4A63;font-weight:500}
 
   .figs{display:grid;gap:18px;grid-template-columns:repeat(2,1fr);margin-top:28px}
+  /* Two up, a card on a folded phone is 72px inside, narrower than
+     "nombramientos", and the pair ran off the screen. */
+  @media(max-width:339.98px){ .figs{grid-template-columns:minmax(0,1fr)} }
   @media(min-width:820px){ .figs{grid-template-columns:repeat(4,1fr)} }
   .fig{border:1.5px solid var(--line);border-radius:18px;padding:20px 18px;background:#fff}
   .fig b{display:block;font-size:30px;font-weight:900;letter-spacing:-.03em;
