@@ -34,6 +34,12 @@ ABSOLUTES = [
     'guaranteed savings', 'best rate guaranteed', 'lowest price',
     'cheapest insurance', 'guaranteed acceptance', 'everyone qualifies',
     'every insurance company', 'we guarantee',
+    # The same promises in the Spanish pages. Only phrasings that cannot turn
+    # up negated in an honest sentence: "no garantizamos" is a disclaimer, so
+    # "garantizamos" alone is not on the list.
+    'ahorro garantizado', 'ahorros garantizados', 'tarifa más baja garantizada',
+    'precio más bajo garantizado', 'el seguro más barato', 'aceptación garantizada',
+    'todos califican',
 ]
 
 # British spellings that slipped in. Deliberately a short, safe list — nothing
@@ -80,7 +86,10 @@ def main():
         # doing its job, not a placeholder somebody forgot to fill in.
         visible = re.sub(r'<[^>]+>', ' ', text)
         for ph in PLACEHOLDERS:
-            if ph.lower() in visible.lower():
+            # A marker in capitals is matched in capitals: "todo:" is ordinary
+            # Spanish ("darle seguimiento a todo:"), "TODO:" is a note to self.
+            hit = (ph in visible) if ph.isupper() or ph.rstrip(':').isupper() else (ph.lower() in visible.lower())
+            if hit:
                 p0.append((rel, 'placeholder visible to visitors: ' + ph))
 
         low = text.lower()
@@ -92,7 +101,8 @@ def main():
             if re.search(r'\b' + br + r'\b', text, re.I):
                 p1.append((rel, 'British spelling "%s" — American market uses "%s"' % (br, us)))
 
-        t = one(r'<title>(.*?)</title>', html, re.I | re.S)
+        # <title data-t="…"> on the pages whose words come from the catalogs.
+        t = one(r'<title[^>]*>(.*?)</title>', html, re.I | re.S)
         if not t:
             p0.append((rel, 'no <title>'))
         else:
@@ -175,6 +185,41 @@ def main():
             p1.append((', '.join(where[:3]) + (' +%d' % (len(where) - 3) if len(where) > 3 else ''),
                        'duplicate meta description'))
 
+    # ---- language alternates: every one real, every one answered ---------
+    # A page in two languages says so with hreflang, and the claim only counts
+    # when the other page exists and says the same thing back. A one-way pair
+    # is ignored by search engines; a pair pointing at a missing file is worse.
+    def file_for(url):
+        path = url.replace(SITE, '').lstrip('/')
+        if path.endswith('.html'):
+            cands = [path]
+        elif path in ('', '/'):
+            cands = ['index.html']
+        else:
+            cands = [os.path.join(path, 'index.html'), path.rstrip('/') + '.html']
+        return next((c for c in cands if os.path.exists(os.path.join(ROOT, c))), None)
+    for rel, html in pages():
+        alts = dict(re.findall(r'<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"', html))
+        if not alts:
+            continue
+        canon = one(r'<link rel="canonical" href="([^"]+)"', html)
+        if not {'en', 'es', 'x-default'} <= set(alts):
+            p0.append((rel, 'hreflang set is incomplete: ' + ', '.join(sorted(alts))))
+            continue
+        if alts['x-default'] != alts['en']:
+            p1.append((rel, 'x-default is not the English page'))
+        if canon and canon[0] not in alts.values():
+            p0.append((rel, 'hreflang does not include the page itself'))
+        for code in ('en', 'es'):
+            f = file_for(alts[code])
+            if not f:
+                p0.append((rel, 'hreflang %s points at a missing page: %s' % (code, alts[code])))
+                continue
+            back = dict(re.findall(r'<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"',
+                                   open(os.path.join(ROOT, f), encoding='utf-8').read()))
+            if canon and back.get('en') != alts['en'] or back.get('es') != alts['es']:
+                p0.append((rel, 'hreflang is not reciprocal with ' + f))
+
     # ---- sitemap: only canonical, indexable, existing URLs ----------------
     sm = os.path.join(ROOT, 'sitemap.xml')
     if os.path.exists(sm):
@@ -208,7 +253,9 @@ def main():
         for href in re.findall(r'href=["\']([^"\'#?]+)["\']', html):
             if href.startswith(('http', 'tel:', 'sms:', 'mailto:', '//', 'data:')):
                 continue
-            target = os.path.normpath(os.path.join(base, href))
+            # "/" and "/es/" are the site root, not the filesystem's.
+            target = os.path.normpath(os.path.join(ROOT, href.lstrip('/')) if href.startswith('/')
+                                      else os.path.join(base, href))
             if os.path.isdir(target):
                 target = os.path.join(target, 'index.html')
             if not os.path.exists(target):

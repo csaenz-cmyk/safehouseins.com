@@ -46,11 +46,19 @@ def canonical_of(path):
 
 def urls():
     out = []
-    for f in sorted(os.listdir(ROOT)):
-        if not f.endswith('.html') or f in SKIP_ROOT or re.match(r'option-\d+\.html', f):
+    # The Spanish site is the same tree under es/, so its root pages follow the
+    # same rules as the English ones: the same skips, the canonical the page
+    # declares. Its directories are picked up by the walk below like any other.
+    for folder in ('', 'es'):
+        here = os.path.join(ROOT, folder)
+        if not os.path.isdir(here):
             continue
-        c = canonical_of(os.path.join(ROOT, f))
-        out.append(c if c else SITE + '/' + ('' if f == 'index.html' else f))
+        for f in sorted(os.listdir(here)):
+            if not f.endswith('.html') or f in SKIP_ROOT or re.match(r'option-\d+\.html', f):
+                continue
+            c = canonical_of(os.path.join(here, f))
+            out.append(c if c else SITE + '/' + (folder + '/' if folder else '')
+                       + ('' if f == 'index.html' else f))
     for dirpath, dirnames, filenames in os.walk(ROOT):
         dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS and not d.startswith('.')]
         if dirpath == ROOT or 'index.html' not in filenames:
@@ -70,6 +78,10 @@ if __name__ == '__main__':
         rel = url.replace(SITE, '').lstrip('/')
         f = os.path.join(ROOT, rel if rel.endswith('.html')
                          else os.path.join(rel, 'index.html') if rel else 'index.html')
+        # An extensionless canonical (/auto-insurance) is served from the
+        # .html file beside it.
+        if not os.path.exists(f) and rel and os.path.exists(os.path.join(ROOT, rel + '.html')):
+            f = os.path.join(ROOT, rel + '.html')
         if not os.path.exists(f):
             return None
         try:

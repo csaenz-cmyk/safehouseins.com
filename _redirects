@@ -61,3 +61,19 @@
 /loss-payee              /lienholder/             301
 /lender                  /lienholder/             301
 /evidence-of-insurance   /lienholder/             301
+
+# --- the Spanish site ---------------------------------------------------------
+# The same pages under /es/, so the same canonical shapes: each Spanish page
+# declares the extensionless or directory address as its canonical, exactly as
+# its English twin does, and the .html form points there.
+/es/privacy.html              /es/privacy/              301
+/es/sms-terms.html            /es/sms-terms/            301
+/es/auto-insurance.html       /es/auto-insurance        301
+/es/home-insurance.html       /es/home-insurance        301
+/es/commercial-insurance.html /es/commercial-insurance  301
+/es/motorcycle-insurance.html /es/motorcycle-insurance  301
+/es/renters-insurance.html    /es/renters-insurance     301
+/es/about.html                /es/about                 301
+/es/contact.html              /es/contact               301
+/es/careers.html              /es/careers               301
+/es/quote.html                /es/quote                 301
