@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "title": "Seguro de auto, casa y negocio en Texas y Nuevo México | Safe House",
+    "desc": "Agencia de seguros independiente con licencia en Texas y Nuevo México. Comparamos aseguradoras para tu auto, casa o negocio. Aceptamos SR-22. Agentes bilingües.",
+    "ogTitle": "Safe House Insurance | Seguros en El Paso, TX",
+    "ogDesc": "Agencia independiente con licencia en El Paso. Comparamos nuestras aseguradoras y un agente bilingüe te llama con opciones reales.",
+    "ldName": "Safe House Insurance — Agencia de seguros independiente en El Paso, TX"
+  },
+  "review": {
+    "source": "Reseña en Google (en inglés)"
+  },
+  "hero": {
+    "h1": "Compara opciones. Encontraremos la cobertura adecuada para\n      ",
+    "rot1": "tu primer carro.",
+    "rot2": "tu familia.",
+    "rot3": "tu casa.",
+    "rot4": "tu camioneta.",
+    "rot5": "tu flotilla.",
+    "rot6": "tu SR-22.",
+    "rot7": "tu negocio.",
+    "rot8": "tu casa en renta.",
+    "rot9": "tu moto.",
+    "rot10": "tus hijos al volante.",
+    "rot11": "ti.",
+    "sub": "<b>Tu cotización merece una segunda revisión.</b> Cotiza tu seguro en línea en\n      minutos. Luego la revisamos con calma &mdash; un equipo bilingüe con licencia revisa\n      los detalles, busca ahorros adicionales y te ayuda a encontrar la cobertura que mejor te queda."
+  },
+  "cta": {
+    "quote": "Obtén tu cotización gratis",
+    "call": "Llama al 915-503-1207"
+  },
+  "cats": {
+    "car": {
+      "label": "Seguro de auto",
+      "p": "Cobertura completa, responsabilidad civil y SR-22 &mdash; comparadas entre nuestras aseguradoras."
+    },
+    "home": {
+      "label": "Seguro de casa",
+      "p": "Casas y casas móviles, aseguradas por lo que costaría reconstruirlas."
+    },
+    "commercial": {
+      "label": "Seguro comercial",
+      "p": "Camionetas de trabajo, flotillas y responsabilidad civil para negocios de Texas y Nuevo México."
+    },
+    "more": {
+      "label": "y más",
+      "p": "Inquilinos, motocicleta y casa móvil &mdash; un solo agente para todo."
+    }
+  },
+  "kin": {
+    "aria": "Una llamada. Comparamos. Tú eliges.",
+    "l1": "Una llamada.",
+    "l2": "Comparamos.",
+    "l3": "Tú eliges."
+  },
+  "flow": {
+    "aria": "Cómo funciona Safe House, paso a paso",
+    "kick": "Cómo funciona",
+    "h2": "Cotiza en línea. Confirma con un experto.",
+    "lede": "Ve tus opciones en minutos y luego revísalas con un agente de Safe House con licencia\n       antes de elegir.",
+    "note1": "Cotizaciones rápidas en línea. Revisión de una persona real.",
+    "note2": "Tecnología para ir rápido. Agentes con licencia para no fallar.",
+    "note3": "Ve tus opciones en línea. Confírmalas antes de comprar.",
+    "stackAria": "Pantallas de cada paso, desliza a la izquierda o a la derecha",
+    "alt1": "Pantalla de la app de Safe House que compara opciones de aseguradoras",
+    "alt2": "Pantalla de la app de Safe House con tus vehículos y el descuento encontrado",
+    "alt3": "Pantalla de la app de Safe House con la vigencia de la póliza y las opciones de pago",
+    "alt4": "Pantalla de la app de Safe House que confirma que el cambio quedó listo",
+    "alt5": "Conversación por mensaje con un agente de Safe House con licencia que envía la tarjeta del seguro de auto",
+    "step1": {
+      "n": "Paso 01",
+      "t": "Obtén tu cotización en línea",
+      "d": "Dinos qué necesitas y ve tus primeras opciones de seguro en línea en solo unos minutos."
+    },
+    "step2": {
+      "n": "Paso 02",
+      "t": "Ve tus primeras opciones",
+      "d": "Revisa las opciones que genera el sistema con la información que nos diste."
+    },
+    "step3": {
+      "n": "Paso 03",
+      "t": "Un agente con licencia revisa todo",
+      "d": "Nuestro equipo verifica tu información, los descuentos disponibles, los requisitos de cada aseguradora y los detalles de la cobertura."
+    },
+    "step4": {
+      "n": "Paso 04",
+      "t": "Recibe tus opciones confirmadas",
+      "d": "Tu agente te contacta por teléfono o por mensaje con las opciones más precisas para tu situación."
+    },
+    "step5": {
+      "n": "Paso 05",
+      "t": "Elige y activa tu póliza",
+      "d": "Cuando eliges la opción que te conviene, tu agente te ayuda a terminar la solicitud y a activar tu cobertura."
+    },
+    "start": "Empieza tu cotización en línea",
+    "call": "¿Prefieres platicar? Llama al 915-503-1207"
+  },
+  "own": {
+    "bubble": "¿Se acerca tu renovación? La volvemos a comparar y te mandamos las opciones por mensaje.",
+    "h2": "Una sola agencia para todo lo que tienes",
+    "car": "Auto",
+    "moto": "Motocicleta",
+    "home": "Casa",
+    "renters": "Inquilinos"
+  },
+  "agents": {
+    "aria": "Conoce a los agentes",
+    "kick": "Nuestro equipo",
+    "h2": "Personas reales del otro lado del teléfono.",
+    "p": "Cuando llamas o le escribes a Safe House,\n        hablas con nuestro equipo &mdash; no con un centro de llamadas en otro lado. Agentes con licencia que cotizan\n        tu póliza, te explican la cobertura, hacen cambios y te contestan el teléfono después de que compras.\n        En español o en inglés, en el idioma en que empiece la conversación.",
+    "stripAria": "El equipo de Safe House",
+    "alt": "Un agente de Safe House Insurance",
+    "note": "¿Prefieres platicar ahorita?\n        <a href=\"tel:+19155031207\">Llama al 915-503-1207</a> &middot;\n        <a href=\"sms:+19155943777\">Mensaje al 915-594-3777</a>"
+  },
+  "reviews": {
+    "kick": "Reseñas",
+    "h2": "Lo que dicen nuestros clientes.",
+    "lede": "Reseñas reales de nuestro perfil de Google, escritas por clientes\n      con su propio nombre. Las mostramos tal como las escribieron, en inglés.",
+    "note": "Todas están en nuestro perfil de Google, escritas por el\n      cliente, con su propio nombre.",
+    "start": "Empieza tu cotización"
+  },
+  "faq": {
+    "aria": "Preguntas frecuentes",
+    "kick": "Preguntas frecuentes",
+    "h2": "Todo lo que la gente nos pregunta.",
+    "q1": "¿Qué es Safe House Insurance?",
+    "a1": "Somos una agencia de seguros independiente en El Paso, Texas, con licencia en Texas y Nuevo México. Independiente quiere decir que no trabajamos para una sola compañía &mdash; comparamos las aseguradoras que representamos y te traemos las opciones.",
+    "q2": "¿Puedo comprar una póliza aquí mismo en el sitio web?",
+    "a2": "No exactamente &mdash; y es a propósito. Puedes empezar tu cotización en línea y ver tus opciones, pero antes de comprar, uno de nuestros agentes con licencia revisa tu cotización para asegurarse de que tengas la mejor opción disponible. A veces las cotizaciones en línea no toman en cuenta descuentos o ahorros adicionales para los que podrías calificar. Cuando revisemos todo contigo y estés conforme con tu cobertura y tu precio, podemos activar tu póliza.",
+    "q3": "¿Los precios que veo en línea son finales?",
+    "a3": "Son un muy buen punto de partida &mdash; y tu precio final podría ser todavía mejor. Antes de que decidas, hacemos las verificaciones necesarias y uno de nuestros agentes con licencia revisa personalmente tu cotización para confirmar que todo esté correcto y que se hayan aplicado todos los descuentos y ahorros para los que calificas. Después te confirmamos el precio final, te explicamos tus opciones y nos aseguramos de que tengas la cobertura adecuada al mejor precio disponible para ti.",
+    "q4": "¿Con qué compañías de seguros comparan?",
+    "a4": "Progressive, GEICO, Root, Lemonade, GAINSCO y más. Las aseguradoras disponibles y los requisitos para calificar varían según el estado, el producto y el solicitante &mdash; no todas las compañías aseguran todos los casos, y la indicada para ti es la que salga mejor el día que comparamos.",
+    "q5": "¿Qué me pueden asegurar?",
+    "a5": "Desde tu carro hasta tu casa, tu negocio y más &mdash; te cubrimos. Ofrecemos seguro de auto, de casa, para inquilinos, de casa móvil, comercial, para camionetas de trabajo y más. ¿Necesitas más de un tipo de cobertura? Te ayudamos a juntarlo todo y a buscar cada oportunidad de ahorrar.",
+    "q6": "¿Hacen pólizas con SR-22 y de alto riesgo?",
+    "a6": "Sí. Multas, accidentes, un periodo sin seguro o un requisito de SR-22 son cosas con las que trabajamos todo el tiempo. Díselo a tu agente desde el principio para que compare con las aseguradoras indicadas desde la primera vez.",
+    "q7": "¿Hablan español?",
+    "a7": "Sí. Todo el equipo es bilingüe. Puedes cotizar, preguntar y resolver en español, por teléfono o por mensaje, con una persona de verdad aquí en El Paso.",
+    "q8": "¿Cuesta algo cotizar?",
+    "a8": "No. Cotizar es gratis y sin compromiso. Si no encontramos nada que te convenga más que lo que ya tienes, te lo vamos a decir.",
+    "q9": "¿Qué tan pronto puede empezar mi cobertura?",
+    "a9": "La mayoría de las cotizaciones están listas el mismo día. Cuándo empieza la cobertura depende de la aseguradora y de lo que te pida &mdash; tu agente te dice exactamente qué falta y qué tan pronto puede quedar activa."
+  },
+  "start": {
+    "aria": "Empieza tu cotización",
+    "h2": "Empieza tu cotización<br>en unos minutos",
+    "p": "Dinos en línea qué necesitas. Un agente con licencia se encarga a partir de ahí &mdash; por teléfono\n       o por mensaje, en español o en inglés.",
+    "small": "Gratis y sin compromiso &middot; Te atendemos en español"
+  }
+}
