@@ -1,0 +1,183 @@
+{
+  "crumbs": {
+    "aria": "Ruta de navegación",
+    "car": "Seguro de auto",
+    "makes": "Por marca"
+  },
+  "hero": {
+    "alt": "Un vehículo {name}",
+    "h1": "Seguro para tu <em>{name}</em>,<br>como debe ser.",
+    "quote": "Obtén tu cotización gratis &rarr;",
+    "talk": "Habla con un agente",
+    "rea1": "Sin costo ni compromiso",
+    "rea2": "Toma unos minutos",
+    "rea3": "Un agente con licencia la revisa"
+  },
+  "trust": [
+    [
+      "Varias aseguradoras",
+      "Un solo formulario llega a todas las compañías que representamos, no solo a una."
+    ],
+    [
+      "Agentes con licencia",
+      "Una persona revisa la cotización contigo antes de emitir cualquier póliza."
+    ],
+    [
+      "Español e inglés",
+      "Te atendemos en español &mdash; por teléfono y en la oficina."
+    ],
+    [
+      "Texas y Nuevo México",
+      "Con licencia en los dos estados y con oficina en El Paso."
+    ]
+  ],
+  "sel": {
+    "tabs": "Modelos de {name}",
+    "h4": "Qué conviene revisar en la cobertura",
+    "quote": "Cotiza tu {model} &rarr;"
+  },
+  "points": {
+    "body": {
+      "truck": [
+        "Responsabilidad civil, colisión y cobertura integral",
+        "Todo lo que va instalado de forma permanente &mdash; racks, cajas de herramientas, protector de caja &mdash; se tiene que declarar",
+        "Mientras esté financiada, la financiera va a exigir colisión y cobertura integral"
+      ],
+      "van": [
+        "Responsabilidad civil, colisión y cobertura integral",
+        "Si es de uso personal o de trabajo es lo que decide en qué póliza le toca estar",
+        "Los estantes, racks y el equipo no están cubiertos de entrada"
+      ],
+      "minivan": [
+        "Responsabilidad civil, colisión y cobertura integral",
+        "Todas las personas de la casa que la manejen tienen que estar en la póliza",
+        "Mientras esté financiada, la financiera va a exigir colisión y cobertura integral"
+      ],
+      "suv-large": [
+        "Responsabilidad civil, colisión y cobertura integral",
+        "Vale la pena cotizar límites más altos &mdash; un vehículo más pesado hace más daño en un choque",
+        "Mientras esté financiada, la financiera va a exigir colisión y cobertura integral"
+      ],
+      "suv": [
+        "Responsabilidad civil, colisión y cobertura integral",
+        "Cobertura contra conductores sin seguro o con seguro insuficiente",
+        "Mientras esté financiada, la financiera va a exigir colisión y cobertura integral"
+      ],
+      "sedan": [
+        "Responsabilidad civil, colisión y cobertura integral",
+        "Cobertura contra conductores sin seguro o con seguro insuficiente",
+        "Mientras esté financiado, la financiera va a exigir colisión y cobertura integral"
+      ],
+      "hatch": [
+        "Responsabilidad civil, colisión y cobertura integral",
+        "Cobertura contra conductores sin seguro o con seguro insuficiente",
+        "Si ya está pagado, si todavía vale la pena la cobertura de colisión"
+      ],
+      "wagon": [
+        "Responsabilidad civil, colisión y cobertura integral",
+        "Cobertura contra conductores sin seguro o con seguro insuficiente",
+        "Mientras esté financiado, la financiera va a exigir colisión y cobertura integral"
+      ],
+      "sports": [
+        "Responsabilidad civil, colisión y cobertura integral",
+        "El precio depende del motor y la versión, no del emblema",
+        "Si no es de uso diario, vale la pena preguntar por un valor acordado"
+      ]
+    },
+    "flag": {
+      "ev": "La batería y los componentes de alto voltaje &mdash; pregunta cómo se maneja un reclamo por la batería",
+      "perf": "Las versiones de alto desempeño tienen un precio distinto al del modelo base",
+      "offroad": "Los levantamientos, las llantas, las defensas y los malacates se tienen que declarar para quedar cubiertos",
+      "work": "Si lleva carga por la que te pagan, puede que una póliza personal no responda por el reclamo",
+      "lux": "Talleres certificados y calibración después de cambiar un sensor",
+      "value": "Conserva bien su valor, así que la cobertura de colisión le conviene por más tiempo",
+      "old": "Vale la pena revisar si a esta edad la cobertura de colisión todavía se justifica"
+    }
+  },
+  "fclose": {
+    "b": "Por eso en Safe House comparamos varias compañías de seguros para tu {name} en lugar de cotizar solo una.",
+    "btn": "Compara precios &rarr;"
+  },
+  "steps": [
+    [
+      "Nos cuentas una sola vez",
+      "Un solo formulario. Tu vehículo, tu dirección, quién lo maneja. Sin preguntas por tu número de seguro social, sin fotos de tu licencia y sin datos de pago."
+    ],
+    [
+      "Lo comparamos",
+      "Llega al mismo tiempo a todas las aseguradoras que representamos. Cada una le pone un precio distinto al mismo riesgo, y esa diferencia es la razón de ser de una agencia."
+    ],
+    [
+      "Ves lo que salió",
+      "Los precios te aparecen lado a lado — planes mensuales y pago de contado, lo que cada compañía realmente ofreció."
+    ],
+    [
+      "Un agente lo revisa",
+      "Un agente de Safe House con licencia revisa contigo la cobertura, los descuentos y el precio final antes de emitir nada. Nada queda contratado solo con una pantalla."
+    ]
+  ],
+  "shop": {
+    "kick": "Cómo funciona",
+    "h2": "Somos una agencia, no una aseguradora.",
+    "p": "Una aseguradora solo te puede enseñar su propio precio. Nosotros trabajamos con varias, así que tu {name} recibe precio de todas al mismo tiempo y tú ves la diferencia.",
+    "indieB": "Independiente quiere decir que nadie nos paga para llevarte hacia una compañía.",
+    "indieP": "No somos propiedad de ninguna aseguradora y no tenemos una marca propia que proteger. Si la opción más barata y sensata para tu {name} es una aseguradora de la que nunca has oído, esa es la que te vamos a enseñar — y si tu póliza actual ya es la mejor opción, también te lo vamos a decir."
+  },
+  "calc": {
+    "h3": "Tus números",
+    "worth": "¿Cuánto vale hoy tu {name}?",
+    "worthHint": "Más o menos en cuánto lo podrías vender, no lo que pagaste",
+    "collDed": "Deducible de colisión",
+    "compDed": "Deducible de cobertura integral",
+    "prem": "Cobertura de daños físicos, por año",
+    "premHint": "La parte de colisión y cobertura integral de tu prima &mdash; no la póliza completa",
+    "rowValue": "Valor estimado del vehículo",
+    "rowDed": "Deducible que aplicaría",
+    "rowRisk": "Lo máximo que podría pagar la cobertura",
+    "rowPrem": "Lo que pagas por ella al año",
+    "disc": "<strong>Este es un cálculo educativo, no una recomendación ni una cotización.</strong> Compara lo que podría pagar la cobertura de daños físicos contra lo que te cuesta — no conoce tu historial de deducibles, los requisitos de tu financiera ni si podrías reponer el vehículo con tu propio dinero. Si tu {name} está financiado o en arrendamiento, es casi seguro que la cobertura de colisión y la integral sean obligatorias. Habla con un agente de Safe House con licencia antes de cambiar cualquier cobertura."
+  },
+  "proof": [
+    [
+      "Estados con licencia",
+      "Texas y Nuevo México, con oficina en Montana Ave en El Paso &mdash; no un centro de llamadas en otra zona horaria."
+    ],
+    [
+      "Formulario para todas",
+      "Lo llenas una sola vez. Llega al mismo tiempo a todas las compañías que representamos y los precios te regresan lado a lado."
+    ],
+    [
+      "Por cotizar",
+      "Cotizar no cuesta nada ni te compromete a nada. Un agente con licencia la revisa contigo antes de emitir cualquier póliza."
+    ]
+  ],
+  "final": {
+    "h2": "¿Listo para ver los precios para tu {name}?",
+    "p": "Un solo formulario, todas las aseguradoras que representamos y precios en unos minutos. Nada queda contratado en una pantalla &mdash; primero lo revisa contigo un agente con licencia.",
+    "quoteMake": "Cotiza tu {name} &rarr;",
+    "quoteCity": "Cotiza en {name} &rarr;",
+    "text": "Mándanos un mensaje",
+    "fine": "Llama al {call} &middot; Mensajes al {text} &middot; Te atendemos en español"
+  },
+  "sticky": {
+    "aria": "Cotiza gratis",
+    "call": "Llama al {call}",
+    "quote": "Cotiza tu {name}"
+  },
+  "js": {
+    "fillLead": "Escribe tus números",
+    "fillVerd": "Arriba, escribe el valor de tu vehículo y lo que pagas por la cobertura de daños físicos.",
+    "fillNote": "Todo se queda en tu navegador. No se envía nada a ningún lado y esto no es una cotización.",
+    "talk": "Vale la pena platicarlo",
+    "zeroVerd": "Tu deducible es tan alto como lo que vale el vehículo.",
+    "zeroNote": "La colisión y la cobertura integral nunca pueden pagar más de lo que vale el vehículo menos tu deducible, así que con estos números a la cobertura casi no le queda nada que pagar. Normalmente ese es el momento de platicar si conviene quitarla — pero solo si podrías aguantar perder el vehículo por completo.",
+    "highVerd": "Estás pagando una buena parte de lo máximo que esta cobertura te podría pagar.",
+    "highNote": "Lo máximo que te podría regresar un reclamo es {risk}, y estás pagando {prem} al año por eso. En ese rango muchos dueños se cambian a solo responsabilidad civil — siempre y cuando puedan reponer el vehículo por su cuenta.",
+    "review": "Vale la pena revisarlo",
+    "midVerd": "En este rango la respuesta depende de ti, no de los números.",
+    "midNote": "Un reclamo te podría regresar hasta {risk} contra {prem} al año. Si vale la pena conservarla se reduce a una pregunta: ¿podrías reponer el vehículo con tu dinero mañana mismo si tuvieras que hacerlo?",
+    "keep": "Probablemente conviene conservarla",
+    "lowVerd": "La cobertura todavía puede pagar mucho más de lo que te cuesta.",
+    "lowNote": "Hasta {risk} de protección por {prem} al año. Con esta proporción la mayoría de los dueños conserva la colisión y la cobertura integral — y si el vehículo está financiado o en arrendamiento, la financiera las exige de todos modos."
+  }
+}

@@ -51,6 +51,9 @@ CASTILIAN = [
 # for word and "licencia de conducir", which is what a Mexican licence says.
 CASTILIAN_ALLOW = {'legal.': {'móvil', 'conducir'}}
 
+# Placeholders that only exist for English grammar.
+GRAMMAR = {'article', 'a_model', 'a_name', 'plural_s'}
+
 # Values allowed to read the same in both languages: names, numbers, codes.
 SAME_OK = re.compile(
     r'^(?:[\s\d$%.,:;/()+&#;\-–—|·]*|Safe House Insurance(?: LLC)?|FAQ|SR-22|VIN|PIP|DWI|'
@@ -184,9 +187,15 @@ def check_catalogs(errors, warnings, accept=False):
         pairs = zip(strings_in(a), strings_in(b))
         for (pa, sa), (pb, sb) in pairs:
             where = k + pa
-            if set(i18n._PH.findall(sa)) != set(i18n._PH.findall(sb)):
-                errors.append((where, 'placeholders differ: %s vs %s'
-                               % (sorted(set(i18n._PH.findall(sa))), sorted(set(i18n._PH.findall(sb))))))
+            pa_, pb_ = set(i18n._PH.findall(sa)), set(i18n._PH.findall(sb))
+            if pb_ - pa_:
+                errors.append((where, 'Spanish has placeholders English does not: %s'
+                               % sorted(pb_ - pa_)))
+            # Spanish may leave out a value English needs for its grammar —
+            # "a"/"an" before a model name has no Spanish equivalent. Anything
+            # else left out is probably a mistake, so it is reported.
+            if pa_ - pb_ - GRAMMAR:
+                warnings.append((where, 'Spanish does not use %s' % sorted(pa_ - pb_ - GRAMMAR)))
             if tags_of(sa) != tags_of(sb):
                 errors.append((where, 'inline markup differs'))
             if not sb.strip() and sa.strip():

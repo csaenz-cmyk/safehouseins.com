@@ -543,7 +543,8 @@ def make_page(slug, name, parent, origin, tags, note):
     shown = len(html.unescape(title)) + len(SUFFIX)
     assert len(html.unescape(desc)) <= 160, (slug, len(desc), desc)
     assert shown <= 64, (slug, shown, title)
-    head = rewrite(shell.head(title, desc, SUFFIX), 2)
+    head = rewrite(shell.head(title, desc, SUFFIX, up=UP, link='car-insurance/' + slug + '/',
+                              path='car-insurance/' + slug + '/'), 2)
     head = head.replace('</head>',
       '<link rel="canonical" href="' + url + '">\n'
       '<meta property="og:title" content="' + _e(title) + '">\n'
@@ -648,7 +649,7 @@ def make_page(slug, name, parent, origin, tags, note):
     parts.append(nearby)
 
     return (head + ''.join(parts) + BK.sticky(name, UP)
-            + rewrite(shell.FOOTER, 2).replace('</body>', BK.JS + '</body>'))
+            + rewrite(shell.footer(), 2).replace('</body>', BK.scripts() + '</body>'))
 
 # ----------------------------------------------------------------- the hub ---
 # Which make's photograph heads the hub. None goes back to the drawing, and a
@@ -706,7 +707,8 @@ def hub():
     hubdesc = ('Car insurance by vehicle make. What moves the price on what you drive, coverage '
                'notes by model, and a free quote across several carriers.')
     assert len(hubdesc) <= 160, len(hubdesc)
-    head = rewrite(shell.head('Car insurance by make', hubdesc, SUFFIX), 2)
+    head = rewrite(shell.head('Car insurance by make', hubdesc, SUFFIX, up=UP,
+                              link='car-insurance/makes/', path='car-insurance/makes/'), 2)
     head = head.replace('</head>',
       '<link rel="canonical" href="' + url + '">\n'
       + '<script type="application/ld+json">' + json.dumps({
@@ -733,7 +735,7 @@ def hub():
       + BK.trustbar() +
       '<section class="sec"><div class="wrap">' + ''.join(out) + '</div></section>'
       + BK.finalcta('vehicle', UP, headline='Ready to see what your vehicle costs to insure?')
-      + rewrite(shell.FOOTER, 2).replace('</body>', BK.JS + '</body>'))
+      + rewrite(shell.footer(), 2).replace('</body>', BK.scripts() + '</body>'))
 
 # ------------------------------------------------------------------- build ---
 def write(path, content):
@@ -748,8 +750,11 @@ MAX_REDRAW = 24
 
 def _shingles(page_html):
     s = page_html
+    # The language switch is chrome, identical on every page; counting its
+    # words would move every overlap a little and change which draft a page
+    # gets for reasons that have nothing to do with the page.
     for pat in (r'(?s)<head.*?</head>', r'(?s)<footer.*?</footer>', r'(?s)<script.*?</script>',
-                r'(?s)<style.*?</style>'):
+                r'(?s)<style.*?</style>', r'(?s)<div class="lsw[^"]*" role="group".*?</div>'):
         s = re.sub(pat, '', s)
     s = re.sub(r'<[^>]+>', ' ', s)
     w = re.findall(r"[a-z']+", html.unescape(s).lower())

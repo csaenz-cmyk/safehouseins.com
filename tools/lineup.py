@@ -580,45 +580,9 @@ L = {
 # coverage mechanics, not prices — every line here is true of the coverage
 # itself, not a claim about what anybody pays.
 
-BODY_POINTS = {
-  'truck':   ['Liability, collision and comprehensive',
-              'Anything permanently mounted &mdash; racks, toolboxes, a bed liner &mdash; needs listing',
-              'A lender will require collision and comprehensive while it is financed'],
-  'van':     ['Liability, collision and comprehensive',
-              'Personal or business use is the question that decides which policy it belongs on',
-              'Shelving, racks and equipment are not covered by default'],
-  'minivan': ['Liability, collision and comprehensive',
-              'Everyone in the household who drives it has to be on the policy',
-              'A lender will require collision and comprehensive while it is financed'],
-  'suv-large': ['Liability, collision and comprehensive',
-              'Higher limits are worth pricing &mdash; a heavier vehicle does more damage in a collision',
-              'A lender will require collision and comprehensive while it is financed'],
-  'suv':     ['Liability, collision and comprehensive',
-              'Uninsured and underinsured motorist coverage',
-              'A lender will require collision and comprehensive while it is financed'],
-  'sedan':   ['Liability, collision and comprehensive',
-              'Uninsured and underinsured motorist coverage',
-              'A lender will require collision and comprehensive while it is financed'],
-  'hatch':   ['Liability, collision and comprehensive',
-              'Uninsured and underinsured motorist coverage',
-              'If it is paid off, whether collision still earns its place'],
-  'wagon':   ['Liability, collision and comprehensive',
-              'Uninsured and underinsured motorist coverage',
-              'A lender will require collision and comprehensive while it is financed'],
-  'sports':  ['Liability, collision and comprehensive',
-              'Rated on the engine and trim, not on the badge',
-              'Agreed value is worth asking about if it is not an everyday car'],
-}
-
-FLAG_POINTS = {
-  'ev':      'Battery and high-voltage components &mdash; ask how a battery claim is handled',
-  'perf':    'Performance trims are rated separately from the base model',
-  'offroad': 'Lifts, tyres, bumpers and winches have to be declared to be covered',
-  'work':    'If it carries anything for pay, a personal policy may not answer the claim',
-  'lux':     'Certified repair networks and calibration after a sensor replacement',
-  'value':   'Holds value well, which keeps collision worth carrying for longer',
-  'old':     'Worth checking whether collision still earns its premium at this age',
-}
+# The lines themselves — per body style (kit.points.body.<body>) and per flag
+# (kit.points.flag.<flag>) — are in locales/<lang>/kit.json, in English and
+# Spanish. brandkit.selector() reads them there.
 
 def get(slug):
     return L.get(slug)

@@ -24,14 +24,20 @@ SHINGLE = 8
 FAMILIES = {
   'makes':  ('car-insurance/*/index.html', {'texas', 'new-mexico'}),
   'cities': ('car-insurance/*/*/index.html', set()),
+  # The Spanish twins are a doorway set of their own and are measured the same
+  # way, against each other.
+  'es-makes':  ('es/car-insurance/*/index.html', {'texas', 'new-mexico'}),
+  'es-cities': ('es/car-insurance/*/*/index.html', set()),
 }
 
 def words(path):
     s = open(path, encoding='utf-8').read()
-    for pat in (r'(?s)<head.*?</head>', r'(?s)<footer.*?</footer>', r'(?s)<script.*?</script>'):
+    for pat in (r'(?s)<head.*?</head>', r'(?s)<footer.*?</footer>', r'(?s)<script.*?</script>',
+                r'(?s)<div class="lsw[^"]*" role="group".*?</div>'):
         s = re.sub(pat, '', s)
     s = re.sub(r'<[^>]+>', ' ', s)
-    return re.findall(r"[a-z']+", html.unescape(s).lower())
+    # Accented letters are letters: without them "cotización" is two words.
+    return re.findall(r"[a-záéíóúñü']+", html.unescape(s).lower())
 
 def shingles(w):
     return set(tuple(w[i:i + SHINGLE]) for i in range(len(w) - SHINGLE + 1))
@@ -41,12 +47,12 @@ def run(family):
     pages = {}
     for p in glob.glob(os.path.join(ROOT, pattern)):
         parts = p.split(os.sep)
-        name = parts[-2] if family == 'makes' else parts[-3] + '/' + parts[-2]
+        name = parts[-2] if family.endswith('makes') else parts[-3] + '/' + parts[-2]
         if parts[-2] in skip:
             continue
         pages[name] = words(p)
     if len(pages) < 2:
-        print(family + ': nothing to compare')
+        print(family + ': nothing to compare' + (' (Spanish not built yet)' if family.startswith('es-') else ''))
         return 0
 
     sh = {k: shingles(v) for k, v in pages.items()}

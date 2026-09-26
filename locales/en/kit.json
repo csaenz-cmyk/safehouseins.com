@@ -1,0 +1,183 @@
+{
+  "crumbs": {
+    "aria": "Breadcrumb",
+    "car": "Car insurance",
+    "makes": "By make"
+  },
+  "hero": {
+    "alt": "A {name} vehicle",
+    "h1": "<em>{name}</em> car insurance,<br>done properly.",
+    "quote": "Get my free quote &rarr;",
+    "talk": "Talk to an agent",
+    "rea1": "No cost, no obligation",
+    "rea2": "Takes a few minutes",
+    "rea3": "A licensed agent reviews it"
+  },
+  "trust": [
+    [
+      "Multiple carriers",
+      "One form goes to every company we represent, not just one."
+    ],
+    [
+      "Licensed agents",
+      "A person reviews the quote with you before anything is issued."
+    ],
+    [
+      "English &amp; Spanish",
+      "Se habla espa&ntilde;ol &mdash; on the phone and in the office."
+    ],
+    [
+      "Texas &amp; New Mexico",
+      "Licensed in both states, based in El Paso."
+    ]
+  ],
+  "sel": {
+    "tabs": "{name} models",
+    "h4": "Common coverage considerations",
+    "quote": "Get a quote for {article} {model} &rarr;"
+  },
+  "points": {
+    "body": {
+      "truck": [
+        "Liability, collision and comprehensive",
+        "Anything permanently mounted &mdash; racks, toolboxes, a bed liner &mdash; needs listing",
+        "A lender will require collision and comprehensive while it is financed"
+      ],
+      "van": [
+        "Liability, collision and comprehensive",
+        "Personal or business use is the question that decides which policy it belongs on",
+        "Shelving, racks and equipment are not covered by default"
+      ],
+      "minivan": [
+        "Liability, collision and comprehensive",
+        "Everyone in the household who drives it has to be on the policy",
+        "A lender will require collision and comprehensive while it is financed"
+      ],
+      "suv-large": [
+        "Liability, collision and comprehensive",
+        "Higher limits are worth pricing &mdash; a heavier vehicle does more damage in a collision",
+        "A lender will require collision and comprehensive while it is financed"
+      ],
+      "suv": [
+        "Liability, collision and comprehensive",
+        "Uninsured and underinsured motorist coverage",
+        "A lender will require collision and comprehensive while it is financed"
+      ],
+      "sedan": [
+        "Liability, collision and comprehensive",
+        "Uninsured and underinsured motorist coverage",
+        "A lender will require collision and comprehensive while it is financed"
+      ],
+      "hatch": [
+        "Liability, collision and comprehensive",
+        "Uninsured and underinsured motorist coverage",
+        "If it is paid off, whether collision still earns its place"
+      ],
+      "wagon": [
+        "Liability, collision and comprehensive",
+        "Uninsured and underinsured motorist coverage",
+        "A lender will require collision and comprehensive while it is financed"
+      ],
+      "sports": [
+        "Liability, collision and comprehensive",
+        "Rated on the engine and trim, not on the badge",
+        "Agreed value is worth asking about if it is not an everyday car"
+      ]
+    },
+    "flag": {
+      "ev": "Battery and high-voltage components &mdash; ask how a battery claim is handled",
+      "perf": "Performance trims are rated separately from the base model",
+      "offroad": "Lifts, tyres, bumpers and winches have to be declared to be covered",
+      "work": "If it carries anything for pay, a personal policy may not answer the claim",
+      "lux": "Certified repair networks and calibration after a sensor replacement",
+      "value": "Holds value well, which keeps collision worth carrying for longer",
+      "old": "Worth checking whether collision still earns its premium at this age"
+    }
+  },
+  "fclose": {
+    "b": "That is why Safe House compares multiple insurance companies for your {name} instead of quoting one.",
+    "btn": "Compare rates &rarr;"
+  },
+  "steps": [
+    [
+      "You tell us once",
+      "One form. Your vehicle, your address, who drives it. No questions about your social security number, no photos of your license, no payment details."
+    ],
+    [
+      "We shop it",
+      "It goes to every carrier we represent at the same time. They price the same risk differently, and that spread is the whole reason an agency exists."
+    ],
+    [
+      "You see what came back",
+      "The prices land in front of you side by side — monthly plans and pay-in-full, whatever each company actually offered."
+    ],
+    [
+      "An agent checks it",
+      "A licensed Safe House agent goes through the coverage, the discounts and the final price with you before anything is issued. Nothing binds on a screen."
+    ]
+  ],
+  "shop": {
+    "kick": "How it works",
+    "h2": "We are an agency, not a carrier.",
+    "p": "A carrier can only ever show you its own price. We hold appointments with several, so your {name} gets priced by all of them at once and you see the difference.",
+    "indieB": "Independent means nobody is paying us to steer you.",
+    "indieP": "We are not owned by an insurance company and we do not have a house brand to protect. If the cheapest sensible option for your {name} is a carrier you have never heard of, that is the one we will show you — and if your current policy is already the better deal, we will tell you that too."
+  },
+  "calc": {
+    "h3": "Your numbers",
+    "worth": "What is your {name} worth today?",
+    "worthHint": "Roughly what you could sell it for, not what you paid",
+    "collDed": "Collision deductible",
+    "compDed": "Comprehensive deductible",
+    "prem": "Physical damage coverage, per year",
+    "premHint": "The collision and comprehensive part of your premium &mdash; not the whole policy",
+    "rowValue": "Estimated vehicle value",
+    "rowDed": "Deductible that would apply",
+    "rowRisk": "Most the coverage could pay",
+    "rowPrem": "What you pay for it a year",
+    "disc": "<strong>This is an educational estimate, not advice and not a quote.</strong> It compares what physical damage coverage could pay against what it costs you — it does not know your deductible history, your lender’s requirements or whether you could replace the vehicle out of pocket. If your {name} is financed or leased, collision and comprehensive are almost certainly required. Talk to a licensed Safe House agent before changing any coverage."
+  },
+  "proof": [
+    [
+      "States licensed",
+      "Texas and New Mexico, with an office on Montana Ave in El Paso &mdash; not a call center in another time zone."
+    ],
+    [
+      "Form, every carrier",
+      "You fill it in once. It goes to every company we represent at the same time and the prices come back to you side by side."
+    ],
+    [
+      "To get a quote",
+      "Quoting costs nothing and binds nothing. A licensed agent reviews it with you before any policy is issued."
+    ]
+  ],
+  "final": {
+    "h2": "Ready to see your {name} prices?",
+    "p": "One form, every carrier we represent, prices back in a few minutes. Nothing binds on a screen &mdash; a licensed agent reviews it with you first.",
+    "quoteMake": "Quote my {name} &rarr;",
+    "quoteCity": "Quote my {name} &rarr;",
+    "text": "Text us",
+    "fine": "Call {call} &middot; Text {text} &middot; Se habla espa&ntilde;ol"
+  },
+  "sticky": {
+    "aria": "Get a quote",
+    "call": "Call {call}",
+    "quote": "Quote my {name}"
+  },
+  "js": {
+    "fillLead": "Fill in your numbers",
+    "fillVerd": "Put your vehicle value and what you pay for physical damage coverage above.",
+    "fillNote": "Everything stays in your browser. Nothing is sent anywhere and this is not a quote.",
+    "talk": "Worth a conversation",
+    "zeroVerd": "Your deductible is as high as the vehicle is worth.",
+    "zeroNote": "Collision and comprehensive can never pay more than the vehicle is worth minus your deductible, so at these numbers the coverage has almost nothing left to pay out. That is usually the point to talk about dropping it — but only if losing the vehicle outright is something you could absorb.",
+    "highVerd": "You are paying a large share of what this coverage could ever pay you.",
+    "highNote": "The most a claim could return is {risk}, and you are paying {prem} a year for it. That is the range where owners often move to liability only — as long as they could replace the vehicle themselves.",
+    "review": "Worth reviewing",
+    "midVerd": "This is the range where the answer depends on you, not on the maths.",
+    "midNote": "A claim could return up to {risk} against {prem} a year. Whether that is worth keeping comes down to one question: could you replace the vehicle out of pocket tomorrow if you had to?",
+    "keep": "Likely worth keeping",
+    "lowVerd": "The coverage can still pay out far more than it costs you.",
+    "lowNote": "Up to {risk} of protection for {prem} a year. At this ratio most owners keep collision and comprehensive — and if the vehicle is financed or leased, the lender requires them anyway."
+  }
+}

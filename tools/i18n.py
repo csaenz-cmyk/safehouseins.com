@@ -452,13 +452,26 @@ TOGGLE_JS = """<script>
 
 
 # ------------------------------------------------------- browser strings ---
-def js_dict(prefix):
+def js_dict(*prefixes):
     """A page's browser-side strings as a JSON data block. Scripts read it
-    with T() below; it holds only the keys under `prefix`, in the language
-    being rendered."""
-    data = json.dumps(subtree(prefix), ensure_ascii=False, sort_keys=True)
+    with T() below; it holds only the keys under the given prefixes, in the
+    language being rendered, each with its prefix removed. One block per page:
+    a page whose scripts come from two components passes both prefixes."""
+    data = {}
+    for prefix in prefixes:
+        for k, v in subtree(prefix).items():
+            if k in data:
+                raise KeyError('browser key %r is in more than one of %r' % (k, prefixes))
+            data[k] = v
+    data = json.dumps(data, ensure_ascii=False, sort_keys=True)
     return ('<script type="application/json" id="i18n">%s</script>'
             % data.replace('</', '<\\/'))
+
+
+def js_block(*prefixes):
+    """js_dict() plus the T() function, ready to go in front of the scripts
+    that use it."""
+    return js_dict(*prefixes) + '\n<script>' + JS_T + '</script>'
 
 
 # T(key, {name: value}) in the browser. Lenient where t() is strict: a missing

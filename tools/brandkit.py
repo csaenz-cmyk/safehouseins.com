@@ -13,9 +13,14 @@ Two rules the components are built around:
   * No number is invented. The calculator does arithmetic on figures the
     visitor typed. Nothing here states or implies what a brand costs to
     insure, because we have no source for that.
+
+Every word the components print comes from locales/<lang>/kit.json (and the
+city and make catalogs for what the callers pass in), so the same component
+renders the English page and its Spanish twin.
 """
 import html
 
+import i18n
 import vehiclesvg
 import lineup as LU
 
@@ -385,37 +390,30 @@ JS = """
       var ratio = risk > 0 ? p / risk : Infinity;
       bar.style.width = Math.max(2, Math.min(100, risk > 0 ? (risk / Math.max(v, 1)) * 100 : 0)) + '%';
 
+      // The words are in the page's i18n block (locales/<lang>/kit.json, js.*).
+      var nums = {risk: money(risk), prem: money(p)};
       if (v <= 0 || p <= 0) {
-        lead.textContent = 'Fill in your numbers';
-        verd.textContent = 'Put your vehicle value and what you pay for physical damage coverage above.';
-        note.textContent = 'Everything stays in your browser. Nothing is sent anywhere and this is not a quote.';
+        lead.textContent = T('fillLead');
+        verd.textContent = T('fillVerd');
+        note.textContent = T('fillNote');
         return;
       }
       if (risk <= 0) {
-        lead.textContent = 'Worth a conversation';
-        verd.textContent = 'Your deductible is as high as the vehicle is worth.';
-        note.textContent = 'Collision and comprehensive can never pay more than the vehicle is worth minus '
-          + 'your deductible, so at these numbers the coverage has almost nothing left to pay out. That is '
-          + 'usually the point to talk about dropping it — but only if losing the vehicle outright is '
-          + 'something you could absorb.';
+        lead.textContent = T('talk');
+        verd.textContent = T('zeroVerd');
+        note.textContent = T('zeroNote');
       } else if (ratio >= 0.30) {
-        lead.textContent = 'Worth a conversation';
-        verd.textContent = 'You are paying a large share of what this coverage could ever pay you.';
-        note.textContent = 'The most a claim could return is ' + money(risk) + ', and you are paying '
-          + money(p) + ' a year for it. That is the range where owners often move to liability only — '
-          + 'as long as they could replace the vehicle themselves.';
+        lead.textContent = T('talk');
+        verd.textContent = T('highVerd');
+        note.textContent = T('highNote', nums);
       } else if (ratio >= 0.12) {
-        lead.textContent = 'Worth reviewing';
-        verd.textContent = 'This is the range where the answer depends on you, not on the maths.';
-        note.textContent = 'A claim could return up to ' + money(risk) + ' against ' + money(p)
-          + ' a year. Whether that is worth keeping comes down to one question: could you replace the '
-          + 'vehicle out of pocket tomorrow if you had to?';
+        lead.textContent = T('review');
+        verd.textContent = T('midVerd');
+        note.textContent = T('midNote', nums);
       } else {
-        lead.textContent = 'Likely worth keeping';
-        verd.textContent = 'The coverage can still pay out far more than it costs you.';
-        note.textContent = 'Up to ' + money(risk) + ' of protection for ' + money(p) + ' a year. At this '
-          + 'ratio most owners keep collision and comprehensive — and if the vehicle is financed or '
-          + 'leased, the lender requires them anyway.';
+        lead.textContent = T('keep');
+        verd.textContent = T('lowVerd');
+        note.textContent = T('lowNote', nums);
       }
     }
     [val, dcol, dcmp, prem].forEach(function(el){
@@ -455,6 +453,13 @@ JS = """
 })();
 </script>
 """
+
+
+def scripts(*also):
+    """Everything a page built from these components needs before </body>:
+    one browser dictionary (the kit's strings plus any the caller's own
+    components use — 'cities.js' on a city page) and the kit's script."""
+    return i18n.js_block('kit.js', *also) + JS
 
 
 # ------------------------------------------------------------------ icons ---
@@ -558,29 +563,31 @@ def _e(s):
 def crumbs(name, up):
     """`up` climbs to the site root, so the section paths have to be spelled out
     from there — 'makes/' relative to the root is not the makes hub."""
-    return ('<nav class="crumbs" aria-label="Breadcrumb">'
-            '<a href="' + up + 'car-insurance/">Car insurance</a> &rsaquo; '
-            '<a href="' + up + 'car-insurance/makes/">By make</a> &rsaquo; '
+    t = i18n.t
+    return ('<nav class="crumbs" aria-label="' + t('kit.crumbs.aria') + '">'
+            '<a href="' + up + 'car-insurance/">' + t('kit.crumbs.car') + '</a> &rsaquo; '
+            '<a href="' + up + 'car-insurance/makes/">' + t('kit.crumbs.makes') + '</a> &rsaquo; '
             '<span aria-current="page">' + _e(name) + '</span></nav>')
 
 def hero(slug, name, up, sub, chips, photo=None):
     """Headline, promise, one primary action, and the brand's vehicle."""
+    t = i18n.t
     body = LU.dominant_body(slug)
     art = ('<img class="photo" src="' + up + 'assets/makes/' + slug + '.webp" '
-           'alt="A ' + _e(name) + ' vehicle" width="880" height="520" fetchpriority="high">'
+           'alt="' + t('kit.hero.alt', name=_e(name)) + '" width="880" height="520" fetchpriority="high">'
            ) if photo else vehiclesvg.silhouette(body, 'var(--acc)', 'hero', wide=True)
     return ('<header class="bhero"><div class="wrap"><div class="bgrid">'
       '<div>'
         + crumbs(name, up) +
-        '<h1><em>' + _e(name) + '</em> car insurance,<br>done properly.</h1>'
+        '<h1>' + t('kit.hero.h1', name=_e(name)) + '</h1>'
         '<p class="sub">' + sub + '</p>'
         '<div class="acts">'
-          '<a class="btn" href="' + up + 'quote.html">Get my free quote &rarr;</a>'
-          '<a class="btn ghost" href="tel:+1' + CALL.replace('-', '') + '">Talk to an agent</a>'
+          '<a class="btn" href="' + up + 'quote.html">' + t('kit.hero.quote') + '</a>'
+          '<a class="btn ghost" href="tel:+1' + CALL.replace('-', '') + '">' + t('kit.hero.talk') + '</a>'
         '</div>'
-        '<p class="rea"><span><i>&check;</i>No cost, no obligation</span>'
-        '<span><i>&check;</i>Takes a few minutes</span>'
-        '<span><i>&check;</i>A licensed agent reviews it</span></p>'
+        '<p class="rea"><span><i>&check;</i>' + t('kit.hero.rea1') + '</span>'
+        '<span><i>&check;</i>' + t('kit.hero.rea2') + '</span>'
+        '<span><i>&check;</i>' + t('kit.hero.rea3') + '</span></p>'
       '</div>'
       '<div class="bart">'
         '<p class="bmark">' + _e(name) + '</p>'
@@ -589,18 +596,16 @@ def hero(slug, name, up, sub, chips, photo=None):
       '</div>'
       '</div></div></header>')
 
-TRUST = [
-  ('carriers', 'Multiple carriers', 'One form goes to every company we represent, not just one.'),
-  ('agent', 'Licensed agents', 'A person reviews the quote with you before anything is issued.'),
-  ('lang', 'English &amp; Spanish', 'Se habla espa&ntilde;ol &mdash; on the phone and in the office.'),
-  ('pin', 'Texas &amp; New Mexico', 'Licensed in both states, based in El Paso.'),
-]
+# The four trust points, by icon; their words are kit.trust in the catalog.
+TRUST = ['carriers', 'agent', 'lang', 'pin']
 
 def trustbar():
+    words = i18n.get('kit.trust')
+    assert len(words) == len(TRUST)
     return ('<section class="tbar"><div class="wrap"><div class="row">'
       + ''.join('<div class="t"><span class="ic">' + ICON[i] + '</span>'
                 '<span><b>' + t + '</b><small>' + sub + '</small></span></div>'
-                for i, t, sub in TRUST)
+                for i, (t, sub) in zip(TRUST, words))
       + '</div></div></section>')
 
 def selector(slug, name, up):
@@ -618,10 +623,11 @@ def selector(slug, name, up):
           + vehiclesvg.silhouette(body, 'var(--acc)', slug + 't' + str(i)) +
           '</span><b>' + _e(mn) + '</b><small>' + _e(label) + '</small></button>')
 
-        pts = list(LU.BODY_POINTS.get(body, LU.BODY_POINTS['sedan']))
+        pts = list(i18n.get('kit.points.body.' + body) if i18n.has('kit.points.body.' + body)
+                   else i18n.get('kit.points.body.sedan'))
         for f in flags:
-            if f in LU.FLAG_POINTS:
-                pts.append(LU.FLAG_POINTS[f])
+            if i18n.has('kit.points.flag.' + f):
+                pts.append(i18n.t('kit.points.flag.' + f))
         panels.append(
           '<div class="mpanel" role="tabpanel" id="mp' + str(i) + '" aria-labelledby="mt' + str(i) + '"'
           + ('' if i == 0 else ' hidden') + '>'
@@ -629,13 +635,13 @@ def selector(slug, name, up):
           '<div>'
             '<h3>' + _e(name) + ' ' + _e(mn) + '</h3>'
             '<span class="bstyle">' + _e(label) + '</span>'
-            '<h4>Common coverage considerations</h4>'
+            '<h4>' + i18n.t('kit.sel.h4') + '</h4>'
             '<ul>' + ''.join('<li>' + p + '</li>' for p in pts) + '</ul>'
-            '<a class="btn" href="' + up + 'quote.html">Get a quote for '
-            + article(mn) + ' ' + _e(mn) + ' &rarr;</a>'
+            '<a class="btn" href="' + up + 'quote.html">'
+            + i18n.t('kit.sel.quote', article=article(mn), model=_e(mn)) + '</a>'
           '</div></div>')
     return ('<div class="msel">'
-      '<div class="mtabs" role="tablist" aria-label="' + _e(name) + ' models">'
+      '<div class="mtabs" role="tablist" aria-label="' + i18n.t('kit.sel.tabs', name=_e(name)) + '">'
       + ''.join(tabs) + '</div>'
       '<div class="mpanels">' + ''.join(panels) + '</div></div>')
 
@@ -644,76 +650,57 @@ def factorcards(name, cards, up='../../'):
       + ''.join('<div class="fcard rv"><span class="ic">' + ICON.get(i, ICON['shield']) + '</span>'
                 '<h3>' + t + '</h3><p>' + p + '</p></div>' for i, t, p in cards)
       + '</div>'
-      '<div class="fclose"><b>That is why Safe House compares multiple insurance companies for '
-      'your ' + _e(name) + ' instead of quoting one.</b>'
-      '<a class="btn" href="' + up + 'quote.html">Compare rates &rarr;</a></div>')
-
-STEPS = [
-  ('You tell us once', 'One form. Your vehicle, your address, who drives it. No questions about your '
-   'social security number, no photos of your license, no payment details.'),
-  ('We shop it', 'It goes to every carrier we represent at the same time. They price the same risk '
-   'differently, and that spread is the whole reason an agency exists.'),
-  ('You see what came back', 'The prices land in front of you side by side — monthly plans and '
-   'pay-in-full, whatever each company actually offered.'),
-  ('An agent checks it', 'A licensed Safe House agent goes through the coverage, the discounts and '
-   'the final price with you before anything is issued. Nothing binds on a screen.'),
-]
+      '<div class="fclose"><b>' + i18n.t('kit.fclose.b', name=_e(name)) + '</b>'
+      '<a class="btn" href="' + up + 'quote.html">' + i18n.t('kit.fclose.btn') + '</a></div>')
 
 def shopping(name):
+    """The four steps (kit.steps) and the independent-agency note."""
+    tr = i18n.t
     return ('<section class="sec deep"><div class="wrap">'
-      '<div class="shead"><span class="eyebrow">How it works</span>'
-      '<h2>We are an agency, not a carrier.</h2>'
-      '<p>A carrier can only ever show you its own price. We hold appointments with several, so your '
-      + _e(name) + ' gets priced by all of them at once and you see the difference.</p></div>'
+      '<div class="shead"><span class="eyebrow">' + tr('kit.shop.kick') + '</span>'
+      '<h2>' + tr('kit.shop.h2') + '</h2>'
+      '<p>' + tr('kit.shop.p', name=_e(name)) + '</p></div>'
       '<div class="steps">'
       + ''.join('<div class="step rv"><span class="n">' + str(i + 1) + '</span><b>' + t + '</b>'
-                '<p>' + p + '</p></div>' for i, (t, p) in enumerate(STEPS))
+                '<p>' + p + '</p></div>' for i, (t, p) in enumerate(i18n.get('kit.steps')))
       + '</div>'
-      '<div class="indie rv"><b>Independent means nobody is paying us to steer you.</b>'
-      '<p>We are not owned by an insurance company and we do not have a house brand to protect. If the '
-      'cheapest sensible option for your ' + _e(name) + ' is a carrier you have never heard of, that is '
-      'the one we will show you — and if your current policy is already the better deal, we will tell '
-      'you that too.</p></div>'
+      '<div class="indie rv"><b>' + tr('kit.shop.indieB') + '</b>'
+      '<p>' + tr('kit.shop.indieP', name=_e(name)) + '</p></div>'
       '</div></section>')
 
 def calculator(name):
+    t = i18n.t
     return ('<div class="calcx rv"><div class="grid2">'
       '<div class="ins">'
-        '<h3>Your numbers</h3>'
-        '<div class="fld"><label for="cxv">What is your ' + _e(name) + ' worth today?</label>'
-          '<small>Roughly what you could sell it for, not what you paid</small>'
+        '<h3>' + t('kit.calc.h3') + '</h3>'
+        '<div class="fld"><label for="cxv">' + t('kit.calc.worth', name=_e(name)) + '</label>'
+          '<small>' + t('kit.calc.worthHint') + '</small>'
           '<span class="pre">$<input id="cxv" class="kv" type="number" inputmode="numeric" '
           'value="14500" min="0" step="250"></span></div>'
-        '<div class="fld"><label for="cxdc">Collision deductible</label>'
+        '<div class="fld"><label for="cxdc">' + t('kit.calc.collDed') + '</label>'
           '<span class="pre">$<input id="cxdc" class="kdc" type="number" inputmode="numeric" '
           'value="1000" min="0" step="50"></span></div>'
-        '<div class="fld"><label for="cxdp">Comprehensive deductible</label>'
+        '<div class="fld"><label for="cxdp">' + t('kit.calc.compDed') + '</label>'
           '<span class="pre">$<input id="cxdp" class="kdp" type="number" inputmode="numeric" '
           'value="1000" min="0" step="50"></span></div>'
-        '<div class="fld"><label for="cxp">Physical damage coverage, per year</label>'
-          '<small>The collision and comprehensive part of your premium &mdash; not the whole policy</small>'
+        '<div class="fld"><label for="cxp">' + t('kit.calc.prem') + '</label>'
+          '<small>' + t('kit.calc.premHint') + '</small>'
           '<span class="pre">$<input id="cxp" class="kp" type="number" inputmode="numeric" '
           'value="640" min="0" step="20"></span></div>'
       '</div>'
       '<div class="out">'
-        '<p class="vlead">Fill in your numbers</p>'
-        '<p class="verdict">Put your vehicle value and what you pay for physical damage coverage above.</p>'
+        '<p class="vlead">' + t('kit.js.fillLead') + '</p>'
+        '<p class="verdict">' + t('kit.js.fillVerd') + '</p>'
         '<div class="vbar"><i></i></div>'
         '<div class="vrows">'
-          '<div class="vrow"><span>Estimated vehicle value</span><b class="rv-val">$0</b></div>'
-          '<div class="vrow"><span>Deductible that would apply</span><b class="rd-ded">$0</b></div>'
-          '<div class="vrow big"><span>Most the coverage could pay</span><b class="rr-risk">$0</b></div>'
-          '<div class="vrow"><span>What you pay for it a year</span><b class="rp-prem">$0</b></div>'
+          '<div class="vrow"><span>' + t('kit.calc.rowValue') + '</span><b class="rv-val">$0</b></div>'
+          '<div class="vrow"><span>' + t('kit.calc.rowDed') + '</span><b class="rd-ded">$0</b></div>'
+          '<div class="vrow big"><span>' + t('kit.calc.rowRisk') + '</span><b class="rr-risk">$0</b></div>'
+          '<div class="vrow"><span>' + t('kit.calc.rowPrem') + '</span><b class="rp-prem">$0</b></div>'
         '</div>'
-        '<p class="vnote">Everything stays in your browser. Nothing is sent anywhere and this is not '
-        'a quote.</p>'
+        '<p class="vnote">' + t('kit.js.fillNote') + '</p>'
       '</div></div>'
-      '<p class="disc"><strong>This is an educational estimate, not advice and not a quote.</strong> '
-      'It compares what physical damage coverage could pay against what it costs you — it does not '
-      'know your deductible history, your lender’s requirements or whether you could replace the '
-      'vehicle out of pocket. If your ' + _e(name) + ' is financed or leased, collision and '
-      'comprehensive are almost certainly required. Talk to a licensed Safe House agent before '
-      'changing any coverage.</p>'
+      '<p class="disc">' + t('kit.calc.disc', name=_e(name)) + '</p>'
       '</div>')
 
 def popular(slug, name, up):
@@ -727,39 +714,44 @@ def popular(slug, name, up):
                 for i, (mn, b, lab, fl) in enumerate(ms))
       + '</div>')
 
+# The three figures proof() leads with. True and the same in every language;
+# the words under them are kit.proof.
+PROOF = ['2', '1', '$0']
+
 def proof():
+    words = i18n.get('kit.proof')
+    assert len(words) == len(PROOF)
     return ('<div class="proof">'
-      '<div class="pcard rv"><span class="big">2</span><b>States licensed</b>'
-      '<p>Texas and New Mexico, with an office on Montana Ave in El Paso &mdash; not a call center '
-      'in another time zone.</p></div>'
-      '<div class="pcard rv"><span class="big">1</span><b>Form, every carrier</b>'
-      '<p>You fill it in once. It goes to every company we represent at the same time and the prices '
-      'come back to you side by side.</p></div>'
-      '<div class="pcard rv"><span class="big">$0</span><b>To get a quote</b>'
-      '<p>Quoting costs nothing and binds nothing. A licensed agent reviews it with you before any '
-      'policy is issued.</p></div>'
-      '</div>')
+      + ''.join('<div class="pcard rv"><span class="big">' + n + '</span><b>' + b + '</b>'
+                '<p>' + p + '</p></div>' for n, (b, p) in zip(PROOF, words))
+      + '</div>')
 
 def faqblock(qs):
     return ('<div class="faqs">'
       + ''.join('<details class="qa"><summary>' + q + '</summary><div class="qb">' + a + '</div></details>'
                 for q, a in qs) + '</div>')
 
-def finalcta(name, up, headline=None):
+def finalcta(name, up, headline=None, place=False):
+    """`place` says `name` is a city rather than a vehicle: the button reads
+    "Quote my El Paso" in English, which Spanish cannot say, so the city pages
+    get their own wording there."""
+    t = i18n.t
     return ('<section class="sec"><div class="wrap"><div class="fin rv">'
-      '<h2>' + (headline or 'Ready to see your ' + _e(name) + ' prices?') + '</h2>'
-      '<p>One form, every carrier we represent, prices back in a few minutes. Nothing binds on a '
-      'screen &mdash; a licensed agent reviews it with you first.</p>'
+      '<h2>' + (headline or t('kit.final.h2', name=_e(name))) + '</h2>'
+      '<p>' + t('kit.final.p') + '</p>'
       '<div class="acts">'
-        '<a class="btn" href="' + up + 'quote.html">Quote my ' + _e(name) + ' &rarr;</a>'
-        '<a class="btn ghost" href="sms:+1' + TEXT.replace('-', '') + '">Text us</a>'
+        '<a class="btn" href="' + up + 'quote.html">'
+        + t('kit.final.quoteCity' if place else 'kit.final.quoteMake', name=_e(name)) + '</a>'
+        '<a class="btn ghost" href="sms:+1' + TEXT.replace('-', '') + '">' + t('kit.final.text') + '</a>'
       '</div>'
-      '<p class="fine">Call ' + CALL + ' &middot; Text ' + TEXT + ' &middot; Se habla espa&ntilde;ol</p>'
+      '<p class="fine">' + t('kit.final.fine', call=CALL, text=TEXT) + '</p>'
       '</div></div></section>')
 
 def sticky(name, up):
-    return ('<div class="sticky" role="complementary" aria-label="Get a quote">'
-      '<a class="tel" href="tel:+1' + CALL.replace('-', '') + '" aria-label="Call ' + CALL + '">'
+    t = i18n.t
+    return ('<div class="sticky" role="complementary" aria-label="' + t('kit.sticky.aria') + '">'
+      '<a class="tel" href="tel:+1' + CALL.replace('-', '') + '" aria-label="'
+      + t('kit.sticky.call', call=CALL) + '">'
       '<span aria-hidden="true">&#9742;</span></a>'
-      '<a class="btn" href="' + up + 'quote.html">Quote my ' + _e(name) + '</a>'
+      '<a class="btn" href="' + up + 'quote.html">' + t('kit.sticky.quote', name=_e(name)) + '</a>'
       '</div>')

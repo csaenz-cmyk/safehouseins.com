@@ -1004,7 +1004,9 @@ def city_page_v2(slug, name, county, tags, nb, st, place):
     if extra:
         faq_qs = faq_qs + list(extra)
 
-    head = rewrite(shell.head(title, desc, ' · Safe House'), 3)
+    head = rewrite(shell.head(title, desc, ' · Safe House', up=up,
+                              link='car-insurance/' + st + '/' + slug + '/',
+                              path='car-insurance/' + st + '/' + slug + '/'), 3)
     head = head.replace('</head>',
         '<link rel="canonical" href="' + url + '">\n'
         '<meta property="og:title" content="' + html.escape(title) + '">\n'
@@ -1035,12 +1037,12 @@ def city_page_v2(slug, name, county, tags, nb, st, place):
       '<div class="shead rv" style="max-width:none"><span class="eyebrow">FAQ</span>'
       '<h2>Car insurance questions from ' + name + ' drivers</h2></div>'
       + BK.faqblock(faq_qs) + '</div></section>',
-      BK.finalcta(name, up, headline='Ready to see your ' + name + ' options?'),
+      BK.finalcta(name, up, headline='Ready to see your ' + name + ' options?', place=True),
       neighbours_v2(nb, st, name),
       CK.locallinks(place, up),
     ]
     return (head + ''.join(p for p in parts if p) + CK.sticky(name, up)
-            + rewrite(shell.FOOTER, 3).replace('</body>', BK.JS + CK.JS + '</body>'))
+            + rewrite(shell.footer(), 3).replace('</body>', BK.scripts() + CK.JS + '</body>'))
 
 def neighbours_v2(nb, st, name):
     """Nearby cities, as a short honest row rather than a wall of links."""
@@ -1166,7 +1168,8 @@ def state_page(st):
                     '<small>' + html.escape(r[2]) + ' County</small></a>' for r in rows)
     head = rewrite(shell.head('Car insurance in ' + d['name'],
         'Car insurance across ' + d['name'] + ' from Safe House Insurance — independent, licensed '
-        'and bilingual. Compare carriers and get a free quote.'), 2)
+        'and bilingual. Compare carriers and get a free quote.',
+        up='../../', link='car-insurance/' + st + '/', path='car-insurance/' + st + '/'), 2)
     head = head.replace('</head>', '<link rel="canonical" href="' + url + '">\n</head>')
     return head + """
 <header class="pg"><div class="wrap">
@@ -1184,7 +1187,7 @@ def state_page(st):
      Every page below explains what that covers and what it does not.</p></div>
   <div class="ctys">""" + links + """</div>
 </div></section>
-""" + rewrite(shell.FOOTER, 2)
+""" + rewrite(shell.footer(), 2)
 
 def hub():
     SALT[0] = ''   # hubs are not per-city; do not inherit the last city's salt
@@ -1200,7 +1203,8 @@ def hub():
                    + '</div>')
     head = rewrite(shell.head('Car insurance by city',
         'Car insurance in Texas and New Mexico from Safe House Insurance — independent, licensed, '
-        'bilingual. Find your city and compare carriers.'), 1)
+        'bilingual. Find your city and compare carriers.',
+        up='../', link='car-insurance/', path='car-insurance/'), 1)
     # The strip's CSS rides on this page alone. write() puts EXTRA_CSS on every
     # page this generator produces, and the several hundred city pages have no
     # carrier strip on them, so it does not belong there.
@@ -1226,7 +1230,7 @@ def hub():
      for every make sold in the United States &mdash; and for a few that are not any more.</p>
   <div class="acts"><a class="btn" href="makes/">Car insurance by make</a></div>
 </div></section>
-""" + rewrite(shell.FOOTER, 1)
+""" + rewrite(shell.footer(), 1)
 
 EXTRA_CSS = """
 <style>
@@ -1371,7 +1375,11 @@ MAX_REDRAW = 24
 def _shingles(page_html):
     """The words a search engine would compare, as 8-word shingles."""
     s = page_html
-    for pat in (r'(?s)<head.*?</head>', r'(?s)<footer.*?</footer>', r'(?s)<script.*?</script>'):
+    # The language switch is chrome, identical on every page; counting its
+    # words would move every overlap a little and change which draft a page
+    # gets for reasons that have nothing to do with the page.
+    for pat in (r'(?s)<head.*?</head>', r'(?s)<footer.*?</footer>', r'(?s)<script.*?</script>',
+                r'(?s)<div class="lsw[^"]*" role="group".*?</div>'):
         s = re.sub(pat, '', s)
     s = re.sub(r'<[^>]+>', ' ', s)
     w = re.findall(r"[a-z']+", html.unescape(s).lower())

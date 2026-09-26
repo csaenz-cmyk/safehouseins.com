@@ -6,6 +6,12 @@
 <title>Car insurance in Aztec, NM · Safe House</title>
 <meta name="description" content="Car insurance for Aztec drivers from Safe House, an independent agency. Several carriers, one form, and an agent to go through it with you.">
 <link rel="icon" href="../../../assets/safehouse-heart.png">
+<link rel="alternate" hreflang="en" href="https://safehouseins.com/car-insurance/new-mexico/aztec/">
+<link rel="alternate" hreflang="es" href="https://safehouseins.com/es/car-insurance/new-mexico/aztec/">
+<link rel="alternate" hreflang="x-default" href="https://safehouseins.com/car-insurance/new-mexico/aztec/">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_MX">
+<script>(function(){try{var p=localStorage.getItem("shi-lang")||(document.cookie.match(/(?:^|; )shi-lang=(en|es)/)||[])[1];if(p&&p!=="en")location.replace("../../../es/car-insurance/new-mexico/aztec/"+location.search+location.hash)}catch(e){}})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -43,6 +49,19 @@
   /* The link row is gone; the panel below is the menu at every width. Kept
      as a rule so a stale page hides it rather than printing a bare list. */
   nav .nl{display:none}
+  /* The quote button carries a long and a short label. On a phone the header
+     also has to hold the language switch, and "Get my free quote" plus the
+     switch plus the menu button is wider than a 390px screen — in Spanish by
+     a lot. The short label is the same promise in fewer letters. */
+  nav .cta .ctas{display:none}
+  @media(max-width:520px){
+    nav .cta .ctal{display:none}
+    nav .cta .ctas{display:inline}
+  }
+  @media(max-width:380px){
+    nav .wrap{padding:0 16px;gap:10px}
+    nav .cta{padding:10px 14px}
+  }
   @media(min-width:900px){ nav .logo{height:44px} }
 
   .burger{width:44px;height:44px;border-radius:14px;background:#fff;
@@ -112,6 +131,7 @@
   body.locked{overflow:hidden}
 
   .dtop{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:26px}
+  .dtop .lsw{margin-right:auto}
   .dcta{display:inline-flex;align-items:center;justify-content:center;
       background:var(--mgrad);color:#fff;border-radius:99px;padding:13px 24px;
       font-size:14.5px;font-weight:800;text-decoration:none;white-space:nowrap;
@@ -296,6 +316,40 @@
   body>footer .fway a:not(.big){display:inline-block;font-size:13px;font-weight:800;
       color:var(--blue);margin-top:7px}
 
+  /* ---- the language switch ----
+     Two segments, the current language filled. A segmented control rather
+     than a drop-down: there are two languages, both labels fit, and one tap
+     switches — a menu that has to be opened first is a second step for
+     nothing. Same height as the menu button beside it so the pair reads as
+     one row of controls. */
+  .lsw{display:inline-flex;align-items:center;flex:0 0 auto;gap:2px;height:44px;
+      padding:4px;border-radius:99px;background:#fff;border:1.5px solid #E5EBF6;
+      font-family:inherit;font-size:12.5px;font-weight:800;letter-spacing:.06em;
+      line-height:1;position:static}
+  .lsw>a,.lsw>span{display:inline-flex;align-items:center;justify-content:center;
+      min-width:34px;height:100%;padding:0 9px;border-radius:99px;
+      text-decoration:none;white-space:nowrap}
+  .lsw>a{color:#5C6A80;transition:background .16s,color .16s}
+  .lsw>a:hover{background:#EFF5FF;color:#1666ED;text-decoration:none}
+  .lsw>span{background:#0A2148;color:#fff}
+  .lsw>a:focus-visible{outline:2.5px solid #1666ED;outline-offset:2px}
+  .lsw .lvh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+      white-space:nowrap}
+  /* On a photograph or a navy header: glass, like the menu button there. */
+  .lsw.dk{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.34);
+      -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .lsw.dk>a{color:rgba(255,255,255,.88)}
+  .lsw.dk>a:hover{background:rgba(255,255,255,.18);color:#fff}
+  .lsw.dk>span{background:#fff;color:#0A2148}
+  .lsw.dk>a:focus-visible{outline-color:#fff}
+  /* In the menu panel there is room for the names themselves. */
+  .lsw.full{height:40px;font-size:13px;letter-spacing:.01em}
+  .lsw.full>a,.lsw.full>span{padding:0 14px}
+
+  /* In the header on a phone the switch shows only the language it goes to:
+     one segment, one tap. The row has no room for both, and the page itself
+     already says which language it is in. */
+  @media(max-width:520px){ nav .lsw.tight>span{display:none} }
 </style>
 <link rel="canonical" href="https://safehouseins.com/car-insurance/new-mexico/aztec/">
 <meta property="og:title" content="Car insurance in Aztec, NM">
@@ -876,7 +930,8 @@
 <nav><div class="wrap">
   <a href="../../../index.html" aria-label="Safe House Insurance home"><img class="logo" src="../../../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
   <span style="display:flex;align-items:center;gap:12px">
-    <a class="cta" href="../../../quote.html">Get my free quote</a>
+    <div class="lsw tight" role="group" aria-label="Language / Idioma"><span lang="en" aria-current="true"><span aria-hidden="true">EN</span><span class="lvh">English</span></span><a href="../../../es/car-insurance/new-mexico/aztec/" hreflang="es" lang="es-MX" data-lang="es" title="Ver esta página en español"><span aria-hidden="true">ES</span><span class="lvh">Español</span></a></div>
+    <a class="cta" href="../../../quote.html"><span class="ctal">Get my free quote</span><span class="ctas">Free quote</span></a>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
   </span>
 </div></nav>
@@ -884,6 +939,7 @@
 <div class="scrim" id="scrim" hidden></div>
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
   <div class="dtop">
+    <div class="lsw full" role="group" aria-label="Language / Idioma"><span lang="en" aria-current="true">English</span><a href="../../../es/car-insurance/new-mexico/aztec/" hreflang="es" lang="es-MX" data-lang="es" title="Ver esta página en español">Español</a></div>
     <a class="dcta" href="../../../quote.html">Get a quote</a>
     <button class="dclose" id="dclose" type="button" aria-label="Close menu">&#10005;</button>
   </div>
@@ -950,7 +1006,11 @@
   var burger=document.getElementById('burger'),
       drawer=document.getElementById('drawer'),
       scrim=document.getElementById('scrim'),
-      dclose=document.getElementById('dclose');
+      dclose=document.getElementById('dclose'),
+      // The two labels are read off the buttons rather than written in here,
+      // so this script is the same in English and in Spanish.
+      openLabel=burger.getAttribute('aria-label'),
+      closeLabel=dclose.getAttribute('aria-label');
   function setMenu(open){
     burger.classList.toggle('on',open);
     drawer.classList.toggle('on',open);
@@ -958,7 +1018,7 @@
     scrim.classList.toggle('on',open);
     document.body.classList.toggle('locked',open);
     burger.setAttribute('aria-expanded',open);
-    burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+    burger.setAttribute('aria-label',open?closeLabel:openLabel);
     // Focus follows the panel, or the panel is invisible to a keyboard.
     if(open) dclose.focus();
     else burger.focus({preventScroll:true});
@@ -969,6 +1029,20 @@
   drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
   addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
 
+})();
+</script><script>
+(function(){
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lang]');
+    if(!a) return;
+    var l=a.getAttribute('data-lang');
+    try{localStorage.setItem('shi-lang',l);}catch(_){}
+    try{document.cookie='shi-lang='+l+';path=/;max-age=31536000;samesite=lax';}catch(_){}
+    if(e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+    e.preventDefault();
+    try{document.dispatchEvent(new CustomEvent('shi:lang',{detail:l}));}catch(_){}
+    location.href=a.href.split('#')[0].split('?')[0]+location.search+location.hash;
+  });
 })();
 </script>
 
@@ -1054,7 +1128,15 @@
  </div>
 </footer>
 
-
+<script type="application/json" id="i18n">{"fillLead": "Fill in your numbers", "fillNote": "Everything stays in your browser. Nothing is sent anywhere and this is not a quote.", "fillVerd": "Put your vehicle value and what you pay for physical damage coverage above.", "highNote": "The most a claim could return is {risk}, and you are paying {prem} a year for it. That is the range where owners often move to liability only — as long as they could replace the vehicle themselves.", "highVerd": "You are paying a large share of what this coverage could ever pay you.", "keep": "Likely worth keeping", "lowNote": "Up to {risk} of protection for {prem} a year. At this ratio most owners keep collision and comprehensive — and if the vehicle is financed or leased, the lender requires them anyway.", "lowVerd": "The coverage can still pay out far more than it costs you.", "midNote": "A claim could return up to {risk} against {prem} a year. Whether that is worth keeping comes down to one question: could you replace the vehicle out of pocket tomorrow if you had to?", "midVerd": "This is the range where the answer depends on you, not on the maths.", "review": "Worth reviewing", "talk": "Worth a conversation", "zeroNote": "Collision and comprehensive can never pay more than the vehicle is worth minus your deductible, so at these numbers the coverage has almost nothing left to pay out. That is usually the point to talk about dropping it — but only if losing the vehicle outright is something you could absorb.", "zeroVerd": "Your deductible is as high as the vehicle is worth."}</script>
+<script>var T=(function(){
+  var d={};try{d=JSON.parse(document.getElementById('i18n').textContent)||{};}catch(e){}
+  return function(k,v){
+    var s=d[k];
+    if(s==null){ if(window.console) console.error('i18n: missing '+k); return ''; }
+    return v ? String(s).replace(/\{(\w+)\}/g,function(m,n){ return n in v ? v[n] : ''; }) : s;
+  };
+})();</script>
 <script>
 (function(){
   var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1136,37 +1218,30 @@
       var ratio = risk > 0 ? p / risk : Infinity;
       bar.style.width = Math.max(2, Math.min(100, risk > 0 ? (risk / Math.max(v, 1)) * 100 : 0)) + '%';
 
+      // The words are in the page's i18n block (locales/<lang>/kit.json, js.*).
+      var nums = {risk: money(risk), prem: money(p)};
       if (v <= 0 || p <= 0) {
-        lead.textContent = 'Fill in your numbers';
-        verd.textContent = 'Put your vehicle value and what you pay for physical damage coverage above.';
-        note.textContent = 'Everything stays in your browser. Nothing is sent anywhere and this is not a quote.';
+        lead.textContent = T('fillLead');
+        verd.textContent = T('fillVerd');
+        note.textContent = T('fillNote');
         return;
       }
       if (risk <= 0) {
-        lead.textContent = 'Worth a conversation';
-        verd.textContent = 'Your deductible is as high as the vehicle is worth.';
-        note.textContent = 'Collision and comprehensive can never pay more than the vehicle is worth minus '
-          + 'your deductible, so at these numbers the coverage has almost nothing left to pay out. That is '
-          + 'usually the point to talk about dropping it — but only if losing the vehicle outright is '
-          + 'something you could absorb.';
+        lead.textContent = T('talk');
+        verd.textContent = T('zeroVerd');
+        note.textContent = T('zeroNote');
       } else if (ratio >= 0.30) {
-        lead.textContent = 'Worth a conversation';
-        verd.textContent = 'You are paying a large share of what this coverage could ever pay you.';
-        note.textContent = 'The most a claim could return is ' + money(risk) + ', and you are paying '
-          + money(p) + ' a year for it. That is the range where owners often move to liability only — '
-          + 'as long as they could replace the vehicle themselves.';
+        lead.textContent = T('talk');
+        verd.textContent = T('highVerd');
+        note.textContent = T('highNote', nums);
       } else if (ratio >= 0.12) {
-        lead.textContent = 'Worth reviewing';
-        verd.textContent = 'This is the range where the answer depends on you, not on the maths.';
-        note.textContent = 'A claim could return up to ' + money(risk) + ' against ' + money(p)
-          + ' a year. Whether that is worth keeping comes down to one question: could you replace the '
-          + 'vehicle out of pocket tomorrow if you had to?';
+        lead.textContent = T('review');
+        verd.textContent = T('midVerd');
+        note.textContent = T('midNote', nums);
       } else {
-        lead.textContent = 'Likely worth keeping';
-        verd.textContent = 'The coverage can still pay out far more than it costs you.';
-        note.textContent = 'Up to ' + money(risk) + ' of protection for ' + money(p) + ' a year. At this '
-          + 'ratio most owners keep collision and comprehensive — and if the vehicle is financed or '
-          + 'leased, the lender requires them anyway.';
+        lead.textContent = T('keep');
+        verd.textContent = T('lowVerd');
+        note.textContent = T('lowNote', nums);
       }
     }
     [val, dcol, dcmp, prem].forEach(function(el){
