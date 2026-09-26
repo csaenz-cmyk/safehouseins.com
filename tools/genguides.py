@@ -28,7 +28,7 @@ room for home and renters guides later without a second decision.
 import os, sys, html, re
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import carriers, genproduct, guides_data, menu, nap
+import carriers, genproduct, guides_data, i18n, menu, nap, shell
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = 'https://safehouseins.com'
@@ -37,23 +37,17 @@ UP = '../../'          # learn/<slug>/index.html is two deep
 UP1 = '../'            # learn/index.html is one deep
 
 # The hub's two sections, in order. A group with no guides in it simply does
-# not print.
-GROUPS = [
- ('101', 'Car Insurance 101',
-  'How the product works, in plain words. Worth twenty minutes before you buy '
-  'anything.'),
- ('situations', 'If this is your situation',
-  'The circumstances people are told are a problem. Most of them are not, and '
-  'all of them are business we place.'),
-]
+# not print. Their names and blurbs are guides.groups.<key> in the catalog.
+GROUPS = ['101', 'situations']
 
-# The page title, not a group title. The hub carries two collections now and
-# "Car Insurance 101" is the name of one of them — using it for both put the
-# same words in the h1 and in the first h2.
-HUB_TITLE = 'Car insurance, explained'
-HUB_LEDE = ('How the product works, and what to do when your situation is the one '
-            'everybody says is a problem. No sales pitch, no invented numbers '
-            '&mdash; written by the agents who place this business every day.')
+# The hub's own title (guides.hub.title) is the page title, not a group title.
+# The hub carries two collections now and "Car Insurance 101" is the name of
+# one of them — using it for both put the same words in the h1 and in the
+# first h2.
+
+
+def group_title(key):
+    return i18n.t('guides.groups.%s.title' % key)
 
 
 def e(s):
@@ -210,6 +204,8 @@ CSS = """
   .gcta a{border-radius:99px;padding:16px 28px;font-size:16px;font-weight:800}
   .gcta .p{background:#fff;color:var(--pblue)}
   .gcta .s{background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.38)}
+  /* The header's right-hand pair: the language switch and the menu button. */
+  header.gh > nav .navr{display:flex;align-items:center;gap:10px}
 
   /* ---- more guides ---- */
   .more{margin:64px 0 0;padding:52px 0 72px;border-top:1px solid var(--pline)}
@@ -273,20 +269,19 @@ CSS = """
       radial-gradient(520px 520px at 6% 8%, rgba(22,102,237,.05), transparent 70%),
       radial-gradient(420px 420px at 96% 72%, rgba(0,194,255,.055), transparent 68%)}
 
-""" + FOOTER_CSS + menu.PANEL_CSS
+""" + FOOTER_CSS + menu.PANEL_CSS + i18n.TOGGLE_CSS
 
 
 TICK = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>')
 
 HEAD = """<!DOCTYPE html>
-<html lang="en">
+{html_open}
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="canonical" href="{canon}">
-<link rel="icon" href="{up}assets/safehouse-heart.png">
+{langtags}<link rel="icon" href="{up}assets/safehouse-heart.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;450;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -298,11 +293,11 @@ HEAD = """<!DOCTYPE html>
 <style>{css}</style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  <a class="skip" href="#main">{skip}</a>
   <header class="gh">
     <nav>
-      <a href="{up}index.html" aria-label="Safe House Insurance home"><img class="logo" src="{up}assets/safehouse-logo.png" alt="Safe House Insurance" width="180" height="46"></a>
-      {burger}
+      <a href="{up}index.html" aria-label="{logohome}"><img class="logo" src="{up}assets/safehouse-logo.png" alt="{logoalt}" width="180" height="46"></a>
+      <span class="navr">{switch}{burger}</span>
     </nav>
 {panel}
     <div class="ghin">
@@ -345,20 +340,20 @@ def cta(g):
     somebody there would be a dead end. An overridden CTA drops the quote
     button and offers call and text instead.
     """
+    t = i18n.t
     if g.get('cta'):
         head, body = g['cta']
-        row = ('<a class="p" href="tel:' + nap.CALL_E164 + '">Call ' + nap.CALL
-               + '</a><a class="s" href="sms:' + nap.TEXT_E164 + '">Text '
-               + nap.TEXT + '</a>')
+        row = ('<a class="p" href="tel:' + nap.CALL_E164 + '">'
+               + t('guides.ui.cta.call', call=nap.CALL)
+               + '</a><a class="s" href="sms:' + nap.TEXT_E164 + '">'
+               + t('guides.ui.cta.text', text=nap.TEXT) + '</a>')
     else:
-        head = 'Still want it checked by a person?'
-        body = ('Start online and an agent picks it up, or call and we will do the '
-                'whole thing with you. In English or Spanish, whichever the '
-                'conversation starts in.')
+        head = t('guides.ui.cta.h2')
+        body = t('guides.ui.cta.p')
         row = ('<a class="p" href="' + UP + 'quote.html?type=car">'
-               'Get my free quote &rarr;</a>'
-               '<a class="s" href="tel:' + nap.CALL_E164 + '">Call ' + nap.CALL
-               + '</a>')
+               + t('guides.ui.cta.quote') + '</a>'
+               '<a class="s" href="tel:' + nap.CALL_E164 + '">'
+               + t('guides.ui.cta.call', call=nap.CALL) + '</a>')
     return ('  <div class="gcta">\n'
             '    <h2>' + head + '</h2>\n'
             '    <p>' + body + '</p>\n'
@@ -366,13 +361,27 @@ def cta(g):
             '  </div>\n\n')
 
 
+def chrome(up, link, title, desc, path, kick, h1, lede, crumbs):
+    t = i18n.t
+    return HEAD.format(
+        html_open=i18n.html_open(), langtags=i18n.head_tags(path, up, link),
+        title=title, desc=desc, canon=i18n.url(path), up=up, css=CSS,
+        skip=t('common.skip'), logohome=t('common.logoHome'), logoalt=t('common.logoAlt'),
+        switch=i18n.toggle(up, link), burger=menu.burger(),
+        panel=rewrite(menu.panel(up, link=link), 0),
+        crumbs=crumbs, kick=kick, h1=h1, lede=lede)
+
+
 def guide_page(g):
+    g = guides_data.localized(g)
+    t = i18n.t
     # Same collection first: somebody reading about a lapse is better served
     # by the DWI page than by an explainer on deductibles.
     same = [x for x in GUIDES if x['slug'] != g['slug'] and x['group'] == g['group']]
     rest = [x for x in GUIDES if x['slug'] != g['slug'] and x['group'] != g['group']]
-    others = (same + rest)[:6]
-    canon = SITE + '/learn/' + g['slug'] + '/'
+    others = [guides_data.localized(x) for x in (same + rest)[:6]]
+    path = 'learn/' + g['slug'] + '/'
+    canon = i18n.url(path)
     faq_ld = {
         "@context": "https://schema.org", "@type": "FAQPage",
         "mainEntity": [{"@type": "Question", "name": strip_tags(q),
@@ -385,91 +394,80 @@ def guide_page(g):
         "mainEntityOfPage": canon,
         "author": {"@type": "Organization", "name": "Safe House Insurance"},
         "publisher": {"@type": "Organization", "name": "Safe House Insurance"},
-        "inLanguage": "en-US"}
+        "inLanguage": i18n.LD_LANG[i18n.lang()]}
     import json
     return (
-        HEAD.format(
-            title=e(g['title']) + ' · Safe House Insurance', desc=e(g['desc']),
-            canon=canon, up=UP, css=CSS, burger=menu.BURGER_HTML,
-            panel=rewrite(menu.panel(UP), 0),
-            crumbs='      <nav class="crumbs" aria-label="Breadcrumb">'
-                   '<a href="' + UP + 'index.html">Home</a> <i>/</i> '
-                   '<a href="' + UP + 'auto-insurance.html">Car insurance</a> '
-                   '<i>/</i><a href="' + UP1 + '">Learn</a></nav>\n',
+        chrome(UP, path, e(g['title']) + t('guides.ui.titleSuffix'), e(g['desc']), path,
             # The chip says which collection the page belongs to. A page
             # about driving into Mexico labelled "Car Insurance 101" is
             # telling the reader they are in the wrong place.
-            kick=dict((k, t) for k, t, _ in GROUPS)[g['group']],
-            h1=g['h1'], lede=g['lede'])
+            group_title(g['group']), g['h1'], g['lede'],
+            '      <nav class="crumbs" aria-label="' + t('guides.ui.breadcrumb') + '">'
+            '<a href="' + UP + 'index.html">' + t('common.home') + '</a> <i>/</i> '
+            '<a href="' + UP + 'auto-insurance.html">' + t('guides.ui.crumbCar') + '</a> '
+            '<i>/</i><a href="' + UP1 + '">' + t('guides.ui.crumbLearn') + '</a></nav>\n')
         + '  <article class="art">\n'
         + ''.join(block(b) for b in g['body'])
-        + '    <div class="key">\n      <b class="t">What to take away</b>\n      <ul>'
+        + '    <div class="key">\n      <b class="t">' + t('guides.ui.takeaway') + '</b>\n      <ul>'
         + ''.join('<li><span class="tk">' + TICK + '</span><span>' + k + '</span></li>'
                   for k in g['key'])
         + '</ul>\n    </div>\n'
         + '  </article>\n\n'
         + '  <section class="gfaq petal2" aria-labelledby="gfaqh">\n'
-        + '    <h2 id="gfaqh">Common questions</h2>\n'
+        + '    <h2 id="gfaqh">' + t('guides.ui.faqH2') + '</h2>\n'
         + ''.join('    <div class="q"><b>' + q + '</b><p>' + a + '</p></div>\n'
                   for q, a in g['faq'])
         + '  </section>\n\n'
         + cta(g)
         + '  <section class="more petal1" aria-labelledby="moreh">\n'
-        + '    <h2 id="moreh">More from Car Insurance 101</h2>\n'
+        + '    <h2 id="moreh">' + t('guides.ui.more') + '</h2>\n'
         + '    <div class="mlist">\n'
         + ''.join('      <a href="' + UP1 + o['slug'] + '/"><b>' + o['nav']
                   + '</b><span>' + o['card'] + '</span></a>\n' for o in others)
         + '    </div>\n  </section>\n'
         + '<script type="application/ld+json">' + json.dumps(art_ld) + '</script>\n'
         + '<script type="application/ld+json">' + json.dumps(faq_ld) + '</script>\n'
-        + rewrite(genproduct.FOOTER.replace('</body>', menu.JS + '</body>'), 2))
+        + rewrite(shell.footer().replace('</body>', menu.JS + '</body>'), 2))
 
 
 def hub_page():
-    canon = SITE + '/learn/'
+    t = i18n.t
     return (
-        HEAD.format(
-            title=HUB_TITLE + ' &middot; Safe House Insurance',
-            desc='Plain answers about car insurance from a licensed independent '
-                 'agency in El Paso: how to compare quotes, how rates are '
-                 'calculated, how much coverage you need, and what Texas and New '
-                 'Mexico require.',
-            canon=canon, up=UP1, css=CSS, burger=menu.BURGER_HTML,
-            panel=rewrite(menu.panel(UP1), 0),
-            crumbs='      <nav class="crumbs" aria-label="Breadcrumb">'
-                   '<a href="' + UP1 + 'index.html">Home</a> <i>/</i> '
-                   '<a href="' + UP1 + 'auto-insurance.html">Car insurance</a>'
-                   '</nav>\n',
-            kick='Learn', h1=HUB_TITLE, lede=HUB_LEDE)
+        chrome(UP1, 'learn/', t('guides.hub.title') + ' &middot; Safe House Insurance',
+               t('guides.hub.desc'), 'learn/', t('guides.ui.kickHub'),
+               t('guides.hub.title'), t('guides.hub.lede'),
+               '      <nav class="crumbs" aria-label="' + t('guides.ui.breadcrumb') + '">'
+               '<a href="' + UP1 + 'index.html">' + t('common.home') + '</a> <i>/</i> '
+               '<a href="' + UP1 + 'auto-insurance.html">' + t('guides.ui.crumbCar') + '</a>'
+               '</nav>\n')
         .replace('<body>', '<body class="hub-page">')
         # Straight into the <main> HEAD already opened. An earlier draft closed
         # it and opened a second one to escape main's width; two <main>
         # elements is a landmark error that no screenshot would ever show.
         + '  <div class="hub">\n'
         + ''.join(
-            '    <h2 class="hsec">' + title + '</h2>\n'
-            '    <p class="hsub2">' + blurb + '</p>\n'
+            '    <h2 class="hsec">' + group_title(key) + '</h2>\n'
+            '    <p class="hsub2">' + t('guides.groups.%s.blurb' % key) + '</p>\n'
             '    <div class="hgrid">\n'
             + ''.join('      <a href="' + g['slug'] + '/"><b>' + g['nav'] + '</b>'
-                      '<span>' + g['card'] + '</span><em>Read &rarr;</em></a>\n'
-                      for g in GUIDES if g['group'] == key)
+                      '<span>' + g['card'] + '</span><em>' + t('guides.ui.read') + '</em></a>\n'
+                      for g in map(guides_data.localized, GUIDES) if g['group'] == key)
             + '    </div>\n'
-            for key, title, blurb in GROUPS)
+            for key in GROUPS)
         + '  </div>\n'
-        + rewrite(genproduct.FOOTER.replace('</body>', menu.JS + '</body>'), 1))
+        + rewrite(shell.footer().replace('</body>', menu.JS + '</body>'), 1))
 
 
 if __name__ == '__main__':
-    n = 0
-    for g in GUIDES:
-        d = os.path.join(ROOT, 'learn', g['slug'])
-        os.makedirs(d, exist_ok=True)
-        out = guide_page(g)
-        open(os.path.join(d, 'index.html'), 'w', encoding='utf-8').write(out)
-        print('learn/%s/ %d bytes' % (g['slug'], len(out)))
-        n += 1
-    os.makedirs(os.path.join(ROOT, 'learn'), exist_ok=True)
-    out = hub_page()
-    open(os.path.join(ROOT, 'learn', 'index.html'), 'w', encoding='utf-8').write(out)
-    print('learn/ %d bytes' % len(out))
-    print('%d guides + hub. run tools/gensitemap.py' % n)
+    for code in i18n.targets():
+        with i18n.language(code):
+            n = 0
+            for g in GUIDES:
+                out = guide_page(g)
+                path = i18n.write('learn/%s/index.html' % g['slug'], out)
+                print('%s %d bytes' % (os.path.relpath(path, ROOT), len(out)))
+                n += 1
+            out = hub_page()
+            path = i18n.write('learn/index.html', out)
+            print('%s %d bytes' % (os.path.relpath(path, ROOT), len(out)))
+            print('%d guides + hub (%s). run tools/gensitemap.py' % (n, code))

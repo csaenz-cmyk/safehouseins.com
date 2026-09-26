@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "title": "Empleos",
+    "desc": "Safe House Insurance siempre está contratando en El Paso. Mándanos tu currículum: seguros personales, seguros comerciales y servicio al cliente."
+  },
+  "hero": {
+    "kick": "Empleos",
+    "h1": "Siempre estamos contratando.",
+    "lede": "Sin vacantes publicadas y sin fechas límite. Somos una agencia en crecimiento en El Paso y preferimos\n     conocer a la persona indicada que esperar a que se abra una vacante. Mándanos tu currículum y lo vamos a leer.",
+    "btn": "Enviar mi currículum"
+  },
+  "work": {
+    "h2": "En qué consiste el trabajo",
+    "p1": "Safe House es una agencia independiente: comparamos varias aseguradoras a favor de la persona que\n     tenemos enfrente, en lugar de vender el producto de una sola compañía. En el día a día eso significa\n     cotizar, explicar y después cuidar la póliza &mdash; pagos, cambios, tarjetas de seguro, reclamos y\n     la renovación un año después.",
+    "p2": "Los clientes son nuestros vecinos: familias de El Paso y Las Cruces, camionetas de trabajo,\n     conductores primerizos, personas con licencia extranjera a quienes les dijeron que no en otro lado.\n     Buena parte del trabajo es tener paciencia y hablar claro."
+  },
+  "kinds": {
+    "h2": "El tipo de trabajo para el que contratamos",
+    "lead": "No es una lista de vacantes &mdash; es una descripción de lo que se hace aquí. Dinos cuál de\n       estas va contigo, o cuéntanos algo que no se nos haya ocurrido.",
+    "c1": {
+      "h3": "Seguros personales",
+      "p": "Auto, casa, inquilinos, motocicleta. Cotizar, asesorar y dar servicio a las pólizas que forman\n         la mayor parte de lo que vendemos."
+    },
+    "c2": {
+      "h3": "Seguros comerciales",
+      "p": "Camionetas de trabajo, flotillas, grúas y negocios pequeños. Más detalles que cuidar,\n         conversaciones más largas y un cliente cuyo sustento depende de la póliza."
+    },
+    "c3": {
+      "h3": "Servicio al cliente",
+      "p": "La persona que contesta cuando algo salió mal o cuando un pago no pasó. No es un trampolín\n         &mdash; es el puesto por el que la mayoría de la gente nos juzga."
+    }
+  },
+  "look": {
+    "h2": "Lo que buscamos",
+    "c1": {
+      "h3": "Inglés y español",
+      "p": "De verdad los dos. La mitad de nuestras conversaciones empiezan en español, y un cliente se da\n         cuenta enseguida si estás cómodo o si estás traduciendo."
+    },
+    "c2": {
+      "h3": "Con licencia &mdash; o con ganas de sacarla",
+      "p": "Lo ideal es una licencia General Lines de Texas. Si no la tienes y de verdad quieres sacarla,\n         dínoslo; preferimos capacitar a alguien bueno que contratar a alguien solo porque está disponible."
+    },
+    "c3": {
+      "h3": "Derecho con la gente",
+      "p": "Decirle a un cliente el precio real, aunque sea más alto de lo que esperaba o aunque no seamos\n         la agencia indicada para él. De eso depende toda nuestra reputación."
+    },
+    "c4": {
+      "h3": "Terminas lo que empiezas",
+      "p": "El seguro es darle seguimiento a todo: el documento que todavía necesita firma, el pago que vence\n         el viernes, la llamada que prometiste regresar. El trabajo es, más que nada, no olvidar nada."
+    }
+  },
+  "apply": {
+    "h2": "Mándanos tu currículum",
+    "lead": "Una persona real lee cada uno. Si hay una oportunidad para ti, te llamamos &mdash; y si ahorita\n     no la hay, lo guardamos en lugar de borrarlo."
+  },
+  "form": {
+    "first": "Nombre",
+    "last": "Apellido",
+    "phone": "Teléfono",
+    "email": "Correo electrónico",
+    "emailPh": "tu@correo.com",
+    "area": "¿Qué te interesa?",
+    "choose": "Elige una opción",
+    "areaOpt": {
+      "personal": "Seguros personales",
+      "commercial": "Seguros comerciales",
+      "service": "Servicio al cliente",
+      "open": "Todavía no sé &mdash; me interesa lo que sea"
+    },
+    "lic": "¿Tienes licencia?",
+    "licOpt": {
+      "tx": "Sí &mdash; General Lines de Texas",
+      "other": "Sí &mdash; de otro estado",
+      "willing": "No, pero estoy dispuesto a sacarla",
+      "no": "No"
+    },
+    "exp": "Años en seguros",
+    "expOpt": {
+      "none": "Ninguno todavía",
+      "lt1": "Menos de 1 año",
+      "y1": "De 1 a 3 años",
+      "y3": "De 3 a 5 años",
+      "y5": "De 5 a 10 años",
+      "y10": "Más de 10 años"
+    },
+    "langs": "Idiomas",
+    "langOpt": {
+      "both": "Inglés y español",
+      "en": "Solo inglés",
+      "es": "Solo español"
+    },
+    "resume": "Currículum <span class=\"opt\">(PDF o Word)</span>",
+    "resumeHint": "Adjúntalo aquí y nos llega directo.",
+    "note": "Algo más que quieras contarnos <span class=\"opt\">(opcional)</span>",
+    "notePh": "Dónde trabajas ahora, qué estás buscando, cuándo podrías empezar&hellip;",
+    "submit": "Enviar mi solicitud",
+    "fine": "Usamos lo que nos mandas solo para considerarte para un trabajo aquí. No se comparte con\n       nadie más. Consulta nuestro <a href=\"privacy.html\">Aviso de privacidad</a>."
+  },
+  "done": {
+    "h3": "Recibido &mdash; gracias.",
+    "p": "Una persona va a leer tu solicitud y te buscará si hay una oportunidad para ti.",
+    "fine": "¿Prefieres platicar primero? Llama al <a href=\"tel:+19155031207\">915-503-1207</a>\n       o manda un mensaje al <a href=\"sms:+19155943777\">915-594-3777</a>."
+  },
+  "js": {
+    "noUpload": "En el siguiente paso te pediremos que lo adjuntes a un correo; todavía no está activada la opción de subir archivos.",
+    "errFirst": "Por favor escribe tu nombre.",
+    "errPhone": "Por favor escribe un teléfono donde te podamos localizar.",
+    "errEmail": "Por favor escribe tu correo electrónico.",
+    "errEmailBad": "Ese correo parece incompleto. Revísalo, por favor.",
+    "mailHead": "Solicitud de empleo desde safehouseins.com",
+    "mailName": "Nombre",
+    "mailPhone": "Teléfono",
+    "mailEmail": "Correo",
+    "mailArea": "Le interesa",
+    "mailLicensed": "Licencia",
+    "mailExperience": "Experiencia",
+    "mailLanguages": "Idiomas",
+    "mailNotes": "Notas",
+    "notStated": "no lo indicó",
+    "attach": "*** Por favor adjunta tu currículum a este correo antes de enviarlo. ***",
+    "subject": "Solicitud de empleo - {name}",
+    "doneMail": "Te abrimos un correo con tus datos ya escritos. Adjunta tu currículum, envíalo y una persona lo va a leer.",
+    "sending": "Enviando…"
+  }
+}

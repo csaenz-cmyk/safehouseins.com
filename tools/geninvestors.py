@@ -35,17 +35,19 @@ Then have counsel read the page before it is linked from anywhere.
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import shell, nap
+import shell, nap, i18n
 
 SITE = 'https://safehouseins.com'
 
 # Nothing here is known yet. Each entry is (figure, label, note) — see the note
 # at the top of this file before adding one.
+# The label and note are catalog keys (locales/*/investors.json); the figure
+# is the same in both languages.
 METRICS = [
-    (None, 'Policies in force', ''),
-    (None, 'Written premium', 'Trailing twelve months'),
-    (None, 'Client retention', 'Renewal year over year'),
-    (None, 'Revenue growth', 'Year over year'),
+    (None, 'investors.metrics.policies', ''),
+    (None, 'investors.metrics.premium', 'investors.metrics.premiumNote'),
+    (None, 'investors.metrics.retention', 'investors.metrics.retentionNote'),
+    (None, 'investors.metrics.growth', 'investors.metrics.growthNote'),
 ]
 
 # True, and all of it already published elsewhere on this site: the About page
@@ -62,8 +64,8 @@ def metrics_band():
     if not have:
         return ''
     cells = ''.join(
-        '<div class="met"><b>' + v + '</b><span>' + label + '</span>'
-        + ('<small>' + note + '</small>' if note else '') + '</div>'
+        '<div class="met"><b>' + v + '</b><span>' + i18n.t(label) + '</span>'
+        + ('<small>' + i18n.t(note) + '</small>' if note else '') + '</div>'
         for v, label, note in have)
     return ('<section class="blk metband"><div class="wrap">'
             '<div class="mets">' + cells + '</div></div></section>\n')
@@ -125,124 +127,90 @@ CSS = """
 
 BODY = """
 <header class="ivhero"><div class="wrap">
-  <span class="kick">Investor relations</span>
-  <h1>The drivers everyone else declines are a market, not a leftover.</h1>
-  <p>Safe House Insurance is an independent agency on the Texas&ndash;New Mexico border, built
-     around the customers the national carriers price out or turn away &mdash; non-standard auto,
-     first-time and foreign licenses, SR-22 filings, lapsed coverage. It is a market that is
-     underserved because it is harder to serve, and being harder to serve is exactly what keeps
-     it defensible.</p>
+  <span class="kick">[[investors.hero.kick]]</span>
+  <h1>[[investors.hero.h1]]</h1>
+  <p>[[investors.hero.lede]]</p>
   <div class="acts">
-    <a class="btn2" href="#contact">Start a conversation</a>
-    <a class="btn2" href="about.html">About the agency</a>
+    <a class="btn2" href="#contact">[[investors.hero.talk]]</a>
+    <a class="btn2" href="about.html">[[investors.hero.about]]</a>
   </div>
 </div></header>
-""" + metrics_band() + """
+[[METRICS]]
 <section class="blk"><div class="wrap narrow">
-  <h2>Why this market</h2>
-  <p class="lead">El Paso and Las Cruces sit on a border, and a border changes who needs
-     insurance and how hard it is to write them.</p>
-  <p>A driver with a foreign license, a driver who crosses regularly, a household with one car and
-     four names on it, a work truck that is also the family car &mdash; a national carrier's rating
-     engine handles all of these badly, and a call centre handles them worse. Carriers disagree
-     enormously about what these risks are worth, and that disagreement is the whole opportunity.
-     It is why a single quote means nothing here and why an agency that can shop fourteen companies
-     at once is worth more to the customer than any one of them.</p>
-  <p>It is also a market that does not attract competition easily. It takes appointments that
-     carriers grant slowly, licenses in two states, and staff who can conduct the entire
-     transaction in Spanish. None of those can be bought quickly.</p>
+  <h2>[[investors.market.h2]]</h2>
+  <p class="lead">[[investors.market.lead]]</p>
+  <p>[[investors.market.p1]]</p>
+  <p>[[investors.market.p2]]</p>
 </div></section>
 
 <section class="blk tint"><div class="wrap narrow">
-  <h2>What is already built</h2>
-  <p class="lead">Not a plan. These exist today and can be verified.</p>
+  <h2>[[investors.built.h2]]</h2>
+  <p class="lead">[[investors.built.lead]]</p>
   <div class="figs">
-    <div class="fig"><b>""" + str(CARRIERS) + """</b><span>carrier appointments, shopped on one form</span></div>
-    <div class="fig"><b>""" + str(LICENSED_YEARS) + """</b><span>combined years licensed, across the team</span></div>
-    <div class="fig"><b>2</b><span>states licensed &mdash; Texas and New Mexico</span></div>
-    <div class="fig"><b>""" + str(CITY_PAGES + GUIDE_PAGES) + """</b><span>owned search pages, city by city</span></div>
+    <div class="fig"><b>""" + str(CARRIERS) + """</b><span>[[investors.built.carriers]]</span></div>
+    <div class="fig"><b>""" + str(LICENSED_YEARS) + """</b><span>[[investors.built.years]]</span></div>
+    <div class="fig"><b>2</b><span>[[investors.built.states]]</span></div>
+    <div class="fig"><b>""" + str(CITY_PAGES + GUIDE_PAGES) + """</b><span>[[investors.built.pages]]</span></div>
   </div>
 </div></section>
 
 <section class="blk"><div class="wrap narrow">
-  <h2>The position</h2>
+  <h2>[[investors.pos.h2]]</h2>
   <div class="grid c1" style="display:grid;gap:30px;margin-top:26px">
     <div class="pill">
-      <h3>Independent, not captive</h3>
-      <p>The agency represents a shelf of carriers rather than selling one company's product. That
-         is the difference between competing on price against every other agent with the same
-         product and competing on which company will write this particular person at all.</p>
+      <h3>[[investors.pos.c1.h3]]</h3>
+      <p>[[investors.pos.c1.p]]</p>
     </div>
     <div class="pill">
-      <h3>Bilingual as infrastructure, not as a feature</h3>
-      <p>The whole transaction runs in Spanish when the customer wants it &mdash; the quote, the
-         explanation of what a deductible does, the claim a year later. In this market that is not a
-         marketing line, it is whether the business is reachable at all.</p>
+      <h3>[[investors.pos.c2.h3]]</h3>
+      <p>[[investors.pos.c2.p]]</p>
     </div>
     <div class="pill">
-      <h3>Recurring by construction</h3>
-      <p>Agency revenue is commission on premium, and it renews. A policy placed once pays again at
-         every renewal for as long as the client stays, and the cost of keeping them is service
-         rather than acquisition. Growth compounds against a book that does not reset each year.</p>
+      <h3>[[investors.pos.c3.h3]]</h3>
+      <p>[[investors.pos.c3.p]]</p>
     </div>
     <div class="pill">
-      <h3>Demand we own rather than rent</h3>
-      <p>The site answers the questions this market actually searches &mdash; what an SR-22 is, what
-         happens after a lapse, what Texas requires, what to do with a foreign license &mdash; city
-         by city across both states. That is inbound that does not stop when an ad budget does.</p>
+      <h3>[[investors.pos.c4.h3]]</h3>
+      <p>[[investors.pos.c4.p]]</p>
     </div>
   </div>
 </div></section>
 
 <section class="blk tint"><div class="wrap narrow">
-  <h2>How the money works</h2>
-  <p>An independent agency earns a commission on the premium it places, paid by the carrier, and
-     earns it again at each renewal. There is no underwriting risk on the agency's balance sheet:
-     the carrier takes the claim. What the agency owns is the relationship and the book.</p>
-  <p>That makes the economics legible. Growth comes from three places &mdash; more policies, more
-     lines per household, and keeping the ones already placed &mdash; and each of those is
-     measurable and improvable independently.</p>
+  <h2>[[investors.money.h2]]</h2>
+  <p>[[investors.money.p1]]</p>
+  <p>[[investors.money.p2]]</p>
 </div></section>
 
 <section class="blk" id="contact"><div class="wrap narrow">
-  <h2>Start a conversation</h2>
-  <p class="lead">If you invest in agencies, brokerages or local financial services and this is the
-     kind of business you look at, we would rather talk than send a deck into the dark.</p>
-  <p>Write to <a href="mailto:""" + nap.EMAIL + """">""" + nap.EMAIL + """</a> with a line about who
-     you are and what you look for, or call <a href="tel:""" + nap.CALL_E164 + """">""" + nap.CALL + """</a>
-     during office hours. Financial detail is shared directly, under a mutual NDA, with people whose
-     interest is real &mdash; not published on a web page.</p>
+  <h2>[[investors.contact.h2]]</h2>
+  <p class="lead">[[investors.contact.lead]]</p>
+  <p>[[investors.contact.p]]</p>
 
   <div class="ivnote">
-    <h3>Please note</h3>
-    <p>This page is information about """ + nap.LEGAL_NAME + """ and an invitation to make contact.
-       It is not an offer to sell, or a solicitation of an offer to buy, any security or interest in
-       the company, and nothing on it should be relied on as the basis of an investment decision.
-       Any actual transaction would be conducted separately, on documented terms, with the
-       disclosures and eligibility requirements that apply to it. Nothing here is a forecast or a
-       promise of performance.</p>
+    <h3>[[investors.note.h3]]</h3>
+    <p>[[investors.note.p]]</p>
   </div>
 </div></section>
 """
 
 
 def build():
-    head = shell.head(
-        'Investor relations',
-        'Safe House Insurance is an independent bilingual agency on the '
-        'Texas-New Mexico border, built around non-standard auto. Information '
-        'for investors and an invitation to make contact.',
-        canonical=SITE + '/investors')
+    head = shell.head(i18n.t('investors.meta.title'), i18n.t('investors.meta.desc'),
+                      canonical=SITE + '/investors', up='', link='investors.html')
     head = head.replace('</head>', CSS + '</head>')
-    return head + BODY + shell.FOOTER
+    body = i18n.render(BODY.replace('[[METRICS]]', metrics_band()),
+                       email=nap.EMAIL, tel=nap.CALL_E164, call=nap.CALL, legal=nap.LEGAL_NAME)
+    return head + body + shell.footer()
 
 
 if __name__ == '__main__':
     ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    out = os.path.join(ROOT, 'investors.html')
-    html = build()
-    open(out, 'w', encoding='utf-8').write(html)
-    print('investors.html ' + str(len(html)) + ' bytes')
+    for code in i18n.targets():
+        with i18n.language(code):
+            html = build()
+            out = i18n.write('investors.html', html)
+            print(os.path.relpath(out, ROOT) + ' ' + str(len(html)) + ' bytes')
     if not [v for v, _, _ in METRICS if v]:
         print('no metrics set — the figures band is not rendered. See the note '
               'at the top of tools/geninvestors.py.')

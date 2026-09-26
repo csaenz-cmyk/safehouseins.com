@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "title": "About us",
+    "desc": "Safe House Insurance is an independent, bilingual agency in El Paso, Texas, licensed in Texas and New Mexico. How we work and why."
+  },
+  "hero": {
+    "kick": "About us",
+    "h1": "We are the agency,<br>not the insurance company.",
+    "lede": "That means we work for your options. Instead of giving you one company&rsquo;s price, we compare\n     multiple insurance carriers to find the coverage and value that make the most sense for you."
+  },
+  "choices": {
+    "h2": "One company gives you one option.<br>We give you choices.",
+    "p1": "When you go directly to an insurance company, you see what that company can offer. At Safe\n     House, we compare options from multiple carriers for you. Different companies price every\n     driver, home, and situation differently &mdash; so instead of settling for the first price, we\n     help you find the option that fits you best.",
+    "p2": "<strong>You don&rsquo;t have to shop insurance companies. We do it for you.</strong> That is the\n     whole job: more options, real people, no guesswork."
+  },
+  "why": {
+    "h2": "Why we work the way we do",
+    "lead": "Three things about insurance in our part of the world shaped how this agency runs.",
+    "c1": {
+      "h3": "Your best rate today may not be your best rate tomorrow",
+      "p": "Insurance rates change all the time. When your renewal comes around, we can review your\n         options again and see whether your current carrier still makes sense. You shouldn&rsquo;t\n         have to start over with a new agency just to find a better option."
+    },
+    "c2": {
+      "h3": "Insurance shouldn&rsquo;t be confusing",
+      "p": "Deductibles, endorsements, SR-22s, limits &mdash; insurance comes with a lot of terminology.\n         We explain your options clearly in English or Spanish so you know what you&rsquo;re buying\n         before you buy it."
+    },
+    "c3": {
+      "h3": "We understand life on the border",
+      "p": "A foreign licence, a matr&iacute;cula, a first policy at 19, a work truck and a family car\n         in one household. National call centres treat those as edge cases. Here they are Tuesday."
+    }
+  },
+  "how": {
+    "h2": "One call. We shop. You pick.",
+    "p1": "The process is deliberately short, because the long version is where people give up.",
+    "li1": "<strong>Tell us once.</strong> Start online or talk to one of our agents.",
+    "li2": "<strong>We shop for you.</strong> We compare options from multiple insurance carriers and\n        look for available discounts.",
+    "li3": "<strong>You choose.</strong> A licensed agent reviews your options with you so you\n        understand the price, the coverage, and what you&rsquo;re actually getting.",
+    "p2": "Before anything is activated, a licensed agent reviews your quote with you to verify the\n     details, check for available discounts, and make sure the coverage fits your needs. An online\n     form cannot tell that the address you typed is a rental, or that the truck in the driveway is\n     used for work &mdash; a person can."
+  },
+  "people": {
+    "h2": "Real people. Right here in El Paso.",
+    "lead": "When you call or text Safe House, you&rsquo;re talking to our team &mdash; not a\n       call centre somewhere else. Our licensed agents are here to help you quote, understand your\n       coverage, make changes, and navigate your policy after you buy.",
+    "c1": {
+      "h3": "You reach a person",
+      "p": "Call or text during business hours and an agent picks up. No queue in another time zone,\n         no bot deciding whether your question counts."
+    },
+    "c2": {
+      "h3": "English or Spanish",
+      "p": "Whichever the conversation starts in. Nobody should have to buy insurance in their second\n         language if they would rather not."
+    },
+    "c3": {
+      "h3": "The same agency, after the sale",
+      "p": "ID cards, payments, a change mid-policy, a claim, the renewal a year later. Same number,\n         same people."
+    }
+  },
+  "where": {
+    "h2": "Where we are, and who we can help",
+    "p1": "We are at <strong>6065 Montana Ave Ste C8, El Paso, Texas</strong>, and we are licensed in\n     <strong>Texas and New Mexico</strong>. Those two licenses are the honest boundary of what we can\n     sell &mdash; not a marketing region. If you are outside them, we will tell you so rather than\n     take your information.",
+    "p2": "Inside them, distance does not matter. We write policies in El Paso and Las Cruces because that\n     is home, and in Houston, Austin and Albuquerque because a phone works the same everywhere.",
+    "chips": "<span>Car</span><span>Home</span><span>Renters</span><span>Motorcycle</span>\n    <span>Commercial vehicles</span><span>Work trucks and fleets</span><span>Life</span><span>Bonds</span>"
+  },
+  "carriers": {
+    "h2": "More options. Better chances of finding the right fit.",
+    "p1": "Appointments change &mdash; carriers open and close their appetite by state, by class, sometimes\n     by month. This is who we work with today:",
+    "p2": "If none of them wants your risk at a price that makes sense, we say that too. An agency that\n     can only ever find you a yes is not shopping."
+  },
+  "expect": {
+    "h2": "What you can expect from us",
+    "lead": "Worth being specific about, because plenty of sites that look like this one work\n       the other way.",
+    "c1": {
+      "h3": "Your information stays protected",
+      "p": "We use the information you provide to quote and service your policy &mdash; not to turn you\n         into a lead for other agencies. The only people who call you are Safe House agents."
+    },
+    "c2": {
+      "h3": "No surprise texts",
+      "p": "You choose whether you want to receive text messages from us. The box on our quote form\n         starts unchecked, you get your quote either way, and replying STOP ends it at any time."
+    },
+    "c3": {
+      "h3": "A real person reviews your quote",
+      "p": "Before you buy, a licensed agent verifies the details, checks available discounts, and\n         confirms your options with you. After verification we confirm the final price and go over\n         any eligible discounts or changes together."
+    },
+    "c4": {
+      "h3": "We&rsquo;re still here after you buy",
+      "p": "Need an ID card? Making a change? Have a billing or claims question? You come back to the\n         same agency that helped you get covered."
+    }
+  },
+  "cta": {
+    "h2": "Tell us once. We&rsquo;ll shop the options.",
+    "p": "Start online in a few minutes or call and talk it through. Either way, a licensed agent reviews\n     your quote with you before anything is activated &mdash; so you know the price, the coverage,\n     and what you&rsquo;re actually getting.",
+    "start": "Start your quote",
+    "call": "Call 915-503-1207"
+  },
+  "work": {
+    "h2": "Come work with us",
+    "p": "We are always hiring, and we are not precious about where you started. If you are licensed, or\n     willing to become licensed, and you can look after a person in English or Spanish, we would like\n     to see your resume.",
+    "btn": "See careers"
+  }
+}

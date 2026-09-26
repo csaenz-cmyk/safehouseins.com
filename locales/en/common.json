@@ -1,0 +1,116 @@
+{
+  "skip": "Skip to content",
+  "logoHome": "Safe House Insurance home",
+  "logoAlt": "Safe House Insurance",
+  "home": "Home",
+  "hours": "Mon&ndash;Fri, 11am&ndash;5pm Mountain",
+  "speaks": "<span lang=\"es\">Se habla espa&ntilde;ol</span>",
+  "nav": {
+    "cta": "Get my free quote",
+    "ctaShort": "Free quote",
+    "help": "&#9742; Need help? Call us"
+  },
+  "menu": {
+    "label": "Menu",
+    "open": "Open menu",
+    "close": "Close menu",
+    "cta": "Get a quote",
+    "insure": "What we insure",
+    "big": {
+      "car": "Car",
+      "home": "Home",
+      "commercial": "Commercial"
+    },
+    "typesHead": "Insurance types",
+    "types": {
+      "car": "Car",
+      "homeowners": "Homeowners",
+      "renters": "Renters",
+      "motorcycle": "Motorcycle",
+      "rideshare": "Rideshare &amp; delivery",
+      "commercial": "Work trucks &amp; fleets"
+    },
+    "companyHead": "Company",
+    "company": {
+      "about": "About us",
+      "reviews": "Reviews",
+      "faq": "FAQ",
+      "careers": "Careers",
+      "investors": "Investors",
+      "contact": "Contact"
+    },
+    "customerHead": "Already a customer",
+    "customer": {
+      "pay": "Make a payment",
+      "claim": "Report a claim",
+      "idcard": "Request an ID card",
+      "reshop": "Re-shop your rate"
+    },
+    "lendersHead": "For lenders",
+    "lienholder": "Lienholder requests",
+    "callus": "Call us",
+    "textus": "Text us",
+    "des": "<span lang=\"es\">Se habla espa&ntilde;ol</span> &middot; Mon&ndash;Fri, 11am&ndash;5pm Mountain"
+  },
+  "footer": {
+    "tx": {
+      "head": "Car insurance in Texas",
+      "all": "See all Texas cities &rarr;"
+    },
+    "nm": {
+      "head": "Car insurance in New Mexico",
+      "all": "See all New Mexico cities &rarr;"
+    },
+    "insure": {
+      "head": "What we insure",
+      "car": "Car insurance",
+      "home": "Home insurance",
+      "renters": "Renters insurance",
+      "moto": "Motorcycle insurance",
+      "commercial": "Commercial vehicles",
+      "trucks": "Work trucks and fleets",
+      "makes": "Car insurance by make &rarr;"
+    },
+    "customer": {
+      "head": "Already a customer",
+      "pay": "Make a payment",
+      "payGuide": "How paying works",
+      "idcard": "Request an ID card",
+      "claim": "Report a claim",
+      "claimGuide": "How claims work",
+      "change": "Change your policy",
+      "lenders": "For lenders &amp; banks",
+      "reshop": "Re-shop your rate"
+    },
+    "reach": {
+      "head": "Reach us",
+      "call": "Call",
+      "text": "Text",
+      "textNote": "A different line &mdash; this one receives texts",
+      "email": "Email",
+      "emailNote": "Documents, questions, anything",
+      "visit": "Visit",
+      "maps": "Open in Google Maps &rarr;"
+    },
+    "company": {
+      "head": "Company",
+      "about": "About us",
+      "careers": "Careers",
+      "investors": "Investors",
+      "faq": "FAQ",
+      "cities": "Car insurance by city",
+      "makes": "Car insurance by make",
+      "reviews": "Customer reviews",
+      "contact": "Contact",
+      "quote": "Get a quote &rarr;"
+    },
+    "tagline": "Licensed independent agency in El Paso, Texas &middot; 🇲🇽 Se habla español",
+    "disclaimer": "Safe House Insurance LLC is an independent insurance agency licensed in Texas and New Mexico. Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy. Quotes are estimates and are not a guarantee of coverage or price. Carrier availability and eligibility vary by state and by applicant. &copy; 2026 Safe House Insurance.",
+    "privacy": "Privacy Policy",
+    "sms": "SMS Terms",
+    "quote": "Get a quote"
+  },
+  "carriers": {
+    "caption": "Some of the companies we shop for you"
+  }
+}

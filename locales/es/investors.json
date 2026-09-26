@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "title": "Relación con inversionistas",
+    "desc": "Safe House Insurance es una agencia independiente y bilingüe en la frontera entre Texas y Nuevo México, enfocada en seguro de auto no estándar. Información para inversionistas."
+  },
+  "metrics": {
+    "policies": "Pólizas vigentes",
+    "premium": "Prima suscrita",
+    "premiumNote": "Últimos doce meses",
+    "retention": "Retención de clientes",
+    "retentionNote": "Renovación año contra año",
+    "growth": "Crecimiento de ingresos",
+    "growthNote": "Año contra año"
+  },
+  "hero": {
+    "kick": "Relación con inversionistas",
+    "h1": "Los conductores que todos los demás rechazan son un mercado, no un sobrante.",
+    "lede": "Safe House Insurance es una agencia independiente en la frontera entre Texas y Nuevo México,\n     construida alrededor de los clientes a los que las aseguradoras nacionales les ponen precios\n     imposibles o simplemente rechazan &mdash; seguro de auto no estándar, licencias nuevas y extranjeras,\n     trámites de SR-22, pólizas vencidas. Es un mercado desatendido porque es más difícil de atender,\n     y justamente eso es lo que lo hace defendible.",
+    "talk": "Iniciar una conversación",
+    "about": "Sobre la agencia"
+  },
+  "market": {
+    "h2": "Por qué este mercado",
+    "lead": "El Paso y Las Cruces están en la frontera, y la frontera cambia quién necesita\n     seguro y qué tan difícil es asegurarlos.",
+    "p1": "Un conductor con licencia extranjera, un conductor que cruza la frontera con frecuencia, una casa\n     con un solo carro y cuatro nombres en la póliza, una camioneta de trabajo que también es el carro\n     de la familia &mdash; el sistema de tarifas de una aseguradora nacional maneja mal todos estos casos,\n     y un centro de llamadas los maneja peor. Las aseguradoras difieren muchísimo sobre cuánto valen\n     estos riesgos, y esa diferencia es toda la oportunidad. Por eso aquí una sola cotización no dice\n     nada, y por eso una agencia que puede comparar catorce compañías a la vez vale más para el cliente\n     que cualquiera de ellas por separado.",
+    "p2": "También es un mercado que no atrae competencia fácilmente. Requiere nombramientos que las\n     aseguradoras otorgan despacio, licencias en dos estados y personal capaz de llevar toda la\n     operación en español. Nada de eso se puede comprar rápido."
+  },
+  "built": {
+    "h2": "Lo que ya está construido",
+    "lead": "No es un plan. Esto existe hoy y se puede verificar.",
+    "carriers": "nombramientos con aseguradoras, comparadas en un solo formulario",
+    "years": "años con licencia, sumando a todo el equipo",
+    "states": "estados con licencia &mdash; Texas y Nuevo México",
+    "pages": "páginas propias en buscadores, ciudad por ciudad"
+  },
+  "pos": {
+    "h2": "La posición",
+    "c1": {
+      "h3": "Independiente, no cautiva",
+      "p": "La agencia representa a varias aseguradoras en lugar de vender el producto de una sola compañía.\n         Esa es la diferencia entre competir por precio contra todos los agentes que venden lo mismo, y\n         competir por encontrar la compañía que sí va a asegurar a esta persona en particular."
+    },
+    "c2": {
+      "h3": "Bilingüe como infraestructura, no como un extra",
+      "p": "Toda la operación se hace en español cuando el cliente lo prefiere &mdash; la cotización, la\n         explicación de para qué sirve un deducible, el reclamo un año después. En este mercado eso no\n         es una frase de mercadotecnia: es lo que decide si el cliente puede llegar al negocio o no."
+    },
+    "c3": {
+      "h3": "Recurrente por diseño",
+      "p": "Los ingresos de la agencia son comisiones sobre la prima, y se renuevan. Una póliza colocada una\n         vez vuelve a pagar en cada renovación mientras el cliente se quede, y lo que cuesta conservarlo\n         es servicio, no adquisición. El crecimiento se acumula sobre una cartera que no empieza de cero\n         cada año."
+    },
+    "c4": {
+      "h3": "Demanda propia, no rentada",
+      "p": "El sitio responde las preguntas que este mercado de verdad busca &mdash; qué es un SR-22, qué pasa\n         después de un periodo sin seguro, qué exige Texas, qué hacer con una licencia extranjera &mdash;\n         ciudad por ciudad en los dos estados. Son clientes que llegan solos y que no se acaban cuando\n         se acaba el presupuesto de anuncios."
+    }
+  },
+  "money": {
+    "h2": "Cómo funciona el dinero",
+    "p1": "Una agencia independiente gana una comisión sobre la prima que coloca, pagada por la aseguradora,\n     y la vuelve a ganar en cada renovación. La agencia no carga riesgo de suscripción en su balance:\n     la aseguradora paga el reclamo. Lo que la agencia posee es la relación y la cartera de clientes.",
+    "p2": "Eso hace que los números sean fáciles de leer. El crecimiento viene de tres lados &mdash; más\n     pólizas, más tipos de seguro por hogar y conservar las pólizas que ya están colocadas &mdash; y\n     cada uno se puede medir y mejorar por separado."
+  },
+  "contact": {
+    "h2": "Iniciemos una conversación",
+    "lead": "Si inviertes en agencias, corredurías o servicios financieros locales, y este es el tipo de\n     negocio que te interesa, preferimos platicar que mandar una presentación a ciegas.",
+    "p": "Escríbenos a <a href=\"mailto:{email}\">{email}</a> con unas líneas sobre quién\n     eres y qué buscas, o llama al <a href=\"tel:{tel}\">{call}</a>\n     en horario de oficina. La información financiera se comparte directamente, bajo un acuerdo de\n     confidencialidad mutuo, con personas que tengan un interés real &mdash; no se publica en una página web."
+  },
+  "note": {
+    "h3": "Aviso importante",
+    "p": "Esta página contiene información sobre {legal} y una invitación a ponerse en contacto.\n       No es una oferta de venta ni una solicitud de oferta de compra de ningún valor o participación\n       en la compañía, y nada de lo que aquí aparece debe tomarse como base para una decisión de\n       inversión. Cualquier operación real se llevaría a cabo por separado, en términos documentados,\n       con las divulgaciones y los requisitos de elegibilidad que le correspondan. Nada de lo que aquí\n       aparece es un pronóstico ni una promesa de rendimiento."
+  }
+}

@@ -38,6 +38,7 @@ approved — the About page carrier list, plus Root and Lemonade from the home
 page FAQ and the mix-and-match band. Nothing is added that we cannot support.
 """
 import os
+import i18n
 
 # Ordered so the two most recognisable names land early in the loop, and so
 # no two visually similar wordmarks sit next to each other.
@@ -51,7 +52,7 @@ NAMES = [
 # Not printed on the page — the row carries no heading, by request. It is the
 # strip's accessible name, so a screen reader announces what the row is instead
 # of reading nineteen company names out of nowhere.
-CAPTION = 'Some of the companies we shop for you'
+CAPTION = 'common.carriers.caption'   # a catalog key; see html()
 
 # Each carrier's initial tile takes the company's own colour, so the row reads
 # as a row of marks rather than a row of identical blue squares. Sampled from
@@ -191,7 +192,7 @@ def html(indent='  ', up=''):
     row = ''.join(mark(n, up) for n in NAMES)
     i = indent
     return (
-        i + '<section class="carr" aria-label="' + CAPTION + '">\n'
+        i + '<section class="carr" aria-label="' + i18n.t(CAPTION) + '">\n'
         + i + '  <div class="carrmask">\n'
         + i + '    <div class="carrtrack">\n'
         + i + '      <div class="carrset">' + row + '</div>\n'

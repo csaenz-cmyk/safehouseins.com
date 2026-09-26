@@ -10,6 +10,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/safehouse-heart.png">
 <link rel="canonical" href="https://safehouseins.com/renters-insurance">
+<link rel="alternate" hreflang="en" href="https://safehouseins.com/renters-insurance">
+<link rel="alternate" hreflang="es" href="https://safehouseins.com/es/renters-insurance">
+<link rel="alternate" hreflang="x-default" href="https://safehouseins.com/renters-insurance">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_MX">
+<script>(function(){try{var p=localStorage.getItem("shi-lang")||(document.cookie.match(/(?:^|; )shi-lang=(en|es)/)||[])[1];if(p&&p!=="en")location.replace("es/renters-insurance.html"+location.search+location.hash)}catch(e){}})()</script>
 <meta property="og:title" content="Renters Insurance in Texas &amp; New Mexico | Safe House Insurance">
 <meta property="og:description" content="Renters insurance for apartments and rental homes in Texas and New Mexico. Covers your things, your liability and somewhere to stay. A licensed bilingual agent shops it for you. El Paso, TX.">
 <meta property="og:type" content="website">
@@ -47,6 +53,7 @@
   .burger.on span:nth-child(2){opacity:0}
   .burger.on span:nth-child(3){transform:translateY(-7.2px) rotate(-45deg)}
   body.locked .burger{opacity:0;visibility:hidden}
+  nav .navr{display:flex;align-items:center;gap:10px}
 
   /* ---- hero ---- */
   /* The hero is a band you land in, not a strip above the content.
@@ -163,6 +170,10 @@
       -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
       box-shadow:0 8px 26px -8px rgba(4,10,24,.8)}
   .ph.bg .burger:hover{background:rgba(8,18,40,.62)}
+  /* The language switch states its own contrast over a photograph, the same
+     way the menu button beside it does. */
+  .ph.bg .lsw.dk{background:rgba(8,18,40,.46);border-color:rgba(255,255,255,.52);
+      box-shadow:0 8px 26px -8px rgba(4,10,24,.8)}
   .ph .in{max-width:1120px;margin:0 auto;position:relative;z-index:2}
   .phgrid{display:grid;grid-template-columns:1fr;gap:32px;align-items:center}
   @media(min-width:900px){ .phgrid.has{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:52px} }
@@ -1111,6 +1122,9 @@
   body.locked{overflow:hidden}
 
   .dtop{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:26px}
+  /* The language switch takes the left end of the top row; the quote button
+     and the close button keep the right, where they have always been. */
+  .dtop .lsw{margin-right:auto}
   .dcta{display:inline-flex;align-items:center;justify-content:center;
       background:var(--mgrad);color:#fff;border-radius:99px;padding:13px 24px;
       font-size:14.5px;font-weight:800;text-decoration:none;white-space:nowrap;
@@ -1174,6 +1188,36 @@
   .dway.text .ar{color:var(--mblue)}
   .des{margin-top:14px;text-align:center;font-size:12.5px;font-weight:700;color:#9fb0c6}
 
+
+  /* ---- the language switch ----
+     Two segments, the current language filled. A segmented control rather
+     than a drop-down: there are two languages, both labels fit, and one tap
+     switches — a menu that has to be opened first is a second step for
+     nothing. Same height as the menu button beside it so the pair reads as
+     one row of controls. */
+  .lsw{display:inline-flex;align-items:center;flex:0 0 auto;gap:2px;height:44px;
+      padding:4px;border-radius:99px;background:#fff;border:1.5px solid #E5EBF6;
+      font-family:inherit;font-size:12.5px;font-weight:800;letter-spacing:.06em;
+      line-height:1;position:static}
+  .lsw>a,.lsw>span{display:inline-flex;align-items:center;justify-content:center;
+      min-width:34px;height:100%;padding:0 9px;border-radius:99px;
+      text-decoration:none;white-space:nowrap}
+  .lsw>a{color:#5C6A80;transition:background .16s,color .16s}
+  .lsw>a:hover{background:#EFF5FF;color:#1666ED;text-decoration:none}
+  .lsw>span{background:#0A2148;color:#fff}
+  .lsw>a:focus-visible{outline:2.5px solid #1666ED;outline-offset:2px}
+  .lsw .lvh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+      white-space:nowrap}
+  /* On a photograph or a navy header: glass, like the menu button there. */
+  .lsw.dk{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.34);
+      -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .lsw.dk>a{color:rgba(255,255,255,.88)}
+  .lsw.dk>a:hover{background:rgba(255,255,255,.18);color:#fff}
+  .lsw.dk>span{background:#fff;color:#0A2148}
+  .lsw.dk>a:focus-visible{outline-color:#fff}
+  /* In the menu panel there is room for the names themselves. */
+  .lsw.full{height:40px;font-size:13px;letter-spacing:.01em}
+  .lsw.full>a,.lsw.full>span{padding:0 14px}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "My landlord already has insurance. Why do I need this?", "acceptedAnswer": {"@type": "Answer", "text": "Because theirs covers the building and nothing of yours. If the place burns, they get a new building and you get nothing \u2014 unless you carry your own policy."}}, {"@type": "Question", "name": "How much does renters insurance cost?", "acceptedAnswer": {"@type": "Answer", "text": "Less than most people guess, and it depends on where you live, what you are covering and your deductible. We will quote it across the companies we represent rather than quoting you a number here we cannot stand behind."}}, {"@type": "Question", "name": "Does it cover my things outside the apartment?", "acceptedAnswer": {"@type": "Answer", "text": "Usually, including in your car and while traveling \u2014 this varies by policy, so it is worth asking about the one you are actually buying."}}, {"@type": "Question", "name": "My lease needs proof before I move in.", "acceptedAnswer": {"@type": "Answer", "text": "Tell us the date and who it goes to. We can normally have the certificate in the leasing office the same day."}}, {"@type": "Question", "name": "Does it cover my roommate?", "acceptedAnswer": {"@type": "Answer", "text": "Generally not unless they are named on the policy. Two people, two policies is the usual answer, and it is cheap enough that it is rarely worth arguing about."}}, {"@type": "Question", "name": "Will it lower my car insurance?", "acceptedAnswer": {"@type": "Answer", "text": "Often, yes. Most carriers give a multi-policy discount, and it can offset a good part of what the renters policy costs. Ask us to quote both together."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Renters insurance", "description": "Renters insurance for apartments and rental homes in Texas and New Mexico. Covers your things, your liability and somewhere to stay. A licensed bilingual agent shops it for you. El Paso, TX.", "serviceType": "Renters insurance", "provider": {"@type": "InsuranceAgency", "name": "Safe House Insurance LLC", "telephone": "+19155031207", "url": "https://safehouseins.com"}, "areaServed": [{"@type": "State", "name": "Texas"}, {"@type": "State", "name": "New Mexico"}], "url": "https://safehouseins.com/renters-insurance"}</script>
@@ -1184,12 +1228,13 @@
   <header class="ph">
     <nav>
       <a href="index.html" aria-label="Safe House Insurance home"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
-      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
+      <span class="navr"><div class="lsw dk" role="group" aria-label="Language / Idioma"><span lang="en" aria-current="true"><span aria-hidden="true">EN</span><span class="lvh">English</span></span><a href="es/renters-insurance.html" hreflang="es" lang="es-MX" data-lang="es" title="Ver esta página en español"><span aria-hidden="true">ES</span><span class="lvh">Español</span></a></div><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button></span>
     </nav>
 
 <div class="scrim" id="scrim" hidden></div>
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
   <div class="dtop">
+    <div class="lsw full" role="group" aria-label="Language / Idioma"><span lang="en" aria-current="true">English</span><a href="es/renters-insurance.html" hreflang="es" lang="es-MX" data-lang="es" title="Ver esta página en español">Español</a></div>
     <a class="dcta" href="quote.html">Get a quote</a>
     <button class="dclose" id="dclose" type="button" aria-label="Close menu">&#10005;</button>
   </div>
@@ -1550,7 +1595,11 @@
   var burger=document.getElementById('burger'),
       drawer=document.getElementById('drawer'),
       scrim=document.getElementById('scrim'),
-      dclose=document.getElementById('dclose');
+      dclose=document.getElementById('dclose'),
+      // The two labels are read off the buttons rather than written in here,
+      // so this script is the same in English and in Spanish.
+      openLabel=burger.getAttribute('aria-label'),
+      closeLabel=dclose.getAttribute('aria-label');
   function setMenu(open){
     burger.classList.toggle('on',open);
     drawer.classList.toggle('on',open);
@@ -1558,7 +1607,7 @@
     scrim.classList.toggle('on',open);
     document.body.classList.toggle('locked',open);
     burger.setAttribute('aria-expanded',open);
-    burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+    burger.setAttribute('aria-label',open?closeLabel:openLabel);
     // Focus follows the panel, or the panel is invisible to a keyboard.
     if(open) dclose.focus();
     else burger.focus({preventScroll:true});
@@ -1569,6 +1618,20 @@
   drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
   addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
 
+})();
+</script><script>
+(function(){
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lang]');
+    if(!a) return;
+    var l=a.getAttribute('data-lang');
+    try{localStorage.setItem('shi-lang',l);}catch(_){}
+    try{document.cookie='shi-lang='+l+';path=/;max-age=31536000;samesite=lax';}catch(_){}
+    if(e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+    e.preventDefault();
+    try{document.dispatchEvent(new CustomEvent('shi:lang',{detail:l}));}catch(_){}
+    location.href=a.href.split('#')[0].split('?')[0]+location.search+location.hash;
+  });
 })();
 </script>
 <script>

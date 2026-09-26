@@ -19,7 +19,12 @@ to: the three stylesheets on this site define three different token sets and
 none of them defines all of --navy, --ice and --ice2. Written against the
 host's names the same rules rendered white text on white on eleven pages,
 silently — an undefined custom property does not error, it yields nothing.
+
+Every word in the panel comes from locales/<lang>/common.json (the `menu.*`
+keys), and the panel carries the language switch in its top row, so on a phone
+changing language is one tap once the menu is open.
 """
+import i18n
 
 PANEL_CSS = """  /* ---- the menu panel ----
      A panel that comes in from the right rather than a sheet that drops from
@@ -61,6 +66,9 @@ PANEL_CSS = """  /* ---- the menu panel ----
   body.locked{overflow:hidden}
 
   .dtop{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:26px}
+  /* The language switch takes the left end of the top row; the quote button
+     and the close button keep the right, where they have always been. */
+  .dtop .lsw{margin-right:auto}
   .dcta{display:inline-flex;align-items:center;justify-content:center;
       background:var(--mgrad);color:#fff;border-radius:99px;padding:13px 24px;
       font-size:14.5px;font-weight:800;text-decoration:none;white-space:nowrap;
@@ -142,9 +150,10 @@ BURGER_LIGHT_CSS = """
   body.locked .burger{opacity:0;visibility:hidden}
 """
 
-BURGER_HTML = ('<button class="burger" id="burger" aria-label="Open menu" '
-               'aria-expanded="false" aria-controls="drawer">'
-               '<span></span><span></span><span></span></button>')
+def burger():
+    return ('<button class="burger" id="burger" aria-label="%s" '
+            'aria-expanded="false" aria-controls="drawer">'
+            '<span></span><span></span><span></span></button>' % i18n.t('common.menu.open'))
 
 JS = """<script>
 (function(){
@@ -158,7 +167,11 @@ JS = """<script>
   var burger=document.getElementById('burger'),
       drawer=document.getElementById('drawer'),
       scrim=document.getElementById('scrim'),
-      dclose=document.getElementById('dclose');
+      dclose=document.getElementById('dclose'),
+      // The two labels are read off the buttons rather than written in here,
+      // so this script is the same in English and in Spanish.
+      openLabel=burger.getAttribute('aria-label'),
+      closeLabel=dclose.getAttribute('aria-label');
   function setMenu(open){
     burger.classList.toggle('on',open);
     drawer.classList.toggle('on',open);
@@ -166,7 +179,7 @@ JS = """<script>
     scrim.classList.toggle('on',open);
     document.body.classList.toggle('locked',open);
     burger.setAttribute('aria-expanded',open);
-    burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+    burger.setAttribute('aria-label',open?closeLabel:openLabel);
     // Focus follows the panel, or the panel is invisible to a keyboard.
     if(open) dclose.focus();
     else burger.focus({preventScroll:true});
@@ -178,73 +191,104 @@ JS = """<script>
   addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
 
 })();
-</script>"""
+</script>""" + i18n.TOGGLE_JS
 
-_PANEL = """<div class="scrim" id="scrim" hidden></div>
-<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
+_ARROW = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>')
+_PHONE = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>')
+_CHAT = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg>')
+
+
+def _panel_html(toggle):
+    t = i18n.t
+    return """<div class="scrim" id="scrim" hidden></div>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="{label}">
   <div class="dtop">
-    <a class="dcta" href="quote.html">Get a quote</a>
-    <button class="dclose" id="dclose" type="button" aria-label="Close menu">&#10005;</button>
+    {toggle}
+    <a class="dcta" href="quote.html">{cta}</a>
+    <button class="dclose" id="dclose" type="button" aria-label="{close}">&#10005;</button>
   </div>
 
-  <div class="dbig" role="navigation" aria-label="What we insure">
-    <a href="auto-insurance.html">Car <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    <a href="home-insurance.html">Home <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    <a href="commercial-insurance.html">Commercial <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  <div class="dbig" role="navigation" aria-label="{insure}">
+    <a href="auto-insurance.html">{bigcar} {ar}</a>
+    <a href="home-insurance.html">{bighome} {ar}</a>
+    <a href="commercial-insurance.html">{bigcom} {ar}</a>
   </div>
 
   <div class="dcols">
     <div class="dcol">
-      <h6>Insurance types</h6>
-      <a href="auto-insurance.html">Car</a>
-      <a href="home-insurance.html">Homeowners</a>
-      <a href="renters-insurance.html">Renters</a>
-      <a href="motorcycle-insurance.html">Motorcycle</a>
-      <a href="rideshare-insurance.html">Rideshare &amp; delivery</a>
-      <a href="commercial-insurance.html">Work trucks &amp; fleets</a>
+      <h6>{types}</h6>
+      <a href="auto-insurance.html">{car}</a>
+      <a href="home-insurance.html">{homeowners}</a>
+      <a href="renters-insurance.html">{renters}</a>
+      <a href="motorcycle-insurance.html">{moto}</a>
+      <a href="rideshare-insurance.html">{rideshare}</a>
+      <a href="commercial-insurance.html">{trucks}</a>
     </div>
     <div class="dcol">
-      <h6>Company</h6>
-      <a href="about.html">About us</a>
-      <a href="#reviews">Reviews</a>
-      <a href="#faq">FAQ</a>
-      <a href="careers.html">Careers</a>
-      <a href="investors.html">Investors</a>
-      <a href="contact.html">Contact</a>
+      <h6>{company}</h6>
+      <a href="about.html">{about}</a>
+      <a href="#reviews">{reviews}</a>
+      <a href="#faq">{faq}</a>
+      <a href="careers.html">{careers}</a>
+      <a href="investors.html">{investors}</a>
+      <a href="contact.html">{contact}</a>
     </div>
     <div class="dcol">
-      <h6>Already a customer</h6>
-      <a href="pay/">Make a payment</a>
-      <a href="claims/">Report a claim</a>
-      <a href="id-card/">Request an ID card</a>
-      <a href="quote.html">Re-shop your rate</a>
+      <h6>{customer}</h6>
+      <a href="pay/">{pay}</a>
+      <a href="claims/">{claim}</a>
+      <a href="id-card/">{idcard}</a>
+      <a href="quote.html">{reshop}</a>
     </div>
     <div class="dcol">
-      <h6>For lenders</h6>
-      <a href="lienholder/">Lienholder requests</a>
+      <h6>{lenders}</h6>
+      <a href="lienholder/">{lienholder}</a>
     </div>
   </div>
 
   <div class="dfoot">
     <a class="dway call" href="tel:+19155031207">
-      <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
-      <span class="t"><s>Call us</s><b>915-503-1207</b></span>
+      <span class="i">{phone}</span>
+      <span class="t"><s>{callus}</s><b>915-503-1207</b></span>
       <span class="ar" aria-hidden="true">&rarr;</span></a>
     <a class="dway text" href="sms:+19155943777">
-      <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span>
-      <span class="t"><s>Text us</s><b>915-594-3777</b></span>
+      <span class="i">{chat}</span>
+      <span class="t"><s>{textus}</s><b>915-594-3777</b></span>
       <span class="ar" aria-hidden="true">&rarr;</span></a>
-    <p class="des"><span lang="es">Se habla espa&ntilde;ol</span> &middot; Mon&ndash;Fri, 11am&ndash;5pm Mountain</p>
+    <p class="des">{des}</p>
   </div>
-</div>"""
+</div>""".format(
+        label=t('common.menu.label'), toggle=toggle, cta=t('common.menu.cta'),
+        close=t('common.menu.close'), insure=t('common.menu.insure'), ar=_ARROW,
+        bigcar=t('common.menu.big.car'), bighome=t('common.menu.big.home'),
+        bigcom=t('common.menu.big.commercial'),
+        types=t('common.menu.typesHead'), car=t('common.menu.types.car'),
+        homeowners=t('common.menu.types.homeowners'), renters=t('common.menu.types.renters'),
+        moto=t('common.menu.types.motorcycle'), rideshare=t('common.menu.types.rideshare'),
+        trucks=t('common.menu.types.commercial'),
+        company=t('common.menu.companyHead'), about=t('common.menu.company.about'),
+        reviews=t('common.menu.company.reviews'), faq=t('common.menu.company.faq'),
+        careers=t('common.menu.company.careers'), investors=t('common.menu.company.investors'),
+        contact=t('common.menu.company.contact'),
+        customer=t('common.menu.customerHead'), pay=t('common.menu.customer.pay'),
+        claim=t('common.menu.customer.claim'), idcard=t('common.menu.customer.idcard'),
+        reshop=t('common.menu.customer.reshop'),
+        lenders=t('common.menu.lendersHead'), lienholder=t('common.menu.lienholder'),
+        phone=_PHONE, chat=_CHAT, callus=t('common.menu.callus'),
+        textus=t('common.menu.textus'), des=t('common.menu.des'))
 
 
-def panel(up='', home=False):
+def panel(up='', home=False, link=None):
     """The scrim and the panel, with every href rewritten for the page it is
     going on.
 
     `up` is the '../' prefix for however deep the page sits — '' at the root,
     '../../' for /pay/guide/.
+
+    `link` is the page as the site links to it from the root ('about.html',
+    'car-insurance/texas/el-paso/'). It is what the language switch in the
+    panel's top row points at, in the other language; a page that passes none
+    gets a panel without the switch.
 
     `home` says this is index.html, and it exists for two anchors. #faq and
     #reviews are sections of the home page: from the home page they must stay
@@ -253,7 +297,9 @@ def panel(up='', home=False):
     that is not on the current page. Getting that backwards is silent — the
     link works, it just goes nowhere useful.
     """
-    out = _PANEL
+    out = _panel_html(i18n.toggle(up, link, 'full') if link is not None else '')
+    if link is None:
+        out = out.replace('    \n    <a class="dcta"', '    <a class="dcta"')
     if not home:
         out = out.replace('href="#faq"', 'href="' + up + 'index.html#faq"')
         out = out.replace('href="#reviews"', 'href="' + up + 'index.html#reviews"')

@@ -1,0 +1,76 @@
+{
+  "ui": {
+    "start": "Empieza tu cotización &rarr;",
+    "call": "Llama al {call}",
+    "pnote": "Gratis y sin compromiso &middot; En español o inglés &middot; Con licencia en Texas y Nuevo México",
+    "compare": {
+      "h2": "Compara entre compañías",
+      "p": "El mismo conductor, el mismo carro, la misma cobertura &mdash; y las compañías no se\n           ponen de acuerdo, muchas veces por cientos de dólares. Una sola cotización no te dice si\n           te están cobrando de más, porque no hay con qué compararla. Llevamos tus datos a\n           cada compañía que representamos y te enseñamos lo que dijo cada una."
+    },
+    "questions": {
+      "kick": "Preguntas",
+      "h2": "Lo que la gente nos pregunta"
+    },
+    "end": {
+      "h2": "Déjanos revisarlo con calma.",
+      "p": "Empieza en línea y un agente lo retoma, o llámanos y lo hacemos todo contigo.\n         En español o en inglés, en el idioma en que empiece la conversación.",
+      "cta": "Obtén tu cotización gratis &rarr;"
+    },
+    "also": {
+      "title": "{name}",
+      "sub": "Comparado y revisado de la misma forma",
+      "claim": "Reportar un reclamo",
+      "claimSub": "Teléfonos de reclamos por compañía"
+    },
+    "yesKick": "A quién aseguramos",
+    "ez": {
+      "kick": "Cómo funciona",
+      "make": "Marca del vehículo",
+      "zip": "Código postal",
+      "dob": "Fecha de nacimiento",
+      "btn": "Cotizar &rarr;",
+      "secure": "Seguro y confidencial",
+      "read": "Revisada",
+      "reviewed": "Revisada por un agente con licencia",
+      "real": "Personas reales. Mejores opciones.",
+      "renewal": "Tu renovación se acerca",
+      "lookAgain": "La revisamos otra vez antes de que llegue.",
+      "eye": "Estamos al pendiente",
+      "hear": "Te avisamos",
+      "lang": "En español o en inglés"
+    },
+    "miss": {
+      "kick": "La segunda revisión",
+      "h2": "Lo que el precio en línea no ve",
+      "footB": "Esa es toda la diferencia.",
+      "footP": "Cualquiera te puede enseñar un número. Un agente de Safe House con licencia lee la\n             cotización antes de que compres, te hace las preguntas de arriba y vuelve a comparar\n             cuando las respuestas cambian algo. No te cuesta nada &mdash; para eso es la comisión\n             de la póliza."
+    },
+    "res": {
+      "kick": "Seguro de auto 101",
+      "h2": "Compara mejor, con las respuestas primero",
+      "p": "Respuestas claras a lo que la gente de verdad pregunta antes de comprar. Sin discursos de venta y sin números inventados &mdash; escritas por los agentes que colocan estas pólizas todos los días.",
+      "featured": "Guía destacada",
+      "all": "Ver las {n} guías &rarr;"
+    },
+    "mix": {
+      "mo": "/mes",
+      "note": "Tus dos precios, lado a lado &mdash; de una cotización real, en unos cinco minutos."
+    },
+    "dsc": {
+      "kick": "Descuentos",
+      "count": "que revisamos en cada cotización de auto",
+      "eyebrow": "Descuento",
+      "prev": "Descuento anterior",
+      "next": "Siguiente descuento"
+    },
+    "pick": {
+      "kick": "Tú decides",
+      "tabs": "Opciones de cobertura",
+      "included": "Qué incluye",
+      "fine": "La disponibilidad y la redacción varían según la compañía y el estado. Tu agente confirma cuánto cuesta cada opción y lo que realmente dice antes de que compres nada."
+    },
+    "stmt": {
+      "say": "{a} {b}. <b>De eso se trata todo.</b> El formulario es la parte rápida; lo que vale la pena de una agencia es que alguien que ha colocado esto mil veces revise lo que salió antes de que compres."
+    }
+  }
+}

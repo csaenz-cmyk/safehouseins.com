@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "title": "Investor relations",
+    "desc": "Safe House Insurance is an independent bilingual agency on the Texas-New Mexico border, built around non-standard auto. Information for investors and an invitation to make contact."
+  },
+  "metrics": {
+    "policies": "Policies in force",
+    "premium": "Written premium",
+    "premiumNote": "Trailing twelve months",
+    "retention": "Client retention",
+    "retentionNote": "Renewal year over year",
+    "growth": "Revenue growth",
+    "growthNote": "Year over year"
+  },
+  "hero": {
+    "kick": "Investor relations",
+    "h1": "The drivers everyone else declines are a market, not a leftover.",
+    "lede": "Safe House Insurance is an independent agency on the Texas&ndash;New Mexico border, built\n     around the customers the national carriers price out or turn away &mdash; non-standard auto,\n     first-time and foreign licenses, SR-22 filings, lapsed coverage. It is a market that is\n     underserved because it is harder to serve, and being harder to serve is exactly what keeps\n     it defensible.",
+    "talk": "Start a conversation",
+    "about": "About the agency"
+  },
+  "market": {
+    "h2": "Why this market",
+    "lead": "El Paso and Las Cruces sit on a border, and a border changes who needs\n     insurance and how hard it is to write them.",
+    "p1": "A driver with a foreign license, a driver who crosses regularly, a household with one car and\n     four names on it, a work truck that is also the family car &mdash; a national carrier's rating\n     engine handles all of these badly, and a call centre handles them worse. Carriers disagree\n     enormously about what these risks are worth, and that disagreement is the whole opportunity.\n     It is why a single quote means nothing here and why an agency that can shop fourteen companies\n     at once is worth more to the customer than any one of them.",
+    "p2": "It is also a market that does not attract competition easily. It takes appointments that\n     carriers grant slowly, licenses in two states, and staff who can conduct the entire\n     transaction in Spanish. None of those can be bought quickly."
+  },
+  "built": {
+    "h2": "What is already built",
+    "lead": "Not a plan. These exist today and can be verified.",
+    "carriers": "carrier appointments, shopped on one form",
+    "years": "combined years licensed, across the team",
+    "states": "states licensed &mdash; Texas and New Mexico",
+    "pages": "owned search pages, city by city"
+  },
+  "pos": {
+    "h2": "The position",
+    "c1": {
+      "h3": "Independent, not captive",
+      "p": "The agency represents a shelf of carriers rather than selling one company's product. That\n         is the difference between competing on price against every other agent with the same\n         product and competing on which company will write this particular person at all."
+    },
+    "c2": {
+      "h3": "Bilingual as infrastructure, not as a feature",
+      "p": "The whole transaction runs in Spanish when the customer wants it &mdash; the quote, the\n         explanation of what a deductible does, the claim a year later. In this market that is not a\n         marketing line, it is whether the business is reachable at all."
+    },
+    "c3": {
+      "h3": "Recurring by construction",
+      "p": "Agency revenue is commission on premium, and it renews. A policy placed once pays again at\n         every renewal for as long as the client stays, and the cost of keeping them is service\n         rather than acquisition. Growth compounds against a book that does not reset each year."
+    },
+    "c4": {
+      "h3": "Demand we own rather than rent",
+      "p": "The site answers the questions this market actually searches &mdash; what an SR-22 is, what\n         happens after a lapse, what Texas requires, what to do with a foreign license &mdash; city\n         by city across both states. That is inbound that does not stop when an ad budget does."
+    }
+  },
+  "money": {
+    "h2": "How the money works",
+    "p1": "An independent agency earns a commission on the premium it places, paid by the carrier, and\n     earns it again at each renewal. There is no underwriting risk on the agency's balance sheet:\n     the carrier takes the claim. What the agency owns is the relationship and the book.",
+    "p2": "That makes the economics legible. Growth comes from three places &mdash; more policies, more\n     lines per household, and keeping the ones already placed &mdash; and each of those is\n     measurable and improvable independently."
+  },
+  "contact": {
+    "h2": "Start a conversation",
+    "lead": "If you invest in agencies, brokerages or local financial services and this is the\n     kind of business you look at, we would rather talk than send a deck into the dark.",
+    "p": "Write to <a href=\"mailto:{email}\">{email}</a> with a line about who\n     you are and what you look for, or call <a href=\"tel:{tel}\">{call}</a>\n     during office hours. Financial detail is shared directly, under a mutual NDA, with people whose\n     interest is real &mdash; not published on a web page."
+  },
+  "note": {
+    "h3": "Please note",
+    "p": "This page is information about {legal} and an invitation to make contact.\n       It is not an offer to sell, or a solicitation of an offer to buy, any security or interest in\n       the company, and nothing on it should be relied on as the basis of an investment decision.\n       Any actual transaction would be conducted separately, on documented terms, with the\n       disclosures and eligibility requirements that apply to it. Nothing here is a forecast or a\n       promise of performance."
+  }
+}

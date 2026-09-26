@@ -1,0 +1,20 @@
+{
+  "ui": {
+    "crumbCar": "Seguro de auto",
+    "crumbLearn": "Aprende",
+    "kickHub": "Aprende",
+    "takeaway": "Lo que debes llevarte",
+    "faqH2": "Preguntas frecuentes",
+    "cta": {
+      "h2": "¿Quieres que una persona lo revise?",
+      "p": "Empieza en línea y un agente lo retoma, o llámanos y lo hacemos todo contigo. En español o en inglés, en el idioma en que empiece la conversación.",
+      "quote": "Obtén tu cotización gratis &rarr;",
+      "call": "Llama al {call}",
+      "text": "Mensaje al {text}"
+    },
+    "more": "Más de Seguro de auto 101",
+    "read": "Leer &rarr;",
+    "titleSuffix": " · Safe House Insurance",
+    "breadcrumb": "Ruta de navegación"
+  }
+}

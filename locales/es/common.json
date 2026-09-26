@@ -1,0 +1,116 @@
+{
+  "skip": "Saltar al contenido",
+  "logoHome": "Inicio de Safe House Insurance",
+  "logoAlt": "Safe House Insurance",
+  "home": "Inicio",
+  "hours": "Lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña)",
+  "speaks": "Te atendemos en español",
+  "nav": {
+    "cta": "Obtén tu cotización gratis",
+    "ctaShort": "Cotiza gratis",
+    "help": "&#9742; ¿Necesitas ayuda? Llámanos"
+  },
+  "menu": {
+    "label": "Menú",
+    "open": "Abrir menú",
+    "close": "Cerrar menú",
+    "cta": "Cotiza gratis",
+    "insure": "Lo que aseguramos",
+    "big": {
+      "car": "Auto",
+      "home": "Casa",
+      "commercial": "Comercial"
+    },
+    "typesHead": "Tipos de seguro",
+    "types": {
+      "car": "Auto",
+      "homeowners": "Casa propia",
+      "renters": "Inquilinos",
+      "motorcycle": "Motocicleta",
+      "rideshare": "Uber, Lyft y entregas",
+      "commercial": "Camionetas de trabajo y flotillas"
+    },
+    "companyHead": "La agencia",
+    "company": {
+      "about": "Quiénes somos",
+      "reviews": "Reseñas",
+      "faq": "Preguntas frecuentes",
+      "careers": "Empleos",
+      "investors": "Inversionistas",
+      "contact": "Contacto"
+    },
+    "customerHead": "Si ya eres cliente",
+    "customer": {
+      "pay": "Hacer un pago",
+      "claim": "Reportar un reclamo",
+      "idcard": "Pedir tu tarjeta de seguro",
+      "reshop": "Volver a comparar tu precio"
+    },
+    "lendersHead": "Para financieras",
+    "lienholder": "Solicitudes de acreedores",
+    "callus": "Llámanos",
+    "textus": "Mándanos un mensaje",
+    "des": "Te atendemos en español &middot; lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña)"
+  },
+  "footer": {
+    "tx": {
+      "head": "Seguro de auto en Texas",
+      "all": "Ver todas las ciudades de Texas &rarr;"
+    },
+    "nm": {
+      "head": "Seguro de auto en Nuevo México",
+      "all": "Ver todas las ciudades de Nuevo México &rarr;"
+    },
+    "insure": {
+      "head": "Lo que aseguramos",
+      "car": "Seguro de auto",
+      "home": "Seguro de casa",
+      "renters": "Seguro para inquilinos",
+      "moto": "Seguro de motocicleta",
+      "commercial": "Vehículos comerciales",
+      "trucks": "Camionetas de trabajo y flotillas",
+      "makes": "Seguro de auto por marca &rarr;"
+    },
+    "customer": {
+      "head": "Si ya eres cliente",
+      "pay": "Hacer un pago",
+      "payGuide": "Cómo funcionan los pagos",
+      "idcard": "Pedir tu tarjeta de seguro",
+      "claim": "Reportar un reclamo",
+      "claimGuide": "Cómo funcionan los reclamos",
+      "change": "Hacer un cambio a tu póliza",
+      "lenders": "Para bancos y financieras",
+      "reshop": "Volver a comparar tu precio"
+    },
+    "reach": {
+      "head": "Contáctanos",
+      "call": "Llamadas",
+      "text": "Mensajes de texto",
+      "textNote": "Es otra línea &mdash; esta sí recibe mensajes de texto",
+      "email": "Correo electrónico",
+      "emailNote": "Documentos, preguntas, lo que necesites",
+      "visit": "Visítanos",
+      "maps": "Abrir en Google Maps &rarr;"
+    },
+    "company": {
+      "head": "La agencia",
+      "about": "Quiénes somos",
+      "careers": "Empleos",
+      "investors": "Inversionistas",
+      "faq": "Preguntas frecuentes",
+      "cities": "Seguro de auto por ciudad",
+      "makes": "Seguro de auto por marca",
+      "reviews": "Reseñas de clientes",
+      "contact": "Contacto",
+      "quote": "Cotiza gratis &rarr;"
+    },
+    "tagline": "Agencia independiente con licencia en El Paso, Texas &middot; 🇲🇽 Te atendemos en español",
+    "disclaimer": "Safe House Insurance LLC es una agencia de seguros independiente con licencia en Texas y Nuevo México. La cobertura está sujeta a la aprobación de la aseguradora, a sus criterios de suscripción y a los términos, condiciones y exclusiones de la póliza emitida. Las cotizaciones son estimados y no garantizan la cobertura ni el precio. Las aseguradoras disponibles y los requisitos para calificar varían según el estado y el solicitante. &copy; 2026 Safe House Insurance.",
+    "privacy": "Aviso de privacidad",
+    "sms": "Términos de SMS",
+    "quote": "Cotiza gratis"
+  },
+  "carriers": {
+    "caption": "Algunas de las compañías que comparamos por ti"
+  }
+}

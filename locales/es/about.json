@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "title": "Quiénes somos",
+    "desc": "Safe House Insurance es una agencia independiente y bilingüe en El Paso, Texas, con licencia en Texas y Nuevo México. Cómo trabajamos y por qué."
+  },
+  "hero": {
+    "kick": "Quiénes somos",
+    "h1": "Somos la agencia,<br>no la compañía de seguros.",
+    "lede": "Eso quiere decir que trabajamos para darte opciones. En lugar de darte el precio de una sola compañía,\n     comparamos varias aseguradoras para encontrar la cobertura y el precio que más te convienen."
+  },
+  "choices": {
+    "h2": "Una compañía te da una opción.<br>Nosotros te damos varias.",
+    "p1": "Cuando vas directo con una compañía de seguros, solo ves lo que esa compañía te puede ofrecer. En Safe\n     House comparamos por ti las opciones de varias aseguradoras. Cada compañía le pone un precio distinto a\n     cada conductor, a cada casa y a cada situación &mdash; así que, en lugar de quedarte con el primer precio,\n     te ayudamos a encontrar la opción que mejor te queda.",
+    "p2": "<strong>No tienes que andar comparando compañías de seguros. Nosotros lo hacemos por ti.</strong> De eso\n     se trata nuestro trabajo: más opciones, personas reales y nada de adivinar."
+  },
+  "why": {
+    "h2": "Por qué trabajamos así",
+    "lead": "Tres cosas del seguro en nuestra región definieron la forma en que trabaja esta agencia.",
+    "c1": {
+      "h3": "Tu mejor precio de hoy quizá no sea el mejor mañana",
+      "p": "Los precios del seguro cambian todo el tiempo. Cuando llega tu renovación, podemos revisar tus\n         opciones otra vez y ver si tu aseguradora actual todavía te conviene. No deberías tener que\n         empezar de cero con otra agencia solo para encontrar una mejor opción."
+    },
+    "c2": {
+      "h3": "El seguro no debería ser complicado",
+      "p": "Deducibles, endosos, SR-22, límites &mdash; el seguro viene con muchos términos. Te explicamos\n         tus opciones con claridad, en español o en inglés, para que sepas qué estás comprando antes\n         de comprarlo."
+    },
+    "c3": {
+      "h3": "Entendemos la vida en la frontera",
+      "p": "Una licencia extranjera, una matrícula consular, la primera póliza a los 19 años, una camioneta de\n         trabajo y el carro de la familia en la misma casa. Los centros de llamadas nacionales lo ven como\n         casos raros. Aquí es cosa de todos los días."
+    }
+  },
+  "how": {
+    "h2": "Una llamada. Nosotros comparamos. Tú eliges.",
+    "p1": "El proceso es corto a propósito, porque en la versión larga es donde la gente se rinde.",
+    "li1": "<strong>Cuéntanos una sola vez.</strong> Empieza en línea o habla con uno de nuestros agentes.",
+    "li2": "<strong>Comparamos por ti.</strong> Revisamos opciones de varias aseguradoras y buscamos los\n        descuentos disponibles.",
+    "li3": "<strong>Tú eliges.</strong> Un agente con licencia revisa tus opciones contigo para que entiendas el\n        precio, la cobertura y lo que realmente estás recibiendo.",
+    "p2": "Antes de activar cualquier póliza, un agente con licencia revisa tu cotización contigo para verificar\n     los datos, buscar descuentos disponibles y confirmar que la cobertura se ajuste a lo que necesitas.\n     Un formulario en línea no puede saber que la dirección que escribiste es una casa rentada, o que la\n     camioneta que está afuera se usa para trabajar &mdash; una persona sí."
+  },
+  "people": {
+    "h2": "Personas reales. Aquí mismo en El Paso.",
+    "lead": "Cuando llamas o le escribes a Safe House, hablas con nuestro equipo &mdash; no con un centro de\n       llamadas en otro lado. Nuestros agentes con licencia te ayudan a cotizar, a entender tu cobertura,\n       a hacer cambios y a resolver lo que necesites de tu póliza después de comprarla.",
+    "c1": {
+      "h3": "Te atiende una persona",
+      "p": "Llama o manda un mensaje en horario de oficina y te contesta un agente. Sin filas de espera en otra\n         zona horaria, sin un bot que decida si tu pregunta cuenta."
+    },
+    "c2": {
+      "h3": "Español o inglés",
+      "p": "En el idioma en que empiece la conversación. Nadie debería tener que comprar un seguro en su segundo\n         idioma si no quiere."
+    },
+    "c3": {
+      "h3": "La misma agencia, después de la venta",
+      "p": "Tarjetas de seguro, pagos, un cambio a mitad de la póliza, un reclamo, la renovación un año después.\n         El mismo número, las mismas personas."
+    }
+  },
+  "where": {
+    "h2": "Dónde estamos y a quién podemos ayudar",
+    "p1": "Estamos en <strong>6065 Montana Ave Ste C8, El Paso, Texas</strong>, y tenemos licencia en\n     <strong>Texas y Nuevo México</strong>. Esas dos licencias son el límite real de lo que podemos\n     vender &mdash; no una región de mercadotecnia. Si estás fuera de esos dos estados, te lo diremos\n     en lugar de pedirte tus datos.",
+    "p2": "Dentro de ellos, la distancia no importa. Hacemos pólizas en El Paso y Las Cruces porque aquí es\n     nuestra casa, y en Houston, Austin y Albuquerque porque el teléfono funciona igual en todos lados.",
+    "chips": "<span>Auto</span><span>Casa</span><span>Inquilinos</span><span>Motocicleta</span>\n    <span>Vehículos comerciales</span><span>Camionetas de trabajo y flotillas</span><span>Vida</span><span>Fianzas</span>"
+  },
+  "carriers": {
+    "h2": "Más opciones. Más posibilidades de encontrar la que te queda.",
+    "p1": "Las aseguradoras que representamos cambian &mdash; cada compañía decide qué acepta según el estado,\n     el tipo de riesgo y a veces hasta el mes. Hoy trabajamos con:",
+    "p2": "Si ninguna quiere asegurarte a un precio que tenga sentido, también te lo decimos. Una agencia que\n     siempre te encuentra un sí, en realidad no está comparando."
+  },
+  "expect": {
+    "h2": "Lo que puedes esperar de nosotros",
+    "lead": "Vale la pena decirlo claro, porque muchos sitios que se parecen a este trabajan\n       al revés.",
+    "c1": {
+      "h3": "Tu información está protegida",
+      "p": "Usamos la información que nos das para cotizar y dar servicio a tu póliza &mdash; no para pasarte\n         como prospecto a otras agencias. Las únicas personas que te llaman son agentes de Safe House."
+    },
+    "c2": {
+      "h3": "Sin mensajes sorpresa",
+      "p": "Tú decides si quieres recibir mensajes de texto de nuestra parte. La casilla de nuestro formulario de\n         cotización empieza sin marcar, recibes tu cotización de todos modos y, si respondes STOP, dejan de\n         llegarte en cualquier momento."
+    },
+    "c3": {
+      "h3": "Una persona real revisa tu cotización",
+      "p": "Antes de que compres, un agente con licencia verifica los datos, revisa los descuentos disponibles y\n         confirma tus opciones contigo. Después de la verificación te confirmamos el precio final y\n         revisamos juntos cualquier descuento o cambio que aplique."
+    },
+    "c4": {
+      "h3": "Seguimos aquí después de que compras",
+      "p": "¿Necesitas tu tarjeta de seguro? ¿Quieres hacer un cambio? ¿Tienes una pregunta sobre un pago o un\n         reclamo? Regresas con la misma agencia que te ayudó a asegurarte."
+    }
+  },
+  "cta": {
+    "h2": "Cuéntanos una vez. Nosotros comparamos las opciones.",
+    "p": "Empieza en línea en unos minutos o llámanos y lo platicamos. De cualquier forma, un agente con licencia\n     revisa tu cotización contigo antes de activar nada &mdash; para que sepas el precio, la cobertura\n     y lo que realmente estás recibiendo.",
+    "start": "Empieza tu cotización",
+    "call": "Llama al 915-503-1207"
+  },
+  "work": {
+    "h2": "Trabaja con nosotros",
+    "p": "Siempre estamos contratando, y no nos fijamos tanto en dónde empezaste. Si tienes licencia, o estás\n     dispuesto a sacarla, y sabes atender bien a una persona en español o en inglés, nos gustaría ver\n     tu currículum.",
+    "btn": "Ver empleos"
+  }
+}

@@ -6,6 +6,12 @@
 <title>Texas Car Insurance Requirements · Safe House Insurance</title>
 <meta name="description" content="The minimum car insurance Texas requires, the coverages carriers must offer you, and the penalties for driving uninsured.">
 <link rel="canonical" href="https://safehouseins.com/learn/texas-car-insurance-requirements/">
+<link rel="alternate" hreflang="en" href="https://safehouseins.com/learn/texas-car-insurance-requirements/">
+<link rel="alternate" hreflang="es" href="https://safehouseins.com/es/learn/texas-car-insurance-requirements/">
+<link rel="alternate" hreflang="x-default" href="https://safehouseins.com/learn/texas-car-insurance-requirements/">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_MX">
+<script>(function(){try{var p=localStorage.getItem("shi-lang")||(document.cookie.match(/(?:^|; )shi-lang=(en|es)/)||[])[1];if(p&&p!=="en")location.replace("../../es/learn/texas-car-insurance-requirements/"+location.search+location.hash)}catch(e){}})()</script>
 <link rel="icon" href="../../assets/safehouse-heart.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -140,6 +146,8 @@
   .gcta a{border-radius:99px;padding:16px 28px;font-size:16px;font-weight:800}
   .gcta .p{background:#fff;color:var(--pblue)}
   .gcta .s{background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.38)}
+  /* The header's right-hand pair: the language switch and the menu button. */
+  header.gh > nav .navr{display:flex;align-items:center;gap:10px}
 
   /* ---- more guides ---- */
   .more{margin:64px 0 0;padding:52px 0 72px;border-top:1px solid var(--pline)}
@@ -400,6 +408,9 @@
   body.locked{overflow:hidden}
 
   .dtop{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:26px}
+  /* The language switch takes the left end of the top row; the quote button
+     and the close button keep the right, where they have always been. */
+  .dtop .lsw{margin-right:auto}
   .dcta{display:inline-flex;align-items:center;justify-content:center;
       background:var(--mgrad);color:#fff;border-radius:99px;padding:13px 24px;
       font-size:14.5px;font-weight:800;text-decoration:none;white-space:nowrap;
@@ -463,6 +474,36 @@
   .dway.text .ar{color:var(--mblue)}
   .des{margin-top:14px;text-align:center;font-size:12.5px;font-weight:700;color:#9fb0c6}
 
+
+  /* ---- the language switch ----
+     Two segments, the current language filled. A segmented control rather
+     than a drop-down: there are two languages, both labels fit, and one tap
+     switches — a menu that has to be opened first is a second step for
+     nothing. Same height as the menu button beside it so the pair reads as
+     one row of controls. */
+  .lsw{display:inline-flex;align-items:center;flex:0 0 auto;gap:2px;height:44px;
+      padding:4px;border-radius:99px;background:#fff;border:1.5px solid #E5EBF6;
+      font-family:inherit;font-size:12.5px;font-weight:800;letter-spacing:.06em;
+      line-height:1;position:static}
+  .lsw>a,.lsw>span{display:inline-flex;align-items:center;justify-content:center;
+      min-width:34px;height:100%;padding:0 9px;border-radius:99px;
+      text-decoration:none;white-space:nowrap}
+  .lsw>a{color:#5C6A80;transition:background .16s,color .16s}
+  .lsw>a:hover{background:#EFF5FF;color:#1666ED;text-decoration:none}
+  .lsw>span{background:#0A2148;color:#fff}
+  .lsw>a:focus-visible{outline:2.5px solid #1666ED;outline-offset:2px}
+  .lsw .lvh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+      white-space:nowrap}
+  /* On a photograph or a navy header: glass, like the menu button there. */
+  .lsw.dk{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.34);
+      -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .lsw.dk>a{color:rgba(255,255,255,.88)}
+  .lsw.dk>a:hover{background:rgba(255,255,255,.18);color:#fff}
+  .lsw.dk>span{background:#fff;color:#0A2148}
+  .lsw.dk>a:focus-visible{outline-color:#fff}
+  /* In the menu panel there is room for the names themselves. */
+  .lsw.full{height:40px;font-size:13px;letter-spacing:.01em}
+  .lsw.full>a,.lsw.full>span{padding:0 14px}
   /* ---- the menu panel ----
      A panel that comes in from the right rather than a sheet that drops from
      the top, and the same panel at every width — one menu to maintain instead
@@ -503,6 +544,9 @@
   body.locked{overflow:hidden}
 
   .dtop{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:26px}
+  /* The language switch takes the left end of the top row; the quote button
+     and the close button keep the right, where they have always been. */
+  .dtop .lsw{margin-right:auto}
   .dcta{display:inline-flex;align-items:center;justify-content:center;
       background:var(--mgrad);color:#fff;border-radius:99px;padding:13px 24px;
       font-size:14.5px;font-weight:800;text-decoration:none;white-space:nowrap;
@@ -566,6 +610,36 @@
   .dway.text .ar{color:var(--mblue)}
   .des{margin-top:14px;text-align:center;font-size:12.5px;font-weight:700;color:#9fb0c6}
 
+
+  /* ---- the language switch ----
+     Two segments, the current language filled. A segmented control rather
+     than a drop-down: there are two languages, both labels fit, and one tap
+     switches — a menu that has to be opened first is a second step for
+     nothing. Same height as the menu button beside it so the pair reads as
+     one row of controls. */
+  .lsw{display:inline-flex;align-items:center;flex:0 0 auto;gap:2px;height:44px;
+      padding:4px;border-radius:99px;background:#fff;border:1.5px solid #E5EBF6;
+      font-family:inherit;font-size:12.5px;font-weight:800;letter-spacing:.06em;
+      line-height:1;position:static}
+  .lsw>a,.lsw>span{display:inline-flex;align-items:center;justify-content:center;
+      min-width:34px;height:100%;padding:0 9px;border-radius:99px;
+      text-decoration:none;white-space:nowrap}
+  .lsw>a{color:#5C6A80;transition:background .16s,color .16s}
+  .lsw>a:hover{background:#EFF5FF;color:#1666ED;text-decoration:none}
+  .lsw>span{background:#0A2148;color:#fff}
+  .lsw>a:focus-visible{outline:2.5px solid #1666ED;outline-offset:2px}
+  .lsw .lvh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+      white-space:nowrap}
+  /* On a photograph or a navy header: glass, like the menu button there. */
+  .lsw.dk{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.34);
+      -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .lsw.dk>a{color:rgba(255,255,255,.88)}
+  .lsw.dk>a:hover{background:rgba(255,255,255,.18);color:#fff}
+  .lsw.dk>span{background:#fff;color:#0A2148}
+  .lsw.dk>a:focus-visible{outline-color:#fff}
+  /* In the menu panel there is room for the names themselves. */
+  .lsw.full{height:40px;font-size:13px;letter-spacing:.01em}
+  .lsw.full>a,.lsw.full>span{padding:0 14px}
 </style>
 </head>
 <body>
@@ -573,11 +647,12 @@
   <header class="gh">
     <nav>
       <a href="../../index.html" aria-label="Safe House Insurance home"><img class="logo" src="../../assets/safehouse-logo.png" alt="Safe House Insurance" width="180" height="46"></a>
-      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
+      <span class="navr"><div class="lsw" role="group" aria-label="Language / Idioma"><span lang="en" aria-current="true"><span aria-hidden="true">EN</span><span class="lvh">English</span></span><a href="../../es/learn/texas-car-insurance-requirements/" hreflang="es" lang="es-MX" data-lang="es" title="Ver esta página en español"><span aria-hidden="true">ES</span><span class="lvh">Español</span></a></div><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button></span>
     </nav>
 <div class="scrim" id="scrim" hidden></div>
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
   <div class="dtop">
+    <div class="lsw full" role="group" aria-label="Language / Idioma"><span lang="en" aria-current="true">English</span><a href="../../es/learn/texas-car-insurance-requirements/" hreflang="es" lang="es-MX" data-lang="es" title="Ver esta página en español">Español</a></div>
     <a class="dcta" href="../../quote.html">Get a quote</a>
     <button class="dclose" id="dclose" type="button" aria-label="Close menu">&#10005;</button>
   </div>
@@ -782,7 +857,11 @@
   var burger=document.getElementById('burger'),
       drawer=document.getElementById('drawer'),
       scrim=document.getElementById('scrim'),
-      dclose=document.getElementById('dclose');
+      dclose=document.getElementById('dclose'),
+      // The two labels are read off the buttons rather than written in here,
+      // so this script is the same in English and in Spanish.
+      openLabel=burger.getAttribute('aria-label'),
+      closeLabel=dclose.getAttribute('aria-label');
   function setMenu(open){
     burger.classList.toggle('on',open);
     drawer.classList.toggle('on',open);
@@ -790,7 +869,7 @@
     scrim.classList.toggle('on',open);
     document.body.classList.toggle('locked',open);
     burger.setAttribute('aria-expanded',open);
-    burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+    burger.setAttribute('aria-label',open?closeLabel:openLabel);
     // Focus follows the panel, or the panel is invisible to a keyboard.
     if(open) dclose.focus();
     else burger.focus({preventScroll:true});
@@ -801,6 +880,20 @@
   drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
   addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
 
+})();
+</script><script>
+(function(){
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lang]');
+    if(!a) return;
+    var l=a.getAttribute('data-lang');
+    try{localStorage.setItem('shi-lang',l);}catch(_){}
+    try{document.cookie='shi-lang='+l+';path=/;max-age=31536000;samesite=lax';}catch(_){}
+    if(e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+    e.preventDefault();
+    try{document.dispatchEvent(new CustomEvent('shi:lang',{detail:l}));}catch(_){}
+    location.href=a.href.split('#')[0].split('?')[0]+location.search+location.hash;
+  });
 })();
 </script></body>
 </html>

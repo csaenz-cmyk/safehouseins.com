@@ -37,7 +37,7 @@ doing it. There are no prices on these pages at all.
 """
 import os, sys, html, re
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import carriers, menu, nap, shell
+import carriers, i18n, menu, nap, shell
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = 'https://safehouseins.com'
@@ -48,10 +48,29 @@ def e(s):
 
 
 # ---------------------------------------------------------------- content ---
-# Every string a visitor reads about a product is in this table. Nothing here
-# is a price, a saving, a percentage or a rating — we have no source for any of
-# those, and a made-up number on the page that asks to be trusted about money
-# is the one mistake that cannot be walked back.
+# Every word a visitor reads about a product is in locales/<lang>/product.json,
+# under items.<slug>, in English and in Spanish. This table holds what is not
+# words: the file, the hero photograph, which sections a page carries, and the
+# shape of the illustrations. Nothing in the copy is a price, a saving, a
+# percentage or a rating — we have no source for any of those, and a made-up
+# number on the page that asks to be trusted about money is the one mistake
+# that cannot be walked back.
+#
+# 'panels'  one per entry in the copy's 'misses', in the same order. The little
+#           illustration inside each card, by kind:
+#             'check'                 a checklist — the rows are the copy
+#             ('pick', [on, on])      options with one selected — the label and
+#                                     the rows are the copy, which one is
+#                                     selected is here
+#             'note'                  something an agent would say
+# 'yes'     "who we write". A plain entry is a check mark and its words; an
+#           illustrated entry is (guide slug, glyph, picture) — the label and
+#           sub-line are the copy. Where a guide exists for the situation, the
+#           item links to it: this list is the single best place on the site to
+#           catch somebody who arrived searching for their own circumstance.
+#           Two or three words each, because it is scanned, not read. The
+#           picture is a file in assets/who/ without its extension; a card with
+#           no picture yet falls back to its glyph.
 PRODUCTS = [
 {
  # The page somebody lands on searching "insurance for uber drivers". The
@@ -61,17 +80,6 @@ PRODUCTS = [
  'slug': 'rideshare-insurance',
  'file': 'rideshare-insurance.html',
  'type': 'car',
- 'nav': 'Rideshare',
- 'eyebrow': 'Rideshare &amp; delivery',
- 'title': 'Uber & Lyft Insurance in Texas & New Mexico',
- 'desc': 'Insurance for Uber, Lyft, DoorDash and delivery drivers in Texas and New '
-         'Mexico. Your personal policy stops when the app goes on — we shop the '
-         'carriers that write rideshare and close the gap.',
- 'h1': 'Your personal policy stops',
- 'h1em': 'when the app goes on.',
- 'lede': 'Almost every personal auto policy excludes driving for hire, and most drivers '
-         'find that out after a claim rather than before one. Uber and Lyft cover part '
-         'of your day, not all of it. We write the part they do not.',
  'hero_bg': 'assets/hero-auto.jpg',
  # Measured rather than assumed. The note by hero_bg says this photograph is
  # dark where the copy sits and so needs no veil; sampled at 1280 with the type
@@ -79,869 +87,83 @@ PRODUCTS = [
  # contrast floor against white. The type's own shadow was carrying it alone.
  'hero_scrim': True,
  'photo': '',
- 'photo_alt': '',
- 'big': ('A human reads', 'every quote'),
-
  # This is the section that earns the page. Everything else on it is ordinary
  # product copy; this is the thing a driver did not know.
  'misses_on': True,
- 'misses_lede': 'Uber and Lyft do carry insurance, and drivers reasonably assume that '
-                'settles it. What it actually does is cover some periods of your shift '
-                'and not others, and the places it stops are not obvious from the app.',
- 'misses': [
-   ('The app is on and nobody has matched yet',
-    'This is the gap almost everyone has. You are logged in and waiting, so your '
-    'personal policy treats you as working and the platform has not put you on a trip '
-    'yet. Both sides point at the other. Coverage in this window exists but it is much '
-    'smaller than what applies once you are on a trip, and it is usually liability only '
-    '&mdash; nothing toward your own car.'),
-   ('Your own vehicle, most of the time',
-    'The platform\'s comprehensive and collision generally only applies once you are '
-    'matched or carrying a passenger, and it carries a deductible in the thousands. If '
-    'you do not carry comprehensive and collision on your own policy, damage to your '
-    'car in the waiting window is simply yours.'),
-   ('Delivery is not rideshare',
-    'DoorDash, Uber Eats, Instacart, Amazon Flex and Shipt are a different exposure, and '
-    'a rideshare endorsement frequently excludes them by name. A driver who added '
-    'rideshare coverage and then started delivering is often uninsured for the delivery '
-    'and does not know it.'),
-   ('A policy that does not know what you do',
-    'If the carrier was never told you drive for a platform, the endorsement is not on '
-    'the policy and the exclusion still is. The worst version of this is a claim denied '
-    'for a trip you were being paid for, on a policy you had been paying for the whole '
-    'time.'),
- ],
-
- 'cover_head': 'What actually has to be in place',
- 'cover': [
-   ('Rideshare endorsement',
-    'An addition to your own auto policy that extends it into the window where the app '
-    'is on and nobody has matched. It is the cheapest fix for the biggest gap, and not '
-    'every company offers one &mdash; which is most of the reason to shop this rather '
-    'than accept the first answer.'),
-   ('Liability',
-    'The other driver\'s injuries and property when a crash is your fault. It is the '
-    'coverage the state requires and the one a platform\'s limits are built around, '
-    'which is exactly why the gap between periods matters so much.'),
-   ('Comprehensive and collision',
-    'Your own vehicle. The car is your income here, not just transport, which changes '
-    'the arithmetic on whether to carry it and on how high a deductible you can '
-    'actually absorb.'),
-   ('Uninsured and underinsured motorist',
-    'Pays when the driver who hit you cannot. Worth more to somebody driving forty hours '
-    'a week than to somebody commuting twice a day, for the obvious reason.'),
-   ('Medical payments or PIP',
-    'Your own medical bills regardless of fault. More exposure per week on the road '
-    'means more chance of using it.'),
-   ('Gap or loan payoff',
-    'If the car is financed and totalled, the settlement is what it is worth, not what '
-    'you owe. A vehicle bought to drive for a platform depreciates on a working '
-    'schedule.'),
- ],
-
- 'pick_head': 'Three ways drivers cover this',
- 'pick_lede': 'Which one is right depends on how many hours you drive, whether you also '
-              'deliver, and whether the car is financed. We will tell you which of these '
-              'you actually need rather than selling you the largest one.',
- 'picks': [
-   ('Personal policy plus a rideshare endorsement',
-    'The usual answer for somebody driving part time on one platform. Keeps your '
-    'ordinary rate for ordinary driving and extends it into the waiting window.',
-    ['Your normal personal coverage', 'Extended while the app is on and unmatched',
-     'Often extends your own comp and collision']),
-   ('Endorsement that also covers delivery',
-    'For drivers who do both, or who deliver only. Fewer companies offer this and the '
-    'wording matters &mdash; "rideshare" and "delivery" are not the same word on a '
-    'policy.',
-    ['Everything above', 'Food and parcel delivery included by name',
-     'Checked against the platforms you actually use']),
-   ('Commercial auto',
-    'For higher mileage, a vehicle owned by a business, or somebody running more than '
-    'one car. More coverage and more cost; the right answer when the driving stops '
-    'looking like a side job.',
-    ['Written for business use from the start', 'Higher limits available',
-     'Covers employees and additional drivers']),
- ],
-
- 'yes_kick': 'Who we write',
- 'yes_head': 'Every platform, and the drivers other agencies find awkward.',
- 'yes_lede': 'Driving for a platform is not an edge case here. Neither is doing it with '
-             'a record that makes a carrier think twice.',
- 'yes': ['Uber and Lyft drivers', 'Food and parcel delivery', 'Both at once',
-         'New to the platform', 'Tickets or an at-fault claim', 'SR-22 on file',
-         'Foreign license or matr&iacute;cula', 'More than one car on the policy'],
-
- 'discounts': [],
-
- 'faq': [
-   ('Does my regular car insurance cover me driving for Uber?',
-    'Almost certainly not while the app is on. A personal auto policy generally excludes '
-    'carrying passengers or goods for a fee, and that exclusion is the default rather '
-    'than the exception. It is worth reading your own policy for the words "livery" or '
-    '"for hire" &mdash; and worth telling us what you drive for so the right endorsement '
-    'goes on.'),
-   ('Doesn\'t Uber already insure me?',
-    'For part of your shift. Uber and Lyft both publish third-party liability of one '
-    'million dollars while you are on the way to a rider and while a rider is in the '
-    'car. Before either of those &mdash; app on, waiting for a request &mdash; the '
-    'coverage is much smaller, and their comprehensive and collision only applies on a '
-    'trip and carries a deductible in the thousands. The waiting window is where most '
-    'drivers are uninsured without knowing it.'),
-   ('I only deliver food. Is that the same thing?',
-    'No, and this is the mistake that costs people. Many rideshare endorsements exclude '
-    'delivery by name, so a driver who added rideshare coverage and then started '
-    'delivering can be uninsured for the delivery. Tell us every platform you drive for '
-    '&mdash; the wording has to match what you actually do.'),
-   ('Will telling my insurance company raise my rate?',
-    'Usually it costs something, and it costs far less than a denied claim. The larger '
-    'risk is not the premium: it is a carrier discovering after a crash that you were '
-    'working, which can mean the claim is denied and the policy cancelled. Tell them.'),
-   ('Which companies write rideshare in Texas and New Mexico?',
-    'Not all of them, and the list changes. That is what makes this worth shopping '
-    'rather than accepting a single answer &mdash; the same driver can be quoted very '
-    'differently depending on which carriers will write the exposure at all.'),
-   ('How fast can I get proof of insurance for the platform?',
-    'Usually the same day. Tell the agent up front that you need it for Uber or Lyft, '
-    'because it changes which companies are worth quoting and getting that right the '
-    'first time is the difference between driving tomorrow and not.'),
- ],
+ 'panels': ['check', 'check', 'check', 'check'],
+ 'yes': [None] * 8,
 },
 {
- 'file': 'auto-insurance.html', 'slug': 'auto-insurance', 'type': 'car',
+ 'slug': 'auto-insurance',
+ 'file': 'auto-insurance.html',
+ 'type': 'car',
  # Off on this page only. See missection().
  'misses_on': False,
- 'nav': 'Car',
- 'title': 'Car Insurance in Texas & New Mexico | Safe House Insurance',
- 'desc': 'Car insurance shopped across the companies we represent — full coverage, '
-         'liability, SR-22 and high-risk. A licensed bilingual agent reviews every quote '
-         'before you buy. El Paso, TX.',
- 'eyebrow': 'Car insurance',
- 'h1': 'Better options start', 'h1em': 'with a real person.',
- 'lede': 'Shop for insurance online, without losing the human touch. Our technology '
-         'compares your options, then a licensed agent reviews your quote to make sure '
-         'you&rsquo;re getting a competitive rate with the coverage that fits you.',
  # A landscape photograph belongs behind the whole hero, not in a portrait card
  # beside it. `hero_bg` and `photo` are mutually exclusive: whichever is set
  # decides the shape of the hero.
  'hero_bg': 'assets/hero-auto.jpg',
- # Measured rather than assumed. The note by hero_bg says this photograph is
- # dark where the copy sits and so needs no veil; sampled at 1280 with the type
- # hidden, 21% of the headline band and 82% of the lede band fell under the
- # contrast floor against white. The type's own shadow was carrying it alone.
+ # Measured rather than assumed — see the rideshare page above.
  'hero_scrim': True,
  'photo': '',
- 'photo_alt': '',
-
- # The signature section: what an online-only quote gets wrong, for this product.
- 'misses_lede': 'A rating engine prices what you typed. It does not know the rest, and '
-                'on a car policy the rest is usually worth more than the difference '
-                'between two websites.',
- 'misses': [
-   ('How long you have really been insured',
-    'Prior-coverage credit is one of the largest discounts on a car policy, and the '
-    'online form asks one blunt question about it. An agent asks the follow-up: whose '
-    'policy, what dates, was there a gap and why. A month you forgot about is money.'),
-   ('The discounts nobody volunteers',
-    'Defensive driving, good student, paid-in-full, paperless, multi-policy, homeowner, '
-    'military, occupation, alumni. Every carrier has a different list and none of them '
-    'is on the quote form.'),
-   ('Whether the coverage you picked is the coverage you need',
-    'Most people choose limits by picking the cheapest row. An agent will tell you when '
-    'that is fine and when it is a bad trade — especially the uninsured-motorist line, '
-    'which matters more here than almost anywhere.'),
-   ('Which company will still want you in six months',
-    'The cheapest quote today is sometimes from a carrier that will not renew you, or '
-    'will renew you at a very different price. Knowing which is which is what a decade '
-    'of placing business buys you.'),
- ],
-
- 'cover_head': 'What a car policy is actually made of',
- 'cover': [
-   ('Liability', 'Pays for the other people — their injuries and their property — when '
-    'a crash is your fault. Required in both states, and the part that is never enough '
-    'at the legal minimum.'),
-   ('Collision &amp; comprehensive', 'The two that pay for your own car. Collision when '
-    'you hit something, comprehensive for hail, theft, fire, glass and animals. Each has '
-    'its own deductible.'),
-   ('Uninsured motorist', 'Pays when the driver who hit you cannot. Both Texas and New '
-    'Mexico require carriers to offer it, and declining it has to be in writing — which '
-    'tells you what they think of the odds.'),
-   ('Medical payments or PIP', 'For you and whoever is in your car, whoever caused it, '
-    'with no deductible. A vehicle carries one or the other, not both.'),
-   ('Rental and roadside', 'Priced per car, not per policy. Worth having on the car you '
-    'cannot be without for a week, and worth skipping on the one you can.'),
-   ('SR-22 filing', 'Not coverage — a form the carrier files with the state to prove you '
-    'are insured. We do these regularly and often the same day.'),
- ],
-
- 'yes_kick': 'Who we insure',
- 'yes_head': 'Coverage for more drivers than you might think.',
- 'yes_lede': 'From clean records to more complicated situations, we shop multiple '
-             'companies to help more people find coverage.',
- # Where a guide exists for the situation, the item links to it. This list is
- # the single best place on the site to catch somebody who arrived searching
- # for their own circumstance and is looking for the line that describes them.
- # Two or three words each. This section is scanned, not read — somebody who
- # has been turned down somewhere else is hunting for the picture of their own
- # situation, and eight full sentences is the opposite of that. The long
- # version of each one is the guide it links to.
- # (label, guide slug, glyph, sub-line, picture). The picture is a file in
- # assets/who/ without its extension; a card with no picture yet falls back to
- # its glyph, so the six can be illustrated one at a time rather than all at
- # once.
- 'yes': [('Everyday drivers', '', 'cars',
-          'Clean record, families, commuters', 'everyday'),
-         ('New drivers', 'new-driver-car-insurance', 'learner',
-          'First-time drivers and teenagers', 'new-drivers'),
-         ('Tickets or accidents', 'car-insurance-after-a-dwi', 'alert',
-          'Drivers with violations or claims', 'tickets'),
-         ('SR-22', 'sr-22-texas-new-mexico', 'form',
-          'State filings and special requirements', 'sr22'),
-         ('Foreign licenses', 'car-insurance-without-a-license', 'id',
-          'Matr&iacute;cula, passport or international license', 'foreign-license'),
-         # Not "we insure everyone". No agency can promise that, the carriers
-         # decide, and the About page already says out loud that an agency
-         # which can only ever find you a yes is not shopping. This keeps the
-         # door open without making a promise the next page contradicts.
-         ('No license', 'car-insurance-without-a-license', 'key',
-          'Yes, this is something we can quote', 'no-license')],
-
- 'faq': [
-   ('Do I have to buy anything to get a quote?',
-    'No. Quoting is free and there is no obligation. If nothing we find beats what you '
-    'have, we will tell you that — it is a shorter conversation and it keeps you as '
-    'somebody who calls us next year.'),
-   ('How fast can I get an SR-22?',
-    'Often the same day. Tell the agent up front that you need one, because it changes '
-    'which carriers are worth quoting and getting that right the first time is the '
-    'difference between an afternoon and a week.'),
-   ('Can you insure me without a license?',
-    'Sometimes, depending on the situation and the state. It is a real question with a '
-    'real answer — call and ask rather than assuming the answer is no.'),
-   ('What if I have not had insurance for a while?',
-    'Say so. A lapse changes the price and it changes which companies will write you, '
-    'and hiding it only means being requoted later at a number that moved.'),
-   ('Will you use my current policy to beat itself?',
-    'Send us your declarations page and we will quote the same coverage, line for line, '
-    'so you are comparing like with like instead of a cheaper policy that covers less.'),
-   ('Do you cover New Mexico?',
-    'Yes — we are licensed in both states. New Mexico quotes are prepared by an agent '
-    'rather than by the online rater, so you get real New Mexico limits instead of a '
-    'Texas price.'),
- ],
+ 'panels': ['check', 'check', ('pick', [False, True]), 'note'],
+ # (guide slug, glyph, picture). Not "we insure everyone" in the last row's
+ # copy: no agency can promise that, the carriers decide, and the About page
+ # already says out loud that an agency which can only ever find you a yes is
+ # not shopping.
+ 'yes': [('', 'cars', 'everyday'),
+         ('new-driver-car-insurance', 'learner', 'new-drivers'),
+         ('car-insurance-after-a-dwi', 'alert', 'tickets'),
+         ('sr-22-texas-new-mexico', 'form', 'sr22'),
+         ('car-insurance-without-a-license', 'id', 'foreign-license'),
+         ('car-insurance-without-a-license', 'key', 'no-license')],
 },
 {
- 'file': 'home-insurance.html', 'slug': 'home-insurance', 'type': 'home',
- 'nav': 'Home',
- 'title': 'Home Insurance in Texas & New Mexico | Safe House Insurance',
- 'desc': 'Homeowners and mobile home insurance shopped across the companies we represent. '
-         'A licensed bilingual agent checks the rebuild cost and the deductibles before '
-         'you buy. El Paso, TX.',
- 'eyebrow': 'Home insurance',
- 'h1': 'Home insurance,', 'h1em': 'read before you sign it.',
- 'lede': 'Houses and mobile homes, quoted across the companies we represent — and then '
-         'read line by line by a licensed agent, because a home policy is where the '
-         'expensive surprises hide.',
- 'hero_bg': 'assets/hero-home.jpg',
+ 'slug': 'home-insurance',
+ 'file': 'home-insurance.html',
+ 'type': 'home',
  # Sunset behind the house: the brightest part of the frame is the bottom left,
  # which is where the headline goes. Measured, the type was failing contrast
  # badly without this.
+ 'hero_bg': 'assets/hero-home.jpg',
  'hero_scrim': True,
  'photo': '',
- 'photo_alt': '',
-
- 'misses_lede': 'A home quote is only as good as the numbers it was built on, and an '
-                'online form lets you get every one of them wrong without saying a word.',
- 'misses': [
-   ('What it would actually cost to rebuild',
-    'Not what you paid, not what the house would sell for — what a builder would charge '
-    'to put it back, at today’s prices for labour and materials here. Insure it low '
-    'and a partial claim can be reduced too. It is the single most common mistake on a '
-    'home policy and a website cannot catch it.'),
-   ('The roof clause you did not read',
-    'Many policies in Texas and New Mexico pay a depreciated value for an older roof '
-    'rather than replacing it, and some carry a separate wind and hail deductible that '
-    'is a percentage of the house rather than a flat figure. Two quotes at the same '
-    'price can be very different policies.'),
-   ('Discounts tied to the building',
-    'Roof age and material, a monitored alarm, impact-resistant shingles, a newer '
-    'electrical panel, gated community, bundling with the car. Carriers weigh these '
-    'differently and the form does not ask about half of them.'),
-   ('What is not covered at all',
-    'Flood is never in a homeowners policy and this is a region with dry ground and '
-    'sudden water. Earth movement, sewer backup and a home business usually are not '
-    'either. Better to find that out in a conversation than in a claim.'),
- ],
-
- 'cover_head': 'What a home policy is actually made of',
- 'cover': [
-   ('Dwelling', 'The structure itself, at the cost to rebuild it. This is the number '
-    'everything else is sized from, and the one most worth getting right.'),
-   ('Other structures', 'A detached garage, a casita, a shed, fences. Usually a '
-    'percentage of the dwelling amount rather than its own figure.'),
-   ('Personal property', 'What is inside. Ask whether it pays replacement cost or '
-    'depreciated value — the gap between those two answers is enormous.'),
-   ('Loss of use', 'What it costs to live somewhere else while the house is repaired. '
-    'People forget this exists until the week they need it.'),
-   ('Personal liability', 'When somebody is hurt on your property, or you damage '
-    'somebody else’s. Cheap to raise and expensive to be short of.'),
-   ('Deductibles', 'Often two: a flat one for most claims and a separate percentage for '
-    'wind and hail. On a $300,000 house a 2% wind deductible is $6,000.'),
- ],
-
- 'yes_head': 'What we write',
- 'yes_lede': 'Homeowners is not one product. What you own and how you use it decides '
-             'which companies will even look at it.',
- 'yes': ['Houses you live in', 'Mobile and manufactured homes', 'Renters and condo',
-         'A second home or a rental you own', 'Older homes and older roofs',
-         'New construction', 'Bundled with your cars', 'Homes with a lienholder'],
-
- 'faq': [
-   ('How much coverage do I need on the house?',
-    'Enough to rebuild it, which is rarely what you paid and never what a website '
-    'guesses. Tell us the square footage, the year, the roof and the finishes and we '
-    'will work it out with you.'),
-   ('Does home insurance cover flood?',
-    'No. It never does, anywhere, and that surprises people every single time. Flood is '
-    'a separate policy and it is worth asking about here even away from a river.'),
-   ('My roof is old. Can I still get covered?',
-    'Usually, but it changes which companies will write it and how they pay a roof '
-    'claim. Tell us the age and the material up front so we shop the right ones the '
-    'first time.'),
-   ('What is a wind and hail deductible?',
-    'A separate, usually larger deductible that applies only to storm damage, often '
-    'written as a percentage of the dwelling amount rather than a dollar figure. Always '
-    'worth reading before you compare two prices.'),
-   ('Can you insure a mobile home?',
-    'Yes. It is a different policy from a standard homeowners one and a shorter list of '
-    'carriers writes it, which is exactly the situation an independent agency is for.'),
-   ('My bank needs proof of insurance.',
-    'We send it to them directly. Your lender can also request documents themselves — '
-    'send them to our lienholder page and it goes straight into the right hands.'),
- ],
+ 'panels': [('pick', [False, True]), ('pick', [False, True]), 'check', 'note'],
+ 'yes': [None] * 8,
 },
 {
- 'file': 'renters-insurance.html', 'slug': 'renters-insurance', 'type': 'renters',
- 'nav': 'Renters',
- 'title': 'Renters Insurance in Texas & New Mexico | Safe House Insurance',
- 'desc': 'Renters insurance for apartments and rental homes in Texas and New Mexico. '
-         'Covers your things, your liability and somewhere to stay. A licensed bilingual '
-         'agent shops it for you. El Paso, TX.',
- 'eyebrow': 'Renters insurance',
- 'h1': 'Renters insurance,', 'h1em': 'the cheapest thing you will buy this year.',
- 'lede': 'Your landlord’s policy covers the building. It does not cover one thing of '
-         'yours, and it does not cover you when somebody gets hurt in your apartment.',
+ 'slug': 'renters-insurance',
+ 'file': 'renters-insurance.html',
+ 'type': 'renters',
  'photo': '',
- 'photo_alt': '',
-
- 'misses_lede': 'Renters is the policy people buy in ninety seconds on a phone because a '
-                'lease demanded it, and then never look at again. The ninety seconds is '
-                'where it goes wrong.',
- 'misses': [
-   ('How much your things are actually worth',
-    'Add up a television, a laptop, a bed, a couch, clothes, a bicycle, the kitchen. It '
-    'is almost always more than the number people pick, and the number people pick is '
-    'whatever the form defaulted to.'),
-   ('Replacement cost versus actual cash value',
-    'One buys you a new laptop. The other buys you what a six-year-old laptop is worth. '
-    'The price difference between those two policies is small and the difference at '
-    'claim time is not.'),
-   ('The liability half nobody thinks about',
-    'A renters policy is not just about your stuff. It covers you when a guest is hurt, '
-    'when a pipe you are responsible for floods downstairs, when your dog bites '
-    'somebody. That half is usually the reason the lease requires it.'),
-   ('That it makes your car cheaper',
-    'Most carriers discount a car policy when a renters policy sits beside it, and the '
-    'discount is often close to what the renters policy costs. Nobody quoting one '
-    'product on its own will ever mention that.'),
- ],
-
- 'cover_head': 'What a renters policy is actually made of',
- 'cover': [
-   ('Personal property', 'Your things — at home and, usually, outside it. A laptop taken '
-    'from a car is generally a renters claim, not a car claim.'),
-   ('Personal liability', 'When somebody is injured in your place or you damage the '
-    'building. This is the part your lease is really asking for.'),
-   ('Loss of use', 'Somewhere to stay when the apartment is not liveable after a covered '
-    'loss. Hotel, meals, the difference in rent.'),
-   ('Medical payments', 'Smaller bills for a guest who is hurt, paid without anybody '
-    'arguing about fault.'),
-   ('Water and theft', 'Burst pipes, a neighbor’s overflow, break-ins. Read how each '
-    'is worded, because they are not worded the same everywhere.'),
-   ('Scheduled items', 'A ring, a camera, an instrument. Anything valuable enough to be '
-    'listed separately, because the standard limits on those categories are low.'),
- ],
-
- 'yes_head': 'Who this is for',
- 'yes_lede': 'Anyone who does not own the walls. It costs less than most people assume '
-             'and it is the only policy that covers you personally where you live.',
- 'yes': ['Apartments', 'Rented houses and duplexes', 'Rooms and shared leases',
-         'Students', 'Furnished and short-term rentals', 'Leases that require proof',
-         'Bundled with your car policy', 'Renters with pets'],
-
- 'faq': [
-   ('My landlord already has insurance. Why do I need this?',
-    'Because theirs covers the building and nothing of yours. If the place burns, they '
-    'get a new building and you get nothing — unless you carry your own policy.'),
-   ('How much does renters insurance cost?',
-    'Less than most people guess, and it depends on where you live, what you are '
-    'covering and your deductible. We will quote it across the companies we represent '
-    'rather than quoting you a number here we cannot stand behind.'),
-   ('Does it cover my things outside the apartment?',
-    'Usually, including in your car and while traveling — this varies by policy, so it '
-    'is worth asking about the one you are actually buying.'),
-   ('My lease needs proof before I move in.',
-    'Tell us the date and who it goes to. We can normally have the certificate in the '
-    'leasing office the same day.'),
-   ('Does it cover my roommate?',
-    'Generally not unless they are named on the policy. Two people, two policies is the '
-    'usual answer, and it is cheap enough that it is rarely worth arguing about.'),
-   ('Will it lower my car insurance?',
-    'Often, yes. Most carriers give a multi-policy discount, and it can offset a good '
-    'part of what the renters policy costs. Ask us to quote both together.'),
- ],
+ 'panels': ['check', ('pick', [False, True]), 'check', 'note'],
+ 'yes': [None] * 8,
 },
 {
- 'file': 'motorcycle-insurance.html', 'slug': 'motorcycle-insurance', 'type': 'moto',
- 'nav': 'Motorcycle',
- 'title': 'Motorcycle Insurance in Texas & New Mexico | Safe House Insurance',
- 'desc': 'Motorcycle insurance for street, cruiser, sport and off-road bikes in Texas and '
-         'New Mexico. Accessory coverage, agreed value and roadside, shopped by a '
-         'licensed bilingual agent. El Paso, TX.',
- 'eyebrow': 'Motorcycle insurance',
- 'h1': 'Motorcycle insurance,', 'h1em': 'for what you actually built.',
- 'lede': 'A bike is not a small car, and the parts that make it yours are the parts a '
-         'standard quote leaves out. We ask about them before you find out the hard way.',
+ 'slug': 'motorcycle-insurance',
+ 'file': 'motorcycle-insurance.html',
+ 'type': 'moto',
  'photo': '',
- 'photo_alt': '',
-
- 'misses_lede': 'Motorcycle quotes go wrong in a way car quotes do not: the machine in '
-                'the driveway is often not the machine the policy describes.',
- 'misses': [
-   ('Everything you added to it',
-    'Pipes, bags, a seat, a windshield, chrome, a stereo, paint. Accessory coverage is a '
-    'separate limit and the default is usually low or zero. A build worth several '
-    'thousand dollars can be insured as though it left the factory.'),
-   ('What the bike is worth to you versus to a book',
-    'A restored or a rare machine is not worth what a valuation guide says. Agreed value '
-    'exists precisely for that, it needs photographs and paperwork, and it is not '
-    'something a form offers you.'),
-   ('Riding gear',
-    'A helmet, a jacket, boots, gloves — replaced after a claim only if the policy says '
-    'so, and often only up to a small limit. Worth knowing which yours is before the '
-    'claim rather than after.'),
-   ('The rider discounts',
-    'A completed rider course, a motorcycle endorsement on the license, garaging, '
-    'seasonal use, a club membership, multi-bike. Carriers weigh riders very differently '
-    'from drivers and the differences are worth shopping.'),
- ],
-
- 'cover_head': 'What a motorcycle policy is actually made of',
- 'cover': [
-   ('Liability', 'The other person’s injuries and property when a crash is your '
-    'fault. The legal minimum on a bike is the same conversation as on a car and the '
-    'consequences are not.'),
-   ('Collision &amp; comprehensive', 'Your machine — hitting something, and theft, fire, '
-    'vandalism and weather. Bikes are stolen far more often than cars, which makes the '
-    'comprehensive half matter more than people expect.'),
-   ('Accessory coverage', 'A separate limit for everything not fitted at the factory. '
-    'Add up what you have actually spent before you pick a number.'),
-   ('Agreed value', 'You and the carrier settle on what the bike is worth up front, in '
-    'writing, instead of arguing about depreciation later. Usually needs photos and '
-    'receipts.'),
-   ('Uninsured motorist', 'Pays when the driver who hit you cannot. On a motorcycle this '
-    'is the coverage riders most often wish they had bought.'),
-   ('Roadside and trip interruption', 'Towing a bike is its own problem, and a breakdown '
-    'a long way from home is a different problem again.'),
- ],
-
- 'yes_head': 'What we write',
- 'yes_lede': 'Street, dirt, three wheels, or a project that is not finished. Tell us what '
-             'it is and we will find who writes it.',
- 'yes': ['Cruisers and touring bikes', 'Sport and supersport', 'Standard and naked',
-         'Dual-sport and off-road', 'Scooters and mopeds', 'Trikes and sidecars',
-         'Custom and rebuilt', 'Multiple bikes on one policy'],
-
- 'faq': [
-   ('Do I need a motorcycle endorsement to get insured?',
-    'It usually affects the price and sometimes which carriers will write you. Tell us '
-    'where you are in the process — a permit is a different conversation from a full '
-    'endorsement, and both have answers.'),
-   ('Can I insure a bike I am still building?',
-    'Often yes, and it is worth doing before it is finished rather than after. What it '
-    'is worth mid-build is a conversation, which is exactly why it is not a form.'),
-   ('What is accessory coverage and how much do I need?',
-    'A separate limit for parts not fitted at the factory. Add up what you have actually '
-    'spent — most riders are surprised by the total, and the default limit is almost '
-    'always below it.'),
-   ('Do I have to insure it year-round?',
-    'You can, and in most cases you should. Cancelling for winter creates a lapse, and a '
-    'lapse costs more next season than the months you saved — as well as leaving the '
-    'bike uncovered against theft in the garage.'),
-   ('Is my gear covered?',
-    'Depends on the policy, and often only to a small limit. Ask before you buy, not '
-    'after you go down.'),
-   ('Can you put the bike on the same policy as my car?',
-    'Sometimes on the same carrier, usually as a separate policy with a multi-policy '
-    'discount. Either way we quote them together so you can see the whole number.'),
- ],
+ 'panels': ['check', ('pick', [False, True]), 'check', 'check'],
+ 'yes': [None] * 8,
 },
 {
- 'file': 'commercial-insurance.html', 'slug': 'commercial-insurance', 'type': 'commercial',
- 'nav': 'Commercial',
- 'title': 'Commercial & Work Truck Insurance in Texas & New Mexico | Safe House',
- 'desc': 'Commercial auto, work trucks and fleets in Texas and New Mexico. Filings, '
-         'certificates and lienholder documents handled by a licensed bilingual agent. '
-         'El Paso, TX.',
- 'eyebrow': 'Commercial insurance',
- 'h1': 'Work trucks and fleets,', 'h1em': 'insured by someone who answers.',
- 'lede': 'One truck or twenty. Commercial auto, general liability and the paperwork that '
-         'comes with them — from an agency that picks up the phone when a certificate is '
-         'needed this morning.',
+ 'slug': 'commercial-insurance',
+ 'file': 'commercial-insurance.html',
+ 'type': 'commercial',
  'photo': 'assets/cat-commercial.jpg',
- 'photo_alt': 'A blue semi truck on a highway at sunset',
-
- 'misses_lede': 'Commercial is where an online quote stops being merely imprecise and '
-                'starts being the wrong policy entirely.',
- 'misses': [
-   ('Whether a personal policy is quietly covering nothing',
-    'A truck used for work, on a personal auto policy, is a claim waiting to be denied. '
-    'It is the most expensive mistake in this category and it is invisible until the '
-    'day it matters.'),
-   ('What your contracts actually require',
-    'Limits, additional insured, waiver of subrogation, primary and non-contributory. '
-    'The customer or the landlord who hired you wrote those words into an agreement, and '
-    'a quote that ignores them buys a policy that fails the audit.'),
-   ('Who is actually driving',
-    'Employees, subcontractors, a family member on weekends. Who is scheduled and who is '
-    'merely permitted changes both the price and whether a claim is paid.'),
-   ('The certificate that has to exist by Friday',
-    'Half of commercial insurance is documents — certificates, filings, additional '
-    'insureds, lienholder letters. That is not a rating problem. It is a phone-answering '
-    'problem, and it is the reason to have an agent at all.'),
- ],
-
- 'cover_head': 'What a commercial policy is actually made of',
- 'cover': [
-   ('Commercial auto liability', 'The other party, when one of your vehicles is at '
-    'fault. Limits here are usually set by whoever you contract with, not by you.'),
-   ('Physical damage', 'Your trucks and trailers — collision and comprehensive, per '
-    'unit, with deductibles that can differ across a fleet.'),
-   ('General liability', 'Injury and property damage arising from the work itself rather '
-    'than from a vehicle. Frequently the coverage a contract is actually demanding.'),
-   ('Hired and non-owned auto', 'Rented vehicles, and employees driving their own cars '
-    'for you. A very common gap and a cheap one to close.'),
-   ('Cargo and equipment', 'What you are carrying and what you carry it with. Tools and '
-    'equipment are usually not covered by the auto policy at all.'),
-   ('Filings and certificates', 'Federal and state filings where the operation needs '
-    'them, certificates for the people who hired you, and lienholder documents for the '
-    'bank.'),
- ],
-
- 'yes_head': 'Who we write',
- 'yes_lede': 'Small operations, mostly. The ones a national carrier treats as a rounding '
-             'error and a broker will not return a call about.',
- 'yes': ['One-truck owner operators', 'Contractors and trades', 'Landscaping and cleaning',
-         'Delivery and courier', 'Food trucks and vendors', 'Fleets of every size',
-         'Tow and recovery', 'Businesses with a lienholder'],
-
- 'faq': [
-   ('I use my truck for work sometimes. Is my personal policy enough?',
-    'Often not, and that is the single most expensive assumption in this category. Tell '
-    'us how the vehicle is actually used and we will tell you straight whether it needs '
-    'a commercial policy.'),
-   ('My customer needs a certificate today.',
-    'Call us. Certificates are usually the same day, and if your contract needs specific '
-    'wording — additional insured, waiver of subrogation — send it and we will match it.'),
-   ('Can you do federal or state filings?',
-    'Yes, where the operation requires them. Tell us what you are hauling, where and '
-    'under whose authority, because that decides which filings apply.'),
-   ('How do you insure a fleet?',
-    'Vehicle by vehicle, and then as one policy. Deductibles and coverage do not have to '
-    'be identical across every unit, and on a mixed fleet they usually should not be.'),
-   ('What about my tools and equipment?',
-    'Not covered by the auto policy. That is a separate coverage and it is the gap we '
-    'find most often on policies written elsewhere.'),
-   ('Do you cover businesses in New Mexico?',
-    'Yes — we are licensed in both states. Commercial quotes are prepared by an agent '
-    'either way, because this is not a product that should be bought off a form.'),
- ],
+ 'panels': ['note', 'check', 'check', 'note'],
+ 'yes': [None] * 8,
 },
 ]
 
-# --------------------------------------------------------- the second half ---
-# Kept out of PRODUCTS above and merged in below, because the five dictionaries
-# were already long enough to lose your place in. Same rule applies to every
-# string here as to every string up there: no price, no saving, no percentage,
-# no rating. Nothing in this table is a Safe House product name either — these
-# are the shapes a policy can take at any carrier, which is what makes them
-# safe to describe without a quote in hand.
-#
-# 'panels'  one per entry in 'misses', in the same order. The little
-#           illustration inside each card. Three kinds:
-#             ('check', [rows])            a checklist
-#             ('pick', label, [(row, on)]) options with one selected
-#             ('note', text)               something an agent would say
-# 'picks'   the coverage chooser: (label, blurb, [what is included]).
-#           Ordered least to most, and the middle one opens by default.
-# 'big'     the two lines of the scroll statement.
-EXTRA = {
-
-'rideshare-insurance': {
- 'panels': [
-   ('check', ['Uber', 'Lyft', 'DoorDash', 'Uber Eats']),
-   ('check', ['Instacart', 'Amazon Flex', 'Grubhub', 'Shipt']),
-   ('check', ['Part time and full time', 'One car or several',
-              'Financed or owned outright']),
-   ('check', ['Same-day proof of insurance', 'Bilingual, start to finish',
-              'Told plainly if we cannot beat what you have']),
- ],
- 'pick_head': 'Three ways drivers cover this',
- 'pick_lede': 'Which one is right depends on how many hours you drive, whether you also '
-              'deliver, and whether the car is financed. We will tell you which of these '
-              'you actually need rather than selling you the largest one.',
- 'picks': [
-   ('Personal policy plus a rideshare endorsement',
-    'The usual answer for somebody driving part time on one platform. Keeps your '
-    'ordinary rate for ordinary driving and extends it into the waiting window.',
-    ['Your normal personal coverage', 'Extended while the app is on and unmatched',
-     'Often extends your own comp and collision']),
-   ('An endorsement that also names delivery',
-    'For drivers who do both, or who deliver only. Fewer companies offer this and the '
-    'wording matters &mdash; "rideshare" and "delivery" are not the same word on a '
-    'policy.',
-    ['Everything above', 'Food and parcel delivery included by name',
-     'Checked against the platforms you actually use']),
-   ('Commercial auto',
-    'For higher mileage, a vehicle owned by a business, or somebody running more than '
-    'one car. More coverage and more cost; the right answer when the driving stops '
-    'looking like a side job.',
-    ['Written for business use from the start', 'Higher limits available',
-     'Covers employees and additional drivers']),
- ],
- 'misses_on': True,
- 'misses_lede': 'Uber and Lyft do carry insurance, and drivers reasonably assume that '
-                'settles it. What it actually does is cover some periods of your shift '
-                'and not others, and the places it stops are not obvious from the app.',
- 'misses': [
-   ('The app is on and nobody has matched yet',
-    'This is the gap almost everyone has. You are logged in and waiting, so your '
-    'personal policy treats you as working and the platform has not put you on a trip '
-    'yet. Coverage in this window exists but it is much smaller than what applies once '
-    'you are on a trip, and it is usually liability only &mdash; nothing toward your '
-    'own car.'),
-   ('Your own vehicle, most of the time',
-    'The platform&rsquo;s comprehensive and collision generally only applies once you '
-    'are matched or carrying a passenger, and it carries a deductible in the thousands. '
-    'If you do not carry comprehensive and collision on your own policy, damage to your '
-    'car in the waiting window is simply yours.'),
-   ('Delivery is not rideshare',
-    'DoorDash, Uber Eats, Instacart, Amazon Flex and Shipt are a different exposure, and '
-    'a rideshare endorsement frequently excludes them by name. A driver who added '
-    'rideshare coverage and then started delivering is often uninsured for the delivery '
-    'and does not know it.'),
-   ('A policy that does not know what you do',
-    'If the carrier was never told you drive for a platform, the endorsement is not on '
-    'the policy and the exclusion still is. The worst version is a claim denied for a '
-    'trip you were being paid for, on a policy you had been paying for all along.'),
- ],
- 'big': ('A human reads', 'every quote'),
-},
-
-
-'auto-insurance': {
- 'panels': [
-   ('check', ['Who the policy was with', 'The exact start and end dates',
-              'Why the gap happened, if there was one']),
-   ('check', ['Defensive driving', 'Paid in full', 'Homeowner', 'Paperless']),
-   ('pick', 'Uninsured motorist', [('30/60 &mdash; the state minimum', False),
-                                   ('100/300 &mdash; what we usually suggest', True)]),
-   ('note', 'This one is the cheapest today and it non-renews a lot of drivers after '
-            'the first claim. The one under it holds. That is worth knowing before '
-            'you sign, not after.'),
- ],
- 'pick_head': 'We lay the options out. You pick.',
- 'pick_lede': 'Every quote comes back with more than one way to cover the same car. An '
-              'agent walks you through what each one actually changes &mdash; then it is '
-              'your call, not a default a website chose for you.',
- 'picks': [
-   ('Liability only',
-    'The legal minimum and whatever you add on top of it. Pays for the other people '
-    'and their property. Pays nothing towards your own car.',
-    ['Bodily injury liability', 'Property damage liability',
-     'Uninsured motorist, if you keep it', 'SR-22 filing, if you need one']),
-   ('Full coverage',
-    'Adds the two that pay for your car. This is what a lender means when it says '
-    'full coverage, and it is required while the car is financed or leased.',
-    ['Everything in liability only', 'Collision', 'Comprehensive',
-     'The deductibles you choose on each']),
-   ('Full coverage, built up',
-    'Full coverage with the lines people skip to save a little and then miss badly '
-    'on the day something happens.',
-    ['Everything in full coverage', 'Higher uninsured-motorist limits',
-     'Rental reimbursement', 'Roadside assistance', 'Medical payments or PIP']),
- ],
- 'big': ('A human reads', 'every quote'),
-},
-
-'home-insurance': {
- 'panels': [
-   ('pick', 'Dwelling limit', [('What the house would sell for', False),
-                               ('What it would cost to rebuild', True)]),
-   ('pick', 'Roof settlement', [('Actual cash value &mdash; depreciated by age', False),
-                                ('Replacement cost', True)]),
-   ('check', ['Roof age and material', 'Impact-resistant shingles',
-              'Alarm, and a water shutoff', 'New-home credit']),
-   ('note', 'Flood and earthquake are never inside a home policy, anywhere. If you '
-            'need them they are separate &mdash; and you should hear that from us now, '
-            'not from an adjuster later.'),
- ],
- 'pick_head': 'We lay the options out. You pick.',
- 'pick_lede': 'Home policies come in forms, and the form decides what is covered before '
-              'any limit or deductible does. An agent tells you which one you are '
-              'looking at and what changes if you move up.',
- 'picks': [
-   ('Named perils',
-    'Covers the causes of loss the policy lists by name, and nothing else. The '
-    'cheapest form, and the one that surprises people at claim time.',
-    ['Fire, lightning and smoke', 'Wind and hail', 'Theft and vandalism',
-     'The other causes named in the form']),
-   ('Open perils on the house',
-    'The common form. The building is covered for anything the policy does not '
-    'specifically exclude; your belongings stay on the named list.',
-    ['The building, for anything not excluded', 'Belongings, for the named causes',
-     'Personal liability', 'Loss of use while it is repaired']),
-   ('Open perils on both',
-    'The building and your belongings both covered for anything not excluded, and '
-    'usually written with replacement cost throughout.',
-    ['The building, for anything not excluded',
-     'Belongings, for anything not excluded', 'Replacement cost, not depreciated',
-     'Higher personal liability', 'Scheduled items for the valuable things']),
- ],
- 'big': ('A human reads', 'every policy'),
-},
-
-'renters-insurance': {
- 'panels': [
-   ('check', ['Furniture, room by room', 'Clothing and shoes',
-              'Electronics, tools and bikes', 'The kitchen, all of it']),
-   ('pick', 'Personal property', [('Actual cash value &mdash; depreciated', False),
-                                  ('Replacement cost', True)]),
-   ('check', ['A guest hurt inside your place', 'Water that reaches the unit below',
-              'The dog, in most cases']),
-   ('note', 'A renters policy often pays for a good part of itself through the '
-            'multi-policy credit on the car. Ask what the two cost together before '
-            'you decide it is not worth it.'),
- ],
- 'pick_head': 'We lay the options out. You pick.',
- 'pick_lede': 'A renters policy is small enough that the choices inside it get skipped. '
-              'They are the whole difference between a cheque that replaces your things '
-              'and one that does not.',
- 'picks': [
-   ('Actual cash value',
-    'Pays what your things were worth on the day, age taken off. The cheapest way '
-    'to write it and the reason people feel short-changed.',
-    ['Personal property, depreciated', 'Personal liability',
-     'Loss of use', 'Medical payments to others']),
-   ('Replacement cost',
-    'Pays what it costs to buy the thing again today. The upgrade that matters most '
-    'and usually costs the least.',
-    ['Personal property, not depreciated', 'Personal liability',
-     'Loss of use', 'Medical payments to others']),
-   ('Replacement cost, with the valuables scheduled',
-    'Rings, instruments, cameras and tools sit under a low sub-limit unless they are '
-    'listed by name. Listing them removes the sub-limit and usually the deductible.',
-    ['Everything in replacement cost', 'Jewellery listed individually',
-     'Instruments, cameras, tools', 'Higher personal liability']),
- ],
- 'big': ('A human reads', 'every quote'),
-},
-
-'motorcycle-insurance': {
- 'panels': [
-   ('check', ['Pipes and exhaust', 'Seat, bars and pegs',
-              'Stereo and lighting', 'Paint, chrome and bags']),
-   ('pick', 'How the bike is valued', [('Actual cash value &mdash; by the book', False),
-                                       ('Agreed value &mdash; the number you set', True)]),
-   ('check', ['Helmet', 'Jacket and armour', 'Boots and gloves']),
-   ('check', ['A completed rider course', 'Endorsement on the license',
-              'Garaged at the house', 'More than one bike']),
- ],
- 'pick_head': 'We lay the options out. You pick.',
- 'pick_lede': 'A bike is not a small car and it should not be quoted like one. These are '
-              'the three shapes a motorcycle policy takes, and which one is right depends '
-              'on what the bike is worth to you.',
- 'picks': [
-   ('Liability only',
-    'Pays for the other people and their property. Nothing towards the bike. What a '
-    'lot of older bikes are written on, deliberately.',
-    ['Bodily injury liability', 'Property damage liability',
-     'Uninsured motorist, if you keep it']),
-   ('Liability plus physical damage',
-    'Adds collision and comprehensive, so the bike is paid for too &mdash; at book '
-    'value, with your deductible taken off.',
-    ['Everything in liability only', 'Collision', 'Comprehensive',
-     'Accessory coverage up to the policy limit']),
-   ('Agreed value, fully built',
-    'You and the carrier agree what the bike is worth now, in writing, and that is '
-    'the number at a total loss. For anything custom, restored or simply cared for.',
-    ['Everything in physical damage', 'Agreed value, set in advance',
-     'Accessories scheduled by name', 'Riding gear coverage',
-     'Roadside and trip interruption']),
- ],
- 'big': ('A human reads', 'every quote'),
-},
-
-'commercial-insurance': {
- 'panels': [
-   ('note', 'A personal auto policy can exclude business use outright. The truck is '
-            'insured right up until the claim is for work, and then it is not. That is '
-            'a five-minute conversation that saves a company.'),
-   ('check', ['The limits the contract requires', 'Additional insured wording',
-              'Waiver of subrogation', 'Primary and non-contributory']),
-   ('check', ['Every driver listed by name', 'Motor vehicle records pulled',
-              'Anyone excluded, in writing']),
-   ('note', 'Tell us the deadline when you call. A certificate takes minutes when the '
-            'policy is already right and a week when it is not.'),
- ],
- 'pick_head': 'We lay the options out. You pick.',
- 'pick_lede': 'Commercial cover is assembled, not bought off a shelf. What you need is '
-              'decided by what you do and by what you have signed &mdash; so an agent '
-              'reads both before quoting any of it.',
- 'picks': [
-   ('Commercial auto only',
-    'The vehicles and the people driving them. Where most small operations start, '
-    'and enough on its own for some of them.',
-    ['Commercial auto liability', 'Physical damage on each unit',
-     'Hired and non-owned auto', 'Filings, where the state requires them']),
-   ('Auto plus general liability',
-    'Adds the half that happens off the road &mdash; on a job site, at a customer, in '
-    'your own premises. Most contracts ask for both.',
-    ['Everything in commercial auto', 'General liability',
-     'Certificates for the people who need them', 'Additional insured endorsements']),
-   ('The whole operation',
-    'Auto, liability, the things you carry and the tools you carry them with, written '
-    'together so nothing falls between two policies.',
-    ['Everything in auto plus general liability', 'Cargo coverage',
-     'Tools and equipment', 'Waivers and contract wording',
-     'Certificates issued the same day']),
- ],
- 'big': ('A human reads', 'every policy'),
-},
-}
-
-for _p in PRODUCTS:
-    # A missing key here is a page that silently ships without one of its three
-    # new sections, so this is a KeyError on purpose rather than a .get().
-    _p.update(EXTRA[_p['slug']])
-    assert len(_p['panels']) == len(_p['misses']), _p['slug']
-
 # ------------------------------------------------------------- discounts ---
-# Only products with a 'discounts' key get the discount section; the others
-# skip it rather than being given a list nobody has checked. Today that is the
-# car page.
+# Only the car page gets the discount section, because its list is the only
+# one that has been written (locales/<lang>/product.json, discounts.items). A
+# product without a list skips the section rather than being handed somebody
+# else's.
 #
-# WHAT IS NOT IN HERE, AND WHY
+# WHAT IS NOT IN THAT LIST, AND WHY
 #
 # Percentages. The reference this is modelled on prints "SAVE UP TO 9%" on
 # every card. We have no source for that: the amount attached to any of these
@@ -954,61 +176,41 @@ for _p in PRODUCTS:
 # What is real, and is printed instead, is the count: this many discounts get
 # asked about on every car quote. That is a fact about how we work rather than
 # a promise about somebody's bill.
-DISCOUNTS = [
- ('Prior insurance',
-  'Continuous coverage before this policy. One of the largest credits on a car '
-  'policy, and an online form asks about it once and moves on.'),
- ('Multi-policy',
-  'A home, renters or mobile-home policy sitting with the same company as the car.'),
- ('Multi-car',
-  'More than one vehicle on the same policy. Worth checking even when the second '
-  'car barely moves.'),
- ('Homeowner',
-  'Owning the home you live in. At several companies this applies even when the '
-  'home policy is somewhere else.'),
- ('Paid in full',
-  'Paying the six or twelve months up front instead of in instalments.'),
- ('Automatic payments',
-  'Letting the carrier draft the premium so it is never late.'),
- ('Paperless',
-  'Taking policy documents and bills by email instead of in the post.'),
- ('Defensive driving',
-  'A state-approved course. Worth asking about again at renewal, not just when '
-  'the policy is written.'),
- ('Good student',
-  'A B average or better for a student listed on the policy.'),
- ('Student away at school',
-  'A student on the policy living far enough away that they are not driving the car.'),
- ('Safe driver',
-  'A clean record across whatever period the carrier looks back over — and they '
-  'do not all look back the same distance.'),
- ('Usage-based',
-  'Letting the carrier see how the car is actually driven, by app or plug-in '
-  'device. Not right for everyone, and an agent will say so.'),
- ('Anti-theft',
-  'A factory or aftermarket alarm, immobiliser or tracker.'),
- ('Safety features',
-  'Anti-lock brakes, airbags, backup camera, lane assist and the rest of what '
-  'the car already has.'),
- ('Early shopping',
-  'Quoting before the current policy expires rather than on the day it does.'),
- ('Occupation and affinity',
-  'Teachers, nurses, military, first responders, and a long list of employers, '
-  'unions and alumni associations.'),
-]
+HAS_DISCOUNTS = {'auto-insurance'}
 
-DISCOUNT_HEAD = 'Every discount, checked by a person'
-DISCOUNT_LEDE = ('An online form asks about a handful of these. An agent asks about all '
-                 'of them, at every company we shop, and again when the policy comes up '
-                 'for renewal.')
-DISCOUNT_FINE = ('Not every company offers every discount, and eligibility varies by '
-                 'carrier and by state.')
 
-# Only the car page carries the discount section, because its list is the only
-# one that has been written. A product without a list skips the section rather
-# than being handed somebody else's.
-for _p in PRODUCTS:
-    _p['discounts'] = DISCOUNTS if _p['slug'] == 'auto-insurance' else []
+def localized(p):
+    """One product with its copy, in the language being rendered.
+
+    The copy's lists are the same length in both languages — i18ncheck.py
+    refuses a Spanish page with a card missing — so the structure above and the
+    words from the catalog zip together one to one.
+    """
+    c = i18n.get('product.items.' + p['slug'])
+    q = dict(p)
+    for k, v in c.items():
+        q[k] = v
+    q['big'] = tuple(c['big'])
+    q['misses'] = [tuple(x) for x in c['misses']]
+    q['picks'] = [(a, b, list(items)) for a, b, items in c['picks']]
+    q['faq'] = [tuple(x) for x in c['faq']]
+    assert len(p['panels']) == len(c['panels']) == len(c['misses']), p['slug']
+    panels = []
+    for kind, words in zip(p['panels'], c['panels']):
+        if kind == 'check':
+            panels.append(('check', words))
+        elif kind == 'note':
+            panels.append(('note', words))
+        else:
+            label, rows = words
+            panels.append(('pick', label, list(zip(rows, kind[1]))))
+    q['panels'] = panels
+    assert len(p['yes']) == len(c['yes']), p['slug']
+    q['yes'] = [w if shape is None else (w[0], shape[0], shape[1], w[1], shape[2])
+                for shape, w in zip(p['yes'], c['yes'])]
+    q['discounts'] = ([tuple(x) for x in i18n.get('product.discounts.items')]
+                      if p['slug'] in HAS_DISCOUNTS else [])
+    return q
 
 # ------------------------------------------------------------------- shell ---
 # The page's own CSS. The panel and the footer bring their own — a page that
@@ -1050,6 +252,7 @@ CSS = """
   .burger.on span:nth-child(2){opacity:0}
   .burger.on span:nth-child(3){transform:translateY(-7.2px) rotate(-45deg)}
   body.locked .burger{opacity:0;visibility:hidden}
+  nav .navr{display:flex;align-items:center;gap:10px}
 
   /* ---- hero ---- */
   /* The hero is a band you land in, not a strip above the content.
@@ -1166,6 +369,10 @@ CSS = """
       -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
       box-shadow:0 8px 26px -8px rgba(4,10,24,.8)}
   .ph.bg .burger:hover{background:rgba(8,18,40,.62)}
+  /* The language switch states its own contrast over a photograph, the same
+     way the menu button beside it does. */
+  .ph.bg .lsw.dk{background:rgba(8,18,40,.46);border-color:rgba(255,255,255,.52);
+      box-shadow:0 8px 26px -8px rgba(4,10,24,.8)}
   .ph .in{max-width:1120px;margin:0 auto;position:relative;z-index:2}
   .phgrid{display:grid;grid-template-columns:1fr;gap:32px;align-items:center}
   @media(min-width:900px){ .phgrid.has{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:52px} }
@@ -2010,7 +1217,7 @@ CSS = """
       radial-gradient(520px 520px at 6% 8%, rgba(22,102,237,.05), transparent 70%),
       radial-gradient(420px 420px at 96% 72%, rgba(0,194,255,.055), transparent 68%)}
 
-""" + carriers.CSS + menu.PANEL_CSS
+""" + carriers.CSS + menu.PANEL_CSS + i18n.TOGGLE_CSS
 
 # Not used on these pages any more — the nav sits straight on the photograph,
 # which is the whole point of a full-bleed hero. Kept because the two phone
@@ -2025,7 +1232,6 @@ _TOPBAR_UNUSED = """  <div class="topbar">
 
 CHECK = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>')
 # The shared three-band footer, root-relative like every other root page.
-FOOTER = shell.FOOTER
 
 EYE = ('<svg viewBox="0 0 24 24" aria-hidden="true">'
        '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/>'
@@ -2044,11 +1250,7 @@ SHIELD = ('<svg viewBox="0 0 24 24" aria-hidden="true">'
 EZ_DIR = os.path.join(ROOT, 'assets', 'ez')
 EZ_EXT = ('.webp', '.png', '.jpg', '.jpeg', '.svg')
 
-EZ_HEAD = 'More than just an online quote'
-EZ_LEDE = ('Simple online. Personal where it matters. Start your quote online, have a '
-           'licensed agent review your options, and count on us to keep an eye on your '
-           'policy. If a better option comes up, we&rsquo;ll be here to help you take '
-           'a look.')
+# The section's heading, lede and cards are copy: product.ez in the catalog.
 
 # The numbered "Step one / Step two" chips came off these cards by request, so
 # the data no longer carries 'n' or 'step'. The order of the list is the order
@@ -2057,33 +1259,21 @@ EZ_LEDE = ('Simple online. Personal where it matters. Start your quote online, h
 # 'caption' prints under the picture. It is empty on all three today. If art
 # that shows dollar figures beside carrier names ever goes in card two, this is
 # where it says the picture is an example rather than a rate.
-EZ = [
- {'file': 'step-1', 'caption': '',
-  'alt': 'The first screen of the online quote form: vehicle make, ZIP code and date '
-         'of birth, with a button to get the quote.',
-  'h': 'Get your quote online',
-  'p': 'Start with a simple online form. No long back-and-forth, no complicated process '
-       '&mdash; just a faster, easier way to start shopping for coverage.'},
- # The artwork for this card shows $92, $105 and $118 next to Lemonade,
- # Progressive and GEICO. No quote produced those figures. The picture is the
- # owner's and he asked for it, so it stays — but a made-up number beside a
- # real carrier's name has to be labelled as an illustration rather than left
- # to read as a rate. Empty this string to take the line off.
- {'file': 'step-2',
-  'caption': 'Illustration only &mdash; the figures shown are not real quotes.',
-  'alt': 'A list of insurance companies with one highlighted, and a note that a licensed '
-         'agent reviewed them.',
-  'h': 'A real person reviews your options',
-  'p': 'Not just a quote &mdash; a quote checked by a person. Our technology helps gather '
-       'and compare options, then a licensed Safe House agent reviews your rates, '
-       'coverage, and details to help you find the right fit.'},
- {'file': 'step-3', 'caption': '',
-  'alt': 'A renewal reminder above a short checklist: we keep an eye on it, you hear '
-         'from us, in English or Spanish.',
-  'h': 'We watch for better rates',
-  'p': 'We keep an eye on your policy, let you know when better options come up, and help '
-       'you stay on top of renewals &mdash; with real support in English or Spanish.'},
-]
+# 'file' names the picture; the words on each card (heading, paragraph, alt
+# text, caption) are product.ez.cards in the catalog, in the same order.
+#
+# The artwork for card two shows $92, $105 and $118 next to Lemonade,
+# Progressive and GEICO. No quote produced those figures. The picture is the
+# owner's and he asked for it, so it stays — but a made-up number beside a
+# real carrier's name has to be labelled as an illustration rather than left
+# to read as a rate. That label is the card's caption; empty it to take the
+# line off.
+#
+# The three pictures are screenshots with English written across them. A
+# Spanish page uses <file>.es.webp (or .png/.jpg) when one exists, and
+# otherwise draws the card instead — the drawn version is finished work, not a
+# placeholder, and it can be translated.
+EZ = ['step-1', 'step-2', 'step-3']
 
 # The drawn fallbacks, in card order. aria-hidden: the paragraph above each one
 # already says what it says, and a form nobody can type into should not be read
@@ -2093,41 +1283,41 @@ EZ_DRAWN = [
  '<svg viewBox="0 0 24 24"><path d="M5 16.5V19h2.5v-2.5M16.5 16.5V19H19v-2.5"/>'
  '<path d="M4 16.5h16l-1-5.5-1.6-3.6a2 2 0 0 0-1.8-1.2H8.4a2 2 0 0 0-1.8 1.2L5 11z"/>'
  '<circle cx="7.5" cy="13.5" r="1"/><circle cx="16.5" cy="13.5" r="1"/></svg>'
- '<span>Vehicle make</span><span class="cv"></span></div>'
+ '<span>%(make)s</span><span class="cv"></span></div>'
  '<div class="ezfield">'
  '<svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/>'
- '<circle cx="12" cy="10" r="3"/></svg><span>ZIP code</span></div>'
+ '<circle cx="12" cy="10" r="3"/></svg><span>%(zip)s</span></div>'
  '<div class="ezfield">'
  '<svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/>'
- '<path d="M3.5 10h17M8 3.5v3M16 3.5v3"/></svg><span>Date of birth</span></div>'
- '<div class="ezbtn">Get my quote &rarr;</div>'
+ '<path d="M3.5 10h17M8 3.5v3M16 3.5v3"/></svg><span>%(dob)s</span></div>'
+ '<div class="ezbtn">%(btn)s</div>'
  '<p class="ezsecure"><svg viewBox="0 0 24 24">'
  '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'
- '</svg>Secure and confidential</p>',
+ '</svg>%(secure)s</p>',
 
  # Carrier names, no figures. Every number this card could show would be
  # invented, and an invented price beside a real carrier's name is the one
  # thing this site does not do. It shows the claim it actually makes instead.
  '<div class="ezrow"><span class="lg" style="background:#FFE7F3;color:#FF0083">L</span>'
- '<b>Lemonade</b><span class="rd">%(t)sRead</span></div>'
+ '<b>Lemonade</b><span class="rd">%(t)s%(read)s</span></div>'
  '<div class="ezrow on"><span class="lg" style="background:#E7F0FC;color:#0B4DA2">P</span>'
- '<b>Progressive</b><span class="rd">%(t)sRead</span></div>'
+ '<b>Progressive</b><span class="rd">%(t)s%(read)s</span></div>'
  '<div class="ezrow"><span class="lg" style="background:#E6EFF8;color:#004B8D">G</span>'
- '<b>GEICO</b><span class="rd">%(t)sRead</span></div>'
+ '<b>GEICO</b><span class="rd">%(t)s%(read)s</span></div>'
  '<div class="ezsay"><span class="av"><svg viewBox="0 0 24 24">'
  '<path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="8" r="4"/></svg></span>'
- '<span><b>Reviewed by a licensed agent</b>'
- '<small>Real people. Better options.</small></span></div>',
+ '<span><b>%(reviewed)s</b>'
+ '<small>%(real)s</small></span></div>',
 
  '<div class="ezbell"><span class="i"><svg viewBox="0 0 24 24">'
  '<path d="M18 8a6 6 0 1 0-12 0c0 6-2 7-2 7h16s-2-1-2-7"/>'
  '<path d="M13.7 20a2 2 0 0 1-3.4 0"/></svg></span>'
- '<span><b>Your renewal is coming up</b>'
- '<small>We will look again before it does.</small></span></div>'
+ '<span><b>%(renewal)s</b>'
+ '<small>%(lookAgain)s</small></span></div>'
  '<ul class="ezlist">'
- '<li><span>We keep an eye on it</span><span class="tk">%(t)s</span></li>'
- '<li><span>You hear from us</span><span class="tk">%(t)s</span></li>'
- '<li><span>In English or Spanish</span><span class="tk">%(t)s</span></li></ul>',
+ '<li><span>%(eye)s</span><span class="tk">%(t)s</span></li>'
+ '<li><span>%(hear)s</span><span class="tk">%(t)s</span></li>'
+ '<li><span>%(lang)s</span><span class="tk">%(t)s</span></li></ul>',
 ]
 
 
@@ -2169,6 +1359,9 @@ def img_size(path):
 
 
 def ez_image(name):
+    """The card's picture in the language being built, or None to draw it."""
+    if i18n.lang() != i18n.DEFAULT:
+        name += '.' + i18n.lang()
     for ext in EZ_EXT:
         if os.path.exists(os.path.join(EZ_DIR, name + ext)):
             return 'assets/ez/' + name + ext
@@ -2177,8 +1370,13 @@ def ez_image(name):
 
 def ezsection():
     cards = []
-    for c, drawn in zip(EZ, EZ_DRAWN):
-        img = ez_image(c['file'])
+    words = dict((k, i18n.t('product.ui.ez.' + k)) for k in
+                 ('make', 'zip', 'dob', 'btn', 'secure', 'read', 'reviewed', 'real',
+                  'renewal', 'lookAgain', 'eye', 'hear', 'lang'))
+    copy = i18n.get('product.ez.cards')
+    assert len(copy) == len(EZ) == len(EZ_DRAWN)
+    for name, c, drawn in zip(EZ, copy, EZ_DRAWN):
+        img = ez_image(name)
         if img:
             # Real pixel dimensions, read off the file. Without them the three
             # cards jump to their final height only once the images arrive,
@@ -2189,7 +1387,7 @@ def ezsection():
                     'loading="lazy" decoding="async">' % (img, e(c['alt']), w, h))
             cap = ('<p class="ezcap">%s</p>' % c['caption']) if c['caption'] else ''
         else:
-            well, cap = drawn % {'t': CHECK}, ''
+            well, cap = drawn % dict(words, t=CHECK), ''
         cards.append(
             '      <div class="ezcard">\n'
             '        <h3>%s</h3>\n'
@@ -2201,9 +1399,9 @@ def ezsection():
     return (
         '  <section class="ez" aria-labelledby="ezh">\n'
         '    <div class="ezhd">\n'
-        '      <span class="kick">How this works</span>\n'
-        '      <h2 id="ezh">' + EZ_HEAD + '</h2>\n'
-        '      <p>' + EZ_LEDE + '</p>\n'
+        '      <span class="kick">' + i18n.t('product.ui.ez.kick') + '</span>\n'
+        '      <h2 id="ezh">' + i18n.t('product.ez.head') + '</h2>\n'
+        '      <p>' + i18n.t('product.ez.lede') + '</p>\n'
         '    </div>\n'
         '    <div class="ezgrid">\n' + ''.join(cards) +
         '    </div>\n'
@@ -2225,7 +1423,11 @@ def missection(p):
     """
     if not p.get('misses_on', True):
         return ''
-    return ('  <!-- The section this page exists for. See the module docstring. -->\n  <section class="miss">\n    <div class="in">\n      <span class="kick">The second look</span>\n      <h2>What the online price misses</h2>\n      <p class="sub">{misses_lede}</p>\n      <div class="mgrid">\n{misscards}      </div>\n      <div class="mfoot">\n        <span class="i" aria-hidden="true">{eye}</span>\n        <div>\n          <b>This is the whole difference.</b>\n          <p>Anyone can show you a number. A licensed Safe House agent reads the quote\n             before you buy it, asks the questions above, and re-shops it when the answers\n             change something. It costs you nothing &mdash; it is what the commission on the\n             policy is for.</p>\n        </div>\n      </div>\n    </div>\n  </section>\n\n'
+    return ('  <!-- The section this page exists for. See the module docstring. -->\n  <section class="miss">\n    <div class="in">\n      <span class="kick">{kick}</span>\n      <h2>{h2}</h2>\n      <p class="sub">{misses_lede}</p>\n      <div class="mgrid">\n{misscards}      </div>\n      <div class="mfoot">\n        <span class="i" aria-hidden="true">{eye}</span>\n        <div>\n          <b>{footb}</b>\n          <p>{footp}</p>\n        </div>\n      </div>\n    </div>\n  </section>\n\n'
+            .replace('{kick}', i18n.t('product.ui.miss.kick'))
+            .replace('{h2}', i18n.t('product.ui.miss.h2'))
+            .replace('{footb}', i18n.t('product.ui.miss.footB'))
+            .replace('{footp}', i18n.t('product.ui.miss.footP'))
             .replace('{misses_lede}', p['misses_lede'])
             .replace('{misscards}', misscards(p))
             .replace('{eye}', EYE))
@@ -2285,9 +1487,13 @@ def who_picture(name):
     """
     if not name:
         return None
-    for ext in ('.webp', '.png', '.jpg', '.svg'):
-        if os.path.exists(os.path.join(WHO_DIR, name + ext)):
-            return 'assets/who/' + name + ext
+    # A picture with words in it can have a Spanish twin, <name>.es.webp; a
+    # Spanish page uses it when it is there and the English one when not.
+    names = ([name + '.' + i18n.lang()] if i18n.lang() != i18n.DEFAULT else []) + [name]
+    for n in names:
+        for ext in ('.webp', '.png', '.jpg', '.svg'):
+            if os.path.exists(os.path.join(WHO_DIR, n + ext)):
+                return 'assets/who/' + n + ext
     return None
 
 
@@ -2329,6 +1535,9 @@ def resources(p):
     # somebody with that circumstance is already looking — and twenty-two cards
     # in this grid is a list, not a section.
     gs = [g for g in guides_data.GUIDES if g['group'] == '101']
+
+    def gt(g, field):
+        return i18n.t('guides.items.' + g['slug'] + '.' + field)
     feat = next(g for g in gs if g.get('featured'))
     rest = [g for g in gs if not g.get('featured')]
     # Its own picture rather than the hero's. The featured card is a tall
@@ -2339,31 +1548,29 @@ def resources(p):
     return (
         '  <section class="res petal2" aria-labelledby="resh">\n'
         '    <div class="reshd">\n'
-        '      <span class="kick">Car Insurance 101</span>\n'
-        '      <h2 id="resh">Shop smarter, with the answers first</h2>\n'
-        '      <p>Plain answers to what people actually ask before they buy. No sales '
-        'pitch and no invented numbers &mdash; written by the agents who place this '
-        'business every day.</p>\n'
+        '      <span class="kick">' + i18n.t('product.ui.res.kick') + '</span>\n'
+        '      <h2 id="resh">' + i18n.t('product.ui.res.h2') + '</h2>\n'
+        '      <p>' + i18n.t('product.ui.res.p') + '</p>\n'
         '    </div>\n'
         '    <div class="resgrid">\n'
         '      <a class="resfeat" href="learn/' + feat['slug'] + '/" '
         'style="--x:0">\n'
         '        <style>.resfeat::before{background-image:url("' + shot + '")}</style>\n'
-        '        <span class="tag">Featured guide</span>\n'
-        '        <b>' + feat['nav'] + '</b>\n'
-        '        <span>' + feat['card'] + '</span>\n'
+        '        <span class="tag">' + i18n.t('product.ui.res.featured') + '</span>\n'
+        '        <b>' + gt(feat, 'nav') + '</b>\n'
+        '        <span>' + gt(feat, 'card') + '</span>\n'
         '        <span class="go" aria-hidden="true">'
         '<svg viewBox="0 0 24 24"><path d="M5 12h13M12 5l7 7-7 7"/></svg></span>\n'
         '      </a>\n'
         '      <div>\n'
         '        <div class="reslist">\n'
-        + ''.join('          <a href="learn/' + g['slug'] + '/"><b>' + g['nav']
-                  + '</b><span>' + g['card'] + '</span>'
+        + ''.join('          <a href="learn/' + g['slug'] + '/"><b>' + gt(g, 'nav')
+                  + '</b><span>' + gt(g, 'card') + '</span>'
                   '<span class="reschev" aria-hidden="true"></span></a>\n'
                   for g in rest)
         + '        </div>\n'
-        '        <a class="resall" href="learn/">See all ' + str(len(gs))
-        + ' guides &rarr;</a>\n'
+        '        <a class="resall" href="learn/">' + i18n.t('product.ui.res.all', n=len(gs))
+        + '</a>\n'
         '      </div>\n'
         '    </div>\n'
         '  </section>\n')
@@ -2428,9 +1635,10 @@ def mixchips(up=''):
             mark = ('<span class="lg" aria-hidden="true" style="background:' + bg
                     + ';color:' + fg + '">' + name[0] + '</span>')
         if price:
-            sub = '<em>' + price + '<i>/mo</i></em>'
+            sub = '<em>' + price + '<i>' + i18n.t('product.ui.mix.mo') + '</i></em>'
         else:
-            sub = ('<em class="mmask">' + COMPARE_MASK + '<i>/mo</i></em>')
+            sub = ('<em class="mmask">' + COMPARE_MASK + '<i>'
+                   + i18n.t('product.ui.mix.mo') + '</i></em>')
         # A carrier with artwork does not also need its name set beside it — the
         # logo is the name. Same rule the strip makes, and without it the chip
         # reads "PROGRESSIVE Progressive".
@@ -2442,8 +1650,7 @@ def mixchips(up=''):
     if priced and COMPARE_NOTE:
         note = '<p class="mixnote">' + COMPARE_NOTE + '</p>'
     elif not priced:
-        note = ('<p class="mixnote">Your two numbers, side by side &mdash; '
-                'from a real quote, in about five minutes.</p>')
+        note = ('<p class="mixnote">' + i18n.t('product.ui.mix.note') + '</p>')
     else:
         note = ''
     return ('<div class="mixchips">' + ''.join(out) + '</div>' + note)
@@ -2462,30 +1669,30 @@ def discounts(p):
         '  <section class="dsc petal1" aria-labelledby="dsch">\n'
         '    <div class="dscgrid">\n'
         '      <div class="dschd">\n'
-        '        <span class="kick">Discounts</span>\n'
-        '        <h2 id="dsch">' + DISCOUNT_HEAD + '</h2>\n'
-        '        <p>' + DISCOUNT_LEDE + '</p>\n'
+        '        <span class="kick">' + i18n.t('product.ui.dsc.kick') + '</span>\n'
+        '        <h2 id="dsch">' + i18n.t('product.discounts.head') + '</h2>\n'
+        '        <p>' + i18n.t('product.discounts.lede') + '</p>\n'
         '        <p class="dsccount"><b>' + str(n) + '</b>'
-        '<span>asked about on every car quote</span></p>\n'
+        '<span>' + i18n.t('product.ui.dsc.count') + '</span></p>\n'
         '        <a class="dscact" href="quote.html?type=' + p['type'] + '">'
-        'Start my quote &rarr;</a>\n'
+        + i18n.t('product.ui.start') + '</a>\n'
         '      </div>\n'
         # aria-live so the name is announced when it changes rather than the
         # change happening silently for anyone not looking at it.
         '      <div class="dsccard" id="dsccard">\n'
         '        <div class="dsctop">\n'
-        '          <span class="dsceyebrow">Discount</span>\n'
+        '          <span class="dsceyebrow">' + i18n.t('product.ui.dsc.eyebrow') + '</span>\n'
         '          <div class="dscnav">\n'
         '            <button class="dscbtn" type="button" id="dscprev" '
-        'aria-label="Previous discount">' + ARROW_L + '</button>\n'
+        'aria-label="' + i18n.t('product.ui.dsc.prev') + '">' + ARROW_L + '</button>\n'
         '            <span class="dsccnt" id="dsccnt">1 / ' + str(n) + '</span>\n'
         '            <button class="dscbtn" type="button" id="dscnext" '
-        'aria-label="Next discount">' + ARROW_R + '</button>\n'
+        'aria-label="' + i18n.t('product.ui.dsc.next') + '">' + ARROW_R + '</button>\n'
         '          </div>\n'
         '        </div>\n'
         '        <div class="dscslot" aria-live="polite">\n' + items +
         '        </div>\n'
-        '        <p class="dscfine">' + DISCOUNT_FINE + '</p>\n'
+        '        <p class="dscfine">' + i18n.t('product.discounts.fine') + '</p>\n'
         '      </div>\n'
         '    </div>\n'
         '  </section>\n')
@@ -2545,25 +1752,25 @@ def picker(p):
             '        <div class="pkcard" id="pkp%d" role="tabpanel" aria-labelledby="pkt%d"%s>\n'
             '          <div class="top"><span class="i" aria-hidden="true">%s</span>'
             '<b>%s</b></div>\n'
-            '          <p class="lab">What is included</p>\n'
+            '          <p class="lab">%s</p>\n'
             '          <ul>%s</ul>\n'
-            '          <p class="fin">Availability and wording vary by company and by '
-            'state. Your agent confirms what each one costs and what it actually says '
-            'before anything is bought.</p>\n'
-            '          <a class="pkcta" href="quote.html?type=%s">Start my quote &rarr;</a>\n'
+            '          <p class="fin">%s</p>\n'
+            '          <a class="pkcta" href="quote.html?type=%s">%s</a>\n'
             '        </div>\n'
             % (i, i, '' if i == mid else ' hidden', SHIELD, label,
+               i18n.t('product.ui.pick.included'),
                ''.join('<li><span class="tick">' + CHECK + '</span><span>' + it
-                       + '</span></li>' for it in items), p['type']))
+                       + '</span></li>' for it in items),
+               i18n.t('product.ui.pick.fine'), p['type'], i18n.t('product.ui.start')))
     return (
         '  <section class="pk petal2" aria-labelledby="pkh">\n'
         '    <div class="hd">\n'
-        '      <span class="kick">Your call</span>\n'
+        '      <span class="kick">' + i18n.t('product.ui.pick.kick') + '</span>\n'
         '      <h2 id="pkh">' + p['pick_head'] + '</h2>\n'
         '      <p class="sub">' + p['pick_lede'] + '</p>\n'
         '    </div>\n'
         '    <div class="pkgrid">\n'
-        '      <div role="tablist" aria-label="Coverage options">\n'
+        '      <div role="tablist" aria-label="' + i18n.t('product.ui.pick.tabs') + '">\n'
         + ''.join(opts) +
         '      </div>\n'
         '      <div>\n' + ''.join(cards) + '      </div>\n'
@@ -2598,9 +1805,7 @@ def bigstatement(p):
         '    <span class="stmtline b" style="' + stmtsize(b) + '" aria-hidden="true">'
         + b + '</span>\n'
         '    <div class="stmtsay">\n'
-        '      <p>' + a + ' ' + b + '. <b>That is the whole product.</b> The form is '
-        'the fast part; the part worth paying an agency for is somebody who has placed '
-        'this a thousand times looking at what came back before you buy it.</p>\n'
+        '      <p>' + i18n.t('product.ui.stmt.say', a=a, b=b) + '</p>\n'
         '    </div>\n'
         '  </section>\n')
 
@@ -2730,15 +1935,18 @@ def schema(p):
                      "url": SITE},
         "areaServed": [{"@type": "State", "name": "Texas"},
                        {"@type": "State", "name": "New Mexico"}],
-        "url": SITE + '/' + p['slug']})
+        "url": i18n.url(p['slug'])})
     return ''.join('<script type="application/ld+json">' + json.dumps(b)
                    + '</script>\n' for b in out)
 
 
 def page(p):
-    other = [q for q in PRODUCTS if q['file'] != p['file']]
+    """One product page in the language being rendered. `p` is a PRODUCTS
+    entry; its words come from the catalog through localized()."""
+    p = localized(p)
+    other = [localized(q) for q in PRODUCTS if q['file'] != p['file']]
     return """<!DOCTYPE html>
-<html lang="en">
+{html_open}
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2748,21 +1956,20 @@ def page(p):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/safehouse-heart.png">
-<link rel="canonical" href="{site}/{slug}">
-<meta property="og:title" content="{title}">
+{langtags}<meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
-<meta property="og:url" content="{site}/{slug}">
+<meta property="og:url" content="{ogurl}">
 <meta name="twitter:card" content="summary">
 <style>{css}</style>
 {schema}</head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  <a class="skip" href="#main">{skip}</a>
   <style>.mixin::before{{background-image:url("assets/mix-couch.jpg")}}</style>
   <header class="ph{bgcls}">{bgstyle}
     <nav>
-      <a href="index.html" aria-label="Safe House Insurance home"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
-      {burger}
+      <a href="index.html" aria-label="{logohome}"><img class="logo" src="assets/safehouse-logo.png" alt="{logoalt}"></a>
+      <span class="navr">{switch}{burger}</span>
     </nav>
 
 {panel}
@@ -2770,14 +1977,14 @@ def page(p):
     <div class="in">
       <div class="phgrid{gridcls}">
         <div>
-          <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; {eyebrow}</div>
+          <div class="crumbs"><a href="index.html">{home}</a> &nbsp;/&nbsp; {eyebrow}</div>
           <h1>{h1}<em>{h1em}</em></h1>
           <p class="lede">{lede}</p>
           <div class="pacts">
-            <a class="pbtn p" href="quote.html?type={type}">Start my quote &rarr;</a>
-            <a class="pbtn s" href="tel:{tel}">Call {call}</a>
+            <a class="pbtn p" href="quote.html?type={type}">{start}</a>
+            <a class="pbtn s" href="tel:{tel}">{callbtn}</a>
           </div>
-          <p class="pnote">Free, no obligation &middot; English or Spanish &middot; Licensed in Texas and New Mexico</p>
+          <p class="pnote">{pnote}</p>
         </div>
         {shot}
       </div>
@@ -2795,11 +2002,8 @@ def page(p):
     <div class="mixin">
       {mixchips}
       <div class="mixsay">
-        <h2>Compare between companies</h2>
-        <p>The same driver, the same car, the same coverage &mdash; and the companies
-           disagree, often by hundreds. One quote cannot tell you whether you are being
-           charged too much, because there is nothing to compare it against. We put your
-           details to every company we represent and show you what each one said.</p>
+        <h2>{compare_h2}</h2>
+        <p>{compare_p}</p>
       </div>
     </div>
   </section>
@@ -2816,8 +2020,8 @@ def page(p):
   </section>
 
   <section class="sec petal1">
-    <span class="kick">Questions</span>
-    <h2>What people ask us</h2>
+    <span class="kick">{q_kick}</span>
+    <h2>{q_h2}</h2>
     <div class="faqlist">
 {faqcards}    </div>
   </section>
@@ -2826,12 +2030,11 @@ def page(p):
   <!-- The one thing a captive agent cannot say. -->
   <div class="end">
     <div class="endin">
-      <h2>Let us take a second look.</h2>
-      <p>Start online and an agent picks it up, or call and we will do the whole thing
-         with you. In English or Spanish, whichever the conversation starts in.</p>
+      <h2>{end_h2}</h2>
+      <p>{end_p}</p>
       <div class="row">
-        <a class="p" href="quote.html?type={type}">Get my free quote &rarr;</a>
-        <a class="s" href="tel:{tel}">Call {call}</a>
+        <a class="p" href="quote.html?type={type}">{end_cta}</a>
+        <a class="s" href="tel:{tel}">{callbtn}</a>
       </div>
     </div>
   </div>
@@ -2843,10 +2046,23 @@ def page(p):
 {footer}
 {js}
 """.format(
+        html_open=i18n.html_open(),
+        langtags=i18n.head_tags(p['slug'], '', p['file']),
+        ogurl=i18n.url(p['slug']),
+        skip=i18n.t('common.skip'), logohome=i18n.t('common.logoHome'),
+        logoalt=i18n.t('common.logoAlt'), home=i18n.t('common.home'),
+        start=i18n.t('product.ui.start'),
+        callbtn=i18n.t('product.ui.call', call=nap.CALL),
+        pnote=i18n.t('product.ui.pnote'),
+        compare_h2=i18n.t('product.ui.compare.h2'), compare_p=i18n.t('product.ui.compare.p'),
+        q_kick=i18n.t('product.ui.questions.kick'), q_h2=i18n.t('product.ui.questions.h2'),
+        end_h2=i18n.t('product.ui.end.h2'), end_p=i18n.t('product.ui.end.p'),
+        end_cta=i18n.t('product.ui.end.cta'),
         title=e(p['title']), desc=e(p['desc']), site=SITE, slug=p['slug'], css=CSS,
         carrstrip=carriers.html('  '), ezsection=ezsection(),
         mixchips=mixchips(),
-        burger=menu.BURGER_HTML, panel=menu.panel(''),
+        switch=i18n.toggle('', p['file'], 'dk'),
+        burger=menu.burger(), panel=menu.panel('', link=p['file']),
         eyebrow=e(p['eyebrow']), h1=p['h1'], h1em=p['h1em'], lede=p['lede'],
         type=p['type'], tel=nap.CALL_E164, call=nap.CALL,
         gridcls=(' has' if p['photo'] else ''),
@@ -2861,23 +2077,27 @@ def page(p):
         misses=missection(p), picker=picker(p), bigstatement=bigstatement(p),
         discounts=discounts(p), resources=resources(p),
         schema=schema(p),
-        yes_kick=p.get('yes_kick', 'Who we write'),
+        yes_kick=p.get('yes_kick', i18n.t('product.ui.yesKick')),
         yes_head=e(p['yes_head']), yes_lede=p['yes_lede'],
         yescards=''.join(yescard(t) for t in p['yes']),
         faqcards=''.join('      <details class="fq"><summary><span>%s</span></summary>'
                          '<div class="fqa"><p>%s</p></div></details>\n' % (q, a)
                          for q, a in p['faq']),
         alsocards=''.join(
-            '      <a href="%s"><b>%s insurance</b><span>Shopped and read the same '
-            'way</span></a>\n' % (q['file'], q['nav'])
+            '      <a href="%s"><b>%s</b><span>%s</span></a>\n'
+            % (q['file'], i18n.t('product.ui.also.title', name=q['nav']),
+               i18n.t('product.ui.also.sub'))
             for q in other) +
-            '      <a href="claims/"><b>Report a claim</b><span>Claims numbers by company</span></a>\n',
-        footer=FOOTER.replace('</body>', menu.JS + SECTION_JS + '</body>'), js='')
+            '      <a href="claims/"><b>%s</b><span>%s</span></a>\n'
+            % (i18n.t('product.ui.also.claim'), i18n.t('product.ui.also.claimSub')),
+        footer=shell.footer().replace('</body>', menu.JS + SECTION_JS + '</body>'), js='')
 
 
 if __name__ == '__main__':
-    for p in PRODUCTS:
-        out = page(p)
-        open(os.path.join(ROOT, p['file']), 'w', encoding='utf-8').write(out)
-        print(p['file'], len(out), 'bytes')
+    for code in i18n.targets():
+        with i18n.language(code):
+            for p in PRODUCTS:
+                out = page(p)
+                path = i18n.write(p['file'], out)
+                print(os.path.relpath(path, ROOT), len(out), 'bytes')
     print('run tools/gensitemap.py to refresh sitemap.xml')

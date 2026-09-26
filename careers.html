@@ -7,6 +7,12 @@
 <meta name="description" content="Safe House Insurance is always hiring in El Paso. Send us your resume — personal lines, commercial lines and customer service.">
 <link rel="icon" href="assets/safehouse-heart.png">
 <link rel="canonical" href="https://safehouseins.com/careers">
+<link rel="alternate" hreflang="en" href="https://safehouseins.com/careers">
+<link rel="alternate" hreflang="es" href="https://safehouseins.com/es/careers">
+<link rel="alternate" hreflang="x-default" href="https://safehouseins.com/careers">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_MX">
+<script>(function(){try{var p=localStorage.getItem("shi-lang")||(document.cookie.match(/(?:^|; )shi-lang=(en|es)/)||[])[1];if(p&&p!=="en")location.replace("es/careers.html"+location.search+location.hash)}catch(e){}})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -44,6 +50,19 @@
   /* The link row is gone; the panel below is the menu at every width. Kept
      as a rule so a stale page hides it rather than printing a bare list. */
   nav .nl{display:none}
+  /* The quote button carries a long and a short label. On a phone the header
+     also has to hold the language switch, and "Get my free quote" plus the
+     switch plus the menu button is wider than a 390px screen — in Spanish by
+     a lot. The short label is the same promise in fewer letters. */
+  nav .cta .ctas{display:none}
+  @media(max-width:520px){
+    nav .cta .ctal{display:none}
+    nav .cta .ctas{display:inline}
+  }
+  @media(max-width:380px){
+    nav .wrap{padding:0 16px;gap:10px}
+    nav .cta{padding:10px 14px}
+  }
   @media(min-width:900px){ nav .logo{height:44px} }
 
   .burger{width:44px;height:44px;border-radius:14px;background:#fff;
@@ -113,6 +132,7 @@
   body.locked{overflow:hidden}
 
   .dtop{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:26px}
+  .dtop .lsw{margin-right:auto}
   .dcta{display:inline-flex;align-items:center;justify-content:center;
       background:var(--mgrad);color:#fff;border-radius:99px;padding:13px 24px;
       font-size:14.5px;font-weight:800;text-decoration:none;white-space:nowrap;
@@ -297,6 +317,40 @@
   body>footer .fway a:not(.big){display:inline-block;font-size:13px;font-weight:800;
       color:var(--blue);margin-top:7px}
 
+  /* ---- the language switch ----
+     Two segments, the current language filled. A segmented control rather
+     than a drop-down: there are two languages, both labels fit, and one tap
+     switches — a menu that has to be opened first is a second step for
+     nothing. Same height as the menu button beside it so the pair reads as
+     one row of controls. */
+  .lsw{display:inline-flex;align-items:center;flex:0 0 auto;gap:2px;height:44px;
+      padding:4px;border-radius:99px;background:#fff;border:1.5px solid #E5EBF6;
+      font-family:inherit;font-size:12.5px;font-weight:800;letter-spacing:.06em;
+      line-height:1;position:static}
+  .lsw>a,.lsw>span{display:inline-flex;align-items:center;justify-content:center;
+      min-width:34px;height:100%;padding:0 9px;border-radius:99px;
+      text-decoration:none;white-space:nowrap}
+  .lsw>a{color:#5C6A80;transition:background .16s,color .16s}
+  .lsw>a:hover{background:#EFF5FF;color:#1666ED;text-decoration:none}
+  .lsw>span{background:#0A2148;color:#fff}
+  .lsw>a:focus-visible{outline:2.5px solid #1666ED;outline-offset:2px}
+  .lsw .lvh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+      white-space:nowrap}
+  /* On a photograph or a navy header: glass, like the menu button there. */
+  .lsw.dk{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.34);
+      -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .lsw.dk>a{color:rgba(255,255,255,.88)}
+  .lsw.dk>a:hover{background:rgba(255,255,255,.18);color:#fff}
+  .lsw.dk>span{background:#fff;color:#0A2148}
+  .lsw.dk>a:focus-visible{outline-color:#fff}
+  /* In the menu panel there is room for the names themselves. */
+  .lsw.full{height:40px;font-size:13px;letter-spacing:.01em}
+  .lsw.full>a,.lsw.full>span{padding:0 14px}
+
+  /* In the header on a phone the switch shows only the language it goes to:
+     one segment, one tap. The row has no room for both, and the page itself
+     already says which language it is in. */
+  @media(max-width:520px){ nav .lsw.tight>span{display:none} }
 </style>
 </head>
 <body>
@@ -309,7 +363,8 @@
 <nav><div class="wrap">
   <a href="index.html" aria-label="Safe House Insurance home"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
   <span style="display:flex;align-items:center;gap:12px">
-    <a class="cta" href="quote.html">Get my free quote</a>
+    <div class="lsw tight" role="group" aria-label="Language / Idioma"><span lang="en" aria-current="true"><span aria-hidden="true">EN</span><span class="lvh">English</span></span><a href="es/careers.html" hreflang="es" lang="es-MX" data-lang="es" title="Ver esta página en español"><span aria-hidden="true">ES</span><span class="lvh">Español</span></a></div>
+    <a class="cta" href="quote.html"><span class="ctal">Get my free quote</span><span class="ctas">Free quote</span></a>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
   </span>
 </div></nav>
@@ -317,6 +372,7 @@
 <div class="scrim" id="scrim" hidden></div>
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
   <div class="dtop">
+    <div class="lsw full" role="group" aria-label="Language / Idioma"><span lang="en" aria-current="true">English</span><a href="es/careers.html" hreflang="es" lang="es-MX" data-lang="es" title="Ver esta página en español">Español</a></div>
     <a class="dcta" href="quote.html">Get a quote</a>
     <button class="dclose" id="dclose" type="button" aria-label="Close menu">&#10005;</button>
   </div>
@@ -383,7 +439,11 @@
   var burger=document.getElementById('burger'),
       drawer=document.getElementById('drawer'),
       scrim=document.getElementById('scrim'),
-      dclose=document.getElementById('dclose');
+      dclose=document.getElementById('dclose'),
+      // The two labels are read off the buttons rather than written in here,
+      // so this script is the same in English and in Spanish.
+      openLabel=burger.getAttribute('aria-label'),
+      closeLabel=dclose.getAttribute('aria-label');
   function setMenu(open){
     burger.classList.toggle('on',open);
     drawer.classList.toggle('on',open);
@@ -391,7 +451,7 @@
     scrim.classList.toggle('on',open);
     document.body.classList.toggle('locked',open);
     burger.setAttribute('aria-expanded',open);
-    burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+    burger.setAttribute('aria-label',open?closeLabel:openLabel);
     // Focus follows the panel, or the panel is invisible to a keyboard.
     if(open) dclose.focus();
     else burger.focus({preventScroll:true});
@@ -402,6 +462,20 @@
   drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
   addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
 
+})();
+</script><script>
+(function(){
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lang]');
+    if(!a) return;
+    var l=a.getAttribute('data-lang');
+    try{localStorage.setItem('shi-lang',l);}catch(_){}
+    try{document.cookie='shi-lang='+l+';path=/;max-age=31536000;samesite=lax';}catch(_){}
+    if(e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+    e.preventDefault();
+    try{document.dispatchEvent(new CustomEvent('shi:lang',{detail:l}));}catch(_){}
+    location.href=a.href.split('#')[0].split('?')[0]+location.search+location.hash;
+  });
 })();
 </script>
 
@@ -498,39 +572,39 @@
     <div class="fl"><label for="carea">What are you interested in?</label>
       <select id="carea" name="area">
         <option value="">Choose one</option>
-        <option>Personal lines</option>
-        <option>Commercial lines</option>
-        <option>Customer service</option>
-        <option>Not sure yet &mdash; open to anything</option>
+        <option value="Personal lines">Personal lines</option>
+        <option value="Commercial lines">Commercial lines</option>
+        <option value="Customer service">Customer service</option>
+        <option value="Not sure yet &mdash; open to anything">Not sure yet &mdash; open to anything</option>
       </select></div>
 
     <div class="g2">
       <div class="fl"><label for="clic">Are you licensed?</label>
         <select id="clic" name="licensed">
           <option value="">Choose one</option>
-          <option>Yes &mdash; Texas General Lines</option>
-          <option>Yes &mdash; another state</option>
-          <option>No, but I am willing to get licensed</option>
-          <option>No</option>
+          <option value="Yes &mdash; Texas General Lines">Yes &mdash; Texas General Lines</option>
+          <option value="Yes &mdash; another state">Yes &mdash; another state</option>
+          <option value="No, but I am willing to get licensed">No, but I am willing to get licensed</option>
+          <option value="No">No</option>
         </select></div>
       <div class="fl"><label for="cexp">Years in insurance</label>
         <select id="cexp" name="experience">
           <option value="">Choose one</option>
-          <option>None yet</option>
-          <option>Less than 1 year</option>
-          <option>1&ndash;3 years</option>
-          <option>3&ndash;5 years</option>
-          <option>5&ndash;10 years</option>
-          <option>More than 10 years</option>
+          <option value="None yet">None yet</option>
+          <option value="Less than 1 year">Less than 1 year</option>
+          <option value="1&ndash;3 years">1&ndash;3 years</option>
+          <option value="3&ndash;5 years">3&ndash;5 years</option>
+          <option value="5&ndash;10 years">5&ndash;10 years</option>
+          <option value="More than 10 years">More than 10 years</option>
         </select></div>
     </div>
 
     <div class="fl"><label for="clang">Languages</label>
       <select id="clang" name="languages">
         <option value="">Choose one</option>
-        <option>English and Spanish</option>
-        <option>English only</option>
-        <option>Spanish only</option>
+        <option value="English and Spanish">English and Spanish</option>
+        <option value="English only">English only</option>
+        <option value="Spanish only">Spanish only</option>
       </select></div>
 
     <div class="fl"><label for="cresume">Resume <span class="opt">(PDF or Word)</span></label>
@@ -584,7 +658,16 @@
   .done p{font-size:15.5px;color:var(--muted);font-weight:600;margin-top:10px}
 </style>
 
+<script type="application/json" id="i18n">{"attach": "*** Please attach your resume to this email before sending. ***", "doneMail": "We opened an email for you with your details filled in. Attach your resume and send it, and a person will read it.", "errEmail": "Please add your email.", "errEmailBad": "That email looks incomplete — please check it.", "errFirst": "Please add your first name.", "errPhone": "Please add a phone number we can reach you at.", "mailArea": "Interested in", "mailEmail": "Email", "mailExperience": "Experience", "mailHead": "Application from safehouseins.com/careers", "mailLanguages": "Languages", "mailLicensed": "Licensed", "mailName": "Name", "mailNotes": "Notes", "mailPhone": "Phone", "noUpload": "We will ask you to attach this to an email on the next step — uploads are not switched on yet.", "notStated": "not stated", "sending": "Sending…", "subject": "Application - {name}"}</script>
 <script>
+var T=(function(){
+  var d={};try{d=JSON.parse(document.getElementById('i18n').textContent)||{};}catch(e){}
+  return function(k,v){
+    var s=d[k];
+    if(s==null){ if(window.console) console.error('i18n: missing '+k); return ''; }
+    return v ? String(s).replace(/\{(\w+)\}/g,function(m,n){ return n in v ? v[n] : ''; }) : s;
+  };
+})();
 (function(){
   /* Where applications go. Left unset until the AMS exposes an endpoint — see
      docs/careers-api.md. With nothing configured the form still works: it opens
@@ -602,20 +685,23 @@
   // No endpoint means no upload. Say so here rather than letting someone attach
   // a file that quietly goes nowhere.
   if(!API){
-    hint.textContent='We will ask you to attach this to an email on the next step — '
-      + 'uploads are not switched on yet.';
+    hint.textContent=T('noUpload');
   }
 
   function fail(msg){ err.querySelector('span').textContent=msg; err.style.display='block'; return false; }
   function val(id){ return document.getElementById(id).value.trim(); }
+  // What the visitor saw, for the email they send themselves. The payload
+  // keeps the option's value, which is the same in both languages.
+  function shown(id){ var el=document.getElementById(id);
+    return el.value ? el.options[el.selectedIndex].text.trim() : ''; }
 
   function check(){
     err.style.display='none';
-    if(!val('cfirst')) return fail('Please add your first name.');
-    if(val('cphone').replace(/\D/g,'').length<10) return fail('Please add a phone number we can reach you at.');
+    if(!val('cfirst')) return fail(T('errFirst'));
+    if(val('cphone').replace(/\D/g,'').length<10) return fail(T('errPhone'));
     var em=val('cemail');
-    if(!em) return fail('Please add your email.');
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) return fail('That email looks incomplete — please check it.');
+    if(!em) return fail(T('errEmail'));
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) return fail(T('errEmailBad'));
     return true;
   }
 
@@ -633,22 +719,21 @@
   }
 
   function byEmail(p){
-    var b='Application from safehouseins.com/careers'
-      +'\n\nName: '+p.firstName+' '+p.lastName
-      +'\nPhone: '+p.phone
-      +'\nEmail: '+p.email
-      +'\nInterested in: '+(p.area||'not stated')
-      +'\nLicensed: '+(p.licensed||'not stated')
-      +'\nExperience: '+(p.experience||'not stated')
-      +'\nLanguages: '+(p.languages||'not stated')
-      +(p.notes?'\n\nNotes: '+p.notes:'')
-      +'\n\n*** Please attach your resume to this email before sending. ***';
+    var ns=T('notStated');
+    var b=T('mailHead')
+      +'\n\n'+T('mailName')+': '+p.firstName+' '+p.lastName
+      +'\n'+T('mailPhone')+': '+p.phone
+      +'\n'+T('mailEmail')+': '+p.email
+      +'\n'+T('mailArea')+': '+(shown('carea')||ns)
+      +'\n'+T('mailLicensed')+': '+(shown('clic')||ns)
+      +'\n'+T('mailExperience')+': '+(shown('cexp')||ns)
+      +'\n'+T('mailLanguages')+': '+(shown('clang')||ns)
+      +(p.notes?'\n\n'+T('mailNotes')+': '+p.notes:'')
+      +'\n\n'+T('attach');
     location.href='mailto:contact@safehouseins.com?subject='
-      +encodeURIComponent('Application - '+p.firstName+' '+p.lastName)
+      +encodeURIComponent(T('subject',{name:p.firstName+' '+p.lastName}))
       +'&body='+encodeURIComponent(b);
-    document.getElementById('cdoneP').textContent =
-      'We opened an email for you with your details filled in. Attach your resume and send it, '
-      + 'and a person will read it.';
+    document.getElementById('cdoneP').textContent = T('doneMail');
   }
 
   function finish(){ form.style.display='none'; done.style.display='block';
@@ -661,7 +746,7 @@
     if(!API){ byEmail(p); finish(); return; }
 
     var btn=document.getElementById('csubmit');
-    btn.disabled=true; btn.textContent='Sending…';
+    btn.disabled=true; btn.textContent=T('sending');
 
     var body=new FormData();
     Object.keys(p).forEach(function(k){ body.append(k,p[k]); });
