@@ -11,8 +11,10 @@ Two changes to behaviour, both so the preview does not misrepresent the form:
 
 - `mailto:` is stubbed. shortMail() runs *before* show('done'), so a blocked
   navigation there would strand the visitor on the contact step and look like
-  the form failing to submit. The body it would have sent goes to the console
-  and to window.__mailBody instead.
+  the form failing to submit. The form sends every email through one function,
+  sendMail(), which defers to window.SAFEHOUSE_MAIL when a page sets it; this
+  copy sets it, and the body it would have sent goes to the console and to
+  window.__mailBody instead.
 - A mode toggle is added. Click-through behaves like the real form; every step
   at once unhides all of them and labels each, so the whole flow reads top to
   bottom without answering thirty questions to reach the end.
@@ -131,6 +133,13 @@ PREVIEWS = (('quote.html', 'quote-preview.html', 'quote-preview-es.html', ''),
             ('es/quote.html', 'quote-preview-es.html', 'quote-preview.html', 'es-MX'))
 
 
+# The form's email door (sendMail in quote.html) opens this instead of a mail
+# app: what would have been sent is logged and kept on window.__mailBody.
+MAILSTUB = ("<script>window.SAFEHOUSE_MAIL=function(u){"
+            "var b=decodeURIComponent(String(u).split('&body=')[1]||'');"
+            "console.log('[preview] agent email:\\n'+b); window.__mailBody=b;};</script>")
+
+
 def build(page, name, other, lang):
     src = open(os.path.join(ROOT, page), encoding='utf-8').read()
     here = os.path.dirname(os.path.join(ROOT, page))
@@ -149,10 +158,7 @@ def build(page, name, other, lang):
                  lambda m: m.group(1) + other + m.group(2), src, count=1, flags=re.S)
     style = '\n'.join(re.findall(r'(?s)<style(?: [^>]*)?>(.*?)</style>', src))
     body = re.search(r'(?s)<body[^>]*>(.*?)</body>', src).group(1)
-    body = (body
-        .replace("location.href='mailto:contact@safehouseins.com?subject='",
-                 "console.log('[preview] agent email:\\n'+b); window.__mailBody=b; var __skip='mailto:'+")
-        .replace("+'&body='+encodeURIComponent(b);\n  }", "+'';\n  }", 1))
+    body = MAILSTUB + body
     # The host supplies the <html> element, so the page's language is declared
     # from here; the form reads it (country order, the agency email's wording).
     if lang:

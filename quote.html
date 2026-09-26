@@ -37,6 +37,24 @@
   // ?? so a value injected earlier (server-side, another tag) is never clobbered
   window.SAFEHOUSE_API     = window.SAFEHOUSE_API     ?? 'https://agentlogin.safehouseins.com/public-quote-bridge';
   window.SAFEHOUSE_PREFILL = window.SAFEHOUSE_PREFILL ?? false;
+
+  /* Demo mode, for previews only. assets/quote-demo.js answers for the AMS with
+     the shapes and timings it really uses, so the whole flow can be tried —
+     submit, the comparing screen, results, every hand-off — without sending a
+     quote anywhere. It loads only on a preview host AND with ?demo=<scenario>
+     in the address (remembered on that host until ?demo=off). The live site is
+     not a preview host, so there this does nothing, ?demo or not. */
+  (function(){
+    var h=location.hostname;
+    if(!(h==='localhost'||h==='127.0.0.1'||h==='raw.githack.com'||h==='rawcdn.githack.com'
+         ||/^[^.]+\.[^.]+\.pages\.dev$/.test(h))) return;
+    var q=new URLSearchParams(location.search).get('demo'), on=q&&q!=='off'?q:null;
+    try{ if(q==='off') localStorage.removeItem('shi-demo'); else if(q) localStorage.setItem('shi-demo',q);
+         on=localStorage.getItem('shi-demo'); }catch(e){}
+    if(!on) return;
+    window.SAFEHOUSE_DEMO=on;
+    var s=document.createElement('script'); s.src='assets/quote-demo.js'; document.head.appendChild(s);
+  })();
 </script>
 <style>
   :root{
@@ -4364,9 +4382,18 @@
                   +disp(v.roadside.replace(/ with Trip Interruption$/,''))+(trip?TT('mail.withTrip'):''):'');
         }).join('')
       +(p.notes?'\n\n'+TT('mail.notes')+': '+p.notes:'');
-    location.href='mailto:contact@safehouseins.com?subject='
+    sendMail('mailto:contact@safehouseins.com?subject='
       +encodeURIComponent(TT('mail.subject',{type:LABEL.car,name:p.firstName+' '+p.lastName}))
-      +'&body='+encodeURIComponent(b);
+      +'&body='+encodeURIComponent(b));
+  }
+  /* The one door every email hand-off leaves by. Nothing on the live site sets
+     SAFEHOUSE_MAIL, so there it is always the mail app. A preview's demo mode
+     (assets/quote-demo.js) and the review copies (tools/genpreview.py) set it,
+     so testing never opens a mail app with a made-up quote addressed to the
+     agency. */
+  function sendMail(url){
+    if(typeof window.SAFEHOUSE_MAIL==='function'){ window.SAFEHOUSE_MAIL(url); return; }
+    location.href=url;
   }
 
   /* ---------- results ---------- */
@@ -4868,6 +4895,7 @@
     }
     document.getElementById('doneH').textContent = TT(nm ? 'agent.hNM' : 'agent.h');
     document.getElementById('doneP').textContent = TT(nm ? 'agent.pNM' : 'agent.p') + TT('agent.tail');
+    stepEl('done').querySelector('.tick').innerHTML='&#10003;';
     show('done'); showDiag();
   }
   /* ---------- one line per company, six-month terms only ----------
@@ -5426,7 +5454,7 @@
             +'authorised — check PUBLIC_QUOTE_SECRET matches on both sides.');
           if(r.status===400) console.error('[quote] The AMS rejected the payload',d.fields||d);
           if(!r.ok) throw new Error('HTTP '+r.status);
-          return d;
+          return d||{};
         });
       })
       .catch(function(e){
@@ -5459,11 +5487,29 @@
       })
       .catch(function(){ handOff('mail'); });
 
-    var pollEvery=POLL_EVERY, polls=0, lastStatus='none';
+    /* What a poll can answer. The AMS's GET (functions/public-quote.js in the
+       AMS repo) has two states, and says so in docs/public-quote-api.md:
+
+         status "rating"         still working: poll again. It also comes with
+                                 ok:false and an error when the AMS's own call to
+                                 the rater failed that round — "keep polling",
+                                 in the AMS's words. That answer used to end the
+                                 wait on the spot, at the first poll, and send a
+                                 quote that was still coming to an agent.
+         status "ready", rates   prices.
+         anything else           final: "failed", ready with nothing in it, or an
+                                 answer the contract does not have. Asking again
+                                 will not change it, so it goes to an agent now
+                                 rather than at the deadline.
+
+       No answer at all — a network error, an HTTP error, a poll past its limit —
+       is asked again, as it always was. Nothing polls past the deadline. */
+    var pollEvery=POLL_EVERY, polls=0, lastStatus='none', misses=0, lastMiss='';
     function poll(id,clientId){
       polls++;
       if(Date.now()-started>GIVE_UP){
         note('Gave up after '+Math.round(GIVE_UP/1000)+'s. '+polls+' polls, last status "'+lastStatus+'". '
+            +(misses?misses+' of them were the AMS failing to reach the rater (last: "'+lastMiss+'"). ':'')
             +'Either rating never finished or the bridge is not forwarding GET.');
         handOff(); return; }
       fetch(API+'?id='+encodeURIComponent(id)+'&clientId='+encodeURIComponent(clientId||''),
@@ -5477,15 +5523,19 @@
               handOff(); return null;
             }); }
           if(!r.ok) throw new Error('HTTP '+r.status);
-          return r.json();
+          // a body of JSON null is still an answer, and must not stop the loop
+          return r.json().then(function(d){ return d||{}; });
         })
         .then(function(d){
           if(!d) return;
-          lastStatus=d.status||(d.ok===false?'ok:false':'200');
-          if(d.ok===false||d.status==='failed'){
-            note('Polling ended in failure: '+(d.error||d.status)); handOff(); return; }
+          lastStatus=(d.status||'no status')+(d.ok===false?', ok:false':'');
+          if(d.status==='rating'){
+            if(d.ok===false){ misses++; lastMiss=String(d.error||'no reason given'); }
+            setTimeout(function(){ poll(id,clientId); },pollEvery); return; }
           if(d.rates && d.rates.length){ landed(d); return; }
-          setTimeout(function(){ poll(id,clientId); },pollEvery);
+          note('Polling ended on a final answer with no prices: '+JSON.stringify(d).slice(0,200));
+          console.warn('[quote] The AMS gave a final answer with no prices.',d);
+          handOff();
         })
         .catch(function(){ setTimeout(function(){ poll(id,clientId); },pollEvery); });
     }
@@ -5505,9 +5555,9 @@
       +'\n'+TT('mail.sms')+': '+(sc&&sc.checked?TT('mail.yesAt',{at:new Date().toISOString()}):TT('mail.noCaps'))
       +(isHome()?homeMailBody():'')+(isMoto()?motoMailBody():'')
       +(document.getElementById('cnt').value?'\n\n'+TT('mail.notes')+': '+document.getElementById('cnt').value:'');
-    location.href='mailto:contact@safehouseins.com?subject='
+    sendMail('mailto:contact@safehouseins.com?subject='
       +encodeURIComponent(TT('mail.subject',{type:LABEL[chosenType()],name:document.getElementById('cfn').value}))
-      +'&body='+encodeURIComponent(b);
+      +'&body='+encodeURIComponent(b));
   }
 
   /* The home answers, written out for the agent who has to quote it by hand.

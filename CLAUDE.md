@@ -168,6 +168,14 @@ same payload apart from the consent wording, which is recorded as shown, and
 visitor used — and `tools/i18nbrowser.js` checks exactly that. What the AMS
 still has to add to store it is in `docs/ams-language.md`.
 
+**The quote form has a demo mode, for previews only.** `?demo=<scenario>` on
+raw.githack.com, localhost or a Pages preview loads `assets/quote-demo.js`,
+which answers for the AMS so the flow can be tried end to end without creating
+a lead (see "Demo mode" in `docs/quote-api.md`). The host check at the top of
+`quote.html` is the gate that keeps it off the live site — keep it that way —
+and the form's email hand-offs all go through `sendMail()` so demo mode and the
+review copies can stop a mail app opening.
+
 **The investor page states no financial figures, deliberately.** None has been
 established, and a number on an investor page is a representation somebody may
 act on with their own money. `tools/geninvestors.py` renders its metrics band

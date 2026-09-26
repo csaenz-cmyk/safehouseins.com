@@ -312,6 +312,27 @@ quote. But "Skilled trade", "Professional / office" and "Driver / transport"
 are this form's wording, not the catalogue's — worth checking they land
 somewhere real.
 
+## What a poll can answer
+
+The AMS's GET has two states (`docs/public-quote-api.md` and
+`functions/public-quote.js` in the AMS repo), and the form treats every answer
+as one of four things:
+
+| The poll answers | Meaning | The form |
+|---|---|---|
+| 200 `{ ok: true, status: "rating", rates: [] }` | carriers are still answering | polls again |
+| 200 `{ ok: false, status: "rating", error }` | the AMS could not reach the rater this round — `"TurboRater results fetch failed"`, `"Fetch error: …"` — and says so with *keep polling* | polls again, and counts it for the deadline line below |
+| 200 `{ ok: true, status: "ready", rates: [ … ] }` | prices | shows them |
+| anything else — `status: "failed"`, `"ready"` with no rates, a 202 | final: asking again will not change it | agent hand-off now |
+| no answer: network error, HTTP error, 50s without a reply | not an answer | polls again |
+
+Nothing polls past the deadline (90–150s from the submission, following
+`expectReadyMs`); reaching it is the agent hand-off.
+
+Until September 2026 the form ended the wait on any `ok: false`, so the second
+row — the AMS's own "keep polling" — sent a quote that was still coming to an
+agent at the first poll, eight seconds in.
+
 ## Reading a failure
 
 Every failure lands the visitor on the same "an agent is taking it" screen with
@@ -328,7 +349,8 @@ is how you tell them apart:
 | *"The AMS rejected the payload"* (400) | our fields are wrong; the message names them |
 | 202 | the AMS could not rate. The lead is saved. **Correct behaviour.** The reason it gives is shown in the panel and left on `window.__quote202` |
 | 202, *"VIN required"* | the visitor skipped the VIN. Nothing to fix — see below |
-| *"Gave up after 95s"* | rating never finished, or GET is not being forwarded. The line reports how many polls ran and the last status |
+| *"Gave up after 95s"* | rating never finished, or GET is not being forwarded. The line reports how many polls ran, the last status, and how many of them were the AMS failing to reach the rater (with the last error) |
+| *"a final answer with no prices"* | a poll answered with something other than "rating" and had no rates — `status: "failed"`, or ready with nothing in it. The line quotes the body |
 | *"did not answer the POST within 60s"* | the bridge took the request and never replied. The visitor got the email hand-off; the lead may or may not be in the AMS, so look before re-keying it. A poll that hangs past 50s is abandoned the same way and simply polled again |
 
 ### Testing it
@@ -339,6 +361,31 @@ Run a quote with DevTools open:
 - `GET  …/public-quote-bridge?id=…&clientId=…` starting 8s later, every 4s
 - `window.__quote` holds the quoteId, the ratedCoverage and any warnings
 - `window.__quote202` holds the whole body of a 202, when one comes back
+
+### Demo mode, on previews
+
+To try the whole flow — the comparing screen, results, every hand-off — without
+sending a quote anywhere, open the form on a preview host with `?demo=`:
+
+```
+https://raw.githack.com/csaenz-cmyk/safehouseins.com/<branch>/quote.html?demo=normal
+```
+
+`assets/quote-demo.js` then answers for the AMS, with the shapes and timings
+the AMS really uses: `fast`, `normal`, `slow`, `polling` (four *keep polling*
+answers, then prices), `handoff` (a 202), `deadline`, `network`, `error`. The
+form's own code runs unchanged; only its requests to the bridge are answered
+locally. A bar at the top of the page picks the scenario, runs the same answers
+again, and leaves demo mode. The choice is remembered on that host until
+`?demo=off`.
+
+It loads only on raw.githack.com, rawcdn.githack.com, localhost and Pages
+preview subdomains — the host check at the top of `quote.html` is the gate — so
+`?demo` on safehouseins.com does nothing. The email a real visitor's mail app
+would open goes through `sendMail()`, which demo mode replaces with a note in
+the bar, so testing never writes to the agency. Without `?demo`, a githack
+preview is the real form: the bridge allows that origin, and a submission
+there is a real lead.
 
 ## The VIN decides whether prices appear
 
