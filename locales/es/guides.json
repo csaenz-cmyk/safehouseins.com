@@ -16,5 +16,1735 @@
     "read": "Leer &rarr;",
     "titleSuffix": " · Safe House Insurance",
     "breadcrumb": "Ruta de navegación"
+  },
+  "hub": {
+    "title": "El seguro de auto, explicado",
+    "lede": "Cómo funciona el seguro de auto y qué hacer cuando tu situación es de esas que todos dicen que son un problema. Sin discursos de venta y sin números inventados &mdash; escrito por los agentes que colocan estas pólizas todos los días.",
+    "desc": "Respuestas claras de una agencia independiente con licencia en El Paso: cotizaciones, tarifas, cuánta cobertura necesitas y qué exigen Texas y Nuevo México."
+  },
+  "groups": {
+    "101": {
+      "title": "Seguro de auto 101",
+      "blurb": "Cómo funciona el seguro, en palabras sencillas. Vale la pena dedicarle veinte minutos antes de comprar cualquier cosa."
+    },
+    "situations": {
+      "title": "Si esta es tu situación",
+      "blurb": "Las situaciones que a la gente le dicen que son un problema. La mayoría no lo son, y todas las aseguramos."
+    }
+  },
+  "items": {
+    "compare-car-insurance-quotes": {
+      "nav": "Cómo comparar cotizaciones",
+      "card": "Qué hace que dos cotizaciones sí se puedan comparar, y los cuatro puntos donde casi siempre está la diferencia cuando una sale más barata.",
+      "title": "Cómo comparar cotizaciones de seguro de auto",
+      "desc": "Cómo comparar bien cotizaciones de seguro de auto: la misma cobertura línea por línea, los 4 puntos de donde sale lo barato y qué revisar antes de cambiarte.",
+      "h1": "Cómo comparar cotizaciones de seguro de auto",
+      "lede": "Dos cotizaciones solo se pueden comparar cuando cotizan la misma póliza. La mayoría de las veces no es así, y justo ahí, en lo que cambia de una a otra, está la verdadera razón de la diferencia de precio.",
+      "body": [
+        [
+          "Empieza con tu hoja de declaraciones, no con una página de internet",
+          [
+            "Tu hoja de declaraciones (dec page) es el resumen de una o dos páginas que te manda la aseguradora cuando empieza o se renueva tu póliza. Ahí aparece cada cobertura, cada límite, cada deducible y cada vehículo. Es el único documento que dice lo que de verdad tienes.",
+            "Cotiza con esa hoja en la mano. En la cotización nueva pon los mismos límites que trae la póliza anterior, línea por línea. Casi siempre que alguien dice “te mejoramos el precio por mucho”, cuando lo revisas bien resulta que están comparando una póliza con otra más chica.",
+            "Si no tienes tu hoja de declaraciones, la aseguradora te la manda por correo electrónico en minutos, y nosotros también, si tu póliza está con nosotros."
+          ]
+        ],
+        [
+          "Los cuatro puntos de donde casi siempre sale lo barato",
+          [
+            "Cuando una cotización sale muy por debajo de otra y las dos son de aseguradoras reales, la diferencia casi siempre está en uno de estos cuatro puntos.",
+            {
+              "ul": [
+                "<b>Límites de responsabilidad civil.</b> Una cotización con el mínimo del estado y otra con 100/300 no son el mismo producto. El mínimo es un piso que fijaron los legisladores, no una recomendación.",
+                "<b>Deducibles.</b> La cobertura de colisión (collision) y la integral (comprehensive) tienen cada una el suyo. Subir el deducible de $500 a $1,000 baja la prima, y esa diferencia la pones tú el día que tengas un reclamo.",
+                "<b>Cobertura de conductor sin seguro (uninsured motorist).</b> Es barata de agregar, sale carísimo no tenerla, y es lo primero que le quitan a una cotización de ganga.",
+                "<b>Lo que de plano falta.</b> El auto de renta, la asistencia vial, los gastos médicos o PIP, y la cobertura de cristales se cotizan por vehículo, y es fácil dejarlos fuera de una cotización sin decir nada."
+              ]
+            }
+          ]
+        ],
+        [
+          "Revisa el plazo antes de comparar el precio",
+          [
+            "Las pólizas de auto se hacen por seis o por doce meses. Una prima de seis meses al lado de una de doce parece un ahorro de la mitad. No es un ahorro de nada.",
+            "Divide cada una entre los meses que cubre y compara eso. Si una cotización no dice de qué plazo es, esa es la primera pregunta."
+          ]
+        ],
+        [
+          "El enganche no es el precio",
+          [
+            "“Sin enganche” y “primer pago bajo” son condiciones de financiamiento, no el costo de la póliza. Un primer pago más chico normalmente significa mensualidades más grandes después, a veces con un cargo por servicio en cada una.",
+            "Pide siempre dos números: cuánto cuesta la póliza en total y cuánto tienes que pagar hoy. Responden a preguntas distintas, y solo el primero sirve para comparar."
+          ]
+        ],
+        [
+          "Las preguntas que un formulario de cotización no hace",
+          [
+            "El sistema de cotización le pone precio a lo que escribiste. No pregunta cuánto tiempo estuviste asegurado de verdad antes de esto, de quién era esa póliza, si hubo un periodo sin seguro ni por qué. No pregunta si el estudiante que está en la póliza tiene promedio de B o si vive lejos por la escuela. No pregunta a qué te dedicas, si eres dueño de la casa donde vives, ni si terminaste un curso de manejo defensivo hace dos años.",
+            "Cada una de esas cosas cambia el precio en algunas aseguradoras y en otras no. Es la razón número uno por la que dos personas con el mismo carro y el mismo historial reciben precios distintos."
+          ]
+        ],
+        [
+          "Antes de cambiarte",
+          [
+            {
+              "ul": [
+                "Nunca canceles la póliza anterior antes de que la nueva esté activa. Un hueco de un solo día ya cuenta como periodo sin seguro (lapse), y eso sube lo que pagas en la siguiente aseguradora — a veces más de lo que te acabas de ahorrar.",
+                "Pregunta qué pasa en la renovación. Un precio que solo dura el primer plazo es una forma muy común de ganar en la comparación.",
+                "Revisa que la aseguradora sea una con la que te puedas comunicar. Fíjate cómo se reporta un reclamo y si hay una persona del otro lado.",
+                "Pregunta qué hizo la nueva aseguradora con tu historial de seguro anterior. Si nadie te preguntó por él, no te lo tomaron en cuenta."
+              ]
+            }
+          ]
+        ]
+      ],
+      "key": [
+        "Cotiza con tu hoja de declaraciones en la mano, línea por línea.",
+        "Compara el mismo plazo: seis meses contra seis meses.",
+        "Separa lo que cuesta la póliza de lo que pagas hoy.",
+        "Nunca dejes que la póliza anterior termine antes de que empiece la nueva."
+      ],
+      "faq": [
+        [
+          "¿Cuántas cotizaciones debo pedir?",
+          "Más de una y menos de diez. Lo que importa no es cuántas, sino que las aseguradoras que te cotizan sean de las que sí buscan asegurar una situación como la tuya — un agente que compara cinco aseguradoras que representa y que sí aseguran perfiles como el tuyo te sirve más que quince páginas de internet que no."
+        ],
+        [
+          "¿Pedir cotizaciones afecta mi crédito?",
+          "No. Las aseguradoras hacen una consulta suave (soft inquiry) para calcular tu puntaje de seguro, y eso no afecta tu puntaje de crédito. No es lo mismo que solicitar un préstamo."
+        ],
+        [
+          "¿Me puedo cambiar de aseguradora a mitad de la vigencia de mi póliza?",
+          "Sí, en cualquier momento. La aseguradora anterior te devuelve la parte que no usaste, normalmente en forma proporcional. Eso sí: primero activa la póliza nueva."
+        ]
+      ]
+    },
+    "how-car-insurance-is-calculated": {
+      "nav": "Cómo se calcula tu tarifa",
+      "card": "Lo que de verdad toma en cuenta el sistema que calcula tu tarifa, y qué de todo eso todavía puedes cambiar.",
+      "title": "Cómo se calculan las tarifas del seguro de auto",
+      "desc": "Lo que de verdad entra en la tarifa de tu seguro de auto: el conductor, el vehículo, la cobertura, el lugar y el historial — y qué partes puedes cambiar.",
+      "h1": "Cómo se calcula la tarifa de tu seguro de auto",
+      "lede": "Nadie calcula a mano el precio de tu póliza. Un sistema de tarificación multiplica una tarifa base por una larga serie de factores, y saber cuáles pesan más es casi todo lo que hay que saber.",
+      "body": [
+        [
+          "Los cuatro grupos de factores",
+          [
+            "Cada aseguradora le da a estos factores un peso distinto, y justo por eso el mismo conductor recibe números distintos de compañías distintas. Pero todas toman en cuenta más o menos lo mismo.",
+            {
+              "ul": [
+                "<b>El conductor.</b> Edad, años con licencia, estado civil y, en la mayoría de los estados, un puntaje de seguro. Multas, accidentes en los que tuviste la culpa y reclamos de los últimos años; cuántos años se revisan hacia atrás cambia de una aseguradora a otra.",
+                "<b>El vehículo.</b> Año, marca, modelo y versión. Cuánto cuesta repararlo, qué tan seguido se roban ese modelo, qué tan bien protege a quienes van adentro y qué equipo de seguridad trae.",
+                "<b>La cobertura.</b> Tus límites de responsabilidad civil, tus deducibles y cada cobertura opcional que dejas o quitas.",
+                "<b>Dónde vive el carro.</b> El código postal donde se queda de noche, no donde trabajas. La frecuencia de reclamos, los robos, el clima y el costo de las reparaciones en ese código postal."
+              ]
+            }
+          ]
+        ],
+        [
+          "El factor que casi todos subestiman: la cobertura continua",
+          [
+            "Cuánto tiempo llevas asegurado sin interrupciones, y con qué límites, es por sí solo uno de los descuentos más grandes en una póliza de auto. Un conductor que viene de un periodo sin seguro (lapse) paga bastante más que el mismo conductor con tres años seguidos de seguro — mismo carro, mismo historial.",
+            "También es el factor que más seguido se registra mal, porque el formulario en línea hace una sola pregunta, a secas, y sigue adelante. De quién era la póliza, las fechas exactas y la razón de cualquier interrupción: todo eso importa, y en algunas aseguradoras un periodo sin seguro de menos de treinta días se trata muy distinto a uno más largo."
+          ]
+        ],
+        [
+          "Lo que puedes cambiar, más o menos en orden de impacto",
+          [
+            {
+              "ul": [
+                "Tus límites y deducibles. Es lo que más directamente mueve el precio, y lo que tiene un costo real a cambio.",
+                "Con qué aseguradora estás. El mismo perfil tiene precios muy distintos de una compañía a otra, y esa diferencia suele ser más grande que cualquier otra cosa de esta lista.",
+                "Descuentos para los que calificas y que no has pedido.",
+                "Cómo pagas — pagar de contado y los pagos automáticos dan descuento en la mayoría de las aseguradoras.",
+                "Qué vehículo compras después. Dos carros del mismo rango de precio pueden salir muy distintos a la hora de asegurarlos."
+              ]
+            },
+            "Lo que no puedes cambiar rápido: tu historial, tu domicilio y cuánto tiempo llevas asegurado. Esas cosas mejoran con el tiempo, y por eso vale la pena volver a comparar tu póliza cada año, no solo una vez."
+          ]
+        ],
+        [
+          "Por qué una multa cuesta más que la multa",
+          [
+            "Una infracción de tránsito se queda en el cálculo de tu tarifa por años, no por meses — por lo general tres, a veces cinco. El recargo se aplica en cada renovación durante ese tiempo, así que el costo real de una multa es la multa misma más varios años de una prima más alta.",
+            "También es un punto donde las aseguradoras son muy distintas. Una compañía te pone un recargo fuerte por una primera infracción menor; otra casi ni la toma en cuenta. Cuál es cuál no se publica en ningún lado, y es la mayor parte de lo que de verdad sabe un agente que coloca estas pólizas todos los días."
+          ]
+        ],
+        [
+          "El puntaje de seguro, en pocas palabras",
+          [
+            "La mayoría de los estados permite que las aseguradoras usen un puntaje de seguro basado en tu crédito como uno de los factores de la tarifa. No es tu puntaje de crédito y no se usa de la misma forma, pero se calcula con el mismo historial crediticio, y sí mueve el precio.",
+            "Ni Texas ni Nuevo México lo prohíben. Si tu crédito ha mejorado desde que se hizo la póliza, esa es una razón de peso para volver a comparar."
+          ]
+        ]
+      ],
+      "key": [
+        "Las aseguradoras le dan un peso distinto a los mismos factores — de ahí sale la diferencia de precios.",
+        "La cobertura continua es uno de los descuentos más grandes, y el que más seguido se pasa por alto.",
+        "Una multa cuesta la multa más varios años de recargo.",
+        "Vuelve a comparar cada año: tu historial de manejo y tu historial de seguro siguen mejorando."
+      ],
+      "faq": [
+        [
+          "¿Por qué subió mi tarifa si no cambió nada?",
+          "Normalmente es porque la aseguradora subió las tarifas de todas sus pólizas en tu estado, y eso no tiene nada que ver contigo. Ese es el mejor momento para volver a comparar, porque el aumento no les llegó a todas las compañías al mismo tiempo."
+        ],
+        [
+          "¿De verdad mi trabajo afecta mi tarifa?",
+          "En algunas aseguradoras sí, y en otras para nada. Donde sí cuenta, normalmente es un descuento por ocupación, no una penalización. Vale la pena decir con exactitud a qué te dedicas."
+        ],
+        [
+          "¿Mi tarifa depende de dónde estaciono el carro o de dónde trabajo?",
+          "De dónde se queda el carro por la noche. La distancia a tu trabajo se pregunta aparte y pesa mucho menos."
+        ]
+      ]
+    },
+    "how-much-car-insurance-you-need": {
+      "nav": "Cuánta cobertura necesitas",
+      "card": "Por qué el mínimo del estado es un piso y no una recomendación, y cómo elegir límites que puedas justificar.",
+      "title": "¿Cuánto seguro de auto necesitas?",
+      "desc": "Cómo elegir límites y deducibles: qué cubre de verdad el mínimo del estado, qué pasa cuando no alcanza y cómo ajustar tu seguro de auto a lo que tienes.",
+      "h1": "¿Cuánto seguro de auto necesitas en realidad?",
+      "lede": "El mínimo legal es lo menos que la ley te permite tener, no lo que alcanza para cubrir un mal día. La diferencia entre uno y otro normalmente es poca en la prima y muy grande en el reclamo.",
+      "body": [
+        [
+          "Qué significan los límites de responsabilidad civil",
+          [
+            "La responsabilidad civil (liability) se escribe con tres números — por ejemplo, 30/60/25. El primero es lo máximo que paga la póliza por las lesiones de una sola persona. El segundo es lo máximo por todas las lesiones en un mismo accidente. El tercero es lo máximo por los daños a la propiedad de la otra parte.",
+            "Esos son topes. Cuando la cuenta rebasa el tope, lo demás te toca a ti: tus ahorros, tu sueldo, lo que un juez decida que puedes pagar.",
+            "Una sola hospitalización y un solo carro de modelo reciente bastan para agotar el mínimo del estado sin que pase nada fuera de lo común. Ese es el caso para el que hay que cotizar, no el golpe en la defensa."
+          ]
+        ],
+        [
+          "Una forma práctica de elegir un número",
+          [
+            "Ten suficiente responsabilidad civil para cubrir lo que podrías perder. Para la mayoría de las familias, la respuesta honesta está en algún punto arriba del mínimo y abajo de lo que te recomendaría un abogado si el miedo fuera gratis.",
+            {
+              "ul": [
+                "Si rentas y tienes pocos ahorros, el mínimo es una opción válida, pero entiende bien lo que implica.",
+                "Si eres dueño de tu casa, tienes patrimonio o un sueldo que te podrían embargar, los límites más altos son la protección más barata que vas a encontrar para todo eso.",
+                "Si ya tienes 100/300, pregunta cuánto cuesta 250/500. Ese paso normalmente sale mucho más barato que el primero para salir del mínimo."
+              ]
+            }
+          ]
+        ],
+        [
+          "Conductor sin seguro: la cobertura que hay que pensar con más cuidado",
+          [
+            "La responsabilidad civil protege a los demás de ti. La cobertura de conductor sin seguro o con seguro insuficiente (uninsured/underinsured motorist) te protege a ti del conductor que no tiene nada — o que trae el mínimo, te chocó y te dejó una cuenta varias veces más grande que ese mínimo.",
+            "Tanto Texas como Nuevo México obligan a las aseguradoras a ofrecerla, y los dos exigen que tu rechazo sea por escrito. Ese requisito existe porque los legisladores saben lo que pasa sin ella.",
+            "Lo más sensato, de entrada, es tenerla con los mismos límites que tu responsabilidad civil."
+          ]
+        ],
+        [
+          "Deducibles: lo que compras es cuándo pagas",
+          [
+            "Un deducible no es una cuota. Es la parte de cada reclamo que aceptaste pagar tú, y subirlo es una forma de comprar una prima más baja con dinero que vas a deber después si algo pasa.",
+            "La prueba es sencilla. Elige el deducible más alto que podrías pagar mañana sin que sea una crisis. Por debajo de ese número estás asegurando de más; por encima, en realidad no estás cubierto."
+          ]
+        ],
+        [
+          "Cuándo quitar la cobertura de colisión y la integral",
+          [
+            "En un carro más viejo llega un punto en que la prima por daños a tu propio carro se acerca a lo más que la aseguradora te llegaría a pagar, porque nunca te va a pagar más que el valor real en efectivo del carro (actual cash value) menos el deducible.",
+            "No es una regla de años ni de millaje — son cuentas sobre ese carro en particular. Pregunta cuánto cuestan por sí solas la cobertura de colisión (collision) y la integral (comprehensive), y compáralo con lo que vale el carro. Si el carro está financiado o en arrendamiento (lease), eso lo decide la financiera o la arrendadora, no tú."
+          ]
+        ],
+        [
+          "Las coberturas que la gente se salta y luego extraña",
+          [
+            {
+              "ul": [
+                "<b>Auto de renta (rental reimbursement).</b> Se cotiza por vehículo y normalmente cuesta poco. La pregunta es cómo vas a llegar al trabajo durante dos semanas.",
+                "<b>Asistencia vial.</b> Muchas veces sale más barata que una membresía aparte, y ya va junto con la póliza.",
+                "<b>Gastos médicos (MedPay) o PIP.</b> Pagan por ti y por tus pasajeros sin importar quién tuvo la culpa, y sin deducible. En Texas, la aseguradora tiene que ofrecerte la cobertura PIP, y si la rechazas, tiene que ser por escrito.",
+                "<b>Cobertura GAP.</b> Si el carro está financiado y vale menos de lo que debes del préstamo, esta cobertura cubre la diferencia. Donde más importa es con carros nuevos, préstamos largos y enganches chicos."
+              ]
+            }
+          ]
+        ]
+      ],
+      "key": [
+        "El mínimo del estado es un piso que fijaron los legisladores, no un consejo.",
+        "Elige tu responsabilidad civil según lo que podrías perder, no según el carro.",
+        "Ponle a la cobertura de conductor sin seguro los mismos límites que a tu responsabilidad civil.",
+        "Fija el deducible en el pago más grande que podrías hacer mañana."
+      ],
+      "faq": [
+        [
+          "¿Existe de verdad la “cobertura completa”?",
+          "No como un producto definido. “Cobertura completa” (full coverage) es una forma corta de decir responsabilidad civil más colisión más integral, que es lo que exige una financiera. No quiere decir que todo esté cubierto, y dos pólizas de cobertura completa pueden ser muy distintas."
+        ],
+        [
+          "¿Mi póliza cubre a otra persona que maneje mi carro?",
+          "Normalmente sí — el seguro de auto sigue primero al carro. Pero alguien que vive contigo, maneja seguido y no está en la póliza es un problema, y un conductor excluido nunca está cubierto."
+        ],
+        [
+          "¿Necesito seguro para un carro que no estoy manejando?",
+          "Si está registrado y existe, sí, y para un carro que de verdad no sale a la calle, muchas veces se puede poner una cobertura de almacenamiento que es solo integral. Cancelar de plano crea un periodo sin seguro (lapse), y eso después cuesta más de lo que habría costado la cobertura de almacenamiento."
+        ]
+      ]
+    },
+    "car-insurance-discounts": {
+      "nav": "Descuentos en el seguro de auto",
+      "card": "Los dieciséis descuentos por los que preguntamos en cada cotización, por qué un formulario en línea solo encuentra algunos y cuándo volver a preguntar.",
+      "title": "Descuentos en seguro de auto: la lista completa",
+      "desc": "Los descuentos en seguro de auto por los que vale la pena preguntar, por qué un formulario en línea solo encuentra algunos y cuándo volver a pedirlos.",
+      "h1": "Descuentos en el seguro de auto, y por qué tienes que pedirlos",
+      "lede": "Los descuentos no se aplican porque te los merezcas. Se aplican porque alguien hizo la pregunta correcta, y un formulario de cotización solo hace unas cuantas.",
+      "body": [
+        [
+          "Descuentos por tu historial",
+          [
+            {
+              "ul": [
+                "<b>Seguro anterior.</b> Haber tenido cobertura continua antes de esta póliza, y con qué límites. Es de los descuentos más grandes que hay.",
+                "<b>Buen conductor.</b> Un historial limpio durante los años que revisa la aseguradora, que no son los mismos en todas.",
+                "<b>Manejo defensivo.</b> Un curso aprobado por el estado. Vale la pena preguntar por él en la renovación, no solo cuando se hace la póliza.",
+                "<b>Cotizar con anticipación.</b> Pedir tu cotización antes de que se venza tu póliza actual, y no el mismo día en que se vence."
+              ]
+            }
+          ]
+        ],
+        [
+          "Descuentos por tu hogar",
+          [
+            {
+              "ul": [
+                "<b>Varias pólizas.</b> Una póliza de casa, para inquilinos o de casa móvil con la misma compañía que la del carro.",
+                "<b>Varios carros.</b> Más de un vehículo en la póliza.",
+                "<b>Casa propia.</b> Ser dueño de la casa donde vives — y en varias aseguradoras aplica aunque el seguro de la casa esté con otra compañía.",
+                "<b>Buen estudiante.</b> Un promedio de B o más para un estudiante que está en la póliza.",
+                "<b>Estudiante lejos de casa.</b> Un estudiante que vive tan lejos por la escuela que no está manejando el carro."
+              ]
+            }
+          ]
+        ],
+        [
+          "Descuentos por el carro",
+          [
+            {
+              "ul": [
+                "<b>Antirrobo.</b> Alarma, inmovilizador o rastreador, de fábrica o instalado después.",
+                "<b>Equipo de seguridad.</b> Frenos antibloqueo, bolsas de aire, cámara de reversa, asistente de carril y todo lo demás que el carro ya trae.",
+                "<b>Según cómo manejas.</b> Dejar que la aseguradora vea cómo se maneja de verdad el carro, con una aplicación o un dispositivo que se conecta al vehículo. No le conviene a todo el mundo, y un buen agente te lo va a decir."
+              ]
+            }
+          ]
+        ],
+        [
+          "Descuentos por cómo pagas y quién eres",
+          [
+            {
+              "ul": [
+                "<b>Pago de contado.</b> Pagar todo el plazo de la póliza por adelantado, en vez de en mensualidades.",
+                "<b>Pagos automáticos.</b> Dejar que la aseguradora cobre la prima automáticamente de tu cuenta.",
+                "<b>Sin papel.</b> Documentos y recibos por correo electrónico.",
+                "<b>Ocupación y afiliación.</b> Maestros, enfermeros, militares, personal de emergencias y una larga lista de empresas, sindicatos y asociaciones de exalumnos."
+              ]
+            }
+          ]
+        ],
+        [
+          "Por qué el formulario en línea solo encuentra algunos",
+          [
+            "Cada aseguradora tiene una lista distinta, un nombre distinto para el mismo descuento y reglas distintas sobre quién califica. Un formulario de cotización tiene que ser lo bastante corto para que la gente lo termine, así que pregunta por los cuatro o cinco descuentos que le aplican a más gente y ahí se queda.",
+            "Nadie está escondiendo nada. Simplemente esas preguntas no vienen en el formulario, y un descuento por el que nadie preguntó no se aplica."
+          ]
+        ],
+        [
+          "Vuelve a preguntar en la renovación",
+          [
+            "Los descuentos no son permanentes y tu situación cambia. Un estudiante subió su promedio a B. Compraste una casa. Terminaste un curso de manejo defensivo. Te mudaste y ahora el carro se queda en una zona más barata de asegurar.",
+            "Nada de eso le llega a la aseguradora por sí solo. La renovación es el momento de repasar la lista otra vez, y es justo cuando la mayoría de la gente no lo hace."
+          ]
+        ]
+      ],
+      "key": [
+        "Un descuento por el que nadie preguntó no se aplica.",
+        "La lista de cada aseguradora es distinta — y la diferencia de precio es real.",
+        "El descuento por casa propia muchas veces aplica sin tener que juntar pólizas.",
+        "Repasa la lista en cada renovación, no solo al principio."
+      ],
+      "faq": [
+        [
+          "¿Los descuentos se suman?",
+          "Por lo general sí, aunque la mayoría de las aseguradoras les pone un tope total y algunos descuentos no se pueden combinar entre sí. El orden en que se aplican lo decide la aseguradora, no tú."
+        ],
+        [
+          "¿Vale la pena la aplicación que mide cómo manejas?",
+          "Para alguien que hace un trayecto corto al trabajo, de día y manejando con calma, puede ser uno de los descuentos más grandes que hay. Para alguien que maneja a altas horas de la noche, frena fuerte o recorre distancias largas, puede subir el precio en la renovación. Antes de inscribirte, pregunta si el programa puede subir tu tarifa."
+        ],
+        [
+          "¿Se puede aplicar un descuento después de que empezó la póliza?",
+          "Normalmente sí, y muchas veces desde el inicio del plazo. Vale la pena hacer una llamada en cuanto cambie algo."
+        ]
+      ]
+    },
+    "how-to-save-on-car-insurance": {
+      "nav": "Cómo ahorrar en tu seguro de auto",
+      "card": "Lo que de verdad mueve el precio, en orden, y las dos cosas que parecen ahorro y no lo son.",
+      "title": "Cómo ahorrar en tu seguro de auto",
+      "desc": "Formas prácticas de pagar menos por tu seguro de auto sin que en realidad estés comprando menos cobertura — y las dos movidas que parecen ahorro y no lo son.",
+      "h1": "Cómo ahorrar en tu seguro de auto",
+      "lede": "Hay formas reales de pagar menos, y hay formas de pagar menos que en realidad son solo tener menos cobertura. Vale la pena saber cuál es cuál antes de hacer cualquiera de las dos.",
+      "body": [
+        [
+          "Vuelve a comparar una vez al año, a propósito",
+          [
+            "Es lo que más puede bajar tu precio, y casi nadie lo hace. Las aseguradoras suben sus tarifas en fechas distintas, se ponen más o menos exigentes con distintos tipos de conductores, y entran y salen de los estados. La compañía que más te convenía hace dos años muchas veces ya no es la mejor ahora.",
+            "De tu lado también cambian cosas: una infracción ya dejó de contar, un estudiante subió su promedio a B, mejoró tu crédito, compraste una casa. Nada de eso le llega a tu aseguradora por sí solo."
+          ]
+        ],
+        [
+          "Elige tus deducibles a conciencia",
+          [
+            "Subir los deducibles de colisión (collision) y de la cobertura integral (comprehensive) baja la prima de inmediato. Es una decisión válida, no un truco — estás aceptando pagar una parte más grande de un reclamo a cambio de pagar menos cada mes.",
+            "Hazlo con una cantidad que de verdad podrías juntar mañana, y hazlo sabiendo que el ahorro es real cada mes y el costo es real el día del reclamo."
+          ]
+        ],
+        [
+          "Paga de la forma que cuesta menos",
+          [
+            "Pagar de contado da descuento en la mayoría de las aseguradoras, y además te ahorra el cargo por pago a plazos que se suma, sin hacer ruido, a cada mensualidad. Los pagos automáticos y la opción sin papel normalmente dan descuentos adicionales.",
+            "Si no puedes pagar de contado, pregunta cuánto es el cargo por cada mensualidad y cuánto suma en todo el plazo. Muchas veces esa es la diferencia entre dos cotizaciones."
+          ]
+        ],
+        [
+          "Pregunta cuánto pesa el carro en el precio",
+          [
+            "Dos vehículos del mismo precio pueden salir muy distintos a la hora de asegurarlos. El costo de reparación, qué tanto se roban ese modelo y cómo le va en las estadísticas de choques: todo eso entra en la tarifa.",
+            "Vale la pena preguntarlo antes de firmar por tu próximo carro, no después. Es una pregunta de cinco minutos y puede cambiar tu decisión."
+          ]
+        ],
+        [
+          "Las dos que parecen ahorro y no lo son",
+          [
+            {
+              "ul": [
+                "<b>Quitar la cobertura de conductor sin seguro.</b> Es barata, y es la única cobertura que paga cuando la persona que te chocó no tiene nada. Por algo los dos estados exigen que tu rechazo sea por escrito.",
+                "<b>Bajar al mínimo del estado sin hacer cuentas.</b> Si tu límite de responsabilidad civil es menor que lo que tienes, ese ahorro es un préstamo que se cobra el día que te vaya mal."
+              ]
+            }
+          ]
+        ],
+        [
+          "Y una que no es ni una cosa ni la otra",
+          [
+            "Un periodo sin seguro (lapse). Cancelar el seguro unas semanas para ahorrarte un pago sube lo que pagas en la siguiente aseguradora durante años, y en los dos estados puede poner en riesgo el registro de tu vehículo. Es la forma más cara que existe de ahorrar en el seguro de auto."
+          ]
+        ]
+      ],
+      "key": [
+        "Volver a comparar cada año mueve el precio más que cualquier otra cosa.",
+        "Pagar de contado evita dos cosas: perder el descuento y pagar el cargo por mensualidades.",
+        "Pregunta cuánto cuesta asegurar un carro antes de comprarlo.",
+        "Quedarte sin seguro es el ahorro más caro que hay."
+      ],
+      "faq": [
+        [
+          "¿Me perjudica cambiar de aseguradora cada año?",
+          "No. No hay ninguna penalización por cambiar de compañía. Lo que sí te perjudica es un hueco sin seguro entre una y otra, y no hay por qué tenerlo."
+        ],
+        [
+          "¿De verdad cuesta más pagar mes con mes?",
+          "Casi siempre, por dos lados: el descuento por pago de contado que no te dieron y un cargo por cada mensualidad. En un año, las dos cosas juntas suelen sumar más de lo que la gente espera."
+        ],
+        [
+          "¿Una aseguradora más barata es peor para pagar reclamos?",
+          "No necesariamente, y la relación entre una cosa y la otra es más débil de lo que la gente cree. Lo que importa más es si la póliza se hizo bien desde el principio, que es la parte que revisa una persona."
+        ]
+      ]
+    },
+    "types-of-car-insurance": {
+      "nav": "Los 6 tipos principales de cobertura",
+      "card": "Las seis coberturas que forman una póliza de auto, qué paga cada una y cuáles son obligatorias.",
+      "title": "Los 6 tipos principales de seguro de auto",
+      "desc": "Las seis coberturas de una póliza de auto — responsabilidad civil, colisión, integral, conductor sin seguro, gastos médicos y PIP — y qué paga cada una.",
+      "h1": "Las seis coberturas que forman una póliza de auto",
+      "lede": "Una póliza de seguro de auto no es una sola cosa. Es un paquete de coberturas separadas, cada una con su propio límite, su propio deducible y su propia razón de existir.",
+      "body": [
+        [
+          "1. Responsabilidad civil",
+          [
+            "La responsabilidad civil (liability) les paga a los demás cuando el choque es tu culpa — sus lesiones, con la cobertura de lesiones corporales, y sus bienes, con la de daños a la propiedad. Es obligatoria en Texas y en Nuevo México.",
+            "No paga nada por tu propio carro ni por tus propias lesiones. Para eso está el resto del paquete."
+          ]
+        ],
+        [
+          "2. Colisión",
+          [
+            "La cobertura de colisión (collision) paga para reparar o reponer tu carro cuando choca con algo o algo lo choca — otro vehículo, un poste, una banqueta, el suelo. No importa quién tuvo la culpa; el deducible aplica de todos modos.",
+            "Es opcional por ley, pero la exigen todas las financieras y arrendadoras."
+          ]
+        ],
+        [
+          "3. Cobertura integral",
+          [
+            "La cobertura integral (comprehensive) paga los daños que no son un choque: granizo, robo, incendio, inundación, vandalismo, un parabrisas estrellado, un animal en el camino. Tiene su propio deducible, aparte del de colisión.",
+            "En zonas donde cae granizo, esta es la cobertura que de verdad vale lo que cuesta."
+          ]
+        ],
+        [
+          "4. Conductor sin seguro o con seguro insuficiente",
+          [
+            "La cobertura de conductor sin seguro o con seguro insuficiente (uninsured/underinsured motorist) paga cuando el conductor que tuvo la culpa no tiene seguro, o no tiene suficiente. Los dos estados obligan a las aseguradoras a ofrecerla y exigen que tu rechazo sea por escrito.",
+            "Es la cobertura que tapa el hueco que dejó el otro conductor, y por eso quitarla para ahorrar un poco es la decisión de la que es más probable que te arrepientas."
+          ]
+        ],
+        [
+          "5. Gastos médicos (MedPay)",
+          [
+            "Paga las cuentas médicas tuyas y de tus pasajeros después de un accidente, sin importar quién lo causó y sin deducible. Va antes que tu seguro médico y cubre los deducibles y copagos que vienen después de un choque."
+          ]
+        ],
+        [
+          "6. Protección contra lesiones personales (PIP)",
+          [
+            "Es más amplia que MedPay: gastos médicos, más una parte del sueldo que dejas de ganar y el costo de pagarle a alguien por las tareas que ya no puedes hacer tú. En Texas la aseguradora tiene que ofrecerla, y si la rechazas, tiene que ser por escrito.",
+            "Un vehículo lleva MedPay o PIP, no las dos."
+          ]
+        ],
+        [
+          "Los extras que no son coberturas exactamente",
+          [
+            {
+              "ul": [
+                "<b>Auto de renta (rental reimbursement).</b> Un carro para manejar mientras reparan el tuyo después de un reclamo cubierto.",
+                "<b>Asistencia vial.</b> Grúa, paso de corriente, cerrajería, cambio de llanta y gasolina.",
+                "<b>Cobertura GAP.</b> La diferencia entre lo que vale el carro y lo que todavía debes de él.",
+                "<b>SR-22.</b> No es una cobertura — es un formulario que la aseguradora presenta ante el estado para comprobar que la póliza existe."
+              ]
+            }
+          ]
+        ]
+      ],
+      "key": [
+        "La responsabilidad civil les paga a los demás; la de colisión y la integral pagan por tu carro.",
+        "La de colisión y la integral tienen deducibles separados.",
+        "La de conductor sin seguro es la que tapa el hueco que deja el otro conductor.",
+        "Un vehículo lleva MedPay o PIP, nunca las dos."
+      ],
+      "faq": [
+        [
+          "¿Cuáles de estas son obligatorias?",
+          "La responsabilidad civil, en los dos estados. Todo lo demás es opcional por ley, aunque una financiera te va a exigir colisión e integral mientras haya un préstamo."
+        ],
+        [
+          "¿Pago dos deducibles si aplican las dos coberturas?",
+          "Solo uno por reclamo — el de la cobertura que esté pagando. Un reclamo por granizo es de integral; pegarle a un poste es de colisión."
+        ],
+        [
+          "¿Los cristales van aparte?",
+          "Normalmente entran en la cobertura integral, a veces con su propio deducible más bajo o sin deducible. Cambia según la aseguradora y vale la pena preguntar."
+        ]
+      ]
+    },
+    "liability-car-insurance": {
+      "nav": "Responsabilidad civil",
+      "card": "La cobertura que exige la ley, qué significan los tres números y qué pasa cuando no alcanzan.",
+      "title": "Seguro de responsabilidad civil para auto, explicado",
+      "desc": "Qué cubre la responsabilidad civil (daños a terceros) de tu seguro de auto, qué significa cada número de 30/60/25 y qué pasa si un reclamo rebasa tu límite.",
+      "h1": "Seguro de responsabilidad civil para auto",
+      "lede": "La parte de la póliza que de verdad exige la ley, y la que evita que una mala tarde termine en un embargo sobre todo lo que tienes.",
+      "body": [
+        [
+          "Qué paga",
+          [
+            "La responsabilidad civil (liability), lo que también se conoce como daños a terceros, les paga a los demás cuando un accidente es tu culpa. Se divide en dos coberturas que normalmente se cotizan juntas.",
+            {
+              "ul": [
+                "<b>Responsabilidad civil por lesiones corporales (bodily injury).</b> Sus gastos médicos, el sueldo que dejan de ganar y lo que un juez les otorgue por dolor y sufrimiento.",
+                "<b>Responsabilidad civil por daños a la propiedad (property damage).</b> Su vehículo y cualquier otra cosa que golpees — una cerca, el frente de un negocio, un poste de luz."
+              ]
+            },
+            "También paga tu defensa legal si te demandan por un accidente cubierto, y ese costo no sale de tu límite."
+          ]
+        ],
+        [
+          "Qué significan los tres números",
+          [
+            "Cuando se escribe 30/60/25, los números están en miles de dólares.",
+            {
+              "ul": [
+                "<b>30</b> — lo máximo que se paga por las lesiones de una sola persona.",
+                "<b>60</b> — lo máximo que se paga por todas las lesiones en un mismo accidente.",
+                "<b>25</b> — lo máximo que se paga por los daños a la propiedad de la otra parte."
+              ]
+            },
+            "Algunas pólizas usan, en cambio, un límite único combinado: una sola bolsa para todo el accidente en vez de tres topes."
+          ]
+        ],
+        [
+          "Qué pasa si se rebasa el límite",
+          [
+            "La aseguradora paga hasta ese número y ahí se detiene. Todo lo que pase de ahí te toca a ti en lo personal — tus ahorros, tu sueldo y, en algunos casos, un embargo sobre tus bienes.",
+            "Ese es el caso para el que vale la pena cotizar. Una sola lesión grave y un carro de modelo reciente bastan para agotar el límite mínimo del estado sin que pase nada fuera de lo común."
+          ]
+        ],
+        [
+          "Qué no paga",
+          [
+            {
+              "ul": [
+                "Tu propio carro — para eso está la cobertura de colisión.",
+                "Tus propias lesiones — para eso están MedPay, PIP o tu seguro médico.",
+                "Los daños cuando el otro conductor tiene la culpa — eso le toca a su responsabilidad civil, o a tu cobertura de conductor sin seguro si no tiene.",
+                "Cualquier cosa que se haga a propósito."
+              ]
+            }
+          ]
+        ],
+        [
+          "Qué límites elegir",
+          [
+            "Los límites más altos de responsabilidad civil están entre las coberturas más baratas que vas a comprar, porque los reclamos grandes contra los que te protegen son poco comunes. El primer paso arriba del mínimo del estado normalmente cuesta mucho menos de lo que la gente espera, y el siguiente, todavía menos.",
+            "Una prueba útil: si un reclamo fuera del doble de tu límite actual, ¿de dónde saldría el resto?"
+          ]
+        ]
+      ],
+      "key": [
+        "La responsabilidad civil les paga a los demás, nunca a ti ni a tu carro.",
+        "Los tres números son por persona, por accidente y por daños a la propiedad.",
+        "La defensa legal se paga aparte del límite, no sale de él.",
+        "Subir los límites sale inusualmente barato por cada dólar de protección."
+      ],
+      "faq": [
+        [
+          "¿Mi responsabilidad civil me cubre en un carro rentado?",
+          "Normalmente sí, dentro de los Estados Unidos, con tus propios límites. Los daños al carro rentado son otro tema y dependen de si tienes cobertura de colisión."
+        ],
+        [
+          "¿Tengo cobertura si le presto mi carro a un amigo?",
+          "Por lo general sí — la cobertura sigue primero al carro. Alguien que vive contigo y maneja seguido debe estar en la póliza, y un conductor excluido nunca está cubierto."
+        ],
+        [
+          "¿Qué es una póliza sombrilla (umbrella)?",
+          "Una póliza aparte que va encima de la responsabilidad civil de tu auto y de tu casa, y que paga cuando ya se agotaron esos límites. Normalmente es barata para la protección que da, y para contratarla tienes que tener ciertos límites mínimos en tus pólizas de auto y de casa."
+        ]
+      ]
+    },
+    "collision-and-comprehensive": {
+      "nav": "Colisión e integral",
+      "card": "Las dos coberturas que pagan por tu propio carro, cómo funcionan los deducibles y cuándo dejan de valer la pena.",
+      "title": "Cobertura de colisión e integral: qué cubre cada una",
+      "desc": "La diferencia entre la cobertura de colisión y la integral, cómo funciona cada deducible y cuándo conviene quitárselas a un carro que ya tiene sus años.",
+      "h1": "Cobertura de colisión e integral",
+      "lede": "La responsabilidad civil (liability) les paga a los demás. Estas dos son las que pagan por tu carro — y son dos coberturas, no una, cada una con su propio deducible.",
+      "body": [
+        [
+          "Cobertura de colisión",
+          [
+            "La cobertura de colisión (collision) paga la reparación o el reemplazo de tu carro cuando choca con algo: otro vehículo, un poste, la banqueta, una barda o hasta el mismo pavimento, si el carro se voltea.",
+            "Paga tengas o no la culpa del accidente. Si la culpa es del otro conductor y tiene seguro, normalmente paga su seguro de responsabilidad civil — pero tu cobertura de colisión es la que te arregla el carro ahora, y no hasta que se termine de discutir quién tuvo la culpa. Por lo general, te devuelven el deducible si tu aseguradora recupera el dinero de la otra parte."
+          ]
+        ],
+        [
+          "Cobertura integral",
+          [
+            "La cobertura integral (comprehensive) paga casi todo lo que no sea un choque; justo por eso, en la póliza muchas veces aparece como “other than collision”, es decir, “lo que no es colisión”.",
+            {
+              "ul": [
+                "Granizo, viento e inundación",
+                "Robo del carro, y los daños si te lo abren para robar",
+                "Incendio y explosión",
+                "Vandalismo",
+                "Un árbol u otros objetos que le caigan encima",
+                "Chocar con un animal — eso es integral, no colisión",
+                "Cristales, incluido un parabrisas estrellado"
+              ]
+            }
+          ]
+        ],
+        [
+          "Cómo funcionan los deducibles",
+          [
+            "Cada cobertura tiene su propio deducible, y tú escoges los dos. Un reclamo, un deducible: el de la cobertura que esté pagando.",
+            "Subir el deducible baja la prima de inmediato. El deducible correcto es el más alto que podrías juntar mañana sin que se vuelva una crisis; si lo pones más bajo, estás comprando más seguro del que necesitas, y si lo pones más alto, en realidad no estás cubierto."
+          ]
+        ],
+        [
+          "Lo que de verdad pagan",
+          [
+            "Las dos pagan el valor real en efectivo (actual cash value) del carro al momento de la pérdida, menos el deducible: lo que valía esa mañana, no lo que pagaste por él ni lo que costaría reemplazarlo por uno nuevo.",
+            "En un carro financiado, esa cantidad puede ser menor que lo que todavía debes del préstamo, y la diferencia corre por tu cuenta, a menos que tengas cobertura GAP."
+          ]
+        ],
+        [
+          "Cuándo quitarlas",
+          [
+            "En un carro con años llega un punto en que lo que pagas al año por las dos coberturas se acerca a lo más que la aseguradora te podría llegar a pagar, porque ese pago tiene un tope: el valor del carro menos el deducible.",
+            "Es una cuenta que se hace con ese carro en particular, no una regla de años ni de millaje. Pregunta cuánto cuesta cada una por separado y compara. Y si el carro está financiado o es de arrendamiento (lease), la decisión no es tuya: la financiera o el banco te las exige."
+          ]
+        ]
+      ],
+      "key": [
+        "Dos coberturas distintas, dos deducibles distintos.",
+        "Chocar con un animal es integral; chocar con un poste es colisión.",
+        "Las dos pagan el valor real en efectivo menos el deducible, nunca el costo de reemplazo.",
+        "Mientras haya un préstamo, la financiera exige las dos."
+      ],
+      "faq": [
+        [
+          "¿Un parabrisas estrellado entra en colisión o en integral?",
+          "En integral. Y muchas aseguradoras no cobran el deducible, o lo bajan, cuando el cristal se repara en vez de cambiarse. Vale la pena preguntar antes de pagar de tu bolsillo."
+        ],
+        [
+          "Si el otro conductor tuvo la culpa, ¿igual pago mi deducible?",
+          "Muchas veces sí, de entrada, y por lo general te lo devuelven cuando tu aseguradora recupera el dinero de la otra parte. Usar tu propia cobertura de colisión suele ser el camino más rápido."
+        ],
+        [
+          "¿Qué es una pérdida total?",
+          "Es cuando el costo de la reparación más el valor de salvamento supera lo que vale el carro, o rebasa el porcentaje de ese valor que marque el estado. En ese caso, la aseguradora te paga el valor real en efectivo en lugar de repararlo."
+        ]
+      ]
+    },
+    "uninsured-motorist-coverage": {
+      "nav": "Conductor sin seguro",
+      "card": "La cobertura que paga cuando el conductor que te chocó no puede, y por qué, si no la quieres, los dos estados exigen que lo pongas por escrito.",
+      "title": "Cobertura de conductor sin seguro o con seguro insuficiente",
+      "desc": "Qué paga la cobertura de conductor sin seguro o con seguro insuficiente, por qué Texas y Nuevo México exigen que se ofrezca y cómo escoger los límites.",
+      "h1": "Cobertura de conductor sin seguro o con seguro insuficiente",
+      "lede": "Todas las demás coberturas dan por hecho que alguien tiene seguro. Esta es la que funciona cuando nadie lo tiene.",
+      "body": [
+        [
+          "Las dos partes",
+          [
+            {
+              "ul": [
+                "<b>Conductor sin seguro (UM).</b> El conductor que tuvo la culpa no tiene ningún seguro, o no se le puede identificar; por eso, en la mayoría de las aseguradoras, esta es la parte que cubre cuando te chocan y el otro se da a la fuga.",
+                "<b>Conductor con seguro insuficiente (UIM).</b> El conductor que tuvo la culpa sí tiene seguro, pero su límite no alcanza para cubrir la cuenta. El tuyo paga la diferencia, hasta tu propio límite."
+              ]
+            },
+            "Normalmente se cotizan juntas y muchas veces aparecen en un solo renglón de la póliza."
+          ]
+        ],
+        [
+          "Por qué en los dos estados rechazarla tiene que ser por escrito",
+          [
+            "Texas y Nuevo México obligan a las aseguradoras a ofrecer la cobertura de conductor sin seguro (uninsured motorist), y los dos exigen que, si la rechazas, quede documentado por escrito. Los legisladores no le agregan papeleo a una cobertura que nadie necesita.",
+            "Si no te acuerdas de haberla rechazado, revisa tu hoja de declaraciones (dec page). Es una de las coberturas que más se quitan cuando alguien cotiza fijándose solo en el precio."
+          ]
+        ],
+        [
+          "Daños a la propiedad, no solo lesiones",
+          [
+            "UM normalmente se divide igual que la responsabilidad civil — en lesiones corporales y daños a la propiedad — y la parte de daños a la propiedad es la que repara tu carro cuando un conductor sin seguro te lo choca y desaparece.",
+            "En algunos casos, la parte de daños a la propiedad de UM tiene su propio deducible, uno pequeño. Aun así, es mejor que la alternativa: pagar tu deducible de colisión, o que nada te cubra."
+          ]
+        ],
+        [
+          "Qué límite escoger",
+          [
+            "Una buena regla de entrada es ponerle los mismos límites que tienes en responsabilidad civil. De cualquier forma te estás asegurando contra un accidente del mismo tamaño; la única diferencia es de qué lado estaba el seguro.",
+            "Normalmente no puedes llevar más UM que responsabilidad civil, y esa es otra razón por la que tu límite de responsabilidad civil importa más de lo que parece."
+          ]
+        ],
+        [
+          "Por qué aquí importa más que en muchos otros lugares",
+          [
+            "Tanto Texas como Nuevo México están muy por encima del promedio nacional en el porcentaje de conductores que andan en la calle sin ningún seguro. Ese es todo el argumento a favor de esta cobertura, y es la razón por la que un agente de aquí va a insistir cuando alguien la quiera quitar."
+          ]
+        ]
+      ],
+      "key": [
+        "UM es para cuando el otro no tiene seguro; UIM, para cuando el suyo no alcanza.",
+        "Los dos estados exigen que se ofrezca y que el rechazo sea por escrito.",
+        "La parte de daños a la propiedad repara tu carro cuando te chocan y se dan a la fuga.",
+        "Ponle los mismos límites que a tu responsabilidad civil."
+      ],
+      "faq": [
+        [
+          "¿Cubre si me chocan y se dan a la fuga?",
+          "En la mayoría de las aseguradoras sí, por la parte de conductor sin seguro, aunque algunas piden un reporte de la policía o que haya habido contacto físico entre los vehículos. Vale la pena conocer la regla de tu aseguradora antes de necesitarla."
+        ],
+        [
+          "¿Me suben el precio si la uso?",
+          "Un reclamo en el que no tuviste la culpa se trata muy diferente a uno en el que sí, y en muchas aseguradoras no genera ningún recargo. No es razón para dejar de hacer un reclamo legítimo."
+        ],
+        [
+          "¿Es lo mismo que PIP o MedPay?",
+          "No. MedPay y PIP pagan sin importar quién tuvo la culpa ni quién tenía seguro. UM solo responde cuando la culpa fue de otra persona y esa persona no tenía la cobertura suficiente."
+        ]
+      ]
+    },
+    "medpay-and-pip": {
+      "nav": "MedPay y PIP",
+      "card": "Las dos coberturas que pagan tus propios gastos médicos sin importar quién tuvo la culpa, y en qué se diferencian.",
+      "title": "Gastos médicos (MedPay) y PIP: cómo funcionan",
+      "desc": "La diferencia entre gastos médicos y protección contra lesiones personales (PIP), qué paga cada una y por qué en Texas PIP solo se rechaza por escrito.",
+      "h1": "Gastos médicos y protección contra lesiones personales",
+      "lede": "Las dos pagan las lesiones tuyas y de tus pasajeros, sin importar quién causó el accidente, sin deducible y sin tener que discutir primero de quién fue la culpa. PIP va más allá.",
+      "body": [
+        [
+          "Gastos médicos (MedPay)",
+          [
+            "Paga los gastos médicos y, en la mayoría de las aseguradoras, los gastos funerarios tuyos y de cualquiera que vaya contigo, sin importar quién causó el accidente. Sin deducible y sin esperar a que se determine quién tuvo la culpa.",
+            "Paga antes que tu seguro médico, y es común que se use justo para lo que el seguro médico te deja por pagar: el deducible, los copagos, la cuenta de la ambulancia."
+          ]
+        ],
+        [
+          "Protección contra lesiones personales (PIP)",
+          [
+            "Todo lo que hace MedPay, más dos cosas que MedPay no hace.",
+            {
+              "ul": [
+                "<b>Salarios perdidos.</b> Una parte del ingreso que dejas de recibir mientras no puedes trabajar.",
+                "<b>Servicios esenciales.</b> Lo que cuesta pagarle a alguien para que haga lo que tú ya no puedes hacer: cuidar a los niños, el quehacer de la casa y cosas por el estilo."
+              ]
+            },
+            "En Texas, PIP se tiene que ofrecer en todas las pólizas, y si la rechazas, tiene que ser por escrito. La oferta mínima es una cantidad modesta, y normalmente hay límites más altos, que suelen salir baratos."
+          ]
+        ],
+        [
+          "Llevas una o la otra",
+          [
+            "Un vehículo lleva MedPay o PIP, no las dos. Cuál está disponible depende del estado y de la aseguradora.",
+            "PIP es más amplia, y donde se ofrecen las dos, suele ser la mejor compra por una diferencia pequeña en la prima: nada más lo que te repone de tu sueldo ya suele justificarla."
+          ]
+        ],
+        [
+          "Por qué vale la pena aunque tengas buen seguro médico",
+          [
+            "Un plan de salud tiene deducible y copagos, y en un accidente de carro te pueden tocar todos de golpe. MedPay y PIP cubren justo eso, de inmediato, sin que primero se tenga que resolver un reclamo de responsabilidad civil.",
+            "También cubren a tus pasajeros, que tal vez no tengan ningún seguro médico y cuyas cuentas, de otra forma, te terminarían tocando a ti."
+          ]
+        ],
+        [
+          "No le quitan nada a lo demás",
+          [
+            "Lo que uses de MedPay o PIP no se descuenta de un acuerdo por responsabilidad civil ni reduce lo que puedes cobrarle al conductor que tuvo la culpa. Es una cobertura aparte, que tú pagaste."
+          ]
+        ]
+      ],
+      "key": [
+        "Las dos pagan sin importar quién tuvo la culpa, y sin deducible.",
+        "PIP agrega salarios perdidos y servicios esenciales; MedPay no.",
+        "Un vehículo lleva una o la otra, nunca las dos.",
+        "En Texas, rechazar PIP tiene que ser por escrito."
+      ],
+      "faq": [
+        [
+          "¿Cubre a mis pasajeros?",
+          "Sí: a cualquiera que vaya en el vehículo y, en muchos casos, también a ti como peatón o cuando vas en el carro de otra persona. El alcance exacto varía según la aseguradora."
+        ],
+        [
+          "¿Cuánto me conviene llevar?",
+          "La diferencia entre la oferta mínima y el siguiente nivel suele ser pequeña. Como paga primero, sin deducible, y cubre a todos los que van en el carro, casi nunca es donde conviene ahorrar."
+        ],
+        [
+          "¿Hay PIP en Nuevo México?",
+          "En Nuevo México lo común es MedPay; PIP es la cobertura que en Texas se tiene que ofrecer por ley. Tu agente te va a decir cuál aplica a tu póliza."
+        ]
+      ]
+    },
+    "roadside-and-rental": {
+      "nav": "Asistencia vial y auto de renta",
+      "card": "Los dos pequeños extras que muchos se saltan y luego necesitan, y lo que de verdad incluyen.",
+      "title": "Asistencia vial y auto de renta: qué incluyen",
+      "desc": "Qué cubren la asistencia vial y el auto de renta en una póliza de seguro de auto, cómo se cobran y cuándo vale la pena llevarlos.",
+      "h1": "Asistencia vial y auto de renta",
+      "lede": "Ninguna de las dos te protege de una catástrofe, pero las dos marcan la diferencia entre una semana complicada y una de veras mala.",
+      "body": [
+        [
+          "Asistencia vial",
+          [
+            "La asistencia vial (roadside assistance) normalmente cubre la lista corta de cosas que dejan un carro varado.",
+            {
+              "ul": [
+                "Grúa, hasta cierta distancia o cierta cantidad",
+                "Pasarle corriente a la batería",
+                "Cambio de llanta ponchada",
+                "Abrirte el carro si te quedas afuera con las llaves adentro",
+                "Llevarte gasolina si se te acaba",
+                "Sacar el carro con malacate si se atasca, en algunas aseguradoras"
+              ]
+            },
+            "Se cobra por vehículo y normalmente cuesta poco. Muchas veces sale más barata que una membresía de club automovilístico por separado, y va en una póliza que ya tienes."
+          ]
+        ],
+        [
+          "Auto de renta",
+          [
+            "La cobertura de auto de renta (rental reimbursement) te paga un carro rentado mientras arreglan el tuyo después de un reclamo cubierto. Viene como una cantidad por día con un máximo de días.",
+            "Los dos números importan, cada uno por su lado. Una cantidad diaria generosa con un tope corto se acaba si la reparación tarda; un tope largo con una cantidad diaria baja no alcanza para el tipo de carro que de verdad necesitas."
+          ]
+        ],
+        [
+          "Lo que la gente entiende mal",
+          [
+            "El auto de renta solo aplica después de un <em>reclamo cubierto</em>. No es un carro rentado para cuando el tuyo se descompone, cuando está en servicio o cuando te vas de vacaciones.",
+            "La asistencia vial es la cobertura que responde cuando el carro se descompone, y lo que hace es mandar la grúa por tu carro, no darte otro."
+          ]
+        ],
+        [
+          "Cuándo vale la pena llevarlas",
+          [
+            {
+              "ul": [
+                "Si tienes un solo carro y sin él no puedes trabajar, el auto de renta es la cobertura pequeña que más importa de todo lo que hay en esta página.",
+                "Si tienes otro carro o alguien que te pueda llevar, importa mucho menos.",
+                "Si el carro ya tiene sus años, o si haces un trayecto largo para ir al trabajo, la asistencia vial se paga sola con la primera grúa.",
+                "Si ya pagas un club automovilístico, compara los dos antes de pagar por ambos."
+              ]
+            }
+          ]
+        ],
+        [
+          "Algo que debes saber antes de hacer un reclamo",
+          [
+            "Algunas aseguradoras cuentan las llamadas frecuentes de asistencia vial como actividad de reclamos, aunque no se haya pagado ningún daño. No es lo común, varía según la compañía, y vale la pena preguntarle a tu agente cómo lo maneja la tuya antes de usarla por cuarta vez en un año."
+          ]
+        ]
+      ],
+      "key": [
+        "Las dos se cobran por vehículo y las dos suelen costar poco.",
+        "El auto de renta solo aplica después de un reclamo cubierto.",
+        "La asistencia vial responde cuando el carro se descompone; el auto de renta, no.",
+        "Revisa por separado el límite diario y el tope de días."
+      ],
+      "faq": [
+        [
+          "¿El auto de renta paga cualquier carro?",
+          "Hasta la cantidad diaria que diga tu póliza. Lo que pase de esa categoría de vehículo corre por tu cuenta."
+        ],
+        [
+          "¿Usar la asistencia vial me sube el precio?",
+          "En la mayoría de las aseguradoras no, porque no se pagó ningún daño. Algunas pocas cuentan el uso repetido como actividad de reclamos; vale la pena preguntar cómo lo maneja la tuya."
+        ],
+        [
+          "¿Las puedo agregar a mitad de la vigencia de mi póliza?",
+          "Normalmente sí, y entran en vigor de inmediato. Lo que no se puede es agregarlas después del accidente que te hizo quererlas."
+        ]
+      ]
+    },
+    "sr-22-texas-new-mexico": {
+      "nav": "Trámite del SR-22",
+      "card": "Qué es de verdad un SR-22, qué tan rápido se puede presentar y cómo afecta el precio.",
+      "title": "Seguro con SR-22 en Texas y Nuevo México",
+      "desc": "Qué es el SR-22, cuándo lo exige Texas o Nuevo México, qué tan rápido se puede presentar y cómo afecta el precio de tu seguro de auto.",
+      "h1": "Qué es el SR-22 y cómo funciona",
+      "lede": "El SR-22 no es un seguro ni es un castigo. Es un formulario que la aseguradora presenta ante el estado para comprobar que existe una póliza — y lo que lo hace importante es lo que pasa si esa póliza deja de estar vigente.",
+      "body": [
+        [
+          "Qué es en realidad",
+          [
+            "Es un certificado de responsabilidad financiera. Tu compañía de seguros lo presenta ante el estado a tu nombre, y con eso confirma que llevas por lo menos la cobertura mínima de responsabilidad civil que exige la ley.",
+            "Un SR-22 no se compra. Lo que compras es una póliza, y la aseguradora le agrega el SR-22 — normalmente por un cargo pequeño que se paga una sola vez."
+          ]
+        ],
+        [
+          "Cuándo te lo exigen",
+          [
+            {
+              "ul": [
+                "Una condena por DWI o DUI",
+                "Manejar sin seguro, o tener un accidente sin seguro",
+                "Demasiadas infracciones en poco tiempo",
+                "La suspensión de la licencia o su restablecimiento",
+                "Una orden de la corte después de una sentencia"
+              ]
+            }
+          ]
+        ],
+        [
+          "Cuánto tiempo dura",
+          [
+            "Por lo común, dos años en Texas y tres en Nuevo México, contados desde la fecha que fija el estado y no desde que se presenta el SR-22. La fecha en que termina te la dice el estado; no la decide tu aseguradora.",
+            "El SR-22 tiene que estar vigente, sin interrupciones, durante todo ese periodo. No cuenta haberlo tenido la mayor parte del tiempo."
+          ]
+        ],
+        [
+          "Lo que toma a muchos por sorpresa",
+          [
+            "Si la póliza deja de estar vigente (lapse) — porque se canceló, no se renovó o se te pasó un pago — la aseguradora está obligada a avisarle al estado, normalmente con un formulario SR-26. Entonces el estado vuelve a suspender la licencia y, con frecuencia, el conteo del periodo del SR-22 empieza de nuevo.",
+            "Esto es lo más importante que hay que entender del SR-22. Los pagos automáticos existen justo para esta situación, y vale la pena activarlos desde el primer día."
+          ]
+        ],
+        [
+          "Cómo afecta el precio",
+          [
+            "El cargo por el trámite en sí es pequeño. La prima sube por lo que pasó y originó el requisito, no por el formulario.",
+            "Aquí las aseguradoras varían muchísimo. Algunas de plano no aseguran a conductores que necesitan SR-22; otras se especializan en eso y les dan un precio razonable. Saber cuál es cuál: de eso se trata comparar bien, en lugar de quedarte con la primera compañía que te diga que sí."
+          ]
+        ],
+        [
+          "Si no tienes carro propio",
+          [
+            "Una póliza para no propietarios (non-owner) te da cobertura de responsabilidad civil cuando manejas un vehículo que no es tuyo, y puede llevar el SR-22. Así es como alguien puede restablecer su licencia sin tener que comprar un carro primero."
+          ]
+        ]
+      ],
+      "key": [
+        "El SR-22 es un trámite ante el estado, no un tipo de seguro.",
+        "Si la póliza deja de estar vigente, se envía un SR-26 y normalmente el conteo empieza de nuevo.",
+        "Activa los pagos automáticos el mismo día que empieza la póliza.",
+        "Si no tienes carro, una póliza para no propietarios puede llevar el SR-22."
+      ],
+      "faq": [
+        [
+          "¿Qué tan rápido se puede presentar?",
+          "Muchas veces el mismo día. Dile al agente desde el principio que necesitas SR-22: eso cambia a qué aseguradoras vale la pena cotizar, y hacerlo bien desde la primera vez es la diferencia entre una tarde y una semana."
+        ],
+        [
+          "¿Todas las compañías aceptan casos con SR-22?",
+          "No. Algunas de plano no los aceptan. Nosotros colocamos estas pólizas seguido y sabemos qué aseguradoras sí las quieren."
+        ],
+        [
+          "¿Qué pasa cuando se termina el periodo?",
+          "El requisito simplemente vence en la fecha que fijó el estado. Avísale a tu agente cuando llegue esa fecha: en cuanto ya no te exijan el SR-22, vale la pena volver a comparar tu póliza de inmediato."
+        ]
+      ]
+    },
+    "texas-car-insurance-requirements": {
+      "nav": "Requisitos en Texas",
+      "card": "Los límites mínimos que exige Texas, qué más te tienen que ofrecer y qué pasa si manejas sin seguro.",
+      "title": "Requisitos del seguro de auto en Texas",
+      "desc": "El seguro de auto mínimo que exige Texas, las coberturas que las aseguradoras te tienen que ofrecer y las sanciones por manejar sin seguro.",
+      "h1": "Lo que exige Texas",
+      "lede": "Texas fija un mínimo, y de verdad es solo eso: el mínimo. Aquí está lo que pide la ley, lo que la ley obliga a las aseguradoras a ofrecerte y lo que el mínimo no cubre.",
+      "body": [
+        [
+          "Los límites mínimos de responsabilidad civil",
+          [
+            "Texas exige una cobertura de responsabilidad civil de por lo menos <b>30/60/25</b>:",
+            {
+              "ul": [
+                "<b>$30,000</b> por las lesiones de cada persona",
+                "<b>$60,000</b> por todas las lesiones en un mismo accidente",
+                "<b>$25,000</b> por los daños a la propiedad de la otra parte"
+              ]
+            },
+            "Eso es lo menos que puedes llevar según la ley. No es una recomendación, y no se fijó pensando en lo que cuesta hoy una hospitalización ni una camioneta de modelo reciente."
+          ]
+        ],
+        [
+          "Lo que las aseguradoras te tienen que ofrecer",
+          [
+            {
+              "ul": [
+                "<b>Protección contra lesiones personales (PIP).</b> Se tiene que ofrecer en todas las pólizas. Si la rechazas, tiene que ser por escrito.",
+                "<b>Cobertura de conductor sin seguro o con seguro insuficiente.</b> Se tiene que ofrecer. Si la rechazas, tiene que ser por escrito."
+              ]
+            },
+            "Si no te acuerdas de haber rechazado alguna de las dos, revisa tu hoja de declaraciones (dec page): son dos de las coberturas que más se quitan cuando alguien compara pólizas fijándose solo en el precio."
+          ]
+        ],
+        [
+          "Cómo funciona el comprobante de seguro",
+          [
+            "Texas verifica la cobertura electrónicamente con TexasSure, que compara los registros vehiculares con los datos de las aseguradoras. Si una póliza se vence, aparece en el sistema sin que un policía te tenga que parar.",
+            "Aun así, tienes que traer el comprobante en el carro. Cuentan tanto la tarjeta impresa como la app de la aseguradora."
+          ]
+        ],
+        [
+          "Si manejas sin seguro",
+          [
+            {
+              "ul": [
+                "Una multa la primera vez, más alta la segunda, además de los costos de la corte y un recargo estatal",
+                "Tu vehículo puede terminar en el corralón",
+                "Te pueden suspender la licencia y el registro del vehículo",
+                "Con frecuencia, después te exigen el SR-22"
+              ]
+            },
+            "Y lo que no es una sanción: un accidente sin seguro lo pagas de tu propio bolsillo, sin límite."
+          ]
+        ],
+        [
+          "Lo que el mínimo te deja al descubierto",
+          [
+            "$25,000 en daños a la propiedad alcanzan para un solo vehículo de modelo reciente, y no de los grandes. $30,000 por persona alcanzan para una estancia corta en el hospital.",
+            "Lo que pase del límite ya es personal: tus ahorros, tu sueldo y, en algunas circunstancias, tus bienes. Subir del mínimo normalmente cuesta mucho menos en la prima de lo que la gente espera, y es lo que más vale la pena en una póliza de auto."
+          ]
+        ]
+      ],
+      "key": [
+        "El mínimo de responsabilidad civil en Texas es 30/60/25.",
+        "PIP y la cobertura de conductor sin seguro se tienen que ofrecer; rechazarlas tiene que ser por escrito.",
+        "La cobertura se verifica electrónicamente con TexasSure.",
+        "$25,000 en daños a la propiedad alcanzan para un solo vehículo moderno."
+      ],
+      "faq": [
+        [
+          "¿Necesito seguro para un carro que no estoy manejando?",
+          "Si está registrado, sí. Cancelar deja un periodo sin seguro (lapse), y eso te cuesta más en la siguiente renovación de lo que te habría costado dejarlo guardado con solo cobertura integral."
+        ],
+        [
+          "¿Una póliza de Texas me cubre en Nuevo México?",
+          "Sí. La cobertura de responsabilidad civil te sigue cuando cruzas a otro estado y se ajusta al mínimo de ese estado si es más alto."
+        ],
+        [
+          "¿Es un problema tener licencia de otro estado?",
+          "No por sí sola. Importa más dónde se guarda el carro que dónde te dieron la licencia. Dile al agente cuál es tu situación real y así se cotiza correctamente."
+        ]
+      ]
+    },
+    "new-mexico-car-insurance-requirements": {
+      "nav": "Requisitos en Nuevo México",
+      "card": "Los límites mínimos que exige Nuevo México, cómo los verifica el estado y por qué el mínimo se queda corto.",
+      "title": "Requisitos del seguro de auto en Nuevo México",
+      "desc": "El seguro de auto mínimo que exige Nuevo México, cómo verifica el estado la cobertura y las sanciones por manejar sin seguro.",
+      "h1": "Lo que exige Nuevo México",
+      "lede": "El mínimo de Nuevo México es más bajo que el de Texas, y eso hace que la distancia entre lo mínimo que pide la ley y una póliza sensata sea más grande, no más chica.",
+      "body": [
+        [
+          "Los límites mínimos de responsabilidad civil",
+          [
+            "Nuevo México exige una cobertura de responsabilidad civil de por lo menos <b>25/50/10</b>:",
+            {
+              "ul": [
+                "<b>$25,000</b> por las lesiones de cada persona",
+                "<b>$50,000</b> por todas las lesiones en un mismo accidente",
+                "<b>$10,000</b> por los daños a la propiedad de la otra parte"
+              ]
+            },
+            "La cantidad para daños a la propiedad es la que hay que ver dos veces. Con $10,000 no se reemplaza un vehículo de modelo actual, y lo que falte te toca a ti en lo personal."
+          ]
+        ],
+        [
+          "La cobertura de conductor sin seguro se tiene que ofrecer",
+          [
+            "Nuevo México obliga a las aseguradoras a ofrecer la cobertura de conductor sin seguro o con seguro insuficiente, y exige que, si la rechazas, sea por escrito.",
+            "Aquí importa más que en la mayoría de los lugares. Nuevo México está, año tras año, entre los estados con mayor porcentaje de conductores que andan en la calle sin ningún seguro — justo la situación para la que existe esta cobertura."
+          ]
+        ],
+        [
+          "Cómo verifica el estado",
+          [
+            "Nuevo México verifica el seguro electrónicamente, comparándolo con los registros vehiculares. Un periodo sin seguro puede generar un aviso y, si no se resuelve, la suspensión del registro del vehículo.",
+            "Aun así, el comprobante tiene que ir en el vehículo. Cuentan tanto la tarjeta como la app de la aseguradora."
+          ]
+        ],
+        [
+          "Si manejas sin seguro",
+          [
+            {
+              "ul": [
+                "Multas y costos de la corte",
+                "Suspensión del registro del vehículo, más los cargos de reactivación para levantarla",
+                "La posibilidad de que tu vehículo termine en el corralón",
+                "Es común que después te exijan el SR-22, normalmente por tres años"
+              ]
+            }
+          ]
+        ],
+        [
+          "Las cotizaciones para Nuevo México las hace una persona",
+          [
+            "Un cotizador configurado para un estado no produce una póliza de Nuevo México nada más cambiando el código postal. Todo es distinto: los límites, las coberturas que se tienen que ofrecer y las aseguradoras disponibles.",
+            "Tenemos licencia en los dos estados, y aquí las cotizaciones para Nuevo México las prepara un agente, no el cotizador en línea — así que lo que te llega es una póliza real de Nuevo México, con límites reales de Nuevo México, y no un precio de Texas con otra dirección."
+          ]
+        ]
+      ],
+      "key": [
+        "El mínimo de responsabilidad civil en Nuevo México es 25/50/10.",
+        "La cobertura de conductor sin seguro se tiene que ofrecer; rechazarla tiene que ser por escrito.",
+        "Con $10,000 en daños a la propiedad no se reemplaza un vehículo moderno.",
+        "Aquí, las cotizaciones para Nuevo México las prepara un agente, no el cotizador."
+      ],
+      "faq": [
+        [
+          "¿Puedo comprar aquí en línea una póliza de Nuevo México?",
+          "Puedes empezarla en línea, y un agente la termina. Es a propósito: el cotizador en línea está configurado para Texas, y una cotización de Nuevo México hecha con él estaría mal en formas que no se ven hasta que hay un reclamo."
+        ],
+        [
+          "¿Una póliza de Nuevo México me cubre en Texas?",
+          "Sí. La responsabilidad civil te sigue cuando cruzas a otro estado y se ajusta hacia arriba para cumplir con el mínimo de ese estado cuando es más alto."
+        ],
+        [
+          "Vivo en un estado y trabajo en el otro. ¿Cuál aplica?",
+          "Cuenta el estado donde el carro pasa la noche. Dile al agente las dos cosas y la póliza se hace correctamente."
+        ]
+      ]
+    },
+    "car-insurance-without-a-license": {
+      "nav": "Seguro sin licencia",
+      "card": "Con licencia extranjera, con matrícula, con permiso o sin ninguna licencia — qué sí se puede y qué se necesita.",
+      "title": "Seguro de auto sin licencia en Texas y Nuevo México",
+      "desc": "¿Puedes sacar seguro de auto sin licencia de EE. UU.? Qué sirve con licencia extranjera, matrícula, permiso o ITIN, y cómo asegurarte en Texas o Nuevo México.",
+      "h1": "Seguro de auto sin licencia de Estados Unidos",
+      "lede": "Es una de las preguntas que más nos hacen, y la respuesta que casi todos esperan es la equivocada. En muchos casos sí se puede. Lo que se necesita es la aseguradora correcta y un agente que ya lo haya hecho antes.",
+      "body": [
+        [
+          "Primero, la respuesta corta",
+          [
+            "Sí, muchas veces. No en todas las compañías ni en todos los casos, pero “sin licencia de Estados Unidos” es razón para comparar tu caso con cuidado, no para que te digan que no de entrada.",
+            "Algunas aseguradoras de plano no aseguran estos casos. Otras lo hacen todos los días. Cuál es cuál no está publicado en ningún lado, y eso es, en gran parte, lo que de verdad sabe una agencia que se dedica a esto.",
+            {
+              "es": "Sí se puede. Llámanos y lo revisamos contigo en español."
+            }
+          ]
+        ],
+        [
+          "Qué suele servir como identificación",
+          [
+            {
+              "ul": [
+                "<b>Una licencia extranjera.</b> La mexicana y muchas otras. Varias aseguradoras la aceptan tal cual; algunas piden además un permiso internacional de manejo.",
+                "<b>Una matrícula consular.</b> Se usa mucho en esta zona y la aceptan varias de las compañías que representamos.",
+                "<b>Un pasaporte.</b> Solo o junto con otro documento.",
+                "<b>Un ITIN en lugar de número de Seguro Social.</b> Es normal, y no es obstáculo en las aseguradoras que trabajan estos casos.",
+                "<b>Un permiso de aprendizaje.</b> Por lo general se asegura con un conductor con licencia en la misma póliza."
+              ]
+            },
+            "Más que cualquier documento en particular, lo que importa es que toda tu situación se presente tal como es desde la primera vez. Una cotización que se corrige después es una cotización que después cambia de precio."
+          ]
+        ],
+        [
+          "Cuando el carro es tuyo pero no lo manejas tú",
+          [
+            "Es un caso muy común: el vehículo es tuyo, tú no lo manejas y alguien de tu casa sí. En esa póliza tú apareces como titular (named insured), y la persona con licencia que lo maneja aparece como conductor.",
+            "Es una forma normal de hacer la póliza, no es ningún truco. Lo que sí causa problemas es dejar fuera a quien de verdad maneja, porque un conductor del que la aseguradora nunca supo es justo la discusión que no quieres tener a la hora del reclamo."
+          ]
+        ],
+        [
+          "El registro, la inspección y el estado",
+          [
+            "Tanto Texas como Nuevo México exigen que el vehículo esté asegurado, y los dos lo verifican electrónicamente con el registro. La obligación va con el carro, no con que tú tengas o no una licencia del estado.",
+            "Por eso mismo vale la pena resolverlo en lugar de evitarlo: un vehículo registrado y sin seguro tarde o temprano termina en una suspensión, y un periodo sin seguro (lapse) te sube el precio durante años."
+          ]
+        ],
+        [
+          "Cuánto cuesta, siendo honestos",
+          [
+            "Más de lo que pagaría el mismo conductor con un largo historial en Estados Unidos, y menos de lo que la mayoría teme. El precio depende de lo mismo de siempre — cuánto tiempo llevas asegurado sin interrupciones, el vehículo, el código postal, los límites — y la licencia extranjera es un factor más entre esos, no un castigo por sí sola.",
+            "Lo que más puedes hacer para bajarlo es comprobar que ya tenías seguro antes. Si tuviste seguro en México o en cualquier otro lado, dilo y trae lo que tengas; en algunas aseguradoras sí cuenta."
+          ]
+        ],
+        [
+          "Qué tener a la mano cuando llames",
+          [
+            {
+              "ul": [
+                "La identificación que tengas — licencia, matrícula, pasaporte, permiso",
+                "El vehículo: año, marca, modelo y el VIN si lo tienes",
+                "La dirección donde se estaciona el carro en la noche",
+                "Cualquier comprobante de un seguro que hayas tenido antes",
+                "El nombre y la fecha de nacimiento de todas las personas que lo van a manejar"
+              ]
+            }
+          ]
+        ]
+      ],
+      "key": [
+        "“Sin licencia de Estados Unidos” es razón para comparar con cuidado, no un rechazo.",
+        "Licencia extranjera, matrícula, pasaporte o ITIN: con cualquiera se puede trabajar.",
+        "Pon en la póliza a quien de verdad maneja — un conductor desconocido es un problema a la hora del reclamo.",
+        "En algunas aseguradoras cuenta el seguro que ya tenías, aunque sea de otro país."
+      ],
+      "faq": [
+        [
+          "¿Puedo asegurar un carro que es mío si yo no manejo?",
+          "Sí. Tú eres el titular de la póliza y quien de verdad lo maneja aparece como conductor. Es una forma estándar de hacer una póliza; no es ningún truco."
+        ],
+        [
+          "¿Se necesita número de Seguro Social?",
+          "No en todas las aseguradoras. Con varias de las compañías que representamos funciona el ITIN, y en algunas no se pide ninguno de los dos."
+        ],
+        [
+          "¿Me va a salir mucho más caro?",
+          "Normalmente es más caro que con un largo historial en Estados Unidos, pero más barato de lo que la gente espera. Lo que más lo mueve es haber tenido seguro sin interrupciones antes, y si lo tuviste, vale la pena comprobarlo."
+        ]
+      ]
+    },
+    "new-driver-car-insurance": {
+      "nav": "Conductores nuevos y adolescentes",
+      "card": "Por qué la primera póliza cuesta lo que cuesta, cuándo agregar a un adolescente a la tuya y los descuentos que nadie menciona.",
+      "title": "Seguro de auto para conductores nuevos y adolescentes",
+      "desc": "Lo que cuesta una primera póliza de auto y por qué, cuándo poner a un adolescente en la póliza familiar y no en una propia, y los descuentos que le tocan.",
+      "h1": "Conductores nuevos y adolescentes",
+      "lede": "La primera póliza es la más cara que cualquiera llega a comprar, por razones que no tienen nada que ver con qué tanto cuidado tengas al manejar. Casi todo lo que se puede hacer al respecto está en cómo se arma la póliza.",
+      "body": [
+        [
+          "Por qué la primera póliza cuesta lo que cuesta",
+          [
+            "Por dos cosas, y ninguna es personal.",
+            {
+              "ul": [
+                "<b>No hay historial que revisar.</b> Las tarifas se calculan con base en el historial, y un conductor nuevo no tiene — no es que sea malo, es que no hay. La aseguradora le pone precio a la incertidumbre.",
+                "<b>Las cifras de los conductores jóvenes como grupo.</b> La tasa de choques de quienes están en sus primeros años de manejo es de verdad más alta, y eso es lo que refleja la tarifa."
+              ]
+            },
+            "Las dos cosas mejoran solas. La primera desaparece en buena parte después de tres años de seguro sin interrupciones; la segunda se va aliviando con cada cumpleaños y baja notablemente alrededor de los 25. Por eso una primera póliza hay que volver a compararla todos los años, sin falta, en lugar de dejarla como está."
+          ]
+        ],
+        [
+          "¿En la póliza familiar o en una propia?",
+          [
+            "Agregar a un adolescente a la póliza de la casa casi siempre sale más barato que hacerle una aparte, a veces muchísimo más barato. La póliza familiar ya tiene descuentos por varios carros y por varias pólizas, y el adolescente hereda el historial de seguro continuo de la familia en lugar de empezar de cero.",
+            "Una póliza aparte tiene sentido cuando el joven ya se fue de la casa definitivamente, tiene el carro a su nombre o tiene un historial que les está subiendo el precio a todos los demás. Un agente te dice de qué lado de esa línea estás — es una pregunta de cinco minutos."
+          ]
+        ],
+        [
+          "El carro que maneja cambia el precio",
+          [
+            "Con un conductor joven, el vehículo pesa más que con cualquier otra persona. Las aseguradoras asignan a cada conductor a un carro, y un carro rápido o caro asignado a alguien de diecisiete años es la combinación más cara de todas en una póliza familiar.",
+            "Un carro sensato, bien calificado, más bien aburrido y con buen equipo de seguridad aquí vale dinero de verdad. Pregunta cómo cambia el precio con un carro en específico antes de comprarlo, no después."
+          ]
+        ],
+        [
+          "Los descuentos para los que sí califica un conductor nuevo",
+          [
+            {
+              "ul": [
+                "<b>Buen estudiante.</b> Promedio de B o mejor. Es uno de los descuentos más grandes para un conductor joven, y hay que pedirlo.",
+                "<b>Estudiante lejos de casa.</b> Vive lo bastante lejos por la escuela como para no estar manejando el carro con regularidad.",
+                "<b>Curso de manejo.</b> Un curso terminado, aparte de lo que el estado haya exigido para sacar la licencia.",
+                "<b>Programa basado en el uso.</b> Un trayecto diario corto, de día y tranquilo, aquí puede valer mucho. Pregunta primero si el programa también puede subir la tarifa, no solo bajarla."
+              ]
+            }
+          ]
+        ],
+        [
+          "No dejes que se te venza la primera póliza",
+          [
+            "El error más caro que comete un conductor nuevo es quedarse sin seguro unos meses — entre semestres, entre un carro y otro, entre un trabajo y otro. Tener seguro sin interrupciones es de los descuentos más grandes que hay, y la cuenta vuelve a empezar de cero cuando se corta.",
+            "Si de verdad nadie está manejando el carro, pregunta por una cobertura para carro guardado (storage) o por dejar solo la cobertura integral (comprehensive), en lugar de cancelar. Así tu historial se mantiene intacto por una fracción de la prima."
+          ]
+        ]
+      ],
+      "key": [
+        "La primera póliza le pone precio a la incertidumbre, no a ti. Y mejora cada año.",
+        "Agregar a un adolescente a la póliza familiar por lo general sale mejor que hacerle una aparte.",
+        "El carro que se le asigna a un conductor joven mueve mucho el precio.",
+        "Nunca te quedes sin seguro — en lugar de cancelar, pregunta por la cobertura para carro guardado."
+      ],
+      "faq": [
+        [
+          "¿Cuándo debo agregar a mi hijo adolescente a la póliza?",
+          "En la mayoría de las aseguradoras, cuando saca el permiso, y sin falta el día que saca la licencia. Un adolescente que maneja con tu póliza y que nunca agregaste es el hueco del que te enteras después de un accidente."
+        ],
+        [
+          "¿De verdad ayuda el descuento por buen estudiante?",
+          "En la mayoría de las aseguradoras es uno de los descuentos más grandes para un conductor joven. Normalmente se necesita la boleta de calificaciones o el historial académico, y hay que pedirlo — no se aplica automáticamente."
+        ],
+        [
+          "¿Le va a bajar el precio a los 25?",
+          "Por lo general sí, y se nota, pero es poco a poco, no de golpe. Para la mayoría de los conductores, el cambio más grande llega con tres años de seguro continuo y con historial limpio."
+        ]
+      ]
+    },
+    "mexico-auto-insurance": {
+      "nav": "Cruzar a México en carro",
+      "card": "Tu póliza de Estados Unidos no te cubre al sur de la frontera. Qué seguro se exige de verdad y qué pasa si no lo tienes.",
+      "title": "Cruzar a México en carro: lo que tu seguro de EE. UU. no cubre",
+      "desc": "Por qué tu seguro de auto de EE. UU. no te cubre en México, qué seguro mexicano de responsabilidad civil se exige y qué pasa si tienes un accidente sin él.",
+      "h1": "Cruzar a México en carro",
+      "lede": "De esto la mayoría se entera en el peor momento posible. Una póliza de seguro de auto de Estados Unidos no te cubre en México, y México no la reconoce.",
+      "body": [
+        [
+          "Lo que tu póliza de Estados Unidos hace y lo que no",
+          [
+            "Casi todas las pólizas de auto de Estados Unidos terminan en la frontera. Algunas extienden la cobertura de daños a tu propio carro (physical damage) una distancia corta dentro de México — por lo común unas 25 millas — y aun esas no extienden la responsabilidad civil, que es la parte que importa.",
+            "Revisa tu propia hoja de declaraciones (dec page) antes de dar nada por hecho. Si no dice nada de México, no cubre nada en México.",
+            {
+              "es": "Tu póliza de Estados Unidos no te cubre en México. Pregúntanos antes de cruzar."
+            }
+          ]
+        ],
+        [
+          "Lo que México exige de verdad",
+          [
+            "La ley mexicana exige un seguro de responsabilidad civil emitido por una compañía autorizada en México. Ni una póliza, ni una tarjeta de seguro, ni el nombre de una aseguradora de Estados Unidos significan nada para una autoridad mexicana en la carretera.",
+            "La cobertura obligatoria es la de responsabilidad civil — los daños y las lesiones que les causes a otras personas. Normalmente también se puede contratar cobertura para tu propio vehículo, asistencia legal y gastos médicos, y en cualquier viaje que no sea muy corto vale la pena tenerlas."
+          ]
+        ],
+        [
+          "Qué pasa si tienes un accidente sin seguro mexicano",
+          [
+            "Para esto existe este seguro, y por eso quien ya lo necesitó nunca vuelve a cruzar sin él.",
+            {
+              "ul": [
+                "En México, un accidente con lesionados se trata como un asunto penal hasta que se determina quién tuvo la culpa.",
+                "Sin un seguro reconocido en México, es común que el vehículo termine en el corralón.",
+                "El conductor puede quedar detenido hasta que se garantice el pago de los daños.",
+                "Una póliza de una aseguradora mexicana autorizada, con la asistencia legal que normalmente incluye, es lo que resuelve eso rápido."
+              ]
+            }
+          ]
+        ],
+        [
+          "Los viajes que a muchos se les olvidan",
+          [
+            {
+              "ul": [
+                "Un día en Ciudad Juárez. La distancia es corta, pero la frontera sigue siendo la frontera.",
+                "Un fin de semana en Chihuahua o en la costa.",
+                "Cruzar en un carro rentado o en el carro de otra persona.",
+                "Un viaje de trabajo en un vehículo de la empresa — el uso comercial tiene sus propios requisitos."
+              ]
+            }
+          ]
+        ],
+        [
+          "Antes de irte",
+          [
+            {
+              "ul": [
+                "Compra el seguro mexicano antes de cruzar, no en el puente.",
+                "Trae la póliza impresa en el vehículo.",
+                "Revisa que las fechas cubran todo el viaje, incluido el día que regresas.",
+                "Asegúrate de que el vehículo que aparece en la póliza sea el que de verdad te vas a llevar.",
+                "Si el carro está financiado, revisa si la financiera o el banco pide algo por escrito."
+              ]
+            }
+          ]
+        ],
+        [
+          "Lo vendemos y lo comparamos",
+          [
+            "Vendemos seguro mexicano de auto y lo comparamos igual que todo lo demás — con varias aseguradoras mexicanas autorizadas, no con la primera que aparezca. Los límites, el deducible y lo que de verdad incluye la asistencia legal no son iguales en todas.",
+            "Un viaje corto se puede asegurar en minutos. Llámanos o mándanos un mensaje con las fechas, el vehículo y a dónde vas, y lo vas a tener antes de salir.",
+            {
+              "es": "Sí, vendemos seguro mexicano y lo cotizamos con varias compañías. Llámanos o mándanos un mensaje; te atendemos en español."
+            }
+          ]
+        ]
+      ],
+      "key": [
+        "Una póliza de Estados Unidos no cubre la responsabilidad civil en México. México no la reconoce.",
+        "La ley mexicana exige un seguro de responsabilidad civil de una compañía autorizada en México.",
+        "Allá, un accidente con lesionados es un asunto penal hasta que se define la culpa.",
+        "Cómpralo antes de cruzar, tráelo impreso y revisa que las fechas cubran la ida y el regreso."
+      ],
+      "faq": [
+        [
+          "¿Mi póliza me cubre nada más cruzando el puente?",
+          "Algunas pólizas extienden la cobertura de daños a tu propio carro una distancia corta — muchas veces unas 25 millas — pero no la responsabilidad civil, que es la cobertura que exige México. Lee tu hoja de declaraciones y llámanos si no te queda claro."
+        ],
+        [
+          "¿Y si es un carro rentado?",
+          "La mayoría de los contratos de renta en Estados Unidos prohíben por completo llevar el vehículo a México. Revisa el contrato antes de planear el viaje."
+        ],
+        [
+          "¿Sale caro?",
+          "Para un viaje corto, por lo general es poco dinero comparado con un riesgo muy grande. El costo depende de cuánto dura el viaje, del vehículo y de los límites que escojas."
+        ]
+      ],
+      "cta": [
+        "¿Vas a cruzar esta semana?",
+        "Dinos las fechas, el vehículo y a dónde vas. Lo cotizamos con varias aseguradoras mexicanas autorizadas y lo vas a tener antes de salir — en español o en inglés."
+      ]
+    },
+    "non-owner-car-insurance": {
+      "nav": "Pólizas para no propietarios",
+      "card": "Cobertura de responsabilidad civil cuando manejas pero no tienes carro propio — y cómo puede incluir un SR-22.",
+      "title": "Qué es el seguro de auto para no propietarios (non-owner)",
+      "desc": "Qué cubre una póliza de auto para no propietarios (non-owner), quién la necesita y cómo puede incluir un SR-22 aunque no tengas vehículo propio.",
+      "h1": "Seguro de auto para no propietarios (non-owner)",
+      "lede": "Es una póliza para quien maneja pero no tiene carro propio. Es un producto real, normalmente es económico y resuelve dos problemas que la mayoría no sabe que resuelve.",
+      "body": [
+        [
+          "Qué cubre",
+          [
+            "Responsabilidad civil — las lesiones y los daños a la propiedad que causes mientras manejas un vehículo que no es tuyo y que no tienes disponible de forma regular.",
+            "Entra después de la póliza del dueño del vehículo, no antes. El seguro del dueño responde primero; el tuyo cubre lo que falte, hasta tu límite.",
+            "Lo que no cubre es el carro en sí. Una póliza para no propietarios no tiene cobertura de colisión (collision) ni cobertura integral (comprehensive), porque no hay ningún vehículo en ella."
+          ]
+        ],
+        [
+          "Para quién es de verdad",
+          [
+            {
+              "ul": [
+                "<b>Alguien que necesita un SR-22 y no tiene carro.</b> Es la razón más común. Con la póliza para no propietarios se presenta el SR-22, y eso es lo que te permite recuperar la licencia.",
+                "<b>Quien renta o pide prestado un carro seguido.</b> Sale más barato que comprar cada vez el seguro del mostrador de la rentadora, y va contigo.",
+                "<b>Alguien que está entre un carro y otro.</b> Mantiene tu seguro continuo, para que tu próxima póliza, ya con carro, no se cotice como si hubieras tenido un periodo sin seguro.",
+                "<b>Quien maneja en la ciudad con servicios de carro compartido.</b> Aplica la misma lógica que para quien renta."
+              ]
+            }
+          ]
+        ],
+        [
+          "Lo del seguro continuo es lo que a muchos se les pasa",
+          [
+            "Haber tenido seguro antes es uno de los descuentos más grandes en una póliza de auto. Si pasas seis meses sin nada y luego compras un carro, la nueva póliza se cotiza como un periodo sin seguro (lapse) — y eso te sigue durante años.",
+            "Una póliza para no propietarios durante ese tiempo cuesta una fracción de una póliza normal y mantiene tu historial sin cortes. Nada más haciendo cuentas, muchas veces se paga sola la primera vez que vuelves a comprar carro."
+          ]
+        ],
+        [
+          "Lo que no hace",
+          [
+            {
+              "ul": [
+                "No cubre un carro registrado a tu nombre.",
+                "No cubre un carro de tu casa que tengas disponible de forma regular — ese carro necesita estar en su propia póliza.",
+                "No paga la reparación del carro que ibas manejando.",
+                "No le sirve a la financiera o al banco, porque no incluye cobertura de daños al vehículo."
+              ]
+            }
+          ]
+        ],
+        [
+          "Cómo conseguir una",
+          [
+            "No todas las aseguradoras las venden, y las que sí no siempre son las que te imaginarías. Si además necesitas un SR-22, la lista se hace todavía más corta.",
+            "Dinos desde el principio para qué la quieres — recuperar una licencia, cubrir el tiempo que estés sin carro o manejar carros de otras personas — porque la respuesta cambia con qué aseguradoras vale la pena cotizar."
+          ]
+        ]
+      ],
+      "key": [
+        "Solo responsabilidad civil, para quien maneja y no tiene carro propio.",
+        "Es la forma usual de tener un SR-22 sin ser dueño de un vehículo.",
+        "Mantiene tu seguro continuo entre un carro y otro — y eso vale dinero de verdad.",
+        "Nunca cubre el carro que vas manejando."
+      ],
+      "faq": [
+        [
+          "¿Se puede tener un SR-22 con una póliza para no propietarios?",
+          "Sí, y es la razón más común por la que la gente la compra. Así se recupera la licencia cuando no hay carro que asegurar."
+        ],
+        [
+          "¿Cubre un carro rentado?",
+          "La parte de responsabilidad civil, por lo general, sí. Los daños al carro rentado no, así que esa parte tiene que venir de la rentadora, de un beneficio de tu tarjeta de crédito o de otro lado."
+        ],
+        [
+          "Vivo con alguien que tiene carro. ¿Puedo sacar una?",
+          "Normalmente no para ese carro — un vehículo de tu casa que tienes disponible de forma regular tiene que estar en una póliza donde aparezcas tú. Dile al agente cómo es de verdad tu situación en casa y la póliza se hace como debe ser."
+        ]
+      ]
+    },
+    "car-insurance-after-a-dwi": {
+      "nav": "Después de un DWI",
+      "card": "Qué le pasa de verdad a tu póliza, cuánto tiempo te sigue y por qué la primera compañía que te dice que sí casi nunca es la indicada.",
+      "title": "Seguro de auto después de un DWI en Texas o Nuevo México",
+      "desc": "Qué pasa con tu seguro de auto después de un DWI (manejar intoxicado), cuánto tiempo afecta tu precio, qué exige un SR-22 y cómo volver a tener seguro.",
+      "h1": "Seguro de auto después de un DWI",
+      "lede": "Después de un DWI (manejar intoxicado), el problema con el seguro se supera y es temporal, aunque mientras lo estás viviendo ninguna de las dos cosas parezca obvia. Lo que más importa es el orden en que haces las cosas y con qué aseguradora terminas.",
+      "body": [
+        [
+          "Qué pasa con la póliza que ya tienes",
+          [
+            "Pueden pasar dos cosas, y cuál de las dos depende totalmente de la aseguradora.",
+            {
+              "ul": [
+                "<b>No renovación (non-renewal).</b> La póliza sigue hasta el final de su periodo y ya no te la vuelven a ofrecer. Es lo más común.",
+                "<b>Cancelación a mitad del periodo.</b> Es menos común, y normalmente solo pasa cuando algo en la solicitud resulta estar mal."
+              ]
+            },
+            "En cualquiera de los dos casos te avisan por escrito, y ese aviso es el momento de empezar a comparar — no la semana en que se vence. Si dejas que se venza, al DWI se le suma un periodo sin seguro (lapse), y eso encarece todo lo que viene después."
+          ]
+        ],
+        [
+          "El SR-22",
+          [
+            "La mayoría de las condenas por DWI vienen con el requisito de un SR-22: un formulario que tu aseguradora presenta ante el estado para comprobar que tienes por lo menos la responsabilidad civil mínima.",
+            "Normalmente son dos años en Texas y tres en Nuevo México, a partir de una fecha que fija el estado. El SR-22 tiene que mantenerse vigente sin interrupción durante todo ese tiempo — si la póliza se vence, la aseguradora le avisa al estado, te vuelven a suspender la licencia y muchas veces la cuenta empieza de nuevo.",
+            "Activa los pagos automáticos desde el primer día. Un pago que se te pasa es la forma más común en que la gente convierte un problema de dos años en uno de cuatro."
+          ]
+        ],
+        [
+          "Cuánto tiempo te sigue",
+          [
+            "Para calcular el precio, la mayoría de las aseguradoras revisan de tres a cinco años hacia atrás, y un DWI queda en el extremo más largo de ese rango. No desaparece el día que termina el requisito del SR-22.",
+            "Pero va perdiendo peso. En cada renovación cuenta menos, y el día que queda fuera del periodo que revisan, el cambio es de golpe. Anota en tu calendario el mes en que pasa y vuelve a comparar tu póliza — la mayoría no lo hace, y lo sigue pagando."
+          ]
+        ],
+        [
+          "Por qué la primera compañía que te dice que sí casi nunca es la indicada",
+          [
+            "Después de un DWI se cierran muchas puertas, y el alivio de encontrar una que se abre es real. Pero así también es como la gente termina pagando bastante más de lo necesario durante años.",
+            "Con estos casos, las aseguradoras varían muchísimo. Algunas los rechazan de plano, otras los aceptan pero les ponen precios de castigo, y otras se especializan en ellos y les ponen precios razonables. Esa diferencia es más grande aquí que en casi cualquier otro tipo de póliza, y por eso comparar bien vale más aquí que en ningún otro lado."
+          ]
+        ],
+        [
+          "Qué hacer, en orden",
+          [
+            {
+              "ul": [
+                "No dejes que se venza la póliza que tienes. Compara antes de que termine.",
+                "Dile al agente lo del DWI desde el principio — cambia con qué aseguradoras vale la pena cotizar, y de todos modos lo van a encontrar.",
+                "Pregunta si te exigen un SR-22 y pide que lo presenten junto con la nueva póliza.",
+                "Pon los pagos de tu póliza en automático.",
+                "Anota la fecha en que termina el requisito del SR-22, y vuelve a comparar ese mes.",
+                "Vuelve a comparar cuando el DWI ya quede fuera del periodo que revisan para calcular el precio."
+              ]
+            }
+          ]
+        ]
+      ],
+      "key": [
+        "Compara en cuanto llegue el aviso de no renovación, no cuando se venza.",
+        "Quedarte sin seguro mientras tienes el SR-22 normalmente hace que la cuenta empiece de nuevo.",
+        "Aquí los pagos automáticos no son opcionales.",
+        "Vuelve a comparar cuando termine el SR-22, y otra vez cuando el DWI ya no cuente para el precio."
+      ],
+      "faq": [
+        [
+          "¿De verdad voy a poder conseguir seguro?",
+          "Sí. Cuesta más y la lista de compañías es más corta, pero son casos que manejamos seguido. Nadie se vuelve imposible de asegurar por una sola condena."
+        ],
+        [
+          "¿Le debo decir al agente?",
+          "Siempre, y desde el principio. Cambia con qué aseguradoras vale la pena cotizar, y una cotización hecha con un historial incompleto cambia de precio en cuanto sacan tu reporte."
+        ],
+        [
+          "¿Qué tan rápido pueden presentar mi SR-22?",
+          "Muchas veces el mismo día. Dinos que lo necesitas desde el principio de la conversación."
+        ]
+      ]
+    },
+    "car-insurance-after-a-lapse": {
+      "nav": "Después de un periodo sin seguro",
+      "card": "Lo que de verdad cuesta quedarte sin seguro, cuánto tiempo cuenta en tu contra y cómo evitar que vuelva a pasar.",
+      "title": "Seguro de auto después de un periodo sin seguro",
+      "desc": "Lo que te cuesta un periodo sin seguro (lapse), cuánto tiempo cuenta en tu contra, qué pasa con el registro de tu carro y cómo volver a tener seguro.",
+      "h1": "Cómo volver a asegurarte después de un periodo sin seguro",
+      "lede": "Un periodo sin seguro (lapse) es de las cosas que más encarecen una póliza de auto, y casi nadie lo sabe hasta que ya le tocó vivirlo.",
+      "body": [
+        [
+          "Por qué un periodo sin seguro cuesta tanto",
+          [
+            "Haber tenido seguro sin interrupciones es uno de los descuentos más grandes que aplica una aseguradora. No es un premio por portarte bien — de verdad es un indicador muy fuerte del riesgo, y las aseguradoras le ponen precio en consecuencia.",
+            "Perderlo hace dos cosas a la vez: pierdes el descuento y, en algunas aseguradoras, caes en un nivel de tarifa completamente distinto. El mismo conductor, con el mismo carro y el mismo historial, puede recibir precios muy diferentes antes y después de un hueco de treinta días."
+          ]
+        ],
+        [
+          "Cuánto tiempo cuenta",
+          [
+            "La mayoría de las aseguradoras revisan entre seis meses y un año hacia atrás para ver si tenías seguro, y algunas revisan más. Con el tiempo dejan de preguntar por ese hueco, pero el descuento por seguro continuo empieza a reconstruirse desde el día en que vuelves a estar asegurado.",
+            "Y ese es el punto práctico: entre más pronto lo arregles, más pronto empieza a correr el reloj. Un periodo sin seguro que terminó hace seis meses pesa mucho menos en tu contra que uno que sigue abierto."
+          ]
+        ],
+        [
+          "No todos los periodos sin seguro son iguales",
+          [
+            {
+              "ul": [
+                "<b>Un hueco de menos de 30 días</b> se trata con mucha más suavidad que uno más largo en la mayoría de las aseguradoras — a veces casi ni cuenta.",
+                "<b>Un hueco con una razón</b> se puede comprobar. Un despliegue militar, un carro vendido, una temporada fuera del país, una hospitalización — dilo, porque en algunas aseguradoras se maneja diferente.",
+                "<b>Un hueco que sigue abierto</b> es el que sale caro. El precio se está calculando sobre un riesgo que todavía está vigente."
+              ]
+            }
+          ]
+        ],
+        [
+          "El problema con el registro",
+          [
+            "Tanto Texas como Nuevo México verifican el seguro electrónicamente con el registro del vehículo. Un periodo sin seguro en un carro registrado puede generar un aviso y, si no haces nada, la suspensión del registro y cuotas para reactivarlo.",
+            "En algunos casos, después también te piden un SR-22. Un hueco que empezó con un pago que se te pasó se convierte en la obligación de tener un SR-22 durante dos o tres años — mucho tiempo cargando con las consecuencias de ahorrarte un solo mes."
+          ]
+        ],
+        [
+          "El error detrás de la mayoría de los periodos sin seguro",
+          [
+            "Casi ninguno es a propósito. Son una tarjeta que se venció, un pago que cayó en una mala semana, una póliza cancelada mientras se vendía el carro, una mudanza en la que el correo no llegó a la nueva dirección.",
+            {
+              "ul": [
+                "Pon los pagos de tu póliza en automático.",
+                "Nunca canceles la póliza anterior antes de que la nueva esté activa — ni siquiera por un día.",
+                "Si un carro de verdad no se está usando, pregunta por una cobertura para carro guardado (storage) o por dejar solo la cobertura integral (comprehensive), en lugar de cancelar.",
+                "Actualiza tu dirección el mismo día que te mudes."
+              ]
+            }
+          ]
+        ],
+        [
+          "Cómo volver a tener seguro",
+          [
+            "Cuando llames, di claramente que estuviste sin seguro. Eso cambia con qué aseguradoras vale la pena cotizar, y de todos modos va a salir en el reporte — una cotización que no lo toma en cuenta es una cotización que después cambia de precio.",
+            "Y vuelve a comparar en seis meses. Para entonces ese periodo sin seguro va a pesar menos en tu contra que hoy, y la mayoría de la gente nunca regresa a revisar."
+          ]
+        ]
+      ],
+      "key": [
+        "Un periodo sin seguro te quita el descuento y, al mismo tiempo, te puede mandar a un nivel de tarifa más caro.",
+        "Un hueco de menos de 30 días se trata con mucha más suavidad que uno más largo.",
+        "Un periodo sin seguro en un carro registrado pone en riesgo el registro mismo.",
+        "Vuelve a comparar seis meses después de volver a tener seguro — para entonces pesa menos."
+      ],
+      "faq": [
+        [
+          "¿Cuánto tiempo es demasiado?",
+          "En muchas aseguradoras, aunque no en todas, el límite son treinta días. Después de eso se maneja como un periodo sin seguro de verdad, y después de un año la lista de aseguradoras que quieren tu póliza se hace más corta."
+        ],
+        [
+          "¿Se van a dar cuenta si no digo nada?",
+          "Sí. El seguro anterior se verifica con un reporte, no con lo que escribiste en el formulario. Lo único que logras si no lo dices es un precio que cambia después de que ya compraste."
+        ],
+        [
+          "Vendí mi carro y estuve un año sin nada. ¿Es lo mismo?",
+          "Sigue siendo un periodo sin seguro, pero uno que puedes comprobar, y una póliza para no propietarios (non-owner) durante ese tiempo lo habría evitado por completo. Vale la pena saberlo para la próxima."
+        ]
+      ]
+    },
+    "rideshare-and-delivery-insurance": {
+      "nav": "Viajes con apps y entregas",
+      "card": "El hueco entre tu póliza personal y la app — y lo que de verdad lo cierra.",
+      "title": "Seguro de auto para viajes con apps y entregas",
+      "desc": "Por qué una póliza personal de seguro de auto no cubre Uber, Lyft, DoorDash ni Amazon Flex, qué cubre de verdad la app y cómo cerrar ese hueco.",
+      "h1": "Si manejas para Uber, Lyft o una app de entregas",
+      "lede": "Una póliza personal de seguro de auto excluye manejar por dinero. La app cubre parte del tiempo en que estás trabajando. El tiempo que queda en medio es el que termina mal.",
+      "body": [
+        [
+          "Los tres periodos",
+          [
+            "En este negocio todo mundo habla de periodos, y vale la pena conocerlos, porque ahí es donde está el hueco.",
+            {
+              "ul": [
+                "<b>Periodo 0: la app apagada.</b> Aplica tu póliza personal, como siempre.",
+                "<b>Periodo 1: la app encendida, esperando un viaje o un pedido.</b> Este es el hueco. La plataforma normalmente da solo responsabilidad civil, con límites bajos, y nada de cobertura para tu propio carro.",
+                "<b>Periodo 2: viaje o pedido aceptado, en camino.</b> La cobertura de la plataforma sube bastante.",
+                "<b>Periodo 3: con el pasajero o el pedido a bordo.</b> Aplica toda la cobertura de la plataforma."
+              ]
+            }
+          ]
+        ],
+        [
+          "Lo que de verdad dice una póliza personal",
+          [
+            "Casi todas las pólizas personales de auto tienen una exclusión por transporte de pasajeros o carga (livery o public conveyance): la cobertura no aplica mientras el vehículo se usa para llevar personas o cosas a cambio de un pago.",
+            "Esa exclusión aplica igual, le hayas avisado a alguien o no. Un reclamo durante una entrega con una póliza personal es un reclamo rechazado, y para entonces la aseguradora también ya sabe en qué se ha estado usando el carro."
+          ]
+        ],
+        [
+          "Lo que cierra el hueco",
+          [
+            {
+              "ul": [
+                "<b>Un endoso para viajes con apps (rideshare).</b> Se agrega a tu póliza personal, normalmente es económico y extiende tu propia cobertura durante el periodo 1. Es la solución más sencilla cuando la aseguradora lo ofrece.",
+                "<b>Una póliza de auto comercial.</b> Necesaria cuando manejar ya es un negocio en forma y no solo algo de las tardes y los fines de semana, y algunos contratos la exigen de plano."
+              ]
+            },
+            "No todas las aseguradoras ofrecen el endoso, y las que sí no siempre son las que esperarías. Con un agente es una plática corta; sin él, una larga."
+          ]
+        ],
+        [
+          "El deducible del que nadie habla",
+          [
+            "Incluso en los periodos 2 y 3, la cobertura de daños al vehículo que da la plataforma normalmente trae un deducible mucho más alto que el de tu propia póliza — muchas veces muy por encima de $1,000.",
+            "Un endoso para rideshare muchas veces lo baja a tu propio deducible. Es la parte de la plática que se paga sola."
+          ]
+        ],
+        [
+          "Las entregas no siempre son lo mismo que llevar pasajeros",
+          [
+            "Las entregas de comida, de paquetes y del súper se cotizan de forma distinta a los viajes con pasajeros, y no todos los endosos cubren las dos cosas. Amazon Flex, DoorDash y Uber Eats no quedan incluidos automáticamente solo porque le dijiste a la aseguradora que manejas para Uber.",
+            "Di exactamente qué apps usas. Es una pregunta de treinta segundos, y una respuesta equivocada sale carísima."
+          ]
+        ]
+      ],
+      "key": [
+        "El periodo 1 — la app encendida, sin viaje ni pedido — es el hueco que termina mal.",
+        "Las pólizas personales excluyen manejar cobrando, lo hayas avisado o no.",
+        "Un endoso para rideshare suele ser barato y suele ser la solución correcta.",
+        "Menciona todas las apps para las que manejas; no se cotizan igual."
+      ],
+      "faq": [
+        [
+          "¿Se va a enterar mi aseguradora?",
+          "Si hay un reclamo, sí. Los ajustadores preguntan en qué se estaba usando el vehículo, y la app guarda registros. Sale mucho más barato decirlo tú que dejar que lo descubran."
+        ],
+        [
+          "¿Pero no me cubre el seguro de la app?",
+          "En parte. Es más fuerte con un pasajero o un pedido a bordo, y más débil mientras esperas que te llegue una solicitud, que es justo donde se va buena parte del tiempo de manejo."
+        ],
+        [
+          "¿Necesito un seguro comercial?",
+          "Para la mayoría de quienes manejan medio tiempo, no — normalmente basta con un endoso. Cuando ya es de tiempo completo, o hay un vehículo dedicado solo a eso, lo correcto es un seguro comercial. Nosotros vendemos los dos."
+        ]
+      ]
+    }
   }
 }

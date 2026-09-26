@@ -104,7 +104,7 @@
       "contact": "Contact",
       "quote": "Get a quote &rarr;"
     },
-    "tagline": "Licensed independent agency in El Paso, Texas &middot; 🇲🇽 Se habla español",
+    "tagline": "Licensed independent agency in El Paso, Texas &middot; 🇲🇽 <span lang=\"es\">Se habla español</span>",
     "disclaimer": "Safe House Insurance LLC is an independent insurance agency licensed in Texas and New Mexico. Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy. Quotes are estimates and are not a guarantee of coverage or price. Carrier availability and eligibility vary by state and by applicant. &copy; 2026 Safe House Insurance.",
     "privacy": "Privacy Policy",
     "sms": "SMS Terms",

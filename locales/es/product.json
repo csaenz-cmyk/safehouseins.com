@@ -72,5 +72,880 @@
     "stmt": {
       "say": "{a} {b}. <b>De eso se trata todo.</b> El formulario es la parte rápida; lo que vale la pena de una agencia es que alguien que ha colocado esto mil veces revise lo que salió antes de que compres."
     }
+  },
+  "items": {
+    "rideshare-insurance": {
+      "nav": "Seguro para Uber y Lyft",
+      "eyebrow": "Viajes con apps y entregas",
+      "title": "Seguro para Uber y Lyft en Texas y Nuevo México",
+      "desc": "Seguro para conductores de Uber, Lyft, DoorDash y repartidores en Texas y Nuevo México. Tu póliza personal no te cubre con la app prendida: cerramos el hueco.",
+      "h1": "Tu póliza personal deja de cubrirte",
+      "h1em": "en cuanto prendes la app.",
+      "lede": "Casi todas las pólizas personales de auto excluyen manejar a cambio de un pago, y la mayoría de los conductores se entera después de un reclamo, no antes. Uber y Lyft cubren una parte de tu día, no todo. Nosotros aseguramos la parte que ellos no cubren.",
+      "photo_alt": "",
+      "yes_kick": "A quién aseguramos",
+      "yes_head": "Todas las plataformas, y los conductores que a otras agencias se les complican.",
+      "yes_lede": "Aquí, manejar para una plataforma no es un caso raro. Tampoco hacerlo con un historial que hace dudar a una aseguradora.",
+      "misses_lede": "Uber y Lyft sí tienen seguro, y es lógico que los conductores piensen que con eso basta. Lo que ese seguro hace en realidad es cubrir algunos momentos de tu turno y otros no, y en la app no es obvio dónde deja de cubrir.",
+      "pick_head": "Tres formas en que los conductores se cubren",
+      "pick_lede": "Cuál te conviene depende de cuántas horas manejas, de si también haces entregas y de si el carro está financiado. Te vamos a decir cuál de estas necesitas de verdad, en lugar de venderte la más grande.",
+      "big": [
+        "Una persona revisa",
+        "cada cotización"
+      ],
+      "misses": [
+        [
+          "La app está prendida y todavía no tienes viaje",
+          "Este es el hueco que casi todos tienen. Estás conectado y esperando, así que para tu póliza personal ya estás trabajando, y la plataforma todavía no te asigna un viaje. En ese tiempo de espera sí hay cobertura, pero es mucho menor que la que aplica cuando ya vas en un viaje, y normalmente es solo responsabilidad civil (daños a terceros) &mdash; nada para tu propio carro."
+        ],
+        [
+          "Tu propio carro, casi todo el tiempo",
+          "La cobertura integral y de colisión de la plataforma normalmente solo aplica cuando ya tienes un viaje asignado o llevas a un pasajero, y tiene un deducible de miles de dólares. Si tu propia póliza no incluye cobertura integral (comprehensive) y de colisión (collision), los daños a tu carro mientras esperas los pagas tú."
+        ],
+        [
+          "Hacer entregas no es lo mismo que llevar pasajeros",
+          "DoorDash, Uber Eats, Instacart, Amazon Flex y Shipt son otro tipo de riesgo, y un endoso para llevar pasajeros (rideshare) con frecuencia los excluye por nombre. Un conductor que agregó cobertura para llevar pasajeros y luego empezó a hacer entregas muchas veces no tiene seguro para las entregas y no lo sabe."
+        ],
+        [
+          "Una póliza que no sabe a qué te dedicas",
+          "Si nunca se le avisó a la aseguradora que manejas para una plataforma, el endoso no está en la póliza y la exclusión sigue ahí. Lo peor que puede pasar es que te nieguen un reclamo por un viaje que te estaban pagando, en una póliza que tú estuviste pagando todo el tiempo."
+        ]
+      ],
+      "picks": [
+        [
+          "Póliza personal con endoso para llevar pasajeros",
+          "Lo más común para quien maneja medio tiempo en una sola plataforma. Mantiene tu precio normal para el manejo de todos los días y extiende la cobertura al tiempo en que esperas un viaje.",
+          [
+            "Tu cobertura personal de siempre",
+            "Extendida mientras la app está prendida y sin viaje",
+            "Muchas veces extiende tu cobertura integral y de colisión"
+          ]
+        ],
+        [
+          "Un endoso que también incluye entregas",
+          "Para quien hace las dos cosas, o solo entregas. Menos compañías lo ofrecen y la redacción importa &mdash; en una póliza, “rideshare” y “delivery” no son la misma palabra.",
+          [
+            "Todo lo anterior",
+            "Entregas de comida y paquetes incluidas por nombre",
+            "Confirmado para las plataformas que de verdad usas"
+          ]
+        ],
+        [
+          "Seguro de auto comercial",
+          "Para quien maneja muchas millas, tiene un vehículo a nombre de un negocio o trabaja con más de un carro. Más cobertura y más costo; la respuesta correcta cuando manejar ya no parece un trabajo extra.",
+          [
+            "Pensado para uso comercial desde el principio",
+            "Límites más altos disponibles",
+            "Cubre a empleados y conductores adicionales"
+          ]
+        ]
+      ],
+      "yes": [
+        "Conductores de Uber y Lyft",
+        "Entregas de comida y paquetes",
+        "Las dos cosas a la vez",
+        "Nuevos en la plataforma",
+        "Multas o un accidente con culpa",
+        "Con SR-22",
+        "Licencia extranjera o matrícula",
+        "Más de un carro en la póliza"
+      ],
+      "faq": [
+        [
+          "¿Mi seguro de auto normal me cubre si manejo para Uber?",
+          "Casi seguro que no mientras la app está prendida. Una póliza personal de auto normalmente excluye llevar pasajeros o mercancía a cambio de un pago, y esa exclusión es la regla, no la excepción. Vale la pena buscar en tu propia póliza las palabras “livery” o “for hire” &mdash; y decirnos para qué plataformas manejas, para que se agregue el endoso correcto."
+        ],
+        [
+          "¿No me cubre ya el seguro de Uber?",
+          "Durante una parte de tu turno. Uber y Lyft publican una cobertura de responsabilidad civil hacia terceros de un millón de dólares mientras vas por un pasajero y mientras lo llevas en el carro. Antes de eso &mdash; con la app prendida, esperando una solicitud &mdash; la cobertura es mucho menor, y su cobertura integral y de colisión solo aplica durante un viaje y tiene un deducible de miles de dólares. Ese tiempo de espera es donde la mayoría de los conductores no tiene seguro y no lo sabe."
+        ],
+        [
+          "Solo hago entregas de comida. ¿Es lo mismo?",
+          "No, y este es el error que le sale caro a la gente. Muchos endosos para llevar pasajeros excluyen las entregas por nombre, así que un conductor que agregó esa cobertura y luego empezó a hacer entregas puede quedarse sin seguro para las entregas. Dinos todas las plataformas para las que manejas &mdash; la redacción tiene que coincidir con lo que de verdad haces."
+        ],
+        [
+          "¿Me va a subir el precio si le aviso a mi aseguradora?",
+          "Normalmente cuesta algo, y cuesta mucho menos que un reclamo negado. El riesgo más grande no es la prima: es que la aseguradora descubra después de un choque que estabas trabajando, y eso puede significar que te nieguen el reclamo y te cancelen la póliza. Avísales."
+        ],
+        [
+          "¿Qué compañías cubren viajes con apps en Texas y Nuevo México?",
+          "No todas, y la lista cambia. Por eso vale la pena comparar en lugar de quedarte con una sola respuesta &mdash; al mismo conductor le pueden cotizar muy distinto según qué aseguradoras estén dispuestas siquiera a cubrir ese riesgo."
+        ],
+        [
+          "¿Qué tan rápido me pueden dar el comprobante de seguro para la plataforma?",
+          "Normalmente el mismo día. Dile al agente desde el principio que lo necesitas para Uber o Lyft, porque eso cambia qué compañías vale la pena cotizar, y hacerlo bien a la primera es la diferencia entre manejar mañana o no."
+        ]
+      ],
+      "panels": [
+        [
+          "Uber",
+          "Lyft",
+          "DoorDash",
+          "Uber Eats"
+        ],
+        [
+          "Instacart",
+          "Amazon Flex",
+          "Grubhub",
+          "Shipt"
+        ],
+        [
+          "Medio tiempo y tiempo completo",
+          "Un carro o varios",
+          "Financiado o ya pagado"
+        ],
+        [
+          "Comprobante de seguro el mismo día",
+          "Bilingüe, de principio a fin",
+          "Te decimos claro si no podemos mejorar lo que tienes"
+        ]
+      ]
+    },
+    "auto-insurance": {
+      "nav": "Seguro de auto",
+      "eyebrow": "Seguro de auto",
+      "title": "Seguro de auto en Texas y Nuevo México | Safe House Insurance",
+      "desc": "Seguro de auto con varias compañías: cobertura completa, responsabilidad civil, SR-22 y alto riesgo. Un agente bilingüe revisa cada cotización. El Paso, TX.",
+      "h1": "Las mejores opciones empiezan",
+      "h1em": "con una persona real.",
+      "lede": "Cotiza tu seguro en línea sin perder el trato humano. Nuestra tecnología compara tus opciones y luego un agente con licencia revisa tu cotización para asegurarse de que tengas un precio competitivo con la cobertura adecuada para ti.",
+      "photo_alt": "",
+      "yes_kick": "A quién aseguramos",
+      "yes_head": "Cobertura para más conductores de los que te imaginas.",
+      "yes_lede": "Desde historiales limpios hasta situaciones más complicadas, comparamos varias compañías para ayudar a más personas a encontrar cobertura.",
+      "misses_lede": "Un cotizador automático le pone precio a lo que escribiste. No sabe lo demás, y en una póliza de auto lo demás casi siempre vale más que la diferencia entre dos páginas web.",
+      "pick_head": "Te mostramos las opciones. Tú eliges.",
+      "pick_lede": "Cada cotización trae más de una forma de asegurar el mismo carro. Un agente te explica qué cambia de verdad con cada una &mdash; y luego tú decides, no una opción que una página web ya eligió por ti.",
+      "big": [
+        "Una persona revisa",
+        "cada cotización"
+      ],
+      "misses": [
+        [
+          "Cuánto tiempo has tenido seguro de verdad",
+          "El descuento por seguro previo es uno de los más grandes en una póliza de auto, y el formulario en línea hace una sola pregunta al respecto, sin más. Un agente pregunta lo que sigue: de quién era la póliza, qué fechas, si hubo un periodo sin seguro y por qué. Un mes que se te olvidó es dinero."
+        ],
+        [
+          "Los descuentos que nadie te ofrece",
+          "Manejo defensivo, buen estudiante, pago de contado, sin papel, varias pólizas, casa propia, militares, ocupación, exalumnos. Cada aseguradora tiene una lista distinta y ninguno de ellos aparece en el formulario de cotización."
+        ],
+        [
+          "Si la cobertura que elegiste es la que necesitas",
+          "La mayoría elige sus límites escogiendo el renglón más barato. Un agente te dice cuándo eso está bien y cuándo es un mal negocio — sobre todo en la cobertura de conductor sin seguro (uninsured motorist), que aquí importa más que en casi cualquier otro lugar."
+        ],
+        [
+          "Qué compañía te seguirá aceptando en seis meses",
+          "La cotización más barata de hoy a veces es de una aseguradora que no te va a renovar, o que te va a renovar a un precio muy distinto. Saber cuál es cuál es lo que se aprende en una década de colocar pólizas."
+        ]
+      ],
+      "picks": [
+        [
+          "Solo responsabilidad civil",
+          "El mínimo que exige la ley y lo que quieras agregarle. Cubre a las otras personas y su propiedad. No paga nada por tu propio carro.",
+          [
+            "Responsabilidad civil por lesiones corporales",
+            "Responsabilidad civil por daños a la propiedad",
+            "Cobertura de conductor sin seguro, si la conservas",
+            "Trámite de SR-22, si lo necesitas"
+          ]
+        ],
+        [
+          "Cobertura completa",
+          "Agrega las dos coberturas que pagan por tu carro. Esto es lo que una financiera quiere decir con “cobertura completa”, y es un requisito mientras el carro esté financiado o arrendado.",
+          [
+            "Todo lo de responsabilidad civil",
+            "Cobertura de colisión (collision)",
+            "Cobertura integral (comprehensive)",
+            "Los deducibles que elijas para cada una"
+          ]
+        ],
+        [
+          "Cobertura completa reforzada",
+          "Cobertura completa más lo que la gente quita para ahorrarse un poco y luego extraña mucho el día que pasa algo.",
+          [
+            "Todo lo de cobertura completa",
+            "Límites más altos de conductor sin seguro",
+            "Auto de renta",
+            "Asistencia vial",
+            "Gastos médicos (MedPay) o PIP"
+          ]
+        ]
+      ],
+      "yes": [
+        [
+          "Conductores de todos los días",
+          "Historial limpio, familias, quienes manejan al trabajo"
+        ],
+        [
+          "Conductores nuevos",
+          "Primera vez al volante y adolescentes"
+        ],
+        [
+          "Multas o accidentes",
+          "Conductores con infracciones o reclamos"
+        ],
+        [
+          "SR-22",
+          "Trámites ante el estado y requisitos especiales"
+        ],
+        [
+          "Licencias extranjeras",
+          "Matrícula, pasaporte o licencia internacional"
+        ],
+        [
+          "Sin licencia",
+          "Sí, es algo que podemos cotizar"
+        ]
+      ],
+      "faq": [
+        [
+          "¿Tengo que comprar algo para que me coticen?",
+          "No. Cotizar es gratis y sin compromiso. Si no encontramos nada mejor que lo que ya tienes, te lo decimos — es una conversación más corta y así sigues siendo alguien que nos llama el próximo año."
+        ],
+        [
+          "¿Qué tan rápido puedo tener un SR-22?",
+          "Muchas veces el mismo día. Dile al agente desde el principio que lo necesitas, porque eso cambia qué aseguradoras vale la pena cotizar, y hacerlo bien a la primera es la diferencia entre una tarde y una semana."
+        ],
+        [
+          "¿Me pueden asegurar sin licencia?",
+          "A veces, según la situación y el estado. Es una pregunta real con una respuesta real — llámanos y pregunta en lugar de dar por hecho que la respuesta es no."
+        ],
+        [
+          "¿Y si llevo un tiempo sin seguro?",
+          "Dilo. Un periodo sin seguro (lapse) cambia el precio y cambia qué compañías te aceptan, y esconderlo solo significa que después te van a volver a cotizar a un precio que ya cambió."
+        ],
+        [
+          "¿Pueden usar mi póliza actual para buscarme algo mejor?",
+          "Mándanos tu hoja de declaraciones (dec page) y cotizamos la misma cobertura, renglón por renglón, para que compares manzanas con manzanas y no con una póliza más barata que cubre menos."
+        ],
+        [
+          "¿También aseguran en Nuevo México?",
+          "Sí — tenemos licencia en los dos estados. Las cotizaciones de Nuevo México las prepara un agente, no el cotizador en línea, para que recibas límites reales de Nuevo México y no un precio de Texas."
+        ]
+      ],
+      "panels": [
+        [
+          "Con qué compañía era la póliza",
+          "Las fechas exactas de inicio y fin",
+          "Por qué hubo un periodo sin seguro, si lo hubo"
+        ],
+        [
+          "Manejo defensivo",
+          "Pago de contado",
+          "Casa propia",
+          "Sin papel"
+        ],
+        [
+          "Conductor sin seguro",
+          [
+            "30/60 &mdash; el mínimo del estado",
+            "100/300 &mdash; lo que solemos recomendar"
+          ]
+        ],
+        "Esta es la más barata hoy, y a muchos conductores no les renueva la póliza después del primer reclamo. La de abajo sí los conserva. Vale la pena saberlo antes de firmar, no después."
+      ]
+    },
+    "home-insurance": {
+      "nav": "Seguro de casa",
+      "eyebrow": "Seguro de casa",
+      "title": "Seguro de casa en Texas y Nuevo México | Safe House Insurance",
+      "desc": "Seguro de casa y de casa móvil con las compañías que representamos. Un agente bilingüe revisa el costo de reconstrucción y los deducibles. El Paso, TX.",
+      "h1": "Seguro de casa,",
+      "h1em": "revisado antes de que lo firmes.",
+      "lede": "Casas y casas móviles, cotizadas con las compañías que representamos — y luego revisadas renglón por renglón por un agente con licencia, porque en una póliza de casa es donde se esconden las sorpresas caras.",
+      "photo_alt": "",
+      "yes_head": "Lo que aseguramos",
+      "yes_lede": "El seguro de casa no es un solo producto. Lo que tienes y cómo lo usas decide qué compañías siquiera lo toman en cuenta.",
+      "misses_lede": "Una cotización de casa es tan buena como los números con los que se hizo, y un formulario en línea te deja equivocarte en todos sin decirte nada.",
+      "pick_head": "Te mostramos las opciones. Tú eliges.",
+      "pick_lede": "Las pólizas de casa vienen en distintos tipos, y el tipo decide qué está cubierto antes que cualquier límite o deducible. Un agente te dice cuál estás viendo y qué cambia si subes al siguiente.",
+      "big": [
+        "Una persona revisa",
+        "cada póliza"
+      ],
+      "misses": [
+        [
+          "Lo que de verdad costaría reconstruirla",
+          "No lo que pagaste, ni lo que te darían si la vendes — lo que un constructor cobraría por volver a levantarla, a los precios de hoy de mano de obra y materiales aquí. Si la aseguras por debajo de eso, hasta un reclamo parcial te lo pueden reducir. Es el error más común en una póliza de casa y una página web no lo puede detectar."
+        ],
+        [
+          "La cláusula del techo que no leíste",
+          "Muchas pólizas en Texas y Nuevo México pagan un valor depreciado por un techo con años en lugar de reemplazarlo, y algunas tienen un deducible aparte para viento y granizo que es un porcentaje del valor de la casa y no una cantidad fija. Dos cotizaciones con el mismo precio pueden ser pólizas muy distintas."
+        ],
+        [
+          "Descuentos que dependen de la casa",
+          "La edad y el material del techo, una alarma monitoreada, tejas resistentes al impacto, un panel eléctrico más nuevo, un fraccionamiento cerrado, contratarlo junto con el seguro del carro. Cada aseguradora los valora distinto y el formulario ni pregunta por la mitad."
+        ],
+        [
+          "Lo que no está cubierto para nada",
+          "La inundación nunca viene en una póliza de casa, y esta es una región donde la tierra está seca y el agua llega de golpe. Los movimientos de tierra, el reflujo del drenaje y un negocio en casa normalmente tampoco están cubiertos. Mejor enterarte en una conversación que en un reclamo."
+        ]
+      ],
+      "picks": [
+        [
+          "Riesgos nombrados",
+          "Cubre las causas de pérdida que la póliza menciona por nombre (named perils), y nada más. Es el tipo más barato, y el que sorprende a la gente a la hora del reclamo.",
+          [
+            "Incendio, rayo y humo",
+            "Viento y granizo",
+            "Robo y vandalismo",
+            "Las demás causas que nombra la póliza"
+          ]
+        ],
+        [
+          "Riesgos abiertos para la casa",
+          "El tipo más común. La casa está cubierta contra todo lo que la póliza no excluya específicamente (open perils); tus pertenencias siguen cubiertas solo contra los riesgos nombrados.",
+          [
+            "La casa, contra todo lo que no esté excluido",
+            "Tus pertenencias, por las causas nombradas",
+            "Responsabilidad civil personal",
+            "Gastos de vivienda mientras la reparan"
+          ]
+        ],
+        [
+          "Riesgos abiertos para la casa y tus cosas",
+          "La casa y tus pertenencias, las dos cubiertas contra todo lo que no esté excluido, y normalmente con costo de reemplazo (replacement cost) en todo.",
+          [
+            "La casa, contra todo lo que no esté excluido",
+            "Tus pertenencias, contra todo lo que no esté excluido",
+            "Costo de reemplazo, sin depreciación",
+            "Responsabilidad civil personal más alta",
+            "Tus cosas de valor, en una lista aparte"
+          ]
+        ]
+      ],
+      "yes": [
+        "Casas donde vives",
+        "Casas móviles y prefabricadas",
+        "Inquilinos y condominios",
+        "Segunda casa o propiedad en renta",
+        "Casas y techos con años",
+        "Construcción nueva",
+        "Junto con tus carros",
+        "Casas con hipoteca"
+      ],
+      "faq": [
+        [
+          "¿Cuánta cobertura necesito para la casa?",
+          "La suficiente para reconstruirla, que casi nunca es lo que pagaste y nunca es lo que adivina una página web. Dinos los pies cuadrados, el año, el techo y los acabados, y lo calculamos contigo."
+        ],
+        [
+          "¿El seguro de casa cubre inundaciones?",
+          "No. Nunca, en ningún lado, y eso sorprende a la gente cada vez. La inundación es una póliza aparte y vale la pena preguntar por ella aquí aunque no vivas cerca de un río."
+        ],
+        [
+          "Mi techo es viejo. ¿Todavía me pueden asegurar?",
+          "Normalmente sí, pero cambia qué compañías te aseguran y cómo pagan un reclamo del techo. Dinos desde el principio la edad y el material para cotizar con las correctas a la primera."
+        ],
+        [
+          "¿Qué es un deducible de viento y granizo?",
+          "Un deducible aparte, normalmente más alto, que solo aplica a daños por tormenta, y muchas veces se expresa como un porcentaje del monto asegurado de la vivienda (dwelling) y no como una cantidad en dólares. Siempre vale la pena leerlo antes de comparar dos precios."
+        ],
+        [
+          "¿Pueden asegurar una casa móvil?",
+          "Sí. Es una póliza distinta a la de una casa normal, y la ofrecen menos aseguradoras, que es justo la situación para la que existe una agencia independiente."
+        ],
+        [
+          "Mi banco necesita un comprobante de seguro.",
+          "Se lo mandamos directamente. Tu banco o financiera también puede pedir los documentos por su cuenta: que entre a nuestra página para bancos y financieras y la solicitud llega directo a las manos correctas."
+        ]
+      ],
+      "panels": [
+        [
+          "Límite de la vivienda",
+          [
+            "Lo que te darían si la vendes",
+            "Lo que costaría reconstruirla"
+          ]
+        ],
+        [
+          "Pago por el techo",
+          [
+            "Valor real en efectivo &mdash; depreciado por la edad",
+            "Costo de reemplazo"
+          ]
+        ],
+        [
+          "Edad y material del techo",
+          "Tejas resistentes al impacto",
+          "Alarma y válvula de cierre de agua",
+          "Descuento por casa nueva"
+        ],
+        "La inundación y el terremoto nunca vienen dentro de una póliza de casa, en ningún lado. Si los necesitas, son aparte &mdash; y es mejor que lo sepas por nosotros ahora, no por un ajustador después."
+      ]
+    },
+    "renters-insurance": {
+      "nav": "Seguro para inquilinos",
+      "eyebrow": "Seguro para inquilinos",
+      "title": "Seguro para inquilinos en Texas y Nuevo México | Safe House",
+      "desc": "Seguro para inquilinos de departamentos y casas en Texas y Nuevo México: tus cosas, tu responsabilidad civil y dónde quedarte. Lo compara un agente bilingüe.",
+      "h1": "Seguro para inquilinos,",
+      "h1em": "lo más barato que vas a comprar este año.",
+      "lede": "La póliza de tu casero cubre el edificio. No cubre ni una sola de tus cosas, y no te cubre a ti cuando alguien se lastima en tu departamento.",
+      "photo_alt": "",
+      "yes_head": "Para quién es",
+      "yes_lede": "Para cualquiera que no sea dueño de las paredes. Cuesta menos de lo que la mayoría cree y es la única póliza que te cubre a ti personalmente donde vives.",
+      "misses_lede": "El seguro para inquilinos es la póliza que la gente compra en noventa segundos en el celular porque el contrato de renta se lo pedía, y luego nunca vuelve a ver. En esos noventa segundos es donde sale mal.",
+      "pick_head": "Te mostramos las opciones. Tú eliges.",
+      "pick_lede": "Una póliza para inquilinos es tan pequeña que las opciones que trae se pasan por alto. Y son toda la diferencia entre un cheque que repone tus cosas y uno que no.",
+      "big": [
+        "Una persona revisa",
+        "cada cotización"
+      ],
+      "misses": [
+        [
+          "Cuánto valen de verdad tus cosas",
+          "Suma una televisión, una laptop, una cama, un sillón, la ropa, una bicicleta, la cocina. Casi siempre es más que la cantidad que la gente escoge, y la cantidad que la gente escoge es la que ya venía puesta en el formulario."
+        ],
+        [
+          "Costo de reemplazo contra valor real en efectivo",
+          "Con uno te compras una laptop nueva. Con el otro, lo que vale una laptop de seis años. La diferencia de precio entre esas dos pólizas es pequeña, y la diferencia a la hora del reclamo no."
+        ],
+        [
+          "La mitad de responsabilidad civil en la que nadie piensa",
+          "Una póliza para inquilinos no es solo para tus cosas. Te cubre cuando un invitado se lastima, cuando una tubería que te toca a ti inunda el departamento de abajo, cuando tu perro muerde a alguien. Esa mitad es normalmente la razón por la que el contrato de renta la exige."
+        ],
+        [
+          "Que te abarata el seguro de auto",
+          "La mayoría de las aseguradoras le hacen descuento a la póliza de auto cuando tienes una póliza para inquilinos junto a ella, y muchas veces el descuento se acerca a lo que cuesta la de inquilinos. Nadie que cotice un solo producto te lo va a mencionar."
+        ]
+      ],
+      "picks": [
+        [
+          "Valor real en efectivo",
+          "Paga lo que valían tus cosas ese día, descontando los años de uso (actual cash value). Es la forma más barata de contratarla y la razón por la que la gente siente que le pagaron de menos.",
+          [
+            "Tus pertenencias, con depreciación",
+            "Responsabilidad civil personal",
+            "Gastos de vivienda temporal",
+            "Gastos médicos de otras personas"
+          ]
+        ],
+        [
+          "Costo de reemplazo",
+          "Paga lo que cuesta volver a comprar la cosa hoy (replacement cost). La mejora que más importa y que normalmente cuesta menos.",
+          [
+            "Tus pertenencias, sin depreciación",
+            "Responsabilidad civil personal",
+            "Gastos de vivienda temporal",
+            "Gastos médicos de otras personas"
+          ]
+        ],
+        [
+          "Costo de reemplazo, con tus cosas de valor en una lista",
+          "Anillos, instrumentos, cámaras y herramientas tienen un sublímite bajo a menos que estén listados por nombre. Listarlos quita el sublímite y normalmente también el deducible.",
+          [
+            "Todo lo de costo de reemplazo",
+            "Joyas listadas una por una",
+            "Instrumentos, cámaras, herramientas",
+            "Responsabilidad civil personal más alta"
+          ]
+        ]
+      ],
+      "yes": [
+        "Departamentos",
+        "Casas rentadas y dúplex",
+        "Cuartos y contratos compartidos",
+        "Estudiantes",
+        "Rentas amuebladas y de corto plazo",
+        "Contratos que piden comprobante",
+        "Junto con tu póliza de auto",
+        "Inquilinos con mascotas"
+      ],
+      "faq": [
+        [
+          "Mi casero ya tiene seguro. ¿Para qué necesito esto?",
+          "Porque el suyo cubre el edificio y nada de lo tuyo. Si el lugar se quema, el casero recupera su edificio y tú no recibes nada — a menos que tengas tu propia póliza."
+        ],
+        [
+          "¿Cuánto cuesta el seguro para inquilinos?",
+          "Menos de lo que la mayoría se imagina, y depende de dónde vives, de lo que vas a asegurar y de tu deducible. Te lo cotizamos con las compañías que representamos, en lugar de darte aquí un número que no podemos respaldar."
+        ],
+        [
+          "¿Cubre mis cosas fuera del departamento?",
+          "Normalmente sí, incluso en tu carro y cuando andas de viaje — esto cambia según la póliza, así que vale la pena preguntar por la que de verdad vas a comprar."
+        ],
+        [
+          "Mi contrato de renta pide un comprobante antes de mudarme.",
+          "Dinos la fecha y a quién se lo mandamos. Normalmente podemos tener el certificado en la oficina de la administración el mismo día."
+        ],
+        [
+          "¿Cubre a mi compañero de cuarto?",
+          "Por lo general no, a menos que esté nombrado en la póliza. Dos personas, dos pólizas es la respuesta de siempre, y es tan barato que casi nunca vale la pena discutirlo."
+        ],
+        [
+          "¿Me baja el precio del seguro de auto?",
+          "Muchas veces sí. La mayoría de las aseguradoras dan un descuento por varias pólizas, y puede compensar buena parte de lo que cuesta la póliza para inquilinos. Pídenos cotizar las dos juntas."
+        ]
+      ],
+      "panels": [
+        [
+          "Muebles, cuarto por cuarto",
+          "Ropa y zapatos",
+          "Electrónicos, herramientas y bicis",
+          "La cocina, toda"
+        ],
+        [
+          "Tus pertenencias",
+          [
+            "Valor real en efectivo &mdash; con depreciación",
+            "Costo de reemplazo"
+          ]
+        ],
+        [
+          "Un invitado que se lastima en tu casa",
+          "Agua que llega al departamento de abajo",
+          "El perro, en la mayoría de los casos"
+        ],
+        "Una póliza para inquilinos muchas veces se paga en buena parte sola con el descuento por varias pólizas en el carro. Pregunta cuánto cuestan las dos juntas antes de decidir que no vale la pena."
+      ]
+    },
+    "motorcycle-insurance": {
+      "nav": "Seguro de motocicleta",
+      "eyebrow": "Seguro de motocicleta",
+      "title": "Seguro de motocicleta en Texas y Nuevo México | Safe House",
+      "desc": "Seguro para motos de calle, cruiser, deportivas y todoterreno en Texas y Nuevo México. Accesorios, valor acordado y asistencia vial, con un agente bilingüe.",
+      "h1": "Seguro de motocicleta,",
+      "h1em": "para lo que de verdad armaste.",
+      "lede": "Una moto no es un carro chiquito, y las piezas que la hacen tuya son justo las que una cotización estándar deja fuera. Te preguntamos por ellas antes de que lo descubras por las malas.",
+      "photo_alt": "",
+      "yes_head": "Lo que aseguramos",
+      "yes_lede": "De calle, todoterreno, de tres ruedas o un proyecto que todavía no terminas. Dinos qué es y buscamos quién lo asegura.",
+      "misses_lede": "Las cotizaciones de moto fallan de una forma en que las de carro no: la moto que tienes en la cochera muchas veces no es la que describe la póliza.",
+      "pick_head": "Te mostramos las opciones. Tú eliges.",
+      "pick_lede": "Una moto no es un carro chiquito y no se debe cotizar como si lo fuera. Estas son las tres formas que toma una póliza de moto, y cuál te conviene depende de lo que la moto vale para ti.",
+      "big": [
+        "Una persona revisa",
+        "cada cotización"
+      ],
+      "misses": [
+        [
+          "Todo lo que le pusiste",
+          "Escapes, alforjas, asiento, parabrisas, cromo, estéreo, pintura. La cobertura de accesorios es un límite aparte y lo que viene por defecto casi siempre es bajo o cero. Una moto en la que invertiste varios miles de dólares puede quedar asegurada como si acabara de salir de la fábrica."
+        ],
+        [
+          "Lo que la moto vale para ti contra lo que dice una guía",
+          "Una moto restaurada o poco común no vale lo que dice una guía de precios. Para eso existe justamente el valor acordado (agreed value): requiere fotos y papeles, y no es algo que te ofrezca un formulario."
+        ],
+        [
+          "Tu equipo de protección",
+          "Casco, chamarra, botas, guantes — te los reponen después de un reclamo solo si la póliza lo dice, y muchas veces solo hasta un límite bajo. Vale la pena saber cuál es tu caso antes del reclamo, no después."
+        ],
+        [
+          "Los descuentos para motociclistas",
+          "Un curso de manejo de moto terminado, licencia para moto, guardarla en cochera, uso por temporada, ser socio de un club, varias motos. Las aseguradoras evalúan a los motociclistas muy distinto que a los conductores de carro, y vale la pena comparar esas diferencias."
+        ]
+      ],
+      "picks": [
+        [
+          "Solo responsabilidad civil",
+          "Cubre a las otras personas y su propiedad. Nada para la moto. Muchas motos con años se aseguran así, a propósito.",
+          [
+            "Responsabilidad civil por lesiones corporales",
+            "Responsabilidad civil por daños a la propiedad",
+            "Cobertura de conductor sin seguro, si la conservas"
+          ]
+        ],
+        [
+          "Responsabilidad civil más daños materiales",
+          "Agrega cobertura de colisión (collision) e integral (comprehensive), para que también te paguen la moto &mdash; a valor de guía, menos tu deducible.",
+          [
+            "Todo lo de responsabilidad civil",
+            "Cobertura de colisión",
+            "Cobertura integral",
+            "Cobertura de accesorios hasta el límite de la póliza"
+          ]
+        ],
+        [
+          "Valor acordado, con todo",
+          "Tú y la aseguradora acuerdan por escrito cuánto vale la moto hoy, y esa es la cantidad que te pagan si es pérdida total. Para cualquier moto personalizada, restaurada o simplemente bien cuidada.",
+          [
+            "Todo lo de daños materiales",
+            "Valor acordado por adelantado",
+            "Accesorios listados por nombre",
+            "Cobertura del equipo de protección",
+            "Asistencia vial e interrupción de viaje"
+          ]
+        ]
+      ],
+      "yes": [
+        "Cruiser y de turismo",
+        "Deportivas y superdeportivas",
+        "Estándar y naked",
+        "Doble propósito y todoterreno",
+        "Scooters y motonetas",
+        "Trimotos y sidecars",
+        "Personalizadas y reconstruidas",
+        "Varias motos en una póliza"
+      ],
+      "faq": [
+        [
+          "¿Necesito licencia para moto para poder asegurarme?",
+          "Normalmente influye en el precio y a veces en qué aseguradoras te aceptan. Dinos en qué parte del proceso vas — no es lo mismo tener un permiso de aprendiz que la licencia para moto completa, y los dos casos tienen respuesta."
+        ],
+        [
+          "¿Puedo asegurar una moto que todavía estoy armando?",
+          "Muchas veces sí, y vale la pena hacerlo antes de terminarla, no después. Cuánto vale a medio armar es tema de conversación, y justo por eso no es un formulario."
+        ],
+        [
+          "¿Qué es la cobertura de accesorios y cuánta necesito?",
+          "Un límite aparte para las piezas que no venían de fábrica. Suma lo que de verdad has gastado — a la mayoría de los motociclistas les sorprende el total, y el límite que viene por defecto casi siempre queda por debajo."
+        ],
+        [
+          "¿Tengo que asegurarla todo el año?",
+          "Puedes, y en la mayoría de los casos deberías. Cancelar en invierno crea un periodo sin seguro (lapse), y eso cuesta más la siguiente temporada que los meses que te ahorraste — además de dejar la moto sin cobertura contra robo en la cochera."
+        ],
+        [
+          "¿Mi equipo de protección está cubierto?",
+          "Depende de la póliza, y muchas veces solo hasta un límite bajo. Pregunta antes de comprar, no después de caerte."
+        ],
+        [
+          "¿Pueden poner la moto en la misma póliza que mi carro?",
+          "A veces con la misma aseguradora, normalmente como una póliza aparte con descuento por varias pólizas. De cualquier forma, las cotizamos juntas para que veas el total."
+        ]
+      ],
+      "panels": [
+        [
+          "Escapes y mofles",
+          "Asiento, manubrio y estribos",
+          "Estéreo y luces",
+          "Pintura, cromo y alforjas"
+        ],
+        [
+          "Cómo se valúa la moto",
+          [
+            "Valor real en efectivo &mdash; según la guía",
+            "Valor acordado &mdash; la cantidad que tú fijas"
+          ]
+        ],
+        [
+          "Casco",
+          "Chamarra y protecciones",
+          "Botas y guantes"
+        ],
+        [
+          "Un curso de manejo de moto terminado",
+          "Licencia para moto",
+          "Guardada en tu cochera",
+          "Más de una moto"
+        ]
+      ]
+    },
+    "commercial-insurance": {
+      "nav": "Seguro comercial",
+      "eyebrow": "Seguro comercial",
+      "title": "Seguro comercial y camionetas de trabajo: Texas y Nuevo México",
+      "desc": "Seguro comercial para camionetas de trabajo y flotillas en Texas y Nuevo México. Registros, certificados y cartas para tu financiera, con un agente bilingüe.",
+      "h1": "Camionetas de trabajo y flotillas,",
+      "h1em": "aseguradas por alguien que sí contesta.",
+      "lede": "Una camioneta o veinte. Seguro de auto comercial, responsabilidad civil general y todo el papeleo que traen — con una agencia que contesta el teléfono cuando se necesita un certificado para esta misma mañana.",
+      "photo_alt": "Un tráiler azul en la carretera al atardecer",
+      "yes_head": "Los negocios que aseguramos",
+      "yes_lede": "Sobre todo, negocios pequeños. Los que para una aseguradora nacional ni cuentan y por los que un corredor ni regresa la llamada.",
+      "misses_lede": "En lo comercial es donde una cotización en línea deja de ser solo imprecisa y se vuelve, por completo, la póliza equivocada.",
+      "pick_head": "Te mostramos las opciones. Tú eliges.",
+      "pick_lede": "El seguro comercial se arma, no se compra hecho. Lo que necesitas depende de lo que haces y de lo que firmaste &mdash; por eso un agente revisa las dos cosas antes de cotizar cualquier parte.",
+      "big": [
+        "Una persona revisa",
+        "cada póliza"
+      ],
+      "misses": [
+        [
+          "Si tu póliza personal en realidad no te cubre nada",
+          "Una camioneta que se usa para trabajar, con una póliza personal de auto, es un reclamo esperando a que lo nieguen. Es el error más caro en esta categoría y no se nota hasta el día en que importa."
+        ],
+        [
+          "Lo que de verdad exigen tus contratos",
+          "Límites, asegurado adicional (additional insured), renuncia a la subrogación (waiver of subrogation), primaria y no contributiva (primary and non-contributory). El cliente o el dueño de la propiedad que te contrató escribió esas palabras en un contrato, y una cotización que las ignora te deja con una póliza que no pasa la revisión."
+        ],
+        [
+          "Quién maneja de verdad",
+          "Empleados, subcontratistas, un familiar los fines de semana. Quién está en la lista de la póliza y quién solo tiene permiso de manejar cambia el precio y también si se paga un reclamo."
+        ],
+        [
+          "El certificado que tiene que estar listo para el viernes",
+          "La mitad del seguro comercial son documentos — certificados, registros oficiales (filings), asegurados adicionales, cartas para la financiera. Eso no es un problema de cotización. Es un problema de quién contesta el teléfono, y es la razón de tener un agente."
+        ]
+      ],
+      "picks": [
+        [
+          "Solo auto comercial",
+          "Los vehículos y las personas que los manejan. Por ahí empieza la mayoría de los negocios pequeños, y para algunos es suficiente por sí solo.",
+          [
+            "Responsabilidad civil de auto comercial",
+            "Daños materiales en cada unidad",
+            "Autos rentados y ajenos (hired and non-owned)",
+            "Registros oficiales, donde el estado los exige"
+          ]
+        ],
+        [
+          "Auto más responsabilidad civil general",
+          "Agrega la mitad que pasa lejos del volante &mdash; en una obra, en el lugar de un cliente, en tu propio local. La mayoría de los contratos piden las dos.",
+          [
+            "Todo lo de auto comercial",
+            "Responsabilidad civil general",
+            "Certificados para quien los necesite",
+            "Endosos de asegurado adicional"
+          ]
+        ],
+        [
+          "Todo tu negocio",
+          "Auto, responsabilidad civil, lo que transportas y las herramientas con que trabajas, todo contratado junto para que nada se quede entre dos pólizas.",
+          [
+            "Todo lo de auto más responsabilidad civil general",
+            "Cobertura de carga",
+            "Herramientas y equipo",
+            "Renuncias y redacción de contratos",
+            "Certificados emitidos el mismo día"
+          ]
+        ]
+      ],
+      "yes": [
+        "Dueños-operadores con una unidad",
+        "Contratistas y oficios",
+        "Jardinería y limpieza",
+        "Entregas y mensajería",
+        "Food trucks y puestos de comida",
+        "Flotillas de todos los tamaños",
+        "Grúas y rescate de vehículos",
+        "Negocios con vehículos financiados"
+      ],
+      "faq": [
+        [
+          "A veces uso mi camioneta para trabajar. ¿Me alcanza con mi póliza personal?",
+          "Muchas veces no, y esa es la suposición más cara en esta categoría. Dinos cómo se usa de verdad el vehículo y te decimos sin rodeos si necesita una póliza comercial."
+        ],
+        [
+          "Mi cliente necesita un certificado hoy.",
+          "Llámanos. Los certificados normalmente salen el mismo día, y si tu contrato pide una redacción específica — asegurado adicional, renuncia a la subrogación — mándanos el texto y lo igualamos."
+        ],
+        [
+          "¿Pueden hacer registros federales o estatales?",
+          "Sí, cuando la operación los requiere. Dinos qué transportas, a dónde y con la autoridad de quién, porque de eso depende qué registros aplican."
+        ],
+        [
+          "¿Cómo aseguran una flotilla?",
+          "Vehículo por vehículo, y luego en una sola póliza. Los deducibles y la cobertura no tienen que ser iguales en todas las unidades, y en una flotilla mixta normalmente no deberían serlo."
+        ],
+        [
+          "¿Y mis herramientas y equipo?",
+          "La póliza de auto no los cubre. Es una cobertura aparte, y es el hueco que más seguido encontramos en pólizas hechas en otro lado."
+        ],
+        [
+          "¿Aseguran negocios en Nuevo México?",
+          "Sí — tenemos licencia en los dos estados. En cualquiera de los dos, las cotizaciones comerciales las prepara un agente, porque este no es un producto que se deba comprar llenando un formulario."
+        ]
+      ],
+      "panels": [
+        "Una póliza personal de auto puede excluir por completo el uso para negocio. La camioneta está asegurada hasta que el reclamo es por algo de trabajo, y entonces ya no. Es una plática de cinco minutos que salva a una empresa.",
+        [
+          "Los límites que pide el contrato",
+          "Redacción de asegurado adicional",
+          "Renuncia a la subrogación",
+          "Primaria y no contributiva"
+        ],
+        [
+          "Cada conductor listado por su nombre",
+          "Historial de manejo consultado",
+          "Quien quede excluido, por escrito"
+        ],
+        "Dinos la fecha límite cuando llames. Un certificado toma minutos cuando la póliza ya está bien, y una semana cuando no."
+      ]
+    }
+  },
+  "ez": {
+    "head": "Más que una cotización en línea",
+    "lede": "Fácil en línea. Personal donde importa. Empieza tu cotización en línea, deja que un agente con licencia revise tus opciones y cuenta con nosotros para estar al pendiente de tu póliza. Si aparece una mejor opción, aquí estaremos para ayudarte a revisarla.",
+    "cards": [
+      {
+        "h": "Obtén tu cotización en línea",
+        "p": "Empieza con un formulario sencillo en línea. Sin tanto ir y venir, sin procesos complicados &mdash; solo una forma más rápida y fácil de empezar a buscar cobertura.",
+        "alt": "La primera pantalla del formulario de cotización en línea: marca del vehículo, código postal y fecha de nacimiento, con un botón para obtener la cotización.",
+        "caption": ""
+      },
+      {
+        "h": "Una persona real revisa tus opciones",
+        "p": "No solo una cotización &mdash; una cotización revisada por una persona. Nuestra tecnología ayuda a reunir y comparar opciones, y luego un agente de Safe House con licencia revisa tus precios, tu cobertura y tus datos para ayudarte a encontrar la opción adecuada.",
+        "alt": "Una lista de compañías de seguros con una resaltada, y una nota de que un agente con licencia las revisó.",
+        "caption": "Imagen solo ilustrativa &mdash; las cifras que aparecen no son cotizaciones reales."
+      },
+      {
+        "h": "Seguimos al pendiente de mejores precios",
+        "p": "Vigilamos tu póliza, te avisamos cuando aparecen mejores opciones y te ayudamos a estar al día con tus renovaciones &mdash; con atención real en español o en inglés.",
+        "alt": "Un recordatorio de renovación arriba de una lista corta: estamos al pendiente, te avisamos, en español o en inglés.",
+        "caption": ""
+      }
+    ]
+  },
+  "discounts": {
+    "head": "Cada descuento, revisado por una persona",
+    "lede": "Un formulario en línea pregunta por unos cuantos. Un agente pregunta por todos, en cada compañía que comparamos, y otra vez cuando la póliza se va a renovar.",
+    "fine": "No todas las compañías ofrecen todos los descuentos, y quién califica varía según la aseguradora y el estado.",
+    "items": [
+      [
+        "Seguro previo",
+        "Cobertura continua antes de esta póliza. Es uno de los descuentos más grandes en una póliza de auto, y un formulario en línea pregunta por él una vez y sigue de largo."
+      ],
+      [
+        "Varias pólizas",
+        "Una póliza de casa, de inquilino o de casa móvil con la misma compañía que la del carro."
+      ],
+      [
+        "Varios carros",
+        "Más de un vehículo en la misma póliza. Vale la pena revisarlo aunque el segundo carro casi no se mueva."
+      ],
+      [
+        "Casa propia",
+        "Ser dueño de la casa donde vives. En varias compañías aplica aunque el seguro de la casa esté con otra."
+      ],
+      [
+        "Pago de contado",
+        "Pagar los seis o doce meses por adelantado en lugar de en pagos."
+      ],
+      [
+        "Pagos automáticos",
+        "Dejar que la aseguradora cargue la prima a tu cuenta para que nunca se te atrase."
+      ],
+      [
+        "Sin papel",
+        "Recibir los documentos de la póliza y los avisos de pago por correo electrónico en lugar de por correo postal."
+      ],
+      [
+        "Manejo defensivo",
+        "Un curso aprobado por el estado. Vale la pena volver a preguntar en la renovación, no solo cuando se hace la póliza."
+      ],
+      [
+        "Buen estudiante",
+        "Promedio de B o mejor para un estudiante que está en la póliza."
+      ],
+      [
+        "Estudiante fuera de casa",
+        "Un estudiante de la póliza que vive lo bastante lejos como para no estar manejando el carro."
+      ],
+      [
+        "Buen conductor",
+        "Un historial limpio en el periodo que la aseguradora revisa — y no todas revisan la misma cantidad de años hacia atrás."
+      ],
+      [
+        "Según cómo manejas",
+        "Dejar que la aseguradora vea cómo se maneja el carro de verdad, con una app o un dispositivo que se conecta al carro. No les conviene a todos, y un agente te lo va a decir."
+      ],
+      [
+        "Antirrobo",
+        "Una alarma, un inmovilizador o un localizador, de fábrica o instalado después."
+      ],
+      [
+        "Equipo de seguridad",
+        "Frenos ABS, bolsas de aire, cámara de reversa, asistente de carril y todo lo demás que el carro ya trae."
+      ],
+      [
+        "Cotizar con anticipación",
+        "Cotizar antes de que se venza tu póliza actual y no el mismo día en que se vence."
+      ],
+      [
+        "Ocupación y afiliaciones",
+        "Maestros, enfermeras, militares, personal de emergencias y una larga lista de empleadores, sindicatos y asociaciones de exalumnos."
+      ]
+    ]
   }
 }
