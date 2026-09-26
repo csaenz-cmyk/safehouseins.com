@@ -186,7 +186,8 @@ function check(ok, what) {
 
   // ---------------------------------------------------------- the quote ---
   // The same answers in both languages have to reach the AMS as the same
-  // payload. Only the wording of what was agreed to may differ.
+  // payload. Only the wording of what was agreed to may differ — and the
+  // language itself, which is sent so the agent knows how to open the call.
   const payloads = {};
   for (const lang of ['en', 'es']) {
     const log = [];
@@ -238,14 +239,37 @@ function check(ok, what) {
       return out;
     };
     const a = flat(payloads.en), c = flat(payloads.es);
-    const WORDING = /^(smsConsentText|disclosure\.text|disclosure\.version)$|At$|\.at$/;
+    const WORDING = /^(smsConsentText|disclosure\.text|disclosure\.version|preferredLanguage)$|At$|\.at$/;
     const diff = [...new Set([...Object.keys(a), ...Object.keys(c)])]
       .filter(k => !WORDING.test(k) && JSON.stringify(a[k]) !== JSON.stringify(c[k]));
     check(diff.length === 0, 'both languages send the AMS the same answers' + (diff.length ? ' — differs: ' + diff.join(', ') : ''));
+    check(payloads.en.preferredLanguage === 'en' && payloads.es.preferredLanguage === 'es',
+          'each language tells the AMS which one the visitor used (preferredLanguage '
+          + payloads.en.preferredLanguage + ' / ' + payloads.es.preferredLanguage + ')');
     check(/^Acepto recibir mensajes/.test(payloads.es.smsConsentText || ''), 'the Spanish SMS consent is recorded in Spanish, as shown');
     check(/^Al continuar/.test((payloads.es.disclosure || {}).text || ''), 'and so is the Spanish disclosure');
   } else {
     check(false, 'the quote form sent a payload in both languages');
+  }
+
+  // Quotes the AMS does not rate leave by email. The agent reading it needs
+  // the language as much as the one reading the AMS record does.
+  for (const [lang, line] of [['en', 'Preferred language: English'], ['es', 'Idioma preferido: Español']]) {
+    const log = [];
+    const ctx = await b.newContext({ viewport: { width: 390, height: 844 } });
+    const p = await page(ctx, log);
+    let mail = '';
+    const cdp = await ctx.newCDPSession(p); await cdp.send('Page.enable');
+    cdp.on('Page.frameRequestedNavigation', e => { if (/^mailto:/.test(e.url)) mail = decodeURIComponent(e.url); });
+    await p.goto(BASE + (lang === 'es' ? '/es' : '') + '/quote.html');
+    await p.click('input[name=type][value=renters] ~ .tx');
+    await p.click('.step.on [data-next]'); await p.waitForTimeout(150);
+    await p.fill('#cfn', 'María'); await p.fill('#cln', 'López'); await p.fill('#cph', '9155551234');
+    await p.fill('#cem', 'maria@example.com');
+    await p.click('.step.on button[type=submit]'); await p.waitForTimeout(600);
+    const second = (mail.split('&body=')[1] || '').split('\n')[1];
+    check(second === line, lang + ': the emailed quote names the language ("' + second + '")');
+    await ctx.close();
   }
 
   await b.close();

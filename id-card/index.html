@@ -517,7 +517,7 @@
  </div>
 </footer><!--/block:footer-->
 
-<script type="application/json" id="i18n" data-t-keys="idcard.js">{"doc.dec": "Declarations page", "doc.id": "ID card", "err.bank": "Which bank or lender is asking for it? The name is enough.", "err.docs": "Pick at least one document — an ID card, a declarations page, or both.", "err.name": "Please give the first and last name on the policy, so we send the right one.", "err.pol": "We need the policy number. It is on your ID card, top left — or call us and we will look it up.", "mail.docs": "Documents needed: {docs}", "mail.from": "Sent from safehouseins.com/id-card/", "mail.head": "SAFE HOUSE — DOCUMENT REQUEST", "mail.lender": "Lender: {lender}", "mail.lenderNo": "For a lender: no", "mail.lenderYes": "For a lender: YES", "mail.name": "Name on policy: {name}", "mail.notGiven": "(not given)", "mail.notes": "Notes: {notes}", "mail.pol": "Policy number: {pol}", "mail.sendTo": "Send to lender at: {to}", "mail.subject": "Document request — {pol} — {name}", "sum.docs": "Sending", "sum.lender": "Lender", "sum.name": "Name", "sum.pol": "Policy"}</script>
+<script type="application/json" id="i18n" data-t-keys="idcard.js">{"doc.dec": "Declarations page", "doc.id": "ID card", "err.bank": "Which bank or lender is asking for it? The name is enough.", "err.docs": "Pick at least one document — an ID card, a declarations page, or both.", "err.name": "Please give the first and last name on the policy, so we send the right one.", "err.pol": "We need the policy number. It is on your ID card, top left — or call us and we will look it up.", "mail.docs": "Documents needed: {docs}", "mail.from": "Sent from safehouseins.com/id-card/", "mail.head": "SAFE HOUSE — DOCUMENT REQUEST", "mail.lang": "Preferred language: English", "mail.lender": "Lender: {lender}", "mail.lenderNo": "For a lender: no", "mail.lenderYes": "For a lender: YES", "mail.name": "Name on policy: {name}", "mail.notGiven": "(not given)", "mail.notes": "Notes: {notes}", "mail.pol": "Policy number: {pol}", "mail.sendTo": "Send to lender at: {to}", "mail.subject": "Document request — {pol} — {name}", "sum.docs": "Sending", "sum.lender": "Lender", "sum.name": "Name", "sum.pol": "Policy"}</script>
 <!--block:jst--><script>var T=(function(){
   var d={};try{d=JSON.parse(document.getElementById('i18n').textContent)||{};}catch(e){}
   return function(k,v){
@@ -563,6 +563,7 @@
     var L=[T('mail.head'),'',
            T('mail.pol',{pol:v('pol')}),
            T('mail.name',{name:v('fn')+' '+v('ln')}),
+           T('mail.lang'),
            T('mail.docs',{docs:docs.join(' + ')})];
     if(wantDec.checked && bank()==='yes'){
       L.push(T('mail.lenderYes'));

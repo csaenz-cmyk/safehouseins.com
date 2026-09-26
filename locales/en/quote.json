@@ -1479,6 +1479,8 @@
       "yes": "yes",
       "no": "no",
       "type": "Insurance type",
+      "lang": "Preferred language",
+      "langName": "English",
       "name": "Name",
       "phone": "Phone",
       "email": "Email",

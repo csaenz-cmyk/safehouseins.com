@@ -146,8 +146,10 @@ English page without one (see "Adding a page" in `locales/README.md`).
 **Form values stay in English in both languages.** The quote form's options
 submit exactly what the AMS contract expects; only their labels are
 translated. A Spanish and an English run of the same answers must send the
-same payload apart from the consent wording, which is recorded as shown — and
-`tools/i18nbrowser.js` checks exactly that.
+same payload apart from the consent wording, which is recorded as shown, and
+`preferredLanguage` (`"en"` / `"es"`), which tells the agent which language the
+visitor used — and `tools/i18nbrowser.js` checks exactly that. What the AMS
+still has to add to store it is in `docs/ams-language.md`.
 
 **The investor page states no financial figures, deliberately.** None has been
 established, and a number on an investor page is a representation somebody may

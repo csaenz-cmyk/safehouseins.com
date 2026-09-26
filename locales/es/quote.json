@@ -1479,6 +1479,8 @@
       "yes": "sí",
       "no": "no",
       "type": "Tipo de seguro",
+      "lang": "Idioma preferido",
+      "langName": "Español",
       "name": "Nombre",
       "phone": "Teléfono",
       "email": "Correo electrónico",

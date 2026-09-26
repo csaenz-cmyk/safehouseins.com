@@ -113,6 +113,7 @@
       "head": "SAFE HOUSE — DOCUMENT REQUEST",
       "pol": "Policy number: {pol}",
       "name": "Name on policy: {name}",
+      "lang": "Preferred language: English",
       "docs": "Documents needed: {docs}",
       "lenderYes": "For a lender: YES",
       "lender": "Lender: {lender}",

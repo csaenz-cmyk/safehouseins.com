@@ -491,7 +491,7 @@
  </div>
 </footer><!--/block:footer-->
 
-<script type="application/json" id="i18n" data-t-keys="idcard.js">{"doc.dec": "Hoja de declaraciones", "doc.id": "Tarjeta de seguro", "err.bank": "¿Qué banco o financiera la está pidiendo? Con el nombre basta.", "err.docs": "Elige al menos un documento — la tarjeta de seguro, la hoja de declaraciones o las dos.", "err.name": "Escribe el nombre y el apellido que aparecen en la póliza, para que te mandemos la correcta.", "err.pol": "Necesitamos el número de póliza. Viene en tu tarjeta de seguro, arriba a la izquierda — o llámanos y lo buscamos.", "mail.docs": "Documentos solicitados: {docs}", "mail.from": "Enviado desde safehouseins.com/es/id-card/", "mail.head": "SAFE HOUSE — SOLICITUD DE DOCUMENTOS", "mail.lender": "Banco o financiera: {lender}", "mail.lenderNo": "Para un banco o financiera: no", "mail.lenderYes": "Para un banco o financiera: SÍ", "mail.name": "Nombre en la póliza: {name}", "mail.notGiven": "(no se indicó)", "mail.notes": "Notas: {notes}", "mail.pol": "Número de póliza: {pol}", "mail.sendTo": "Enviar al banco o financiera: {to}", "mail.subject": "Solicitud de documentos — {pol} — {name}", "sum.docs": "Documentos", "sum.lender": "Banco o financiera", "sum.name": "Nombre", "sum.pol": "Póliza"}</script>
+<script type="application/json" id="i18n" data-t-keys="idcard.js">{"doc.dec": "Hoja de declaraciones", "doc.id": "Tarjeta de seguro", "err.bank": "¿Qué banco o financiera la está pidiendo? Con el nombre basta.", "err.docs": "Elige al menos un documento — la tarjeta de seguro, la hoja de declaraciones o las dos.", "err.name": "Escribe el nombre y el apellido que aparecen en la póliza, para que te mandemos la correcta.", "err.pol": "Necesitamos el número de póliza. Viene en tu tarjeta de seguro, arriba a la izquierda — o llámanos y lo buscamos.", "mail.docs": "Documentos solicitados: {docs}", "mail.from": "Enviado desde safehouseins.com/es/id-card/", "mail.head": "SAFE HOUSE — SOLICITUD DE DOCUMENTOS", "mail.lang": "Idioma preferido: Español", "mail.lender": "Banco o financiera: {lender}", "mail.lenderNo": "Para un banco o financiera: no", "mail.lenderYes": "Para un banco o financiera: SÍ", "mail.name": "Nombre en la póliza: {name}", "mail.notGiven": "(no se indicó)", "mail.notes": "Notas: {notes}", "mail.pol": "Número de póliza: {pol}", "mail.sendTo": "Enviar al banco o financiera: {to}", "mail.subject": "Solicitud de documentos — {pol} — {name}", "sum.docs": "Documentos", "sum.lender": "Banco o financiera", "sum.name": "Nombre", "sum.pol": "Póliza"}</script>
 <!--block:jst--><script>var T=(function(){
   var d={};try{d=JSON.parse(document.getElementById('i18n').textContent)||{};}catch(e){}
   return function(k,v){
@@ -537,6 +537,7 @@
     var L=[T('mail.head'),'',
            T('mail.pol',{pol:v('pol')}),
            T('mail.name',{name:v('fn')+' '+v('ln')}),
+           T('mail.lang'),
            T('mail.docs',{docs:docs.join(' + ')})];
     if(wantDec.checked && bank()==='yes'){
       L.push(T('mail.lenderYes'));

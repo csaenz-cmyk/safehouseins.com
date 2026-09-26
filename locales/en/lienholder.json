@@ -178,6 +178,7 @@
       "loan": "Loan / account reference: {loan}",
       "inst": "Institution: {inst}",
       "who": "Requested by: {who}",
+      "lang": "Preferred language: English",
       "to": "Send to: {to}",
       "phone": "Callback: {phone}",
       "fax": "Fax: {fax}",

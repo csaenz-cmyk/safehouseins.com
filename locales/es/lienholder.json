@@ -178,6 +178,7 @@
       "loan": "Préstamo / referencia de la cuenta: {loan}",
       "inst": "Institución: {inst}",
       "who": "Solicitado por: {who}",
+      "lang": "Idioma preferido: Español",
       "to": "Enviar a: {to}",
       "phone": "Teléfono de contacto: {phone}",
       "fax": "Número de fax: {fax}",

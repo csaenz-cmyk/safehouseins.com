@@ -113,6 +113,7 @@
       "head": "SAFE HOUSE — SOLICITUD DE DOCUMENTOS",
       "pol": "Número de póliza: {pol}",
       "name": "Nombre en la póliza: {name}",
+      "lang": "Idioma preferido: Español",
       "docs": "Documentos solicitados: {docs}",
       "lenderYes": "Para un banco o financiera: SÍ",
       "lender": "Banco o financiera: {lender}",

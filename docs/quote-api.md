@@ -261,9 +261,19 @@ ID is a new licence type** and needs a home in the engine's enum.
     "annualMiles": 12000             // upper bound of the band picked
   }],
   "source": "safehouseins.com/quote",
+  "preferredLanguage": "es",         // "en" | "es" — see below
   "notes": "", "prefillUsed": false, "submittedAt": "…"
 }
 ```
+
+### Preferred language — September 2026
+
+`preferredLanguage` is the language of the page the visitor submitted from,
+`"en"` or `"es"`, so the agent calling back knows which to open with. The AMS
+does not reject it and does not read it yet; `docs/ams-language.md` has the
+three lines that store it as the client's existing `language` (Spanish /
+English) and show it on the callback. The emails the site opens instead of
+posting carry it as their second line.
 
 Values stay as the form captured them — `"Married"`, `"100/300/100"`, `"$500"`.
 The AMS maps them onto the engine's enums, because it is the side that knows the
