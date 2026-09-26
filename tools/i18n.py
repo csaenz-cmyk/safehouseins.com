@@ -296,14 +296,35 @@ def write(rel, doc):
 _ASSET = re.compile(r'''(?<=["'(\s,=])((?:\.\./)*)assets/''')
 
 
+# Artwork with words in it can have a translated twin beside it:
+# assets/step-1.webp -> assets/step-1.es.webp. A page in that language uses the
+# twin wherever the English page uses the original, so translating a picture
+# is a matter of adding the file — no page or generator changes.
+_ART = re.compile(r'assets/([A-Za-z0-9_./-]+?)\.(webp|png|jpe?g|svg|avif|gif)\b')
+_art_seen = {}
+
+
+def art_twin(rel, code=None):
+    """'step-1.webp' -> 'step-1.es.webp' when that file exists, else None."""
+    code = code or lang()
+    base, _, ext = rel.rpartition('.')
+    name = '%s.%s.%s' % (base, code, ext)
+    if name not in _art_seen:
+        _art_seen[name] = os.path.exists(os.path.join(ROOT, 'assets', name))
+    return name if _art_seen[name] else None
+
+
 def localize_paths(doc, code=None):
     code = code or lang()
     if code == DEFAULT:
         return doc
+    doc = _ART.sub(lambda m: 'assets/' + (art_twin(m.group(1) + '.' + m.group(2), code)
+                                          or m.group(1) + '.' + m.group(2)), doc)
     doc = _ASSET.sub(lambda m: '../' + m.group(1) + 'assets/', doc)
     # The home page's logo links to "/", which is the English home page from
-    # anywhere in the site.
-    return doc.replace('href="/"', 'href="/es/"')
+    # anywhere in the site. A link marked data-root is the 404's language
+    # switch, which means the English home on purpose.
+    return re.sub(r'href="/"(?! data-root)', 'href="/es/"', doc)
 
 
 def url(path, code=None):
@@ -509,8 +530,9 @@ def e(s):
 def attr(s):
     """Escape for an attribute value. Catalog strings may already carry
     entities (&amp;, &mdash;); those are unescaped first so they are not
-    doubled."""
-    return html.escape(html.unescape(str(s)), quote=True)
+    doubled. Attributes on this site are double-quoted, so an apostrophe is
+    left as it is rather than turned into &#x27;."""
+    return html.escape(html.unescape(str(s)), quote=False).replace('"', '&quot;')
 
 
 def plain(s):

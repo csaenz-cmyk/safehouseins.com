@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "title": "Make a Payment — Safe House Insurance",
+    "desc": "Enter your policy number and we will take you straight to your insurance company's payment page. Safe House Insurance, El Paso TX. Se habla español."
+  },
+  "crumb": "Make a payment",
+  "hero": {
+    "h1": "Pay your policy.<em>We&rsquo;ve got you.</em>",
+    "lede": "Enter your policy number and we&rsquo;ll take you straight to the right\n        payment page. Anything looks off, an agent here picks up the phone."
+  },
+  "form": {
+    "label": "Policy number",
+    "ph": "e.g. AIM4471902",
+    "hint": "Stays in your browser &mdash; nothing is sent or saved.\n          Spaces and dashes don&rsquo;t matter."
+  },
+  "find": {
+    "h3": "Where to find your policy number",
+    "card": {
+      "b": "Your ID card",
+      "p": "Top left on the card in your glovebox or in your wallet app. It is the\n           longest string of letters and numbers on it."
+    },
+    "dec": {
+      "b": "Your declarations page",
+      "p": "The first page of the packet the carrier sent when the policy started,\n           printed near your name."
+    },
+    "email": {
+      "b": "Any email from the carrier",
+      "p": "It is in the subject line of most renewal and billing emails. Search your\n           inbox for the company name."
+    }
+  },
+  "warn": {
+    "b": "If your policy has already cancelled, call us before you pay.",
+    "p": "A payment made after a cancellation date does not always put the policy back in\n         force, and some carriers will hold the money against a balance while you are\n         driving uninsured. One phone call tells you whether you need a reinstatement, a\n         new policy, or just the payment &mdash; and it is faster than finding out the hard way."
+  },
+  "faq": {
+    "h3": "Questions that come up",
+    "due": {
+      "q": "When is my payment actually due?",
+      "a": "The date on the notice your carrier sent, not the date you last paid.\n          Carriers set their own billing cycles and they do not all fall on the\n          same day of the month."
+    },
+    "posts": {
+      "q": "Will paying here update my policy right away?",
+      "a": "You are paying on the carrier's own site, so it posts on their system\n          the way any payment to them does &mdash; usually the same day for a card.\n          Keep the confirmation number until it shows up."
+    },
+    "change": {
+      "q": "Can I change my due date?",
+      "a": "Sometimes, and it is worth asking before you are late rather than\n          after. Call us and we will find out what your carrier allows."
+    },
+    "nonum": {
+      "q": "I do not have my policy number.",
+      "a": "Call or text and we will look it up. We hold the policy on our side,\n          so we can tell you the number and the carrier in about a minute."
+    },
+    "other": {
+      "q": "Can I pay for someone else&rsquo;s policy?",
+      "a": "Yes &mdash; carriers care that the premium arrives, not whose card it came\n          from. You will need their policy number."
+    },
+    "auto": {
+      "q": "Should I set up autopay?",
+      "a": "Most carriers discount it, and more importantly a policy on autopay\n          does not lapse because a text went unread. Ask us to set it up with\n          you. <a href=\"guide/\">More on how payments work &rarr;</a>"
+    }
+  },
+  "else": {
+    "h3": "While you&rsquo;re here",
+    "card": {
+      "b": "Need your ID card",
+      "s": "We can send a copy by text or email"
+    },
+    "claim": {
+      "b": "Report a claim",
+      "s": "We will start it with you"
+    },
+    "vehicle": {
+      "b": "Add or remove a vehicle",
+      "s": "Changes mid-policy are normal"
+    },
+    "less": {
+      "b": "See if you can pay less",
+      "s": "Re-shop it across our carriers"
+    }
+  },
+  "learn": {
+    "kicker": "Learn more",
+    "b": "How paying for car insurance actually works",
+    "d": "Paying in full or monthly, what a missed payment really costs in\n          Texas and New Mexico, and what to do in the week you cannot pay."
+  },
+  "js": {
+    "alt": {
+      "call": "Rather talk to someone? We’ll walk you through it",
+      "text": "Text us your question"
+    },
+    "found": {
+      "eyebrow": "Your policy is with",
+      "dest": "Opens <b>{host}</b> in a new tab. This page stays open behind it.",
+      "go": "Pay on {name}’s site →",
+      "nolink": "{name} has no online payment page we can send you to. Call or text and an agent will take you through it."
+    },
+    "miss": {
+      "title": "We do not recognise that number yet",
+      "body": "Not every company we work with can be looked up by number, and a typo looks the same as an unknown one. Call or text us the number and we will tell you who wrote your policy — it takes seconds."
+    }
+  }
+}

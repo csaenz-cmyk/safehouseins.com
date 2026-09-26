@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "title": "Haz un pago — Safe House Insurance",
+    "desc": "Escribe tu número de póliza y te llevamos directo a la página de pagos de tu aseguradora. Safe House Insurance, El Paso TX. Te atendemos en español."
+  },
+  "crumb": "Hacer un pago",
+  "hero": {
+    "h1": "Paga tu póliza.<em>Cuenta con nosotros.</em>",
+    "lede": "Escribe tu número de póliza y te llevamos directo a la página de pago correcta. Si algo no cuadra, aquí un agente te contesta el teléfono."
+  },
+  "form": {
+    "label": "Número de póliza",
+    "ph": "p. ej. AIM4471902",
+    "hint": "Se queda en tu navegador &mdash; no se envía ni se guarda nada. No importan los espacios ni los guiones."
+  },
+  "find": {
+    "h3": "Dónde encontrar tu número de póliza",
+    "card": {
+      "b": "Tu tarjeta de seguro",
+      "p": "Arriba a la izquierda en la tarjeta que traes en la guantera o en la cartera digital de tu celular. Es la serie más larga de letras y números que aparece."
+    },
+    "dec": {
+      "b": "Tu hoja de declaraciones (dec page)",
+      "p": "La primera página del paquete que te mandó la aseguradora cuando empezó la póliza; el número viene cerca de tu nombre."
+    },
+    "email": {
+      "b": "Cualquier correo de la aseguradora",
+      "p": "Viene en el asunto de la mayoría de los correos de renovación y de cobro. Busca el nombre de la compañía en tu bandeja de entrada."
+    }
+  },
+  "warn": {
+    "b": "Si tu póliza ya se canceló, llámanos antes de pagar.",
+    "p": "Un pago hecho después de la fecha de cancelación no siempre vuelve a poner la póliza en vigor, y algunas aseguradoras aplican el dinero a un saldo pendiente mientras tú sigues manejando sin seguro. Una sola llamada te dice si necesitas reactivar la póliza, sacar una póliza nueva o solo hacer el pago &mdash; y es más rápido que averiguarlo por las malas."
+  },
+  "faq": {
+    "h3": "Preguntas comunes",
+    "due": {
+      "q": "¿Cuándo vence realmente mi pago?",
+      "a": "En la fecha que aparece en el aviso que te mandó tu aseguradora, no en la fecha en que pagaste la última vez. Cada aseguradora tiene sus propios ciclos de cobro, y no todas cobran el mismo día del mes."
+    },
+    "posts": {
+      "q": "Si pago aquí, ¿se actualiza mi póliza de inmediato?",
+      "a": "Estás pagando en el sitio de la propia aseguradora, así que el pago se registra en su sistema como cualquier pago que les hagas &mdash; normalmente el mismo día si es con tarjeta. Guarda el número de confirmación hasta que veas el pago reflejado."
+    },
+    "change": {
+      "q": "¿Puedo cambiar mi fecha de vencimiento?",
+      "a": "A veces, y vale la pena preguntar antes de atrasarte, no después. Llámanos y averiguamos qué permite tu aseguradora."
+    },
+    "nonum": {
+      "q": "No tengo mi número de póliza.",
+      "a": "Llámanos o mándanos un mensaje y lo buscamos. Tenemos tu póliza en nuestro sistema, así que en un minuto te decimos el número y la aseguradora."
+    },
+    "other": {
+      "q": "¿Puedo pagar la póliza de otra persona?",
+      "a": "Sí &mdash; a las aseguradoras les importa que llegue el pago de la prima, no de quién es la tarjeta. Vas a necesitar su número de póliza."
+    },
+    "auto": {
+      "q": "¿Me conviene poner el pago automático?",
+      "a": "La mayoría de las aseguradoras dan descuento por pago automático y, lo más importante, una póliza con pago automático no se queda sin cobertura porque se te pasó un mensaje. Pídenos que lo activemos contigo. <a href=\"guide/\">Más sobre cómo funcionan los pagos &rarr;</a>"
+    }
+  },
+  "else": {
+    "h3": "Ya que estás aquí",
+    "card": {
+      "b": "¿Necesitas tu tarjeta de seguro?",
+      "s": "Te mandamos una copia por mensaje o correo"
+    },
+    "claim": {
+      "b": "Reportar un reclamo",
+      "s": "Lo iniciamos contigo"
+    },
+    "vehicle": {
+      "b": "Agregar o quitar un vehículo",
+      "s": "Hacer cambios a mitad de la póliza es normal"
+    },
+    "less": {
+      "b": "Averigua si puedes pagar menos",
+      "s": "Volvemos a cotizar tu póliza con nuestras aseguradoras"
+    }
+  },
+  "learn": {
+    "kicker": "Aprende más",
+    "b": "Cómo funciona realmente el pago del seguro de auto",
+    "d": "Pagar de contado o en mensualidades, lo que realmente cuesta un pago atrasado en Texas y Nuevo México, y qué hacer la semana que no puedas pagar."
+  },
+  "js": {
+    "alt": {
+      "call": "¿Prefieres hablar con alguien? Te guiamos paso a paso",
+      "text": "Mándanos tu pregunta por mensaje"
+    },
+    "found": {
+      "eyebrow": "Tu póliza es con",
+      "dest": "Se abre <b>{host}</b> en una pestaña nueva. Esta página sigue abierta atrás.",
+      "go": "Paga en el sitio de {name} →",
+      "nolink": "{name} no tiene una página de pago en línea a la que te podamos mandar. Llámanos o mándanos un mensaje y un agente te ayuda con el pago."
+    },
+    "miss": {
+      "title": "Todavía no reconocemos ese número",
+      "body": "No todas las compañías con las que trabajamos se pueden buscar por número, y un error de dedo se ve igual que un número desconocido. Llámanos o mándanos el número por mensaje y te decimos qué compañía emitió tu póliza — toma unos segundos."
+    }
+  }
+}

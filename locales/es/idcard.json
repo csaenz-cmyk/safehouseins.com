@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "title": "Pide tu tarjeta de seguro u hoja de declaraciones — Safe House",
+    "desc": "Pide tu tarjeta de seguro u hoja de declaraciones: dinos tu número de póliza y qué necesitas, y te la mandamos al teléfono y correo de tu póliza. El Paso, TX.",
+    "ogTitle": "Pide tu tarjeta de seguro u hoja de declaraciones",
+    "ogDesc": "Dinos qué necesitas y te lo mandamos a los contactos que ya tiene tu póliza."
+  },
+  "crumb": "Tarjeta de seguro y documentos",
+  "hero": {
+    "h1": "¿Necesitas tu tarjeta de seguro?<em>Pídela aquí.</em>",
+    "lede": "Dinos tu número de póliza y qué necesitas. Un agente te lo manda al teléfono y al correo que ya están en tu póliza &mdash; casi siempre el mismo día hábil."
+  },
+  "form": {
+    "step": "Paso 1 de 1",
+    "h2": "¿Qué necesitas?",
+    "sub": "Todo lo que escribes aquí se queda en tu navegador hasta que presionas enviar.",
+    "pol": {
+      "label": "Número de póliza",
+      "help": "Viene en tu tarjeta de seguro, arriba a la izquierda. No importan los espacios ni los guiones."
+    },
+    "fn": {
+      "label": "Nombre"
+    },
+    "ln": {
+      "label": "Apellido"
+    },
+    "docs": {
+      "label": "¿Qué documentos?",
+      "id": {
+        "b": "Tarjeta de seguro",
+        "p": "La tarjeta que traes en el carro y le enseñas a un oficial. Es la prueba de que la póliza está vigente."
+      },
+      "dec": {
+        "b": "Hoja de declaraciones",
+        "p": "El resumen completo: vehículos, conductores, cada cobertura con su límite y las fechas de vigencia. Es la que piden los bancos."
+      }
+    },
+    "forBank": {
+      "label": "¿La hoja de declaraciones es para un banco o una financiera?",
+      "help": "Si el banco o la financiera te pide comprobante de cobertura, podemos mandársela directo a ellos, además de a ti.",
+      "yes": "Sí, la pide un banco o financiera",
+      "no": "No, es solo para mí"
+    },
+    "bank": {
+      "label": "Nombre del banco o la financiera",
+      "ph": "p. ej. Navy Federal Credit Union"
+    },
+    "bmail": {
+      "label": "¿A dónde se la mandamos?",
+      "help": "El correo o fax del banco o la financiera, si lo tienes. Si lo dejas en blanco, te la mandamos a ti para que se la reenvíes.",
+      "ph": "seguros@financiera.com"
+    },
+    "optional": "&mdash; opcional",
+    "notes": {
+      "label": "¿Algo más que debamos saber?",
+      "ph": "p. ej. Solo necesito la tarjeta de la camioneta, no la de los dos carros."
+    },
+    "send": "Enviar mi solicitud",
+    "note": "Esto abre tu app de correo con los datos ya puestos. No se manda nada hasta que presionas enviar ahí. ¿Prefieres mandarla por mensaje de texto? Usa el botón de la siguiente pantalla."
+  },
+  "done": {
+    "h2": "Solicitud enviada.",
+    "lead": "Un agente prepara lo que pediste y te lo manda &mdash; <strong>por correo electrónico y por mensaje de texto, a los contactos que ya están en tu póliza</strong>. Casi siempre el mismo día hábil y, a más tardar, el siguiente.",
+    "warnHead": "¿Cambiaste de teléfono o de correo desde que sacaste la póliza?",
+    "warn": "Entonces va a llegar a los anteriores y no lo vas a ver. Llámanos al <a href=\"tel:+19155031207\">915-503-1207</a> o mándanos un mensaje al <a href=\"sms:+19155943777\">915-594-3777</a> y, mientras sigues en la línea, actualizamos la póliza y te lo volvemos a mandar.",
+    "altCall": "¿Lo necesitas ya? Llama al",
+    "altText": "O manda la misma solicitud por mensaje"
+  },
+  "docs": {
+    "h3": "Qué es exactamente cada documento",
+    "id": {
+      "b": "La tarjeta de seguro",
+      "p1": "Una tarjeta pequeña por vehículo. Trae la compañía, el número de póliza, las fechas de vigencia y el carro que cubre. Es lo que le das al oficial si te para la policía y lo que te pide la agencia de autos antes de que te lleves el carro.",
+      "p2": "Tanto Texas como Nuevo México la aceptan en tu celular. No necesitas la de papel."
+    },
+    "dec": {
+      "b": "La hoja de declaraciones",
+      "p1": "En inglés casi siempre le dicen <strong>dec page</strong>. Es el resumen de toda la póliza: cada vehículo, cada conductor, cada cobertura con su límite y su deducible, la prima y las fechas. Son dos o tres páginas, no una tarjeta.",
+      "p2": "Es la que te pide una financiera, una arrendadora o el dueño de la casa que rentas, porque comprueba no solo que tienes seguro, sino que tienes la cobertura específica que ellos exigen."
+    }
+  },
+  "faq": {
+    "h3": "Lo que también nos preguntan",
+    "q1": "¿En cuánto tiempo me llega?",
+    "a1": "Casi siempre el mismo día hábil, y en minutos si llamas en horario de oficina en vez de llenar este formulario. Lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña).",
+    "q2": "¿Por qué se manda a los contactos de mi póliza?",
+    "a2": "Porque la hoja de declaraciones trae tus vehículos, tus conductores y tu domicilio. Si la mandáramos a cualquier dirección que alguien escribiera en un formulario, cualquier persona con tu número de póliza podría conseguirla. Mandarla a los contactos que ya tiene la póliza es nuestra forma de verificar.",
+    "q3": "No tengo mi número de póliza.",
+    "a3": "Llámanos o mándanos un mensaje y lo buscamos con tu nombre y tu fecha de nacimiento. Tenemos la póliza de nuestro lado, así que nos toma como un minuto.",
+    "q4": "Mi banco sigue diciendo que nunca le llegó.",
+    "a4": "Casi siempre es un problema del número de referencia, no del envío &mdash; los bancos y las financieras archivan por número de préstamo, no por nombre. Mándanos el número de préstamo y la volvemos a mandar con la referencia correcta. Tu banco también la puede pedir directamente: <a href=\"../lienholder/\">la página para bancos y financieras &rarr;</a>",
+    "q5": "¿Puedo pedir la tarjeta de un solo carro?",
+    "a5": "Sí. Ponlo en el cuadro de notas. Si no nos dices nada, mandamos una tarjeta por cada vehículo de la póliza, que es lo que casi todos quieren.",
+    "q6": "¿Necesito traer la tarjeta de papel en la guantera?",
+    "a6": "En Texas y Nuevo México no &mdash; se acepta una foto o el PDF en tu celular. Aun así, traer una copia en papel no cuesta nada, y a los celulares se les acaba la pila."
+  },
+  "more": {
+    "pay": "Hacer un pago",
+    "payNote": "Directo a la página de pagos de tu aseguradora",
+    "claim": "Reportar un reclamo",
+    "claimNote": "Lo empezamos contigo",
+    "lenders": "Para financieras",
+    "lendersNote": "Los bancos pueden pedir documentos aquí",
+    "reshop": "Ve si puedes pagar menos",
+    "reshopNote": "Volvemos a cotizar tu seguro con nuestras aseguradoras"
+  },
+  "js": {
+    "doc": {
+      "id": "Tarjeta de seguro",
+      "dec": "Hoja de declaraciones"
+    },
+    "mail": {
+      "head": "SAFE HOUSE — SOLICITUD DE DOCUMENTOS",
+      "pol": "Número de póliza: {pol}",
+      "name": "Nombre en la póliza: {name}",
+      "docs": "Documentos solicitados: {docs}",
+      "lenderYes": "Para un banco o financiera: SÍ",
+      "lender": "Banco o financiera: {lender}",
+      "notGiven": "(no se indicó)",
+      "sendTo": "Enviar al banco o financiera: {to}",
+      "lenderNo": "Para un banco o financiera: no",
+      "notes": "Notas: {notes}",
+      "from": "Enviado desde safehouseins.com/es/id-card/",
+      "subject": "Solicitud de documentos — {pol} — {name}"
+    },
+    "err": {
+      "pol": "Necesitamos el número de póliza. Viene en tu tarjeta de seguro, arriba a la izquierda — o llámanos y lo buscamos.",
+      "name": "Escribe el nombre y el apellido que aparecen en la póliza, para que te mandemos la correcta.",
+      "docs": "Elige al menos un documento — la tarjeta de seguro, la hoja de declaraciones o las dos.",
+      "bank": "¿Qué banco o financiera la está pidiendo? Con el nombre basta."
+    },
+    "sum": {
+      "pol": "Póliza",
+      "name": "Nombre",
+      "docs": "Documentos",
+      "lender": "Banco o financiera"
+    }
+  }
+}

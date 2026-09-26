@@ -1,0 +1,169 @@
+{
+  "meta": {
+    "title": "Cómo funciona un reclamo de auto — Safe House Insurance",
+    "desc": "Qué pasa al reportar un reclamo de auto: quién decide la culpa, cuánto cuesta tu deducible, cuánto tarda cada paso, pérdida total, auto de renta y qué evitar."
+  },
+  "crumb": {
+    "claims": "Reportar un reclamo",
+    "here": "Cómo funciona un reclamo"
+  },
+  "hero": {
+    "h1": "Cómo funciona un reclamo de seguro de auto, <em>del choque al cheque</em>",
+    "lede": "Quién decide la culpa, cuánto te cuesta realmente tu deducible, cuánto tarda cada paso, qué significa una pérdida total y los pocos errores que complican un reclamo más de lo necesario. Escrito por agentes con licencia en El Paso que hacen esto todos los días."
+  },
+  "key": {
+    "b": "En resumen",
+    "l1": "Repórtalo el mismo día si puedes. “Sin demora” (promptly) en una póliza no es un número de días &mdash; es lo que dure la evidencia.",
+    "l2": "Reportar no es lo mismo que hacer un reclamo. Avisarle a tu aseguradora lo que pasó no te obliga a presentarlo.",
+    "l3": "La culpa la deciden las aseguradoras, no el reporte policial, y no se decide en el lugar del accidente. El reporte es evidencia, no un veredicto.",
+    "l4": "Tu deducible se descuenta de lo que la aseguradora paga por tu propio carro. Nunca le haces un cheque a nadie por él.",
+    "l5": "El auto de renta es una cobertura aparte. Mucha gente se entera de que no la tiene el día que la necesita."
+  },
+  "steps": {
+    "h2": "Qué pasa en las primeras 48 horas",
+    "p": "Un reclamo es una serie de pasos, y casi toda la frustración que la gente tiene con uno viene de no saber en qué paso va. Aquí está el proceso completo.",
+    "s1": {
+      "b": "Lo reportas",
+      "p": "Por teléfono o en línea. Das la fecha, el lugar, quién manejaba, quién más estuvo involucrado y qué se dañó. Toma de diez a veinte minutos, y es el único paso en el que tú hablas todo el tiempo."
+    },
+    "s2": {
+      "b": "Te dan un número de reclamo",
+      "p": "De inmediato, antes de colgar. Anótalo. De aquí en adelante, cada conversación sobre este reclamo empieza con ese número, y no es el mismo que tu número de póliza."
+    },
+    "s3": {
+      "b": "Te asignan un ajustador",
+      "p": "Normalmente en un día hábil. Es la persona que decide cuánto paga la aseguradora. Te va a llamar; si pasan dos días y nadie te ha llamado, ese es el momento de llamarnos en vez de esperar con paciencia."
+    },
+    "s4": {
+      "b": "Se inspeccionan los daños",
+      "p": "Con un presupuesto del taller, una inspección en un centro al que llevas el carro, o fotos que tomas con tu celular en la app de la aseguradora. Los presupuestos por foto son los más rápidos, y hoy son lo normal en la mayoría de las compañías para cualquier daño que no sea grave."
+    },
+    "s5": {
+      "b": "Se decide la culpa",
+      "p": "Los ajustadores de cada compañía comparan las declaraciones, las fotos, el reporte policial y a veces el patrón de los daños. Es el paso que más tarda y en el que menos control tienes."
+    },
+    "s6": {
+      "b": "Se hace el pago",
+      "p": "Directo al taller o a ti, menos tu deducible. Si el carro está financiado, normalmente la financiera o el banco también aparece en el cheque &mdash; es normal, y por eso algunos pagos tardan una semana más."
+    },
+    "p2": "Un reclamo sencillo, con la culpa clara y daños moderados, se cierra en unas dos a cuatro semanas. Un reclamo en el que se disputa la culpa y hay lesionados puede durar meses. Ninguno de los dos casos es señal de que algo salió mal."
+  },
+  "fault": {
+    "h2": "Quién decide realmente de quién fue la culpa",
+    "p1": "No es la policía. Esto sorprende a la gente, y es el malentendido más común que escuchamos.",
+    "p2": "El oficial de policía que llega al lugar anota lo que observó y a veces pone una multa. Ese reporte es evidencia de peso y los ajustadores lo leen con cuidado. Pero quién paga lo deciden las aseguradoras involucradas, comparando lo que dijo cada conductor, los daños físicos, las fotos, los testigos y la ley de tránsito que aplica. Un oficial puede no asignarle la culpa a nadie, y muchas veces así pasa.",
+    "p3": "Tanto Texas como Nuevo México reparten la culpa por porcentajes en vez de verla como todo o nada, así que un resultado como 70/30 es completamente normal y cambia lo que paga cada parte. Si te dicen que tuviste parte de la culpa y no estás de acuerdo, dilo por escrito y avísanos &mdash; esa decisión se puede reconsiderar, y es mucho más fácil impugnarla en la primera semana que en el tercer mes.",
+    "call": {
+      "b": "Nunca especules sobre la culpa en el lugar del accidente.",
+      "p": "“Perdón, no te vi” es algo muy humano de decir, y termina en el expediente del ajustador como una admisión de culpa. Intercambia datos, toma fotos, trata bien al otro conductor y deja que las dos compañías calculen los porcentajes. Literalmente, para eso están."
+    }
+  },
+  "ded": {
+    "h2": "Tu deducible, en números claros",
+    "p1": "El deducible es la parte de la reparación de tu propio carro que pagas tú. Aplica a la cobertura integral (comprehensive) y a la de colisión (collision) &mdash; las coberturas que arreglan <em>tu</em> vehículo &mdash; y nunca aplica a los daños que le causas a otra persona.",
+    "est": {
+      "s": "Presupuesto de reparación",
+      "span": "Lo que el taller dice que cuesta"
+    },
+    "yours": {
+      "s": "Tu deducible",
+      "span": "Lo que tú le pagas al taller"
+    },
+    "p2": "La aseguradora paga $2,700. Tú pagas $500, directo al taller, cuando recoges el carro. Nadie te manda una factura por eso y no se suma a tu prima.",
+    "p3": "Dos cosas que conviene saber. Primero, aplica <strong>cada vez que haces un reclamo</strong>, no una vez al año. Segundo, si se determina que el otro conductor tuvo la culpa, normalmente su aseguradora te lo reembolsa &mdash; un proceso que se llama subrogación (subrogation), que ocurre en segundo plano, sin que lo notes, y puede tardar unos meses. Te llega un cheque que no esperabas, y es tuyo.",
+    "h3": "Cuándo no vale la pena hacer un reclamo",
+    "p4": "Si la reparación cuesta $700 y tu deducible es de $500, estás reclamando $200 y dejando un reclamo en tu historial para conseguirlos. Muchas veces no conviene. Si la reparación cuesta $4,000, obviamente sí conviene. En medio, depende de tu historial, de tu aseguradora y de qué tan cerca estés de la renovación &mdash; llámanos y lo analizamos contigo antes de que presentes el reclamo, que es el único momento en que sirve tener esa plática."
+  },
+  "total": {
+    "h2": "Cuando el carro es pérdida total",
+    "p1": "Un carro se declara “pérdida total” cuando repararlo cuesta más que cierto porcentaje de lo que valía &mdash; ese límite cambia según la aseguradora y el estado, y es más bajo de lo que la mayoría espera. Un carro de diez años con $6,000 de daños muchas veces es pérdida total aunque parezca que tiene arreglo.",
+    "p2": "Lo que te pagan es el <strong>valor real en efectivo (actual cash value)</strong>: lo que valía tu carro justo antes del choque, no lo que pagaste por él ni lo que cuesta reemplazarlo por uno nuevo. La aseguradora calcula esa cifra con ventas comparables de la zona. Tienes derecho a no estar de acuerdo, y deberías decirlo si los comparables están mal &mdash; un carro con menos millas, llantas recientes, una versión que no tomaron en cuenta. Manda pruebas, no opiniones.",
+    "own": {
+      "b": "Si el carro es completamente tuyo",
+      "l1": "El cheque te llega a ti.",
+      "l2": "Entregas el título y normalmente las llaves.",
+      "l3": "Muchas veces se incluyen el impuesto sobre la venta y los cargos del título &mdash; pregunta, porque las aseguradoras no siempre lo mencionan por su cuenta."
+    },
+    "fin": {
+      "b": "Si el carro está financiado o en arrendamiento (lease)",
+      "l1": "Primero se le paga a la financiera, y el cheque también sale a su nombre.",
+      "l2": "Si debes más de lo que valía el carro, sigues debiendo la diferencia &mdash; a menos que tengas cobertura GAP.",
+      "l3": "La cobertura GAP es barata y la mayoría no la tiene. Pregúntanos antes de necesitarla, no después."
+    }
+  },
+  "wait": {
+    "h2": "Lo que tu póliza hace y no hace mientras esperas",
+    "rental": {
+      "h3": "Un auto de renta",
+      "p": "Solo si tienes la cobertura de auto de renta (rental reimbursement), y solo en un reclamo cubierto. Paga una cantidad fija por día &mdash; $30, $50, lo que hayas elegido &mdash; y lo que la agencia de renta cobre de más lo pagas tú. Si el otro conductor tuvo la culpa, su cobertura de responsabilidad civil debería pagar tu auto de renta, pero eso empieza hasta que su aseguradora acepta la culpa, lo cual puede tardar de una a tres semanas."
+    },
+    "tow": {
+      "h3": "Grúa y almacenaje",
+      "p": "Los corralones cobran por día, y esos cargos son dinero de verdad. Dile al ajustador de inmediato dónde está el carro. Un vehículo parado en un lote sin que nadie sepa que hay que moverlo es una de las pocas formas en que un reclamo, sin que te des cuenta, te cuesta más de lo que debería."
+    },
+    "med": {
+      "h3": "Cuentas médicas",
+      "p": "Los gastos médicos (MedPay) o la protección contra lesiones personales (PIP) pagan por ti y por tus pasajeros sin importar quién tuvo la culpa, sin deducible, y pagan rápido. Son las coberturas que la gente más rechaza para ahorrarse unos dólares y las que más desearía haber tenido. Si no sabes si las tienes, te lo decimos en un minuto."
+    }
+  },
+  "rate": {
+    "h2": "¿Esto va a subir el precio de mi seguro?",
+    "p1": "A veces. Cualquiera que te diga otra cosa antes de que se resuelva el reclamo está adivinando.",
+    "p2": "Lo que realmente influye: si tuviste la culpa, cuánto costó el reclamo, qué más hay en tu historial y con qué aseguradora estás &mdash; las compañías pesan el mismo reclamo de formas muy distintas. Un reclamo en el que no tuviste la culpa puede subir el precio en algunas aseguradoras y en otras no, lo cual no es satisfactorio, pero es cierto.",
+    "p3": "Esta es la parte que importa y que una aseguradora directa no te va a decir: si tu precio sí sube en la renovación, ese es el momento de volver a cotizar. Estamos autorizados para vender pólizas de más de una docena de compañías, y la que más castiga tu reclamo casi nunca es la que te aseguraría hoy. Esa es justamente la razón para usar un agente independiente en vez de un sitio web con una lagartija.",
+    "call": {
+      "b": "No canceles una póliza a mitad de un reclamo abierto.",
+      "p": "El reclamo se queda con la aseguradora que tenía la póliza el día del choque &mdash; cancelar no hace que desaparezca, y puede complicar el pago y además dejarte con un periodo sin seguro que sube tu próximo precio. Espera a la renovación. Luego déjanos cotizarla con otras compañías."
+    }
+  },
+  "mist": {
+    "h2": "Cinco errores que complican un reclamo",
+    "m1": {
+      "b": "Esperar a ver si el otro conductor “lo arregla por fuera”",
+      "p": "Hay gente que acepta pagar en efectivo en el lugar y luego deja de contestar el teléfono. Para cuando lo reportas, la evidencia ya no está y tu propia aseguradora se entera tarde. Repórtalo. Siempre puedes decidir no hacer el reclamo."
+    },
+    "m2": {
+      "b": "No tomarle foto a la tarjeta de seguro del otro conductor",
+      "p": "Un nombre y un número de teléfono no bastan para abrir un reclamo contra alguien. El nombre de la compañía y el número de póliza, sí."
+    },
+    "m3": {
+      "b": "Arreglar el carro antes de que lo inspeccionen",
+      "p": "El ajustador tiene que ver los daños o el presupuesto. Si lo arreglas primero, la aseguradora puede quedarse sin nada contra qué pagar."
+    },
+    "m4": {
+      "b": "Adivinar en la declaración grabada",
+      "p": "Te van a preguntar a qué velocidad ibas y a qué distancia estaba el otro carro. “No sé” es una respuesta completa y aceptable. Un número inventado se vuelve un hecho en el expediente."
+    },
+    "m5": {
+      "b": "Dejar de darle seguimiento",
+      "p": "Los reclamos se atoran cuando nadie les da seguimiento. Si pasa una semana sin noticias, alguien tiene que llamar &mdash; y ese alguien podemos ser nosotros."
+    }
+  },
+  "we": {
+    "h2": "Lo que hacemos nosotros y la aseguradora no",
+    "p1": "Safe House es tu agente, no tu aseguradora. No decidimos el reclamo ni lo pagamos &mdash; la aseguradora hace las dos cosas. Lo que hacemos es asegurarnos de que se reporte como debe ser, explicarte en palabras sencillas lo que te acaba de decir el ajustador, darle seguimiento cuando se atora, revisar contigo tu hoja de declaraciones (dec page) para que sepas qué tienes realmente, y volver a cotizar la póliza en la renovación si el reclamo sube tu precio.",
+    "p2": "Nada de eso cuesta extra. Para eso es la comisión de la póliza, y es la razón de tener un agente.",
+    "w1": {
+      "b": "Podemos reportarlo contigo en la línea",
+      "s": "En una llamada de tres con la aseguradora, para que nada se diga mal y no lo estés haciendo sin ayuda a la orilla de la carretera."
+    },
+    "w2": {
+      "b": "Te decimos qué incluye tu póliza antes de que decidas",
+      "s": "Deducible, auto de renta, gastos médicos, y si de verdad vale la pena hacer el reclamo."
+    },
+    "w3": {
+      "b": "Le damos seguimiento al ajustador",
+      "s": "A un agente que llama de tu parte le regresan la llamada más rápido que a un cliente que llama por cuarta vez. No es justo, pero es cierto."
+    },
+    "w4": {
+      "b": "Volvemos a cotizar tu póliza en la renovación",
+      "s": "Más de una docena de compañías. La que castigó tu reclamo casi nunca es la más barata para ti ahora."
+    }
+  },
+  "cta": {
+    "b": "¿Tuviste un accidente?",
+    "p": "Llámanos y un agente bilingüe con licencia inicia el reclamo contigo &mdash; o llama directo a la línea de reclamos de tu compañía. Las dos opciones están en la página de reclamos.",
+    "call": "Llama al 915-503-1207",
+    "find": "Buscar el teléfono de reclamos"
+  }
+}

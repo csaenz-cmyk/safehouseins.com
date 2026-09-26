@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "title": "How to Pay Car Insurance in Texas &amp; New Mexico — Safe House Insurance",
+    "desc": "How car insurance payments work — paying in full vs monthly, what happens if you miss a payment, and how to avoid a lapse. Written for Texas and New Mexico drivers."
+  },
+  "crumb": {
+    "pay": "Make a payment",
+    "here": "Paying for car insurance"
+  },
+  "hero": {
+    "h1": "Paying for car insurance, <em>without losing your coverage</em>",
+    "lede": "How the payment actually works, what a lapse really costs in Texas and\n        New Mexico, and what to do in the week you cannot pay. Written by licensed agents\n        who spend most of their day on exactly this."
+  },
+  "key": {
+    "b": "The short version",
+    "l1": "Nearly every carrier takes a card, a bank transfer or a check. Cash is usually\n            an office-only option and never something to mail.",
+    "l2": "Paying six months at once almost always costs less overall than paying monthly,\n            because you skip the instalment fees.",
+    "l3": "Most carriers discount autopay. How much is different at every one, so ask\n            yours rather than assuming.",
+    "l4": "A cancellation for non-payment is far more expensive than the payment. It follows\n            you into your next policy&rsquo;s price, and it can cost you the continuous-coverage\n            discount you already had.",
+    "l5": "If you are going to be late, call before the due date. There is almost always\n            something an agent can do beforehand and much less afterwards."
+  },
+  "ways": {
+    "h2": "How you can pay",
+    "p": "Payment methods are set by your insurance company, not by us &mdash; but across the\n        carriers we place business with, these are the usual ones.",
+    "card": {
+      "b": "Debit or credit card",
+      "s": "The fastest, and what the online portals are built around. A card payment\n            usually posts the same day."
+    },
+    "ach": {
+      "b": "Bank transfer (ACH)",
+      "s": "Straight from a checking account. Most carriers reserve their best autopay\n            discount for this rather than for cards."
+    },
+    "check": {
+      "b": "Check or money order",
+      "s": "Accepted by most, but it has to arrive and clear before the due date, not\n            be postmarked by it."
+    },
+    "cash": {
+      "b": "Cash, in person",
+      "s": "Some carriers take cash at an office or a payment centre. Never mail\n            it &mdash; there is no way to prove it arrived."
+    }
+  },
+  "full": {
+    "h2": "In full or monthly",
+    "p1": "Most policies here run six months. You can usually pay the whole term at once, or\n        put money down and pay the rest in instalments. Paying in full costs less overall,\n        because instalment plans add a fee to each payment and the down payment is often\n        larger than one month&rsquo;s share.",
+    "p2": "That does not make it the right answer for everybody, and an agent who tells you it\n        always is has not asked about your month.",
+    "inFull": {
+      "b": "Paying in full makes sense when",
+      "l1": "You have the whole amount without touching money you need for something else",
+      "l2": "Your income is steady and predictable",
+      "l3": "You would rather not think about it again for six months"
+    },
+    "monthly": {
+      "b": "Monthly makes sense when",
+      "l1": "The full amount would leave you short somewhere that matters more",
+      "l2": "Your income moves around week to week",
+      "l3": "You would rather keep the cash available for an emergency",
+      "l4": "You are between jobs or expecting a change soon"
+    },
+    "p3": "The mistake is not choosing monthly. It is choosing a\n        monthly payment that is tight every single month &mdash; because the month it does not\n        clear costs far more than the difference you saved."
+  },
+  "miss": {
+    "h2": "What happens if you miss a payment",
+    "p": "Missing one is common and it is recoverable. What matters is how fast you move, and\n        the timeline below is the shape of it at most carriers. <strong>The exact dates are\n        on the notice your carrier sends you</strong> &mdash; they are set by that carrier and by\n        state law, so read the notice rather than trusting a number you found online,\n        including ours.",
+    "s1": {
+      "b": "Your payment is late",
+      "p": "Coverage does not usually stop the moment a payment is missed. Most carriers\n            allow a short window first, and you are still insured during it."
+    },
+    "s2": {
+      "b": "The carrier sends notice",
+      "p": "A letter, email or text with a date on it. That date is the one that matters &mdash;\n            it is when coverage actually ends if nothing is paid."
+    },
+    "s3": {
+      "b": "The policy cancels",
+      "p": "From that date you are uninsured. Driving uninsured is illegal in both Texas and\n            New Mexico, and a stop, an accident or a traffic camera in that gap is a much\n            larger problem than the missed payment was."
+    },
+    "s4": {
+      "b": "Reinstatement, sometimes",
+      "p": "Many carriers will put a recently cancelled policy back in force if you pay what\n            is owed plus a fee, and some will not. It depends on the carrier and how long the\n            gap has been. This is the point to call rather than to pay online and hope."
+    },
+    "call": {
+      "b": "Call before you pay a cancelled policy.",
+      "p": "A payment made after a cancellation date does not always reinstate the policy, and\n          some carriers will hold the money against the balance while you keep driving with no\n          coverage. One call tells you whether you need a reinstatement, a new policy, or just\n          the payment. We do this every day &mdash; <a href=\"tel:+19155031207\" style=\"color:#8A5200;text-decoration:underline\">915-503-1207</a>."
+    }
+  },
+  "lapse": {
+    "h2": "Why a lapse costs more than the payment",
+    "p1": "This is the part that surprises people. The money you did not pay is rarely the\n        expensive bit &mdash; the gap in your record is.",
+    "p2": "Carriers price continuous coverage. Going without it, even briefly, moves you into a\n        worse bracket at renewal and at every carrier you shop afterwards, and it can cost you\n        a prior-insurance discount you already had. A lapse of a few days can follow your\n        premium for years, which is why it is worth a phone call to avoid one.",
+    "p3": "On top of that, both states require you to carry liability while your vehicle is\n        registered:",
+    "tx": {
+      "s": "Texas minimum",
+      "span": "Thousands: injury per person, injury per accident, property damage."
+    },
+    "nm": {
+      "s": "New Mexico minimum",
+      "span": "The same three figures, at New Mexico&rsquo;s limits."
+    },
+    "p4": "Those are floors written into law, not recommendations &mdash;\n        and a lapse means you were below them."
+  },
+  "cant": {
+    "h2": "If you cannot pay this month",
+    "p": "There is more room here than most people think, and almost all of it exists before\n        the due date rather than after it.",
+    "s1": {
+      "b": "Call before the date, not after",
+      "p": "Some carriers will move a due date or split a payment if you ask in advance.\n            Very few will do anything once the policy has cancelled."
+    },
+    "s2": {
+      "b": "Ask what a partial payment buys",
+      "p": "Paying part of it sometimes pushes the cancellation date out far enough to reach\n            your next payday. Ask what the minimum is to keep the policy alive."
+    },
+    "s3": {
+      "b": "Ask us to re-shop it",
+      "p": "If the premium is the problem rather than this month, that is a different fix. We\n            can compare what several carriers would charge for the same coverage &mdash; and check\n            whether you are missing a discount you qualify for."
+    },
+    "s4": {
+      "b": "Look at the coverage, carefully",
+      "p": "Raising a deductible or dropping collision on an older car lowers the payment, and\n            both have real consequences. Worth doing with an agent, not alone at midnight."
+    }
+  },
+  "auto": {
+    "h2": "Set up autopay once",
+    "p1": "Most carriers discount autopay, usually more for a bank account than for a card, and\n        the amount is different at every one &mdash; ask yours what it is rather than assuming a\n        figure. The bigger value is not the discount anyway. It is that a policy on autopay\n        does not lapse because a text message went unread during a busy week.",
+    "p2": "Two things worth doing at the same time: make sure the account behind it is one that\n        will not be short on the due date, and keep the carrier&rsquo;s texts turned on so a failed\n        payment reaches you."
+  },
+  "cta": {
+    "b": "Ready to pay?",
+    "p": "Enter your policy number and we will take you straight to your carrier&rsquo;s payment\n        page. Or call and we will walk you through it.",
+    "pay": "Make a payment &rarr;"
+  }
+}

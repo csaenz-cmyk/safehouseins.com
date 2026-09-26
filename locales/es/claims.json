@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "title": "Reporta un reclamo — Safe House Insurance",
+    "desc": "Con tu número de póliza te damos el teléfono y la página de reclamos de tu aseguradora. O llámanos y un agente con licencia lo reporta contigo. El Paso, TX.",
+    "ogTitle": "Reporta un reclamo — Safe House Insurance",
+    "ogDesc": "El teléfono de reclamos de tu aseguradora, o llámanos y un agente con licencia lo reporta contigo."
+  },
+  "crumb": "Reportar un reclamo",
+  "hero": {
+    "h1": "Reporta un reclamo.<em>Lo hacemos contigo.</em>",
+    "lede": "Escribe tu número de póliza y te mostramos la línea de reclamos de tu compañía. O sáltate ese paso &mdash; llámanos y un agente con licencia lo reporta contigo, de principio a fin."
+  },
+  "now": {
+    "b": "Si alguien está herido, llama primero al 911.",
+    "p": "El seguro puede esperar quince minutos. Nada en esta página es más urgente que esa llamada, y ninguna aseguradora te va a reprochar que le hayas llamado después."
+  },
+  "form": {
+    "label": "Número de póliza",
+    "ph": "p. ej. AIM4471902",
+    "hint": "Se queda en tu navegador &mdash; no se envía ni se guarda nada. No importan los espacios ni los guiones. ¿No lo tienes? La lista de abajo está por nombre de compañía."
+  },
+  "dir": {
+    "h3": "Teléfonos de reclamos, por compañía",
+    "sub": "Todas las compañías con las que trabajamos y la línea donde reciben reclamos nuevos. Llamar suele ser más rápido que un formulario &mdash; te van a hacer preguntas que a ningún formulario se le ocurren.",
+    "note": "<b>¿No sabes cuál es la tuya?</b> Llama al <a href=\"tel:+19155031207\">915-503-1207</a> o mándanos un mensaje al <a href=\"sms:+19155943777\">915-594-3777</a>. Tenemos tu póliza en nuestro sistema, así que en un minuto te decimos cuál es tu compañía y su teléfono de reclamos &mdash; y si prefieres no hacerlo sin ayuda, podemos hacer el reporte contigo en la línea."
+  },
+  "scene": {
+    "h3": "Qué hacer antes de irte del lugar del accidente",
+    "photos": {
+      "b": "Toma más fotos de las que crees necesitar",
+      "p": "Los dos carros desde las cuatro esquinas, las dos placas, los daños de cerca, todo el cruce, los letreros de la calle y el pavimento. Las fotos que dejas para después ya no se pueden tomar."
+    },
+    "card": {
+      "b": "Pide la tarjeta de seguro del otro conductor",
+      "p": "Nombre de la compañía, número de póliza, nombre que aparece en la póliza, placa y su teléfono. Tómale foto a la tarjeta en vez de apuntar los datos. No discutas de quién fue la culpa &mdash; eso no se decide en el lugar del accidente."
+    },
+    "report": {
+      "b": "Pide el número del reporte policial",
+      "p": "En Texas y Nuevo México, los oficiales te dan una tarjeta o un número de caso antes de irse. Las aseguradoras te lo piden en la primera llamada, y conseguirlo después te cuesta días."
+    }
+  },
+  "warn": {
+    "b": "Repórtalo aunque todavía no sepas si quieres hacer un reclamo.",
+    "p1": "Reportar lo que pasó y hacer un reclamo son dos cosas distintas. Normalmente la misma póliza te exige avisarle a tu aseguradora lo que pasó, y eso no te obliga a presentar un reclamo. Lo que sí causa problemas es que tu aseguradora se entere de un choque semanas después por la aseguradora del otro conductor y no por ti &mdash; ahí es cuando un reclamo se vuelve difícil de pagar.",
+    "p2": "Si el daño parece menor que tu deducible y no hubo nadie más involucrado, llámanos antes de decidir. Basta una plática para saber si vale la pena hacer el reclamo."
+  },
+  "faq": {
+    "h3": "Lo que la gente nos pregunta",
+    "who": {
+      "q": "¿Les llamo a ustedes o a la aseguradora?",
+      "a": "Cualquiera de las dos opciones sirve, y no pasa nada si nos llamas primero. Somos tu agente, no tu aseguradora &mdash; la aseguradora decide y paga el reclamo; nosotros nos aseguramos de que se reporte bien, le damos seguimiento cuando se queda parado y te traducimos lo que te dicen. A mucha gente le resulta más fácil que empezar sin ayuda."
+    },
+    "when": {
+      "q": "¿Cuánto tiempo tengo para reportarlo?",
+      "a": "Las pólizas dicen “sin demora” (promptly) en vez de un número de días, lo que suena vago y no lo es: el reloj que importa es cuánto dura la evidencia. Repórtalo el mismo día si puedes. Reportar tarde es una de las pocas cosas que de verdad te pueden costar un reclamo."
+    },
+    "rate": {
+      "q": "¿Me va a subir el precio del seguro?",
+      "a": "Depende de quién tuvo la culpa, de tu historial y de la aseguradora &mdash; y con algunas compañías puede subir incluso después de un reclamo en el que no tuviste la culpa, y con otras no. Nadie te puede prometer nada antes de que se resuelva el reclamo. Lo que sí podemos hacer es volver a cotizar tu póliza en la renovación si el precio cambia."
+    },
+    "ded": {
+      "q": "¿Cuál es mi deducible y cuándo lo pago?",
+      "a": "Viene en tu hoja de declaraciones (dec page), casi siempre es de $500 o $1,000, y se descuenta de lo que la aseguradora paga por tu propio carro &mdash; nunca nos haces un cheque por él. Si se determina que el otro conductor tuvo la culpa, muchas veces lo puedes recuperar. Llámanos y revisamos tu hoja contigo."
+    },
+    "rental": {
+      "q": "¿Me dan un auto de renta?",
+      "a": "Solo si tu póliza incluye la cobertura de auto de renta, y solo en un reclamo cubierto. Es una cobertura aparte, tiene un límite diario, y mucha gente se entera de que no la tiene el día que la necesita. Pregúntanos y te decimos qué incluye tu póliza en este momento."
+    },
+    "fault": {
+      "q": "El otro conductor tuvo la culpa. ¿Aun así le llamo a mi aseguradora?",
+      "a": "Sí. Puedes hacer el reclamo con la aseguradora del otro conductor, y a veces eso es lo más conveniente &mdash; pero de todos modos avísale a la tuya lo que pasó. Si la otra aseguradora no acepta la culpa o resulta que el otro conductor no tiene seguro, vas a necesitar tu propia póliza, y todo es mucho más fácil si tu aseguradora ya está enterada. <a href=\"guide/\">Cómo funciona realmente un reclamo &rarr;</a>"
+    }
+  },
+  "else": {
+    "h3": "Ya que estás aquí",
+    "card": {
+      "b": "¿Necesitas tu tarjeta de seguro?",
+      "s": "Te mandamos una copia por mensaje o correo"
+    },
+    "pay": {
+      "b": "Hacer un pago",
+      "s": "Directo a la página de pagos de tu aseguradora"
+    },
+    "vehicle": {
+      "b": "Agregar o quitar un vehículo",
+      "s": "Hacer cambios a mitad de la póliza es normal"
+    },
+    "less": {
+      "b": "Averigua si puedes pagar menos",
+      "s": "Volvemos a cotizar tu póliza con nuestras aseguradoras"
+    }
+  },
+  "learn": {
+    "kicker": "Aprende más",
+    "b": "Cómo funciona realmente un reclamo de seguro de auto",
+    "d": "Quién decide la culpa, cuánto te cuesta realmente el deducible, cuánto tarda cada paso, qué significa una pérdida total y los errores que complican un reclamo más de lo necesario."
+  },
+  "js": {
+    "alt": {
+      "call": "¿Prefieres que lo hagamos contigo? Llama a Safe House",
+      "text": "Mándanos un mensaje con lo que pasó"
+    },
+    "found": {
+      "eyebrow": "Tu póliza es con",
+      "line": "Reclamos de {name}",
+      "web": "O inícialo en línea",
+      "dest": "Se abre <b>{host}</b> en una pestaña nueva. Esta página sigue abierta atrás.",
+      "phoneOnly": "{name} solo recibe reclamos nuevos por teléfono."
+    },
+    "miss": {
+      "title": "Todavía no reconocemos ese número",
+      "body": "Solo algunas compañías numeran sus pólizas de una forma que podemos reconocer, y un error de dedo se ve igual que un número desconocido. Busca tu compañía en la lista de abajo, o llámanos con el número y te decimos qué compañía emitió tu póliza — toma unos segundos."
+    }
+  }
+}

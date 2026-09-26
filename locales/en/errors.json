@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "title": "Page not found — Safe House Insurance",
+    "desc": "That page does not exist. Get a quote, call 915-503-1207, text 915-594-3777, or find your way back to Safe House Insurance."
+  },
+  "nav": {
+    "quote": "Get a quote"
+  },
+  "hero": {
+    "h1": "That page moved,<em>or never existed.</em>",
+    "p": "Nothing is wrong with your insurance &mdash; just this link. Here is the way back,\n         and the fastest ways to reach a person."
+  },
+  "acts": {
+    "start": "Start my quote &rarr;",
+    "call": "📞 Call 915-503-1207",
+    "text": "💬 Text 915-594-3777"
+  },
+  "where": {
+    "h2": "Where were you trying to go?",
+    "home": "Home",
+    "homeNote": "Start from the beginning",
+    "quote": "Get a quote",
+    "quoteNote": "Auto, home or motorcycle",
+    "pay": "Make a payment",
+    "payNote": "Find your carrier by policy number",
+    "about": "About us",
+    "aboutNote": "Who we are and how we work",
+    "cities": "Car insurance by city",
+    "citiesNote": "Texas and New Mexico",
+    "makes": "Car insurance by make",
+    "makesNote": "60 vehicle brands",
+    "contact": "Contact",
+    "contactNote": "Call, text, email or visit",
+    "careers": "Careers",
+    "careersNote": "We are hiring"
+  }
+}

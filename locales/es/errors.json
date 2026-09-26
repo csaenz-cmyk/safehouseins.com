@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "title": "Página no encontrada — Safe House Insurance",
+    "desc": "Esa página no existe. Cotiza, llámanos al 915-503-1207, mándanos un mensaje al 915-594-3777 o regresa a Safe House Insurance."
+  },
+  "nav": {
+    "quote": "Cotiza gratis"
+  },
+  "hero": {
+    "h1": "Esa página se movió,<em>o nunca existió.</em>",
+    "p": "Tu seguro está bien &mdash; lo que falla es este enlace. Aquí tienes el camino de regreso y las formas más rápidas de hablar con una persona."
+  },
+  "acts": {
+    "start": "Empieza tu cotización &rarr;",
+    "call": "📞 Llama al 915-503-1207",
+    "text": "💬 Mensaje al 915-594-3777"
+  },
+  "where": {
+    "h2": "¿A dónde querías ir?",
+    "home": "Inicio",
+    "homeNote": "Empieza desde el principio",
+    "quote": "Cotiza gratis",
+    "quoteNote": "Auto, casa o motocicleta",
+    "pay": "Hacer un pago",
+    "payNote": "Encuentra tu aseguradora con tu número de póliza",
+    "about": "Quiénes somos",
+    "aboutNote": "La agencia y cómo trabajamos",
+    "cities": "Seguro de auto por ciudad",
+    "citiesNote": "Texas y Nuevo México",
+    "makes": "Seguro de auto por marca",
+    "makesNote": "60 marcas de vehículos",
+    "contact": "Contacto",
+    "contactNote": "Llamada, mensaje, correo o visita",
+    "careers": "Empleos",
+    "careersNote": "Estamos contratando"
+  }
+}

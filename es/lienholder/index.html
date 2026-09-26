@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-t="lienholder.meta.title">Solicitudes de bancos y acreedores — Safe House Insurance</title>
+<meta name="description" content="Para bancos, cooperativas de crédito y arrendadoras: pida la hoja de declaraciones, constancia de seguro, verificación de cobertura o el alta como acreedor." data-t-content="lienholder.meta.desc">
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../../assets/safehouse-heart.png">
+<!--block:langhead--><link rel="canonical" href="https://safehouseins.com/es/lienholder/">
+<link rel="alternate" hreflang="en" href="https://safehouseins.com/lienholder/">
+<link rel="alternate" hreflang="es" href="https://safehouseins.com/es/lienholder/">
+<link rel="alternate" hreflang="x-default" href="https://safehouseins.com/lienholder/">
+<meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="en_US">
+<script>(function(){try{var p=localStorage.getItem("shi-lang")||(document.cookie.match(/(?:^|; )shi-lang=(en|es)/)||[])[1];if(p&&p!=="es")location.replace("../../lienholder/"+location.search+location.hash)}catch(e){}})()</script><!--/block:langhead-->
+<meta property="og:title" content="Solicitudes de bancos y acreedores — Safe House Insurance" data-t-content="lienholder.meta.ogTitle">
+<meta property="og:description" content="Solicite la hoja de declaraciones, una constancia de seguro o el alta de su institución como acreedor prendario." data-t-content="lienholder.meta.ogDesc">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://safehouseins.com/es/lienholder/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../assets/styles.css">
+<style>
+  /* ================= lienholder requests =================
+     The one page on this site written for somebody who is not a customer and
+     does not want to be. A loan officer processing an insurance verification
+     has a queue, and every field here exists because leaving it out sends the
+     request back around: the loan number because lenders file by it and not by
+     name, the exact lienholder name and mailing address because that is the
+     line that gets the document rejected, the requester's own work email
+     because that is what tells us the request is real.
+
+     No marketing. Nothing about quotes. It is a form and a set of facts. */
+  :root{ --pnavy:#08183A; --pblue:#1666ED; --pcyan:#22A7F0; --pline:#E5EBF6; }
+  .pay{position:relative;overflow:hidden;background:
+      radial-gradient(1100px 520px at 18% -12%, rgba(34,167,240,.34), transparent 62%),
+      radial-gradient(900px 460px at 88% 6%, rgba(22,102,237,.30), transparent 60%),
+      var(--pnavy);
+      padding:112px 20px 74px;color:#fff}
+  @media(max-width:700px){ .pay{padding-top:96px;padding-bottom:66px} }
+  .pay .in{max-width:660px;margin:0 auto;text-align:center;position:relative;z-index:2}
+  .pay .crumbs{font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+      font-weight:800;color:rgba(255,255,255,.55);margin-bottom:16px}
+  .pay .crumbs a{color:rgba(255,255,255,.75);text-decoration:none}
+  .pay h1{margin:0;font-size:clamp(34px,6vw,52px);line-height:1.04;font-weight:800;
+      letter-spacing:-.03em}
+  .pay h1 em{display:block;font-family:'Instrument Serif',serif;font-style:italic;
+      font-weight:400;color:#8FD0FF;letter-spacing:-.01em}
+  .pay .lede{margin:13px auto 0;max-width:48ch;font-size:16px;line-height:1.6;
+      color:rgba(255,255,255,.78);font-weight:500}
+  .pres{max-width:660px;margin:-46px auto 0;padding:0 20px;position:relative;z-index:3}
+
+  .pinfo{max-width:900px;margin:0 auto;padding:56px 20px 0}
+  .pinfo h3{margin:0 0 20px;text-align:center;font-size:22px;font-weight:800;
+      color:var(--pnavy);letter-spacing:-.02em}
+  .pcols{display:grid;gap:14px;grid-template-columns:1fr}
+  @media(min-width:760px){ .pcols{grid-template-columns:1fr 1fr} }
+  .pcol{border:1.5px solid var(--pline);border-radius:18px;padding:20px;background:#fff}
+  .pcol .n{width:30px;height:30px;border-radius:9px;background:#EAF2FE;color:var(--pblue);
+      display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;
+      margin-bottom:11px}
+  .pcol b{display:block;font-size:15px;font-weight:800;color:var(--pnavy);margin-bottom:5px}
+  .pcol p{margin:0;font-size:13.5px;line-height:1.6;color:#5C6A80;font-weight:600}
+  .pcol p+p{margin-top:9px}
+
+  .pfaq{max-width:900px;margin:52px auto 0;padding:0 20px}
+  .pfaq h3{margin:0 0 20px;text-align:center;font-size:22px;font-weight:800;
+      color:var(--pnavy);letter-spacing:-.02em}
+  .pfgrid{display:grid;gap:13px;grid-template-columns:1fr}
+  @media(min-width:700px){ .pfgrid{grid-template-columns:1fr 1fr} }
+  .pf{border:1.5px solid var(--pline);border-radius:18px;padding:19px 21px;background:#fff}
+  .pf b{display:block;font-size:15px;font-weight:800;color:var(--pnavy);margin-bottom:6px}
+  .pf p{margin:0;font-size:13.5px;line-height:1.65;color:#5C6A80;font-weight:600}
+  .pf a{color:var(--pblue);font-weight:800}
+
+  .pegrid{display:grid;gap:11px;grid-template-columns:1fr;max-width:900px;margin:52px auto 0;padding:0 20px}
+  @media(min-width:600px){ .pegrid{grid-template-columns:1fr 1fr} }
+  @media(min-width:900px){ .pegrid{grid-template-columns:repeat(4,1fr)} }
+  .pegrid a{display:block;border:1.5px solid var(--pline);border-radius:16px;padding:17px 18px;
+      background:#fff;text-decoration:none;transition:border-color .16s,transform .16s}
+  .pegrid a:hover{border-color:#BBD6FB;transform:translateY(-2px)}
+  .pegrid b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);margin-bottom:4px}
+  .pegrid span{display:block;font-size:12.5px;line-height:1.5;color:#7C8BA4;font-weight:600}
+  .ptail{height:60px}
+
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:#1666ED;color:#fff;
+      padding:12px 18px;border-radius:0 0 12px 0;font-weight:800;font-size:14px}
+  .skip:focus{left:0}
+
+
+  /* ---- the form ----
+     Shared by /id-card/ and /lienholder/. Kept in each page rather than in
+     ../assets/styles.css because those two are the only pages that carry a form
+     of this shape, and a rule nobody else uses does not belong in a stylesheet
+     every page downloads. */
+  .fcard{background:#fff;border-radius:24px;box-shadow:0 24px 60px rgba(8,24,58,.16);
+      border:1px solid var(--pline);padding:26px}
+  @media(min-width:640px){ .fcard{padding:30px 32px} }
+  .fstep{font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;font-weight:800;
+      color:#7C8BA4;margin:0 0 4px}
+  .fcard h2{margin:0 0 18px;font-size:20px;font-weight:800;color:var(--pnavy);letter-spacing:-.02em}
+  .fcard h2+.fsub{margin:-14px 0 18px;font-size:13.5px;line-height:1.6;color:#5C6A80;font-weight:600}
+  .frow{margin-top:16px}
+  .frow:first-of-type{margin-top:0}
+  .fg2{display:grid;gap:12px;grid-template-columns:1fr}
+  @media(min-width:560px){ .fg2{grid-template-columns:1fr 1fr} }
+  .fg3{display:grid;gap:12px;grid-template-columns:1fr}
+  @media(min-width:560px){ .fg3{grid-template-columns:1fr 1fr 1fr} }
+  label.fl{display:block;font-size:12.5px;font-weight:800;color:var(--pnavy);margin-bottom:6px}
+  label.fl .opt{font-weight:600;color:#9FB0C6;text-transform:none;letter-spacing:0}
+  .fhelp{display:block;font-size:12px;line-height:1.5;color:#7C8BA4;font-weight:600;margin:-2px 0 7px}
+  .fin{width:100%;border:2px solid var(--pline);border-radius:14px;padding:13px 15px;
+      font-family:inherit;font-size:15.5px;font-weight:600;color:var(--pnavy);background:#fff;
+      transition:border-color .16s,box-shadow .16s}
+  .fin::placeholder{color:#9FB0C6;font-weight:500}
+  .fin:focus{outline:none;border-color:var(--pblue);box-shadow:0 0 0 3px rgba(22,102,237,.16)}
+  .fin.mono{font-family:'Geist Mono',monospace;letter-spacing:.05em;text-transform:uppercase}
+  select.fin{-webkit-appearance:none;appearance:none;padding-right:40px;cursor:pointer;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235C6A80' stroke-width='2.4' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>");
+      background-repeat:no-repeat;background-position:right 14px center;background-size:17px}
+  textarea.fin{min-height:88px;resize:vertical;line-height:1.55}
+
+  /* A choice that is a decision, not a field. Big enough to hit with a thumb. */
+  .fpick{display:grid;gap:10px;grid-template-columns:1fr;margin-top:2px}
+  @media(min-width:560px){ .fpick.two{grid-template-columns:1fr 1fr} }
+  .fopt{display:flex;align-items:flex-start;gap:12px;border:2px solid var(--pline);
+      border-radius:16px;padding:15px 16px;background:#fff;cursor:pointer;
+      transition:border-color .16s,box-shadow .16s}
+  .fopt:hover{border-color:#C6D8F5}
+  .fopt input{position:absolute;opacity:0;width:0;height:0}
+  .fopt .bx{flex:0 0 auto;width:22px;height:22px;border:2px solid #C9D6EA;border-radius:7px;
+      margin-top:1px;display:grid;place-items:center;transition:.15s}
+  .fopt .bx.rd{border-radius:50%}
+  .fopt .bx::after{content:'\2713';color:#fff;font-size:13px;font-weight:900;opacity:0;transition:.15s}
+  .fopt .bx.rd::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+  .fopt input:checked+.bx{background:var(--pblue);border-color:var(--pblue)}
+  .fopt input:checked+.bx::after{opacity:1}
+  .fopt input:focus-visible+.bx{outline:3px solid #BBD6FF;outline-offset:2px}
+  .fopt:has(input:checked){border-color:var(--pblue);box-shadow:0 6px 18px rgba(22,102,237,.14)}
+  .fopt .tx b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);line-height:1.3}
+  .fopt .tx span{display:block;font-size:12.5px;line-height:1.55;color:#5C6A80;font-weight:600;margin-top:3px}
+
+  /* Questions that only exist because of an answer above them. */
+  .freveal{border-left:3px solid #DCE9FA;padding-left:16px;margin-top:16px}
+  .freveal[hidden]{display:none}
+
+  .ferr{display:none;margin-top:14px;border:1.5px solid #F3C7C7;background:#FFF6F6;
+      border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.55;
+      color:#9A2C2C;font-weight:700}
+  .ferr.on{display:block}
+
+  .fsend{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;margin-top:20px;
+      background:linear-gradient(100deg,var(--pblue),var(--pcyan));color:#fff;border:0;
+      border-radius:16px;padding:17px 20px;font-family:inherit;font-size:16.5px;font-weight:800;
+      cursor:pointer;box-shadow:0 12px 26px rgba(22,102,237,.28);transition:transform .16s}
+  .fsend:hover{transform:translateY(-2px)}
+  .fnote{margin:12px 0 0;font-size:12.5px;line-height:1.6;color:#7C8BA4;font-weight:600;text-align:center}
+
+  /* ---- the confirmation ---- */
+  .fdone{background:#fff;border-radius:24px;border:1px solid var(--pline);
+      box-shadow:0 24px 60px rgba(8,24,58,.16);padding:30px 28px;text-align:center}
+  .fdone .tick{width:60px;height:60px;border-radius:50%;margin:0 auto 16px;
+      background:linear-gradient(140deg,var(--pblue),var(--pcyan));color:#fff;
+      display:flex;align-items:center;justify-content:center;font-size:27px;font-weight:900;
+      box-shadow:0 16px 32px -14px rgba(22,102,237,.8)}
+  .fdone h2{margin:0;font-size:23px;font-weight:800;color:var(--pnavy);letter-spacing:-.02em}
+  .fdone .lead{margin:10px auto 0;max-width:48ch;font-size:15px;line-height:1.65;
+      color:#3B4A63;font-weight:600}
+  .fsum{margin:20px auto 0;max-width:460px;text-align:left;border:1.5px solid var(--pline);
+      border-radius:16px;padding:16px 18px;background:#FAFCFF}
+  .fsum div{display:flex;justify-content:space-between;gap:14px;padding:7px 0;
+      border-bottom:1px solid #EDF2FA;font-size:13.5px;font-weight:600;color:#5C6A80}
+  .fsum div:last-child{border-bottom:0}
+  .fsum b{color:var(--pnavy);font-weight:800;text-align:right}
+  .fwarn{margin:18px auto 0;max-width:52ch;border:1.5px solid #F5DFB0;background:#FFFAF0;
+      border-radius:16px;padding:15px 17px;text-align:left}
+  .fwarn b{display:block;font-size:14px;color:#8A5200;font-weight:900;margin-bottom:6px}
+  .fwarn p{margin:0;font-size:13px;line-height:1.6;color:#6B4B18;font-weight:600}
+  .fwarn a{color:#8A5200;font-weight:900}
+
+  .palt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+  @media(max-width:520px){ .palt{grid-template-columns:1fr} }
+  .palt a{display:flex;align-items:center;gap:11px;border:2px solid var(--pline);
+      border-radius:15px;padding:13px 15px;text-decoration:none;background:#fff;
+      transition:border-color .16s,background .16s;text-align:left}
+  .palt a:hover{border-color:#C6D8F5;background:#FAFCFF}
+  .palt .i{width:34px;height:34px;flex:0 0 auto;border-radius:10px;background:#F1F6FE;
+      display:flex;align-items:center;justify-content:center}
+  .palt .i svg{width:17px;height:17px;fill:none;stroke:var(--pblue);stroke-width:2;
+      stroke-linecap:round;stroke-linejoin:round}
+  .palt s{display:block;text-decoration:none;font-size:11.5px;font-weight:700;color:#7C8BA4}
+  .palt b{display:block;font-size:14.5px;font-weight:800;color:var(--pnavy);
+      font-family:'Geist Mono',monospace;letter-spacing:-.01em}
+
+  /* Facts a loan officer needs before they can file anything. */
+  .lfacts{max-width:900px;margin:56px auto 0;padding:0 20px}
+  .lfacts h3{margin:0 0 20px;text-align:center;font-size:22px;font-weight:800;
+      color:var(--pnavy);letter-spacing:-.02em}
+  .lgrid{display:grid;gap:12px;grid-template-columns:1fr}
+  @media(min-width:700px){ .lgrid{grid-template-columns:1fr 1fr} }
+  .lfact{border:1.5px solid var(--pline);border-radius:18px;padding:18px 20px;background:#fff}
+  .lfact s{display:block;text-decoration:none;font-size:11px;letter-spacing:.11em;
+      text-transform:uppercase;font-weight:800;color:#7C8BA4;margin-bottom:6px}
+  .lfact b{display:block;font-size:16px;font-weight:800;color:var(--pnavy);line-height:1.35}
+  .lfact b.mono{font-family:'Geist Mono',monospace;font-size:15.5px;letter-spacing:-.01em}
+  .lfact p{margin:6px 0 0;font-size:13px;line-height:1.6;color:#5C6A80;font-weight:600}
+  .lfact a{color:var(--pblue);font-weight:800}
+</style>
+</head>
+<body>
+  <a class="skip" href="#main"><!--t:common.skip-->Saltar al contenido<!--/t--></a>
+  <div class="topbar">
+    <span><!--t:common.topbar.callText-->📞 Llama al <a href="tel:+19155031207">915-503-1207</a> &middot; 💬 Mensajes al <a href="sms:+19155943777">915-594-3777</a><!--/t--></span>
+    <span>✉️ <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></span>
+    <span class="es"><!--t:common.topbar.speaks-->🇲🇽 Te atendemos en español<!--/t--></span>
+    <span><!--t:common.topbar.where-->El Paso, TX · Servicio en TX y NM<!--/t--></span>
+  </div>
+
+  <header class="pay">
+    <nav>
+      <a href="../index.html"><img class="logo" src="../../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+      <div class="nav-cta"><!--block:switch dk--><div class="lsw dk" role="group" aria-label="Idioma / Language"><a href="../../lienholder/" hreflang="en" lang="en" data-lang="en" title="View this page in English"><span aria-hidden="true">EN</span><span class="lvh">English</span></a><span lang="es-MX" aria-current="true"><span aria-hidden="true">ES</span><span class="lvh">Español</span></span></div><!--/block:switch--><button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="drawer" data-t-aria-label="common.menu.open"><span></span><span></span><span></span></button></div>
+    </nav>
+
+<!--block:menu--><div class="scrim" id="scrim" hidden></div>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menú">
+  <div class="dtop">
+    <div class="lsw full" role="group" aria-label="Idioma / Language"><a href="../../lienholder/" hreflang="en" lang="en" data-lang="en" title="View this page in English">English</a><span lang="es-MX" aria-current="true">Español</span></div>
+    <a class="dcta" href="../quote.html">Cotiza gratis</a>
+    <button class="dclose" id="dclose" type="button" aria-label="Cerrar menú">&#10005;</button>
+  </div>
+
+  <div class="dbig" role="navigation" aria-label="Lo que aseguramos">
+    <a href="../auto-insurance.html">Auto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a href="../home-insurance.html">Casa <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a href="../commercial-insurance.html">Comercial <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+
+  <div class="dcols">
+    <div class="dcol">
+      <h6>Tipos de seguro</h6>
+      <a href="../auto-insurance.html">Auto</a>
+      <a href="../home-insurance.html">Casa propia</a>
+      <a href="../renters-insurance.html">Inquilinos</a>
+      <a href="../motorcycle-insurance.html">Motocicleta</a>
+      <a href="../rideshare-insurance.html">Uber, Lyft y entregas</a>
+      <a href="../commercial-insurance.html">Camionetas de trabajo y flotillas</a>
+    </div>
+    <div class="dcol">
+      <h6>La agencia</h6>
+      <a href="../about.html">Quiénes somos</a>
+      <a href="../index.html#reviews">Reseñas</a>
+      <a href="../index.html#faq">Preguntas frecuentes</a>
+      <a href="../careers.html">Empleos</a>
+      <a href="../investors.html">Inversionistas</a>
+      <a href="../contact.html">Contacto</a>
+    </div>
+    <div class="dcol">
+      <h6>Si ya eres cliente</h6>
+      <a href="../pay/">Hacer un pago</a>
+      <a href="../claims/">Reportar un reclamo</a>
+      <a href="../id-card/">Pedir tu tarjeta de seguro</a>
+      <a href="../quote.html">Volver a comparar tu precio</a>
+    </div>
+    <div class="dcol">
+      <h6>Para financieras</h6>
+      <a href="../lienholder/">Solicitudes de acreedores</a>
+    </div>
+  </div>
+
+  <div class="dfoot">
+    <a class="dway call" href="tel:+19155031207">
+      <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+      <span class="t"><s>Llámanos</s><b>915-503-1207</b></span>
+      <span class="ar" aria-hidden="true">&rarr;</span></a>
+    <a class="dway text" href="sms:+19155943777">
+      <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span>
+      <span class="t"><s>Mándanos un mensaje</s><b>915-594-3777</b></span>
+      <span class="ar" aria-hidden="true">&rarr;</span></a>
+    <p class="des">Te atendemos en español &middot; lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña)</p>
+  </div>
+</div><!--/block:menu-->
+    <div class="in">
+      <div class="crumbs"><a href="../index.html"><!--t:common.home-->Inicio<!--/t--></a> &nbsp;/&nbsp; <!--t:lienholder.crumb-->Solicitudes de acreedores<!--/t--></div>
+      <h1><!--t:lienholder.hero.h1-->Solicitudes de bancos y acreedores.<em>Envíelas aquí.</em><!--/t--></h1>
+      <p class="lede"><!--t:lienholder.hero.lede-->Para bancos, cooperativas de crédito, arrendadoras y financieras de agencias de autos. Solicite la hoja de declaraciones (dec page), una constancia de seguro o la verificación de cobertura vigente, o pídanos agregar a su institución como acreedor prendario (lienholder) en la póliza.<!--/t--></p>
+    </div>
+  </header>
+
+<main id="main">
+  <div class="pres">
+    <form class="fcard" id="req" novalidate>
+      <p class="fstep"><!--t:lienholder.form.step-->Solicitud de acreedor<!--/t--></p>
+      <h2><!--t:lienholder.form.h2-->¿Qué necesita y de qué póliza?<!--/t--></h2>
+      <p class="fsub"><!--t:lienholder.form.sub-->No se envía nada hasta que presione el botón de abajo, y entonces sale como un correo electrónico desde su propia dirección.<!--/t--></p>
+
+      <div class="frow">
+        <label class="fl"><!--t:lienholder.form.want-->¿Qué solicita?<!--/t--></label>
+        <div class="fpick two">
+          <label class="fopt">
+            <input type="checkbox" id="wDec" checked>
+            <span class="bx" aria-hidden="true"></span>
+            <span class="tx"><b><!--t:lienholder.form.dec.b-->Hoja de declaraciones<!--/t--></b><span><!--t:lienholder.form.dec.p-->Resumen completo de la póliza &mdash; vehículos, conductores, coberturas, límites, deducibles y fechas.<!--/t--></span></span>
+          </label>
+          <label class="fopt">
+            <input type="checkbox" id="wEoi">
+            <span class="bx" aria-hidden="true"></span>
+            <span class="tx"><b><!--t:lienholder.form.eoi.b-->Constancia de seguro<!--/t--></b><span><!--t:lienholder.form.eoi.p-->Un certificado (evidence of insurance) a nombre de su institución, para el expediente del préstamo.<!--/t--></span></span>
+          </label>
+          <label class="fopt">
+            <input type="checkbox" id="wAdd">
+            <span class="bx" aria-hidden="true"></span>
+            <span class="tx"><b><!--t:lienholder.form.add.b-->Agregarnos como acreedor prendario<!--/t--></b><span><!--t:lienholder.form.add.p-->Agregar o corregir a su institución como acreedor prendario o beneficiario preferente (loss payee) en la póliza.<!--/t--></span></span>
+          </label>
+          <label class="fopt">
+            <input type="checkbox" id="wVer">
+            <span class="bx" aria-hidden="true"></span>
+            <span class="tx"><b><!--t:lienholder.form.ver.b-->Verificar que la cobertura esté vigente<!--/t--></b><span><!--t:lienholder.form.ver.p-->Confirmación de que la póliza está vigente al día de hoy.<!--/t--></span></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="frow">
+        <label class="fl" for="loan"><!--t:lienholder.form.loan.label-->Su número de préstamo o de referencia de la cuenta<!--/t--></label>
+        <span class="fhelp"><!--t:lienholder.form.loan.help-->El número con el que su institución archiva el expediente. Los documentos que llegan sin él son los que se pierden de su lado, no del nuestro.<!--/t--></span>
+        <input class="fin mono" id="loan" type="text" autocomplete="off" spellcheck="false"
+               placeholder="p. ej. 4471902-01" data-t-placeholder="lienholder.form.loan.ph">
+      </div>
+
+      <div class="frow fg2">
+        <div>
+          <label class="fl" for="inst"><!--t:lienholder.form.inst.label-->Nombre de la institución<!--/t--></label>
+          <input class="fin" id="inst" type="text" placeholder="p. ej. Navy Federal Credit Union" data-t-placeholder="lienholder.form.inst.ph">
+        </div>
+        <div>
+          <label class="fl" for="who"><!--t:lienholder.form.who.label-->Su nombre<!--/t--></label>
+          <input class="fin" id="who" type="text" autocomplete="name" placeholder="Oficial de préstamos o analista" data-t-placeholder="lienholder.form.who.ph">
+        </div>
+      </div>
+
+      <div class="frow fg2">
+        <div>
+          <label class="fl" for="mail"><!--t:lienholder.form.mail.label-->¿A dónde se lo enviamos?<!--/t--></label>
+          <span class="fhelp"><!--t:lienholder.form.mail.help-->Una dirección de correo de trabajo de su institución.<!--/t--></span>
+          <input class="fin" id="mail" type="email" inputmode="email" autocapitalize="none"
+                 spellcheck="false" placeholder="seguros@subanco.com" data-t-placeholder="lienholder.form.mail.ph">
+        </div>
+        <div>
+          <label class="fl" for="phone"><!--t:lienholder.form.phone.label-->Teléfono de contacto<!--/t--> <span class="opt"><!--t:lienholder.form.optional-->&mdash; opcional<!--/t--></span></label>
+          <span class="fhelp"><!--t:lienholder.form.phone.help-->Por si algo en la póliza no coincide.<!--/t--></span>
+          <input class="fin" id="phone" type="tel" inputmode="tel" placeholder="915-555-0100">
+        </div>
+      </div>
+
+      <div class="frow">
+        <label class="fl" for="cname"><!--t:lienholder.form.cname.label-->Nombre completo del cliente, como aparece en el préstamo<!--/t--></label>
+        <input class="fin" id="cname" type="text" placeholder="Nombre y apellidos" data-t-placeholder="lienholder.form.cname.ph">
+      </div>
+
+      <div class="frow fg2">
+        <div>
+          <label class="fl" for="pol"><!--t:lienholder.form.pol.label-->Número de póliza<!--/t--> <span class="opt"><!--t:lienholder.form.ifHave-->&mdash; si lo tiene<!--/t--></span></label>
+          <input class="fin mono" id="pol" type="text" autocomplete="off" spellcheck="false"
+                 autocapitalize="characters" placeholder="AIM4471902">
+        </div>
+        <div>
+          <label class="fl" for="vin"><!--t:lienholder.form.vin.label-->Últimos 6 dígitos del VIN<!--/t--></label>
+          <span class="fhelp"><!--t:lienholder.form.vin.help-->Con seis dígitos basta para identificar el vehículo. Por favor, no envíe el VIN completo.<!--/t--></span>
+          <input class="fin mono" id="vin" type="text" maxlength="6" inputmode="numeric"
+                 autocomplete="off" spellcheck="false" placeholder="471902">
+        </div>
+      </div>
+
+      <div class="frow fg3">
+        <div>
+          <label class="fl" for="yr"><!--t:lienholder.form.yr.label-->Año<!--/t--></label>
+          <input class="fin mono" id="yr" type="text" maxlength="4" inputmode="numeric" placeholder="2021">
+        </div>
+        <div>
+          <label class="fl" for="mk"><!--t:lienholder.form.mk.label-->Marca<!--/t--></label>
+          <input class="fin" id="mk" type="text" placeholder="Ford">
+        </div>
+        <div>
+          <label class="fl" for="md"><!--t:lienholder.form.md.label-->Modelo<!--/t--></label>
+          <input class="fin" id="md" type="text" placeholder="F-150">
+        </div>
+      </div>
+
+      <div class="freveal" id="addBox" hidden>
+        <div class="frow">
+          <label class="fl" for="lname"><!--t:lienholder.form.lname.label-->Nombre del acreedor, exactamente como debe aparecer<!--/t--></label>
+          <span class="fhelp"><!--t:lienholder.form.lname.help-->Incluya ISAOA / ATIMA si su institución lo requiere. Es la línea por la que se rechaza un documento cuando está mal.<!--/t--></span>
+          <input class="fin" id="lname" type="text"
+                 placeholder="Navy Federal Credit Union ISAOA/ATIMA">
+        </div>
+        <div class="frow">
+          <label class="fl" for="laddr"><!--t:lienholder.form.laddr.label-->Dirección postal del acreedor<!--/t--></label>
+          <textarea class="fin" id="laddr"
+                    placeholder="820 Follin Lane SE&#10;Vienna, VA 22180"></textarea>
+        </div>
+      </div>
+
+      <div class="frow fg2">
+        <div>
+          <label class="fl" for="need"><!--t:lienholder.form.need.label-->Fecha límite<!--/t--> <span class="opt"><!--t:lienholder.form.optional-->&mdash; opcional<!--/t--></span></label>
+          <input class="fin" id="need" type="date">
+        </div>
+        <div>
+          <label class="fl" for="fax"><!--t:lienholder.form.fax.label-->Fax, si lo prefiere<!--/t--> <span class="opt"><!--t:lienholder.form.optional-->&mdash; opcional<!--/t--></span></label>
+          <input class="fin mono" id="fax" type="tel" inputmode="tel" placeholder="915-555-0199">
+        </div>
+      </div>
+
+      <div class="frow">
+        <label class="fl" for="notes"><!--t:lienholder.form.notes.label-->Comentarios adicionales<!--/t--> <span class="opt"><!--t:lienholder.form.optional-->&mdash; opcional<!--/t--></span></label>
+        <textarea class="fin" id="notes"
+                  placeholder="p. ej. La póliza debe mostrar deducibles de $500 o menos en cobertura integral y de colisión." data-t-placeholder="lienholder.form.notes.ph"></textarea>
+      </div>
+
+      <p class="ferr" id="err" role="alert"></p>
+      <button class="fsend" type="submit"><!--t:lienholder.form.send-->Enviar esta solicitud<!--/t--></button>
+      <p class="fnote"><!--t:lienholder.form.note-->Esto abre su programa de correo con todo ya capturado, dirigido a contact@safehouseins.com. Enviarlo desde su propia dirección de trabajo es lo que nos permite verificar la solicitud.<!--/t--></p>
+    </form>
+  </div>
+
+  <div class="pres" id="doneWrap" hidden>
+    <div class="fdone">
+      <div class="tick" aria-hidden="true">&#10003;</div>
+      <h2><!--t:lienholder.done.h2-->Solicitud lista para enviar.<!--/t--></h2>
+      <p class="lead"><!--t:lienholder.done.lead-->Su programa de correo debió abrirse con los datos ya capturados. Presione enviar ahí y la solicitud llega a nuestro equipo. Respondemos las solicitudes de acreedores el mismo día hábil, de lunes a viernes, de 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m., hora de la montaña.<!--/t--></p>
+      <div class="fsum" id="sum"></div>
+      <div class="fwarn">
+        <b><!--t:lienholder.done.warnHead-->Si no se abrió su programa de correo<!--/t--></b>
+        <p><!--t:lienholder.done.warn-->Envíe los mismos datos a <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a> o llame al <a href="tel:+19155031207">915-503-1207</a>. En cualquier caso, incluya su número de referencia del préstamo &mdash; es el que citamos en el asunto para que el documento llegue al expediente correcto de su lado.<!--/t--></p>
+      </div>
+    </div>
+  </div>
+
+  <section class="lfacts">
+    <h3><!--t:lienholder.facts.h3-->Datos de la agencia para su expediente<!--/t--></h3>
+    <div class="lgrid">
+      <div class="lfact"><s><!--t:lienholder.facts.agency-->Agencia<!--/t--></s><b>Safe House Insurance LLC</b>
+        <p><!--t:lienholder.facts.agencyNote-->Agencia independiente con licencia en Texas y Nuevo México. Somos el agente de la póliza (agent of record), no la aseguradora &mdash; la póliza la emite la compañía de seguros que aparece en la hoja de declaraciones.<!--/t--></p></div>
+      <div class="lfact"><s><!--t:lienholder.facts.mail-->Dirección postal<!--/t--></s><b>6065 Montana Ave Ste C8</b>
+        <p>El Paso, TX 79925</p></div>
+      <div class="lfact"><s><!--t:lienholder.facts.phone-->Teléfono<!--/t--></s><b class="mono">915-503-1207</b>
+        <p><!--t:lienholder.facts.phoneNote-->Lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña). Esta línea no recibe mensajes de texto.<!--/t--></p></div>
+      <div class="lfact"><s><!--t:lienholder.facts.email-->Correo electrónico<!--/t--></s><b class="mono">contact@safehouseins.com</b>
+        <p><!--t:lienholder.facts.emailNote-->Lo revisamos en horario de oficina. Ponga el número de referencia del préstamo en el asunto.<!--/t--></p></div>
+    </div>
+  </section>
+
+  <section class="pinfo">
+    <h3><!--t:lienholder.before.h3-->Antes de enviar<!--/t--></h3>
+    <div class="pcols">
+      <div class="pcol"><div class="n">1</div>
+        <b><!--t:lienholder.before.c1.b-->Envíela desde el dominio de su institución<!--/t--></b>
+        <p><!--t:lienholder.before.c1.p-->La hoja de declaraciones trae los vehículos, los conductores y el domicilio del cliente. La entregamos a un acreedor que tenga un interés registrado sobre el vehículo, y una solicitud que llega desde una dirección de trabajo de la institución que aparece en ella es lo primero que permite verificarlo. Si la solicitud llega desde una cuenta de correo personal, le llamamos antes de enviar cualquier cosa.<!--/t--></p></div>
+      <div class="pcol"><div class="n">2</div>
+        <b><!--t:lienholder.before.c2.b-->Denos el texto exacto del acreedor<!--/t--></b>
+        <p><!--t:lienholder.before.c2.p-->“First National Bank” y “First National Bank ISAOA/ATIMA, PO Box 1234” no son la misma línea para una aseguradora, y la segunda es la que su propio sistema aceptará de vuelta. Casi todos los documentos rechazados que vemos se deben a esto y a nada más.<!--/t--></p></div>
+      <div class="pcol"><div class="n">3</div>
+        <b><!--t:lienholder.before.c3.b-->Los últimos seis del VIN, no el VIN completo<!--/t--></b>
+        <p><!--t:lienholder.before.c3.p-->Seis dígitos identifican el vehículo sin ambigüedad frente a una póliza. No hay razón para que un VIN completo viaje por correo electrónico para esto, así que no lo pedimos.<!--/t--></p></div>
+      <div class="pcol"><div class="n">4</div>
+        <b><!--t:lienholder.before.c4.b-->Lo que no enviamos<!--/t--></b>
+        <p><!--t:lienholder.before.c4.p-->Los números de licencia de manejo, las fechas de nacimiento, los datos de pago y el historial de reclamos anteriores no se envían con una solicitud de acreedor. Si su análisis de crédito realmente requiere algo de esa lista, llámenos y vemos la forma correcta de manejarlo.<!--/t--></p></div>
+    </div>
+  </section>
+
+  <section class="pfaq">
+    <h3><!--t:lienholder.faq.h3-->Preguntas frecuentes de bancos y financieras<!--/t--></h3>
+    <div class="pfgrid">
+      <div class="pf"><b><!--t:lienholder.faq.q1-->¿En cuánto tiempo lo recibimos?<!--/t--></b>
+        <p><!--t:lienholder.faq.a1-->El mismo día hábil para todo lo que se solicite antes de las 4&nbsp;p.&nbsp;m., hora de la montaña, de lunes a viernes. Agregar un acreedor a una póliza puede tardar más &mdash; el endoso va a la aseguradora y le enviamos la confirmación en cuanto se emite, normalmente en 24 a 72 horas.<!--/t--></p></div>
+      <div class="pf"><b><!--t:lienholder.faq.q2-->¿Pueden agregarnos como acreedor sin el cliente?<!--/t--></b>
+        <p><!--t:lienholder.faq.a2-->Sí. Agregar un acreedor prendario o un beneficiario preferente es un endoso de rutina y no requiere que el cliente firme nada. Aun así le avisamos al cliente, porque un cambio en su póliza nunca debería tomarlo por sorpresa.<!--/t--></p></div>
+      <div class="pf"><b><!--t:lienholder.faq.q3-->La cobertura no cumple con nuestros requisitos.<!--/t--></b>
+        <p><!--t:lienholder.faq.a3-->Díganos qué exige el préstamo &mdash; deducibles máximos, límites mínimos, cobertura integral y de colisión, ambas vigentes &mdash; y lo llevamos con el cliente y con la aseguradora. Es más rápido que un seguro colocado por el acreedor (force-placed) y sale más barato para todos.<!--/t--></p></div>
+      <div class="pf"><b><!--t:lienholder.faq.q4-->¿Cobran algo por esto?<!--/t--></b>
+        <p><!--t:lienholder.faq.a4-->No. Las hojas de declaraciones, las constancias de seguro, las verificaciones y los endosos de acreedor son parte del servicio de la póliza.<!--/t--></p></div>
+      <div class="pf"><b><!--t:lienholder.faq.q5-->¿Podemos recibir automáticamente los avisos de renovación?<!--/t--></b>
+        <p><!--t:lienholder.faq.a5-->Sí. Pídalo en los comentarios y agregamos a su institución a la póliza para que los documentos de renovación le lleguen en cada periodo sin que nadie tenga que pedirlos.<!--/t--></p></div>
+      <div class="pf"><b><!--t:lienholder.faq.q6-->Creemos que la póliza se canceló.<!--/t--></b>
+        <p><!--t:lienholder.faq.a6-->Envíe la solicitud de todos modos e indíquelo. Le diremos el estado real el mismo día y, si la póliza se venció, ya estaremos trabajando para rehabilitarla antes de que salga su aviso de seguro colocado por el acreedor.<!--/t--></p></div>
+    </div>
+  </section>
+
+  <div class="pegrid">
+    <a href="tel:+19155031207"><b><!--t:lienholder.more.call-->Llámenos<!--/t--></b><span><!--t:lienholder.more.callNote-->915-503-1207 &middot; lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña)<!--/t--></span></a>
+    <a href="mailto:contact@safehouseins.com"><b><!--t:lienholder.more.email-->Escríbanos<!--/t--></b><span>contact@safehouseins.com</span></a>
+    <a href="../id-card/"><b><!--t:lienholder.more.idcard-->¿Es usted el cliente?<!--/t--></b><span><!--t:lienholder.more.idcardNote-->Pida sus propios documentos aquí<!--/t--></span></a>
+    <a href="../claims/"><b><!--t:lienholder.more.claim-->Reportar un reclamo<!--/t--></b><span><!--t:lienholder.more.claimNote-->Teléfonos de reclamos por compañía<!--/t--></span></a>
+  </div>
+  <div class="ptail"></div>
+</main>
+  <!--block:footer--><footer>
+ <div class="fshell">
+
+  <!-- Band 1 — where to go. Two-column city lists so twelve names read as a
+       list and not as a wall. -->
+  <div class="fband">
+   <div class="fdeck">
+    <div><h5>Seguro de auto en Texas</h5><div class="c2"><a href="../car-insurance/texas/houston/">Houston</a><a href="../car-insurance/texas/san-antonio/">San Antonio</a><a href="../car-insurance/texas/dallas/">Dallas</a><a href="../car-insurance/texas/austin/">Austin</a><a href="../car-insurance/texas/fort-worth/">Fort Worth</a><a href="../car-insurance/texas/el-paso/">El Paso</a><a href="../car-insurance/texas/arlington/">Arlington</a><a href="../car-insurance/texas/laredo/">Laredo</a><a href="../car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="../car-insurance/texas/mcallen/">McAllen</a><a href="../car-insurance/texas/brownsville/">Brownsville</a><a href="../car-insurance/texas/lubbock/">Lubbock</a></div>
+      <a class="more" href="../car-insurance/texas/">Ver todas las ciudades de Texas &rarr;</a></div>
+
+    <div><h5>Seguro de auto en Nuevo México</h5><div class="c2"><a href="../car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="../car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="../car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="../car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="../car-insurance/new-mexico/roswell/">Roswell</a><a href="../car-insurance/new-mexico/farmington/">Farmington</a><a href="../car-insurance/new-mexico/hobbs/">Hobbs</a><a href="../car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
+      <a class="more" href="../car-insurance/new-mexico/">Ver todas las ciudades de Nuevo México &rarr;</a></div>
+
+    <div><h5>Lo que aseguramos</h5>
+      <a href="../quote.html?type=car">Seguro de auto</a>
+      <a href="../quote.html?type=home">Seguro de casa</a>
+      <a href="../quote.html?type=home">Seguro para inquilinos</a>
+      <a href="../quote.html?type=moto">Seguro de motocicleta</a>
+      <a href="../quote.html?type=commercial">Vehículos comerciales</a>
+      <a href="../quote.html?type=commercial">Camionetas de trabajo y flotillas</a>
+      <a class="more" href="../car-insurance/makes/">Seguro de auto por marca &rarr;</a></div>
+
+    <div><h5>Si ya eres cliente</h5>
+      <a href="../pay/">Hacer un pago</a>
+      <a href="../pay/guide/">Cómo funcionan los pagos</a>
+      <a href="../id-card/">Pedir tu tarjeta de seguro</a>
+      <a href="../claims/">Reportar un reclamo</a>
+      <a href="../claims/guide/">Cómo funcionan los reclamos</a>
+      <a href="tel:+19155031207">Hacer un cambio a tu póliza</a>
+      <a href="../lienholder/">Para bancos y financieras</a>
+      <a href="../quote.html">Volver a comparar tu precio</a></div>
+   </div>
+  </div>
+
+  <!-- Band 2 — reach a person. Everything here appeared twice in the old
+       footer: once in a link column and again in a centred block underneath. -->
+  <div class="fband">
+   <div class="fmid">
+    <div>
+     <h5>Contáctanos</h5>
+     <div class="fways">
+<div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><b>Llamadas</b><a class="big" href="tel:+19155031207">915-503-1207</a><small>Lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña)</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span><b>Mensajes de texto</b><a class="big" href="sms:+19155943777">915-594-3777</a><small>Es otra línea &mdash; esta sí recibe mensajes de texto</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 6.5L21 6"/></svg></span><b>Correo electrónico</b><a class="big" href="mailto:contact@safehouseins.com">contact@safehouseins.com</a><small>Documentos, preguntas, lo que necesites</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><b>Visítanos</b>
+       <address>Safe House Insurance LLC<br>6065 Montana Ave Ste C8<br>El Paso, TX 79925</address>
+       <p class="fhours">Lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña)</p>
+       <a href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">Abrir en Google Maps &rarr;</a></div>
+     </div>
+    </div>
+
+    <div>
+     <h5>La agencia</h5>
+     <div class="fcols">
+     <a href="../about.html">Quiénes somos</a>
+     <a href="../careers.html">Empleos</a>
+     <a href="../investors.html">Inversionistas</a>
+     <a href="../index.html#faq">Preguntas frecuentes</a>
+     <a href="../car-insurance/">Seguro de auto por ciudad</a>
+     <a href="../car-insurance/makes/">Seguro de auto por marca</a>
+     <a href="../index.html#reviews">Reseñas de clientes</a>
+     <a href="../contact.html">Contacto</a>
+     </div>
+     <a class="more" href="../quote.html" style="display:inline-block;margin-top:14px;background:var(--grad);color:#fff;padding:12px 22px;border-radius:99px;font-size:14.5px;font-weight:800">Cotiza gratis &rarr;</a>
+    </div>
+   </div>
+  </div>
+
+  <!-- Band 3 — the sign-off. -->
+  <div class="fend">
+   <img class="logo" src="../../assets/safehouse-logo.png" alt="Safe House Insurance">
+   <p class="es">Agencia independiente con licencia en El Paso, Texas &middot; 🇲🇽 Te atendemos en español</p>
+   <p class="disc">Safe House Insurance LLC es una agencia de seguros independiente con licencia en Texas y Nuevo México. La cobertura está sujeta a la aprobación de la aseguradora, a sus criterios de suscripción y a los términos, condiciones y exclusiones de la póliza emitida. Las cotizaciones son estimados y no garantizan la cobertura ni el precio. Las aseguradoras disponibles y los requisitos para calificar varían según el estado y el solicitante. &copy; 2026 Safe House Insurance.</p>
+   <p class="legal"><a href="../privacy.html">Aviso de privacidad</a> &middot; <a href="../sms-terms.html">Términos de SMS</a> &middot; <a href="../quote.html">Cotiza gratis</a></p>
+  </div>
+
+ </div>
+</footer><!--/block:footer-->
+
+<script type="application/json" id="i18n" data-t-keys="lienholder.js">{"doc.add": "Agregar acreedor prendario / beneficiario preferente", "doc.dec": "Hoja de declaraciones", "doc.eoi": "Constancia de seguro", "doc.ver": "Verificar que la cobertura esté vigente", "err.add": "Para agregar a su institución necesitamos el nombre del acreedor y la dirección postal exactamente como deben aparecer en la póliza.", "err.cname": "Necesitamos el nombre completo del cliente tal como aparece en el préstamo.", "err.inst": "¿Para qué institución es?", "err.loan": "Necesitamos su número de préstamo o de referencia de la cuenta — es con el que se archiva el documento de su lado.", "err.mail": "Necesitamos una dirección de correo válida de su institución para enviárselo.", "err.none": "Marque al menos una de las opciones que necesita.", "err.polVin": "Denos el número de póliza o los últimos seis del VIN — necesitamos uno de los dos para encontrar la póliza correcta.", "err.vin": "En el campo del VIN van solo los últimos seis caracteres.", "err.who": "Indique su nombre, para saber a quién responderle.", "mail.add": "AGREGAR COMO ACREEDOR PRENDARIO — texto exacto:", "mail.addr": "Dirección postal:", "mail.cust": "Cliente: {cname}", "mail.fax": "Número de fax: {fax}", "mail.from": "Enviado desde safehouseins.com/es/lienholder/", "mail.head": "SAFE HOUSE — SOLICITUD DE ACREEDOR", "mail.inst": "Institución: {inst}", "mail.loan": "Préstamo / referencia de la cuenta: {loan}", "mail.need": "Fecha límite: {date}", "mail.notes": "Comentarios: {notes}", "mail.phone": "Teléfono de contacto: {phone}", "mail.pol": "Número de póliza: {pol}", "mail.req": "SOLICITA: {what}", "mail.subject": "Solicitud de acreedor — {loan} — {cname}", "mail.to": "Enviar a: {to}", "mail.veh": "Vehículo: {veh}", "mail.vin": "VIN (últimos 6): {vin}", "mail.who": "Solicitado por: {who}", "sum.cust": "Cliente", "sum.inst": "Institución", "sum.ref": "Referencia", "sum.reply": "Enviar a", "sum.req": "Solicita"}</script>
+<!--block:jst--><script>var T=(function(){
+  var d={};try{d=JSON.parse(document.getElementById('i18n').textContent)||{};}catch(e){}
+  return function(k,v){
+    var s=d[k];
+    if(s==null){ if(window.console) console.error('i18n: missing '+k); return ''; }
+    return v ? String(s).replace(/\{(\w+)\}/g,function(m,n){ return n in v ? v[n] : ''; }) : s;
+  };
+})();</script><!--/block:jst-->
+<script>
+(function(){
+  var f=document.getElementById('req'), err=document.getElementById('err'),
+      addBox=document.getElementById('addBox'), wAdd=document.getElementById('wAdd'),
+      doneWrap=document.getElementById('doneWrap'), sum=document.getElementById('sum');
+  if(!f) return;
+
+  var TO='contact@safehouseins.com';
+  function v(id){ var e=document.getElementById(id); return e ? e.value.trim() : ''; }
+  function on(id){ var e=document.getElementById(id); return !!(e && e.checked); }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  /* The lienholder wording and address are only asked for when somebody is
+     actually asking to be added. Every other request already knows them. */
+  function sync(){ addBox.hidden = !wAdd.checked; }
+  f.addEventListener('change', sync); sync();
+
+  function fail(msg){
+    err.textContent=msg; err.classList.add('on');
+    err.scrollIntoView({block:'center',behavior:'smooth'});
+    return false;
+  }
+
+  function wanted(){
+    var w=[];
+    if(on('wDec')) w.push(T('doc.dec'));
+    if(on('wEoi')) w.push(T('doc.eoi'));
+    if(on('wAdd')) w.push(T('doc.add'));
+    if(on('wVer')) w.push(T('doc.ver'));
+    return w;
+  }
+
+  f.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    err.classList.remove('on');
+
+    var w=wanted();
+    if(!w.length)      return fail(T('err.none'));
+    if(!v('loan'))     return fail(T('err.loan'));
+    if(!v('inst'))     return fail(T('err.inst'));
+    if(!v('who'))      return fail(T('err.who'));
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('mail')))
+                       return fail(T('err.mail'));
+    if(!v('cname'))    return fail(T('err.cname'));
+    if(!v('pol') && !v('vin'))
+                       return fail(T('err.polVin'));
+    if(v('vin') && v('vin').length!==6)
+                       return fail(T('err.vin'));
+    if(on('wAdd') && (!v('lname') || !v('laddr')))
+                       return fail(T('err.add'));
+
+    var L=[T('mail.head'),'',
+           T('mail.req',{what:w.join(' + ')}),'',
+           T('mail.loan',{loan:v('loan')}),
+           T('mail.inst',{inst:v('inst')}),
+           T('mail.who',{who:v('who')}),
+           T('mail.to',{to:v('mail')})];
+    if(v('phone')) L.push(T('mail.phone',{phone:v('phone')}));
+    if(v('fax'))   L.push(T('mail.fax',{fax:v('fax')}));
+    L.push('', T('mail.cust',{cname:v('cname')}));
+    if(v('pol')) L.push(T('mail.pol',{pol:v('pol')}));
+    if(v('vin')) L.push(T('mail.vin',{vin:v('vin')}));
+    var veh=[v('yr'),v('mk'),v('md')].filter(Boolean).join(' ');
+    if(veh) L.push(T('mail.veh',{veh:veh}));
+    if(on('wAdd')){
+      L.push('', T('mail.add'), v('lname'), '', T('mail.addr'), v('laddr'));
+    }
+    if(v('need'))  L.push('', T('mail.need',{date:v('need')}));
+    if(v('notes')) L.push('', T('mail.notes',{notes:v('notes')}));
+    L.push('', T('mail.from'));
+
+    /* The reference number leads the subject line on purpose: it is what a loan
+       processor searches their own inbox by, and it is what we quote back so
+       the reply files itself. */
+    var subject=T('mail.subject',{loan:v('loan'),cname:v('cname')});
+    location.href='mailto:'+TO+'?subject='+encodeURIComponent(subject)
+                 +'&body='+encodeURIComponent(L.join('\n'));
+
+    var rows=[[T('sum.ref'), v('loan')],
+              [T('sum.inst'), v('inst')],
+              [T('sum.cust'), v('cname')],
+              [T('sum.req'), w.join(', ')],
+              [T('sum.reply'), v('mail')]];
+    sum.innerHTML=rows.map(function(r){
+      return '<div><span>'+esc(r[0])+'</span><b>'+esc(r[1])+'</b></div>'; }).join('');
+
+    f.parentNode.hidden=true;
+    doneWrap.hidden=false;
+    doneWrap.scrollIntoView({block:'start',behavior:'smooth'});
+  });
+})();
+</script>
+
+<!--block:menujs--><script>
+(function(){
+  /* The menu panel.
+
+     No padding-top measured off the nav any more: the panel comes in from the
+     side and starts at the top of the window, so it does not have to duck
+     under anything. It closes on the X, on the scrim, on Escape, and on any
+     link inside it — a menu that stays open behind the page you just asked for
+     is the most common way one of these gets left broken. */
+  var burger=document.getElementById('burger'),
+      drawer=document.getElementById('drawer'),
+      scrim=document.getElementById('scrim'),
+      dclose=document.getElementById('dclose'),
+      // The two labels are read off the buttons rather than written in here,
+      // so this script is the same in English and in Spanish.
+      openLabel=burger.getAttribute('aria-label'),
+      closeLabel=dclose.getAttribute('aria-label');
+  function setMenu(open){
+    burger.classList.toggle('on',open);
+    drawer.classList.toggle('on',open);
+    scrim.hidden=false;
+    scrim.classList.toggle('on',open);
+    document.body.classList.toggle('locked',open);
+    burger.setAttribute('aria-expanded',open);
+    burger.setAttribute('aria-label',open?closeLabel:openLabel);
+    // Focus follows the panel, or the panel is invisible to a keyboard.
+    if(open) dclose.focus();
+    else burger.focus({preventScroll:true});
+  }
+  burger.addEventListener('click',function(){setMenu(!drawer.classList.contains('on'));});
+  dclose.addEventListener('click',function(){setMenu(false);});
+  scrim.addEventListener('click',function(){setMenu(false);});
+  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
+  addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
+
+})();
+</script><script>
+(function(){
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lang]');
+    if(!a) return;
+    var l=a.getAttribute('data-lang');
+    try{localStorage.setItem('shi-lang',l);}catch(_){}
+    try{document.cookie='shi-lang='+l+';path=/;max-age=31536000;samesite=lax';}catch(_){}
+    if(e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+    e.preventDefault();
+    try{document.dispatchEvent(new CustomEvent('shi:lang',{detail:l}));}catch(_){}
+    location.href=a.href.split('#')[0].split('?')[0]+location.search+location.hash;
+  });
+})();
+</script><!--/block:menujs-->
+</body>
+</html>

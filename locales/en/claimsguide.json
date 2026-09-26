@@ -1,0 +1,169 @@
+{
+  "meta": {
+    "title": "How a Car Insurance Claim Works — Safe House Insurance",
+    "desc": "What happens after you report a car insurance claim: who decides fault, what your deductible really costs, how long each step takes, total loss, rental cars, and the mistakes that make a claim harder. Safe House Insurance, El Paso TX."
+  },
+  "crumb": {
+    "claims": "Report a claim",
+    "here": "How a claim works"
+  },
+  "hero": {
+    "h1": "How a car insurance claim works, <em>from the crash to the cheque</em>",
+    "lede": "Who decides fault, what your deductible actually costs you, how long each\n        step takes, what a total loss means, and the handful of mistakes that make a claim\n        harder than it needed to be. Written by licensed agents in El Paso who do this daily."
+  },
+  "key": {
+    "b": "The short version",
+    "l1": "Report it the same day if you can. \"Promptly\" in a policy is not a number of\n          days &mdash; it is however long the evidence lasts.",
+    "l2": "Reporting is not the same as claiming. Telling your carrier what happened does\n          not commit you to filing one.",
+    "l3": "Fault is decided by the insurance companies, not by the police report and not\n          at the scene. The report is evidence, not a verdict.",
+    "l4": "Your deductible comes out of what the carrier pays for your own car. You never\n          write anyone a cheque for it.",
+    "l5": "A rental car is a separate coverage. Plenty of people find out they do not have\n          it on the day they need it."
+  },
+  "steps": {
+    "h2": "What happens in the first 48 hours",
+    "p": "A claim is a sequence, and almost all of the frustration people have with one\n        comes from not knowing which step they are on. Here is the whole thing.",
+    "s1": {
+      "b": "You report it",
+      "p": "By phone or online. You give the date, the location, who was driving, who else\n            was involved, and what was damaged. This takes ten to twenty minutes and it is\n            the only step where you do all the talking."
+    },
+    "s2": {
+      "b": "You get a claim number",
+      "p": "Immediately, before the call ends. Write it down. Every conversation about\n            this claim from here on starts with that number, and it is not the same as your\n            policy number."
+    },
+    "s3": {
+      "b": "An adjuster is assigned",
+      "p": "Usually within one business day. This is the person who decides what the\n            carrier pays. They will call you; if two days pass and nobody has, that is the\n            moment to call us rather than to wait politely."
+    },
+    "s4": {
+      "b": "The damage gets inspected",
+      "p": "A shop estimate, a drive-in inspection, or photos you take on your phone\n            through the carrier's app. Photo estimates are fastest and are now the default\n            at most companies for anything that is not severe."
+    },
+    "s5": {
+      "b": "Fault gets decided",
+      "p": "The adjusters at each company compare statements, photos, the police report\n            and sometimes the damage patterns. This is the step that takes the longest and\n            the one you have the least control over."
+    },
+    "s6": {
+      "b": "The money moves",
+      "p": "Either to the repair shop directly or to you, minus your deductible. If the\n            car is financed, the lienholder is usually on the cheque as well &mdash; that is\n            normal and it is why some payments take an extra week."
+    },
+    "p2": "A straightforward claim with clear fault and moderate damage closes in roughly two\n        to four weeks. A disputed-fault claim with injuries can run for months. Neither is a\n        sign that something has gone wrong."
+  },
+  "fault": {
+    "h2": "Who actually decides whose fault it was",
+    "p1": "Not the police. This surprises people, and it is the single most common\n        misunderstanding we hear.",
+    "p2": "A police officer at the scene writes down what they observed and sometimes issues\n        a citation. That report is strong evidence and adjusters read it carefully. But the\n        decision about who pays is made by the insurance companies involved, comparing what\n        each driver said, the physical damage, any photos, any witnesses, and the traffic\n        law that applies. An officer can decline to assign fault entirely, and often does.",
+    "p3": "Both Texas and New Mexico apportion fault by percentage rather than treating it as\n        all-or-nothing, so an outcome like 70/30 is completely normal and changes what each\n        side pays. If you are told you were partly at fault and you disagree, say so in\n        writing and tell us &mdash; that decision can be reconsidered, and it is much easier to\n        challenge in week one than in month three.",
+    "call": {
+      "b": "Never guess at fault at the scene.",
+      "p": "\"I'm so sorry, I didn't see you\" is a human thing to say and it ends up in an\n          adjuster's file as an admission. Exchange information, take photographs, be\n          decent to the other driver, and let the two companies work out the percentages.\n          That is literally what they are for."
+    }
+  },
+  "ded": {
+    "h2": "Your deductible, in plain numbers",
+    "p1": "The deductible is the part of your own car's repair you absorb. It applies to\n        comprehensive and collision &mdash; the coverages that fix <em>your</em> vehicle &mdash; and it\n        never applies to what you cause to someone else.",
+    "est": {
+      "s": "Repair estimate",
+      "span": "What the shop says it costs"
+    },
+    "yours": {
+      "s": "Your deductible",
+      "span": "What you pay the shop"
+    },
+    "p2": "The carrier pays $2,700. You pay $500, directly to the\n        repair shop, when you collect the car. Nobody sends you a bill for it and it is not\n        added to your premium.",
+    "p3": "Two things worth knowing. First, it applies <strong>every time you claim</strong>,\n        not once a year. Second, if the other driver is found at fault, their insurer\n        usually reimburses it &mdash; a process called subrogation, which happens quietly in the\n        background and can take a few months. You get a cheque you were not expecting, and\n        it is yours.",
+    "h3": "When a claim is not worth making",
+    "p4": "If the repair is $700 and your deductible is $500, you are claiming $200 and\n        putting a claim on your record to get it. That is often a bad trade. If the repair\n        is $4,000, it obviously is not. In between it depends on your record, your carrier\n        and how close you are to renewal &mdash; call us and we will work it out with you before\n        you file, which is the only useful time to have that conversation."
+  },
+  "total": {
+    "h2": "When the car is a total loss",
+    "p1": "A car is \"totalled\" when repairing it costs more than a set percentage of what it\n        was worth &mdash; the threshold varies by carrier and by state, and it is lower than most\n        people expect. A ten-year-old car with $6,000 of damage is very often a total loss\n        even though it looks fixable.",
+    "p2": "What you are paid is the <strong>actual cash value</strong>: what your car was\n        worth the moment before the crash, not what you paid for it and not what it costs\n        to replace with a new one. The carrier builds that figure from comparable local\n        sales. You are allowed to disagree with it, and you should if the comparables are\n        wrong &mdash; a lower-mileage car, recent tyres, a trim level they missed. Send evidence\n        rather than an opinion.",
+    "own": {
+      "b": "If you own the car outright",
+      "l1": "The cheque comes to you.",
+      "l2": "You hand over the title and usually the keys.",
+      "l3": "Sales tax and title fees are often included &mdash; ask, because carriers do not\n              always volunteer it."
+    },
+    "fin": {
+      "b": "If the car is financed or leased",
+      "l1": "The lender is paid first, and the cheque names them too.",
+      "l2": "If you owe more than the car was worth, you owe the difference &mdash; unless\n              you carry gap coverage.",
+      "l3": "Gap is cheap and most people do not have it. Ask us before you need it,\n              not after."
+    }
+  },
+  "wait": {
+    "h2": "What your policy will and will not do while you wait",
+    "rental": {
+      "h3": "A rental car",
+      "p": "Only if you carry rental reimbursement, and only on a covered claim. It pays a\n        fixed amount per day &mdash; $30, $50, whatever you chose &mdash; and anything the rental\n        company charges above that is yours. If the other driver is at fault, their liability\n        coverage should pay for your rental instead, but that only starts once their carrier\n        accepts fault, which can be a week or three."
+    },
+    "tow": {
+      "h3": "Towing and storage",
+      "p": "Storage yards charge by the day and those charges are real money. Tell the adjuster\n        immediately where the car is. A vehicle sitting in a lot while nobody knows to move\n        it is one of the few ways a claim quietly costs you more than it should."
+    },
+    "med": {
+      "h3": "Medical bills",
+      "p": "Medical Payments or Personal Injury Protection pay for you and your passengers\n        regardless of fault, with no deductible, and they pay quickly. They are the coverages\n        people most often decline to save a few dollars and most often wish they had. If you\n        do not know whether you carry them, we can tell you in a minute."
+    }
+  },
+  "rate": {
+    "h2": "Will this raise my rate?",
+    "p1": "Sometimes. Anyone who tells you otherwise before the claim is decided is guessing.",
+    "p2": "What actually drives it: whether you were at fault, what the claim cost, what else\n        is on your record, and which carrier you are with &mdash; companies weigh the same claim\n        very differently. A not-at-fault claim can still move a rate at some carriers and\n        not at others, which is unsatisfying and true.",
+    "p3": "Here is the part that matters and that a direct insurer will not tell you: if your\n        rate does move at renewal, that is the moment to re-shop it. We hold appointments\n        with more than a dozen companies, and the one that penalises your claim hardest is\n        rarely the one that would write you today. That is the whole reason to use an\n        independent agent rather than a website with a lizard on it.",
+    "call": {
+      "b": "Do not cancel a policy in the middle of an open claim.",
+      "p": "The claim stays with the carrier that had the policy on the date of the crash &mdash;\n          cancelling does not make it go away, and it can complicate the payout while\n          leaving you with a gap in coverage that raises your next price. Wait for renewal.\n          Then let us shop it."
+    }
+  },
+  "mist": {
+    "h2": "Five mistakes that make a claim harder",
+    "m1": {
+      "b": "Waiting to see if the other driver \"handles it privately\"",
+      "p": "People agree to pay cash at the scene and then stop answering the phone. By\n            the time you report it, the evidence is gone and your own carrier is hearing\n            about it late. Report it. You can always decide not to claim."
+    },
+    "m2": {
+      "b": "Not photographing the other insurance card",
+      "p": "A name and a phone number is not enough to open a claim against someone. The\n            company name and policy number are."
+    },
+    "m3": {
+      "b": "Getting the car repaired before it is inspected",
+      "p": "The adjuster has to see the damage or the estimate. Fixing it first can leave\n            the carrier with nothing to pay against."
+    },
+    "m4": {
+      "b": "Guessing on the recorded statement",
+      "p": "You will be asked how fast you were going and how far away the other car was.\n            \"I don't know\" is a complete and acceptable answer. An invented number becomes a\n            fact in the file."
+    },
+    "m5": {
+      "b": "Going quiet",
+      "p": "Claims stall when nobody chases them. If a week passes with no word, someone\n            should call &mdash; and that someone can be us."
+    }
+  },
+  "we": {
+    "h2": "What we do that the carrier does not",
+    "p1": "Safe House is your agent, not your insurer. We do not decide the claim and we do\n        not pay it &mdash; the carrier does both. What we do is make sure it is reported the way\n        it should be, tell you in plain language what the adjuster just said, chase it when\n        it goes quiet, read your declarations page back to you so you know what you actually\n        have, and re-shop the policy at renewal if the claim moves your price.",
+    "p2": "None of that costs anything extra. It is what the commission on the policy is for,\n        and it is the reason to have an agent at all.",
+    "w1": {
+      "b": "We can report it with you on the line",
+      "s": "Three-way with the carrier, so nothing gets said wrong and you are not\n            doing it alone from a roadside."
+    },
+    "w2": {
+      "b": "We tell you what is on your policy before you decide",
+      "s": "Deductible, rental, medical, whether a claim is even worth filing."
+    },
+    "w3": {
+      "b": "We chase the adjuster",
+      "s": "An agent calling on your behalf gets returned faster than a customer\n            calling for the fourth time. That is not fair, and it is true."
+    },
+    "w4": {
+      "b": "We re-shop it at renewal",
+      "s": "More than a dozen companies. The one that punished your claim is rarely\n            the cheapest one for you now."
+    }
+  },
+  "cta": {
+    "b": "Had an accident?",
+    "p": "Call us and a licensed bilingual agent will start the claim with you &mdash; or go\n        straight to your company&rsquo;s claims line. Both are on the claims page.",
+    "call": "Call 915-503-1207",
+    "find": "Find my claims number"
+  }
+}

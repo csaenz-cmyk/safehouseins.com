@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "title": "Cómo pagar tu seguro de auto en TX y NM — Safe House Insurance",
+    "desc": "Cómo se paga el seguro de auto: de contado o en mensualidades, qué pasa si se te pasa un pago y cómo no quedarte sin seguro. Para Texas y Nuevo México."
+  },
+  "crumb": {
+    "pay": "Hacer un pago",
+    "here": "Pagar tu seguro de auto"
+  },
+  "hero": {
+    "h1": "Cómo pagar tu seguro de auto <em>sin perder la cobertura</em>",
+    "lede": "Cómo funciona de verdad el pago, lo que realmente cuesta un periodo sin seguro (lapse) en Texas y Nuevo México, y qué hacer la semana que no puedas pagar. Escrito por agentes con licencia que se dedican a esto casi todo el día."
+  },
+  "key": {
+    "b": "En resumen",
+    "l1": "Casi todas las aseguradoras aceptan tarjeta, transferencia bancaria o cheque. El efectivo normalmente solo se acepta en una oficina, y nunca se manda por correo.",
+    "l2": "Pagar de contado los seis meses casi siempre sale más barato en total que pagar mensualidades, porque te ahorras los cargos por pagar a plazos.",
+    "l3": "La mayoría de las aseguradoras dan descuento por pago automático. El monto cambia en cada una, así que pregúntale a la tuya en vez de suponerlo.",
+    "l4": "Una cancelación por falta de pago sale mucho más cara que el pago. Te sigue en el precio de tu próxima póliza, y te puede costar el descuento por cobertura continua que ya tenías.",
+    "l5": "Si te vas a atrasar, llama antes de la fecha de vencimiento. Casi siempre hay algo que un agente puede hacer antes, y mucho menos después."
+  },
+  "ways": {
+    "h2": "Cómo puedes pagar",
+    "p": "Las formas de pago las pone tu aseguradora, no nosotros &mdash; pero entre las aseguradoras con las que trabajamos, estas son las más comunes.",
+    "card": {
+      "b": "Tarjeta de débito o crédito",
+      "s": "La más rápida, y la opción para la que están hechos los portales en línea. Un pago con tarjeta normalmente se registra el mismo día."
+    },
+    "ach": {
+      "b": "Transferencia bancaria (ACH)",
+      "s": "Directo de una cuenta de cheques. La mayoría de las aseguradoras reservan su mejor descuento por pago automático para esta opción, no para las tarjetas."
+    },
+    "check": {
+      "b": "Cheque o giro postal (money order)",
+      "s": "La mayoría los acepta, pero tiene que llegar y cobrarse antes de la fecha de vencimiento; no basta con que el matasellos tenga esa fecha."
+    },
+    "cash": {
+      "b": "Efectivo, en persona",
+      "s": "Algunas aseguradoras aceptan efectivo en una oficina o en un centro de pagos. Nunca lo mandes por correo &mdash; no hay forma de comprobar que llegó."
+    }
+  },
+  "full": {
+    "h2": "De contado o en mensualidades",
+    "p1": "Aquí la mayoría de las pólizas son de seis meses. Normalmente puedes pagar todo el periodo de una vez, o dar un enganche y pagar el resto en mensualidades. Pagar de contado sale más barato en total, porque los planes de pagos le agregan un cargo a cada mensualidad y el enganche muchas veces es mayor que lo que te tocaría pagar en un mes.",
+    "p2": "Eso no quiere decir que sea la mejor opción para todos, y un agente que te diga que siempre lo es no te ha preguntado cómo va tu mes.",
+    "inFull": {
+      "b": "Pagar de contado conviene cuando",
+      "l1": "Tienes el monto completo sin tocar dinero que necesitas para otra cosa",
+      "l2": "Tus ingresos son estables y predecibles",
+      "l3": "Prefieres no volver a pensar en eso durante seis meses"
+    },
+    "monthly": {
+      "b": "Pagar mensualidades conviene cuando",
+      "l1": "Pagar todo junto te dejaría corto en algo que importa más",
+      "l2": "Tus ingresos cambian de una semana a otra",
+      "l3": "Prefieres tener el dinero a la mano para una emergencia",
+      "l4": "Estás entre un trabajo y otro, o esperas un cambio pronto"
+    },
+    "p3": "El error no es elegir mensualidades. Es elegir una mensualidad que te queda justa todos los meses &mdash; porque el mes que no pasa el cobro te cuesta mucho más que la diferencia que te ahorraste."
+  },
+  "miss": {
+    "h2": "Qué pasa si se te pasa un pago",
+    "p": "Que se te pase un pago es común y tiene remedio. Lo que importa es qué tan rápido actúas, y los pasos de abajo muestran cómo funciona en la mayoría de las aseguradoras. <strong>Las fechas exactas vienen en el aviso que te manda tu aseguradora</strong> &mdash; las fijan esa aseguradora y la ley del estado, así que guíate por el aviso y no por una cifra que encontraste en internet, incluidas las nuestras.",
+    "s1": {
+      "b": "Tu pago se atrasa",
+      "p": "La cobertura normalmente no se detiene en el momento en que no haces un pago. La mayoría de las aseguradoras dan primero un plazo corto (un periodo de gracia), y durante ese plazo sigues teniendo seguro."
+    },
+    "s2": {
+      "b": "La aseguradora te manda un aviso",
+      "p": "Una carta, un correo o un mensaje de texto con una fecha. Esa fecha es la que importa &mdash; es cuando realmente termina la cobertura si no se paga nada."
+    },
+    "s3": {
+      "b": "La póliza se cancela",
+      "p": "A partir de esa fecha estás sin seguro. Manejar sin seguro es ilegal tanto en Texas como en Nuevo México, y si en ese tiempo te para la policía, tienes un accidente o te capta una cámara de tránsito, el problema es mucho más grande de lo que era el pago atrasado."
+    },
+    "s4": {
+      "b": "A veces se puede reactivar",
+      "p": "Muchas aseguradoras reactivan una póliza cancelada hace poco si pagas lo que debes más un cargo, y otras no. Depende de la aseguradora y de cuánto tiempo llevas sin seguro. En este punto hay que llamar, no pagar en línea y esperar que funcione."
+    },
+    "call": {
+      "b": "Llama antes de pagar una póliza cancelada.",
+      "p": "Un pago hecho después de la fecha de cancelación no siempre reactiva la póliza, y algunas aseguradoras aplican el dinero al saldo mientras tú sigues manejando sin cobertura. Una sola llamada te dice si necesitas reactivar la póliza, sacar una nueva o solo hacer el pago. Esto lo hacemos todos los días &mdash; <a href=\"tel:+19155031207\" style=\"color:#8A5200;text-decoration:underline\">915-503-1207</a>."
+    }
+  },
+  "lapse": {
+    "h2": "Por qué un periodo sin seguro cuesta más que el pago",
+    "p1": "Esta es la parte que sorprende a la gente. El dinero que no pagaste casi nunca es lo caro &mdash; lo caro es el hueco en tu historial.",
+    "p2": "Para las aseguradoras, la cobertura continua cuenta en el precio. Quedarte sin ella, aunque sea poco tiempo, te pasa a una categoría peor en la renovación y en cada aseguradora con la que cotices después, y te puede costar un descuento por seguro previo que ya tenías. Unos cuantos días sin seguro pueden seguir afectando tu prima durante años, y por eso vale la pena una llamada para evitarlo.",
+    "p3": "Además, los dos estados te exigen tener seguro de responsabilidad civil mientras tu vehículo esté registrado:",
+    "tx": {
+      "s": "Mínimo en Texas",
+      "span": "En miles de dólares: lesiones por persona, lesiones por accidente y daños a la propiedad."
+    },
+    "nm": {
+      "s": "Mínimo en Nuevo México",
+      "span": "Las mismas tres cifras, con los límites de Nuevo México."
+    },
+    "p4": "Son mínimos que marca la ley, no recomendaciones &mdash; y un periodo sin seguro significa que estuviste por debajo de ellos."
+  },
+  "cant": {
+    "h2": "Si este mes no puedes pagar",
+    "p": "Hay más margen del que la mayoría cree, y casi todo está antes de la fecha de vencimiento, no después.",
+    "s1": {
+      "b": "Llama antes de la fecha, no después",
+      "p": "Algunas aseguradoras te cambian la fecha de vencimiento o te dividen un pago si lo pides con tiempo. Muy pocas hacen algo una vez que la póliza ya se canceló."
+    },
+    "s2": {
+      "b": "Pregunta cuánto tiempo te da un pago parcial",
+      "p": "Pagar una parte a veces recorre la fecha de cancelación lo suficiente para llegar a tu próximo día de pago. Pregunta cuál es el mínimo para mantener la póliza vigente."
+    },
+    "s3": {
+      "b": "Pídenos que volvamos a cotizar tu póliza",
+      "p": "Si el problema es el precio de la póliza y no solo este mes, la solución es otra. Podemos comparar lo que cobrarían varias aseguradoras por la misma cobertura &mdash; y revisar si te falta algún descuento para el que calificas."
+    },
+    "s4": {
+      "b": "Revisa la cobertura, con cuidado",
+      "p": "Subir el deducible o quitar la cobertura de colisión (collision) en un carro más viejo baja el pago, y las dos cosas tienen consecuencias reales. Vale la pena hacerlo con un agente, no a solas a medianoche."
+    }
+  },
+  "auto": {
+    "h2": "Activa el pago automático una sola vez",
+    "p1": "La mayoría de las aseguradoras dan descuento por pago automático, normalmente mayor con cuenta bancaria que con tarjeta, y la cantidad cambia en cada una &mdash; pregúntale a la tuya cuánto es en vez de suponer una cifra. De todos modos, lo más valioso no es el descuento. Es que una póliza con pago automático no se queda sin cobertura porque no leíste un mensaje en una semana muy ocupada.",
+    "p2": "Dos cosas que vale la pena hacer al mismo tiempo: asegúrate de que la cuenta de donde sale el pago tenga fondos en la fecha de vencimiento, y deja activados los mensajes de la aseguradora para que te enteres si un pago no pasa."
+  },
+  "cta": {
+    "b": "¿Todo listo para pagar?",
+    "p": "Escribe tu número de póliza y te llevamos directo a la página de pagos de tu aseguradora. O llámanos y te guiamos paso a paso.",
+    "pay": "Hacer un pago &rarr;"
+  }
+}

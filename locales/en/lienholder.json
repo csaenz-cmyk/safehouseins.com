@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "title": "Lienholder &amp; Lender Requests — Safe House Insurance",
+    "desc": "For banks, credit unions and leasing companies: request a declarations page, evidence of insurance, verification of coverage, or add your institution as lienholder. Safe House Insurance, El Paso TX.",
+    "ogTitle": "Lienholder &amp; Lender Requests — Safe House Insurance",
+    "ogDesc": "Request a declarations page, evidence of insurance, or add your institution as lienholder."
+  },
+  "crumb": "Lienholder requests",
+  "hero": {
+    "h1": "Lender &amp; lienholder requests.<em>Send it here.</em>",
+    "lede": "For banks, credit unions, leasing companies and dealer finance. Request a\n        declarations page, evidence of insurance, verification of active coverage, or ask us to\n        add your institution as lienholder on the policy."
+  },
+  "form": {
+    "step": "Lienholder request",
+    "h2": "What do you need, and on whose policy?",
+    "sub": "Nothing is sent until you press the button at the bottom, and then it\n        goes as an email from your own address.",
+    "want": "What are you requesting?",
+    "dec": {
+      "b": "Declarations page",
+      "p": "Full policy summary &mdash; vehicles,\n              drivers, coverages, limits, deductibles and dates."
+    },
+    "eoi": {
+      "b": "Evidence of insurance",
+      "p": "A certificate naming your\n              institution, for the loan file."
+    },
+    "add": {
+      "b": "Add us as lienholder",
+      "p": "Add or correct your institution\n              as lienholder or loss payee on the policy."
+    },
+    "ver": {
+      "b": "Verify coverage is active",
+      "p": "Confirmation that the\n              policy is in force as of today."
+    },
+    "loan": {
+      "label": "Your loan or account reference number",
+      "help": "The number your institution files by. Documents sent without it\n          are the ones that get lost on your side, not ours.",
+      "ph": "e.g. 4471902-01"
+    },
+    "inst": {
+      "label": "Institution name",
+      "ph": "e.g. Navy Federal Credit Union"
+    },
+    "who": {
+      "label": "Your name",
+      "ph": "Loan officer or processor"
+    },
+    "mail": {
+      "label": "Where should we send it?",
+      "help": "A work address at your institution.",
+      "ph": "insurance@yourbank.com"
+    },
+    "phone": {
+      "label": "Callback number",
+      "help": "In case something on the policy does not match."
+    },
+    "optional": "&mdash; optional",
+    "cname": {
+      "label": "Customer&rsquo;s full name, as it appears on the loan",
+      "ph": "First and last name"
+    },
+    "pol": {
+      "label": "Policy number"
+    },
+    "ifHave": "&mdash; if you have it",
+    "vin": {
+      "label": "Last 6 of the VIN",
+      "help": "Six digits is enough to identify the vehicle. Please do not send\n            the full VIN."
+    },
+    "yr": {
+      "label": "Year"
+    },
+    "mk": {
+      "label": "Make"
+    },
+    "md": {
+      "label": "Model"
+    },
+    "lname": {
+      "label": "Lienholder name, exactly as it must appear",
+      "help": "Including ISAOA / ATIMA if your institution requires it. This is\n            the line that gets a document rejected when it is wrong."
+    },
+    "laddr": {
+      "label": "Lienholder mailing address"
+    },
+    "need": {
+      "label": "Needed by"
+    },
+    "fax": {
+      "label": "Fax, if you would rather"
+    },
+    "notes": {
+      "label": "Anything else",
+      "ph": "e.g. Coverage must show $500 comprehensive and collision deductibles or lower."
+    },
+    "send": "Send this request",
+    "note": "This opens your email client with everything filled in, addressed to\n        contact@safehouseins.com. Sending it from your own work address is what lets us verify\n        the request."
+  },
+  "done": {
+    "h2": "Request ready to send.",
+    "lead": "Your email client should have opened with the details filled in. Press\n        send there and it reaches our team. We answer lienholder requests the same business\n        day, Monday to Friday, 11am&ndash;5pm Mountain.",
+    "warnHead": "If your email client did not open",
+    "warn": "Send the same details to\n          <a href=\"mailto:contact@safehouseins.com\">contact@safehouseins.com</a>, or call\n          <a href=\"tel:+19155031207\">915-503-1207</a>. Please include your loan reference\n          number either way &mdash; it is what we quote back in the subject line so the document\n          lands in the right file on your side."
+  },
+  "facts": {
+    "h3": "Agency details for your file",
+    "agency": "Agency",
+    "agencyNote": "Independent agency licensed in Texas and New Mexico. We are the agent of record,\n          not the carrier &mdash; the policy is issued by the insurance company named on the\n          declarations page.",
+    "mail": "Mailing address",
+    "phone": "Phone",
+    "phoneNote": "Mon&ndash;Fri, 11am&ndash;5pm Mountain. This line does not receive text messages.",
+    "email": "Email",
+    "emailNote": "Monitored during office hours. Put the loan reference number in the subject\n          line."
+  },
+  "before": {
+    "h3": "Before you send",
+    "c1": {
+      "b": "Send it from your institution&rsquo;s domain",
+      "p": "A declarations page lists a customer&rsquo;s vehicles, drivers and home address. We\n          release it to a lienholder with a recorded interest in the vehicle, and a request\n          arriving from a work address at the institution named on it is the first thing that\n          makes that verifiable. Requests from personal email accounts get a phone call\n          before anything is sent."
+    },
+    "c2": {
+      "b": "Give us the exact lienholder wording",
+      "p": "\"First National Bank\" and \"First National Bank ISAOA/ATIMA, PO Box 1234\" are not\n          the same line to a carrier, and the second one is what your own system will accept\n          back. Nearly every rejected document we see is this and nothing else."
+    },
+    "c3": {
+      "b": "Last six of the VIN, not the full one",
+      "p": "Six digits identifies the vehicle unambiguously against a policy. There is no\n          reason for a full VIN to travel by email for this, so we do not ask for one."
+    },
+    "c4": {
+      "b": "What we will not send",
+      "p": "Driver license numbers, dates of birth, payment details and prior claim history do\n          not go out with a lienholder request. If your underwriting genuinely requires\n          something in that list, call us and we will work out the right way to handle it."
+    }
+  },
+  "faq": {
+    "h3": "Common lender questions",
+    "q1": "How quickly will we get it?",
+    "a1": "Same business day for anything requested before 4pm Mountain, Monday to Friday.\n          Adding a lienholder to a policy can take longer &mdash; the endorsement goes to the\n          carrier and we send you confirmation once it is issued, usually 24 to 72 hours.",
+    "q2": "Can you add us as lienholder without the customer?",
+    "a2": "Yes. Adding a lienholder or loss payee is a routine endorsement and does not need\n          the customer to sign anything. We do notify them, because a change to their policy\n          should never be a surprise.",
+    "q3": "The coverage does not meet our requirements.",
+    "a3": "Tell us what the loan requires &mdash; deductible caps, minimum limits, comprehensive\n          and collision both in force &mdash; and we will take it to the customer and to the\n          carrier. That is faster than force-placing and it is cheaper for everybody.",
+    "q4": "Do you charge for any of this?",
+    "a4": "No. Declarations pages, evidence of insurance, verifications and lienholder\n          endorsements are part of servicing the policy.",
+    "q5": "Can we set up automatic renewal notices?",
+    "a5": "Yes. Ask in the notes and we will add your institution to the policy so renewal\n          documents go out to you each term without anyone having to ask.",
+    "q6": "We think the policy has cancelled.",
+    "a6": "Send the request anyway and say so. We will tell you the actual status the same\n          day, and if it has lapsed we will already be working on reinstating it before your\n          force-placed notice goes out."
+  },
+  "more": {
+    "call": "Call us",
+    "callNote": "915-503-1207 &middot; Mon&ndash;Fri 11am&ndash;5pm MT",
+    "email": "Email us",
+    "idcard": "Are you the customer?",
+    "idcardNote": "Request your own documents here",
+    "claim": "Report a claim",
+    "claimNote": "Claims numbers by company"
+  },
+  "js": {
+    "doc": {
+      "dec": "Declarations page",
+      "eoi": "Evidence of insurance",
+      "add": "Add lienholder / loss payee",
+      "ver": "Verify coverage is active"
+    },
+    "err": {
+      "none": "Tick at least one thing you need.",
+      "loan": "We need your loan or account reference number — it is what the document gets filed against on your side.",
+      "inst": "Which institution is this for?",
+      "who": "Please give your name, so we know who to reply to.",
+      "mail": "We need a working email address at your institution to send it to.",
+      "cname": "We need the customer’s full name as it appears on the loan.",
+      "polVin": "Give us either the policy number or the last six of the VIN — we need one of them to find the right policy.",
+      "vin": "The VIN field takes the last six characters only.",
+      "add": "To add your institution we need the lienholder name and mailing address exactly as they must appear on the policy."
+    },
+    "mail": {
+      "head": "SAFE HOUSE — LIENHOLDER REQUEST",
+      "req": "REQUESTING: {what}",
+      "loan": "Loan / account reference: {loan}",
+      "inst": "Institution: {inst}",
+      "who": "Requested by: {who}",
+      "to": "Send to: {to}",
+      "phone": "Callback: {phone}",
+      "fax": "Fax: {fax}",
+      "cust": "Customer: {cname}",
+      "pol": "Policy number: {pol}",
+      "vin": "VIN (last 6): {vin}",
+      "veh": "Vehicle: {veh}",
+      "add": "ADD AS LIENHOLDER — exact wording:",
+      "addr": "Mailing address:",
+      "need": "Needed by: {date}",
+      "notes": "Notes: {notes}",
+      "from": "Sent from safehouseins.com/lienholder/",
+      "subject": "Lienholder request — {loan} — {cname}"
+    },
+    "sum": {
+      "ref": "Reference",
+      "inst": "Institution",
+      "cust": "Customer",
+      "req": "Requesting",
+      "reply": "Reply to"
+    }
+  }
+}

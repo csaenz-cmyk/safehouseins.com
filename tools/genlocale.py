@@ -25,6 +25,7 @@ and, for the pieces every page shares, a block this tool writes whole:
     <!--block:menu-->       the menu panel          (tools/menu.py)
     <!--block:menujs-->     its script
     <!--block:footer-->     the footer               (tools/shell.py)
+    <!--block:jst-->        T(), the browser-side lookup the page scripts call
 
 Running it rewrites the English page in place from locales/en — so the markers
 always hold what the catalog says — and writes the Spanish twin under es/ from
@@ -114,7 +115,14 @@ def block_switch(page, args, inner=None):
 
 
 def block_switchcss(page, args, inner=None):
-    return '<style>' + i18n.TOGGLE_CSS + '</style>'
+    """For a page with its own inline stylesheet (and its own copy of the
+    menu panel's styles): the switch, and its place in the panel's top row."""
+    return '<style>' + i18n.TOGGLE_CSS + '  .dtop .lsw{margin-right:auto}\n</style>'
+
+
+def block_switchjs(page, args, inner=None):
+    """The switch's script alone, for a page that runs its own menu code."""
+    return i18n.TOGGLE_JS
 
 
 def block_menu(page, args, inner=None):
@@ -144,10 +152,18 @@ def block_footer(page, args, inner=None):
     return climb(core, page['up'])
 
 
+def block_jst(page, args, inner=None):
+    """The browser-side T() — put it after the page's i18n dictionary block
+    and before the scripts that call it."""
+    return '<script>' + i18n.JS_T + '</script>'
+
+
 BLOCKS = {
+    'jst': block_jst,
     'langhead': block_langhead,
     'switch': block_switch,
     'switchcss': block_switchcss,
+    'switchjs': block_switchjs,
     'menu': block_menu,
     'menujs': block_menujs,
     'footer': block_footer,
@@ -232,6 +248,12 @@ def apply(src, page):
         prefixes = m.group(2).split()
         return m.group(1) + i18n.js_dict(*prefixes).split('>', 1)[1].rsplit('</script>', 1)[0] + m.group(4)
     out = _DICT.sub(sub_dict, out)
+
+    # A shared link says which page it is: the Spanish twin's og:url is its own
+    # address, like its canonical.
+    if code != i18n.DEFAULT and page['canon'] is not None:
+        out = re.sub(r'(<meta property="og:url" content=")[^"]*(")',
+                     lambda m: m.group(1) + i18n.url(page['canon']) + m.group(2), out)
     return out
 
 
@@ -302,10 +324,9 @@ def block_ld_home(page, args, inner):
     return inner[:m.start(2)] + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + inner[m.end(2):]
 
 
-def faq_ld(prefix):
-    """FAQPage structured data built from the same catalog list the page
+def faq_ld(qs):
+    """FAQPage structured data built from the same catalog entries the page
     prints, so the two cannot disagree."""
-    qs = i18n.get(prefix)
     return ('<script type="application/ld+json">' + json.dumps({
         "@context": "https://schema.org", "@type": "FAQPage",
         "mainEntity": [{"@type": "Question", "name": i18n.plain(q),
@@ -315,7 +336,11 @@ def faq_ld(prefix):
 
 @register('ld-faq')
 def block_ld_faq(page, args, inner):
-    return faq_ld(args[0])
+    """<!--block:ld-faq home.faq 9-->: FAQPage from home.faq.q1/a1 … q9/a9 —
+    the same keys the visible questions use."""
+    prefix, n = args[0], int(args[1])
+    return faq_ld([(i18n.t('%s.q%d' % (prefix, k)), i18n.t('%s.a%d' % (prefix, k)))
+                   for k in range(1, n + 1)])
 
 
 if __name__ == '__main__':

@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "title": "Solicitudes de bancos y acreedores — Safe House Insurance",
+    "desc": "Para bancos, cooperativas de crédito y arrendadoras: pida la hoja de declaraciones, constancia de seguro, verificación de cobertura o el alta como acreedor.",
+    "ogTitle": "Solicitudes de bancos y acreedores — Safe House Insurance",
+    "ogDesc": "Solicite la hoja de declaraciones, una constancia de seguro o el alta de su institución como acreedor prendario."
+  },
+  "crumb": "Solicitudes de acreedores",
+  "hero": {
+    "h1": "Solicitudes de bancos y acreedores.<em>Envíelas aquí.</em>",
+    "lede": "Para bancos, cooperativas de crédito, arrendadoras y financieras de agencias de autos. Solicite la hoja de declaraciones (dec page), una constancia de seguro o la verificación de cobertura vigente, o pídanos agregar a su institución como acreedor prendario (lienholder) en la póliza."
+  },
+  "form": {
+    "step": "Solicitud de acreedor",
+    "h2": "¿Qué necesita y de qué póliza?",
+    "sub": "No se envía nada hasta que presione el botón de abajo, y entonces sale como un correo electrónico desde su propia dirección.",
+    "want": "¿Qué solicita?",
+    "dec": {
+      "b": "Hoja de declaraciones",
+      "p": "Resumen completo de la póliza &mdash; vehículos, conductores, coberturas, límites, deducibles y fechas."
+    },
+    "eoi": {
+      "b": "Constancia de seguro",
+      "p": "Un certificado (evidence of insurance) a nombre de su institución, para el expediente del préstamo."
+    },
+    "add": {
+      "b": "Agregarnos como acreedor prendario",
+      "p": "Agregar o corregir a su institución como acreedor prendario o beneficiario preferente (loss payee) en la póliza."
+    },
+    "ver": {
+      "b": "Verificar que la cobertura esté vigente",
+      "p": "Confirmación de que la póliza está vigente al día de hoy."
+    },
+    "loan": {
+      "label": "Su número de préstamo o de referencia de la cuenta",
+      "help": "El número con el que su institución archiva el expediente. Los documentos que llegan sin él son los que se pierden de su lado, no del nuestro.",
+      "ph": "p. ej. 4471902-01"
+    },
+    "inst": {
+      "label": "Nombre de la institución",
+      "ph": "p. ej. Navy Federal Credit Union"
+    },
+    "who": {
+      "label": "Su nombre",
+      "ph": "Oficial de préstamos o analista"
+    },
+    "mail": {
+      "label": "¿A dónde se lo enviamos?",
+      "help": "Una dirección de correo de trabajo de su institución.",
+      "ph": "seguros@subanco.com"
+    },
+    "phone": {
+      "label": "Teléfono de contacto",
+      "help": "Por si algo en la póliza no coincide."
+    },
+    "optional": "&mdash; opcional",
+    "cname": {
+      "label": "Nombre completo del cliente, como aparece en el préstamo",
+      "ph": "Nombre y apellidos"
+    },
+    "pol": {
+      "label": "Número de póliza"
+    },
+    "ifHave": "&mdash; si lo tiene",
+    "vin": {
+      "label": "Últimos 6 dígitos del VIN",
+      "help": "Con seis dígitos basta para identificar el vehículo. Por favor, no envíe el VIN completo."
+    },
+    "yr": {
+      "label": "Año"
+    },
+    "mk": {
+      "label": "Marca"
+    },
+    "md": {
+      "label": "Modelo"
+    },
+    "lname": {
+      "label": "Nombre del acreedor, exactamente como debe aparecer",
+      "help": "Incluya ISAOA / ATIMA si su institución lo requiere. Es la línea por la que se rechaza un documento cuando está mal."
+    },
+    "laddr": {
+      "label": "Dirección postal del acreedor"
+    },
+    "need": {
+      "label": "Fecha límite"
+    },
+    "fax": {
+      "label": "Fax, si lo prefiere"
+    },
+    "notes": {
+      "label": "Comentarios adicionales",
+      "ph": "p. ej. La póliza debe mostrar deducibles de $500 o menos en cobertura integral y de colisión."
+    },
+    "send": "Enviar esta solicitud",
+    "note": "Esto abre su programa de correo con todo ya capturado, dirigido a contact@safehouseins.com. Enviarlo desde su propia dirección de trabajo es lo que nos permite verificar la solicitud."
+  },
+  "done": {
+    "h2": "Solicitud lista para enviar.",
+    "lead": "Su programa de correo debió abrirse con los datos ya capturados. Presione enviar ahí y la solicitud llega a nuestro equipo. Respondemos las solicitudes de acreedores el mismo día hábil, de lunes a viernes, de 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m., hora de la montaña.",
+    "warnHead": "Si no se abrió su programa de correo",
+    "warn": "Envíe los mismos datos a <a href=\"mailto:contact@safehouseins.com\">contact@safehouseins.com</a> o llame al <a href=\"tel:+19155031207\">915-503-1207</a>. En cualquier caso, incluya su número de referencia del préstamo &mdash; es el que citamos en el asunto para que el documento llegue al expediente correcto de su lado."
+  },
+  "facts": {
+    "h3": "Datos de la agencia para su expediente",
+    "agency": "Agencia",
+    "agencyNote": "Agencia independiente con licencia en Texas y Nuevo México. Somos el agente de la póliza (agent of record), no la aseguradora &mdash; la póliza la emite la compañía de seguros que aparece en la hoja de declaraciones.",
+    "mail": "Dirección postal",
+    "phone": "Teléfono",
+    "phoneNote": "Lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña). Esta línea no recibe mensajes de texto.",
+    "email": "Correo electrónico",
+    "emailNote": "Lo revisamos en horario de oficina. Ponga el número de referencia del préstamo en el asunto."
+  },
+  "before": {
+    "h3": "Antes de enviar",
+    "c1": {
+      "b": "Envíela desde el dominio de su institución",
+      "p": "La hoja de declaraciones trae los vehículos, los conductores y el domicilio del cliente. La entregamos a un acreedor que tenga un interés registrado sobre el vehículo, y una solicitud que llega desde una dirección de trabajo de la institución que aparece en ella es lo primero que permite verificarlo. Si la solicitud llega desde una cuenta de correo personal, le llamamos antes de enviar cualquier cosa."
+    },
+    "c2": {
+      "b": "Denos el texto exacto del acreedor",
+      "p": "“First National Bank” y “First National Bank ISAOA/ATIMA, PO Box 1234” no son la misma línea para una aseguradora, y la segunda es la que su propio sistema aceptará de vuelta. Casi todos los documentos rechazados que vemos se deben a esto y a nada más."
+    },
+    "c3": {
+      "b": "Los últimos seis del VIN, no el VIN completo",
+      "p": "Seis dígitos identifican el vehículo sin ambigüedad frente a una póliza. No hay razón para que un VIN completo viaje por correo electrónico para esto, así que no lo pedimos."
+    },
+    "c4": {
+      "b": "Lo que no enviamos",
+      "p": "Los números de licencia de manejo, las fechas de nacimiento, los datos de pago y el historial de reclamos anteriores no se envían con una solicitud de acreedor. Si su análisis de crédito realmente requiere algo de esa lista, llámenos y vemos la forma correcta de manejarlo."
+    }
+  },
+  "faq": {
+    "h3": "Preguntas frecuentes de bancos y financieras",
+    "q1": "¿En cuánto tiempo lo recibimos?",
+    "a1": "El mismo día hábil para todo lo que se solicite antes de las 4&nbsp;p.&nbsp;m., hora de la montaña, de lunes a viernes. Agregar un acreedor a una póliza puede tardar más &mdash; el endoso va a la aseguradora y le enviamos la confirmación en cuanto se emite, normalmente en 24 a 72 horas.",
+    "q2": "¿Pueden agregarnos como acreedor sin el cliente?",
+    "a2": "Sí. Agregar un acreedor prendario o un beneficiario preferente es un endoso de rutina y no requiere que el cliente firme nada. Aun así le avisamos al cliente, porque un cambio en su póliza nunca debería tomarlo por sorpresa.",
+    "q3": "La cobertura no cumple con nuestros requisitos.",
+    "a3": "Díganos qué exige el préstamo &mdash; deducibles máximos, límites mínimos, cobertura integral y de colisión, ambas vigentes &mdash; y lo llevamos con el cliente y con la aseguradora. Es más rápido que un seguro colocado por el acreedor (force-placed) y sale más barato para todos.",
+    "q4": "¿Cobran algo por esto?",
+    "a4": "No. Las hojas de declaraciones, las constancias de seguro, las verificaciones y los endosos de acreedor son parte del servicio de la póliza.",
+    "q5": "¿Podemos recibir automáticamente los avisos de renovación?",
+    "a5": "Sí. Pídalo en los comentarios y agregamos a su institución a la póliza para que los documentos de renovación le lleguen en cada periodo sin que nadie tenga que pedirlos.",
+    "q6": "Creemos que la póliza se canceló.",
+    "a6": "Envíe la solicitud de todos modos e indíquelo. Le diremos el estado real el mismo día y, si la póliza se venció, ya estaremos trabajando para rehabilitarla antes de que salga su aviso de seguro colocado por el acreedor."
+  },
+  "more": {
+    "call": "Llámenos",
+    "callNote": "915-503-1207 &middot; lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña)",
+    "email": "Escríbanos",
+    "idcard": "¿Es usted el cliente?",
+    "idcardNote": "Pida sus propios documentos aquí",
+    "claim": "Reportar un reclamo",
+    "claimNote": "Teléfonos de reclamos por compañía"
+  },
+  "js": {
+    "doc": {
+      "dec": "Hoja de declaraciones",
+      "eoi": "Constancia de seguro",
+      "add": "Agregar acreedor prendario / beneficiario preferente",
+      "ver": "Verificar que la cobertura esté vigente"
+    },
+    "err": {
+      "none": "Marque al menos una de las opciones que necesita.",
+      "loan": "Necesitamos su número de préstamo o de referencia de la cuenta — es con el que se archiva el documento de su lado.",
+      "inst": "¿Para qué institución es?",
+      "who": "Indique su nombre, para saber a quién responderle.",
+      "mail": "Necesitamos una dirección de correo válida de su institución para enviárselo.",
+      "cname": "Necesitamos el nombre completo del cliente tal como aparece en el préstamo.",
+      "polVin": "Denos el número de póliza o los últimos seis del VIN — necesitamos uno de los dos para encontrar la póliza correcta.",
+      "vin": "En el campo del VIN van solo los últimos seis caracteres.",
+      "add": "Para agregar a su institución necesitamos el nombre del acreedor y la dirección postal exactamente como deben aparecer en la póliza."
+    },
+    "mail": {
+      "head": "SAFE HOUSE — SOLICITUD DE ACREEDOR",
+      "req": "SOLICITA: {what}",
+      "loan": "Préstamo / referencia de la cuenta: {loan}",
+      "inst": "Institución: {inst}",
+      "who": "Solicitado por: {who}",
+      "to": "Enviar a: {to}",
+      "phone": "Teléfono de contacto: {phone}",
+      "fax": "Número de fax: {fax}",
+      "cust": "Cliente: {cname}",
+      "pol": "Número de póliza: {pol}",
+      "vin": "VIN (últimos 6): {vin}",
+      "veh": "Vehículo: {veh}",
+      "add": "AGREGAR COMO ACREEDOR PRENDARIO — texto exacto:",
+      "addr": "Dirección postal:",
+      "need": "Fecha límite: {date}",
+      "notes": "Comentarios: {notes}",
+      "from": "Enviado desde safehouseins.com/es/lienholder/",
+      "subject": "Solicitud de acreedor — {loan} — {cname}"
+    },
+    "sum": {
+      "ref": "Referencia",
+      "inst": "Institución",
+      "cust": "Cliente",
+      "req": "Solicita",
+      "reply": "Enviar a"
+    }
+  }
+}

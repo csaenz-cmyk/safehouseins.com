@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "title": "Request an ID Card or Declarations Page — Safe House Insurance",
+    "desc": "Request your insurance ID card or declarations page. Enter your policy number and tell us what you need. We send it to the phone and email already on your policy. Safe House Insurance, El Paso TX. Se habla espanol.",
+    "ogTitle": "Request an ID Card or Declarations Page",
+    "ogDesc": "Tell us what you need and we send it to the contacts already on your policy."
+  },
+  "crumb": "ID card &amp; documents",
+  "hero": {
+    "h1": "Need your ID card?<em>Ask us here.</em>",
+    "lede": "Tell us your policy number and what you need. An agent sends it to the\n        phone and email already on your policy &mdash; usually the same business day."
+  },
+  "form": {
+    "step": "Step 1 of 1",
+    "h2": "What do you need?",
+    "sub": "Everything here stays in your browser until you press send.",
+    "pol": {
+      "label": "Policy number",
+      "help": "On your ID card, top left. Spaces and dashes don&rsquo;t matter."
+    },
+    "fn": {
+      "label": "First name"
+    },
+    "ln": {
+      "label": "Last name"
+    },
+    "docs": {
+      "label": "Which documents?",
+      "id": {
+        "b": "ID card",
+        "p": "The card you keep in the car and show\n              to an officer. Proof the policy is active."
+      },
+      "dec": {
+        "b": "Declarations page",
+        "p": "The full summary: vehicles,\n              drivers, every coverage and limit, and the dates. Banks ask for this one."
+      }
+    },
+    "forBank": {
+      "label": "Is the declarations page for a bank or lender?",
+      "help": "If a lender is asking for proof of coverage, we can send it\n            straight to them as well as to you.",
+      "yes": "Yes, a lender needs it",
+      "no": "No, it&rsquo;s just for me"
+    },
+    "bank": {
+      "label": "Bank or lender name",
+      "ph": "e.g. Navy Federal Credit Union"
+    },
+    "bmail": {
+      "label": "Where should we send it?",
+      "help": "The lender&rsquo;s email or fax, if you have it. Leave it blank and\n              we will send it to you to forward.",
+      "ph": "insurance@lender.com"
+    },
+    "optional": "&mdash; optional",
+    "notes": {
+      "label": "Anything else we should know?",
+      "ph": "e.g. I only need the card for the truck, not both cars."
+    },
+    "send": "Send my request",
+    "note": "This opens your email app with the details filled in. Nothing is sent\n        until you press send there. Rather text it? Use the button on the next screen."
+  },
+  "done": {
+    "h2": "Request sent.",
+    "lead": "An agent will put it together and send it to you &mdash;\n        <strong>by email and by text, to the contacts already on your policy</strong>. Usually\n        the same business day, always within one.",
+    "warnHead": "Changed your phone number or email since you bought the policy?",
+    "warn": "Then it will go to the old ones and you will not see it. Call\n          <a href=\"tel:+19155031207\">915-503-1207</a> or text\n          <a href=\"sms:+19155943777\">915-594-3777</a> and we will update the policy and resend\n          it while you are on the line.",
+    "altCall": "Need it right now? Call",
+    "altText": "Or send the same request by text"
+  },
+  "docs": {
+    "h3": "What each document actually is",
+    "id": {
+      "b": "The ID card",
+      "p1": "One small card per vehicle. It shows the company, the policy number, the dates the\n          policy runs, and which car it covers. It is what you hand to an officer at a traffic\n          stop and what a dealership wants before you drive off the lot.",
+      "p2": "Texas and New Mexico both accept it on your phone. You do not need the paper one."
+    },
+    "dec": {
+      "b": "The declarations page",
+      "p1": "Usually called the <strong>dec page</strong>. It is the summary of the whole policy:\n          every vehicle, every driver, every coverage with its limit and deductible, the\n          premium, and the dates. Two or three pages, not a card.",
+      "p2": "This is the one a lender, a leasing company or a landlord asks for, because it\n          proves not just that you have insurance but that you have the specific coverage\n          they require."
+    }
+  },
+  "faq": {
+    "h3": "Questions that come with this",
+    "q1": "How fast can I get it?",
+    "a1": "Same business day in almost every case, and within minutes if you call during\n          office hours rather than filling in this form. Mon&ndash;Fri, 11am&ndash;5pm Mountain.",
+    "q2": "Why does it go to the contacts on my policy?",
+    "a2": "Because a declarations page lists your vehicles, your drivers and your address. If\n          we sent it to whatever address a form typed in, anyone with your policy number could\n          collect it. Sending it where the policy already points is the check.",
+    "q3": "I do not have my policy number.",
+    "a3": "Call or text and we will look it up from your name and date of birth. We hold the\n          policy on our side, so it takes about a minute.",
+    "q4": "My bank keeps saying they never got it.",
+    "a4": "That is usually a reference number problem rather than a sending problem &mdash; lenders\n          file by loan number, not by name. Send us the loan number and we will resend it\n          referenced properly. Your bank can also request it directly:\n          <a href=\"../lienholder/\">the lienholder page &rarr;</a>",
+    "q5": "Can I get a card for just one car?",
+    "a5": "Yes. Put it in the notes box. By default we send a card for every vehicle on the\n          policy, which is what most people want.",
+    "q6": "Do I need the paper card in my glovebox?",
+    "a6": "Not in Texas or New Mexico &mdash; a photo or the PDF on your phone is accepted. Keeping\n          a paper copy anyway costs nothing and phones run out of battery."
+  },
+  "more": {
+    "pay": "Make a payment",
+    "payNote": "Straight to your carrier&rsquo;s payment page",
+    "claim": "Report a claim",
+    "claimNote": "We will start it with you",
+    "lenders": "For lenders",
+    "lendersNote": "Banks can request documents here",
+    "reshop": "See if you can pay less",
+    "reshopNote": "Re-shop it across our carriers"
+  },
+  "js": {
+    "doc": {
+      "id": "ID card",
+      "dec": "Declarations page"
+    },
+    "mail": {
+      "head": "SAFE HOUSE — DOCUMENT REQUEST",
+      "pol": "Policy number: {pol}",
+      "name": "Name on policy: {name}",
+      "docs": "Documents needed: {docs}",
+      "lenderYes": "For a lender: YES",
+      "lender": "Lender: {lender}",
+      "notGiven": "(not given)",
+      "sendTo": "Send to lender at: {to}",
+      "lenderNo": "For a lender: no",
+      "notes": "Notes: {notes}",
+      "from": "Sent from safehouseins.com/id-card/",
+      "subject": "Document request — {pol} — {name}"
+    },
+    "err": {
+      "pol": "We need the policy number. It is on your ID card, top left — or call us and we will look it up.",
+      "name": "Please give the first and last name on the policy, so we send the right one.",
+      "docs": "Pick at least one document — an ID card, a declarations page, or both.",
+      "bank": "Which bank or lender is asking for it? The name is enough."
+    },
+    "sum": {
+      "pol": "Policy",
+      "name": "Name",
+      "docs": "Sending",
+      "lender": "Lender"
+    }
+  }
+}

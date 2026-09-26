@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-t="payguide.meta.title">Cómo pagar tu seguro de auto en TX y NM — Safe House Insurance</title>
+<meta name="description" content="Cómo se paga el seguro de auto: de contado o en mensualidades, qué pasa si se te pasa un pago y cómo no quedarte sin seguro. Para Texas y Nuevo México." data-t-content="payguide.meta.desc">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../../../assets/safehouse-heart.png">
+<!--block:langhead--><link rel="canonical" href="https://safehouseins.com/es/pay/guide/">
+<link rel="alternate" hreflang="en" href="https://safehouseins.com/pay/guide/">
+<link rel="alternate" hreflang="es" href="https://safehouseins.com/es/pay/guide/">
+<link rel="alternate" hreflang="x-default" href="https://safehouseins.com/pay/guide/">
+<meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="en_US">
+<script>(function(){try{var p=localStorage.getItem("shi-lang")||(document.cookie.match(/(?:^|; )shi-lang=(en|es)/)||[])[1];if(p&&p!=="es")location.replace("../../../pay/guide/"+location.search+location.hash)}catch(e){}})()</script><!--/block:langhead-->
+<link rel="stylesheet" href="../../../assets/styles.css">
+<style>
+  /* ================= paying for car insurance =================
+     A guide, not a sales page. The one thing it will not do is quote a figure
+     it cannot stand behind: no average premium, no "autopay saves 3-15%", no
+     grace period in days. Those vary by carrier and by state, we have no source
+     to cite, and a made-up number on a page whose job is to be trusted is worse
+     than no page — the same rule the city and make pages are built under. */
+
+  :root{ --gnavy:#08183A; --gblue:#1666ED; --gline:#E5EBF6; }
+
+  .gh{position:relative;background:
+      radial-gradient(900px 420px at 20% -10%, rgba(34,167,240,.28), transparent 62%),
+      var(--gnavy);
+      /* Down from 140. The shared nav used to end at 163px because styles.css
+         counted the topbar's height twice; it ends at 126 now. */
+      padding:120px 20px 56px;color:#fff}
+  @media(max-width:700px){ .gh{padding-top:118px} }
+  .gh .in{max-width:760px;margin:0 auto}
+  .gh .crumbs{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;
+      color:rgba(255,255,255,.55);margin-bottom:20px}
+  .gh .crumbs a{color:rgba(255,255,255,.75);text-decoration:none}
+  .gh h1{margin:0;font-size:clamp(31px,5.2vw,46px);line-height:1.08;font-weight:800;letter-spacing:-.03em}
+  .gh h1 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#8FD0FF}
+  .gh .lede{margin:16px 0 0;max-width:60ch;font-size:16.5px;line-height:1.65;
+      color:rgba(255,255,255,.78);font-weight:500}
+
+  .gwrap{max-width:760px;margin:0 auto;padding:0 20px}
+
+  /* The summary somebody reads instead of the article. It has to be true on
+     its own, because for most visitors it is the whole page. */
+  .gkey{margin:-30px auto 0;position:relative;z-index:2;background:#fff;border:1px solid var(--gline);
+      border-radius:22px;box-shadow:0 22px 54px rgba(8,24,58,.14);padding:26px 28px}
+  .gkey b{display:block;font-size:12px;letter-spacing:.11em;text-transform:uppercase;
+      font-weight:800;color:#7C8BA4;margin-bottom:14px}
+  .gkey ul{margin:0;padding:0;list-style:none}
+  .gkey li{position:relative;padding-left:28px;margin-top:11px;font-size:15px;line-height:1.6;
+      color:#23324B;font-weight:600}
+  .gkey li:first-child{margin-top:0}
+  .gkey li::before{content:"";position:absolute;left:4px;top:8px;width:9px;height:9px;
+      border-radius:50%;background:linear-gradient(140deg,var(--gblue),#22A7F0)}
+
+  .gsec{padding:44px 0 0}
+  .gsec h2{margin:0 0 14px;font-size:25px;font-weight:800;color:var(--gnavy);letter-spacing:-.025em;
+      line-height:1.2}
+  .gsec h3{margin:26px 0 8px;font-size:17px;font-weight:800;color:var(--gnavy)}
+  .gsec p{margin:0 0 13px;font-size:15.5px;line-height:1.72;color:#3B4A63;font-weight:500}
+  .gsec p:last-child{margin-bottom:0}
+  .gsec a{color:var(--gblue);font-weight:700}
+
+  .gways{display:grid;gap:11px;grid-template-columns:1fr;margin:18px 0 0}
+  @media(min-width:640px){ .gways{grid-template-columns:1fr 1fr} }
+  .gway{border:1.5px solid var(--gline);border-radius:15px;padding:15px 17px;background:#fff}
+  .gway b{display:block;font-size:14.5px;font-weight:800;color:var(--gnavy);margin-bottom:3px}
+  .gway span{display:block;font-size:13px;line-height:1.55;color:#5C6A80;font-weight:600}
+
+  /* Two columns that are genuinely a choice, not a recommendation dressed as
+     one. Monthly is the right answer for plenty of people and the page says so
+     rather than nudging everybody toward the option that looks tidier. */
+  .gvs{display:grid;gap:13px;grid-template-columns:1fr;margin:18px 0 0}
+  @media(min-width:640px){ .gvs{grid-template-columns:1fr 1fr} }
+  .gvcol{border:1.5px solid var(--gline);border-radius:18px;padding:20px;background:#fff}
+  .gvcol.hi{border-color:#BBD6FB;background:#F7FBFF}
+  .gvcol b{display:block;font-size:16px;font-weight:800;color:var(--gnavy);margin-bottom:9px}
+  .gvcol ul{margin:0;padding-left:18px}
+  .gvcol li{font-size:13.5px;line-height:1.6;color:#4A5A74;font-weight:600;margin-top:6px}
+
+  .gsteps{margin:18px 0 0;padding:0;list-style:none;counter-reset:s}
+  .gsteps li{counter-increment:s;position:relative;padding:0 0 0 46px;margin-top:16px}
+  .gsteps li::before{content:counter(s);position:absolute;left:0;top:-1px;width:31px;height:31px;
+      border-radius:10px;background:#EAF2FE;color:var(--gblue);display:flex;align-items:center;
+      justify-content:center;font-weight:900;font-size:14px}
+  .gsteps b{display:block;font-size:15px;font-weight:800;color:var(--gnavy);margin-bottom:3px}
+  .gsteps p{margin:0;font-size:14px;line-height:1.65;color:#4A5A74;font-weight:600}
+
+  .gcall{border:1.5px solid #F5DFB0;background:#FFFAF0;border-radius:18px;padding:20px 22px;margin:24px 0 0}
+  .gcall b{display:block;font-size:15.5px;color:#8A5200;font-weight:900;margin-bottom:7px}
+  .gcall p{margin:0;font-size:14px;line-height:1.68;color:#6B4B18;font-weight:600}
+
+  .gmin{display:grid;gap:11px;grid-template-columns:1fr 1fr;margin:18px 0 0}
+  .gmincol{border:1.5px solid var(--gline);border-radius:15px;padding:16px 18px;background:#fff}
+  .gmincol s{display:block;text-decoration:none;font-size:11.5px;letter-spacing:.09em;
+      text-transform:uppercase;font-weight:800;color:#7C8BA4}
+  .gmincol b{display:block;font-family:'Geist Mono',monospace;font-size:21px;font-weight:600;
+      color:var(--gnavy);margin:4px 0 3px;letter-spacing:-.02em}
+  .gmincol span{font-size:12.5px;color:#5C6A80;font-weight:600}
+
+  .gcta{margin:46px auto 60px;border-radius:24px;padding:32px 28px;text-align:center;color:#fff;
+      background:linear-gradient(120deg,var(--gblue),#22A7F0)}
+  .gcta b{display:block;font-size:23px;font-weight:800;letter-spacing:-.02em}
+  .gcta p{margin:9px auto 20px;max-width:46ch;font-size:14.5px;line-height:1.6;
+      color:rgba(255,255,255,.9);font-weight:600}
+  .gcta .row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .gcta a{border-radius:14px;padding:14px 22px;font-size:15px;font-weight:800;text-decoration:none}
+  .gcta .p{background:#fff;color:var(--gblue)}
+  .gcta .s{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.35)}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <span><!--t:common.topbar.callText-->📞 Llama al <a href="tel:+19155031207">915-503-1207</a> &middot; 💬 Mensajes al <a href="sms:+19155943777">915-594-3777</a><!--/t--></span>
+    <span>✉️ <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></span>
+    <span class="es"><!--t:common.topbar.speaks-->🇲🇽 Te atendemos en español<!--/t--></span>
+    <span><!--t:common.topbar.where-->El Paso, TX · Servicio en TX y NM<!--/t--></span>
+  </div>
+
+  <header class="gh">
+    <nav>
+      <a href="../../index.html"><img class="logo" src="../../../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+      <div class="nav-cta"><!--block:switch dk--><div class="lsw dk" role="group" aria-label="Idioma / Language"><a href="../../../pay/guide/" hreflang="en" lang="en" data-lang="en" title="View this page in English"><span aria-hidden="true">EN</span><span class="lvh">English</span></a><span lang="es-MX" aria-current="true"><span aria-hidden="true">ES</span><span class="lvh">Español</span></span></div><!--/block:switch--><button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="drawer" data-t-aria-label="common.menu.open"><span></span><span></span><span></span></button></div>
+    </nav>
+
+<!--block:menu--><div class="scrim" id="scrim" hidden></div>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menú">
+  <div class="dtop">
+    <div class="lsw full" role="group" aria-label="Idioma / Language"><a href="../../../pay/guide/" hreflang="en" lang="en" data-lang="en" title="View this page in English">English</a><span lang="es-MX" aria-current="true">Español</span></div>
+    <a class="dcta" href="../../quote.html">Cotiza gratis</a>
+    <button class="dclose" id="dclose" type="button" aria-label="Cerrar menú">&#10005;</button>
+  </div>
+
+  <div class="dbig" role="navigation" aria-label="Lo que aseguramos">
+    <a href="../../auto-insurance.html">Auto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a href="../../home-insurance.html">Casa <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a href="../../commercial-insurance.html">Comercial <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+
+  <div class="dcols">
+    <div class="dcol">
+      <h6>Tipos de seguro</h6>
+      <a href="../../auto-insurance.html">Auto</a>
+      <a href="../../home-insurance.html">Casa propia</a>
+      <a href="../../renters-insurance.html">Inquilinos</a>
+      <a href="../../motorcycle-insurance.html">Motocicleta</a>
+      <a href="../../rideshare-insurance.html">Uber, Lyft y entregas</a>
+      <a href="../../commercial-insurance.html">Camionetas de trabajo y flotillas</a>
+    </div>
+    <div class="dcol">
+      <h6>La agencia</h6>
+      <a href="../../about.html">Quiénes somos</a>
+      <a href="../../index.html#reviews">Reseñas</a>
+      <a href="../../index.html#faq">Preguntas frecuentes</a>
+      <a href="../../careers.html">Empleos</a>
+      <a href="../../investors.html">Inversionistas</a>
+      <a href="../../contact.html">Contacto</a>
+    </div>
+    <div class="dcol">
+      <h6>Si ya eres cliente</h6>
+      <a href="../../pay/">Hacer un pago</a>
+      <a href="../../claims/">Reportar un reclamo</a>
+      <a href="../../id-card/">Pedir tu tarjeta de seguro</a>
+      <a href="../../quote.html">Volver a comparar tu precio</a>
+    </div>
+    <div class="dcol">
+      <h6>Para financieras</h6>
+      <a href="../../lienholder/">Solicitudes de acreedores</a>
+    </div>
+  </div>
+
+  <div class="dfoot">
+    <a class="dway call" href="tel:+19155031207">
+      <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+      <span class="t"><s>Llámanos</s><b>915-503-1207</b></span>
+      <span class="ar" aria-hidden="true">&rarr;</span></a>
+    <a class="dway text" href="sms:+19155943777">
+      <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span>
+      <span class="t"><s>Mándanos un mensaje</s><b>915-594-3777</b></span>
+      <span class="ar" aria-hidden="true">&rarr;</span></a>
+    <p class="des">Te atendemos en español &middot; lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña)</p>
+  </div>
+</div><!--/block:menu-->
+    <div class="in">
+      <div class="crumbs"><a href="../../index.html"><!--t:common.home-->Inicio<!--/t--></a> &nbsp;/&nbsp;
+        <a href="../"><!--t:payguide.crumb.pay-->Hacer un pago<!--/t--></a> &nbsp;/&nbsp; <!--t:payguide.crumb.here-->Pagar tu seguro de auto<!--/t--></div>
+      <h1><!--t:payguide.hero.h1-->Cómo pagar tu seguro de auto <em>sin perder la cobertura</em><!--/t--></h1>
+      <p class="lede"><!--t:payguide.hero.lede-->Cómo funciona de verdad el pago, lo que realmente cuesta un periodo sin seguro (lapse) en Texas y Nuevo México, y qué hacer la semana que no puedas pagar. Escrito por agentes con licencia que se dedican a esto casi todo el día.<!--/t--></p>
+    </div>
+  </header>
+
+  <div class="gwrap">
+    <div class="gkey">
+      <b><!--t:payguide.key.b-->En resumen<!--/t--></b>
+      <ul>
+        <li><!--t:payguide.key.l1-->Casi todas las aseguradoras aceptan tarjeta, transferencia bancaria o cheque. El efectivo normalmente solo se acepta en una oficina, y nunca se manda por correo.<!--/t--></li>
+        <li><!--t:payguide.key.l2-->Pagar de contado los seis meses casi siempre sale más barato en total que pagar mensualidades, porque te ahorras los cargos por pagar a plazos.<!--/t--></li>
+        <li><!--t:payguide.key.l3-->La mayoría de las aseguradoras dan descuento por pago automático. El monto cambia en cada una, así que pregúntale a la tuya en vez de suponerlo.<!--/t--></li>
+        <li><!--t:payguide.key.l4-->Una cancelación por falta de pago sale mucho más cara que el pago. Te sigue en el precio de tu próxima póliza, y te puede costar el descuento por cobertura continua que ya tenías.<!--/t--></li>
+        <li><!--t:payguide.key.l5-->Si te vas a atrasar, llama antes de la fecha de vencimiento. Casi siempre hay algo que un agente puede hacer antes, y mucho menos después.<!--/t--></li>
+      </ul>
+    </div>
+
+    <section class="gsec">
+      <h2><!--t:payguide.ways.h2-->Cómo puedes pagar<!--/t--></h2>
+      <p><!--t:payguide.ways.p-->Las formas de pago las pone tu aseguradora, no nosotros &mdash; pero entre las aseguradoras con las que trabajamos, estas son las más comunes.<!--/t--></p>
+      <div class="gways">
+        <div class="gway"><b><!--t:payguide.ways.card.b-->Tarjeta de débito o crédito<!--/t--></b>
+          <span><!--t:payguide.ways.card.s-->La más rápida, y la opción para la que están hechos los portales en línea. Un pago con tarjeta normalmente se registra el mismo día.<!--/t--></span></div>
+        <div class="gway"><b><!--t:payguide.ways.ach.b-->Transferencia bancaria (ACH)<!--/t--></b>
+          <span><!--t:payguide.ways.ach.s-->Directo de una cuenta de cheques. La mayoría de las aseguradoras reservan su mejor descuento por pago automático para esta opción, no para las tarjetas.<!--/t--></span></div>
+        <div class="gway"><b><!--t:payguide.ways.check.b-->Cheque o giro postal (money order)<!--/t--></b>
+          <span><!--t:payguide.ways.check.s-->La mayoría los acepta, pero tiene que llegar y cobrarse antes de la fecha de vencimiento; no basta con que el matasellos tenga esa fecha.<!--/t--></span></div>
+        <div class="gway"><b><!--t:payguide.ways.cash.b-->Efectivo, en persona<!--/t--></b>
+          <span><!--t:payguide.ways.cash.s-->Algunas aseguradoras aceptan efectivo en una oficina o en un centro de pagos. Nunca lo mandes por correo &mdash; no hay forma de comprobar que llegó.<!--/t--></span></div>
+      </div>
+    </section>
+
+    <section class="gsec">
+      <h2><!--t:payguide.full.h2-->De contado o en mensualidades<!--/t--></h2>
+      <p><!--t:payguide.full.p1-->Aquí la mayoría de las pólizas son de seis meses. Normalmente puedes pagar todo el periodo de una vez, o dar un enganche y pagar el resto en mensualidades. Pagar de contado sale más barato en total, porque los planes de pagos le agregan un cargo a cada mensualidad y el enganche muchas veces es mayor que lo que te tocaría pagar en un mes.<!--/t--></p>
+      <p><!--t:payguide.full.p2-->Eso no quiere decir que sea la mejor opción para todos, y un agente que te diga que siempre lo es no te ha preguntado cómo va tu mes.<!--/t--></p>
+      <div class="gvs">
+        <div class="gvcol hi"><b><!--t:payguide.full.inFull.b-->Pagar de contado conviene cuando<!--/t--></b>
+          <ul>
+            <li><!--t:payguide.full.inFull.l1-->Tienes el monto completo sin tocar dinero que necesitas para otra cosa<!--/t--></li>
+            <li><!--t:payguide.full.inFull.l2-->Tus ingresos son estables y predecibles<!--/t--></li>
+            <li><!--t:payguide.full.inFull.l3-->Prefieres no volver a pensar en eso durante seis meses<!--/t--></li>
+          </ul></div>
+        <div class="gvcol"><b><!--t:payguide.full.monthly.b-->Pagar mensualidades conviene cuando<!--/t--></b>
+          <ul>
+            <li><!--t:payguide.full.monthly.l1-->Pagar todo junto te dejaría corto en algo que importa más<!--/t--></li>
+            <li><!--t:payguide.full.monthly.l2-->Tus ingresos cambian de una semana a otra<!--/t--></li>
+            <li><!--t:payguide.full.monthly.l3-->Prefieres tener el dinero a la mano para una emergencia<!--/t--></li>
+            <li><!--t:payguide.full.monthly.l4-->Estás entre un trabajo y otro, o esperas un cambio pronto<!--/t--></li>
+          </ul></div>
+      </div>
+      <p style="margin-top:16px"><!--t:payguide.full.p3-->El error no es elegir mensualidades. Es elegir una mensualidad que te queda justa todos los meses &mdash; porque el mes que no pasa el cobro te cuesta mucho más que la diferencia que te ahorraste.<!--/t--></p>
+    </section>
+
+    <section class="gsec">
+      <h2><!--t:payguide.miss.h2-->Qué pasa si se te pasa un pago<!--/t--></h2>
+      <p><!--t:payguide.miss.p-->Que se te pase un pago es común y tiene remedio. Lo que importa es qué tan rápido actúas, y los pasos de abajo muestran cómo funciona en la mayoría de las aseguradoras. <strong>Las fechas exactas vienen en el aviso que te manda tu aseguradora</strong> &mdash; las fijan esa aseguradora y la ley del estado, así que guíate por el aviso y no por una cifra que encontraste en internet, incluidas las nuestras.<!--/t--></p>
+      <ol class="gsteps">
+        <li><b><!--t:payguide.miss.s1.b-->Tu pago se atrasa<!--/t--></b>
+          <p><!--t:payguide.miss.s1.p-->La cobertura normalmente no se detiene en el momento en que no haces un pago. La mayoría de las aseguradoras dan primero un plazo corto (un periodo de gracia), y durante ese plazo sigues teniendo seguro.<!--/t--></p></li>
+        <li><b><!--t:payguide.miss.s2.b-->La aseguradora te manda un aviso<!--/t--></b>
+          <p><!--t:payguide.miss.s2.p-->Una carta, un correo o un mensaje de texto con una fecha. Esa fecha es la que importa &mdash; es cuando realmente termina la cobertura si no se paga nada.<!--/t--></p></li>
+        <li><b><!--t:payguide.miss.s3.b-->La póliza se cancela<!--/t--></b>
+          <p><!--t:payguide.miss.s3.p-->A partir de esa fecha estás sin seguro. Manejar sin seguro es ilegal tanto en Texas como en Nuevo México, y si en ese tiempo te para la policía, tienes un accidente o te capta una cámara de tránsito, el problema es mucho más grande de lo que era el pago atrasado.<!--/t--></p></li>
+        <li><b><!--t:payguide.miss.s4.b-->A veces se puede reactivar<!--/t--></b>
+          <p><!--t:payguide.miss.s4.p-->Muchas aseguradoras reactivan una póliza cancelada hace poco si pagas lo que debes más un cargo, y otras no. Depende de la aseguradora y de cuánto tiempo llevas sin seguro. En este punto hay que llamar, no pagar en línea y esperar que funcione.<!--/t--></p></li>
+      </ol>
+      <div class="gcall">
+        <b><!--t:payguide.miss.call.b-->Llama antes de pagar una póliza cancelada.<!--/t--></b>
+        <p><!--t:payguide.miss.call.p-->Un pago hecho después de la fecha de cancelación no siempre reactiva la póliza, y algunas aseguradoras aplican el dinero al saldo mientras tú sigues manejando sin cobertura. Una sola llamada te dice si necesitas reactivar la póliza, sacar una nueva o solo hacer el pago. Esto lo hacemos todos los días &mdash; <a href="tel:+19155031207" style="color:#8A5200;text-decoration:underline">915-503-1207</a>.<!--/t--></p>
+      </div>
+    </section>
+
+    <section class="gsec">
+      <h2><!--t:payguide.lapse.h2-->Por qué un periodo sin seguro cuesta más que el pago<!--/t--></h2>
+      <p><!--t:payguide.lapse.p1-->Esta es la parte que sorprende a la gente. El dinero que no pagaste casi nunca es lo caro &mdash; lo caro es el hueco en tu historial.<!--/t--></p>
+      <p><!--t:payguide.lapse.p2-->Para las aseguradoras, la cobertura continua cuenta en el precio. Quedarte sin ella, aunque sea poco tiempo, te pasa a una categoría peor en la renovación y en cada aseguradora con la que cotices después, y te puede costar un descuento por seguro previo que ya tenías. Unos cuantos días sin seguro pueden seguir afectando tu prima durante años, y por eso vale la pena una llamada para evitarlo.<!--/t--></p>
+      <p><!--t:payguide.lapse.p3-->Además, los dos estados te exigen tener seguro de responsabilidad civil mientras tu vehículo esté registrado:<!--/t--></p>
+      <div class="gmin">
+        <div class="gmincol"><s><!--t:payguide.lapse.tx.s-->Mínimo en Texas<!--/t--></s><b>30/60/25</b>
+          <span><!--t:payguide.lapse.tx.span-->En miles de dólares: lesiones por persona, lesiones por accidente y daños a la propiedad.<!--/t--></span></div>
+        <div class="gmincol"><s><!--t:payguide.lapse.nm.s-->Mínimo en Nuevo México<!--/t--></s><b>25/50/10</b>
+          <span><!--t:payguide.lapse.nm.span-->Las mismas tres cifras, con los límites de Nuevo México.<!--/t--></span></div>
+      </div>
+      <p style="margin-top:14px"><!--t:payguide.lapse.p4-->Son mínimos que marca la ley, no recomendaciones &mdash; y un periodo sin seguro significa que estuviste por debajo de ellos.<!--/t--></p>
+    </section>
+
+    <section class="gsec">
+      <h2><!--t:payguide.cant.h2-->Si este mes no puedes pagar<!--/t--></h2>
+      <p><!--t:payguide.cant.p-->Hay más margen del que la mayoría cree, y casi todo está antes de la fecha de vencimiento, no después.<!--/t--></p>
+      <ol class="gsteps">
+        <li><b><!--t:payguide.cant.s1.b-->Llama antes de la fecha, no después<!--/t--></b>
+          <p><!--t:payguide.cant.s1.p-->Algunas aseguradoras te cambian la fecha de vencimiento o te dividen un pago si lo pides con tiempo. Muy pocas hacen algo una vez que la póliza ya se canceló.<!--/t--></p></li>
+        <li><b><!--t:payguide.cant.s2.b-->Pregunta cuánto tiempo te da un pago parcial<!--/t--></b>
+          <p><!--t:payguide.cant.s2.p-->Pagar una parte a veces recorre la fecha de cancelación lo suficiente para llegar a tu próximo día de pago. Pregunta cuál es el mínimo para mantener la póliza vigente.<!--/t--></p></li>
+        <li><b><!--t:payguide.cant.s3.b-->Pídenos que volvamos a cotizar tu póliza<!--/t--></b>
+          <p><!--t:payguide.cant.s3.p-->Si el problema es el precio de la póliza y no solo este mes, la solución es otra. Podemos comparar lo que cobrarían varias aseguradoras por la misma cobertura &mdash; y revisar si te falta algún descuento para el que calificas.<!--/t--></p></li>
+        <li><b><!--t:payguide.cant.s4.b-->Revisa la cobertura, con cuidado<!--/t--></b>
+          <p><!--t:payguide.cant.s4.p-->Subir el deducible o quitar la cobertura de colisión (collision) en un carro más viejo baja el pago, y las dos cosas tienen consecuencias reales. Vale la pena hacerlo con un agente, no a solas a medianoche.<!--/t--></p></li>
+      </ol>
+    </section>
+
+    <section class="gsec">
+      <h2><!--t:payguide.auto.h2-->Activa el pago automático una sola vez<!--/t--></h2>
+      <p><!--t:payguide.auto.p1-->La mayoría de las aseguradoras dan descuento por pago automático, normalmente mayor con cuenta bancaria que con tarjeta, y la cantidad cambia en cada una &mdash; pregúntale a la tuya cuánto es en vez de suponer una cifra. De todos modos, lo más valioso no es el descuento. Es que una póliza con pago automático no se queda sin cobertura porque no leíste un mensaje en una semana muy ocupada.<!--/t--></p>
+      <p><!--t:payguide.auto.p2-->Dos cosas que vale la pena hacer al mismo tiempo: asegúrate de que la cuenta de donde sale el pago tenga fondos en la fecha de vencimiento, y deja activados los mensajes de la aseguradora para que te enteres si un pago no pasa.<!--/t--></p>
+    </section>
+
+    <div class="gcta">
+      <b><!--t:payguide.cta.b-->¿Todo listo para pagar?<!--/t--></b>
+      <p><!--t:payguide.cta.p-->Escribe tu número de póliza y te llevamos directo a la página de pagos de tu aseguradora. O llámanos y te guiamos paso a paso.<!--/t--></p>
+      <div class="row">
+        <a class="p" href="../"><!--t:payguide.cta.pay-->Hacer un pago &rarr;<!--/t--></a>
+        <a class="s" href="tel:+19155031207">📞 915-503-1207</a>
+        <a class="s" href="sms:+19155943777">💬 915-594-3777</a>
+      </div>
+    </div>
+  </div>
+
+  <!--block:footer--><footer>
+ <div class="fshell">
+
+  <!-- Band 1 — where to go. Two-column city lists so twelve names read as a
+       list and not as a wall. -->
+  <div class="fband">
+   <div class="fdeck">
+    <div><h5>Seguro de auto en Texas</h5><div class="c2"><a href="../../car-insurance/texas/houston/">Houston</a><a href="../../car-insurance/texas/san-antonio/">San Antonio</a><a href="../../car-insurance/texas/dallas/">Dallas</a><a href="../../car-insurance/texas/austin/">Austin</a><a href="../../car-insurance/texas/fort-worth/">Fort Worth</a><a href="../../car-insurance/texas/el-paso/">El Paso</a><a href="../../car-insurance/texas/arlington/">Arlington</a><a href="../../car-insurance/texas/laredo/">Laredo</a><a href="../../car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="../../car-insurance/texas/mcallen/">McAllen</a><a href="../../car-insurance/texas/brownsville/">Brownsville</a><a href="../../car-insurance/texas/lubbock/">Lubbock</a></div>
+      <a class="more" href="../../car-insurance/texas/">Ver todas las ciudades de Texas &rarr;</a></div>
+
+    <div><h5>Seguro de auto en Nuevo México</h5><div class="c2"><a href="../../car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="../../car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="../../car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="../../car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="../../car-insurance/new-mexico/roswell/">Roswell</a><a href="../../car-insurance/new-mexico/farmington/">Farmington</a><a href="../../car-insurance/new-mexico/hobbs/">Hobbs</a><a href="../../car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
+      <a class="more" href="../../car-insurance/new-mexico/">Ver todas las ciudades de Nuevo México &rarr;</a></div>
+
+    <div><h5>Lo que aseguramos</h5>
+      <a href="../../quote.html?type=car">Seguro de auto</a>
+      <a href="../../quote.html?type=home">Seguro de casa</a>
+      <a href="../../quote.html?type=home">Seguro para inquilinos</a>
+      <a href="../../quote.html?type=moto">Seguro de motocicleta</a>
+      <a href="../../quote.html?type=commercial">Vehículos comerciales</a>
+      <a href="../../quote.html?type=commercial">Camionetas de trabajo y flotillas</a>
+      <a class="more" href="../../car-insurance/makes/">Seguro de auto por marca &rarr;</a></div>
+
+    <div><h5>Si ya eres cliente</h5>
+      <a href="../../pay/">Hacer un pago</a>
+      <a href="../../pay/guide/">Cómo funcionan los pagos</a>
+      <a href="../../id-card/">Pedir tu tarjeta de seguro</a>
+      <a href="../../claims/">Reportar un reclamo</a>
+      <a href="../../claims/guide/">Cómo funcionan los reclamos</a>
+      <a href="tel:+19155031207">Hacer un cambio a tu póliza</a>
+      <a href="../../lienholder/">Para bancos y financieras</a>
+      <a href="../../quote.html">Volver a comparar tu precio</a></div>
+   </div>
+  </div>
+
+  <!-- Band 2 — reach a person. Everything here appeared twice in the old
+       footer: once in a link column and again in a centred block underneath. -->
+  <div class="fband">
+   <div class="fmid">
+    <div>
+     <h5>Contáctanos</h5>
+     <div class="fways">
+<div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><b>Llamadas</b><a class="big" href="tel:+19155031207">915-503-1207</a><small>Lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña)</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span><b>Mensajes de texto</b><a class="big" href="sms:+19155943777">915-594-3777</a><small>Es otra línea &mdash; esta sí recibe mensajes de texto</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 6.5L21 6"/></svg></span><b>Correo electrónico</b><a class="big" href="mailto:contact@safehouseins.com">contact@safehouseins.com</a><small>Documentos, preguntas, lo que necesites</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><b>Visítanos</b>
+       <address>Safe House Insurance LLC<br>6065 Montana Ave Ste C8<br>El Paso, TX 79925</address>
+       <p class="fhours">Lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña)</p>
+       <a href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">Abrir en Google Maps &rarr;</a></div>
+     </div>
+    </div>
+
+    <div>
+     <h5>La agencia</h5>
+     <div class="fcols">
+     <a href="../../about.html">Quiénes somos</a>
+     <a href="../../careers.html">Empleos</a>
+     <a href="../../investors.html">Inversionistas</a>
+     <a href="../../index.html#faq">Preguntas frecuentes</a>
+     <a href="../../car-insurance/">Seguro de auto por ciudad</a>
+     <a href="../../car-insurance/makes/">Seguro de auto por marca</a>
+     <a href="../../index.html#reviews">Reseñas de clientes</a>
+     <a href="../../contact.html">Contacto</a>
+     </div>
+     <a class="more" href="../../quote.html" style="display:inline-block;margin-top:14px;background:var(--grad);color:#fff;padding:12px 22px;border-radius:99px;font-size:14.5px;font-weight:800">Cotiza gratis &rarr;</a>
+    </div>
+   </div>
+  </div>
+
+  <!-- Band 3 — the sign-off. -->
+  <div class="fend">
+   <img class="logo" src="../../../assets/safehouse-logo.png" alt="Safe House Insurance">
+   <p class="es">Agencia independiente con licencia en El Paso, Texas &middot; 🇲🇽 Te atendemos en español</p>
+   <p class="disc">Safe House Insurance LLC es una agencia de seguros independiente con licencia en Texas y Nuevo México. La cobertura está sujeta a la aprobación de la aseguradora, a sus criterios de suscripción y a los términos, condiciones y exclusiones de la póliza emitida. Las cotizaciones son estimados y no garantizan la cobertura ni el precio. Las aseguradoras disponibles y los requisitos para calificar varían según el estado y el solicitante. &copy; 2026 Safe House Insurance.</p>
+   <p class="legal"><a href="../../privacy.html">Aviso de privacidad</a> &middot; <a href="../../sms-terms.html">Términos de SMS</a> &middot; <a href="../../quote.html">Cotiza gratis</a></p>
+  </div>
+
+ </div>
+</footer><!--/block:footer-->
+
+<!--block:menujs--><script>
+(function(){
+  /* The menu panel.
+
+     No padding-top measured off the nav any more: the panel comes in from the
+     side and starts at the top of the window, so it does not have to duck
+     under anything. It closes on the X, on the scrim, on Escape, and on any
+     link inside it — a menu that stays open behind the page you just asked for
+     is the most common way one of these gets left broken. */
+  var burger=document.getElementById('burger'),
+      drawer=document.getElementById('drawer'),
+      scrim=document.getElementById('scrim'),
+      dclose=document.getElementById('dclose'),
+      // The two labels are read off the buttons rather than written in here,
+      // so this script is the same in English and in Spanish.
+      openLabel=burger.getAttribute('aria-label'),
+      closeLabel=dclose.getAttribute('aria-label');
+  function setMenu(open){
+    burger.classList.toggle('on',open);
+    drawer.classList.toggle('on',open);
+    scrim.hidden=false;
+    scrim.classList.toggle('on',open);
+    document.body.classList.toggle('locked',open);
+    burger.setAttribute('aria-expanded',open);
+    burger.setAttribute('aria-label',open?closeLabel:openLabel);
+    // Focus follows the panel, or the panel is invisible to a keyboard.
+    if(open) dclose.focus();
+    else burger.focus({preventScroll:true});
+  }
+  burger.addEventListener('click',function(){setMenu(!drawer.classList.contains('on'));});
+  dclose.addEventListener('click',function(){setMenu(false);});
+  scrim.addEventListener('click',function(){setMenu(false);});
+  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
+  addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
+
+})();
+</script><script>
+(function(){
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lang]');
+    if(!a) return;
+    var l=a.getAttribute('data-lang');
+    try{localStorage.setItem('shi-lang',l);}catch(_){}
+    try{document.cookie='shi-lang='+l+';path=/;max-age=31536000;samesite=lax';}catch(_){}
+    if(e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+    e.preventDefault();
+    try{document.dispatchEvent(new CustomEvent('shi:lang',{detail:l}));}catch(_){}
+    location.href=a.href.split('#')[0].split('?')[0]+location.search+location.hash;
+  });
+})();
+</script><!--/block:menujs-->
+</body>
+</html>
