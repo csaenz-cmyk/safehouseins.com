@@ -96,6 +96,11 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
 
   .qcard{position:relative;background:#fff;border-radius:24px;padding:30px 20px 26px;overflow:hidden;
       box-shadow:0 34px 60px -40px rgba(10,33,72,.55),0 1px 0 rgba(10,33,72,.04)}
+  /* The narrowest phones (a folded Galaxy Fold is 280px): the header keeps one
+     row, and the page gives the card back some of its margin, so fields keep
+     the width their answers need. Type sizes stay as they are. */
+  @media(max-width:319.98px){ .qhead{padding:14px 12px;gap:10px} .qhead img{height:38px}
+    .qhead .qr{gap:10px} .qwrap{padding:0 10px 32px} .qcard{padding:26px 14px 22px} }
   .bar{position:absolute;top:0;left:0;right:0;height:5px;background:var(--ice)}
   .bar i{display:block;height:100%;width:0;background:var(--grad);border-radius:0 99px 99px 0;
       transition:width .5s cubic-bezier(.2,.8,.2,1)}
@@ -148,13 +153,18 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
       font-family:inherit;font-size:16px;background:#FAFCFF;color:var(--ink);-webkit-appearance:none;appearance:none}
   .fl select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235C6A80' stroke-width='2.4' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>");
       background-repeat:no-repeat;background-position:right 14px center;background-size:17px;padding-right:42px}
-  .fl input:focus,.fl select:focus,.fl textarea:focus{border-color:var(--blue);background:#fff;outline:none}
+  .fl input:focus,.fl select:focus,.fl textarea:focus{border-color:var(--blue);background-color:#fff;outline:none}
   .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
   /* Spanish labels run longer, and a label in a two-up row can wrap where its
      neighbour does not. Lining the controls up along the bottom keeps the row
      reading as a row. English labels fit on one line, so it is left as it was. */
   html:lang(es) .g2, html:lang(es) .g3{align-items:end}
+  /* A row of selects that cannot show its longest answer in each column stacks
+     to one column. fitRows() in the script decides, by measuring. */
+  .g2.fit1,.g3.fit1{grid-template-columns:minmax(0,1fr)}
+  /* The answer chosen, in full, under a select too narrow to show all of it. */
+  .selfull{display:block;margin-top:6px;font-size:13px;line-height:1.4;font-weight:600;color:var(--muted)}
 
   /* repeatable blocks: vehicles and drivers */
   .blk{border:2px solid var(--line);border-radius:18px;padding:14px;margin-top:12px;background:#FCFDFF}
@@ -206,13 +216,20 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
   .looking .spin{width:34px;height:34px;border-width:4px}
   .looking p{font-size:13.5px;color:var(--muted);font-weight:600;margin-top:10px}
 
+  /* text-align and balance: a label that wraps on a phone ("Mejor habla con
+     un agente") is centred in the pill and split evenly, not left with one
+     word on its second line. */
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--grad);color:#fff;
       border:none;border-radius:99px;padding:17px 28px;font-weight:800;font-size:16.5px;font-family:inherit;
       cursor:pointer;width:100%;margin-top:20px;box-shadow:0 16px 30px -14px rgba(22,102,237,.85);
-      transition:transform .18s,filter .18s,opacity .2s}
+      text-align:center;text-wrap:balance;transition:transform .18s,filter .18s,opacity .2s}
   .btn:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.06)}
   .btn:disabled{opacity:.42;cursor:not-allowed;box-shadow:none}
   .btn.ghost{background:#fff;color:var(--navy);border:2px solid var(--line);box-shadow:none}
+  /* A folded phone: less padding in the buttons, so a Spanish label ("Elige
+     una compañía arriba para continuar") takes two lines rather than three.
+     After .btn, or .btn's own padding wins. */
+  @media(max-width:339.98px){ .btn{padding-left:20px;padding-right:20px} }
   .note{display:flex;gap:9px;font-size:12px;color:var(--muted);margin-top:14px;align-items:flex-start;font-weight:600}
   .note svg{color:#1F9D63;flex:0 0 auto;margin-top:2px;width:15px;height:15px}
   .err{display:none;gap:9px;font-size:13px;color:#C2410C;margin-top:14px;align-items:flex-start;font-weight:700}
@@ -439,6 +456,8 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
      Tap-toggled rather than hover-only: half of these visitors are on a phone,
      where there is no hover and a tooltip that needs one is simply missing. */
   .tip{position:relative;display:inline-block;vertical-align:middle;margin-left:5px}
+  /* the "?" travels with the last word of its label instead of wrapping alone */
+  .tipk{white-space:nowrap} .tip>div{white-space:normal}
   .tip>button{width:16px;height:16px;padding:0;border-radius:50%;cursor:pointer;
       border:1.5px solid #B9CDEA;background:#fff;color:var(--blue);
       font:800 10.5px/1 'Figtree',system-ui,sans-serif;font-family:inherit}
@@ -620,10 +639,16 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
   .bikehd:first-child{margin-top:4px}
 
   /* ---------------- coverage summary ---------------- */
-  .sumrow{display:flex;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+  /* The answer and its Edit button travel together (.sa). When the label, a
+     limit like "100/300/50" and the button cannot share a line — a folded
+     phone, and Spanish labels ("Responsabilidad civil") — the pair takes the
+     next line, right-aligned, instead of pushing the button off the card. */
+  .sumrow{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:12px;row-gap:2px;
+      padding:11px 0;border-bottom:1px solid var(--line)}
   .sumrow:last-child{border-bottom:0}
-  .sumrow .sk{flex:1;font-size:13.5px;font-weight:700;color:var(--muted)}
-  .sumrow .sv{font-size:14.5px;font-weight:900;color:var(--navy);text-align:right}
+  .sumrow .sk{flex:1 1 8em;font-size:13.5px;font-weight:700;color:var(--muted)}
+  .sumrow .sa{display:flex;align-items:baseline;gap:12px;margin-left:auto;min-width:0}
+  .sumrow .sv{font-size:14.5px;font-weight:900;color:var(--navy);text-align:right;min-width:0}
   .sumrow button{font:inherit;font-size:12.5px;font-weight:800;color:var(--blue);background:none;
       border:0;cursor:pointer;padding:2px 4px;border-radius:6px}
   .sumrow button:hover{text-decoration:underline}
@@ -909,7 +934,7 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
           <input id="hEff" name="effectiveDate" type="date" data-nopast autocomplete="off"></div>
         <div class="fl"><label for="hWhy" data-t="quote.property.why">¿Por qué estás cotizando?</label>
           <select id="hWhy" name="reason"><option value="" data-t="quote.chooseOne">Selecciona</option>
-            <option value="Closing on a new home" data-t="quote.property.whyClosing">Estoy por cerrar la compra de una casa</option><option value="Switching insurance companies" data-t="quote.property.whySwitch">Quiero cambiar de aseguradora</option>
+            <option value="Closing on a new home" data-t="quote.property.whyClosing">Compra de casa nueva</option><option value="Switching insurance companies" data-t="quote.property.whySwitch">Cambio de aseguradora</option>
             <option value="Other" data-t="quote.property.whyOther">Otro motivo</option></select></div>
       </div>
       <!-- Own-or-rent is not asked here. The address step already asks it in a
@@ -1415,8 +1440,8 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
       </div>
 
       <div class="segs" id="paytabs" role="tablist" aria-label="Cómo quieres pagar" data-t-aria-label="quote.results.payAria">
-        <button class="seg on" type="button" data-pay="monthly" role="tab" aria-selected="true" data-t="quote.results.monthly">Pago mensual</button>
-        <button class="seg" type="button" data-pay="full" role="tab" aria-selected="false" data-t="quote.results.full">Pago de contado</button>
+        <button class="seg on" type="button" data-pay="monthly" role="tab" aria-selected="true" data-t="quote.results.monthly">Mensual</button>
+        <button class="seg" type="button" data-pay="full" role="tab" aria-selected="false" data-t="quote.results.full">De contado</button>
       </div>
 
       <div class="rlist" id="rlist"></div>
@@ -3637,9 +3662,9 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
       // the answer beside it is something you can scan fourteen of.
       var v=covGet(k,bike); if(v==null) return '';
       return '<div class="sumrow"><span class="sk">'+esc(MOTO_CFG[k].short||MOTO_CFG[k].title)+'</span>'
-        +'<span class="sv">'+mlab(v)+'</span>'
+        +'<span class="sa"><span class="sv">'+mlab(v)+'</span>'
         +'<button type="button" data-edit="'+(bike==null?'covPolicy':(BIKE_PHYS.indexOf(k)>-1?'covBike':'covExtras'))
-        +'">'+T('edit')+'</button></div>';
+        +'">'+T('edit')+'</button></span></div>';
     }
     var out='<div class="sumgrp"><h3>'+T('wholePolicy')+'</h3>'
       + POLICY_COV.filter(covLive).map(function(k){ return row(k,null); }).join('')+'</div>';
@@ -3723,6 +3748,7 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
     // first built, and each one needs its own physical-damage block.
     if(name==='coverage') covVehicles();
     steps.forEach(function(s){ s.classList.toggle('on',s.dataset.step===name); });
+    glueTips(); fitRows();
     var i=flow.indexOf(name);
     // No step count. "Step 2 of 13" is the first thing a visitor reads on the
     // motorcycle flow and it reads as a warning about how long this is going
@@ -3740,6 +3766,63 @@ body.pvall [hidden]::after{content:' \2014 conditional, hidden until the answer 
       back.style.visibility='hidden'; }
     window.scrollTo({top:0,behavior:'smooth'});
   }
+  /* A native select cannot wrap its text, so a column narrower than the answer
+     shows "Me" for Mercedes-Benz. On a phone, and in Spanish, where answers run
+     about a third longer, a two- or three-up row of selects hits that often.
+     Each such row is measured against the longest answer it offers: one whose
+     columns cannot show it stacks to a single column, one that can stays side
+     by side. Measured rather than set per breakpoint, so it holds in either
+     language and whatever the options become. An answer longer than even a
+     full-width select (some occupations, a few countries) is repeated in full
+     on a line under it. */
+  var fitCtx=document.createElement('canvas').getContext('2d');
+  function textW(el,t){ var cs=getComputedStyle(el);
+    fitCtx.font=cs.fontStyle+' '+cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily;
+    return fitCtx.measureText(t).width; }
+  function roomIn(el,w){ var cs=getComputedStyle(el);
+    return w-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)
+            -parseFloat(cs.borderLeftWidth)-parseFloat(cs.borderRightWidth); }
+  function fitRows(){
+    [].forEach.call(form.querySelectorAll('.step.on .g2,.step.on .g3'),function(g){
+      var sels=g.querySelectorAll('select'); if(!sels.length||!g.clientWidth) return;
+      var n=g.classList.contains('g3')?3:2, gap=parseFloat(getComputedStyle(g).columnGap)||0,
+          col=(g.clientWidth-gap*(n-1))/n, stack=false;
+      [].forEach.call(sels,function(s){
+        var need=0;
+        [].forEach.call(s.options,function(o){ need=Math.max(need,textW(s,o.text.trim())); });
+        if(need>roomIn(s,col)+0.5) stack=true;
+      });
+      g.classList.toggle('fit1',stack);
+    });
+    [].forEach.call(form.querySelectorAll('.step.on select'),function(s){
+      var fl=s.parentNode, e=fl.querySelector(':scope > .selfull'),
+          o=s.options[s.selectedIndex], t=o&&o.value?o.text.trim():'',
+          full=!!t&&s.offsetWidth>0&&textW(s,t)>roomIn(s,s.offsetWidth)+0.5;
+      if(full&&!e){ e=document.createElement('small'); e.className='selfull';
+        e.setAttribute('aria-hidden','true'); s.insertAdjacentElement('afterend',e); }
+      if(e){ if(e.textContent!==(full?t:'')) e.textContent=full?t:''; e.hidden=!full; }
+    });
+  }
+  // A long label wraps, and the "?" after it used to wrap onto a line of its
+  // own. Each tip is joined to the word before it, once.
+  function glueTips(){
+    [].forEach.call(form.querySelectorAll('.step.on .tip:not(.glued)'),function(t){
+      t.classList.add('glued');
+      var prev=t.previousSibling;
+      if(!prev||prev.nodeType!==3) return;
+      var m=prev.nodeValue.match(/^([\s\S]*?)(\S+)(\s*)$/); if(!m) return;
+      prev.nodeValue=m[1];
+      var k=document.createElement('span'); k.className='tipk'; k.textContent=m[2]+m[3];
+      t.parentNode.insertBefore(k,t); k.appendChild(t);
+    });
+  }
+  var fitT=0;
+  function fitSoon(){ clearTimeout(fitT); fitT=setTimeout(function(){ glueTips(); fitRows(); },40); }
+  new MutationObserver(fitSoon).observe(form,{childList:true,subtree:true});
+  window.addEventListener('resize',fitSoon);
+  form.addEventListener('change',fitSoon);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitSoon);
+
   function chosenType(){ var r=form.querySelector('input[name=type]:checked'); return r?r.value:''; }
   function isHome(){ return chosenType()==='home'; }
   function isMoto(){ return chosenType()==='moto'; }
