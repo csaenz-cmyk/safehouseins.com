@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "title": "Contact &amp; Free Quote — Safe House Insurance, El Paso TX",
+    "desc": "Get a free insurance quote or talk to a real, local agent at Safe House Insurance in El Paso, TX. Call 915-503-1207, text 915-594-3777, email contact@safehouseins.com. Se habla español."
+  },
+  "crumb": "Contact",
+  "hero": {
+    "h1": "Talk to a real,<br><span class=\"it\">local agent.</span>",
+    "lede": "Request a free quote below, or reach us directly. We'll get back to you fast — in English or Spanish."
+  },
+  "touch": {
+    "kicker": "Get in touch",
+    "h2": "We're right here <span class=\"it\">in El Paso.</span>",
+    "lede": "Prefer a human? Call, text or email and we'll get you taken care of.",
+    "callNote": "Call &mdash; this line does not receive texts",
+    "textNote": "Text us on this one",
+    "emailNote": "Email us anytime",
+    "mapNote": "El Paso, TX 79925 &middot; Open in Google Maps",
+    "hours": "Mon&ndash;Fri, 11am&ndash;5pm",
+    "hoursNote": "Mountain Time &mdash; El Paso runs on Mountain, not Central",
+    "speaks": "Se habla español",
+    "bilingual": "Fully bilingual team"
+  },
+  "card": {
+    "h3": "Start your quote",
+    "p": "\n          Our online quote takes a few minutes and goes straight to a licensed agent.\n          Prefer to talk? Call 915-503-1207 or text 915-594-3777 and we will do it with you.",
+    "start": "Start my quote &rarr;",
+    "call": "📞 Call 915-503-1207",
+    "text": "💬 Text 915-594-3777",
+    "fine": "\n          No obligation &middot; A licensed agent reviews every quote before anything is issued."
+  },
+  "diy": {
+    "kicker": "Prefer to do it yourself?",
+    "h2": "Start an online quote <span class=\"it grad-text\">in 60 seconds.</span>",
+    "p": "Answer a few questions and a licensed agent reviews your options with you before anything is issued.",
+    "start": "Start my quote →"
+  }
+}

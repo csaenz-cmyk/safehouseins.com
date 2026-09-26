@@ -243,6 +243,19 @@ def render(template, **kw):
     return _MARK.sub(sub, template)
 
 
+def doc(name, code=None):
+    """A long-form document — the privacy policy, the SMS terms — kept as an
+    HTML file per language in locales/<lang>/docs/<name>.html rather than as a
+    JSON string nobody could read. Same rule as the catalog: both languages
+    have it or the checker fails."""
+    code = code or lang()
+    path = os.path.join(LOCALES, code, 'docs', name + '.html')
+    if not os.path.exists(path):
+        raise MissingTranslation('%s: no document locales/%s/docs/%s.html' % (code, code, name))
+    with open(path, encoding='utf-8') as fh:
+        return fh.read()
+
+
 def subtree(prefix, code=None):
     """Every key under a prefix, with the prefix removed — what a page's
     browser-side dictionary is built from."""

@@ -1,6 +1,15 @@
 # Builds privacy.html and sms-terms.html from one shell, so the two pages can
 # never drift apart. Content strings are kept verbatim where TCR checks them.
-import html, re, os
+#
+# The documents themselves are in locales/<lang>/docs/privacy.html and
+# sms-terms.html, one file per language. The English page shows BOTH, English
+# first and then Spanish, visible one after the other: that is the page the
+# 10DLC campaign is registered against, and a reviewer's Ctrl-F has to reach
+# every checked sentence (docs/a2p-10dlc.md). The Spanish page, /es/privacy
+# and /es/sms-terms, shows the Spanish document alone, with Spanish chrome.
+import html, re, os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import i18n, menu, shell
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,14 +29,14 @@ def fill(s):
     return s
 
 HEAD = """<!doctype html>
-<html lang="en">
+{html_open}
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title} · Safe House Insurance</title>
 <meta name="description" content="{desc}">
 <link rel="icon" href="assets/safehouse-heart.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+{langtags}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -180,6 +189,12 @@ HEAD = """<!doctype html>
 
   nav a.call{font-size:14.5px;font-weight:800;color:var(--blue);text-decoration:none;
       display:inline-flex;align-items:center;gap:7px}
+  .dtop .lsw{margin-right:auto}
+  /* On a phone the nav holds the help link, the language switch and the menu
+     button; the help link gives way first, since the menu panel carries both
+     numbers anyway. */
+  @media(max-width:520px){ nav a.call{display:none} nav .lsw.tight>span{display:none} }
+[[TOGGLE_CSS]]
 
   header.pg{background:linear-gradient(180deg,var(--ice),#fff);padding:40px 0 26px;
       border-bottom:1px solid var(--line)}
@@ -296,768 +311,74 @@ HEAD = """<!doctype html>
 <body>
 
 <nav><div class="wrap">
-  <a href="index.html" aria-label="Safe House Insurance home"><img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+  <a href="index.html" aria-label="{logohome}"><img class="logo" src="assets/safehouse-logo.png" alt="{logoalt}"></a>
   <span style="display:flex;align-items:center;gap:12px">
-    <a class="call" href="tel:+19155031207">&#9742; Need help? Call us</a>
-    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
+    <a class="call" href="tel:+19155031207">{help}</a>
+    {switch}{burger}
   </span>
 </div></nav>
 
-<div class="scrim" id="scrim" hidden></div>
-<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
-  <div class="dtop">
-    <a class="dcta" href="quote.html">Get a quote</a>
-    <button class="dclose" id="dclose" type="button" aria-label="Close menu">&#10005;</button>
-  </div>
-
-  <div class="dbig" role="navigation" aria-label="What we insure">
-    <a href="auto-insurance.html">Car <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    <a href="home-insurance.html">Home <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    <a href="commercial-insurance.html">Commercial <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-  </div>
-
-  <div class="dcols">
-    <div class="dcol">
-      <h6>Insurance types</h6>
-      <a href="auto-insurance.html">Car</a>
-      <a href="home-insurance.html">Homeowners</a>
-      <a href="renters-insurance.html">Renters</a>
-      <a href="motorcycle-insurance.html">Motorcycle</a>
-      <a href="rideshare-insurance.html">Rideshare &amp; delivery</a>
-      <a href="commercial-insurance.html">Work trucks &amp; fleets</a>
-    </div>
-    <div class="dcol">
-      <h6>Company</h6>
-      <a href="about.html">About us</a>
-      <a href="index.html#reviews">Reviews</a>
-      <a href="index.html#faq">FAQ</a>
-      <a href="careers.html">Careers</a>
-      <a href="investors.html">Investors</a>
-      <a href="contact.html">Contact</a>
-    </div>
-    <div class="dcol">
-      <h6>Already a customer</h6>
-      <a href="pay/">Make a payment</a>
-      <a href="claims/">Report a claim</a>
-      <a href="id-card/">Request an ID card</a>
-      <a href="quote.html">Re-shop your rate</a>
-    </div>
-    <div class="dcol">
-      <h6>For lenders</h6>
-      <a href="lienholder/">Lienholder requests</a>
-    </div>
-  </div>
-
-  <div class="dfoot">
-    <a class="dway call" href="tel:+19155031207">
-      <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
-      <span class="t"><s>Call us</s><b>915-503-1207</b></span>
-      <span class="ar" aria-hidden="true">&rarr;</span></a>
-    <a class="dway text" href="sms:+19155943777">
-      <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span>
-      <span class="t"><s>Text us</s><b>915-594-3777</b></span>
-      <span class="ar" aria-hidden="true">&rarr;</span></a>
-    <p class="des"><span lang="es">Se habla espa&ntilde;ol</span> &middot; Mon&ndash;Fri, 11am&ndash;5pm Mountain</p>
-  </div>
-</div>
-<script>
-(function(){
-  /* The menu panel.
-
-     No padding-top measured off the nav any more: the panel comes in from the
-     side and starts at the top of the window, so it does not have to duck
-     under anything. It closes on the X, on the scrim, on Escape, and on any
-     link inside it — a menu that stays open behind the page you just asked for
-     is the most common way one of these gets left broken. */
-  var burger=document.getElementById('burger'),
-      drawer=document.getElementById('drawer'),
-      scrim=document.getElementById('scrim'),
-      dclose=document.getElementById('dclose');
-  function setMenu(open){
-    burger.classList.toggle('on',open);
-    drawer.classList.toggle('on',open);
-    scrim.hidden=false;
-    scrim.classList.toggle('on',open);
-    document.body.classList.toggle('locked',open);
-    burger.setAttribute('aria-expanded',open);
-    burger.setAttribute('aria-label',open?'Close menu':'Open menu');
-    // Focus follows the panel, or the panel is invisible to a keyboard.
-    if(open) dclose.focus();
-    else burger.focus({preventScroll:true});
-  }
-  burger.addEventListener('click',function(){setMenu(!drawer.classList.contains('on'));});
-  dclose.addEventListener('click',function(){setMenu(false);});
-  scrim.addEventListener('click',function(){setMenu(false);});
-  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
-  addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
-
-})();
-</script>
+{panel}
+{menujs}
 
 <header class="pg"><div class="wrap">
   <h1>{h1}</h1>
   <p class="dates">{dates}</p>
-  <div class="langs"><a href="#en">English</a><a href="#es">Espa&ntilde;ol</a></div>
-</div></header>
+{langs}</div></header>
 
 <main><div class="wrap">
 """
 
-FOOT = """</div></main>
-
-<footer>
- <div class="fshell">
-
-  <!-- Band 1 — where to go. Two-column city lists so twelve names read as a
-       list and not as a wall. -->
-  <div class="fband">
-   <div class="fdeck">
-    <div><h5>Car insurance in Texas</h5><div class="c2"><a href="car-insurance/texas/houston/">Houston</a><a href="car-insurance/texas/san-antonio/">San Antonio</a><a href="car-insurance/texas/dallas/">Dallas</a><a href="car-insurance/texas/austin/">Austin</a><a href="car-insurance/texas/fort-worth/">Fort Worth</a><a href="car-insurance/texas/el-paso/">El Paso</a><a href="car-insurance/texas/arlington/">Arlington</a><a href="car-insurance/texas/laredo/">Laredo</a><a href="car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="car-insurance/texas/mcallen/">McAllen</a><a href="car-insurance/texas/brownsville/">Brownsville</a><a href="car-insurance/texas/lubbock/">Lubbock</a></div>
-      <a class="more" href="car-insurance/texas/">See all Texas cities &rarr;</a></div>
-
-    <div><h5>Car insurance in New Mexico</h5><div class="c2"><a href="car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="car-insurance/new-mexico/roswell/">Roswell</a><a href="car-insurance/new-mexico/farmington/">Farmington</a><a href="car-insurance/new-mexico/hobbs/">Hobbs</a><a href="car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
-      <a class="more" href="car-insurance/new-mexico/">See all New Mexico cities &rarr;</a></div>
-
-    <div><h5>What we insure</h5>
-      <a href="quote.html?type=car">Car insurance</a>
-      <a href="quote.html?type=home">Home insurance</a>
-      <a href="quote.html?type=home">Renters insurance</a>
-      <a href="quote.html?type=moto">Motorcycle insurance</a>
-      <a href="quote.html?type=commercial">Commercial vehicles</a>
-      <a href="quote.html?type=commercial">Work trucks and fleets</a>
-      <a class="more" href="car-insurance/makes/">Car insurance by make &rarr;</a></div>
-
-    <div><h5>Already a customer</h5>
-      <a href="pay/">Make a payment</a>
-      <a href="pay/guide/">How paying works</a>
-      <a href="id-card/">Request an ID card</a>
-      <a href="claims/">Report a claim</a>
-      <a href="claims/guide/">How claims work</a>
-      <a href="tel:+19155031207">Change your policy</a>
-      <a href="lienholder/">For lenders &amp; banks</a>
-      <a href="quote.html">Re-shop your rate</a></div>
-   </div>
-  </div>
-
-  <!-- Band 2 — reach a person. Everything here appeared twice in the old
-       footer: once in a link column and again in a centred block underneath. -->
-  <div class="fband">
-   <div class="fmid">
-    <div>
-     <h5>Reach us</h5>
-     <div class="fways">
-<div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><b>Call</b><a class="big" href="tel:+19155031207">915-503-1207</a><small>Mon&ndash;Fri, 11am&ndash;5pm Mountain</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span><b>Text</b><a class="big" href="sms:+19155943777">915-594-3777</a><small>A different line &mdash; this one receives texts</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 6.5L21 6"/></svg></span><b>Email</b><a class="big" href="mailto:contact@safehouseins.com">contact@safehouseins.com</a><small>Documents, questions, anything</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><b>Visit</b>
-       <address>Safe House Insurance LLC<br>6065 Montana Ave Ste C8<br>El Paso, TX 79925</address>
-       <p class="fhours">Mon&ndash;Fri, 11am&ndash;5pm Mountain</p>
-       <a href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">Open in Google Maps &rarr;</a></div>
-     </div>
-    </div>
-
-    <div>
-     <h5>Company</h5>
-     <div class="fcols">
-     <a href="about.html">About us</a>
-     <a href="careers.html">Careers</a>
-     <a href="investors.html">Investors</a>
-     <a href="index.html#faq">FAQ</a>
-     <a href="car-insurance/">Car insurance by city</a>
-     <a href="car-insurance/makes/">Car insurance by make</a>
-     <a href="index.html#reviews">Customer reviews</a>
-     <a href="contact.html">Contact</a>
-     </div>
-     <a class="more" href="quote.html" style="display:inline-block;margin-top:14px;background:var(--grad);color:#fff;padding:12px 22px;border-radius:99px;font-size:14.5px;font-weight:800">Get a quote &rarr;</a>
-    </div>
-   </div>
-  </div>
-
-  <!-- Band 3 — the sign-off. -->
-  <div class="fend">
-   <img class="logo" src="assets/safehouse-logo.png" alt="Safe House Insurance">
-   <p class="es">Licensed independent agency in El Paso, Texas &middot; 🇲🇽 Se habla español</p>
-   <p class="disc">Safe House Insurance LLC is an independent insurance agency licensed in Texas and New Mexico. Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy. Quotes are estimates and are not a guarantee of coverage or price. Carrier availability and eligibility vary by state and by applicant. &copy; 2026 Safe House Insurance.</p>
-   <p class="legal"><a href="privacy.html">Privacy Policy</a> &middot; <a href="sms-terms.html">SMS Terms</a> &middot; <a href="quote.html">Get a quote</a></p>
-  </div>
-
- </div>
-</footer>
-
-</body>
-</html>
-"""
-
-# ---------------------------------------------------------------- privacy ---
-PRIVACY_EN = """
-<section class="doc" id="en">
-<h2 class="lang">English</h2>
-
-<h3>1. Who we are</h3>
-<p>Safe House Insurance ({{ENTITY}}) is an independent insurance agency licensed in the State of
-Texas. We are located at {{ADDR}}, El Paso, Texas {{ZIP}}.</p>
-<p>In this policy, &ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;, and &ldquo;the Agency&rdquo; mean Safe House Insurance.
-&ldquo;You&rdquo; means anyone who visits safehouseins.com, requests a quote, or holds a policy placed
-through us.</p>
-<p>This policy explains what personal information we collect, how we use it, who we share it with,
-and the choices you have. It applies to safehouseins.com, to our client-facing pages, and to the
-phone calls, text messages, and emails we exchange with you.</p>
-
-<h3>2. Information we collect</h3>
-<p>As an insurance agency, we collect the information an insurance company needs in order to quote,
-issue, and service a policy. Depending on what you ask us for, this may include:</p>
-
-<h4>Identity and contact information</h4>
-<ul>
-  <li>Full name, date of birth, gender, marital status</li>
-  <li>Home address, mailing address, and how long you have lived there</li>
-  <li>Phone numbers and email addresses</li>
-  <li>Driver&rsquo;s license number and issuing state, or another government ID</li>
-  <li>Occupation and employment information</li>
-  <li>Whether you own or rent your home</li>
-</ul>
-
-<h4>Vehicle and property information</h4>
-<ul>
-  <li>Vehicle year, make, model, and VIN</li>
-  <li>How the vehicle is used and approximate annual mileage</li>
-  <li>Vehicle registration and photographs</li>
-  <li>Property details and photographs, for home policies</li>
-</ul>
-
-<h4>Insurance and driving history</h4>
-<ul>
-  <li>Prior insurance carrier, policy dates, and coverage limits</li>
-  <li>Accidents, violations, and claims history</li>
-  <li>Coverage selections, deductibles, and policy documents</li>
-  <li>Household members and additional drivers you ask us to include</li>
-</ul>
-
-<h4>Payment information</h4>
-<ul>
-  <li>Payment method type and the last four digits of a card or bank account</li>
-  <li>Payment amounts, dates, and history</li>
-  <li><strong>We never see or store your full card number, CVV, or full bank account number.</strong>
-      Those go directly from your browser or phone to our payment processor, which returns only a token.</li>
-</ul>
-
-<h4>Documents you send us</h4>
-<ul>
-  <li>Identification documents, proof of address, proof of prior insurance, signed forms, and any
-      other document you upload or send us</li>
-</ul>
-
-<h4>Information collected automatically on our website</h4>
-<ul>
-  <li>IP address, browser type, device type, pages viewed, and referring page</li>
-  <li>Cookies and similar technologies (see Section 10)</li>
-</ul>
-
-<p>We collect this information directly from you; from your authorization to obtain reports such as
-your motor vehicle record, claims history, or insurance score; and from the insurance companies we
-place your business with.</p>
-
-<h3>3. How we use your information</h3>
-<p>We use your information to:</p>
-<ul>
-  <li>Prepare quotes and compare prices across the insurance companies we represent</li>
-  <li>Apply for, issue, change, renew, and cancel policies on your behalf</li>
-  <li>Service your policy &mdash; answer questions, take payments, process endorsements, help with claims</li>
-  <li>Send you documents that require your signature</li>
-  <li>Send you notices about your policy: payments due, missed payments, renewals, cancellations,
-      documents we need, and confirmations</li>
-  <li>Comply with Texas insurance law, our recordkeeping obligations, and requests from regulators</li>
-  <li>Detect and prevent fraud</li>
-  <li>Improve our service and our website</li>
-</ul>
-<p><strong>We do not sell your personal information.</strong> We do not use your information for
-third-party advertising.</p>
-
-<h3>4. Who we share your information with</h3>
-<p>We share your information only where it is necessary to do what you asked us to do, or where the
-law requires it. Specifically:</p>
-<p><strong>Insurance companies and their agents.</strong> To quote and place your coverage, we share
-your application information with the carriers we represent &mdash; including Progressive, GEICO,
-GAINSCO, Kemper, National General, Bluefire, Hagerty, Clearcover, and others
-&mdash; and with their managing general agents and underwriters.</p>
-<p><strong>Rating and comparison services.</strong> We use ITC/Zywave (TurboRater) to send your
-application to multiple carriers at once and return their prices.</p>
-<p><strong>Service providers who work on our behalf.</strong> These companies may only use your
-information to provide their service to us, and may not use it for their own purposes:</p>
-<div class="tblwrap"><table class="tbl">
-  <tr><th>Provider</th><th>What they do for us</th></tr>
-  <tr><td>Stripe</td><td>Processes card and bank payments</td></tr>
-  <tr><td>RingCentral</td><td>Delivers our phone calls and text messages</td></tr>
-  <tr><td>Resend</td><td>Delivers our email</td></tr>
-  <tr><td>SignNow</td><td>Handles electronic signatures on documents</td></tr>
-  <tr><td>Supabase</td><td>Hosts our client database</td></tr>
-  <tr><td>Cloudflare</td><td>Hosts our websites and applications</td></tr>
-  <tr><td>Google</td><td>Address lookup on our forms</td></tr>
-  <tr><td>Anthropic</td><td>Assists our agents in drafting messages</td></tr>
-</table></div>
-<p><strong>Consumer reporting agencies.</strong> With your authorization, to obtain motor vehicle
-records, claims history, and insurance scores.</p>
-<p><strong>When the law requires it.</strong> To regulators such as the Texas Department of
-Insurance, to law enforcement under valid legal process, and to our attorneys, auditors, and
-accountants.</p>
-
-<div class="note">
-  <b>&#9888; Text messaging information &mdash; an important exception</b>
-  <p><strong>No mobile information will be shared with third parties or affiliates for marketing or
-  promotional purposes.</strong> Information sharing with subcontractors in support services, such
-  as customer service, is permitted. <strong>All other use case categories exclude text messaging
-  originator opt-in data and consent; this information will not be shared with any third
-  parties.</strong></p>
-  <p>Your phone number and your consent to receive text messages from us are used only to send you
-  the messages described in our <a href="sms-terms.html">SMS Terms of Service</a>. We do not sell,
-  rent, or share them with anyone for their own marketing.</p>
-</div>
-
-<h3>5. How we protect your information</h3>
-<p>We use administrative, technical, and physical safeguards to protect your information, including
-encrypted connections, access controls that limit each employee to the information they need, audit
-logs of who viewed or changed a record, and payment processing that keeps card and bank numbers out
-of our systems entirely.</p>
-<p>No method of transmission or storage is completely secure, so we cannot guarantee absolute
-security. If a breach affects your information, we will notify you as required by Texas law.</p>
-
-<h3>6. How long we keep your information</h3>
-<p>We keep your information for as long as you are a client and afterwards for as long as Texas
-insurance law and our recordkeeping obligations require &mdash; generally at least five years after
-a policy ends. Quote information for people who did not buy a policy is kept for a shorter period.</p>
-
-<h3>7. Your choices and rights</h3>
-<p><strong>Text messages.</strong> You can stop them at any time by replying <strong>STOP</strong> to
-any message from us. See our <a href="sms-terms.html">SMS Terms of Service</a> for details.</p>
-<p><strong>Email.</strong> You can unsubscribe from non-essential email using the link in any
-message. We will still send you notices about your policy, because those are part of servicing your
-coverage.</p>
-<p><strong>Phone calls.</strong> Tell us and we will note your preference.</p>
-<p><strong>Texas residents.</strong> Under the Texas Data Privacy and Security Act you may have the
-right to confirm whether we process your personal data and to access it; to correct inaccuracies; to
-request deletion; to obtain a portable copy; and to opt out of sale or targeted advertising &mdash;
-which does not apply to us, because we do neither. To exercise any of these rights, contact us using
-Section 12. We will verify your identity before acting on a request. You may appeal a denial by
-replying to our decision, and if we deny the appeal you may complain to the Texas Attorney General.</p>
-<p><strong>Financial privacy.</strong> As a financial institution under federal law, we will provide
-you with our privacy notice at the start of our relationship and annually thereafter where
-required.</p>
-
-<h3>8. Accessing and correcting your information</h3>
-<p>You may ask us for a copy of the personal information we hold about you, and ask us to correct
-anything that is wrong. Contact us using Section 12.</p>
-
-<h3>9. Children</h3>
-<p>Our website and services are for adults. We do not knowingly collect personal information from
-children under 13. We do collect information about minors when a parent or guardian lists them as a
-driver or household member on a policy.</p>
-
-<h3>10. Cookies and website analytics</h3>
-<p>Our website uses cookies and similar technologies to keep the site working, remember your
-preferences, and understand how visitors use it. You can block or delete cookies in your browser
-settings; some parts of the site may not work if you do.</p>
-
-<h3>11. Changes to this policy</h3>
-<p>We may update this policy. When we do, we will change the &ldquo;Last updated&rdquo; date at the
-top and post the new version here. Material changes will be highlighted on the page.</p>
-
-<h3>12. How to contact us</h3>
-<div class="contact">
-  <b>Safe House Insurance</b>
-  <p>{{ADDR}}, El Paso, TX {{ZIP}}</p>
-  <p><strong>Phone:</strong> <a href="tel:+19155031207">(915) 503-1207</a><br>
-     <strong>Text:</strong> <a href="sms:+19155943777">(915) 594-3777</a><br>
-     <strong>Email:</strong> <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a><br>
-     <strong>Website:</strong> safehouseins.com</p>
-</div>
-</section>
-"""
-
-PRIVACY_ES = """
-<section class="doc" id="es">
-<h2 class="lang">Espa&ntilde;ol</h2>
-
-<h3>1. Qui&eacute;nes somos</h3>
-<p>Safe House Insurance ({{ENTITY}}) es una agencia de seguros independiente con licencia en el
-Estado de Texas, ubicada en {{ADDR}}, El Paso, Texas {{ZIP}}.</p>
-<p>En este aviso, &ldquo;nosotros&rdquo; y &ldquo;la Agencia&rdquo; significan Safe House Insurance.
-&ldquo;Usted&rdquo; significa cualquier persona que visite safehouseins.com, solicite una
-cotizaci&oacute;n o tenga una p&oacute;liza colocada a trav&eacute;s de nosotros.</p>
-
-<h3>2. Informaci&oacute;n que recopilamos</h3>
-<p>Como agencia de seguros, recopilamos la informaci&oacute;n que una compa&ntilde;&iacute;a de
-seguros necesita para cotizar, emitir y dar servicio a una p&oacute;liza. Seg&uacute;n lo que usted
-nos solicite, esto puede incluir:</p>
-<p><strong>Identidad y contacto:</strong> nombre completo, fecha de nacimiento, g&eacute;nero, estado
-civil, domicilio, tel&eacute;fonos, correos electr&oacute;nicos, n&uacute;mero de licencia de
-conducir o identificaci&oacute;n oficial, ocupaci&oacute;n, y si usted es propietario o inquilino de
-su vivienda.</p>
-<p><strong>Veh&iacute;culos y propiedad:</strong> a&ntilde;o, marca, modelo y VIN del veh&iacute;culo;
-uso y millaje aproximado; registraci&oacute;n y fotograf&iacute;as; detalles y fotograf&iacute;as de
-la propiedad para p&oacute;lizas de casa.</p>
-<p><strong>Historial de seguros y manejo:</strong> aseguradora anterior, fechas y l&iacute;mites de
-cobertura; accidentes, infracciones y reclamos; coberturas seleccionadas y documentos de
-p&oacute;liza; miembros del hogar y conductores adicionales.</p>
-<p><strong>Informaci&oacute;n de pago:</strong> tipo de m&eacute;todo de pago y los &uacute;ltimos
-cuatro d&iacute;gitos de la tarjeta o cuenta bancaria; montos, fechas e historial de pagos.
-<strong>Nunca vemos ni guardamos su n&uacute;mero completo de tarjeta, su CVV ni su n&uacute;mero
-completo de cuenta bancaria</strong> &mdash; esos van directamente de su navegador o tel&eacute;fono
-a nuestro procesador de pagos, que solo nos devuelve un token.</p>
-<p><strong>Documentos que usted nos env&iacute;a:</strong> identificaciones, comprobante de
-domicilio, comprobante de seguro previo, formularios firmados y cualquier otro documento que suba o
-nos mande.</p>
-<p><strong>Informaci&oacute;n recopilada autom&aacute;ticamente en el sitio:</strong> direcci&oacute;n
-IP, tipo de navegador y dispositivo, p&aacute;ginas vistas, y cookies (vea la Secci&oacute;n 10).</p>
-<p>Recopilamos esta informaci&oacute;n directamente de usted; mediante su autorizaci&oacute;n para
-obtener reportes como su r&eacute;cord de manejo, historial de reclamos o puntaje de seguros; y de
-las compa&ntilde;&iacute;as de seguros con las que colocamos su negocio.</p>
-
-<h3>3. C&oacute;mo usamos su informaci&oacute;n</h3>
-<p>La usamos para preparar cotizaciones y comparar precios entre las aseguradoras que representamos;
-solicitar, emitir, modificar, renovar y cancelar p&oacute;lizas por usted; dar servicio a su
-p&oacute;liza (responder preguntas, recibir pagos, procesar endosos, ayudar con reclamos); enviarle
-documentos que requieren su firma; enviarle avisos sobre su p&oacute;liza (pagos vencidos, pagos no
-recibidos, renovaciones, cancelaciones, documentos que necesitamos y confirmaciones); cumplir con la
-ley de seguros de Texas; detectar y prevenir fraude; y mejorar nuestro servicio.</p>
-<p><strong>No vendemos su informaci&oacute;n personal.</strong> No usamos su informaci&oacute;n para
-publicidad de terceros.</p>
-
-<h3>4. Con qui&eacute;n compartimos su informaci&oacute;n</h3>
-<p>Compartimos su informaci&oacute;n &uacute;nicamente cuando es necesario para hacer lo que usted
-nos pidi&oacute;, o cuando la ley lo exige:</p>
-<p><strong>Compa&ntilde;&iacute;as de seguros y sus agentes.</strong> Para cotizar y colocar su
-cobertura compartimos su solicitud con las aseguradoras que representamos &mdash; incluyendo
-Progressive, GEICO, GAINSCO, Kemper, National General, Bluefire, Hagerty,
-Clearcover y otras &mdash; y con sus agentes generales administradores y suscriptores.</p>
-<p><strong>Servicios de cotizaci&oacute;n.</strong> Usamos ITC/Zywave (TurboRater) para enviar su
-solicitud a varias aseguradoras a la vez y obtener sus precios.</p>
-<p><strong>Proveedores que trabajan por cuenta nuestra.</strong> Solo pueden usar su
-informaci&oacute;n para prestarnos su servicio, nunca para fines propios: Stripe (pagos),
-RingCentral (llamadas y mensajes de texto), Resend (correo electr&oacute;nico), SignNow (firmas
-electr&oacute;nicas), Supabase (base de datos), Cloudflare (alojamiento), Google (b&uacute;squeda de
-direcciones) y Anthropic (asistencia a nuestros agentes para redactar mensajes).</p>
-<p><strong>Agencias de reportes del consumidor.</strong> Con su autorizaci&oacute;n, para obtener
-r&eacute;cords de manejo, historial de reclamos y puntajes de seguros.</p>
-<p><strong>Cuando la ley lo exige.</strong> Al Departamento de Seguros de Texas, a autoridades
-mediante proceso legal v&aacute;lido, y a nuestros abogados, auditores y contadores.</p>
-
-<div class="note">
-  <b>&#9888; Informaci&oacute;n de mensajes de texto &mdash; excepci&oacute;n importante</b>
-  <p><strong>Ninguna informaci&oacute;n de su tel&eacute;fono m&oacute;vil ser&aacute; compartida con
-  terceros ni afiliados con fines de mercadotecnia o promoci&oacute;n.</strong> Se permite compartir
-  informaci&oacute;n con subcontratistas de servicios de apoyo, como atenci&oacute;n al cliente.
-  <strong>Todas las dem&aacute;s categor&iacute;as de uso excluyen los datos de consentimiento y
-  registro para mensajes de texto; esta informaci&oacute;n no se compartir&aacute; con ning&uacute;n
-  tercero.</strong></p>
-  <p>Su n&uacute;mero de tel&eacute;fono y su consentimiento para recibir mensajes de texto se usan
-  &uacute;nicamente para enviarle los mensajes descritos en nuestros
-  <a href="sms-terms.html">T&eacute;rminos de Servicio de SMS</a>. No los vendemos, rentamos ni
-  compartimos con nadie para su propia mercadotecnia.</p>
-</div>
-
-<h3>5. C&oacute;mo protegemos su informaci&oacute;n</h3>
-<p>Usamos salvaguardas administrativas, t&eacute;cnicas y f&iacute;sicas: conexiones encriptadas,
-controles de acceso que limitan a cada empleado a la informaci&oacute;n que necesita, registros de
-auditor&iacute;a de qui&eacute;n vio o modific&oacute; un expediente, y un procesamiento de pagos que
-mantiene los n&uacute;meros de tarjeta y cuenta completamente fuera de nuestros sistemas.</p>
-<p>Ning&uacute;n m&eacute;todo de transmisi&oacute;n o almacenamiento es completamente seguro, por lo
-que no podemos garantizar seguridad absoluta. Si una violaci&oacute;n de datos afecta su
-informaci&oacute;n, se lo notificaremos conforme lo exige la ley de Texas.</p>
-
-<h3>6. Cu&aacute;nto tiempo conservamos su informaci&oacute;n</h3>
-<p>Conservamos su informaci&oacute;n mientras usted sea cliente y despu&eacute;s por el tiempo que
-exijan la ley de seguros de Texas y nuestras obligaciones de conservaci&oacute;n de registros &mdash;
-generalmente al menos cinco a&ntilde;os despu&eacute;s de que termine una p&oacute;liza. La
-informaci&oacute;n de cotizaciones de personas que no compraron una p&oacute;liza se conserva por
-menos tiempo.</p>
-
-<h3>7. Sus opciones y derechos</h3>
-<p><strong>Mensajes de texto.</strong> Puede detenerlos en cualquier momento respondiendo
-<strong>STOP</strong> (o <strong>ALTO</strong>, <strong>PARAR</strong>, <strong>CANCELAR</strong>,
-<strong>BAJA</strong>) a cualquier mensaje nuestro. Vea los
-<a href="sms-terms.html">T&eacute;rminos de Servicio de SMS</a>.</p>
-<p><strong>Correo electr&oacute;nico.</strong> Puede darse de baja de correos no esenciales con el
-enlace en cualquier mensaje. Seguiremos envi&aacute;ndole avisos sobre su p&oacute;liza, porque son
-parte del servicio de su cobertura.</p>
-<p><strong>Llamadas.</strong> D&iacute;ganos su preferencia y la anotaremos.</p>
-<p><strong>Residentes de Texas.</strong> Bajo la Ley de Privacidad y Seguridad de Datos de Texas
-usted puede tener derecho a confirmar si procesamos sus datos personales y a acceder a ellos; a
-corregir inexactitudes; a solicitar su eliminaci&oacute;n; a obtener una copia port&aacute;til; y a
-rechazar la venta o la publicidad dirigida &mdash; lo cual no aplica en nuestro caso, porque no
-hacemos ninguna de las dos. Para ejercer cualquiera de estos derechos, cont&aacute;ctenos usando la
-Secci&oacute;n 12. Verificaremos su identidad antes de actuar. Puede apelar una negativa respondiendo
-a nuestra decisi&oacute;n, y si negamos la apelaci&oacute;n puede presentar una queja ante el Fiscal
-General de Texas.</p>
-
-<h3>8. Acceso y correcci&oacute;n</h3>
-<p>Puede pedirnos una copia de la informaci&oacute;n personal que tenemos sobre usted y solicitar que
-corrijamos cualquier dato incorrecto. Cont&aacute;ctenos usando la Secci&oacute;n 12.</p>
-
-<h3>9. Menores de edad</h3>
-<p>Nuestro sitio y servicios son para adultos. No recopilamos a sabiendas informaci&oacute;n personal
-de menores de 13 a&ntilde;os. S&iacute; recopilamos informaci&oacute;n sobre menores cuando un padre
-o tutor los incluye como conductor o miembro del hogar en una p&oacute;liza.</p>
-
-<h3>10. Cookies</h3>
-<p>Nuestro sitio usa cookies y tecnolog&iacute;as similares para funcionar, recordar sus preferencias
-y entender c&oacute;mo los visitantes usan el sitio. Puede bloquearlas o borrarlas en la
-configuraci&oacute;n de su navegador; algunas partes del sitio podr&iacute;an no funcionar si lo
-hace.</p>
-
-<h3>11. Cambios a este aviso</h3>
-<p>Podemos actualizar este aviso. Cuando lo hagamos, cambiaremos la fecha de &ldquo;&Uacute;ltima
-actualizaci&oacute;n&rdquo; y publicaremos la nueva versi&oacute;n aqu&iacute;.</p>
-
-<h3>12. C&oacute;mo contactarnos</h3>
-<div class="contact">
-  <b>Safe House Insurance</b>
-  <p>{{ADDR}}, El Paso, TX {{ZIP}}</p>
-  <p><strong>Tel&eacute;fono:</strong> <a href="tel:+19155031207">(915) 503-1207</a><br>
-     <strong>Texto:</strong> <a href="sms:+19155943777">(915) 594-3777</a><br>
-     <strong>Correo:</strong> <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a><br>
-     <strong>Sitio web:</strong> safehouseins.com</p>
-</div>
-</section>
-"""
-
-# -------------------------------------------------------------- sms terms ---
-SMS_EN = """
-<section class="doc" id="en">
-<h2 class="lang">English</h2>
-
-<h3>1. About our text messaging program</h3>
-<p>Safe House Insurance ({{ENTITY}}) sends text messages to clients and to people who ask us for a
-quote, so we can service their insurance. Our messages come from <strong>(915) 594-3777</strong>.</p>
-<p>By giving us your mobile number and agreeing to these terms, you consent to receive text messages
-from Safe House Insurance at that number.</p>
-
-<h3>2. What we send</h3>
-<p>We send <strong>customer care and account notification</strong> messages only. We do
-<strong>not</strong> send marketing or promotional text messages. Typical messages include:</p>
-<ul>
-  <li>A payment is due, or a payment did not go through</li>
-  <li>Your policy is at risk of cancellation, and what is needed to keep it active</li>
-  <li>Documents we need from you, or documents that need your signature</li>
-  <li>Confirmation that we received your payment or documents</li>
-  <li>Your policy renewal</li>
-  <li>Replies to questions you text us</li>
-  <li>A quote you asked us for</li>
-</ul>
-<p><strong>Sample messages:</strong></p>
-<div class="msg">Safe House Insurance: Your Progressive policy 12345 needs your signature on
-disclosures by August 5, 2026 or it will cancel. Call 915-503-1207. Reply STOP to opt out.</div>
-<div class="msg">Safe House Insurance: We did not receive the monthly payment for your auto policy.
-To avoid cancellation, please make your payment before August 5, 2026. You can reply to this message
-or call us at (915) 503-1207. Reply STOP to opt out.</div>
-<div class="msg">Safe House Insurance: FINAL NOTICE. Your Kemper policy KMP25349856 cancels
-August 5, 2026. Call 915-503-1207 NOW to save your coverage. Reply STOP to opt out.</div>
-
-<h3>3. How you opt in</h3>
-<p>You give us permission to text you in one of these ways:</p>
-<ul>
-  <li><strong>On our website.</strong> You check the box next to &ldquo;I agree to receive text
-      messages from Safe House Insurance&rdquo; on a quote or contact form. <strong>This box is never
-      checked for you, and you can submit the form without checking it</strong> &mdash; we will
-      simply call or email you instead.</li>
-  <li><strong>In person or by phone.</strong> You give an agent your mobile number and tell them you
-      agree to receive text messages. The agent records your consent, with the date and time, in our
-      system.</li>
-  <li><strong>By texting us first.</strong> If you text (915) 594-3777, we will reply.</li>
-</ul>
-<p>We keep a record of when, how, and from which number each consent was given.</p>
-<p><strong>Your consent is not a condition of buying insurance from us.</strong> You can be our
-client and never receive a text message.</p>
-
-<h3>4. Message frequency</h3>
-<p>Message frequency varies and depends on your policy and your account activity. Most clients
-receive only a few messages per policy term. If a payment is missed, you may receive several
-messages in the days before the cancellation date.</p>
-
-<h3>5. Cost</h3>
-<p><strong>Message and data rates may apply.</strong> Safe House Insurance does not charge you for
-these messages, but your mobile carrier may, depending on your plan. Contact your carrier if you
-have questions about your plan.</p>
-
-<h3>6. How to stop messages</h3>
-<p><strong>Reply STOP to any message to opt out at any time.</strong> We will send one final message
-confirming that you have been unsubscribed, and then we will stop.</p>
-<p>We also accept: <strong>UNSUBSCRIBE, CANCEL, END, QUIT, OPTOUT, REMOVE</strong> &mdash; and, in
-Spanish, <strong>ALTO, PARAR, CANCELAR, BAJA</strong>.</p>
-<p>Opting out of text messages does not cancel your insurance policy and does not stop us from
-contacting you by phone, mail, or email about your coverage. If we need to reach you about something
-urgent &mdash; a payment that would cancel your policy, for example &mdash; we will call you.</p>
-<p>To start receiving messages again, reply <strong>START</strong> (also: UNSTOP, SUBSCRIBE,
-EMPEZAR, REINICIAR, SUSCRIBIR).</p>
-
-<h3>7. How to get help</h3>
-<p><strong>Reply HELP to any message</strong> for help, or contact us:</p>
-<ul>
-  <li><strong>Phone:</strong> <a href="tel:+19155031207">(915) 503-1207</a></li>
-  <li><strong>Text:</strong> <a href="sms:+19155943777">(915) 594-3777</a></li>
-  <li><strong>Email:</strong> <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></li>
-</ul>
-
-<h3>8. Carriers are not liable</h3>
-<p><strong>Mobile carriers are not liable for delayed or undelivered messages.</strong></p>
-
-<h3>9. Delivery</h3>
-<p>Messages may not be deliverable to all devices or in all areas, and delivery is subject to
-transmission conditions outside our control. We are not responsible for messages that are delayed or
-not delivered.</p>
-
-<h3>10. Privacy</h3>
-<p>Your privacy matters to us. <strong>No mobile information will be shared with third parties or
-affiliates for marketing or promotional purposes.</strong> Information sharing with subcontractors in
-support services, such as customer service, is permitted. <strong>All other use case categories
-exclude text messaging originator opt-in data and consent; this information will not be shared with
-any third parties.</strong></p>
-<p>See our <a href="privacy.html">Privacy Policy</a> for how we handle all of your information.</p>
-
-<h3>11. Changes to these terms</h3>
-<p>We may update these terms. When we do, we will change the &ldquo;Last updated&rdquo; date and post
-the new version here.</p>
-
-<h3>12. Contact</h3>
-<div class="contact">
-  <b>Safe House Insurance</b>
-  <p>{{ADDR}}, El Paso, TX {{ZIP}}</p>
-  <p>Phone <a href="tel:+19155031207">(915) 503-1207</a> &middot;
-     Text <a href="sms:+19155943777">(915) 594-3777</a> &middot;
-     <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></p>
-</div>
-</section>
-"""
-
-SMS_ES = """
-<section class="doc" id="es">
-<h2 class="lang">Espa&ntilde;ol</h2>
-
-<h3>1. Sobre nuestro programa de mensajes</h3>
-<p>Safe House Insurance ({{ENTITY}}) env&iacute;a mensajes de texto a sus clientes y a las personas
-que nos piden una cotizaci&oacute;n, para dar servicio a su seguro. Nuestros mensajes vienen del
-<strong>(915) 594-3777</strong>.</p>
-<p>Al darnos su n&uacute;mero de celular y aceptar estos t&eacute;rminos, usted consiente recibir
-mensajes de texto de Safe House Insurance en ese n&uacute;mero.</p>
-
-<h3>2. Qu&eacute; enviamos</h3>
-<p>Enviamos &uacute;nicamente mensajes de <strong>atenci&oacute;n al cliente y avisos de
-cuenta</strong>. <strong>No</strong> enviamos mensajes de mercadotecnia ni promocionales. Los
-mensajes t&iacute;picos incluyen:</p>
-<ul>
-  <li>Un pago est&aacute; por vencer, o un pago no se proces&oacute;</li>
-  <li>Su p&oacute;liza est&aacute; en riesgo de cancelaci&oacute;n y qu&eacute; se necesita para
-      mantenerla activa</li>
-  <li>Documentos que necesitamos de usted, o documentos que requieren su firma</li>
-  <li>Confirmaci&oacute;n de que recibimos su pago o sus documentos</li>
-  <li>La renovaci&oacute;n de su p&oacute;liza</li>
-  <li>Respuestas a preguntas que usted nos env&iacute;e por texto</li>
-  <li>Una cotizaci&oacute;n que usted nos pidi&oacute;</li>
-</ul>
-
-<h3>3. C&oacute;mo se registra</h3>
-<p>Usted nos da permiso de enviarle mensajes de una de estas maneras:</p>
-<ul>
-  <li><strong>En nuestro sitio web.</strong> Marca la casilla junto a &ldquo;Acepto recibir mensajes
-      de texto de Safe House Insurance&rdquo; en un formulario de cotizaci&oacute;n o contacto.
-      <strong>Esta casilla nunca viene marcada, y usted puede enviar el formulario sin
-      marcarla</strong> &mdash; simplemente lo llamaremos o le escribiremos por correo.</li>
-  <li><strong>En persona o por tel&eacute;fono.</strong> Le da su n&uacute;mero de celular a un
-      agente y le dice que acepta recibir mensajes. El agente registra su consentimiento, con fecha y
-      hora, en nuestro sistema.</li>
-  <li><strong>Envi&aacute;ndonos un texto primero.</strong> Si usted escribe al (915) 594-3777, le
-      responderemos.</li>
-</ul>
-<p>Guardamos un registro de cu&aacute;ndo, c&oacute;mo y desde qu&eacute; n&uacute;mero se dio cada
-consentimiento.</p>
-<p><strong>Su consentimiento no es condici&oacute;n para comprar un seguro con nosotros.</strong>
-Puede ser nuestro cliente y nunca recibir un mensaje de texto.</p>
-
-<h3>4. Frecuencia de mensajes</h3>
-<p>La frecuencia var&iacute;a y depende de su p&oacute;liza y de la actividad de su cuenta. La
-mayor&iacute;a de los clientes reciben solo unos pocos mensajes por vigencia de p&oacute;liza. Si se
-pierde un pago, podr&iacute;a recibir varios mensajes en los d&iacute;as previos a la fecha de
-cancelaci&oacute;n.</p>
-
-<h3>5. Costo</h3>
-<p><strong>Pueden aplicar tarifas de mensajes y datos.</strong> Safe House Insurance no le cobra por
-estos mensajes, pero su compa&ntilde;&iacute;a de telefon&iacute;a celular podr&iacute;a hacerlo,
-seg&uacute;n su plan. Consulte con su compa&ntilde;&iacute;a si tiene dudas.</p>
-
-<h3>6. C&oacute;mo detener los mensajes</h3>
-<p><strong>Responda STOP a cualquier mensaje para darse de baja en cualquier momento.</strong> Le
-enviaremos un &uacute;ltimo mensaje confirmando que fue dado de baja, y luego dejaremos de enviarle
-mensajes.</p>
-<p>Tambi&eacute;n aceptamos: <strong>ALTO, PARAR, CANCELAR, BAJA</strong> &mdash; y en ingl&eacute;s
-<strong>UNSUBSCRIBE, CANCEL, END, QUIT, OPTOUT, REMOVE</strong>.</p>
-<p>Darse de baja de los mensajes de texto no cancela su p&oacute;liza de seguro y no impide que lo
-contactemos por tel&eacute;fono, correo postal o correo electr&oacute;nico sobre su cobertura. Si
-necesitamos comunicarnos con usted por algo urgente &mdash; por ejemplo, un pago que
-cancelar&iacute;a su p&oacute;liza &mdash; le llamaremos.</p>
-<p>Para volver a recibir mensajes, responda <strong>START</strong> (tambi&eacute;n: EMPEZAR,
-REINICIAR, SUSCRIBIR).</p>
-
-<h3>7. C&oacute;mo obtener ayuda</h3>
-<p><strong>Responda HELP a cualquier mensaje</strong> para obtener ayuda, o cont&aacute;ctenos:</p>
-<ul>
-  <li><strong>Tel&eacute;fono:</strong> <a href="tel:+19155031207">(915) 503-1207</a></li>
-  <li><strong>Texto:</strong> <a href="sms:+19155943777">(915) 594-3777</a></li>
-  <li><strong>Correo:</strong> <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></li>
-</ul>
-
-<h3>8. Las compa&ntilde;&iacute;as de telefon&iacute;a no son responsables</h3>
-<p><strong>Las compa&ntilde;&iacute;as de telefon&iacute;a celular no son responsables por mensajes
-retrasados o no entregados.</strong></p>
-
-<h3>9. Entrega</h3>
-<p>Es posible que los mensajes no se puedan entregar a todos los dispositivos ni en todas las
-&aacute;reas, y la entrega est&aacute; sujeta a condiciones de transmisi&oacute;n fuera de nuestro
-control.</p>
-
-<h3>10. Privacidad</h3>
-<p>Su privacidad nos importa. <strong>Ninguna informaci&oacute;n de su tel&eacute;fono m&oacute;vil
-ser&aacute; compartida con terceros ni afiliados con fines de mercadotecnia o promoci&oacute;n.</strong>
-Se permite compartir informaci&oacute;n con subcontratistas de servicios de apoyo, como
-atenci&oacute;n al cliente. <strong>Todas las dem&aacute;s categor&iacute;as de uso excluyen los
-datos de consentimiento y registro para mensajes de texto; esta informaci&oacute;n no se
-compartir&aacute; con ning&uacute;n tercero.</strong></p>
-<p>Vea nuestro <a href="privacy.html">Aviso de Privacidad</a> para saber c&oacute;mo manejamos toda
-su informaci&oacute;n.</p>
-
-<h3>11. Cambios a estos t&eacute;rminos</h3>
-<p>Podemos actualizar estos t&eacute;rminos. Cuando lo hagamos, cambiaremos la fecha de
-&ldquo;&Uacute;ltima actualizaci&oacute;n&rdquo; y publicaremos la nueva versi&oacute;n
-aqu&iacute;.</p>
-
-<h3>12. Contacto</h3>
-<div class="contact">
-  <b>Safe House Insurance</b>
-  <p>{{ADDR}}, El Paso, TX {{ZIP}}</p>
-  <p>Tel&eacute;fono <a href="tel:+19155031207">(915) 503-1207</a> &middot;
-     Texto <a href="sms:+19155943777">(915) 594-3777</a> &middot;
-     <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></p>
-</div>
-</section>
-"""
+def foot():
+    """The shared footer; the page body opened one extra <div class="wrap">."""
+    return '</div>' + shell.footer()[1:]
+
+
+# ------------------------------------------------------------- documents ---
+# locales/<lang>/docs/<name>.html. Each starts with <section class="doc"
+# id="en|es"> and a small "English" / "Español" label, which only makes sense
+# on the page that shows both.
+def document(name):
+    en, es = i18n.doc(name, 'en'), i18n.doc(name, 'es')
+    if i18n.lang() == 'en':
+        return '\n' + en + '\n' + es
+    return '\n' + re.sub(r'<h2 class="lang">.*?</h2>\n+', '', es, count=1)
 
 DATES = ('Effective date: '+EFFECTIVE_EN+' &middot; Last updated: '+EFFECTIVE_EN+'<br>'
-         'Fecha de entrada en vigor: '+EFFECTIVE_ES
-         +' &middot; &Uacute;ltima actualizaci&oacute;n: '+EFFECTIVE_ES)
+         '<span lang="es-MX">Fecha de entrada en vigor: '+EFFECTIVE_ES
+         +' &middot; &Uacute;ltima actualizaci&oacute;n: '+EFFECTIVE_ES+'</span>')
+DATES_ES = ('Fecha de entrada en vigor: '+EFFECTIVE_ES
+            +' &middot; &Uacute;ltima actualizaci&oacute;n: '+EFFECTIVE_ES)
 
-pages = [
-  ('privacy.html', 'Privacy Policy', 'Privacy Policy / Aviso de Privacidad',
-   'How Safe House Insurance collects, uses and protects your information. Bilingual.',
-   PRIVACY_EN + PRIVACY_ES),
-  ('sms-terms.html', 'SMS Terms of Service', 'SMS Terms of Service<br>T&eacute;rminos de Servicio de SMS',
-   'Text messaging terms for Safe House Insurance. Reply STOP to opt out, HELP for help. Bilingual.',
-   SMS_EN + SMS_ES),
-]
+# slug, title, h1, description — the words are in locales/<lang>/legal.json.
+PAGES = ['privacy', 'sms-terms']
+KEY = {'privacy': 'privacy', 'sms-terms': 'sms'}
 
-def head(title, desc, h1, dates):
-    # plain replacement, because the CSS block is full of braces
-    return (HEAD.replace('{title}', title).replace('{desc}', desc)
-                .replace('{h1}', h1).replace('{dates}', dates))
+
+def head(slug, up, link):
+    """The page head and header, in the language being built. Plain
+    replacement, because the CSS block is full of braces."""
+    t = i18n.t
+    k = 'legal.' + KEY[slug] + '.'
+    both = i18n.lang() == 'en'
+    langs = ('  <div class="langs"><a href="#en">English</a><a href="#es" lang="es-MX">Espa&ntilde;ol</a></div>\n'
+             if both else '')
+    out = HEAD.replace('[[TOGGLE_CSS]]', i18n.TOGGLE_CSS)
+    for k2, v in (('{html_open}', i18n.html_open()),
+                  ('{langtags}', i18n.head_tags(slug, up, link)),
+                  ('{title}', t(k + 'title')), ('{desc}', t(k + 'desc')),
+                  ('{h1}', t(k + 'h1')), ('{dates}', DATES if both else DATES_ES),
+                  ('{langs}', langs),
+                  ('{logohome}', t('common.logoHome')), ('{logoalt}', t('common.logoAlt')),
+                  ('{help}', t('common.nav.help')),
+                  ('{switch}', i18n.toggle(up, link, 'tight')), ('{burger}', menu.burger()),
+                  ('{panel}', menu.panel(up, link=link)), ('{menujs}', menu.JS)):
+        out = out.replace(k2, v)
+    return out
+
 
 SITE = 'https://safehouseins.com'
 
-def canonical(url):
-    return '<link rel="canonical" href="'+url+'">\n'
 
 def to_dir(page, slug):
     """The same page one directory down, for hosts that resolve /privacy to a
@@ -1078,17 +399,31 @@ def to_dir(page, slug):
         page = page.replace('href="' + f, 'href="../' + f)
     return page
 
-for fname, title, h1, desc, body in pages:
-    slug = fname[:-5]                       # privacy.html -> privacy
-    core = fill(body)
-    flat = head(title, desc, h1, DATES) + core + FOOT
-    flat = flat.replace('</head>', canonical(SITE+'/'+slug)+'</head>')
-    open(os.path.join(ROOT, fname), 'w', encoding='utf-8').write(flat)
-    print(fname, len(flat), 'bytes')
 
-    # /privacy/ and /sms-terms/ — whichever form the host resolves, one works
-    d = os.path.join(ROOT, slug)
-    os.makedirs(d, exist_ok=True)
+def build(slug):
+    """(flat page, directory page) in the language being built.
+
+    The directory copy is the flat one moved down a level by to_dir(), except
+    for the pieces that point at the other language: the switch and the
+    preference script are rendered for the directory copy's own place."""
+    core = fill(document(slug))
+    flat = head(slug, '', slug + '.html') + core + foot()
     nested = to_dir(flat, slug)
-    open(os.path.join(d, 'index.html'), 'w', encoding='utf-8').write(nested)
-    print(slug+'/index.html', len(nested), 'bytes')
+    for old, new in ((i18n.toggle('', slug + '.html', 'tight'), i18n.toggle('../', slug + '/', 'tight')),
+                     (i18n.toggle('', slug + '.html', 'full'), i18n.toggle('../', slug + '/', 'full')),
+                     (i18n.pref_script(i18n.twin('', slug + '.html')),
+                      i18n.pref_script(i18n.twin('../', slug + '/')))):
+        assert old in nested, slug
+        nested = nested.replace(old, new)
+    return flat, nested
+
+
+if __name__ == '__main__':
+    for code in i18n.targets():
+        with i18n.language(code):
+            for slug in PAGES:
+                flat, nested = build(slug)
+                p1 = i18n.write(slug + '.html', flat)
+                p2 = i18n.write(slug + '/index.html', nested)
+                print(os.path.relpath(p1, i18n.ROOT), len(flat), 'bytes')
+                print(os.path.relpath(p2, i18n.ROOT), len(nested), 'bytes')

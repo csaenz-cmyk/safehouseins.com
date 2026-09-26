@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html lang="es-MX">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SMS Terms of Service · Safe House Insurance</title>
-<meta name="description" content="Text messaging terms for Safe House Insurance. Reply STOP to opt out, HELP for help. Bilingual.">
-<link rel="icon" href="../assets/safehouse-heart.png">
-<link rel="canonical" href="https://safehouseins.com/sms-terms">
+<title>Términos de servicio de SMS · Safe House Insurance</title>
+<meta name="description" content="Términos de los mensajes de texto de Safe House Insurance. Responda STOP para darse de baja y HELP para obtener ayuda.">
+<link rel="icon" href="../../assets/safehouse-heart.png">
+<link rel="canonical" href="https://safehouseins.com/es/sms-terms">
 <link rel="alternate" hreflang="en" href="https://safehouseins.com/sms-terms">
 <link rel="alternate" hreflang="es" href="https://safehouseins.com/es/sms-terms">
 <link rel="alternate" hreflang="x-default" href="https://safehouseins.com/sms-terms">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="es_MX">
-<script>(function(){try{var p=localStorage.getItem("shi-lang")||(document.cookie.match(/(?:^|; )shi-lang=(en|es)/)||[])[1];if(p&&p!=="en")location.replace("../es/sms-terms/"+location.search+location.hash)}catch(e){}})()</script>
+<meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="en_US">
+<script>(function(){try{var p=localStorage.getItem("shi-lang")||(document.cookie.match(/(?:^|; )shi-lang=(en|es)/)||[])[1];if(p&&p!=="es")location.replace("../../sms-terms/"+location.search+location.hash)}catch(e){}})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -73,7 +73,7 @@
      click that timed out, not by looking at it. */
   /* The panel carries its own palette.
 
-     It has to. assets/styles.css defines --ink/--muted/--line/--soft and no
+     It has to. ../assets/styles.css defines --ink/--muted/--line/--soft and no
      --navy, --ice or --ice2 at all; shell.py defines a third set. Written
      against the host's tokens the same rules produced white text on white on
      eleven pages, silently, because an undefined custom property does not
@@ -113,7 +113,7 @@
 
      The panel is dropped into three stylesheets that all style bare elements.
      It used a <nav> for the three product links, and both hosts style that one
-     — assets/styles.css as position:absolute, shell.py as position:sticky — so
+     — ../assets/styles.css as position:absolute, shell.py as position:sticky — so
      the links lifted out of the flow and landed on top of the columns below
      them. It is a <div role="navigation"> now, and these are here so the next
      host rule cannot do the same thing again. */
@@ -318,69 +318,69 @@
 <body>
 
 <nav><div class="wrap">
-  <a href="../index.html" aria-label="Safe House Insurance home"><img class="logo" src="../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
+  <a href="../index.html" aria-label="Inicio de Safe House Insurance"><img class="logo" src="../../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
   <span style="display:flex;align-items:center;gap:12px">
-    <a class="call" href="tel:+19155031207">&#9742; Need help? Call us</a>
-    <div class="lsw tight" role="group" aria-label="Language / Idioma"><span lang="en" aria-current="true"><span aria-hidden="true">EN</span><span class="lvh">English</span></span><a href="../es/sms-terms/" hreflang="es" lang="es-MX" data-lang="es" title="Ver esta página en español"><span aria-hidden="true">ES</span><span class="lvh">Español</span></a></div><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
+    <a class="call" href="tel:+19155031207">&#9742; ¿Necesitas ayuda? Llámanos</a>
+    <div class="lsw tight" role="group" aria-label="Idioma / Language"><a href="../../sms-terms/" hreflang="en" lang="en" data-lang="en" title="View this page in English"><span aria-hidden="true">EN</span><span class="lvh">English</span></a><span lang="es-MX" aria-current="true"><span aria-hidden="true">ES</span><span class="lvh">Español</span></span></div><button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
   </span>
 </div></nav>
 
 <div class="scrim" id="scrim" hidden></div>
-<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menú">
   <div class="dtop">
-    <div class="lsw full" role="group" aria-label="Language / Idioma"><span lang="en" aria-current="true">English</span><a href="../es/sms-terms/" hreflang="es" lang="es-MX" data-lang="es" title="Ver esta página en español">Español</a></div>
-    <a class="dcta" href="../quote.html">Get a quote</a>
-    <button class="dclose" id="dclose" type="button" aria-label="Close menu">&#10005;</button>
+    <div class="lsw full" role="group" aria-label="Idioma / Language"><a href="../../sms-terms/" hreflang="en" lang="en" data-lang="en" title="View this page in English">English</a><span lang="es-MX" aria-current="true">Español</span></div>
+    <a class="dcta" href="../quote.html">Cotiza gratis</a>
+    <button class="dclose" id="dclose" type="button" aria-label="Cerrar menú">&#10005;</button>
   </div>
 
-  <div class="dbig" role="navigation" aria-label="What we insure">
-    <a href="../auto-insurance.html">Car <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    <a href="../home-insurance.html">Home <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    <a href="../commercial-insurance.html">Commercial <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  <div class="dbig" role="navigation" aria-label="Lo que aseguramos">
+    <a href="../auto-insurance.html">Auto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a href="../home-insurance.html">Casa <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a href="../commercial-insurance.html">Comercial <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </div>
 
   <div class="dcols">
     <div class="dcol">
-      <h6>Insurance types</h6>
-      <a href="../auto-insurance.html">Car</a>
-      <a href="../home-insurance.html">Homeowners</a>
-      <a href="../renters-insurance.html">Renters</a>
-      <a href="../motorcycle-insurance.html">Motorcycle</a>
-      <a href="../rideshare-insurance.html">Rideshare &amp; delivery</a>
-      <a href="../commercial-insurance.html">Work trucks &amp; fleets</a>
+      <h6>Tipos de seguro</h6>
+      <a href="../auto-insurance.html">Auto</a>
+      <a href="../home-insurance.html">Casa propia</a>
+      <a href="../renters-insurance.html">Inquilinos</a>
+      <a href="../motorcycle-insurance.html">Motocicleta</a>
+      <a href="../rideshare-insurance.html">Uber, Lyft y entregas</a>
+      <a href="../commercial-insurance.html">Camionetas de trabajo y flotillas</a>
     </div>
     <div class="dcol">
-      <h6>Company</h6>
-      <a href="../about.html">About us</a>
-      <a href="index.html#reviews">Reviews</a>
-      <a href="index.html#faq">FAQ</a>
-      <a href="../careers.html">Careers</a>
-      <a href="../investors.html">Investors</a>
-      <a href="../contact.html">Contact</a>
+      <h6>La agencia</h6>
+      <a href="../about.html">Quiénes somos</a>
+      <a href="index.html#reviews">Reseñas</a>
+      <a href="index.html#faq">Preguntas frecuentes</a>
+      <a href="../careers.html">Empleos</a>
+      <a href="../investors.html">Inversionistas</a>
+      <a href="../contact.html">Contacto</a>
     </div>
     <div class="dcol">
-      <h6>Already a customer</h6>
-      <a href="../pay/">Make a payment</a>
-      <a href="../claims/">Report a claim</a>
-      <a href="../id-card/">Request an ID card</a>
-      <a href="../quote.html">Re-shop your rate</a>
+      <h6>Si ya eres cliente</h6>
+      <a href="../pay/">Hacer un pago</a>
+      <a href="../claims/">Reportar un reclamo</a>
+      <a href="../id-card/">Pedir tu tarjeta de seguro</a>
+      <a href="../quote.html">Volver a comparar tu precio</a>
     </div>
     <div class="dcol">
-      <h6>For lenders</h6>
-      <a href="../lienholder/">Lienholder requests</a>
+      <h6>Para financieras</h6>
+      <a href="../lienholder/">Solicitudes de acreedores</a>
     </div>
   </div>
 
   <div class="dfoot">
     <a class="dway call" href="tel:+19155031207">
       <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
-      <span class="t"><s>Call us</s><b>915-503-1207</b></span>
+      <span class="t"><s>Llámanos</s><b>915-503-1207</b></span>
       <span class="ar" aria-hidden="true">&rarr;</span></a>
     <a class="dway text" href="sms:+19155943777">
       <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span>
-      <span class="t"><s>Text us</s><b>915-594-3777</b></span>
+      <span class="t"><s>Mándanos un mensaje</s><b>915-594-3777</b></span>
       <span class="ar" aria-hidden="true">&rarr;</span></a>
-    <p class="des"><span lang="es">Se habla espa&ntilde;ol</span> &middot; Mon&ndash;Fri, 11am&ndash;5pm Mountain</p>
+    <p class="des">Te atendemos en español &middot; lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña)</p>
   </div>
 </div>
 <script>
@@ -436,121 +436,13 @@
 </script>
 
 <header class="pg"><div class="wrap">
-  <h1>SMS Terms of Service<br><span lang="es-MX">T&eacute;rminos de Servicio de SMS</span></h1>
-  <p class="dates">Effective date: August 6, 2026 &middot; Last updated: August 6, 2026<br><span lang="es-MX">Fecha de entrada en vigor: 6 de agosto de 2026 &middot; &Uacute;ltima actualizaci&oacute;n: 6 de agosto de 2026</span></p>
-  <div class="langs"><a href="#en">English</a><a href="#es" lang="es-MX">Espa&ntilde;ol</a></div>
+  <h1>Términos de servicio de SMS</h1>
+  <p class="dates">Fecha de entrada en vigor: 6 de agosto de 2026 &middot; &Uacute;ltima actualizaci&oacute;n: 6 de agosto de 2026</p>
 </div></header>
 
 <main><div class="wrap">
 
-<section class="doc" id="en">
-<h2 class="lang">English</h2>
-
-<h3>1. About our text messaging program</h3>
-<p>Safe House Insurance (Safe House Insurance LLC) sends text messages to clients and to people who ask us for a
-quote, so we can service their insurance. Our messages come from <strong>(915) 594-3777</strong>.</p>
-<p>By giving us your mobile number and agreeing to these terms, you consent to receive text messages
-from Safe House Insurance at that number.</p>
-
-<h3>2. What we send</h3>
-<p>We send <strong>customer care and account notification</strong> messages only. We do
-<strong>not</strong> send marketing or promotional text messages. Typical messages include:</p>
-<ul>
-  <li>A payment is due, or a payment did not go through</li>
-  <li>Your policy is at risk of cancellation, and what is needed to keep it active</li>
-  <li>Documents we need from you, or documents that need your signature</li>
-  <li>Confirmation that we received your payment or documents</li>
-  <li>Your policy renewal</li>
-  <li>Replies to questions you text us</li>
-  <li>A quote you asked us for</li>
-</ul>
-<p><strong>Sample messages:</strong></p>
-<div class="msg">Safe House Insurance: Your Progressive policy 12345 needs your signature on
-disclosures by August 5, 2026 or it will cancel. Call 915-503-1207. Reply STOP to opt out.</div>
-<div class="msg">Safe House Insurance: We did not receive the monthly payment for your auto policy.
-To avoid cancellation, please make your payment before August 5, 2026. You can reply to this message
-or call us at (915) 503-1207. Reply STOP to opt out.</div>
-<div class="msg">Safe House Insurance: FINAL NOTICE. Your Kemper policy KMP25349856 cancels
-August 5, 2026. Call 915-503-1207 NOW to save your coverage. Reply STOP to opt out.</div>
-
-<h3>3. How you opt in</h3>
-<p>You give us permission to text you in one of these ways:</p>
-<ul>
-  <li><strong>On our website.</strong> You check the box next to &ldquo;I agree to receive text
-      messages from Safe House Insurance&rdquo; on a quote or contact form. <strong>This box is never
-      checked for you, and you can submit the form without checking it</strong> &mdash; we will
-      simply call or email you instead.</li>
-  <li><strong>In person or by phone.</strong> You give an agent your mobile number and tell them you
-      agree to receive text messages. The agent records your consent, with the date and time, in our
-      system.</li>
-  <li><strong>By texting us first.</strong> If you text (915) 594-3777, we will reply.</li>
-</ul>
-<p>We keep a record of when, how, and from which number each consent was given.</p>
-<p><strong>Your consent is not a condition of buying insurance from us.</strong> You can be our
-client and never receive a text message.</p>
-
-<h3>4. Message frequency</h3>
-<p>Message frequency varies and depends on your policy and your account activity. Most clients
-receive only a few messages per policy term. If a payment is missed, you may receive several
-messages in the days before the cancellation date.</p>
-
-<h3>5. Cost</h3>
-<p><strong>Message and data rates may apply.</strong> Safe House Insurance does not charge you for
-these messages, but your mobile carrier may, depending on your plan. Contact your carrier if you
-have questions about your plan.</p>
-
-<h3>6. How to stop messages</h3>
-<p><strong>Reply STOP to any message to opt out at any time.</strong> We will send one final message
-confirming that you have been unsubscribed, and then we will stop.</p>
-<p>We also accept: <strong>UNSUBSCRIBE, CANCEL, END, QUIT, OPTOUT, REMOVE</strong> &mdash; and, in
-Spanish, <strong>ALTO, PARAR, CANCELAR, BAJA</strong>.</p>
-<p>Opting out of text messages does not cancel your insurance policy and does not stop us from
-contacting you by phone, mail, or email about your coverage. If we need to reach you about something
-urgent &mdash; a payment that would cancel your policy, for example &mdash; we will call you.</p>
-<p>To start receiving messages again, reply <strong>START</strong> (also: UNSTOP, SUBSCRIBE,
-EMPEZAR, REINICIAR, SUSCRIBIR).</p>
-
-<h3>7. How to get help</h3>
-<p><strong>Reply HELP to any message</strong> for help, or contact us:</p>
-<ul>
-  <li><strong>Phone:</strong> <a href="tel:+19155031207">(915) 503-1207</a></li>
-  <li><strong>Text:</strong> <a href="sms:+19155943777">(915) 594-3777</a></li>
-  <li><strong>Email:</strong> <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></li>
-</ul>
-
-<h3>8. Carriers are not liable</h3>
-<p><strong>Mobile carriers are not liable for delayed or undelivered messages.</strong></p>
-
-<h3>9. Delivery</h3>
-<p>Messages may not be deliverable to all devices or in all areas, and delivery is subject to
-transmission conditions outside our control. We are not responsible for messages that are delayed or
-not delivered.</p>
-
-<h3>10. Privacy</h3>
-<p>Your privacy matters to us. <strong>No mobile information will be shared with third parties or
-affiliates for marketing or promotional purposes.</strong> Information sharing with subcontractors in
-support services, such as customer service, is permitted. <strong>All other use case categories
-exclude text messaging originator opt-in data and consent; this information will not be shared with
-any third parties.</strong></p>
-<p>See our <a href="../privacy/">Privacy Policy</a> for how we handle all of your information.</p>
-
-<h3>11. Changes to these terms</h3>
-<p>We may update these terms. When we do, we will change the &ldquo;Last updated&rdquo; date and post
-the new version here.</p>
-
-<h3>12. Contact</h3>
-<div class="contact">
-  <b>Safe House Insurance</b>
-  <p>6065 Montana Ave Ste C8, El Paso, TX 79925</p>
-  <p>Phone <a href="tel:+19155031207">(915) 503-1207</a> &middot;
-     Text <a href="sms:+19155943777">(915) 594-3777</a> &middot;
-     <a href="mailto:contact@safehouseins.com">contact@safehouseins.com</a></p>
-</div>
-</section>
-
 <section class="doc" id="es" lang="es-MX">
-<h2 class="lang">Espa&ntilde;ol</h2>
-
 <h3>1. Sobre nuestro programa de mensajes</h3>
 <p>Safe House Insurance (Safe House Insurance LLC) env&iacute;a mensajes de texto a sus clientes y a las personas
 que nos piden una cotizaci&oacute;n, para dar servicio a su seguro. Nuestros mensajes vienen del
@@ -665,30 +557,30 @@ aqu&iacute;.</p>
        list and not as a wall. -->
   <div class="fband">
    <div class="fdeck">
-    <div><h5>Car insurance in Texas</h5><div class="c2"><a href="../car-insurance/texas/houston/">Houston</a><a href="../car-insurance/texas/san-antonio/">San Antonio</a><a href="../car-insurance/texas/dallas/">Dallas</a><a href="../car-insurance/texas/austin/">Austin</a><a href="../car-insurance/texas/fort-worth/">Fort Worth</a><a href="../car-insurance/texas/el-paso/">El Paso</a><a href="../car-insurance/texas/arlington/">Arlington</a><a href="../car-insurance/texas/laredo/">Laredo</a><a href="../car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="../car-insurance/texas/mcallen/">McAllen</a><a href="../car-insurance/texas/brownsville/">Brownsville</a><a href="../car-insurance/texas/lubbock/">Lubbock</a></div>
-      <a class="more" href="../car-insurance/texas/">See all Texas cities &rarr;</a></div>
+    <div><h5>Seguro de auto en Texas</h5><div class="c2"><a href="../car-insurance/texas/houston/">Houston</a><a href="../car-insurance/texas/san-antonio/">San Antonio</a><a href="../car-insurance/texas/dallas/">Dallas</a><a href="../car-insurance/texas/austin/">Austin</a><a href="../car-insurance/texas/fort-worth/">Fort Worth</a><a href="../car-insurance/texas/el-paso/">El Paso</a><a href="../car-insurance/texas/arlington/">Arlington</a><a href="../car-insurance/texas/laredo/">Laredo</a><a href="../car-insurance/texas/corpus-christi/">Corpus Christi</a><a href="../car-insurance/texas/mcallen/">McAllen</a><a href="../car-insurance/texas/brownsville/">Brownsville</a><a href="../car-insurance/texas/lubbock/">Lubbock</a></div>
+      <a class="more" href="../car-insurance/texas/">Ver todas las ciudades de Texas &rarr;</a></div>
 
-    <div><h5>Car insurance in New Mexico</h5><div class="c2"><a href="../car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="../car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="../car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="../car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="../car-insurance/new-mexico/roswell/">Roswell</a><a href="../car-insurance/new-mexico/farmington/">Farmington</a><a href="../car-insurance/new-mexico/hobbs/">Hobbs</a><a href="../car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
-      <a class="more" href="../car-insurance/new-mexico/">See all New Mexico cities &rarr;</a></div>
+    <div><h5>Seguro de auto en Nuevo México</h5><div class="c2"><a href="../car-insurance/new-mexico/albuquerque/">Albuquerque</a><a href="../car-insurance/new-mexico/las-cruces/">Las Cruces</a><a href="../car-insurance/new-mexico/rio-rancho/">Rio Rancho</a><a href="../car-insurance/new-mexico/santa-fe/">Santa Fe</a><a href="../car-insurance/new-mexico/roswell/">Roswell</a><a href="../car-insurance/new-mexico/farmington/">Farmington</a><a href="../car-insurance/new-mexico/hobbs/">Hobbs</a><a href="../car-insurance/new-mexico/carlsbad/">Carlsbad</a></div>
+      <a class="more" href="../car-insurance/new-mexico/">Ver todas las ciudades de Nuevo México &rarr;</a></div>
 
-    <div><h5>What we insure</h5>
-      <a href="../quote.html?type=car">Car insurance</a>
-      <a href="../quote.html?type=home">Home insurance</a>
-      <a href="../quote.html?type=home">Renters insurance</a>
-      <a href="../quote.html?type=moto">Motorcycle insurance</a>
-      <a href="../quote.html?type=commercial">Commercial vehicles</a>
-      <a href="../quote.html?type=commercial">Work trucks and fleets</a>
-      <a class="more" href="../car-insurance/makes/">Car insurance by make &rarr;</a></div>
+    <div><h5>Lo que aseguramos</h5>
+      <a href="../quote.html?type=car">Seguro de auto</a>
+      <a href="../quote.html?type=home">Seguro de casa</a>
+      <a href="../quote.html?type=home">Seguro para inquilinos</a>
+      <a href="../quote.html?type=moto">Seguro de motocicleta</a>
+      <a href="../quote.html?type=commercial">Vehículos comerciales</a>
+      <a href="../quote.html?type=commercial">Camionetas de trabajo y flotillas</a>
+      <a class="more" href="../car-insurance/makes/">Seguro de auto por marca &rarr;</a></div>
 
-    <div><h5>Already a customer</h5>
-      <a href="../pay/">Make a payment</a>
-      <a href="../pay/guide/">How paying works</a>
-      <a href="../id-card/">Request an ID card</a>
-      <a href="../claims/">Report a claim</a>
-      <a href="../claims/guide/">How claims work</a>
-      <a href="tel:+19155031207">Change your policy</a>
-      <a href="../lienholder/">For lenders &amp; banks</a>
-      <a href="../quote.html">Re-shop your rate</a></div>
+    <div><h5>Si ya eres cliente</h5>
+      <a href="../pay/">Hacer un pago</a>
+      <a href="../pay/guide/">Cómo funcionan los pagos</a>
+      <a href="../id-card/">Pedir tu tarjeta de seguro</a>
+      <a href="../claims/">Reportar un reclamo</a>
+      <a href="../claims/guide/">Cómo funcionan los reclamos</a>
+      <a href="tel:+19155031207">Hacer un cambio a tu póliza</a>
+      <a href="../lienholder/">Para bancos y financieras</a>
+      <a href="../quote.html">Volver a comparar tu precio</a></div>
    </div>
   </div>
 
@@ -697,38 +589,38 @@ aqu&iacute;.</p>
   <div class="fband">
    <div class="fmid">
     <div>
-     <h5>Reach us</h5>
+     <h5>Contáctanos</h5>
      <div class="fways">
-<div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><b>Call</b><a class="big" href="tel:+19155031207">915-503-1207</a><small>Mon&ndash;Fri, 11am&ndash;5pm Mountain</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span><b>Text</b><a class="big" href="sms:+19155943777">915-594-3777</a><small>A different line &mdash; this one receives texts</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 6.5L21 6"/></svg></span><b>Email</b><a class="big" href="mailto:contact@safehouseins.com">contact@safehouseins.com</a><small>Documents, questions, anything</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><b>Visit</b>
+<div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><b>Llamadas</b><a class="big" href="tel:+19155031207">915-503-1207</a><small>Lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña)</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-4-.9L3 20.5l1.4-4.6a8.9 8.9 0 0 1-.9-4 8.4 8.4 0 0 1 8.4-9 8.4 8.4 0 0 1 9 8.6z"/></svg></span><b>Mensajes de texto</b><a class="big" href="sms:+19155943777">915-594-3777</a><small>Es otra línea &mdash; esta sí recibe mensajes de texto</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 6.5L21 6"/></svg></span><b>Correo electrónico</b><a class="big" href="mailto:contact@safehouseins.com">contact@safehouseins.com</a><small>Documentos, preguntas, lo que necesites</small></div><div class="fway"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><b>Visítanos</b>
        <address>Safe House Insurance LLC<br>6065 Montana Ave Ste C8<br>El Paso, TX 79925</address>
-       <p class="fhours">Mon&ndash;Fri, 11am&ndash;5pm Mountain</p>
-       <a href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">Open in Google Maps &rarr;</a></div>
+       <p class="fhours">Lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m. (hora de la montaña)</p>
+       <a href="https://maps.google.com/?cid=9791616154088810738" target="_blank" rel="noopener">Abrir en Google Maps &rarr;</a></div>
      </div>
     </div>
 
     <div>
-     <h5>Company</h5>
+     <h5>La agencia</h5>
      <div class="fcols">
-     <a href="../about.html">About us</a>
-     <a href="../careers.html">Careers</a>
-     <a href="../investors.html">Investors</a>
-     <a href="index.html#faq">FAQ</a>
-     <a href="../car-insurance/">Car insurance by city</a>
-     <a href="../car-insurance/makes/">Car insurance by make</a>
-     <a href="index.html#reviews">Customer reviews</a>
-     <a href="../contact.html">Contact</a>
+     <a href="../about.html">Quiénes somos</a>
+     <a href="../careers.html">Empleos</a>
+     <a href="../investors.html">Inversionistas</a>
+     <a href="index.html#faq">Preguntas frecuentes</a>
+     <a href="../car-insurance/">Seguro de auto por ciudad</a>
+     <a href="../car-insurance/makes/">Seguro de auto por marca</a>
+     <a href="index.html#reviews">Reseñas de clientes</a>
+     <a href="../contact.html">Contacto</a>
      </div>
-     <a class="more" href="../quote.html" style="display:inline-block;margin-top:14px;background:var(--grad);color:#fff;padding:12px 22px;border-radius:99px;font-size:14.5px;font-weight:800">Get a quote &rarr;</a>
+     <a class="more" href="../quote.html" style="display:inline-block;margin-top:14px;background:var(--grad);color:#fff;padding:12px 22px;border-radius:99px;font-size:14.5px;font-weight:800">Cotiza gratis &rarr;</a>
     </div>
    </div>
   </div>
 
   <!-- Band 3 — the sign-off. -->
   <div class="fend">
-   <img class="logo" src="../assets/safehouse-logo.png" alt="Safe House Insurance">
-   <p class="es">Licensed independent agency in El Paso, Texas &middot; 🇲🇽 Se habla español</p>
-   <p class="disc">Safe House Insurance LLC is an independent insurance agency licensed in Texas and New Mexico. Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy. Quotes are estimates and are not a guarantee of coverage or price. Carrier availability and eligibility vary by state and by applicant. &copy; 2026 Safe House Insurance.</p>
-   <p class="legal"><a href="../privacy/">Privacy Policy</a> &middot; <a href="../sms-terms/">SMS Terms</a> &middot; <a href="../quote.html">Get a quote</a></p>
+   <img class="logo" src="../../assets/safehouse-logo.png" alt="Safe House Insurance">
+   <p class="es">Agencia independiente con licencia en El Paso, Texas &middot; 🇲🇽 Te atendemos en español</p>
+   <p class="disc">Safe House Insurance LLC es una agencia de seguros independiente con licencia en Texas y Nuevo México. La cobertura está sujeta a la aprobación de la aseguradora, a sus criterios de suscripción y a los términos, condiciones y exclusiones de la póliza emitida. Las cotizaciones son estimados y no garantizan la cobertura ni el precio. Las aseguradoras disponibles y los requisitos para calificar varían según el estado y el solicitante. &copy; 2026 Safe House Insurance.</p>
+   <p class="legal"><a href="../privacy/">Aviso de privacidad</a> &middot; <a href="../sms-terms/">Términos de SMS</a> &middot; <a href="../quote.html">Cotiza gratis</a></p>
   </div>
 
  </div>

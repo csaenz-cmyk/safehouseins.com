@@ -348,17 +348,35 @@ def main():
     print('catalog: %d keys per language' % len(en))
     if n:
         print('pages:   %d English pages, each with a Spanish twin checked' % n)
+    def compact(items):
+        """Page findings first, then catalog findings; a run of missing keys
+        under one prefix is one line with a count, not a hundred."""
+        pages = [i for i in items if i[0].endswith('.html')]
+        rest = [i for i in items if not i[0].endswith('.html')]
+        groups = collections.OrderedDict()
+        other = []
+        for where, what in rest:
+            m = re.match(r'(missing key|key with no English): ((?:[^.]+\.){1,3})', what)
+            if m:
+                groups.setdefault((where, m.group(1), m.group(2)), []).append(what)
+            else:
+                other.append((where, what))
+        out = pages + other
+        for (where, kind, prefix), whats in groups.items():
+            out.append((where, '%s: %s… (%d keys)' % (kind, prefix, len(whats))
+                        if len(whats) > 1 else whats[0]))
+        return out
+
     for label, items in (('FAIL', errors), ('warn', warnings)):
-        seen = collections.Counter(w for _, w in items)
-        if items:
-            print('\n%s — %d' % (label, len(items)))
-        shown = 0
-        for where, what in items:
-            if shown >= 200:
-                print('  ... %d more' % (len(items) - shown))
+        if not items:
+            continue
+        shown_items = compact(items)
+        print('\n%s — %d' % (label, len(items)))
+        for n, (where, what) in enumerate(shown_items):
+            if n >= 300:
+                print('  ... %d more lines' % (len(shown_items) - n))
                 break
             print('  %-44s %s' % (where[:44], what))
-            shown += 1
     if accept:
         print('\nreview record updated: ' + os.path.relpath(LOCK, ROOT))
     return 1 if errors else 0

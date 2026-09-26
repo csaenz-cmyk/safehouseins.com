@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "title": "Contacto y cotización gratis — Safe House Insurance, El Paso TX",
+    "desc": "Pide una cotización de seguro gratis o habla con un agente local en Safe House Insurance, El Paso, TX. Llama al 915-503-1207 o escribe al 915-594-3777."
+  },
+  "crumb": "Contacto",
+  "hero": {
+    "h1": "Habla con un agente<br><span class=\"it\">local de verdad.</span>",
+    "lede": "Pide una cotización gratis aquí abajo o contáctanos directo. Te respondemos rápido — en español o en inglés."
+  },
+  "touch": {
+    "kicker": "Contáctanos",
+    "h2": "Estamos aquí mismo, <span class=\"it\">en El Paso.</span>",
+    "lede": "¿Prefieres hablar con una persona? Llámanos, mándanos un mensaje o escríbenos y te atendemos.",
+    "callNote": "Llamadas &mdash; esta línea no recibe mensajes de texto",
+    "textNote": "Los mensajes de texto van a esta",
+    "emailNote": "Escríbenos cuando quieras",
+    "mapNote": "El Paso, TX 79925 &middot; Abrir en Google Maps",
+    "hours": "Lun. a vie., 11&nbsp;a.&nbsp;m. a 5&nbsp;p.&nbsp;m.",
+    "hoursNote": "Hora de la montaña &mdash; El Paso se rige por la hora de la montaña, no por la del centro",
+    "speaks": "Hablamos español",
+    "bilingual": "Todo el equipo es bilingüe"
+  },
+  "card": {
+    "h3": "Empieza tu cotización",
+    "p": "\n          Nuestra cotización en línea toma unos minutos y llega directo a un agente con licencia.\n          ¿Prefieres platicar? Llama al 915-503-1207 o escribe al 915-594-3777 y lo hacemos contigo.",
+    "start": "Empieza tu cotización &rarr;",
+    "call": "📞 Llama al 915-503-1207",
+    "text": "💬 Mensaje al 915-594-3777",
+    "fine": "\n          Sin compromiso &middot; Un agente con licencia revisa cada cotización antes de emitir cualquier póliza."
+  },
+  "diy": {
+    "kicker": "¿Prefieres hacerlo tú mismo?",
+    "h2": "Empieza una cotización en línea <span class=\"it grad-text\">en 60 segundos.</span>",
+    "p": "Contesta unas preguntas y un agente con licencia revisa tus opciones contigo antes de emitir cualquier póliza.",
+    "start": "Empieza tu cotización →"
+  }
+}

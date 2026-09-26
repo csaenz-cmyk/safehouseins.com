@@ -6,6 +6,13 @@
 <title>Privacy Policy · Safe House Insurance</title>
 <meta name="description" content="How Safe House Insurance collects, uses and protects your information. Bilingual.">
 <link rel="icon" href="../assets/safehouse-heart.png">
+<link rel="canonical" href="https://safehouseins.com/privacy">
+<link rel="alternate" hreflang="en" href="https://safehouseins.com/privacy">
+<link rel="alternate" hreflang="es" href="https://safehouseins.com/es/privacy">
+<link rel="alternate" hreflang="x-default" href="https://safehouseins.com/privacy">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_MX">
+<script>(function(){try{var p=localStorage.getItem("shi-lang")||(document.cookie.match(/(?:^|; )shi-lang=(en|es)/)||[])[1];if(p&&p!=="en")location.replace("../es/privacy/"+location.search+location.hash)}catch(e){}})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -159,6 +166,42 @@
 
   nav a.call{font-size:14.5px;font-weight:800;color:var(--blue);text-decoration:none;
       display:inline-flex;align-items:center;gap:7px}
+  .dtop .lsw{margin-right:auto}
+  /* On a phone the nav holds the help link, the language switch and the menu
+     button; the help link gives way first, since the menu panel carries both
+     numbers anyway. */
+  @media(max-width:520px){ nav a.call{display:none} nav .lsw.tight>span{display:none} }
+
+  /* ---- the language switch ----
+     Two segments, the current language filled. A segmented control rather
+     than a drop-down: there are two languages, both labels fit, and one tap
+     switches — a menu that has to be opened first is a second step for
+     nothing. Same height as the menu button beside it so the pair reads as
+     one row of controls. */
+  .lsw{display:inline-flex;align-items:center;flex:0 0 auto;gap:2px;height:44px;
+      padding:4px;border-radius:99px;background:#fff;border:1.5px solid #E5EBF6;
+      font-family:inherit;font-size:12.5px;font-weight:800;letter-spacing:.06em;
+      line-height:1;position:static}
+  .lsw>a,.lsw>span{display:inline-flex;align-items:center;justify-content:center;
+      min-width:34px;height:100%;padding:0 9px;border-radius:99px;
+      text-decoration:none;white-space:nowrap}
+  .lsw>a{color:#5C6A80;transition:background .16s,color .16s}
+  .lsw>a:hover{background:#EFF5FF;color:#1666ED;text-decoration:none}
+  .lsw>span{background:#0A2148;color:#fff}
+  .lsw>a:focus-visible{outline:2.5px solid #1666ED;outline-offset:2px}
+  .lsw .lvh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+      white-space:nowrap}
+  /* On a photograph or a navy header: glass, like the menu button there. */
+  .lsw.dk{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.34);
+      -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .lsw.dk>a{color:rgba(255,255,255,.88)}
+  .lsw.dk>a:hover{background:rgba(255,255,255,.18);color:#fff}
+  .lsw.dk>span{background:#fff;color:#0A2148}
+  .lsw.dk>a:focus-visible{outline-color:#fff}
+  /* In the menu panel there is room for the names themselves. */
+  .lsw.full{height:40px;font-size:13px;letter-spacing:.01em}
+  .lsw.full>a,.lsw.full>span{padding:0 14px}
+
 
   header.pg{background:linear-gradient(180deg,var(--ice),#fff);padding:40px 0 26px;
       border-bottom:1px solid var(--line)}
@@ -271,7 +314,6 @@
 
   .disc{font-size:11.5px;color:#93a2ba;line-height:1.7;margin-top:18px}
 </style>
-<link rel="canonical" href="https://safehouseins.com/privacy">
 </head>
 <body>
 
@@ -279,13 +321,14 @@
   <a href="../index.html" aria-label="Safe House Insurance home"><img class="logo" src="../assets/safehouse-logo.png" alt="Safe House Insurance"></a>
   <span style="display:flex;align-items:center;gap:12px">
     <a class="call" href="tel:+19155031207">&#9742; Need help? Call us</a>
-    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
+    <div class="lsw tight" role="group" aria-label="Language / Idioma"><span lang="en" aria-current="true"><span aria-hidden="true">EN</span><span class="lvh">English</span></span><a href="../es/privacy/" hreflang="es" lang="es-MX" data-lang="es" title="Ver esta página en español"><span aria-hidden="true">ES</span><span class="lvh">Español</span></a></div><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
   </span>
 </div></nav>
 
 <div class="scrim" id="scrim" hidden></div>
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
   <div class="dtop">
+    <div class="lsw full" role="group" aria-label="Language / Idioma"><span lang="en" aria-current="true">English</span><a href="../es/privacy/" hreflang="es" lang="es-MX" data-lang="es" title="Ver esta página en español">Español</a></div>
     <a class="dcta" href="../quote.html">Get a quote</a>
     <button class="dclose" id="dclose" type="button" aria-label="Close menu">&#10005;</button>
   </div>
@@ -352,7 +395,11 @@
   var burger=document.getElementById('burger'),
       drawer=document.getElementById('drawer'),
       scrim=document.getElementById('scrim'),
-      dclose=document.getElementById('dclose');
+      dclose=document.getElementById('dclose'),
+      // The two labels are read off the buttons rather than written in here,
+      // so this script is the same in English and in Spanish.
+      openLabel=burger.getAttribute('aria-label'),
+      closeLabel=dclose.getAttribute('aria-label');
   function setMenu(open){
     burger.classList.toggle('on',open);
     drawer.classList.toggle('on',open);
@@ -360,7 +407,7 @@
     scrim.classList.toggle('on',open);
     document.body.classList.toggle('locked',open);
     burger.setAttribute('aria-expanded',open);
-    burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+    burger.setAttribute('aria-label',open?closeLabel:openLabel);
     // Focus follows the panel, or the panel is invisible to a keyboard.
     if(open) dclose.focus();
     else burger.focus({preventScroll:true});
@@ -372,12 +419,26 @@
   addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
 
 })();
+</script><script>
+(function(){
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lang]');
+    if(!a) return;
+    var l=a.getAttribute('data-lang');
+    try{localStorage.setItem('shi-lang',l);}catch(_){}
+    try{document.cookie='shi-lang='+l+';path=/;max-age=31536000;samesite=lax';}catch(_){}
+    if(e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+    e.preventDefault();
+    try{document.dispatchEvent(new CustomEvent('shi:lang',{detail:l}));}catch(_){}
+    location.href=a.href.split('#')[0].split('?')[0]+location.search+location.hash;
+  });
+})();
 </script>
 
 <header class="pg"><div class="wrap">
-  <h1>Privacy Policy / Aviso de Privacidad</h1>
-  <p class="dates">Effective date: August 6, 2026 &middot; Last updated: August 6, 2026<br>Fecha de entrada en vigor: 6 de agosto de 2026 &middot; &Uacute;ltima actualizaci&oacute;n: 6 de agosto de 2026</p>
-  <div class="langs"><a href="#en">English</a><a href="#es">Espa&ntilde;ol</a></div>
+  <h1>Privacy Policy / <span lang="es-MX">Aviso de Privacidad</span></h1>
+  <p class="dates">Effective date: August 6, 2026 &middot; Last updated: August 6, 2026<br><span lang="es-MX">Fecha de entrada en vigor: 6 de agosto de 2026 &middot; &Uacute;ltima actualizaci&oacute;n: 6 de agosto de 2026</span></p>
+  <div class="langs"><a href="#en">English</a><a href="#es" lang="es-MX">Espa&ntilde;ol</a></div>
 </div></header>
 
 <main><div class="wrap">
@@ -564,7 +625,7 @@ top and post the new version here. Material changes will be highlighted on the p
 </div>
 </section>
 
-<section class="doc" id="es">
+<section class="doc" id="es" lang="es-MX">
 <h2 class="lang">Espa&ntilde;ol</h2>
 
 <h3>1. Qui&eacute;nes somos</h3>
@@ -573,6 +634,10 @@ Estado de Texas, ubicada en 6065 Montana Ave Ste C8, El Paso, Texas 79925.</p>
 <p>En este aviso, &ldquo;nosotros&rdquo; y &ldquo;la Agencia&rdquo; significan Safe House Insurance.
 &ldquo;Usted&rdquo; significa cualquier persona que visite safehouseins.com, solicite una
 cotizaci&oacute;n o tenga una p&oacute;liza colocada a trav&eacute;s de nosotros.</p>
+<p>Este aviso explica qu&eacute; informaci&oacute;n personal recopilamos, c&oacute;mo la usamos, con
+qui&eacute;n la compartimos y las opciones que usted tiene. Aplica a safehouseins.com, a nuestras
+p&aacute;ginas para clientes y a las llamadas, mensajes de texto y correos electr&oacute;nicos que
+intercambiamos con usted.</p>
 
 <h3>2. Informaci&oacute;n que recopilamos</h3>
 <p>Como agencia de seguros, recopilamos la informaci&oacute;n que una compa&ntilde;&iacute;a de
@@ -597,7 +662,8 @@ a nuestro procesador de pagos, que solo nos devuelve un token.</p>
 domicilio, comprobante de seguro previo, formularios firmados y cualquier otro documento que suba o
 nos mande.</p>
 <p><strong>Informaci&oacute;n recopilada autom&aacute;ticamente en el sitio:</strong> direcci&oacute;n
-IP, tipo de navegador y dispositivo, p&aacute;ginas vistas, y cookies (vea la Secci&oacute;n 10).</p>
+IP, tipo de navegador y dispositivo, p&aacute;ginas vistas, la p&aacute;gina desde la que lleg&oacute;, y
+cookies (vea la Secci&oacute;n 10).</p>
 <p>Recopilamos esta informaci&oacute;n directamente de usted; mediante su autorizaci&oacute;n para
 obtener reportes como su r&eacute;cord de manejo, historial de reclamos o puntaje de seguros; y de
 las compa&ntilde;&iacute;as de seguros con las que colocamos su negocio.</p>
@@ -608,7 +674,9 @@ solicitar, emitir, modificar, renovar y cancelar p&oacute;lizas por usted; dar s
 p&oacute;liza (responder preguntas, recibir pagos, procesar endosos, ayudar con reclamos); enviarle
 documentos que requieren su firma; enviarle avisos sobre su p&oacute;liza (pagos vencidos, pagos no
 recibidos, renovaciones, cancelaciones, documentos que necesitamos y confirmaciones); cumplir con la
-ley de seguros de Texas; detectar y prevenir fraude; y mejorar nuestro servicio.</p>
+ley de seguros de Texas, con nuestras obligaciones de conservaci&oacute;n de registros y con los
+requerimientos de las autoridades reguladoras; detectar y prevenir fraude; y mejorar nuestro servicio y
+nuestro sitio web.</p>
 <p><strong>No vendemos su informaci&oacute;n personal.</strong> No usamos su informaci&oacute;n para
 publicidad de terceros.</p>
 
@@ -663,7 +731,7 @@ menos tiempo.</p>
 
 <h3>7. Sus opciones y derechos</h3>
 <p><strong>Mensajes de texto.</strong> Puede detenerlos en cualquier momento respondiendo
-<strong>STOP</strong> (o <strong>ALTO</strong>, <strong>PARAR</strong>, <strong>CANCELAR</strong>,
+<strong lang="en">STOP</strong> (o <strong>ALTO</strong>, <strong>PARAR</strong>, <strong>CANCELAR</strong>,
 <strong>BAJA</strong>) a cualquier mensaje nuestro. Vea los
 <a href="../sms-terms/">T&eacute;rminos de Servicio de SMS</a>.</p>
 <p><strong>Correo electr&oacute;nico.</strong> Puede darse de baja de correos no esenciales con el
@@ -678,6 +746,9 @@ hacemos ninguna de las dos. Para ejercer cualquiera de estos derechos, cont&aacu
 Secci&oacute;n 12. Verificaremos su identidad antes de actuar. Puede apelar una negativa respondiendo
 a nuestra decisi&oacute;n, y si negamos la apelaci&oacute;n puede presentar una queja ante el Fiscal
 General de Texas.</p>
+<p><strong>Privacidad financiera.</strong> Como instituci&oacute;n financiera conforme a la ley federal,
+le entregaremos nuestro aviso de privacidad al inicio de nuestra relaci&oacute;n y cada a&ntilde;o
+despu&eacute;s, cuando la ley lo requiera.</p>
 
 <h3>8. Acceso y correcci&oacute;n</h3>
 <p>Puede pedirnos una copia de la informaci&oacute;n personal que tenemos sobre usted y solicitar que
@@ -696,7 +767,8 @@ hace.</p>
 
 <h3>11. Cambios a este aviso</h3>
 <p>Podemos actualizar este aviso. Cuando lo hagamos, cambiaremos la fecha de &ldquo;&Uacute;ltima
-actualizaci&oacute;n&rdquo; y publicaremos la nueva versi&oacute;n aqu&iacute;.</p>
+actualizaci&oacute;n&rdquo; y publicaremos la nueva versi&oacute;n aqu&iacute;. Los cambios importantes se
+se&ntilde;alar&aacute;n en la p&aacute;gina.</p>
 
 <h3>12. C&oacute;mo contactarnos</h3>
 <div class="contact">

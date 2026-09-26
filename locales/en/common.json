@@ -112,5 +112,12 @@
   },
   "carriers": {
     "caption": "Some of the companies we shop for you"
+  },
+  "topbar": {
+    "callText": "📞 Call <a href=\"tel:+19155031207\">915-503-1207</a> &middot; 💬 Text <a href=\"sms:+19155943777\">915-594-3777</a>",
+    "speaks": "🇲🇽 Se habla español",
+    "where": "El Paso, TX · Serving TX &amp; NM",
+    "call": "📞 Call <a href=\"tel:+19155031207\">915-503-1207</a>",
+    "text": "💬 Text <a href=\"sms:+19155943777\">915-594-3777</a>"
   }
 }
