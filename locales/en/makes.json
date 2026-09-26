@@ -1,0 +1,506 @@
+{
+  "meta": {
+    "title": "{name} car insurance in Texas &amp; New Mexico",
+    "titleShort": "{name} insurance in Texas &amp; New Mexico",
+    "desc": [
+      "Compare {name} car insurance across the carriers Safe House represents. Free quote in minutes, licensed agents, Texas and New Mexico.",
+      "{name} insurance from Safe House, an independent El Paso agency. One form, several carriers, and an agent to walk you through what came back.",
+      "Insuring {article} {name}? Safe House shops several carriers at once, in English or Spanish. Coverage notes by model and a free quote."
+    ],
+    "crumb": "{name} car insurance"
+  },
+  "state": {
+    "tx": "Texas",
+    "nm": "New Mexico"
+  },
+  "hero": {
+    "sub": [
+      "Compare multiple insurance companies for your {name} &mdash; then let a licensed Safe House agent help you choose.",
+      "One form puts your {name} in front of every carrier we represent. A licensed Safe House agent goes through what came back with you.",
+      "See what several insurance companies say about your {name}, side by side, with a licensed Safe House agent to help you read it."
+    ],
+    "chips": {
+      "models": "{n} models we quote",
+      "trucks": "Pickups",
+      "suvs": "SUVs",
+      "cars": "Cars",
+      "evs": "EVs",
+      "older": "Older models welcome"
+    }
+  },
+  "sec": {
+    "models": {
+      "kick": "Your vehicle",
+      "h2": "Which {name} are you insuring?",
+      "p": "Pick the model and see what usually matters on a policy for it. The badge tells a rating table very little &mdash; the body style, the engine and what you do with it tell it almost everything."
+    },
+    "price": {
+      "kick": "What moves the price",
+      "h2": "What can affect the cost of insuring your {name}?",
+      "p": "No two quotes are built the same way. These are the levers that actually move one, in rough order of how much they tend to matter."
+    },
+    "calc": {
+      "kick": "Coverage tool",
+      "h2": "Is collision still worth carrying on your {name}?",
+      "p": "Collision and comprehensive can never pay you more than the vehicle is worth, minus your deductible. Once that ceiling gets close to what the coverage costs each year, you are paying to protect very little. Your numbers, no assumptions."
+    },
+    "lineup": {
+      "kick": "The lineup",
+      "h2": "{name} models we quote",
+      "p": "The ones we see most often. Not a limit &mdash; the quote form has a free-text option for anything not on this list, including older models."
+    },
+    "specifics": {
+      "kick": "{name} specifics",
+      "h2": "What is worth knowing before you insure {article} {name}",
+      "p": "The things that come up on these vehicles in particular, rather than the advice that applies to every car on the road."
+    },
+    "why": {
+      "kick": "Why Safe House",
+      "h2": "An agency in El Paso, not a call center",
+      "p": "We are independent, we are licensed in Texas and New Mexico, and there is a person on the other end of the phone who can explain what you are buying."
+    },
+    "faq": {
+      "kick": "FAQ",
+      "h2": "Questions people ask about {name} insurance"
+    }
+  },
+  "cards": {
+    "repair": {
+      "h": "Repair costs",
+      "exoticH": "Repair, and who is allowed to do it",
+      "exotic": "Low-volume {name} bodywork is replaced rather than straightened, and only a short list of workshops is authorised to touch it. That constraint shapes the policy more than the price of the car does.",
+      "evBig": "Battery packs, structural castings and sensor-dense panels make an electric {name} a different repair job from a petrol car. Fewer shops are certified for it, and that shows up in what carriers expect a claim to cost.",
+      "big": "Aluminium structures need separately certified shops. Bumpers carry radar, windscreens carry cameras that need recalibrating after replacement. On a modern {name} none of that is optional work.",
+      "truck": "{article} {name} pickup is bigger, heavier and increasingly aluminium-bodied, and the driver-assist sensors sit in exactly the panels that get hit first. Repair estimates have moved a long way in ten years.",
+      "base": "Modern parts, sensors, cameras and the calibration they need after a replacement all land on the estimate. It is the single biggest reason a newer {name} can cost more to cover than an older one."
+    },
+    "model": {
+      "h": "Your exact model",
+      "pair": "{article} {model_a} and {a_model} {model_b} are both {name}{plural_s}, and they are not remotely the same insurance conversation. Carriers rate the specific vehicle &mdash; body style, engine, trim, repair cost &mdash; not the badge.",
+      "single": "Carriers rate the specific vehicle: body style, engine, trim and what it costs to repair. The {name} badge on its own tells a rating table very little."
+    },
+    "base": [
+      [
+        "Where you live",
+        "Rated on the address the vehicle parks at overnight, not the city on your license. Two streets apart can price differently, because claims history is measured that finely."
+      ],
+      [
+        "Your driving history",
+        "Tickets, at-fault accidents, how long you have been continuously insured. It is the part of the quote you control, and old violations do age off."
+      ],
+      [
+        "The insurance company",
+        "The same driver and the same vehicle, priced by two carriers, can come back hundreds apart. Appetite changes by year, by state and by vehicle type."
+      ]
+    ],
+    "extra": {
+      "exotic": {
+        "h": "Agreed value, not book value",
+        "p": "There is no lot full of comparable sales to argue from, so these are usually written on an agreed value settled in advance. Keeping that figure current is the whole job."
+      },
+      "ev": {
+        "h": "The battery question",
+        "p": "Battery replacement is the largest single repair bill in the industry, which is why an electric vehicle reaches a total-loss threshold sooner than owners expect. Ask how a battery claim is handled before you need to know."
+      },
+      "truck": {
+        "h": "What the truck actually does",
+        "p": "Carrying tools or materials for pay, towing for money, or titled to a business moves a personal policy into commercial territory. Say what it does &mdash; a denied claim is far more expensive than the right policy."
+      },
+      "offroad": {
+        "h": "Modifications",
+        "p": "Lifts, winches, bumpers and oversized tyres are the first things an adjuster will not find on the schedule. Declaring them is cheap; discovering they were never covered is not."
+      },
+      "discontinued": {
+        "h": "Parts availability",
+        "p": "{name} is not built any more, so a repair can run long while a part is found. A long repair can outlast the rental coverage on the policy &mdash; worth checking what yours actually allows."
+      },
+      "luxury": {
+        "h": "Certified repair networks",
+        "p": "A shorter list of shops qualified to work on {article} {name} means less competition on labour and longer repairs. Carriers price that in, and they do not all price it the same."
+      },
+      "base": {
+        "h": "Coverage you actually chose",
+        "p": "Deductibles, limits and the optional pieces &mdash; rental, roadside, uninsured motorist. These move the number as much as the vehicle does, and most people have never been walked through them."
+      }
+    }
+  },
+  "blocks": {
+    "ev": {
+      "tag": "Electric",
+      "h": "What electric changes about the policy",
+      "p": [
+        "<p>The mechanical side gets simpler and the claims side gets harder. There is no engine to rebuild, but the battery is the most expensive single component in the vehicle, and damage that a petrol car would shrug off can write off an electric one on cost alone.</p><p>Ask two questions when you quote an electric {name}: how the carrier handles a battery claim, and whether the shops it will send you to are certified for high-voltage work. Carriers differ sharply on both.</p>",
+        "<p>Carriers have been writing electric vehicles for very different lengths of time, and it shows in the spread. Some have real claims data on an electric {name} and price it accordingly; others are still guessing and price the guess.</p><p>That spread is the reason to shop rather than renew. It is wider on EVs than on almost anything else we quote.</p>"
+      ]
+    },
+    "truck": {
+      "tag": "Pickups",
+      "h": "Personal truck or working truck?",
+      "p": [
+        "<p>This is the single most consequential thing you can get wrong on {article} {name} pickup. A personal auto policy covers personal use. The moment the truck is carrying tools or materials for pay, towing for money, or titled to a business, the claim can be denied &mdash; after the accident, when it is too late to fix.</p><p>Tell us what it actually does. Commercial cover is not always more expensive, and it is always cheaper than a denied claim.</p>",
+        "<p>Half the trucks we quote do some kind of work, and owners rarely think of it as commercial use. Hauling your own materials to your own job is one thing; hauling anyone else’s for money is another, and so is a truck registered to a company.</p><p>It takes one question to sort out, and getting it right is the difference between a paid claim and a fight.</p>"
+      ]
+    },
+    "offroad": {
+      "tag": "Modifications",
+      "h": "Anything you added has to be listed",
+      "p": [
+        "<p>{name} owners modify more than most. A lift kit, a winch, aftermarket bumpers, oversized tyres &mdash; a policy written on a stock vehicle pays out on a stock vehicle, and the parts you paid extra for are exactly what an adjuster will not find on the schedule.</p><p>Declaring them costs very little. Finding out afterwards that they were never covered costs whatever you spent.</p>",
+        "<p>Off-road use is not automatically excluded, and it is not automatically covered either. Organised events almost never are. If your {name} actually sees trails, say so when you quote it and have the modifications listed rather than assumed.</p>"
+      ]
+    },
+    "luxury": {
+      "tag": "Premium brands",
+      "h": "Luxury parts, luxury labour",
+      "p": [
+        "<p>{article} {name} is not expensive to repair because it was expensive to buy &mdash; plenty of ordinary pickups cost the same. It is expensive because a fender is no longer just a fender. Sensors, recalibration after replacement, and a certified shop list that may be short in your area all land on the estimate.</p><p>That is also why the spread between carriers is wider up here. Some are comfortable with {name} repair networks and price accordingly; others are not, and it shows.</p>",
+        "<p>What the car cost is the smaller half of the story. What moves a luxury premium is the repair bill: adaptive headlights that cost more than a whole bumper on a mainstream car, radar and camera modules built into panels that used to be plain metal, and fewer shops allowed to touch any of it.</p><p>Shopping matters more here than on a commuter car, because carriers disagree sharply about what that work actually costs.</p>"
+      ]
+    },
+    "exotic": {
+      "tag": "Specialty",
+      "h": "Why this is not a standard policy",
+      "p": [
+        "<p>Most personal auto carriers will not write {article} {name} at all, and the ones that do rarely do it on their ordinary product. These go to specialty markets and they are written on <strong>agreed value</strong> rather than actual cash value &mdash; you and the carrier settle the figure in advance, in writing, and that is what gets paid.</p><p>Actual cash value on a car this rare is an argument waiting to happen. An agreed value is a number already signed.</p>"
+      ]
+    },
+    "conditions": {
+      "tag": "Conditions",
+      "h": "Mileage, storage and who else drives it",
+      "p": [
+        "<p>Specialty policies come with conditions an everyday policy does not have: an annual mileage cap, a requirement that it is garaged, sometimes a named list of who may drive it. Those conditions are what make the premium reasonable, and quietly breaking them is how a claim gets denied.</p><p>If it is genuinely your daily driver, say so at the quote. It changes which market it goes to, and disclosing is far cheaper than discovering.</p>"
+      ]
+    },
+    "performance": {
+      "tag": "Performance",
+      "h": "Trim matters more than the badge",
+      "p": [
+        "<p>Carriers rate the engine, not the nameplate. A performance trim can sit in a completely different rating group from the base car it shares a badge with, and the gap is often larger than the gap between two different brands.</p><p>Quote the exact trim. A guess produces a number that will not survive underwriting, and finding that out at binding is nobody’s idea of a good morning.</p>"
+      ]
+    },
+    "economy": {
+      "tag": "Value",
+      "h": "Cheap to buy is not the same as cheap to cover",
+      "p": [
+        "<p>An affordable {name} usually is cheaper to insure than a luxury car, but not for the reason people assume. It is not the sticker price &mdash; it is that the parts are common, the shops are everywhere and the repair is quick.</p><p>Where it does not follow is theft. Common parts fit a lot of cars, which is exactly what makes some very ordinary models attractive to steal.</p>"
+      ]
+    },
+    "discontinued": {
+      "tag": "Older vehicles",
+      "h": "Insuring {article} {name} that is no longer built",
+      "p": [
+        "<p>A dead badge is not a coverage problem. Carriers rate the vehicle in front of them, and {article} {name} has a year, a body style and a repair cost like anything else. What changes is the value &mdash; and value is what decides how much coverage is worth carrying.</p><p>Liability does not care how old it is; the damage you do to someone else is the same either way. Collision and comprehensive are the parts that age out, and the calculator above is the honest way to find that line.</p>"
+      ]
+    },
+    "repairs": {
+      "tag": "Repairs",
+      "h": "What is actually on the estimate",
+      "p": [
+        "<p>A carrier is not guessing when it prices {article} {name} above something that looks similar on the road. It is looking at what a shop charges: hours per panel, whether the shop needs separate certification for the structure, and how many electronics have to be recalibrated afterwards.</p><p>A bumper is rarely just a bumper any more. Behind it sit the sensors running the cruise control and the emergency braking, and putting those back into calibration is its own line on the bill.</p>"
+      ]
+    },
+    "mainstream": {
+      "tag": "Everyday brands",
+      "h": "Common is an advantage, up to a point",
+      "p": [
+        "<p>{article} {name} is the kind of vehicle every body shop in El Paso has seen before. Parts are on a shelf rather than on a boat, more shops can do the work, and more carriers want to write it. All of that tends to work in your favour.</p><p>Where it stops helping is the newest ones. Driver-assist sensors arrived on mainstream vehicles just as fast as on luxury ones, and a windshield with a camera behind it costs what it costs regardless of the badge in front of it.</p>",
+        "<p>Volume is quietly one of the better things a vehicle can have going for it. A common {name} means a deep parts supply, a short repair and a long list of carriers with an appetite for it &mdash; which is exactly the situation where shopping around pays, because they all want the business.</p><p>The exception is anything with a camera in the windshield or radar in the bumper. That work is priced the same on an ordinary car as on an expensive one.</p>"
+      ]
+    },
+    "weight": {
+      "tag": "Weight",
+      "h": "Bigger vehicle, bigger liability question",
+      "p": [
+        "<p>Most of what {name} sells is an SUV, and a heavier vehicle does more damage to whatever it hits. That is a liability question rather than a collision one, and it is the argument for pricing limits above the state minimum rather than at it.</p><p>The gap between minimum limits and the next tier up is usually far smaller than people expect. It is worth seeing the two numbers side by side before deciding.</p>",
+        "<p>An SUV protects the people inside it well and costs more to repair than a sedan of the same price &mdash; taller panels, more sensors, all-wheel drive underneath a good many of them. Both of those show up in a quote in different places.</p><p>It is also the reason the liability half of the policy deserves a look. What you can do to someone else in a three-row {name} is not what you can do in a small car.</p>"
+      ]
+    },
+    "financing": {
+      "tag": "Financing",
+      "h": "If it is financed or leased, you have less choice",
+      "p": [
+        "<p>A lender does not care what you think about deductibles. While there is a loan or a lease on {article} {name}, they will require collision and comprehensive, they will want to be listed on the policy, and if you drop the coverage they can buy it for you and add it to what you owe &mdash; usually at a price nobody would choose.</p><p>The part worth asking about is the gap between what you owe and what the vehicle is worth. That difference is yours unless something covers it, and it is at its widest in the first couple of years.</p>",
+        "<p>Financed and paid-off vehicles are two different conversations. On a financed {name} the lienholder sets the floor: full coverage, them named on the policy, no negotiating. Everything on this page about whether collision still earns its place applies to the day the loan ends, not before.</p><p>Ask about the shortfall between the loan balance and the vehicle value while you are at it. Early in a loan that gap can be thousands, and a total loss is exactly when you find out.</p>"
+      ]
+    },
+    "theft": {
+      "tag": "Theft",
+      "h": "Theft, and what it does to comprehensive",
+      "p": [
+        "<p>Theft risk is rated on the specific model and year, not the brand, and it moves. A model can go from unremarkable to widely targeted within a couple of years, and carriers react faster than owners do.</p><p>If your {name} is on a commonly targeted list, two things are worth doing: ask whether any manufacturer anti-theft update applies to your vehicle, and ask your carrier whether having it done changes anything. Sometimes it does.</p>"
+      ]
+    },
+    "about": {
+      "tag": "About the brand",
+      "h": "Who makes {name}, and why it barely matters",
+      "owned": "<p>{name} is part of {parent}, {origin} in origin. {note}</p>",
+      "solo": "<p>{name} is a {origin} brand. {note}</p>",
+      "why": "<p>Corporate ownership is interesting and almost irrelevant to your policy. Carriers rate the vehicle in your driveway &mdash; its year, its trim, what it costs to repair &mdash; not the group that owns the badge. {lineup}, which shapes a quote far more than the parent company does.</p>"
+    }
+  },
+  "lineup": {
+    "allSuv": "every vehicle {name} sells here is an SUV",
+    "mostTruck": "most of what {name} sells here is a pickup",
+    "mostSports": "the {name} range is built around sports cars",
+    "range": "the {name} range runs from {a} to {b}",
+    "narrow": "the {name} range is narrow",
+    "part": {
+      "suv": "SUVs",
+      "truck": "pickups",
+      "car": "cars",
+      "van": "vans",
+      "sports": "sports cars"
+    }
+  },
+  "faq": {
+    "expensive": {
+      "q": "Is {article} {name} expensive to insure?",
+      "a": [
+        "<p>Compared with what? {article} {name} is not one thing &mdash; trim, model year and engine move a quote further than the badge does, and two carriers looking at the identical vehicle can come back hundreds apart.</p><p>What we can do is put your exact vehicle in front of every carrier we represent and show you the spread. That is a real answer; a brand average is not.</p>",
+        "<p>The brand is one of the weaker signals in a quote. Your record, your address, your mileage and the specific trim all outweigh it, which is why a blanket yes or no about {name} would be no use to you.</p><p>Give us the year and the trim and we will shop it properly.</p>"
+      ]
+    },
+    "cheapest": {
+      "q": "What is the cheapest {name} to insure?",
+      "a": [
+        "<p>Generally the lowest-powered, least expensive model in the range, in an older model year, with a clean history behind the wheel. Engine output and repair cost are the two vehicle attributes that move a premium most, and the entry model is lowest on both.</p><p>The driver still outweighs the car, though. A spotless record on a higher trim often beats a poor record on the base model.</p>",
+        "<p>Usually the entry model rather than the flagship &mdash; smaller engine, cheaper parts, fewer sensors to recalibrate. Age helps too, up to the point where the vehicle is worth so little that collision stops being worth carrying.</p><p>The calculator above is the honest way to find that line for your own vehicle rather than for an average one.</p>"
+      ]
+    },
+    "full": {
+      "q": "Do I need full coverage on {article} {name}?",
+      "a": [
+        "<p>If it is financed or leased, the lender decides. They will require collision and comprehensive, and they can add cover at your expense if you drop it.</p><p>If it is paid off, it is arithmetic. Run it in the calculator above: once the most the coverage could ever pay approaches what it costs you, the answer starts to change.</p>",
+        "<p>&ldquo;Full coverage&rdquo; is not a product &mdash; it means liability plus collision plus comprehensive. A lienholder will insist on all three. Once the {name} is yours outright it becomes a judgement call, and the honest test is whether you could replace it tomorrow without it hurting.</p>"
+      ]
+    },
+    "model": {
+      "q": "How much is insurance for {article} {name} {model}?",
+      "a": "<p>Nobody can answer that from the model alone, and anybody who gives you a figure without asking who is driving it is guessing. Your record, your overnight address, your mileage, the model year and the trim all move it further than the nameplate does.</p><p>What we can do is quote your actual {name} {model} at every carrier we represent at once and show you what each one said. That takes a few minutes and costs nothing.</p>"
+    },
+    "trim": {
+      "q": "Does the trim or engine change my rate?",
+      "a": "<p>Yes, and usually more than people expect. Carriers rate the specific vehicle &mdash; engine, body style, safety equipment, repair cost &mdash; not the nameplate. A performance trim can sit in a different rating group entirely from the base car it shares a badge with.</p><p>Quote the exact trim. A guess produces a number that will not survive underwriting.</p>"
+    },
+    "newer": {
+      "q": "Will my {name} cost more to insure than my old car?",
+      "a": "<p>Often, if the new one is newer &mdash; and the reason is repair cost rather than value. Sensors in bumpers, cameras in windscreens that need recalibrating and aluminium panels that need a certified shop have pushed physical damage claims up across every brand.</p><p>The fix is not to skip coverage. It is to re-shop when the vehicle changes, which is exactly the moment most people forget to.</p>"
+    },
+    "any": {
+      "q": "Can Safe House insure any {name} model?",
+      "a": "<p>Yes. The models listed on this page are the ones we see most often, not a limit &mdash; the quote form has an <strong>Other</strong> option with a free-text field for anything not on the list, including older models and trims that came and went.</p><p>We are an independent agency, so the question is never whether we can quote it. It is which of the carriers we represent wants it, and that is exactly what one form finds out.</p>"
+    },
+    "ev": {
+      "q": "Is an electric {name} more expensive to insure?",
+      "a": "<p>Often, and battery replacement cost is the reason. It can push a vehicle past the total-loss threshold on damage a petrol equivalent would survive, and a restricted repair network adds to it.</p><p>The spread between carriers is wide here, because some have been writing EVs for years and some are still catching up. That makes it worth shopping rather than renewing.</p>"
+    },
+    "truck": {
+      "q": "Do I need commercial insurance for my {name}?",
+      "a": "<p>If it is used for a business &mdash; carrying tools or materials for work, towing for pay, or registered to a company &mdash; then probably. A personal auto policy can deny a claim that happened while working.</p><p>Tell us what the truck actually does. It is a short conversation, and it is the difference between a paid claim and a denied one.</p>"
+    },
+    "discontinued": {
+      "q": "Can I still insure {article} {name}?",
+      "a": "<p>Yes. A brand no longer being sold new has no bearing on whether it can be covered &mdash; plenty of carriers write them without a second look.</p><p>The real question is how much coverage is worth buying, and parts availability is part of that: a long repair can outlast the rental coverage on the policy.</p>"
+    }
+  },
+  "nearby": {
+    "makes": "Car insurance by make",
+    "cities": "Car insurance by city"
+  },
+  "hub": {
+    "title": "Car insurance by make",
+    "desc": "Car insurance by vehicle make. What moves the price on what you drive, coverage notes by model, and a free quote across several carriers.",
+    "h1": "Car insurance,<br><em>make by make</em>.",
+    "sub": "What actually moves the price on the vehicle you drive &mdash; and what a policy on it should probably include. Pick your make.",
+    "browse": "Browse by city",
+    "count": "{n} makes",
+    "langs": "English &amp; Spanish",
+    "gone": "No longer sold new in the US",
+    "vehicle": "vehicle",
+    "final": "Ready to see what your vehicle costs to insure?"
+  },
+  "origin": {
+    "american": {
+      "adj": "American",
+      "group": "American"
+    },
+    "japanese": {
+      "adj": "Japanese",
+      "group": "Japanese"
+    },
+    "korean": {
+      "adj": "Korean",
+      "group": "Korean"
+    },
+    "german": {
+      "adj": "German",
+      "group": "German"
+    },
+    "swedish": {
+      "adj": "Swedish",
+      "group": "Swedish"
+    },
+    "british": {
+      "adj": "British",
+      "group": "British"
+    },
+    "italian": {
+      "adj": "Italian",
+      "group": "Italian"
+    },
+    "vietnamese": {
+      "adj": "Vietnamese",
+      "group": "Vietnamese"
+    }
+  },
+  "labels": {
+    "full-size-pickup": "Full-size pickup",
+    "heavy-duty-pickup": "Heavy-duty pickup",
+    "mid-size-pickup": "Mid-size pickup",
+    "compact-pickup": "Compact pickup",
+    "off-road-suv": "Off-road SUV",
+    "compact-suv": "Compact SUV",
+    "three-row-suv": "Three-row SUV",
+    "full-size-suv": "Full-size SUV",
+    "sports-car": "Sports car",
+    "electric-suv": "Electric SUV",
+    "mid-size-suv": "Mid-size SUV",
+    "cargo-and-passenger-van": "Cargo and passenger van",
+    "extended-full-size-suv": "Extended full-size SUV",
+    "subcompact-suv": "Subcompact SUV",
+    "mid-size-sedan": "Mid-size sedan",
+    "electric-pickup": "Electric pickup",
+    "cargo-van": "Cargo van",
+    "off-road-pickup": "Off-road pickup",
+    "full-size-luxury-suv": "Full-size luxury SUV",
+    "performance-sedan": "Performance sedan",
+    "muscle-coupe": "Muscle coupe",
+    "minivan": "Minivan",
+    "full-size-sedan": "Full-size sedan",
+    "three-row-luxury-suv": "Three-row luxury SUV",
+    "mid-size-luxury-suv": "Mid-size luxury SUV",
+    "compact-luxury-suv": "Compact luxury SUV",
+    "luxury-sedan": "Luxury sedan",
+    "compact-luxury-sedan": "Compact luxury sedan",
+    "electric-luxury-suv": "Electric luxury SUV",
+    "electric-sedan": "Electric sedan",
+    "electric-luxury-sedan": "Electric luxury sedan",
+    "electric-three-row-suv": "Electric three-row SUV",
+    "compact-sedan": "Compact sedan",
+    "hybrid-hatchback": "Hybrid hatchback",
+    "subcompact-sedan": "Subcompact sedan",
+    "electric-hatchback": "Electric hatchback",
+    "high-performance-sports-car": "High-performance sports car",
+    "two-row-mid-size-suv": "Two-row mid-size SUV",
+    "compact-sedan-and-hatchback": "Compact sedan and hatchback",
+    "roadster": "Roadster",
+    "all-wheel-drive-wagon": "All-wheel-drive wagon",
+    "compact-hatchback": "Compact hatchback",
+    "subcompact-hatchback": "Subcompact hatchback",
+    "off-road-luxury-suv": "Off-road luxury SUV",
+    "subcompact-luxury-suv": "Subcompact luxury SUV",
+    "full-size-luxury-sedan": "Full-size luxury sedan",
+    "sport-compact": "Sport compact",
+    "coupe-style-luxury-suv": "Coupe-style luxury SUV",
+    "luxury-sport-sedan": "Luxury sport sedan",
+    "hybrid-and-electric-crossover": "Hybrid and electric crossover",
+    "mid-size-luxury-sedan": "Mid-size luxury sedan",
+    "luxury-coupe-and-convertible": "Luxury coupe and convertible",
+    "high-performance-sedan": "High-performance sedan",
+    "electric-flagship-sedan": "Electric flagship sedan",
+    "luxury-coupe-and-sportback": "Luxury coupe and sportback",
+    "electric-performance-sedan": "Electric performance sedan",
+    "performance-hatchback": "Performance hatchback",
+    "luxury-performance-suv": "Luxury performance SUV",
+    "luxury-performance-sedan": "Luxury performance sedan",
+    "luxury-wagon": "Luxury wagon",
+    "electric-compact-suv": "Electric compact SUV",
+    "electric-fastback": "Electric fastback",
+    "compact-wagon": "Compact wagon",
+    "convertible": "Convertible",
+    "luxury-grand-tourer": "Luxury grand tourer",
+    "mid-engine-sports-car": "Mid-engine sports car",
+    "electric-city-car": "Electric city car",
+    "hybrid-supercar": "Hybrid supercar",
+    "grand-tourer": "Grand tourer",
+    "four-door-performance-vehicle": "Four-door performance vehicle",
+    "performance-suv": "Performance SUV",
+    "luxury-suv": "Luxury SUV",
+    "ultra-luxury-suv": "Ultra-luxury SUV",
+    "ultra-luxury-sedan": "Ultra-luxury sedan",
+    "flagship-ultra-luxury-sedan": "Flagship ultra-luxury sedan",
+    "electric-ultra-luxury-coupe": "Electric ultra-luxury coupe",
+    "mid-engine-supercar": "Mid-engine supercar",
+    "electric-performance-suv": "Electric performance SUV",
+    "full-size-off-road-suv": "Full-size off-road SUV",
+    "mid-size-off-road-suv": "Mid-size off-road SUV",
+    "mid-size-off-road-pickup": "Mid-size off-road pickup",
+    "sport-coupe": "Sport coupe",
+    "extended-minivan": "Extended minivan",
+    "retro-roadster": "Retro roadster",
+    "two-seat-city-car": "Two-seat city car",
+    "two-seat-convertible": "Two-seat convertible"
+  },
+  "note": {
+    "ford": "The F-Series pickup has been the best-selling vehicle line in the country for decades, which is why an F-150 quote is one of the most competitive things we shop.",
+    "chevrolet": "Chevrolet spans a $20,000 Trax and a $100,000 Corvette under one badge, and the two are not remotely the same insurance conversation.",
+    "gmc": "GMC is General Motors’ truck-and-SUV division, sharing platforms with Chevrolet but trimmed upmarket — which shows up in parts prices more than people expect.",
+    "ram": "Ram was split out of Dodge as its own truck brand in 2009, so an older pickup may still be titled as a Dodge.",
+    "jeep": "Jeep is the brand most often modified by its owners, and a lift kit or aftermarket bumper is exactly the kind of thing a policy needs to know about.",
+    "dodge": "Dodge kept building large-displacement muscle cars long after the rest of the industry moved on, and Hellcat trims are rated very differently from a base Charger.",
+    "chrysler": "Chrysler’s current US lineup is essentially one minivan, which makes it one of the simplest brands to quote.",
+    "cadillac": "Cadillac now sells both a V-Series with more than 600 horsepower and the electric LYRIQ, and those two sit at opposite ends of the rating table.",
+    "buick": "Buick has quietly become an all-SUV brand in the US, and its cars are among the least likely on the road to be driven hard — which insurers notice.",
+    "lincoln": "Lincoln shares its platforms with Ford but not its parts prices, and the difference between repairing a Navigator and an Expedition is real money.",
+    "tesla": "Teslas are repaired through an approved network rather than any body shop, and that constraint — not the battery — is what most often drives the premium.",
+    "rivian": "Rivian builds an electric pickup and SUV with an aluminium structure, a combination that puts it firmly in the expensive-to-repair column.",
+    "lucid": "Lucid is a low-volume luxury EV maker, and low volume is itself a rating factor — fewer shops, fewer parts, longer repairs.",
+    "toyota": "Toyota’s reputation for holding value cuts both ways on a policy: cheap to repair, but worth enough for longer that dropping collision early is a mistake.",
+    "honda": "Civics and Accords are among the most commonly stolen vehicles in the country, largely because their parts fit so many other cars on the road.",
+    "nissan": "Nissan sells both the Leaf and the GT-R, and a brand-level statement about what a Nissan costs to insure is meaningless without the model.",
+    "mazda": "Mazda has pushed upmarket in interior and materials without a luxury badge, which means repair bills that sit above what the price tag suggests.",
+    "subaru": "Almost every Subaru sold in the US is all-wheel drive, and that drivetrain is more expensive to put right after a collision than a front-wheel-drive equivalent.",
+    "mitsubishi": "Mitsubishi’s long powertrain warranty is a selling point at the dealer and irrelevant to your policy — warranty and insurance cover different things entirely.",
+    "lexus": "Lexus is Toyota’s luxury division, which means Toyota reliability with luxury parts pricing — a good combination for you and a mixed one for a quote.",
+    "acura": "Acura sits close enough to Honda mechanically that repairs are reasonable, and far enough upmarket that the sensors in the bumpers are not.",
+    "infiniti": "Infiniti is Nissan’s luxury brand, and its performance trims carry engines that rating tables treat very differently from the equivalent Nissan.",
+    "hyundai": "Certain 2011-2021 Hyundais built without an engine immobiliser became widely targeted for theft, and some carriers still price those model years accordingly.",
+    "kia": "Kia shares the same immobiliser issue on certain 2011-2021 models, and if yours is one of them, the anti-theft software update is worth asking your carrier about.",
+    "genesis": "Genesis was split from Hyundai as a standalone luxury brand in 2015, and it is priced like a luxury brand at the body shop.",
+    "bmw": "BMW’s M division and its base models share a badge and almost nothing else on a rate sheet — an M3 and a 330i are different insurance products.",
+    "mercedes-benz": "Mercedes sells everything from a compact sedan to the Sprinter van, and the Sprinter is commercial the moment it carries anything for work.",
+    "audi": "Audi uses aluminium extensively in its structures, and aluminium repair requires a separately certified shop — fewer options, higher labour.",
+    "volkswagen": "Volkswagen sits between mainstream and premium in parts pricing, which is why VW quotes often surprise people who expected Toyota numbers.",
+    "porsche": "Porsche holds value unusually well, and a policy written on an outdated agreed value is one of the more expensive mistakes an owner can make.",
+    "volvo": "Volvo built its brand on crash safety, and the sensors and structures that deliver it are exactly what makes a modern Volvo expensive to repair.",
+    "polestar": "Polestar is Volvo’s electric performance brand, sold through a small network — which means fewer shops qualified to touch it after a claim.",
+    "land-rover": "Land Rover combines genuine off-road capability with luxury pricing, and owners who actually use it off-road should say so when quoting.",
+    "jaguar": "Jaguar’s aluminium-intensive construction and low US volume put it among the more expensive brands to repair per panel.",
+    "mini": "MINI is a BMW underneath, which is the part that shows up on the repair estimate rather than on the sticker.",
+    "alfa-romeo": "Alfa Romeo returned to the US market in 2014 with a small dealer network, and network size is a rating factor in its own right.",
+    "maserati": "Maserati is a low-volume luxury brand where a single body panel can cost more than a whole repair on a mainstream car.",
+    "fiat": "Fiat’s US presence has shrunk to almost nothing, and a thin parts and service network makes an older 500 harder to repair than its size suggests.",
+    "ferrari": "Ferrari repairs go through factory-authorised workshops only, and the waiting list for one is part of what a claim actually costs you.",
+    "lamborghini": "Lamborghini bodies are largely carbon fibre and aluminium, materials that are replaced rather than repaired — there is no straightening a carbon tub.",
+    "bentley": "Bentley interiors are hand-finished, which means an interior claim on one can run past what a whole mainstream car is worth.",
+    "rolls-royce": "Rolls-Royce sells a few thousand cars a year across the entire United States, and that volume is why almost no standard carrier will write one.",
+    "aston-martin": "Aston Martin builds in very small numbers with bonded aluminium structures, a construction that a general body shop is not equipped to touch.",
+    "mclaren": "Every McLaren is built around a carbon fibre tub, and whether that tub survived an impact is the single question that decides a total loss.",
+    "lotus": "Lotus built its name on light cars with minimal bodywork, and the newer electric models are the opposite of that in both weight and repair cost.",
+    "vinfast": "VinFast started US deliveries in 2023, and a service network that new is a fair question to ask a carrier about before you buy the car.",
+    "pontiac": "General Motors wound Pontiac down in 2010, so every one on the road is at least that old — which changes the collision-coverage arithmetic completely.",
+    "saturn": "Saturn ended in 2010. Parts still exist through GM channels, but availability is the thing to ask about before insuring one for more than liability.",
+    "mercury": "Ford closed Mercury in 2011. Most models shared a platform with a Ford, which is what keeps parts findable.",
+    "oldsmobile": "Oldsmobile ended in 2004, making it the oldest brand on this list still turning up on quotes — usually as a liability-only policy.",
+    "hummer": "The Hummer brand ended in 2010; the name came back as an electric GMC model, and the two are not the same vehicle on a policy.",
+    "scion": "Toyota folded Scion back into the main brand in 2016, and some models simply became Toyotas — so check what your title actually says.",
+    "suzuki": "Suzuki left the US car market in 2013 while continuing to sell motorcycles, which is why a Suzuki quote depends entirely on which kind you have.",
+    "isuzu": "Isuzu stopped selling passenger vehicles in the US in 2009 and now sells commercial trucks — those are a commercial policy, not a personal one.",
+    "saab": "Saab stopped production in 2011, and the parts situation is the single biggest question on any Saab policy above liability.",
+    "plymouth": "Chrysler ended Plymouth in 2001, and most of what it sold was badge-shared with Dodge — which is what still keeps parts on the shelf.",
+    "geo": "Geo was General Motors’ import-badge experiment and ended in 1997; a Geo Metro or Prizm is mechanically a Suzuki or a Toyota underneath.",
+    "eagle": "Eagle came out of Chrysler’s purchase of American Motors and ended in 1998, so anything wearing the badge is older than most drivers on the policy.",
+    "daewoo": "Daewoo left the US in 2002 and its models were later rebadged as Suzukis and Chevrolets, which is the only reason parts are findable at all.",
+    "smart": "smart stopped US sales in 2019. The car is unusually small, and small does not mean cheap to repair when the parts come from Mercedes."
+  }
+}

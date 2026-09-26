@@ -1120,7 +1120,7 @@
   <!-- Band 3 — the sign-off. -->
   <div class="fend">
    <img class="logo" src="../../../assets/safehouse-logo.png" alt="Safe House Insurance">
-   <p class="es">Licensed independent agency in El Paso, Texas &middot; 🇲🇽 Se habla español</p>
+   <p class="es">Licensed independent agency in El Paso, Texas &middot; 🇲🇽 <span lang="es">Se habla español</span></p>
    <p class="disc">Safe House Insurance LLC is an independent insurance agency licensed in Texas and New Mexico. Coverage is subject to carrier approval, underwriting guidelines and the terms, conditions and exclusions of the issued policy. Quotes are estimates and are not a guarantee of coverage or price. Carrier availability and eligibility vary by state and by applicant. &copy; 2026 Safe House Insurance.</p>
    <p class="legal"><a href="../../../privacy.html">Privacy Policy</a> &middot; <a href="../../../sms-terms.html">SMS Terms</a> &middot; <a href="../../../quote.html">Get a quote</a></p>
   </div>
@@ -1128,7 +1128,7 @@
  </div>
 </footer>
 
-<script type="application/json" id="i18n">{"fillLead": "Fill in your numbers", "fillNote": "Everything stays in your browser. Nothing is sent anywhere and this is not a quote.", "fillVerd": "Put your vehicle value and what you pay for physical damage coverage above.", "highNote": "The most a claim could return is {risk}, and you are paying {prem} a year for it. That is the range where owners often move to liability only — as long as they could replace the vehicle themselves.", "highVerd": "You are paying a large share of what this coverage could ever pay you.", "keep": "Likely worth keeping", "lowNote": "Up to {risk} of protection for {prem} a year. At this ratio most owners keep collision and comprehensive — and if the vehicle is financed or leased, the lender requires them anyway.", "lowVerd": "The coverage can still pay out far more than it costs you.", "midNote": "A claim could return up to {risk} against {prem} a year. Whether that is worth keeping comes down to one question: could you replace the vehicle out of pocket tomorrow if you had to?", "midVerd": "This is the range where the answer depends on you, not on the maths.", "review": "Worth reviewing", "talk": "Worth a conversation", "zeroNote": "Collision and comprehensive can never pay more than the vehicle is worth minus your deductible, so at these numbers the coverage has almost nothing left to pay out. That is usually the point to talk about dropping it — but only if losing the vehicle outright is something you could absorb.", "zeroVerd": "Your deductible is as high as the vehicle is worth."}</script>
+<script type="application/json" id="i18n">{"fillLead": "Fill in your numbers", "fillNote": "Everything stays in your browser. Nothing is sent anywhere and this is not a quote.", "fillVerd": "Put your vehicle value and what you pay for physical damage coverage above.", "highNote": "The most a claim could return is {risk}, and you are paying {prem} a year for it. That is the range where owners often move to liability only — as long as they could replace the vehicle themselves.", "highVerd": "You are paying a large share of what this coverage could ever pay you.", "keep": "Likely worth keeping", "lowNote": "Up to {risk} of protection for {prem} a year. At this ratio most owners keep collision and comprehensive — and if the vehicle is financed or leased, the lender requires them anyway.", "lowVerd": "The coverage can still pay out far more than it costs you.", "midNote": "A claim could return up to {risk} against {prem} a year. Whether that is worth keeping comes down to one question: could you replace the vehicle out of pocket tomorrow if you had to?", "midVerd": "This is the range where the answer depends on you, not on the maths.", "review": "Worth reviewing", "talk": "Worth a conversation", "zeroNote": "Collision and comprehensive can never pay more than the vehicle is worth minus your deductible, so at these numbers the coverage has almost nothing left to pay out. That is usually the point to talk about dropping it — but only if losing the vehicle outright is something you could absorb.", "zeroVerd": "Your deductible is as high as the vehicle is worth.", "zipBody": "Your ZIP code is part of your garaging address, which is one of several things an insurance company may consider when it prices a policy. Put {zip} into the quote and we will shop it across the carriers we represent.", "zipCta": "Get quotes for {zip} →"}</script>
 <script>var T=(function(){
   var d={};try{d=JSON.parse(document.getElementById('i18n').textContent)||{};}catch(e){}
   return function(k,v){
@@ -1314,11 +1314,9 @@
         b.setAttribute('aria-pressed','true');
         var z = b.dataset.zip, area = b.dataset.area || '';
         zt.textContent = z + (area ? ' \u2014 ' + area : '');
-        zp.textContent = 'Your ZIP code is part of your garaging address, which is one of several '
-          + 'things an insurance company may consider when it prices a policy. Put ' + z + ' into '
-          + 'the quote and we will shop it across the carriers we represent.';
+        zp.textContent = T('zipBody', {zip: z});
         if (za) { za.setAttribute('href', base + '?zip=' + encodeURIComponent(z));
-                  za.textContent = 'Get quotes for ' + z + ' \u2192'; }
+                  za.textContent = T('zipCta', {zip: z}); }
         zo.hidden = false;
       });
     });

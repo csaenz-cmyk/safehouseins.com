@@ -1,0 +1,506 @@
+{
+  "meta": {
+    "title": "Seguro de auto {name} en Texas y Nuevo México",
+    "titleShort": "Seguro para {name} en Texas y Nuevo México",
+    "desc": [
+      "Compara el seguro de tu {name} con las compañías que representa Safe House. Cotización gratis en minutos, agentes con licencia, Texas y Nuevo México.",
+      "Asegura tu {name} con Safe House, agencia independiente de El Paso. Un solo formulario, varias aseguradoras y un agente que te explica lo que salió.",
+      "¿Vas a asegurar tu {name}? Safe House cotiza con varias aseguradoras a la vez, en español o inglés. Notas de cobertura por modelo y cotización gratis."
+    ],
+    "crumb": "Seguro de auto {name}"
+  },
+  "state": {
+    "tx": "Texas",
+    "nm": "Nuevo México"
+  },
+  "hero": {
+    "sub": [
+      "Compara varias compañías de seguros para tu {name} &mdash; y deja que un agente de Safe House con licencia te ayude a elegir.",
+      "Con un solo formulario, tu {name} llega a todas las aseguradoras que representamos. Un agente de Safe House con licencia revisa contigo lo que respondieron.",
+      "Mira lo que dicen varias compañías de seguros sobre tu {name}, lado a lado, con un agente de Safe House con licencia que te ayuda a entenderlo."
+    ],
+    "chips": {
+      "models": "{n} modelos que cotizamos",
+      "trucks": "Pickups",
+      "suvs": "SUV",
+      "cars": "Autos",
+      "evs": "Eléctricos",
+      "older": "Modelos anteriores, bienvenidos"
+    }
+  },
+  "sec": {
+    "models": {
+      "kick": "Tu vehículo",
+      "h2": "¿Qué {name} vas a asegurar?",
+      "p": "Elige el modelo y mira lo que normalmente importa en su póliza. El emblema le dice muy poco a una tabla de tarifas &mdash; la carrocería, el motor y el uso que le das le dicen casi todo."
+    },
+    "price": {
+      "kick": "Lo que mueve el precio",
+      "h2": "¿Qué puede influir en el costo de asegurar tu {name}?",
+      "p": "No hay dos cotizaciones que se armen igual. Estos son los factores que de verdad mueven el precio, más o menos en el orden en que suelen pesar."
+    },
+    "calc": {
+      "kick": "Herramienta de cobertura",
+      "h2": "¿Todavía vale la pena la cobertura de colisión en tu {name}?",
+      "p": "La cobertura de colisión (collision) y la cobertura integral (comprehensive) nunca te pueden pagar más de lo que vale el vehículo, menos tu deducible. Cuando ese tope se acerca a lo que te cuesta la cobertura cada año, estás pagando por proteger muy poco. Con tus números, sin suposiciones."
+    },
+    "lineup": {
+      "kick": "Los modelos",
+      "h2": "Modelos de {name} que cotizamos",
+      "p": "Los que vemos más seguido. No es un límite &mdash; el formulario de cotización tiene una opción para escribir cualquier modelo que no esté en esta lista, incluso los más antiguos."
+    },
+    "specifics": {
+      "kick": "Detalles de {name}",
+      "h2": "Lo que conviene saber antes de asegurar tu {name}",
+      "p": "Los temas que salen con estos vehículos en particular, y no los consejos que aplican a cualquier auto en la calle."
+    },
+    "why": {
+      "kick": "Por qué Safe House",
+      "h2": "Una agencia en El Paso, no un centro de llamadas",
+      "p": "Somos independientes, tenemos licencia en Texas y Nuevo México, y del otro lado del teléfono hay una persona que te puede explicar lo que estás comprando."
+    },
+    "faq": {
+      "kick": "Preguntas frecuentes",
+      "h2": "Lo que nos preguntan sobre el seguro de un {name}"
+    }
+  },
+  "cards": {
+    "repair": {
+      "h": "Costo de las reparaciones",
+      "exoticH": "Las reparaciones, y quién puede hacerlas",
+      "exotic": "La carrocería de un {name}, que se fabrica en pocas unidades, se reemplaza en lugar de enderezarse, y solo una lista corta de talleres está autorizada para tocarla. Esa limitación pesa más en la póliza que el precio del {name}.",
+      "evBig": "Los paquetes de baterías, las piezas estructurales fundidas y los paneles llenos de sensores hacen que reparar un {name} eléctrico sea un trabajo muy distinto al de un auto de gasolina. Hay menos talleres certificados para hacerlo, y eso se nota en lo que las aseguradoras esperan que cueste un reclamo.",
+      "big": "Las estructuras de aluminio necesitan talleres con una certificación aparte. Las defensas llevan radar y los parabrisas llevan cámaras que hay que recalibrar después de cambiarlos. En un {name} moderno, nada de eso es opcional.",
+      "truck": "Una pickup {name} es más grande, más pesada y cada vez más de aluminio, y los sensores de asistencia al conductor van justo en los paneles que reciben el primer golpe. Los presupuestos de reparación han cambiado muchísimo en diez años.",
+      "base": "Las piezas modernas, los sensores, las cámaras y la calibración que necesitan después de un cambio terminan todos en el presupuesto del taller. Es la razón más grande por la que un {name} más nuevo puede costar más de asegurar que uno más viejo."
+    },
+    "model": {
+      "h": "Tu modelo exacto",
+      "pair": "Un {name} {model_a} y un {name} {model_b} llevan el mismo emblema, pero para una aseguradora no tienen nada que ver. Las aseguradoras le ponen precio al vehículo específico &mdash; carrocería, motor, versión, costo de reparación &mdash; no al emblema.",
+      "single": "Las aseguradoras le ponen precio al vehículo específico: carrocería, motor, versión y lo que cuesta repararlo. El emblema de {name} por sí solo le dice muy poco a una tabla de tarifas."
+    },
+    "base": [
+      [
+        "Dónde vives",
+        "El precio se calcula con la dirección donde el vehículo se queda de noche, no con la ciudad de tu licencia. Dos calles de diferencia pueden cambiar el precio, porque el historial de reclamos se mide así de fino."
+      ],
+      [
+        "Tu historial de manejo",
+        "Multas, accidentes en los que tuviste la culpa, cuánto tiempo llevas asegurado sin interrupciones. Es la parte de la cotización que tú controlas, y las infracciones viejas sí dejan de contar con el tiempo."
+      ],
+      [
+        "La compañía de seguros",
+        "El mismo conductor con el mismo vehículo, cotizado por dos aseguradoras, puede salir con cientos de dólares de diferencia. Lo que cada una quiere asegurar cambia según el año, el estado y el tipo de vehículo."
+      ]
+    ],
+    "extra": {
+      "exotic": {
+        "h": "Valor acordado, no el del libro azul",
+        "p": "No hay un lote lleno de ventas parecidas con las cuales comparar, así que normalmente se aseguran con un valor acordado que se fija por adelantado. Mantener esa cifra al día es todo el trabajo."
+      },
+      "ev": {
+        "h": "La pregunta de la batería",
+        "p": "Cambiar la batería es la reparación individual más cara de la industria, y por eso un vehículo eléctrico llega al límite de pérdida total antes de lo que esperan sus dueños. Pregunta cómo se maneja un reclamo por la batería antes de necesitarlo."
+      },
+      "truck": {
+        "h": "Para qué usas de verdad la camioneta",
+        "p": "Llevar herramientas o material por un pago, remolcar por dinero o tenerla a nombre de un negocio convierte lo que era una póliza personal en un asunto comercial. Di para qué la usas &mdash; un reclamo negado sale mucho más caro que la póliza correcta."
+      },
+      "offroad": {
+        "h": "Modificaciones",
+        "p": "Los levantamientos, los malacates, las defensas y las llantas sobredimensionadas son lo primero que un ajustador no va a encontrar en la póliza. Declararlos cuesta poco; descubrir que nunca estuvieron cubiertos, no."
+      },
+      "discontinued": {
+        "h": "Refacciones disponibles",
+        "p": "{name} ya no se fabrica, así que una reparación puede tardar mientras se consigue una pieza. Una reparación larga puede durar más que la cobertura de auto de renta de la póliza &mdash; vale la pena revisar qué te permite la tuya."
+      },
+      "luxury": {
+        "h": "Talleres certificados",
+        "p": "Si hay pocos talleres calificados para trabajar en un {name}, hay menos competencia en la mano de obra y las reparaciones tardan más. Las aseguradoras lo toman en cuenta en el precio, y no todas lo calculan igual."
+      },
+      "base": {
+        "h": "La cobertura que tú elegiste",
+        "p": "Los deducibles, los límites y las partes opcionales &mdash; auto de renta, asistencia vial, conductor sin seguro. Mueven el precio tanto como el vehículo, y a la mayoría de la gente nunca se los han explicado con calma."
+      }
+    }
+  },
+  "blocks": {
+    "ev": {
+      "tag": "Eléctricos",
+      "h": "Lo que cambia en la póliza cuando es eléctrico",
+      "p": [
+        "<p>La parte mecánica se simplifica y la de los reclamos se complica. No hay motor que reconstruir, pero la batería es el componente más caro del vehículo, y un daño que un auto de gasolina aguantaría sin problema puede dejar a uno eléctrico como pérdida total solo por lo que cuesta.</p><p>Haz dos preguntas cuando cotices un {name} eléctrico: cómo maneja la aseguradora un reclamo por la batería, y si los talleres a los que te mandaría están certificados para trabajar con alto voltaje. En las dos cosas las aseguradoras son muy distintas.</p>",
+        "<p>Las aseguradoras llevan tiempos muy distintos asegurando vehículos eléctricos, y se nota en la diferencia de precios. Algunas tienen datos reales de reclamos de un {name} eléctrico y le ponen precio con base en eso; otras todavía están adivinando, y le ponen precio a su suposición.</p><p>Esa diferencia es la razón para comparar en lugar de solo renovar. En los eléctricos es más grande que en casi cualquier otra cosa que cotizamos.</p>"
+      ]
+    },
+    "truck": {
+      "tag": "Pickups",
+      "h": "¿Camioneta personal o camioneta de trabajo?",
+      "p": [
+        "<p>Es el error con más consecuencias que puedes cometer con una pickup {name}. Una póliza de auto personal cubre el uso personal. En el momento en que la camioneta lleva herramientas o material por un pago, remolca por dinero o está a nombre de un negocio, el reclamo puede ser negado &mdash; después del accidente, cuando ya es demasiado tarde para arreglarlo.</p><p>Dinos para qué la usas de verdad. La cobertura comercial no siempre es más cara, y siempre sale más barata que un reclamo negado.</p>",
+        "<p>La mitad de las camionetas que cotizamos hacen algún tipo de trabajo, y sus dueños casi nunca lo ven como uso comercial. Llevar tu propio material a tu propia obra es una cosa; llevar el de otros por dinero es otra, y también lo es una camioneta registrada a nombre de una empresa.</p><p>Se aclara con una sola pregunta, y contestarla bien es la diferencia entre un reclamo pagado y un pleito.</p>"
+      ]
+    },
+    "offroad": {
+      "tag": "Modificaciones",
+      "h": "Todo lo que le agregaste se tiene que declarar",
+      "p": [
+        "<p>Los dueños de {name} modifican sus vehículos más que casi nadie. Un kit de levantamiento, un malacate, defensas que no son de fábrica, llantas sobredimensionadas &mdash; una póliza hecha sobre un vehículo de fábrica paga como vehículo de fábrica, y las piezas por las que pagaste de más son justo lo que un ajustador no va a encontrar en la póliza.</p><p>Declararlas cuesta muy poco. Enterarte después de que nunca estuvieron cubiertas te cuesta todo lo que gastaste.</p>",
+        "<p>El uso fuera de carretera no queda excluido automáticamente, pero tampoco queda cubierto automáticamente. Los eventos organizados casi nunca lo están. Si tu {name} de verdad sale a las brechas, dilo al cotizarlo y pide que las modificaciones queden anotadas en lugar de darlas por hecho.</p>"
+      ]
+    },
+    "luxury": {
+      "tag": "Marcas premium",
+      "h": "Piezas de lujo, mano de obra de lujo",
+      "p": [
+        "<p>Un {name} no es caro de reparar porque haya sido caro de comprar &mdash; muchas pickups comunes cuestan lo mismo. Es caro porque una salpicadera ya no es solo una salpicadera. Los sensores, la recalibración después de un cambio y una lista de talleres certificados que puede ser corta en tu zona terminan todos en el presupuesto.</p><p>Por eso también la diferencia entre aseguradoras es más grande en este nivel. Algunas conocen bien los talleres que reparan {name} y le ponen precio en consecuencia; otras no, y se nota.</p>",
+        "<p>Lo que costó el auto es la parte más chica de la historia. Lo que mueve la prima de un auto de lujo es la cuenta del taller: faros adaptativos que cuestan más que toda una defensa de un auto común, módulos de radar y de cámara metidos en paneles que antes eran pura lámina, y menos talleres autorizados para tocar cualquiera de esas piezas.</p><p>Aquí comparar importa más que en un auto para ir al trabajo, porque las aseguradoras no se ponen nada de acuerdo en lo que realmente cuesta ese trabajo.</p>"
+      ]
+    },
+    "exotic": {
+      "tag": "Especializado",
+      "h": "Por qué esta no es una póliza estándar",
+      "p": [
+        "<p>La mayoría de las aseguradoras de auto personal no aseguran un {name} para nada, y las que sí lo hacen casi nunca lo hacen con su producto normal. Un {name} va a un mercado especializado y se asegura con <strong>valor acordado</strong> (agreed value) en lugar de valor comercial (actual cash value) &mdash; tú y la aseguradora fijan la cifra por adelantado, por escrito, y eso es lo que se paga.</p><p>El valor comercial de un {name}, un auto tan poco común, es un pleito esperando a pasar. Un valor acordado es una cifra que ya está firmada.</p>"
+      ]
+    },
+    "conditions": {
+      "tag": "Condiciones",
+      "h": "Millas, dónde se guarda y quién más lo maneja",
+      "p": [
+        "<p>Las pólizas especializadas traen condiciones que una póliza normal no tiene: un límite de millas al año, el requisito de que esté guardado en cochera y, a veces, una lista con los nombres de quién lo puede manejar. Esas condiciones son las que hacen razonable la prima, y romperlas sin decir nada es la manera de que te nieguen un reclamo.</p><p>Si de verdad es tu auto de diario, dilo al cotizar. Cambia el mercado al que se manda, y decirlo de entrada sale mucho más barato que si lo descubren después.</p>"
+      ]
+    },
+    "performance": {
+      "tag": "Alto desempeño",
+      "h": "La versión importa más que el emblema",
+      "p": [
+        "<p>Las aseguradoras le ponen precio al motor, no al nombre del modelo. Una versión de alto desempeño puede caer en un grupo de tarifa completamente distinto al del modelo base con el que comparte emblema, y esa diferencia muchas veces es mayor que la que hay entre dos marcas distintas.</p><p>Cotiza la versión exacta. Un número adivinado no va a sobrevivir a la revisión de la aseguradora, y descubrirlo justo al momento de contratar no es la mejor manera de empezar el día.</p>"
+      ]
+    },
+    "economy": {
+      "tag": "Valor",
+      "h": "Barato de comprar no es lo mismo que barato de asegurar",
+      "p": [
+        "<p>Un {name} económico normalmente sí es más barato de asegurar que un auto de lujo, pero no por la razón que la gente cree. No es el precio de lista &mdash; es que las piezas son comunes, hay talleres por todos lados y la reparación es rápida.</p><p>Donde eso no se cumple es en los robos. Las piezas comunes le quedan a muchos autos, y justo eso es lo que hace que algunos modelos muy ordinarios sean atractivos para los ladrones.</p>"
+      ]
+    },
+    "discontinued": {
+      "tag": "Vehículos anteriores",
+      "h": "Cómo asegurar un {name} que ya no se fabrica",
+      "p": [
+        "<p>Que la marca {name} ya no exista no es un problema de cobertura. Las aseguradoras evalúan el vehículo que tienen enfrente, y un {name} tiene un año, un tipo de carrocería y un costo de reparación como cualquier otro. Lo que cambia es el valor &mdash; y el valor es lo que decide cuánta cobertura vale la pena llevar.</p><p>A la responsabilidad civil no le importa la edad del vehículo; el daño que le haces a otra persona es el mismo de todos modos. La colisión y la cobertura integral son las que pierden sentido con los años, y la calculadora de arriba es la manera honesta de encontrar ese punto.</p>"
+      ]
+    },
+    "repairs": {
+      "tag": "Reparaciones",
+      "h": "Lo que de verdad aparece en el presupuesto",
+      "p": [
+        "<p>Una aseguradora no está adivinando cuando le pone a un {name} un precio más alto que a otro vehículo que en la calle se ve parecido. Está viendo lo que cobra un taller: horas por panel, si el taller necesita una certificación aparte para la estructura y cuántos componentes electrónicos hay que recalibrar después.</p><p>Una defensa ya casi nunca es solo una defensa. Detrás van los sensores del control de crucero y del frenado de emergencia, y volver a calibrarlos es su propia línea en la cuenta.</p>"
+      ]
+    },
+    "mainstream": {
+      "tag": "Marcas de todos los días",
+      "h": "Ser común es una ventaja, hasta cierto punto",
+      "p": [
+        "<p>Un {name} es el tipo de vehículo que cualquier taller de hojalatería de El Paso ya ha visto antes. Las piezas están en un estante y no en un barco, más talleres pueden hacer el trabajo y más aseguradoras lo quieren asegurar. Todo eso suele jugar a tu favor.</p><p>Donde deja de ayudar es en los más nuevos. Los sensores de asistencia al conductor llegaron a los vehículos comunes igual de rápido que a los de lujo, y un parabrisas con una cámara detrás cuesta lo que cuesta, sin importar el emblema que lleve enfrente.</p>",
+        "<p>El volumen es, sin hacer ruido, de las mejores cosas que un vehículo puede tener a su favor. Un {name} común significa muchas piezas disponibles, reparaciones cortas y una lista larga de aseguradoras con ganas de asegurarlo &mdash; que es justo la situación en la que comparar conviene, porque todas quieren el negocio.</p><p>La excepción es cualquier cosa con una cámara en el parabrisas o radar en la defensa. Ese trabajo cuesta lo mismo en un auto común que en uno caro.</p>"
+      ]
+    },
+    "weight": {
+      "tag": "Peso",
+      "h": "Vehículo más grande, más responsabilidad civil en juego",
+      "p": [
+        "<p>La mayor parte de lo que vende {name} son SUV, y un vehículo más pesado hace más daño a lo que golpea. Eso es un tema de responsabilidad civil más que de colisión, y es el argumento para cotizar límites por encima del mínimo del estado en lugar de quedarte en el mínimo.</p><p>La diferencia entre los límites mínimos y el siguiente nivel normalmente es mucho menor de lo que la gente espera. Vale la pena ver las dos cifras lado a lado antes de decidir.</p>",
+        "<p>Una SUV protege bien a quienes van adentro y cuesta más de reparar que un sedán del mismo precio &mdash; paneles más altos, más sensores y, en buena parte de ellas, tracción en las cuatro ruedas. Las dos cosas aparecen en una cotización, cada una en su lugar.</p><p>Por eso también vale la pena revisar la parte de responsabilidad civil de la póliza. El daño que le puedes hacer a otra persona con un {name} de tres filas no es el mismo que con un auto chico.</p>"
+      ]
+    },
+    "financing": {
+      "tag": "Financiamiento",
+      "h": "Si está financiado o en arrendamiento, tienes menos opciones",
+      "p": [
+        "<p>A la financiera no le importa lo que tú pienses de los deducibles. Mientras haya un préstamo o un arrendamiento sobre tu {name}, te va a exigir cobertura de colisión y cobertura integral, va a querer aparecer en la póliza, y si quitas la cobertura puede comprarla por su cuenta y sumarla a lo que debes &mdash; normalmente a un precio que nadie elegiría.</p><p>Lo que vale la pena preguntar es la diferencia entre lo que debes y lo que vale tu {name}. Esa diferencia te toca a ti a menos que algo la cubra, y es más grande en los primeros años.</p>",
+        "<p>Un vehículo financiado y uno ya pagado son dos conversaciones distintas. En un {name} financiado, la financiera pone el mínimo: cobertura completa, su nombre en la póliza y nada que negociar. Todo lo que dice esta página sobre si la cobertura de colisión todavía se justifica aplica a partir del día en que terminas de pagar el préstamo, no antes.</p><p>De paso, pregunta por el faltante entre el saldo del préstamo y el valor de tu {name}. Al principio de un préstamo esa diferencia puede ser de miles de dólares, y una pérdida total es justo cuando te enteras.</p>"
+      ]
+    },
+    "theft": {
+      "tag": "Robo",
+      "h": "El robo, y lo que le hace a la cobertura integral",
+      "p": [
+        "<p>El riesgo de robo de un {name} se calcula por modelo y año específicos, no por marca, y cambia. Un modelo puede pasar de no llamar la atención a estar entre los favoritos de los ladrones en un par de años, y las aseguradoras reaccionan más rápido que los dueños.</p><p>Si tu {name} está en una de esas listas de modelos muy robados, vale la pena hacer dos cosas: preguntar si le aplica alguna actualización antirrobo del fabricante, y preguntarle a tu aseguradora si hacerla cambia algo. A veces sí.</p>"
+      ]
+    },
+    "about": {
+      "tag": "Sobre la marca",
+      "h": "Quién fabrica {name}, y por qué casi no importa",
+      "owned": "<p>{name} forma parte de {parent} y es de origen {origin}. {note}</p>",
+      "solo": "<p>{name} es una marca de origen {origin}. {note}</p>",
+      "why": "<p>Quién es dueño de la marca es un dato interesante, pero casi no tiene que ver con tu póliza. Las aseguradoras evalúan el vehículo que está en tu cochera &mdash; su año, su versión, lo que cuesta repararlo &mdash; no el grupo dueño del emblema. {lineup}, y eso pesa mucho más en una cotización que la empresa matriz.</p>"
+    }
+  },
+  "lineup": {
+    "allSuv": "todos los modelos que {name} vende en Estados Unidos son SUV",
+    "mostTruck": "la mayor parte de lo que {name} vende en Estados Unidos son pickups",
+    "mostSports": "la gama de {name} gira en torno a los autos deportivos",
+    "range": "la gama de {name} va de {a} a {b}",
+    "narrow": "la gama de {name} es reducida",
+    "part": {
+      "suv": "las SUV",
+      "truck": "las pickups",
+      "car": "los autos",
+      "van": "las vans",
+      "sports": "los deportivos"
+    }
+  },
+  "faq": {
+    "expensive": {
+      "q": "¿Es caro asegurar un {name}?",
+      "a": [
+        "<p>¿Comparado con qué? Un {name} no es una sola cosa &mdash; la versión, el año del modelo y el motor mueven una cotización más que el emblema, y dos aseguradoras que ven exactamente el mismo vehículo pueden salir con cientos de dólares de diferencia.</p><p>Lo que sí podemos hacer es poner tu {name} exacto frente a todas las aseguradoras que representamos y enseñarte la diferencia. Esa es una respuesta real; un promedio de la marca no lo es.</p>",
+        "<p>La marca es de las señales más débiles en una cotización. Tu historial, tu dirección, las millas que manejas y la versión específica pesan más, y por eso un sí o un no general sobre {name} no te serviría de nada.</p><p>Danos el año y la versión de tu {name} y lo cotizamos como se debe.</p>"
+      ]
+    },
+    "cheapest": {
+      "q": "¿Cuál es el {name} más barato de asegurar?",
+      "a": [
+        "<p>Por lo general, el modelo menos potente y más económico de la gama, de un año anterior, con un historial limpio detrás del volante. La potencia del motor y el costo de reparación son las dos características del vehículo que más mueven la prima, y el modelo de entrada es el más bajo en las dos.</p><p>Aun así, el conductor pesa más que el auto. Un historial impecable en una versión más alta muchas veces le gana a un mal historial en el modelo base.</p>",
+        "<p>Normalmente el modelo de entrada y no el tope de gama &mdash; motor más chico, piezas más baratas, menos sensores que recalibrar. La antigüedad también ayuda, hasta el punto en que el vehículo vale tan poco que ya no vale la pena llevar la cobertura de colisión.</p><p>La calculadora de arriba es la manera honesta de encontrar ese punto para tu propio vehículo y no para uno promedio.</p>"
+      ]
+    },
+    "full": {
+      "q": "¿Necesito cobertura completa en un {name}?",
+      "a": [
+        "<p>Si está financiado o en arrendamiento, decide la financiera. Te va a exigir cobertura de colisión y cobertura integral, y si las quitas puede agregarlas por su cuenta y cobrártelas.</p><p>Si ya está pagado, es cuestión de números. Haz la cuenta en la calculadora de arriba: cuando lo máximo que la cobertura te podría pagar se acerca a lo que te cuesta, la respuesta empieza a cambiar.</p>",
+        "<p>La &ldquo;cobertura completa&rdquo; (full coverage) no es un producto &mdash; quiere decir responsabilidad civil más colisión más cobertura integral. Una financiera va a exigir las tres. Cuando el {name} ya es completamente tuyo, se vuelve una decisión personal, y la prueba honesta es si podrías reponerlo mañana sin que te doliera.</p>"
+      ]
+    },
+    "model": {
+      "q": "¿Cuánto cuesta el seguro de un {name} {model}?",
+      "a": "<p>Nadie puede contestar eso solo con saber que es un {model}, y quien te dé una cifra sin preguntar quién lo maneja está adivinando. Tu historial, la dirección donde se queda de noche, las millas que manejas, el año del modelo y la versión lo mueven más que el nombre del modelo.</p><p>Lo que sí podemos hacer es cotizar tu {name} {model} con todas las aseguradoras que representamos al mismo tiempo y enseñarte lo que dijo cada una. Toma unos minutos y no cuesta nada.</p>"
+    },
+    "trim": {
+      "q": "¿La versión o el motor cambian mi precio?",
+      "a": "<p>Sí, y normalmente más de lo que la gente espera. Las aseguradoras le ponen precio al vehículo específico &mdash; motor, carrocería, equipo de seguridad, costo de reparación &mdash; no el nombre del modelo. Una versión de alto desempeño puede caer en un grupo de tarifa totalmente distinto al del modelo base con el que comparte emblema.</p><p>Cotiza la versión exacta. Un número adivinado no va a sobrevivir a la revisión de la aseguradora.</p>"
+    },
+    "newer": {
+      "q": "¿Mi {name} va a costar más de asegurar que mi auto anterior?",
+      "a": "<p>Muchas veces sí, si el nuevo es más reciente &mdash; y la razón es el costo de reparación, no el valor. Los sensores en las defensas, las cámaras en los parabrisas que hay que recalibrar y los paneles de aluminio que necesitan un taller certificado han subido los reclamos por daños físicos en todas las marcas.</p><p>La solución no es quitar coberturas. Es volver a cotizar cuando cambias de vehículo, que es justo el momento en que a la mayoría se le olvida.</p>"
+    },
+    "any": {
+      "q": "¿Safe House puede asegurar cualquier modelo de {name}?",
+      "a": "<p>Sí. Los modelos de esta página son los que vemos más seguido, no un límite &mdash; el formulario de cotización tiene una opción <strong>Otro</strong> con un campo para escribir cualquier modelo que no esté en la lista, incluso modelos antiguos y versiones que ya no se hacen.</p><p>Somos una agencia independiente, así que la pregunta nunca es si lo podemos cotizar. Es cuál de las aseguradoras que representamos lo quiere asegurar, y eso es justo lo que averigua un solo formulario.</p>"
+    },
+    "ev": {
+      "q": "¿Es más caro asegurar un {name} eléctrico?",
+      "a": "<p>Muchas veces sí, y el costo de cambiar la batería es la razón. Puede llevar un vehículo a pérdida total con un daño que uno equivalente de gasolina aguantaría, y una red de talleres limitada lo encarece más.</p><p>Aquí la diferencia entre aseguradoras es grande, porque algunas llevan años asegurando eléctricos y otras apenas se están poniendo al día. Por eso vale la pena comparar en lugar de solo renovar.</p>"
+    },
+    "truck": {
+      "q": "¿Necesito seguro comercial para mi {name}?",
+      "a": "<p>Si lo usas para un negocio &mdash; para llevar herramientas o material del trabajo, para remolcar por un pago, o si está registrado a nombre de una empresa &mdash; probablemente sí. Una póliza de auto personal puede negar un reclamo de algo que pasó mientras trabajabas.</p><p>Dinos para qué usas de verdad tu camioneta. Es una plática corta, y es la diferencia entre un reclamo pagado y uno negado.</p>"
+    },
+    "discontinued": {
+      "q": "¿Todavía puedo asegurar un {name}?",
+      "a": "<p>Sí. Que una marca ya no se venda nueva no tiene nada que ver con si se puede asegurar &mdash; muchas aseguradoras los aseguran sin pensarlo dos veces.</p><p>La verdadera pregunta es cuánta cobertura vale la pena comprar, y la disponibilidad de refacciones es parte de eso: una reparación larga puede durar más que la cobertura de auto de renta de la póliza.</p>"
+    }
+  },
+  "nearby": {
+    "makes": "Seguro de auto por marca",
+    "cities": "Seguro de auto por ciudad"
+  },
+  "hub": {
+    "title": "Seguro de auto por marca",
+    "desc": "Seguro de auto por marca de vehículo. Lo que mueve el precio de lo que manejas, notas de cobertura por modelo y una cotización gratis con varias aseguradoras.",
+    "h1": "Seguro de auto,<br><em>marca por marca</em>.",
+    "sub": "Lo que de verdad mueve el precio del vehículo que manejas &mdash; y lo que probablemente debería incluir su póliza. Elige tu marca.",
+    "browse": "Buscar por ciudad",
+    "count": "{n} marcas",
+    "langs": "Español e inglés",
+    "gone": "Marcas que ya no se venden nuevas en Estados Unidos",
+    "vehicle": "vehículo",
+    "final": "¿Listo para ver cuánto cuesta asegurar tu vehículo?"
+  },
+  "origin": {
+    "american": {
+      "adj": "estadounidense",
+      "group": "Marcas estadounidenses"
+    },
+    "japanese": {
+      "adj": "japonés",
+      "group": "Marcas japonesas"
+    },
+    "korean": {
+      "adj": "coreano",
+      "group": "Marcas coreanas"
+    },
+    "german": {
+      "adj": "alemán",
+      "group": "Marcas alemanas"
+    },
+    "swedish": {
+      "adj": "sueco",
+      "group": "Marcas suecas"
+    },
+    "british": {
+      "adj": "británico",
+      "group": "Marcas británicas"
+    },
+    "italian": {
+      "adj": "italiano",
+      "group": "Marcas italianas"
+    },
+    "vietnamese": {
+      "adj": "vietnamita",
+      "group": "Marcas vietnamitas"
+    }
+  },
+  "labels": {
+    "full-size-pickup": "Pickup grande",
+    "heavy-duty-pickup": "Pickup de trabajo pesado",
+    "mid-size-pickup": "Pickup mediana",
+    "compact-pickup": "Pickup compacta",
+    "off-road-suv": "SUV todoterreno",
+    "compact-suv": "SUV compacta",
+    "three-row-suv": "SUV de tres filas",
+    "full-size-suv": "SUV grande",
+    "sports-car": "Auto deportivo",
+    "electric-suv": "SUV eléctrica",
+    "mid-size-suv": "SUV mediana",
+    "cargo-and-passenger-van": "Van de carga y pasajeros",
+    "extended-full-size-suv": "SUV grande extendida",
+    "subcompact-suv": "SUV subcompacta",
+    "mid-size-sedan": "Sedán mediano",
+    "electric-pickup": "Pickup eléctrica",
+    "cargo-van": "Van de carga",
+    "off-road-pickup": "Pickup todoterreno",
+    "full-size-luxury-suv": "SUV grande de lujo",
+    "performance-sedan": "Sedán deportivo",
+    "muscle-coupe": "Muscle car coupé",
+    "minivan": "Minivan",
+    "full-size-sedan": "Sedán grande",
+    "three-row-luxury-suv": "SUV de lujo de tres filas",
+    "mid-size-luxury-suv": "SUV mediana de lujo",
+    "compact-luxury-suv": "SUV compacta de lujo",
+    "luxury-sedan": "Sedán de lujo",
+    "compact-luxury-sedan": "Sedán compacto de lujo",
+    "electric-luxury-suv": "SUV eléctrica de lujo",
+    "electric-sedan": "Sedán eléctrico",
+    "electric-luxury-sedan": "Sedán eléctrico de lujo",
+    "electric-three-row-suv": "SUV eléctrica de tres filas",
+    "compact-sedan": "Sedán compacto",
+    "hybrid-hatchback": "Hatchback híbrido",
+    "subcompact-sedan": "Sedán subcompacto",
+    "electric-hatchback": "Hatchback eléctrico",
+    "high-performance-sports-car": "Deportivo de alto desempeño",
+    "two-row-mid-size-suv": "SUV mediana de dos filas",
+    "compact-sedan-and-hatchback": "Sedán y hatchback compactos",
+    "roadster": "Roadster",
+    "all-wheel-drive-wagon": "Vagoneta con tracción integral",
+    "compact-hatchback": "Hatchback compacto",
+    "subcompact-hatchback": "Hatchback subcompacto",
+    "off-road-luxury-suv": "SUV todoterreno de lujo",
+    "subcompact-luxury-suv": "SUV subcompacta de lujo",
+    "full-size-luxury-sedan": "Sedán grande de lujo",
+    "sport-compact": "Compacto deportivo",
+    "coupe-style-luxury-suv": "SUV de lujo estilo coupé",
+    "luxury-sport-sedan": "Sedán deportivo de lujo",
+    "hybrid-and-electric-crossover": "Crossover híbrido y eléctrico",
+    "mid-size-luxury-sedan": "Sedán mediano de lujo",
+    "luxury-coupe-and-convertible": "Coupé y convertible de lujo",
+    "high-performance-sedan": "Sedán de alto desempeño",
+    "electric-flagship-sedan": "Sedán insignia eléctrico",
+    "luxury-coupe-and-sportback": "Coupé y sportback de lujo",
+    "electric-performance-sedan": "Sedán eléctrico de alto desempeño",
+    "performance-hatchback": "Hatchback deportivo",
+    "luxury-performance-suv": "SUV de lujo de alto desempeño",
+    "luxury-performance-sedan": "Sedán de lujo de alto desempeño",
+    "luxury-wagon": "Vagoneta de lujo",
+    "electric-compact-suv": "SUV compacta eléctrica",
+    "electric-fastback": "Fastback eléctrico",
+    "compact-wagon": "Vagoneta compacta",
+    "convertible": "Convertible",
+    "luxury-grand-tourer": "Gran turismo de lujo",
+    "mid-engine-sports-car": "Deportivo de motor central",
+    "electric-city-car": "Auto urbano eléctrico",
+    "hybrid-supercar": "Superdeportivo híbrido",
+    "grand-tourer": "Gran turismo",
+    "four-door-performance-vehicle": "Vehículo de alto desempeño de cuatro puertas",
+    "performance-suv": "SUV de alto desempeño",
+    "luxury-suv": "SUV de lujo",
+    "ultra-luxury-suv": "SUV de ultralujo",
+    "ultra-luxury-sedan": "Sedán de ultralujo",
+    "flagship-ultra-luxury-sedan": "Sedán insignia de ultralujo",
+    "electric-ultra-luxury-coupe": "Coupé eléctrico de ultralujo",
+    "mid-engine-supercar": "Superdeportivo de motor central",
+    "electric-performance-suv": "SUV eléctrica de alto desempeño",
+    "full-size-off-road-suv": "SUV grande todoterreno",
+    "mid-size-off-road-suv": "SUV mediana todoterreno",
+    "mid-size-off-road-pickup": "Pickup mediana todoterreno",
+    "sport-coupe": "Coupé deportivo",
+    "extended-minivan": "Minivan extendida",
+    "retro-roadster": "Roadster retro",
+    "two-seat-city-car": "Auto urbano de dos plazas",
+    "two-seat-convertible": "Convertible de dos plazas"
+  },
+  "note": {
+    "ford": "La Serie F lleva décadas como la línea de vehículos más vendida del país, y por eso la F-150 es de los vehículos por los que más compiten las aseguradoras cuando la cotizamos.",
+    "chevrolet": "Chevrolet tiene bajo el mismo emblema un Trax de $20,000 y un Corvette de $100,000, y en el seguro no tienen nada que ver uno con otro.",
+    "gmc": "GMC es la división de pickups y SUV de General Motors: comparte plataformas con Chevrolet, pero con acabados de más nivel — y eso se nota en el precio de las refacciones más de lo que la gente espera.",
+    "ram": "Ram se separó de Dodge como marca propia de pickups en 2009, así que una pickup más vieja todavía puede aparecer como Dodge en el título.",
+    "jeep": "Jeep es la marca que más modifican sus dueños, y un kit de levantamiento o una defensa que no es de fábrica es justo el tipo de cosa que la póliza tiene que saber.",
+    "dodge": "Dodge siguió fabricando muscle cars de motor grande mucho después de que el resto de la industria cambiara de rumbo, y las aseguradoras les ponen a las versiones Hellcat un precio muy distinto que a un Charger base.",
+    "chrysler": "La gama actual de Chrysler en Estados Unidos es prácticamente una sola minivan, y eso la hace de las marcas más sencillas de cotizar.",
+    "cadillac": "Cadillac hoy vende tanto una Serie V de más de 600 caballos de fuerza como el LYRIQ eléctrico, y los dos están en extremos opuestos de la tabla de tarifas.",
+    "buick": "Sin hacer ruido, Buick se volvió en Estados Unidos una marca de puras SUV, y sus vehículos están entre los que menos se manejan de forma agresiva — algo que las aseguradoras notan.",
+    "lincoln": "Lincoln comparte plataformas con Ford, pero no los precios de sus refacciones, y la diferencia entre reparar una Navigator y una Expedition es dinero de verdad.",
+    "tesla": "Los Tesla se reparan en una red de talleres aprobados y no en cualquier taller, y esa limitación — no la batería — es lo que más seguido sube la prima.",
+    "rivian": "Rivian fabrica una pickup y una SUV eléctricas con estructura de aluminio, una combinación que la pone de lleno entre las marcas caras de reparar.",
+    "lucid": "Lucid fabrica eléctricos de lujo en pocas unidades, y producir poco ya es por sí mismo un factor en el precio — menos talleres, menos piezas, reparaciones más largas.",
+    "toyota": "La fama de Toyota de conservar su valor tiene dos caras en una póliza: es barato de reparar, pero vale lo suficiente por más tiempo como para que quitar la cobertura de colisión antes de tiempo sea un error.",
+    "honda": "Los Civic y los Accord están entre los vehículos más robados del país, en gran parte porque sus piezas le quedan a muchísimos otros autos que andan en la calle.",
+    "nissan": "Nissan vende tanto el Leaf como el GT-R, y decir cuánto cuesta asegurar un Nissan, así en general, no significa nada sin el modelo.",
+    "mazda": "Mazda ha subido de nivel en interiores y materiales sin llevar un emblema de lujo, y eso se traduce en cuentas de reparación más altas de lo que sugiere su precio.",
+    "subaru": "Casi todos los Subaru que se venden en Estados Unidos tienen tracción integral, y ese sistema cuesta más de arreglar después de un choque que uno equivalente de tracción delantera.",
+    "mitsubishi": "La larga garantía del tren motriz de Mitsubishi es un buen argumento de venta en la agencia de autos, pero no tiene nada que ver con tu póliza — la garantía y el seguro cubren cosas completamente distintas.",
+    "lexus": "Lexus es la división de lujo de Toyota: confiabilidad de Toyota con precios de refacciones de lujo — una buena combinación para ti y una con sus pros y sus contras a la hora de cotizar.",
+    "acura": "Acura está lo bastante cerca de Honda en lo mecánico como para que las reparaciones sean razonables, y lo bastante arriba en nivel como para que los sensores de las defensas no lo sean.",
+    "infiniti": "Infiniti es la marca de lujo de Nissan, y sus versiones de alto desempeño llevan motores que las tablas de tarifas tratan de forma muy distinta al Nissan equivalente.",
+    "hyundai": "Ciertos Hyundai de 2011 a 2021 fabricados sin inmovilizador de motor se volvieron blanco frecuente de robo, y algunas aseguradoras todavía les ponen precio a esos años de modelo con eso en mente.",
+    "kia": "Kia tiene el mismo problema del inmovilizador en ciertos modelos de 2011 a 2021, y si el tuyo es uno de ellos, vale la pena preguntarle a tu aseguradora por la actualización de software antirrobo.",
+    "genesis": "Genesis se separó de Hyundai como marca de lujo independiente en 2015, y en el taller de hojalatería sus reparaciones cuestan como las de una marca de lujo.",
+    "bmw": "La división M de BMW y sus modelos base comparten emblema y casi nada más en una hoja de tarifas — un M3 y un 330i son productos de seguro distintos.",
+    "mercedes-benz": "Mercedes vende de todo, desde un sedán compacto hasta la van Sprinter, y la Sprinter pasa a ser comercial en el momento en que lleva cualquier cosa por trabajo.",
+    "audi": "Audi usa mucho aluminio en sus estructuras, y reparar aluminio requiere un taller con una certificación aparte — menos opciones y mano de obra más cara.",
+    "volkswagen": "Volkswagen está entre lo común y lo premium en el precio de sus refacciones, y por eso las cotizaciones de VW muchas veces sorprenden a quien esperaba números como los de Toyota.",
+    "porsche": "Porsche conserva su valor como pocas marcas, y una póliza con un valor acordado desactualizado es de los errores más caros que puede cometer un dueño.",
+    "volvo": "Volvo construyó su marca sobre la seguridad en los choques, y los sensores y las estructuras que la hacen posible son justo lo que hace caro reparar un Volvo moderno.",
+    "polestar": "Polestar es la marca eléctrica de alto desempeño de Volvo, y se vende a través de una red pequeña — lo que significa menos talleres calificados para repararlo después de un reclamo.",
+    "land-rover": "Land Rover combina capacidad todoterreno de verdad con precios de lujo, y los dueños que sí lo sacan de la carretera deberían decirlo al cotizar.",
+    "jaguar": "La construcción de Jaguar, con mucho aluminio, y sus pocas ventas en Estados Unidos la ponen entre las marcas más caras de reparar por panel.",
+    "mini": "Por dentro, un MINI es un BMW, y eso se nota en el presupuesto de reparación más que en la etiqueta del precio.",
+    "alfa-romeo": "Alfa Romeo regresó al mercado de Estados Unidos en 2014 con una red pequeña de distribuidores, y el tamaño de la red es por sí mismo un factor en el precio.",
+    "maserati": "Maserati es una marca de lujo de poca producción en la que un solo panel de carrocería puede costar más que toda una reparación de un auto común.",
+    "fiat": "La presencia de Fiat en Estados Unidos se ha reducido casi a nada, y una red escasa de refacciones y servicio hace que un 500 de hace algunos años sea más difícil de reparar de lo que sugiere su tamaño.",
+    "ferrari": "Las reparaciones de Ferrari solo se hacen en talleres autorizados por la fábrica, y la lista de espera para entrar a uno es parte de lo que de verdad te cuesta un reclamo.",
+    "lamborghini": "Las carrocerías de Lamborghini son en gran parte de fibra de carbono y aluminio, materiales que se reemplazan en lugar de repararse — un monocasco de carbono no se endereza.",
+    "bentley": "Los interiores de Bentley se terminan a mano, así que un reclamo por daños en el interior puede costar más de lo que vale todo un auto común.",
+    "rolls-royce": "Rolls-Royce vende unos cuantos miles de autos al año en todo Estados Unidos, y ese volumen es la razón por la que casi ninguna aseguradora estándar asegura uno.",
+    "aston-martin": "Aston Martin fabrica en cantidades muy pequeñas, con estructuras de aluminio unidas con adhesivo, una construcción que un taller de hojalatería general no está equipado para reparar.",
+    "mclaren": "Cada McLaren está construido alrededor de un monocasco de fibra de carbono, y si ese monocasco sobrevivió a un impacto es la única pregunta que decide una pérdida total.",
+    "lotus": "Lotus se hizo un nombre con autos ligeros y de carrocería mínima, y sus modelos eléctricos más nuevos son lo contrario, tanto en peso como en costo de reparación.",
+    "vinfast": "VinFast empezó a entregar autos en Estados Unidos en 2023, y una red de servicio tan nueva es una pregunta válida para hacerle a una aseguradora antes de comprar el auto.",
+    "pontiac": "General Motors cerró Pontiac en 2010, así que cualquiera que ande en la calle es por lo menos de ese año — y eso cambia por completo las cuentas de la cobertura de colisión.",
+    "saturn": "Saturn terminó en 2010. Todavía hay refacciones por los canales de GM, pero la disponibilidad es lo que hay que preguntar antes de asegurar uno con algo más que responsabilidad civil.",
+    "mercury": "Ford cerró Mercury en 2011. La mayoría de sus modelos compartía plataforma con un Ford, y eso es lo que mantiene las refacciones fáciles de encontrar.",
+    "oldsmobile": "Oldsmobile terminó en 2004, lo que la convierte en la marca más antigua de esta lista que todavía aparece en cotizaciones — normalmente con una póliza de solo responsabilidad civil.",
+    "hummer": "La marca Hummer terminó en 2010; el nombre regresó como un modelo eléctrico de GMC, y en una póliza no son el mismo vehículo.",
+    "scion": "Toyota volvió a integrar Scion a su marca principal en 2016, y algunos modelos simplemente se volvieron Toyota — así que revisa qué dice de verdad tu título.",
+    "suzuki": "Suzuki dejó el mercado de autos de Estados Unidos en 2013, pero siguió vendiendo motocicletas, y por eso una cotización de Suzuki depende por completo de cuál de los dos tienes.",
+    "isuzu": "Isuzu dejó de vender vehículos de pasajeros en Estados Unidos en 2009 y ahora vende camiones comerciales — esos van en una póliza comercial, no en una personal.",
+    "saab": "Saab dejó de producir en 2011, y el tema de las refacciones es la pregunta más importante en cualquier póliza de Saab que vaya más allá de la responsabilidad civil.",
+    "plymouth": "Chrysler terminó con Plymouth en 2001, y casi todo lo que vendía era un Dodge con otro emblema — y eso es lo que todavía mantiene refacciones en el estante.",
+    "geo": "Geo fue el experimento de General Motors de vender autos importados con emblema propio, y terminó en 1997; por dentro, un Geo Metro o un Prizm es mecánicamente un Suzuki o un Toyota.",
+    "eagle": "Eagle nació de la compra de American Motors por parte de Chrysler y terminó en 1998, así que cualquier vehículo con ese emblema es más viejo que la mayoría de los conductores de la póliza.",
+    "daewoo": "Daewoo salió de Estados Unidos en 2002 y después sus modelos se vendieron con emblema de Suzuki y de Chevrolet, que es la única razón por la que todavía se consiguen refacciones.",
+    "smart": "smart dejó de vender en Estados Unidos en 2019. Es un auto especialmente chico, y chico no quiere decir barato de reparar cuando las piezas vienen de Mercedes."
+  }
+}

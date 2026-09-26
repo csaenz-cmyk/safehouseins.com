@@ -17,6 +17,8 @@ Only Texas and New Mexico appear, because those are the two licenses the agency
 holds. A landing page for a city we cannot write in is a page that wastes the
 visitor's time.
 """
+import i18n
+
 
 TX_MIN = '30/60/25'   # $30k per person, $60k per accident, $25k property damage
 NM_MIN = '25/50/10'   # $25k per person, $50k per accident, $10k property damage
@@ -300,139 +302,24 @@ SKIP = set()
 # One checkable fact per city, used to give every page a paragraph nothing else
 # has. Roads and geography only — no populations, no averages, nothing that
 # would need a citation we cannot give.
-ROADS = {
-  # Texas
-  'houston':        'I-45, I-10 and the 610 loop',
-  'san-antonio':    'I-35, I-10 and Loop 410',
-  'dallas':         'I-35E, I-30 and the 635 loop',
-  'austin':         'I-35 straight through the middle of town',
-  'el-paso':        'I-10, running the length of the city',
-  'fort-worth':     'I-35W, I-30 and I-20',
-  'arlington':      'I-30 and I-20, with the stadium traffic between them',
-  'corpus-christi': 'I-37 down from San Antonio',
-  'plano':          'US-75, the Central Expressway',
-  'laredo':         'the southern end of I-35',
-  'lubbock':        'I-27 and the Loop 289 ring',
-  'garland':        'I-635 and the President George Bush Turnpike',
-  'irving':         'SH-183 and I-635, with DFW airport on the doorstep',
-  'amarillo':       'I-40 crossing I-27',
-  'grand-prairie':  'I-30 and SH-161',
-  'brownsville':    'US-77 and I-69E',
-  'mcallen':        'US-83 and I-2, the Expressway',
-  'edinburg':       'US-281',
-  'mission':        'US-83 and I-2',
-  'pharr':          'US-281 meeting I-2',
-  'harlingen':      'US-77 and I-69E crossing I-2',
-  'weslaco':        'US-83 and I-2',
-  'rio-grande-city':'US-83, hard against the river',
-  'eagle-pass':     'US-57 and US-277',
-  'del-rio':        'US-90 and US-277',
-  'uvalde':         'US-90 crossing US-83',
-  'socorro':        'the I-10 corridor southeast of El Paso',
-  'horizon-city':   'the I-10 corridor east of El Paso',
-  'san-elizario':   'the river road below the I-10 corridor',
-  'fabens':         'I-10, well down the valley from El Paso',
-  'anthony':        'I-10 at the New Mexico state line',
-  'odessa':         'I-20 through the Permian Basin',
-  'midland':        'I-20 through the Permian Basin',
-  'san-angelo':     'US-87 and US-67',
-  'abilene':        'I-20',
-  'waco':           'I-35 between Dallas and Austin',
-  'killeen':        'US-190 and I-14, next to Fort Cavazos',
-  'temple':         'I-35',
-  'pasadena':       'SH-225 and Beltway 8, along the ship channel',
-  'baytown':        'I-10 east of Houston',
-  'sugar-land':     'US-59 and I-69',
-  'galveston':      'the southern end of I-45, out on the island',
-  'beaumont':       'I-10 near the Louisiana line',
-  'victoria':       'US-59 crossing US-77',
-  'new-braunfels':  'I-35 between San Antonio and Austin',
-  'round-rock':     'I-35 north of Austin',
-  'georgetown':     'I-35 at the top of the Austin corridor',
-  'denton':         'the point where I-35 splits into I-35E and I-35W',
-  'mckinney':       'US-75',
-  'mesquite':       'I-635, I-30 and US-80',
-  'tyler':          'US-69 and Loop 323',
-  # New Mexico
-  'albuquerque':    'the crossing of I-25 and I-40',
-  'las-cruces':     'the crossing of I-10 and I-25',
-  'rio-rancho':     'US-550 above Albuquerque',
-  'santa-fe':       'I-25 at the top of the Rio Grande corridor',
-  'roswell':        'US-285 crossing US-70',
-  'farmington':     'US-64 and US-550 in the Four Corners',
-  'clovis':         'US-60 and US-84 near the Texas line',
-  'hobbs':          'US-62 and US-180 on the Texas line',
-  'alamogordo':     'US-54 and US-70 below the Sacramentos',
-  'carlsbad':       'US-285 and US-62',
-  'sunland-park':   'the state line, tucked between El Paso and the river',
-  'deming':         'I-10 west of Las Cruces',
-  'espanola':       'US-84 and US-285 north of Santa Fe',
-  'gallup':         'I-40 near the Arizona line',
-  'los-lunas':      'I-25 below Albuquerque',
-
-  # Texas, filling out the largest
-  'frisco':            'the Dallas North Tollway and SH-121',
-  'carrollton':        'I-35E and the President George Bush Turnpike',
-  'richardson':        'US-75 and the 635 loop',
-  'pearland':          'SH-288 south of Houston',
-  'college-station':   'SH-6 through the Brazos Valley',
-  'lewisville':        'I-35E north of Dallas',
-  'league-city':       'I-45 between Houston and Galveston',
-  'allen':             'US-75',
-  'wichita-falls':     'US-287 and I-44',
-  'bryan':             'SH-6 and SH-21',
-  'conroe':            'I-45 north of Houston',
-  'longview':          'I-20 and US-259',
-  'cedar-park':        'US-183A north of Austin',
-  'flower-mound':      'SH-121 and FM-2499',
-  'north-richland-hills':'SH-121 and Loop 820',
-  'mansfield':         'US-287 and SH-360',
-  'rowlett':           'I-30 and the President George Bush Turnpike',
-  'san-marcos':        'I-35 between Austin and San Antonio',
-  'port-arthur':       'SH-73 and SH-87 on the Gulf',
-  'missouri-city':     'US-90A and the Fort Bend Parkway',
-  'euless':            'SH-183 and SH-360, next to DFW',
-  'desoto':            'I-35E and I-20',
-  'grapevine':         'SH-114 and SH-121 beside the lake',
-  'cedar-hill':        'US-67 and FM-1382',
-  'texas-city':        'I-45 and SH-146 on the bay',
-  'wylie':             'SH-78 northeast of Dallas',
-  'keller':            'US-377 and SH-114',
-  'coppell':           'SH-121 and Belt Line, on the DFW fence',
-  'rockwall':          'I-30 across Lake Ray Hubbard',
-  'huntsville':        'I-45 north of Conroe',
-  'duncanville':       'US-67 and I-20',
-  'sherman':           'US-75 near the Oklahoma line',
-  'the-colony':        'SH-121 along the lake',
-  'bedford':           'SH-121 and Loop 820',
-  # New Mexico, out to the forty largest
-  'chaparral':         'NM-213 between Las Cruces and El Paso',
-  'las-vegas':         'I-25 in the northeast highlands',
-  'portales':          'US-70 near the Texas line',
-  'artesia':           'US-285 and US-82',
-  'lovington':         'US-82 and NM-18',
-  'silver-city':       'US-180 in the Gila country',
-  'bernalillo':        'I-25 and US-550 north of Albuquerque',
-  'grants':            'I-40 west of Albuquerque',
-  'socorro':           'I-25 down the Rio Grande',
-  'corrales':          'the river road between Rio Rancho and Albuquerque',
-  'ruidoso':           'US-70 up in the Sacramentos',
-  'aztec':             'US-550 and NM-516',
-  'bloomfield':        'US-64 and US-550',
-  'truth-or-consequences':'I-25 beside Elephant Butte',
-  'belen':             'I-25 south of Los Lunas',
-  'anthony':           'I-10 at the Texas state line',
-  'raton':             'I-25 at Raton Pass',
-  'los-alamos':        'NM-502 up on the Pajarito Plateau',
-  'taos':              'US-64 and NM-68 in the high country',
-  'tucumcari':         'I-40 in the eastern plains',
-  'milan':             'I-40 beside Grants',
-  'eunice':            'NM-18 on the Texas line',
-  'santa-rosa':        'I-40 and US-54',
-  'bayard':            'US-180 in the Mining District',
-  'hatch':             'I-25 and NM-26 in the chile valley',
-  'jal':               'NM-18 in the far southeast corner',
-  'kirtland':          'US-64 west of Farmington',
-  'edgewood':          'I-40 east of the Sandias',
-  'moriarty':          'I-40 and US-66 on the Estancia plain',
-}
+#
+# The phrases are copy — "I-45, I-10 and the 610 loop" has to read as Spanish
+# on the Spanish page — so they are cities.roads.<slug> in
+# locales/<lang>/cities.json, road names kept as they are.
+#
+# Keyed by slug alone, as this table always was. Socorro and Anthony exist in
+# both states, and when the table was a dict literal here the New Mexico entry
+# silently replaced the Texas one: both Anthony pages read "I-10 at the Texas
+# state line" and both Socorro pages "I-25 down the Rio Grande". The catalog
+# carries what the pages actually printed, so the English did not change when
+# the words moved. The Texas phrases that never reached a page were "the I-10
+# corridor southeast of El Paso" (Socorro) and "I-10 at the New Mexico state
+# line" (Anthony); fixing it means keying the roads by state as well.
+def road(slug):
+    """The road phrase for a city in the language being rendered, or None for
+    a city that has none. A phrase the English has and the Spanish lacks is an
+    error, not a missing paragraph."""
+    key = 'cities.roads.' + slug
+    if not i18n.has(key, i18n.DEFAULT):
+        return None
+    return i18n.t(key)

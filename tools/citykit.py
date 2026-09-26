@@ -17,11 +17,18 @@ Two rules the components enforce rather than trust:
 
 Reuses brandkit's design tokens, icon set, buttons and FAQ styling, so the
 city pages and the brand pages are visibly the same product.
+
+Every word the components print is cities.* in locales/<lang>/cities.json,
+so the same component renders the English page and its Spanish twin. The
+variant pools are lists there, and pick() takes the same index in both
+languages — the Spanish page of a city draws the same drafts as its English
+page.
 """
 import html
 
 import brandkit as BK
 import cityscape
+import i18n
 import states as ST
 
 CALL = BK.CALL
@@ -42,6 +49,13 @@ def pick(seed, options):
     for ch in str(seed):
         h = (h * 131 + ord(ch)) & 0xFFFFFFFF
     return options[h % len(options)]
+
+def _t(key, **kw):
+    return i18n.t('cities.' + key, **kw)
+
+def draw(seed, key, **kw):
+    """One draft from the variant pool cities.<key>, placeholders filled."""
+    return i18n.fill(pick(seed, i18n.get('cities.' + key)), kw)
 
 # --------------------------------------------------------------------- CSS ---
 CSS = """
@@ -211,6 +225,8 @@ CSS = """
 """
 
 # ---------------------------------------------------------------------- JS ---
+# The words it prints are cities.js.* in the catalog, read through the page's
+# T() dictionary (BK.scripts('cities.js') puts both in front of this).
 JS = """
 <script>
 (function(){
@@ -245,11 +261,9 @@ JS = """
         b.setAttribute('aria-pressed','true');
         var z = b.dataset.zip, area = b.dataset.area || '';
         zt.textContent = z + (area ? ' \\u2014 ' + area : '');
-        zp.textContent = 'Your ZIP code is part of your garaging address, which is one of several '
-          + 'things an insurance company may consider when it prices a policy. Put ' + z + ' into '
-          + 'the quote and we will shop it across the carriers we represent.';
+        zp.textContent = T('zipBody', {zip: z});
         if (za) { za.setAttribute('href', base + '?zip=' + encodeURIComponent(z));
-                  za.textContent = 'Get quotes for ' + z + ' \\u2192'; }
+                  za.textContent = T('zipCta', {zip: z}); }
         zo.hidden = false;
       });
     });
@@ -260,8 +274,8 @@ JS = """
 
 # ------------------------------------------------------------- components ---
 def crumbs(state_slug, state_name, city, up):
-    return ('<nav class="crumbs" aria-label="Breadcrumb">'
-            '<a href="' + up + 'car-insurance/">Car insurance</a> &rsaquo; '
+    return ('<nav class="crumbs" aria-label="' + _t('crumbs.aria') + '">'
+            '<a href="' + up + 'car-insurance/">' + _t('crumbs.car') + '</a> &rsaquo; '
             '<a href="' + up + 'car-insurance/' + state_slug + '/">' + _e(state_name) + '</a> &rsaquo; '
             '<span aria-current="page">' + _e(city) + '</span></nav>')
 
@@ -276,6 +290,7 @@ def hero(city, abbr, state_slug, state_name, place, up, ident, photo=None, own_p
     who cannot see it. A shared Texas artwork described as "Lubbock, TX" tells a
     blind visitor a photograph of their town is on the page when it is not, and
     it is the same class of mistake as the old hardcoded "here in El Paso".
+    `state_name` is the state's name in the language being rendered.
     """
     if photo:
         alt = (_e(city) + ', ' + _e(abbr)) if own_photo else _e(state_name)
@@ -305,11 +320,11 @@ def hero(city, abbr, state_slug, state_name, place, up, ident, photo=None, own_p
       + art + '<div class="veil"></div><div class="wrap">'
       '<div class="cgrid">'
         + crumbs(state_slug, state_name, city, up) +
-        '<h1>Car insurance in<em>' + _e(city) + ', ' + _e(abbr) + '.</em></h1>'
+        '<h1>' + _t('hero.h1', city=_e(city), abbr=_e(abbr)) + '</h1>'
         '<p class="sub">' + place.get('blurb', '') + '</p>'
         '<div class="acts">'
-          '<a class="btn" href="' + up + 'quote.html">Get my free quote &rarr;</a>'
-          '<a class="btn ghost" href="sms:+1' + TEXT.replace('-', '') + '">Text us</a>'
+          '<a class="btn" href="' + up + 'quote.html">' + _t('hero.quote') + '</a>'
+          '<a class="btn ghost" href="sms:+1' + TEXT.replace('-', '') + '">' + _t('hero.text') + '</a>'
         '</div>'
         + ('<div class="cchips">' + chip_html + '</div>' if chip_html else '') +
       '</div></div>' + credit_html + '</header>')
@@ -321,10 +336,11 @@ def intents(place, city, up, seed=''):
     import places as P
     cards, answers = [], []
     for i, k in enumerate(keys):
-        row = P.INTENTS.get(k)
-        if not row:
+        icon = P.INTENTS.get(k)
+        if not icon:
             continue
-        icon, title, bodies, cta = row
+        w = i18n.get('cities.intents.cards.' + k)
+        title, bodies, cta = w['title'], w['bodies'], w['cta']
         body = pick(str(seed) + k, bodies) if isinstance(bodies, (list, tuple)) else bodies
         cards.append('<button class="intent" type="button" aria-expanded="false" '
           'aria-controls="ia' + str(i) + '"><span class="ic">'
@@ -335,16 +351,9 @@ def intents(place, city, up, seed=''):
     if not cards:
         return ''
     return ('<section class="sec tint"><div class="wrap">'
-      '<div class="shead rv"><span class="eyebrow">Start here</span>'
-      '<h2>What do you need help with?</h2>'
-      '<p>' + pick(str(seed) + 'ihead', [
-        'Pick the one that sounds like you. Every route ends in the same place &mdash; a quote '
-        'shopped across the carriers we represent &mdash; but the thing to watch out for is '
-        'different in each case.',
-        'Different starting points, same finish: your details in front of several insurance '
-        'companies at once. What changes is which part of it is worth paying attention to.',
-        'Most people arrive here for one of these reasons. Choose yours and we will tell you the '
-        'part that actually matters before you fill anything in.']) + '</p></div>'
+      '<div class="shead rv"><span class="eyebrow">' + _t('intents.kick') + '</span>'
+      '<h2>' + _t('intents.h2') + '</h2>'
+      '<p>' + draw(str(seed) + 'ihead', 'intents.lede') + '</p></div>'
       '<div class="intents">' + ''.join(cards) + '</div>'
       + ''.join(answers) + '</div></section>')
 
@@ -353,10 +362,9 @@ def factors(place, city):
     if not fx:
         return ''
     return ('<section class="sec"><div class="wrap">'
-      '<div class="shead rv"><span class="eyebrow">Local</span>'
-      '<h2>Driving in ' + _e(city) + ' has a few local twists.</h2>'
-      '<p>None of these are unique to insurance, and all of them come up when we quote drivers '
-      'here.</p></div>'
+      '<div class="shead rv"><span class="eyebrow">' + _t('factors.kick') + '</span>'
+      '<h2>' + _t('factors.h2', city=_e(city)) + '</h2>'
+      '<p>' + _t('factors.lede') + '</p></div>'
       '<div class="lfx">'
       + ''.join('<article class="lfxc rv"><span class="ic">'
                 + BK.ICON.get(i, BK.ICON['pin']) + '</span><h3>' + h + '</h3><p>' + b + '</p></article>'
@@ -368,36 +376,32 @@ def zips(place, city, up):
     if not zs:
         return ''
     return ('<section class="sec tint"><div class="wrap narrow">'
-      '<div class="shead rv" style="max-width:none"><span class="eyebrow">Your address</span>'
-      '<h2>Where in ' + _e(city) + ' do you live?</h2>'
-      '<p>The address a vehicle is parked at overnight is one of several things an insurance '
-      'company may take into account. Pick your ZIP and we will carry it into the quote.</p></div>'
+      '<div class="shead rv" style="max-width:none"><span class="eyebrow">' + _t('zips.kick') + '</span>'
+      '<h2>' + _t('zips.h2', city=_e(city)) + '</h2>'
+      '<p>' + _t('zips.lede') + '</p></div>'
       '<div class="zipbox rv"><div class="zips">'
       + ''.join('<button class="zipb" type="button" aria-pressed="false" data-zip="' + z
                 + '" data-area="' + _e(a) + '">' + z + '</button>' for z, a in zs)
       + '</div>'
       '<div class="zipout" hidden><b></b><p></p>'
-      '<a class="btn" href="' + up + 'quote.html">Get quotes &rarr;</a></div>'
+      '<a class="btn" href="' + up + 'quote.html">' + _t('zips.cta') + '</a></div>'
       '</div>'
       '<p class="cap" style="font-size:13px;color:var(--muted);font-weight:600;margin-top:16px">'
-      'We do not publish average prices by ZIP code, because a city-wide or ZIP-wide average mixes '
-      'drivers and vehicles that have nothing to do with each other. The only number worth having '
-      'is the one for your household.</p>'
+      + _t('zips.cap') + '</p>'
       '</div></section>')
 
 def areas(place, city, up):
     ar = place.get('areas') or []
     if not ar:
         return ''
+    cta = _t('areas.cta')
     return ('<section class="sec"><div class="wrap">'
-      '<div class="shead rv"><span class="eyebrow">The map</span>'
-      '<h2>The ' + _e(city) + ' driver&rsquo;s map</h2>'
-      '<p>How the city actually splits up, and what that means for the drive rather than for the '
-      'price. We make no claim that one part of town is cheaper than another &mdash; that depends '
-      'on the household, not the ZIP code.</p></div>'
+      '<div class="shead rv"><span class="eyebrow">' + _t('areas.kick') + '</span>'
+      '<h2>' + _t('areas.h2', city=_e(city)) + '</h2>'
+      '<p>' + _t('areas.lede') + '</p></div>'
       '<div class="areas">'
       + ''.join('<article class="area rv"><b>' + _e(n) + '</b><p>' + b + '</p>'
-                '<a class="mini" href="' + up + 'quote.html">Quote my car &rarr;</a></article>'
+                '<a class="mini" href="' + up + 'quote.html">' + cta + '</a></article>'
                 for n, b in ar)
       + '</div></div></section>')
 
@@ -409,15 +413,13 @@ def minimums(state_slug, city, up, seed=''):
     offered = ''.join('<div class="offc rv"><b>' + t + '</b><p>' + b + '</p></div>'
                       for t, b in d['offered'])
     return ('<section class="sec tint"><div class="wrap">'
-      '<div class="shead rv"><span class="eyebrow">' + _e(d['name']) + ' law</span>'
-      '<h2>' + _e(d['name']) + ' minimum auto liability coverage</h2>'
+      '<div class="shead rv"><span class="eyebrow">' + _t('minimums.kick', state=_e(d['name'])) + '</span>'
+      '<h2>' + _t('minimums.h2', state=_e(d['name'])) + '</h2>'
       '<p>' + ST.minimum_note(state_slug, seed) + '</p></div>'
       '<div class="mins">' + cards + '</div>'
-      '<div class="minmore rv"><div><b>Minimum coverage is not necessarily the right coverage.</b>'
-      '<p>These are the limits that keep you legal, not the limits that keep you whole. We can put '
-      'the minimum and the tiers above it side by side so you can see what the difference actually '
-      'costs.</p></div>'
-      '<a class="btn" href="' + up + 'quote.html">Compare coverage options &rarr;</a></div>'
+      '<div class="minmore rv"><div><b>' + _t('minimums.moreB') + '</b>'
+      '<p>' + _t('minimums.moreP') + '</p></div>'
+      '<a class="btn" href="' + up + 'quote.html">' + _t('minimums.cta') + '</a></div>'
       '<div class="offered">' + offered + '</div>'
       '</div></section>')
 
@@ -425,96 +427,56 @@ def independent(city, presence, up, variant=0):
     """The independent-agency explanation. Several drafts so this does not read
     identically on every city page, and the presence line is factual: 'office'
     is only ever set for a city where there genuinely is one."""
-    here = ('an office in ' + _e(city)) if presence == 'office' else ('drivers throughout ' + _e(city))
-    lead = [
-      ('<b>Safe House is an independent insurance agency &mdash; not one insurance company.</b>'
-       '<p>That is what lets us compare available options from several insurance companies we '
-       'represent instead of showing you a single company&rsquo;s quote. A carrier can only ever '
-       'quote itself. We are not owned by one and we have no house brand to protect.</p>'),
-      ('<b>We are an agency, which means we do not have one price to defend.</b>'
-       '<p>Safe House is an independent insurance agency rather than an insurance company. Your '
-       'details go to the carriers we represent and you see what each of them said &mdash; and if '
-       'the policy you already have is the better deal, we will tell you that.</p>'),
-      ('<b>An independent agency sits on your side of the table.</b>'
-       '<p>Safe House is not an insurance company. We hold appointments with several, so a quote '
-       'here is a comparison rather than a sales pitch for one carrier &mdash; and a licensed '
-       'agent goes through the coverage with you, not just the price.</p>'),
-    ][variant % 3]
+    leads = i18n.get('cities.independent.lead')
+    b, p = leads[variant % len(leads)]
+    h2 = _t('independent.h2Office' if presence == 'office' else 'independent.h2Serving',
+            city=_e(city))
     return ('<section class="sec deep"><div class="wrap">'
-      '<div class="shead rv"><span class="eyebrow">Real people, real help</span>'
-      '<h2>' + ('Serving ' + here if presence != 'office' else 'We have ' + here) + '.</h2>'
+      '<div class="shead rv"><span class="eyebrow">' + _t('independent.kick') + '</span>'
+      '<h2>' + h2 + '</h2>'
       '</div>'
-      '<div class="indie rv">' + lead + '</div>'
+      '<div class="indie rv"><b>' + b + '</b><p>' + p + '</p></div>'
       '</div></section>')
 
-FLOWS = [
-  [('Tell us about yourself', 'The basic driver and vehicle details. No social security number, no '
-    'photo of your license, no payment details on the form.'),
-   ('Compare available options', 'We shop the insurance companies we represent and the prices come '
-    'back to you side by side, monthly and paid-in-full.'),
-   ('Talk with Safe House', 'A licensed agent verifies the pricing, the discounts you qualify for '
-    'and the coverage itself. This is the step that catches the mistakes.'),
-   ('Activate your policy', 'When you are ready, we help you finish. Final pricing and discounts '
-    'are confirmed with an agent by phone or text before anything is issued.')],
-
-  [('Give us the basics', 'Who is driving, what they drive, and where it is kept. That is the '
-    'whole form &mdash; no license photos and no card details.'),
-   ('We put it to the market', 'The same details go to every company we hold an appointment with, '
-    'at the same time, and their answers come back to one screen.'),
-   ('An agent checks the work', 'Discounts you qualify for, coverage that actually fits, and the '
-    'final number. Prices online are marked subject to verification for a reason.'),
-   ('Put it in force', 'When the coverage is right, we help you finish it. Confirmation happens '
-    'with a person by phone or text, not silently on a screen.')],
-]
-
 def process(up, seed=''):
+    """The four steps. Two wordings of the whole flow (cities.process.flows),
+    each city drawing one."""
     return ('<section class="sec"><div class="wrap">'
-      '<div class="shead rv"><span class="eyebrow">How it works</span>'
-      '<h2>Getting insured doesn&rsquo;t need to be complicated.</h2>'
-      '<p>' + pick(str(seed) + 'fh', [
-        'Four steps. The quote happens online; the last mile happens with a person, because that '
-        'is where discounts and coverage questions actually get sorted out.',
-        'The comparison is the easy part and it happens on this site. The part that needs a human '
-        'is making sure the coverage is right before anything is issued.']) + '</p></div>'
+      '<div class="shead rv"><span class="eyebrow">' + _t('process.kick') + '</span>'
+      '<h2>' + _t('process.h2') + '</h2>'
+      '<p>' + draw(str(seed) + 'fh', 'process.lede') + '</p></div>'
       '<div class="flow">'
       + ''.join('<div class="fstep rv"><span class="n">' + str(i + 1) + '</span><b>' + t + '</b>'
-                '<p>' + b + '</p></div>' for i, (t, b) in enumerate(pick(str(seed) + 'flow', FLOWS)))
+                '<p>' + b + '</p></div>'
+                for i, (t, b) in enumerate(pick(str(seed) + 'flow', i18n.get('cities.process.flows'))))
       + '</div>'
-      '<div class="acts"><a class="btn" href="' + up + 'quote.html">Start my quote &rarr;</a>'
-      '<a class="btn ghost" href="tel:+1' + CALL.replace('-', '') + '">Talk to an agent</a></div>'
+      '<div class="acts"><a class="btn" href="' + up + 'quote.html">' + _t('process.quote') + '</a>'
+      '<a class="btn ghost" href="tel:+1' + CALL.replace('-', '') + '">' + _t('process.talk') + '</a></div>'
       '</div></section>')
 
 def reviews(city, seed=''):
     """Deliberately a placeholder. Inventing reviews, names or a star rating on
     an insurance page is fraud, so the component exists and stays empty until
     real review data is wired in."""
+    b, p = pick(str(seed) + 'rev', i18n.get('cities.reviews.drafts'))
     return ('<section class="sec tint"><div class="wrap narrow">'
-      '<div class="shead rv" style="max-width:none"><span class="eyebrow">Reviews</span>'
-      '<h2>What drivers say</h2></div>'
-      + pick(str(seed) + 'rev', [
-        '<div class="revs rv"><b>Our customer reviews are not published here yet.</b>'
-        '<p>We would rather show you nothing than show you something we made up. Real reviews from '
-        + _e(city) + ' customers will appear here once the review feed is connected &mdash; in the '
-        'meantime, ask us for references and we will put you in touch.</p></div>',
-        '<div class="revs rv"><b>No reviews on this page yet &mdash; on purpose.</b>'
-        '<p>Inventing testimonials would be the easiest thing on this site to do and the worst. '
-        'When our real customer reviews are wired up they will appear here. Until then, ask and we '
-        'will point you at people who have actually used us.</p></div>'])
-      + '</div></section>')
+      '<div class="shead rv" style="max-width:none"><span class="eyebrow">' + _t('reviews.kick') + '</span>'
+      '<h2>' + _t('reviews.h2') + '</h2></div>'
+      '<div class="revs rv"><b>' + b + '</b><p>' + i18n.fill(p, {'city': _e(city)}) + '</p></div>'
+      '</div></section>')
 
 def localteam(city, presence, up):
     """Only rendered where there is a real local team to show."""
     if presence != 'office':
         return ''
     return ('<section class="sec"><div class="wrap">'
-      '<div class="shead rv"><span class="eyebrow">The office</span>'
-      '<h2>Insurance help from real people.</h2>'
-      '<p>Safe House Insurance is at 6065 Montana Ave, Suite C8. You can do the whole quote online '
-      'and never come in &mdash; or you can walk through the door and sit down with somebody.</p>'
+      '<div class="shead rv"><span class="eyebrow">' + _t('team.kick') + '</span>'
+      '<h2>' + _t('team.h2') + '</h2>'
+      '<p>' + _t('team.p') + '</p>'
       '</div>'
       '<div class="acts">'
-        '<a class="btn" href="tel:+1' + CALL.replace('-', '') + '">Call ' + CALL + '</a>'
-        '<a class="btn ghost" href="sms:+1' + TEXT.replace('-', '') + '">Text ' + TEXT + '</a>'
+        '<a class="btn" href="tel:+1' + CALL.replace('-', '') + '">' + _t('team.call', call=CALL) + '</a>'
+        '<a class="btn ghost" href="sms:+1' + TEXT.replace('-', '') + '">' + _t('team.text', text=TEXT) + '</a>'
       '</div></div></section>')
 
 def locallinks(place, up):
@@ -522,13 +484,13 @@ def locallinks(place, up):
     if not ls:
         return ''
     return ('<section class="sec tint"><div class="wrap narrow">'
-      '<h2 style="font-size:20px">Related</h2>'
+      '<h2 style="font-size:20px">' + _t('related.h2') + '</h2>'
       '<div class="llinks">'
       + ''.join('<a href="' + h + '">' + _e(l) + '</a>' for h, l in ls)
       + '</div></div></section>')
 
 def sticky(city, up):
-    return ('<div class="sticky" role="complementary" aria-label="Get a quote">'
-      '<a class="tel" href="tel:+1' + CALL.replace('-', '') + '" aria-label="Call ' + CALL + '">'
+    return ('<div class="sticky" role="complementary" aria-label="' + _t('sticky.aria') + '">'
+      '<a class="tel" href="tel:+1' + CALL.replace('-', '') + '" aria-label="' + _t('sticky.call', call=CALL) + '">'
       '<span aria-hidden="true">&#9742;</span></a>'
-      '<a class="btn" href="' + up + 'quote.html">Get my quote</a></div>')
+      '<a class="btn" href="' + up + 'quote.html">' + _t('sticky.quote') + '</a></div>')
