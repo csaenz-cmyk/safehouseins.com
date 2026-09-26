@@ -113,11 +113,15 @@ TAG = re.compile(r'<\s*(/?)\s*([a-zA-Z][a-zA-Z0-9]*)([^>]*)>')
 def tags_of(v):
     """The inline markup a value carries, as a multiset. A <span lang="es">
     around "Se habla español" in English has no reason to exist in Spanish,
-    so spans that carry only a lang attribute are not counted."""
+    so spans that carry only a lang attribute are not counted. Nor is <br>:
+    where a line breaks is layout, and the other language's line is a
+    different length."""
     out = collections.Counter()
     for close, name, attrs in TAG.findall(v):
         name = name.lower()
         if name == 'span' and re.fullmatch(r'\s*lang="[^"]*"\s*', attrs or ''):
+            continue
+        if name == 'br':
             continue
         if name == 'span' and close:
             continue          # matched by its opener; see above
@@ -149,8 +153,16 @@ def strings_in(v, path=''):
             yield from strings_in(x, '%s.%s' % (path, k))
 
 
+# Phrases that contain a listed word and are right in Mexican and US Spanish:
+# "casa móvil" is what a mobile home is called on every Spanish insurance page
+# in Texas; "móvil" on its own — a phone — is still Castilian.
+CASTILIAN_PHRASES_OK = ('casas móviles', 'casa móvil', 'unidad móvil', 'unidades móviles')
+
+
 def castilian_hits(text, key=''):
     low = html.unescape(re.sub(r'<[^>]+>', ' ', text)).lower()
+    for ok in CASTILIAN_PHRASES_OK:
+        low = low.replace(ok, ' ')
     allow = set()
     for prefix, words_ in CASTILIAN_ALLOW.items():
         if key.startswith(prefix):
