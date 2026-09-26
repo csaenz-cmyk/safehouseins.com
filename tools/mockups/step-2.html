@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="mockup" content="1037x1300">
+<title>Step 2 — your cars and the discount</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=block">
+<link rel="stylesheet" href="mockups.css">
+<style>
+  .art { width: 1037px; height: 1300px; }
+  /* the phone fades out under the sheet */
+  .phone { left: 72.18px; top: -.5px; width: 866.46px; height: 1145px;
+    --bezel: 19.7px; --ring: 7.35px; --radius: 112px; --ring-radius: 94px; --screen-radius: 86.5px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 469.2px, transparent 948.1px);
+            mask-image: linear-gradient(to bottom, #000 469.2px, transparent 948.1px); }
+  .island { left: 272.65px; top: 25.77px; width: 267.13px; height: 75.76px; border-radius: 38px; }
+
+  .label { font-size: 35.8px; font-weight: 470; letter-spacing: -.36px; color: #7b8190; }
+  .current { left: 53.67px; top: 114.44px; }
+  .now { right: 54.43px; top: 116.2px; font-size: 34.8px; font-weight: 590; color: #3a3d4a; }
+
+  .card { position: absolute; left: 56.76px; top: 199.1px; width: 698.01px; height: 368.1px;
+    border-radius: 40px; background: #fff; }
+  .cars { left: 41.9px; top: 42.9px; font-size: 37.5px; font-weight: 720; letter-spacing: -.6px; }
+  .car { left: 42.26px; font-size: 35px; font-weight: 490; letter-spacing: -.05px; color: #333b47; }
+  .miles { left: 42.5px; top: 178.3px; font-size: 30.4px; font-weight: 500; letter-spacing: .16px; color: #9aa1aa; }
+  .rule { position: absolute; left: 42.5px; top: 249.35px; width: 611px; height: 1px; background: #e8ebea; }
+
+  .addr { top: 604.4px; font-size: 33px; font-weight: 400; color: #b9bec6; }
+
+  .sheet { left: -.3px; top: 687.2px; width: 1011.16px; height: 539.7px; border-radius: 48px;
+    box-shadow: 0 46.4px 79.2px -23.3px rgba(9, 25, 58, .235); }
+  .s2mark { left: 54.44px; top: 50.07px; width: 58.3px; height: 58.3px; }
+  .headline { left: 137.3px; top: 53.3px; font-size: 42.6px; font-weight: 740; letter-spacing: -1.1px; }
+  .est { position: absolute; left: 54.62px; top: 140.69px; width: 902.1px; height: 122.71px;
+    border-radius: 31px; background: #f6faff; }
+  .est .what { left: 35.38px; top: 38.73px; font-size: 32.6px; font-weight: 590; letter-spacing: .25px; color: #363d4b; }
+  /* the old price and the new one, right-aligned as a pair so a longer
+     "/mo" pushes the old price left instead of into it */
+  .est .prices { position: absolute; right: 35.4px; top: 35.2px; height: 59.6px;
+    display: flex; align-items: center; gap: 18px; white-space: nowrap; line-height: normal; }
+  .est .was { position: relative; top: 1.2px; font-size: 32.6px; font-weight: 525; color: #9da3ad;
+    text-decoration: line-through; text-decoration-thickness: 2px; }
+  .est .new { font-size: 43.5px; font-weight: 770; letter-spacing: .2px; color: #1b68e9; }
+  .fine { left: 54.9px; top: 297.8px; font-size: 30.4px; font-weight: 455; letter-spacing: .25px; color: #7c8491; }
+  .apply { position: absolute; left: 54.27px; top: 371.75px; width: 902.72px; height: 117.44px;
+    border-radius: 58.72px; background: #1b68e9; color: #fff;
+    display: flex; align-items: center; justify-content: center; gap: 23px; padding: 0 0 1px 0;
+    font-size: 38.5px; font-weight: 800; letter-spacing: -.33px; white-space: nowrap; }
+  .apply svg { width: 36px; height: 28px; flex: none; margin-top: -2px; }
+</style>
+</head>
+<body>
+<div class="art">
+  <div class="phone"><div class="ring"><div class="screen">
+    <div class="island"></div>
+    <div class="t label current">[[art.step2.current]]</div>
+    <div class="t now">[[art.step2.currentPrice]]</div>
+    <div class="card">
+      <div class="t cars">[[art.step2.cars]]</div>
+      <div class="t car" style="top:121.9px">2019 Honda Civic EX</div>
+      <div class="t miles">[[art.step2.miles]]</div>
+      <div class="rule"></div>
+      <div class="t car" style="top:278.9px">2016 Toyota Tacoma SR5</div>
+    </div>
+    <div class="t addr" style="left:53.9px">[[art.step2.address]]</div>
+    <div class="t addr" style="right:55.4px">Phoenix, AZ 85032</div>
+  </div></div></div>
+
+  <div class="sheet">
+    <img class="mark s2mark" src="../../assets/safehouse-heart.png" alt="">
+    <div class="t headline">[[art.step2.unlocked]]</div>
+    <div class="est">
+      <div class="t what">[[art.step2.estimate]]</div>
+      <div class="prices"><span class="was">$228</span><span class="new">[[art.step2.newPrice]]</span></div>
+    </div>
+    <div class="t fine">[[art.step2.fine]]</div>
+    <div class="apply"><span>[[art.step2.apply]]</span><svg viewBox="0 0 36 28" aria-hidden="true"><path d="M2.5 14.5H30.5M20.5 4.5l10 10-10 10" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  </div>
+</div>
+</body>
+</html>

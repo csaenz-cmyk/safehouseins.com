@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="mockup" content="797x1300">
+<title>Step 5 — the ID card in a text thread</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=block">
+<link rel="stylesheet" href="mockups.css">
+<style>
+  .art { width: 797px; height: 1300px; }
+  /* only the phone fades; the thread in front of it does not */
+  .phone { left: 43.3px; top: -1px; width: 693.04px; height: 1340px;
+    --bezel: 15.55px; --ring: 7.5px; --radius: 102px; --ring-radius: 88px; --screen-radius: 78px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 922.2px, rgba(0,0,0,.216) 1173px, rgba(0,0,0,.02) 1301px, transparent 1341px);
+            mask-image: linear-gradient(to bottom, #000 922.2px, rgba(0,0,0,.216) 1173px, rgba(0,0,0,.02) 1301px, transparent 1341px); }
+  .screen { background: #fff; }
+  .island { left: 221.29px; top: 21.23px; width: 204.42px; height: 55.48px; border-radius: 27.74px; }
+
+  .time { left: 43.85px; top: 34.97px; font-size: 31.1px; font-weight: 590; letter-spacing: -.4px; }
+  .status { position: absolute; left: 473.65px; top: 40.95px; width: 130px; height: 28px; }
+  .back { position: absolute; left: 37.65px; top: 135.95px; width: 38px; height: 33px; }
+  .call { position: absolute; left: 578.15px; top: 137.95px; width: 27px; height: 27px; }
+  .who { position: absolute; left: 0; right: 0; text-align: center; white-space: nowrap; line-height: normal; }
+  .who.name { top: 110.57px; font-size: 32.6px; font-weight: 780; letter-spacing: .45px; color: #05070b; }
+  .who.on { top: 157.2px; font-size: 26.4px; font-weight: 690; letter-spacing: -.2px; color: #27a671; }
+  .rule { position: absolute; left: 0; right: 0; top: 220.65px; height: 1px; background: #eceeee; }
+
+  /* the thread: one column, so a longer line pushes everything under it down */
+  .thread { position: absolute; left: 0; top: 398.4px; width: 797px; }
+  .q { margin-left: 103.89px; width: 693.11px; padding: 33.8px 0 36.05px 44.7px; border-radius: 44px;
+    background: linear-gradient(90deg, #2c75ee 0%, #1b68e9 66%);
+    box-shadow: 0 28.2px 39.2px -13.3px rgba(27, 104, 233, .316); }
+  .q p { width: 600px; margin: 0; font-size: 35.2px; font-weight: 645; letter-spacing: -.39px; line-height: 48.5px; color: #fff; text-wrap: pretty; }
+  .a { position: relative; margin: 30.81px 0 0 128.5px; width: 622.5px; padding: 33.96px 45px 34.48px 44.05px;
+    border-radius: 46px; background: #fff; box-shadow: 0 29.2px 37.8px -15.3px rgba(9, 25, 58, .164); }
+  .a p { margin: 0; font-size: 35px; font-weight: 520; letter-spacing: .1px; line-height: 49px; color: #242833; text-wrap: pretty; }
+  .avatar { position: absolute; left: -128.8px; bottom: -6.6px; width: 111px; height: 111px; border-radius: 50%;
+    border: 4.8px solid #1b68e9; background: #e8effd; display: flex; align-items: center; justify-content: center;
+    padding-top: 3.6px; font-size: 36.8px; font-weight: 700; letter-spacing: .9px; color: #1b68e9; }
+  .file { margin: 32px 0 0 128px; width: 622.5px; padding: 36.62px 38.5px 38.24px 38.47px; border-radius: 40px;
+    background: #fff; border: 1.5px solid rgba(15, 25, 45, .085);
+    box-shadow: 0 29.2px 37.8px -15.3px rgba(9, 25, 58, .164); }
+  .file .head { display: flex; align-items: flex-start; gap: 21.43px; }
+  .file .ico { position: relative; flex: none; width: 76.3px; height: 75.9px; margin-top: 5.28px; border-radius: 22px; background: #1b68e9; }
+  .file .ico img { position: absolute; left: 19.44px; top: 16.43px; width: 39.6px; height: 39.6px; }
+  .file .tt { font-size: 34px; font-weight: 690; letter-spacing: -.15px; line-height: normal; color: #05070b; text-wrap: balance; }
+  .file .sub { margin-top: 1.8px; font-size: 27.1px; font-weight: 590; letter-spacing: -.25px; line-height: normal; color: #7e8593; }
+  .file .open { margin-top: 25.5px; height: 100.47px; border-radius: 27.5px; background: #1b68e9; color: #fff;
+    display: flex; align-items: center; justify-content: center; white-space: nowrap; font-size: 33.5px; font-weight: 800; letter-spacing: -.25px; }
+  .seen { margin: 34.3px 0 0 130px; width: 622.5px; text-align: right; line-height: normal; white-space: nowrap;
+    font-size: 24.5px; font-weight: 650; letter-spacing: .82px; color: #abb0be; }
+</style>
+</head>
+<body>
+<div class="art">
+  <div class="phone"><div class="ring"><div class="screen">
+    <div class="island"></div>
+    <div class="t time">12:22</div>
+    <svg class="status" viewBox="540 63 130 28" aria-hidden="true">
+      <g fill="#161616">
+        <rect x="542.3" y="80.7" width="5.7" height="9.1" rx="1.4"/>
+        <rect x="551" y="75.9" width="5.7" height="13.9" rx="1.4"/>
+        <rect x="559.3" y="70.9" width="5.7" height="18.9" rx="1.4"/>
+        <rect x="568" y="65.9" width="5.7" height="23.9" rx="1.4" fill="#c7c9d2"/>
+        <circle cx="597.5" cy="85.8" r="2.9"/>
+        <rect x="627" y="71" width="24.5" height="15.5" rx="3.5" fill="#242529"/>
+      </g>
+      <g fill="none" stroke="#161616" stroke-linecap="round">
+        <path d="M583 75.5A20.5 20.5 0 0 1 612 75.5M588.66 81.16A12.5 12.5 0 0 1 606.34 81.16" stroke-width="3.3"/>
+        <rect x="623" y="66" width="43" height="22.5" rx="6.5" stroke-width="2"/>
+      </g>
+    </svg>
+    <svg class="back" viewBox="104 158 38 33" aria-hidden="true"><path d="M109 174.5H136.2M118.8 164L109 174.5l9.8 10.5" fill="none"
+      stroke="#878d99" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="who name">Maya R.</div>
+    <div class="who on">[[art.step5.status]]</div>
+    <svg class="call" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"
+      fill="none" stroke="#878d99" stroke-width="2.5" stroke-linejoin="round"/></svg>
+    <div class="rule"></div>
+  </div></div></div>
+
+  <div class="thread">
+    <div class="q"><p>[[art.step5.question]]</p></div>
+    <div class="a"><p>[[art.step5.answer]]</p><div class="avatar">MR</div></div>
+    <div class="file">
+      <div class="head">
+        <div class="ico"><img class="mark white" src="../../assets/safehouse-heart.png" alt=""></div>
+        <div><div class="tt">[[art.step5.file]]</div><div class="sub">PDF · 240 KB</div></div>
+      </div>
+      <div class="open">[[art.step5.open]]</div>
+    </div>
+    <div class="seen">[[art.step5.delivered]]</div>
+  </div>
+</div>
+</body>
+</html>

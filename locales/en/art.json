@@ -1,0 +1,52 @@
+{
+  "step1": {
+    "title": "Ready to switch?",
+    "perMonth": "/mo",
+    "lower": "Lower than your current bill",
+    "cta": "Switch &amp; save",
+    "also": "ALSO AVAILABLE"
+  },
+  "step2": {
+    "current": "Current cost",
+    "currentPrice": "$228/mo",
+    "cars": "Cars",
+    "miles": "22 miles per day",
+    "address": "Address",
+    "unlocked": "Multi-car discount unlocked",
+    "estimate": "Your new estimate",
+    "newPrice": "$214/mo",
+    "fine": "Final eligibility and savings will be determined by the insurer.",
+    "apply": "Apply discount"
+  },
+  "step3": {
+    "title": "Policy term",
+    "start": "Start date",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "wed": "Wed",
+    "monthly": "Monthly · $84 per month",
+    "keep": "Pay in full and keep $96",
+    "full": "PAY IN FULL",
+    "instead": "instead of",
+    "smaller": "Prefer smaller payments?",
+    "perMonth": "$84 / mo",
+    "pay": "Pay $912",
+    "goMonthly": "Go monthly"
+  },
+  "step4": {
+    "refer": "Refer",
+    "help": "Help",
+    "greeting": "Good afternoon, Alexandra",
+    "done": "SWITCH COMPLETE",
+    "welcome": "Welcome to Safehouse",
+    "cancelled": "Your old policy is being cancelled for you — no calls, no paperwork."
+  },
+  "step5": {
+    "status": "Licensed agent · online",
+    "question": "Where can I find my insurance card for my new auto policy?",
+    "answer": "Right here — your ID card is in your policy detail page.",
+    "file": "Auto policy · ID card",
+    "open": "Open ID card",
+    "delivered": "Delivered · 12:22"
+  }
+}

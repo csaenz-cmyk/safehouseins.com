@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="mockup" content="1009x1300">
+<title>Step 3 — policy term and payment</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=block">
+<link rel="stylesheet" href="mockups.css">
+<style>
+  .art { width: 1009px; height: 1300px; }
+  /* the phone fades out under the sheet */
+  .phone { left: 70.23px; top: -.9px; width: 843.03px; height: 1150px;
+    --bezel: 19.2px; --ring: 7.15px; --radius: 110px; --ring-radius: 93px; --screen-radius: 85px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 471.3px, transparent 958.9px);
+            mask-image: linear-gradient(to bottom, #000 471.3px, transparent 958.9px); }
+  .island { left: 265.25px; top: 25.46px; width: 259.92px; height: 73.75px; border-radius: 37px; }
+
+  .title { left: 52.6px; top: 114.55px; font-size: 40px; font-weight: 700; letter-spacing: -.3px; color: #05070b; }
+  .card { position: absolute; left: 54.42px; top: 208.16px; width: 679.32px; height: 252.14px;
+    border-radius: 40px; background: #fff; }
+  .start { left: 42px; top: 41px; font-size: 33.1px; font-weight: 490; letter-spacing: -.4px; color: #7e8591; }
+  .days { position: absolute; left: 41.9px; top: 111.6px; height: 97.5px; display: flex; gap: 20.85px; }
+  .day { height: 100%; display: flex; align-items: center; border-radius: 24px; white-space: nowrap;
+    border: 1.5px solid #e2e5ea; padding: 3.4px 40.3px 0; font-size: 34px; font-weight: 500; color: #7a818a; }
+  .day:last-child { padding: 3.4px 38.5px 0; }
+  .day.on { border: 2px solid #1b68e9; padding: .4px 38.2px 0; font-weight: 640; letter-spacing: -.24px; color: #1b68e9; }
+  .monthly { left: 52.8px; top: 497.5px; font-size: 32.3px; font-weight: 520; letter-spacing: -.15px; color: #d0d4da; }
+
+  .sheet { left: -.8px; top: 614.46px; width: 984.37px; height: 614.47px; border-radius: 46px;
+    box-shadow: 0 44.6px 74.8px -20.5px rgba(9, 25, 58, .224); }
+  .s3mark { left: 57.01px; top: 52.5px; width: 53.1px; height: 53.1px; }
+  .headline { left: 133.9px; top: 53.17px; font-size: 41px; font-weight: 760; letter-spacing: -.8px; }
+  .full { position: absolute; left: 56.76px; top: 138.81px; width: 871.35px; height: 189.44px;
+    border-radius: 35px; background: #e8effd; }
+  .full .tag { left: 41.94px; top: 38.7px; font-size: 29.9px; font-weight: 780; letter-spacing: 1.85px; color: #1b68e9; }
+  .full .sum { left: 42.64px; top: 79.74px; font-size: 59.8px; font-weight: 790; letter-spacing: 0; color: #1b68e9; }
+  .full .vs { right: 41.8px; top: 66.88px; text-align: right; line-height: 42.2px;
+    font-size: 31.8px; font-weight: 500; letter-spacing: .25px; color: #323b4a; }
+  .smaller { left: 56.5px; top: 366.62px; font-size: 33.1px; font-weight: 500; letter-spacing: .49px; color: #2e3742; }
+  .per { right: 56px; top: 366.6px; font-size: 33.7px; font-weight: 780; letter-spacing: 0; color: #1b68e9; }
+  .btn { position: absolute; top: 449.42px; width: 425px; height: 112.33px; border-radius: 56.17px;
+    display: flex; align-items: center; justify-content: center; white-space: nowrap; }
+  .btn.pay { left: 56.77px; background: #1b68e9; color: #fff; font-size: 35.4px; font-weight: 800; letter-spacing: 0; padding: 0 0 4px 1px; }
+  .btn.go { left: 503.49px; background: #f0f4f7; color: #353c47; font-size: 35.8px; font-weight: 610; letter-spacing: .3px; padding-bottom: 3px; }
+</style>
+</head>
+<body>
+<div class="art">
+  <div class="phone"><div class="ring"><div class="screen">
+    <div class="island"></div>
+    <div class="t title">[[art.step3.title]]</div>
+    <div class="card">
+      <div class="t start">[[art.step3.start]]</div>
+      <div class="days">
+        <span class="day on">[[art.step3.today]]</span>
+        <span class="day">[[art.step3.tomorrow]]</span>
+        <span class="day">[[art.step3.wed]]</span>
+      </div>
+    </div>
+    <div class="t monthly">[[art.step3.monthly]]</div>
+  </div></div></div>
+
+  <div class="sheet">
+    <img class="mark s3mark" src="../../assets/safehouse-heart.png" alt="">
+    <div class="t headline">[[art.step3.keep]]</div>
+    <div class="full">
+      <div class="t tag">[[art.step3.full]]</div>
+      <div class="t sum">$912</div>
+      <div class="t vs">[[art.step3.instead]]<br>$1,008</div>
+    </div>
+    <div class="t smaller">[[art.step3.smaller]]</div>
+    <div class="t per">[[art.step3.perMonth]]</div>
+    <div class="btn pay">[[art.step3.pay]]</div>
+    <div class="btn go">[[art.step3.goMonthly]]</div>
+  </div>
+</div>
+</body>
+</html>

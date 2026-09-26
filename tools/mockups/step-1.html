@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="mockup" content="735x1300">
+<title>Step 1 — carrier comparison</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=block">
+<link rel="stylesheet" href="mockups.css">
+<style>
+  .art { width: 735px; height: 1300px;
+    /* the lower list fades out: opaque to 725px, then two straight runs */
+    -webkit-mask-image: linear-gradient(to bottom, #000 725px, rgba(0,0,0,.251) 1110px, rgba(0,0,0,.024) 1300px);
+            mask-image: linear-gradient(to bottom, #000 725px, rgba(0,0,0,.251) 1110px, rgba(0,0,0,.024) 1300px); }
+  .phone { left: 0; top: 0; width: 735px; height: 1321px; --bezel: 16px; --ring: 6px; --radius: 92px; }
+  .island { left: 236.6px; top: 20px; width: 216.7px; height: 61.5px; border-radius: 31px; }
+
+  .time { left: 49.3px; top: 31.2px; font-size: 33.5px; font-weight: 680; letter-spacing: .3px; }
+  .battery { left: 599px; top: 41px; width: 35.5px; height: 21.5px; border-radius: 7px; }
+  .battery i { border-radius: 4.5px; }
+  .battery b { left: 35.5px; top: 5.6px; width: 2.6px; height: 7px; border-radius: 0 2px 2px 0; }
+
+  .title { left: 41.1px; top: 121px; font-size: 34.5px; font-weight: 800; letter-spacing: -.2px; color: #05070b; }
+  .s1mark { left: 605.3px; top: 119.7px; width: 44.8px; height: 44.8px; }
+
+  .card { position: absolute; left: 40.9px; top: 194.77px; width: 609.2px; height: 490.73px;
+    border-radius: 46px; background: #1b68e9; color: #fff; }
+  .carrier { left: 40.5px; top: 41.45px; font-size: 50.7px; font-weight: 800; letter-spacing: -.033em; }
+  .price { left: 41.2px; top: 124.55px; font-size: 72.8px; font-weight: 800; }
+  .per { left: 96.45px; top: 171.05px; font-size: 28.7px; font-weight: 600; color: #c9dfff; }
+  .chip { position: absolute; left: 41.1px; top: 240.23px; width: 527px; height: 85px;
+    border-radius: 26px; background: #417fec; }
+  .chip .lower { left: 25.9px; top: 25.5px; font-size: 26.4px; font-weight: 700; color: #e6f0ff; }
+  .chip .rate { left: 432.6px; top: 23.1px; font-size: 27.1px; font-weight: 800; }
+  .chip svg { position: absolute; left: 476.7px; top: 30.15px; width: 25.56px; height: 24.5px; }
+  .cta { position: absolute; left: 41.05px; top: 354.52px; width: 527.1px; height: 95.2px;
+    border-radius: 48px; background: #fff; color: #1b68e9;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30.4px; font-weight: 800; letter-spacing: .1px; padding-top: 1px; }
+
+  .also { left: 40.45px; top: 720.3px; font-size: 27.8px; font-weight: 600; letter-spacing: 1.54px; color: #7c828e; }
+
+  .row { position: absolute; left: 42.5px; width: 604.3px; height: 116.5px; border-radius: 25px;
+    background: #fff; box-shadow: 0 0 0 1.5px rgba(16, 24, 40, .035);
+    display: flex; align-items: center; padding: 0 28.4px 2px 29.4px;
+    font-size: 32.6px; font-weight: 650; }
+  .row .cost { font-weight: 750; }
+  .row .tile { width: 64.8px; height: 63.5px; border-radius: 16px; background: #e8f0fc; margin-top: 2px; color: #1b68e9;
+    display: flex; align-items: center; justify-content: center; font-size: 29.9px; font-weight: 650; flex: none; }
+  .row .name { margin-left: 19.3px; flex: 1; }
+</style>
+</head>
+<body>
+<div class="art">
+  <div class="phone"><div class="ring"><div class="screen">
+    <div class="island"></div>
+    <div class="t time">9:41</div>
+    <div class="battery"><i></i><b></b></div>
+
+    <div class="t title">[[art.step1.title]]</div>
+    <img class="mark s1mark" src="../../assets/safehouse-heart.png" alt="">
+
+    <div class="card">
+      <div class="t carrier">Progressive</div>
+      <div class="t price">$</div>
+      <div class="t per">[[art.step1.perMonth]]</div>
+      <div class="chip">
+        <div class="t lower">[[art.step1.lower]]</div>
+        <div class="t rate">4.4</div>
+        <svg viewBox="0 0 24 23" aria-hidden="true"><path fill="#fff" d="M12 .8l3.1 7.1 7.7.7-5.8 5.1 1.7 7.6L12 17.3l-6.7 4 1.7-7.6L1.2 8.6l7.7-.7z"/></svg>
+      </div>
+      <div class="cta">[[art.step1.cta]]</div>
+    </div>
+
+    <div class="t also">[[art.step1.also]]</div>
+    <div class="row" style="top:772px"><span class="tile">G</span><span class="name">Geico</span><span class="cost">$</span></div>
+    <div class="row" style="top:907px"><span class="tile">R</span><span class="name">Root</span><span class="cost">$$</span></div>
+    <div class="row" style="top:1042px"><span class="tile">L</span><span class="name">Lemonade</span><span class="cost">$$</span></div>
+    <div class="row" style="top:1177px"><span class="tile">C</span><span class="name">Clearcover</span><span class="cost">$$</span></div>
+  </div></div></div>
+</div>
+</body>
+</html>

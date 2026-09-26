@@ -1,0 +1,52 @@
+{
+  "step1": {
+    "title": "¿Listo para cambiarte?",
+    "perMonth": "/mes",
+    "lower": "Menos de lo que pagas hoy",
+    "cta": "Cámbiate y ahorra",
+    "also": "TAMBIÉN DISPONIBLES"
+  },
+  "step2": {
+    "current": "Costo actual",
+    "currentPrice": "$228/mes",
+    "cars": "Carros",
+    "miles": "22 millas al día",
+    "address": "Dirección",
+    "unlocked": "¡Ya tienes descuento por varios carros!",
+    "estimate": "Tu nuevo estimado",
+    "newPrice": "$214/mes",
+    "fine": "La aseguradora determinará si calificas y cuánto ahorras.",
+    "apply": "Aplicar descuento"
+  },
+  "step3": {
+    "title": "Vigencia de la póliza",
+    "start": "Fecha de inicio",
+    "today": "Hoy",
+    "tomorrow": "Mañana",
+    "wed": "Mié",
+    "monthly": "Mensual · $84 al mes",
+    "keep": "Paga de contado y ahórrate $96",
+    "full": "PAGO DE CONTADO",
+    "instead": "en vez de",
+    "smaller": "¿Prefieres pagos más chicos?",
+    "perMonth": "$84 / mes",
+    "pay": "Pagar $912",
+    "goMonthly": "Pagar por mes"
+  },
+  "step4": {
+    "refer": "Recomienda",
+    "help": "Ayuda",
+    "greeting": "Buenas tardes, Alexandra",
+    "done": "CAMBIO COMPLETADO",
+    "welcome": "Bienvenida a Safe House",
+    "cancelled": "Nosotros cancelamos tu póliza anterior — sin&nbsp;llamadas ni papeleo."
+  },
+  "step5": {
+    "status": "Agente con licencia · en línea",
+    "question": "¿Dónde encuentro la tarjeta de seguro de mi nueva póliza de auto?",
+    "answer": "Aquí está — tu tarjeta de seguro está en la página de detalles de tu póliza.",
+    "file": "Tarjeta de seguro · Auto",
+    "open": "Abrir tarjeta",
+    "delivered": "Entregado · 12:22"
+  }
+}

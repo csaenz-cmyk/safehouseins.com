@@ -1,0 +1,66 @@
+/* Shared by tools/mockups/step-1.html ... step-5.html — the phone screens in
+   the homepage "How it works" section, rebuilt as HTML so they can be
+   rendered in any language by tools/genmockups.py.
+
+   Every length is in pixels of the finished image: step-1 is 735x1300, and
+   so on. The five pictures were supplied at different scales, so the same
+   component is a different size in each file. That is on purpose — the
+   point is to match each English original, not to be a design system.
+
+   The words are [[art.stepN.key]] markers filled from locales/<lang>/art.json.
+   Numbers, prices, carrier and people's names stay literal in the markup. */
+
+html, body { margin: 0; padding: 0; background: transparent; }
+body {
+  font-family: Manrope, system-ui, sans-serif;
+  color: #0b0d12;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+* { box-sizing: border-box; }
+
+/* The picture itself. Anything outside it is cut off, as the originals
+   were trimmed. */
+.art { position: relative; overflow: hidden; }
+
+/* ---- the phone ----
+   A light metallic bezel, a thin black ring, the screen. The bezel's shine
+   is one 150deg gradient, measured off the originals; the stops are in
+   percent, so each step gives its phone the height that puts them where
+   they fall in its picture, including the part hidden under a sheet. */
+.phone {
+  position: absolute;
+  padding: var(--bezel);
+  border-radius: var(--radius);
+  background: linear-gradient(150deg, #d9dde3 0%, #f4f6fa 25%, #b8c0cb 60%, #ebedf2 82%, #cdd1d9 100%);
+}
+.ring {
+  height: 100%;
+  padding: var(--ring);
+  border-radius: var(--ring-radius, calc(var(--radius) - var(--bezel)));
+  background: #0b0d11;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .35);
+}
+.screen {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--screen-radius, calc(var(--radius) - var(--bezel) - var(--ring)));
+  background: #f6f8fa;
+}
+.island { position: absolute; background: #0b0c13; }
+
+/* ---- small pieces ----
+   .mark is the Safe House heart, assets/safehouse-heart.png, the file the
+   site uses for the mark everywhere; .white turns it white, as the site does. */
+.mark { position: absolute; display: block; }
+.mark.white { filter: brightness(0) invert(1); }
+.t { position: absolute; white-space: nowrap; line-height: normal; }
+
+/* iOS battery: grey outline, black level, grey nub */
+.battery { position: absolute; border: var(--bw, 1.8px) solid #8f9093; }
+.battery i { position: absolute; inset: var(--bi, 1.6px); background: #0b0c13; }
+.battery b { position: absolute; background: #8f9093; }
+
+/* The sheet that slides over the phone on steps 2-4; each sets its own shadow. */
+.sheet { position: absolute; background: #fff; }
