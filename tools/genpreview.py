@@ -147,7 +147,7 @@ def build(page, name, other, lang):
     # The switch goes to the other preview, not to a page this host does not have.
     src = re.sub(r'(<!--block:switch(?: [a-z-]+)*-->.*?<a href=")[^"]*(")',
                  lambda m: m.group(1) + other + m.group(2), src, count=1, flags=re.S)
-    style = '\n'.join(re.findall(r'(?s)<style>(.*?)</style>', src))
+    style = '\n'.join(re.findall(r'(?s)<style(?: [^>]*)?>(.*?)</style>', src))
     body = re.search(r'(?s)<body[^>]*>(.*?)</body>', src).group(1)
     body = (body
         .replace("location.href='mailto:contact@safehouseins.com?subject='",

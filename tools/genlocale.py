@@ -208,7 +208,7 @@ def apply(src, page):
 
     def sub_text(m):
         v = text_for(m.group(1))
-        if code == 'en' and m.group(2) != v:
+        if code == 'en' and i18n.unbreak(m.group(2)) != v:
             replaced.append((page['path'], m.group(1), m.group(2)))
         return '<!--t:%s-->%s<!--/t-->' % (m.group(1), v)
     out = _TEXT.sub(sub_text, out)
@@ -224,7 +224,7 @@ def apply(src, page):
         start = m.end()
         end = close_of(out, tag, start)
         v = text_for(key)
-        if code == 'en' and out[start:end] != v:
+        if code == 'en' and i18n.unbreak(out[start:end]) != v:
             replaced.append((page['path'], key, out[start:end]))
         out = out[:start] + v + out[end:]
         pos = start + len(v)
@@ -296,6 +296,7 @@ def build(entry):
         with i18n.language(code):
             out = apply(src, page)
             if code == 'en':
+                out = i18n.nobreak(out)     # i18n.write() does this for the rest
                 if out != src:
                     open(os.path.join(ROOT, path), 'w', encoding='utf-8').write(out)
                 written.append(path)

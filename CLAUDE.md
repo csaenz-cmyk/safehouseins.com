@@ -89,6 +89,13 @@ radial gradient onto a section that also sets `background:` as a shorthand.
 Anywhere but the end of the sheet, the shorthand resets them and they silently
 do not paint.
 
+**A phone number never breaks across two lines, and nobody types the markup
+for that.** `i18n.nobreak()` wraps every number a visitor reads in
+`<span class="nw">` as a page is written — `i18n.write()` for the generated
+pages, `genlocale.py` for the hand-kept ones — and adds the one CSS rule that
+keeps it whole. Write numbers in the catalogs as plain text. Before this a
+button read "Llama al 915-503-" with "1207" on the next line, at 390px.
+
 **`carriers.py::NAMES` is the carrier list, but not the only place a carrier is
 named.** `genabout.py` now derives its About-page list from `NAMES` rather than
 keeping its own — the two had drifted until the same page said Acacia in one

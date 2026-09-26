@@ -282,8 +282,70 @@ def write(rel, doc):
     path = out_path(rel)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w', encoding='utf-8') as fh:
-        fh.write(localize_paths(doc))
+        fh.write(localize_paths(nobreak(doc)))
     return path
+
+
+# A phone number is one word to the person reading it, but not to a browser,
+# which will break "915-503-1207" after either hyphen, or "(915) 503-1207" at
+# the space, when a line runs out of room: at 390px the Spanish button
+# "Llama al 915-503-1207" left "1207" alone on a line of its own. So every
+# number a visitor reads is written inside <span class="nw">, and a page that
+# has one gets the rule that keeps it on one line (NOBREAK_CSS, before
+# </head> — the pages do not share a stylesheet, so the rule travels with the
+# markup). A line can still break before the number, never inside it.
+#
+# display:contents, so the span is not a box of its own: inside a flex button
+# it would otherwise become a separate flex item and pull away from "Llama al"
+# before it. !important because a component's rule for its own spans
+# (".pbtn span{display:block}") must not reach the number.
+#
+# Only text is touched: never a tag or its attributes (an aria-label carries
+# the number too), a comment, the <head>, a script or style, or an element
+# that cannot hold markup. Running it twice changes nothing.
+NOBREAK_CSS = ('<style data-nobreak>.nw{display:contents!important;'
+               'white-space:nowrap!important}</style>')
+_NOBREAK_STYLE = re.compile(r'<style data-nobreak>.*?</style>\n?', re.S)
+_PHONE = re.compile(r'(?<![\w+(-])(?:\+?1-)?(?:\d{3}-|\(\d{3}\)(?: |&nbsp;))\d{3}-\d{4}(?![\w-])')
+_NOBREAK = '<span class="nw">'
+_OPAQUE = frozenset(('head', 'script', 'style', 'title', 'textarea', 'select', 'option',
+                     'svg', 'template', 'noscript'))
+_TOKEN = re.compile(r'<!--.*?-->|<(/?)([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*>', re.S)
+_NOBROKEN = re.compile(r'<span class="nw">([^<]*)</span>')
+
+
+def nobreak(doc):
+    """Keep every phone number in `doc`'s text on one line (see above)."""
+    out, pos, prev = [], 0, ''
+    opaque, depth = None, 0
+    for m in _TOKEN.finditer(doc):
+        text = doc[pos:m.start()]
+        if text and opaque is None and prev != _NOBREAK:
+            text = _PHONE.sub(lambda p: _NOBREAK + p.group(0) + '</span>', text)
+        out.append(text)
+        out.append(m.group(0))
+        pos, prev = m.end(), m.group(0)
+        name = (m.group(2) or '').lower()
+        if opaque is None:
+            if name in _OPAQUE and not m.group(1) and not m.group(0).endswith('/>'):
+                opaque, depth = name, 1
+        elif name == opaque and not m.group(0).endswith('/>'):
+            depth += -1 if m.group(1) else 1
+            if depth == 0:
+                opaque = None
+    text = doc[pos:]
+    if opaque is None and prev != _NOBREAK:
+        text = _PHONE.sub(lambda p: _NOBREAK + p.group(0) + '</span>', text)
+    out.append(text)
+    doc = _NOBREAK_STYLE.sub('', ''.join(out))
+    if _NOBREAK in doc and '</head>' in doc:
+        doc = doc.replace('</head>', NOBREAK_CSS + '\n</head>', 1)
+    return doc
+
+
+def unbreak(text):
+    """The text as the catalog has it, before nobreak() marked it up."""
+    return _NOBROKEN.sub(r'\1', text)
 
 
 # A reference to the shared assets folder, wherever it starts: an attribute
