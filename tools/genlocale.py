@@ -44,7 +44,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import i18n, menu, shell
+import carriers, i18n, menu, shell
 
 ROOT = i18n.ROOT
 
@@ -333,6 +333,14 @@ def faq_ld(qs):
         "mainEntity": [{"@type": "Question", "name": i18n.plain(q),
                         "acceptedAnswer": {"@type": "Answer", "text": i18n.plain(a)}}
                        for q, a in qs]}, ensure_ascii=False) + '</script>')
+
+
+@register('ratecarriers')
+def block_ratecarriers(page, args, inner):
+    """<!--block:ratecarriers-->: the carrier marks on quote.html's comparing
+    screen, from carriers.py — so a carrier the agency stops working with
+    leaves that screen the day it leaves the list."""
+    return carriers.compare_marks(page['up'])
 
 
 @register('ld-faq')

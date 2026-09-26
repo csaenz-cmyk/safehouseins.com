@@ -108,7 +108,10 @@ named.** `genabout.py` now derives its About-page list from `NAMES` rather than
 keeping its own — the two had drifted until the same page said Acacia in one
 list and not the other, and neither mentioned Hagerty or National General. It
 adds `EXTRA` for appointments the strip does not carry, which is a real
-category.
+category. The quote form's comparing screen derives its marks from `NAMES` too,
+minus `NOT_PERSONAL_AUTO` — carriers that do not write the everyday car policy
+the form rates. A new carrier that is not personal auto goes in that tuple, or
+the screen shows it while a car quote is being priced.
 
 Still needing a hand when an appointment changes: the privacy policy in
 `locales/en/docs/privacy.html` **and** `locales/es/docs/privacy.html`, which

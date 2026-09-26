@@ -1308,7 +1308,8 @@
       "rating": "Estamos en eso",
       "results": "Tus opciones",
       "confirm": "Ya casi",
-      "done": "Listo"
+      "done": "Listo",
+      "mail": "Un paso más"
     },
     "addr": {
       "home": "¿Cuál es la dirección de la propiedad?",
@@ -1410,8 +1411,8 @@
     "and": " y ",
     "disclosureVersion": "2026-09-26",
     "rate": {
-      "m1": "Enviando tus datos a las aseguradoras que representamos…",
-      "m2": "Las aseguradoras están calculando tus números…",
+      "step": "Paso {n} de 3: {step}",
+      "ready": "Tus opciones están listas.",
       "m3": "Seguimos — algunas aseguradoras tardan más que otras…",
       "m4": "Ya casi — estamos juntando las últimas…"
     },
@@ -1420,7 +1421,9 @@
       "h": "Un agente se encarga a partir de aquí.",
       "pNM": "Las pólizas de Nuevo México las cotiza uno de nuestros agentes y no el sistema en línea, para que obtengas los límites reales de Nuevo México y no un precio de Texas. Tenemos todo lo que enviaste — no tienes que volver a llenar nada. ",
       "p": "Recibimos tu solicitud. ",
-      "tail": "Un agente de Safe House con licencia te enviará un mensaje o te llamará en breve con tus opciones — en español o en inglés."
+      "tail": "Un agente de Safe House con licencia te enviará un mensaje o te llamará en breve con tus opciones — en español o en inglés.",
+      "hMail": "No pudimos obtener tus precios en línea.",
+      "pMail": "Algo salió mal, así que abrimos un correo con todo lo que llenaste. Envíalo y un agente con licencia hará tu cotización, sin que tengas que volver a llenar nada. Si no se abrió ningún correo, llámanos y la hacemos contigo."
     },
     "term": {
       "one": "1 mes",
@@ -1678,9 +1681,13 @@
     "free": "Gratis y sin compromiso. Un agente con licencia revisa todo antes de emitir cualquier póliza &mdash; en esta página no se contrata nada."
   },
   "rating": {
-    "h1": "Revisando tus opciones",
-    "msg": "Enviando tus datos a las aseguradoras que representamos&hellip;",
-    "who": "Aseguradoras reales, tarifas reales &mdash; esto puede tardar uno o dos minutos."
+    "h1": "Comparando tus opciones",
+    "sub": "Estamos revisando precios con varias aseguradoras para encontrar la opción que más te convenga.",
+    "cap": "Algunas de las compañías con las que trabajamos",
+    "s1": "Enviando tus datos",
+    "s2": "Consultando precios con las aseguradoras",
+    "s3": "Preparando tus mejores opciones",
+    "note": "Por lo general tarda alrededor de un minuto."
   },
   "results": {
     "h1": "Tus opciones iniciales",

@@ -37,7 +37,10 @@ Every name here is already published somewhere on the site the owner has
 approved — the About page carrier list, plus Root and Lemonade from the home
 page FAQ and the mix-and-match band. Nothing is added that we cannot support.
 """
+import html as html_mod
+import math
 import os
+import re
 import i18n
 
 # Ordered so the two most recognisable names land early in the loop, and so
@@ -200,3 +203,76 @@ def html(indent='  ', up=''):
         + i + '    </div>\n'
         + i + '  </div>\n'
         + i + '</section>\n')
+
+
+# ---------------------------------------------------------------------------
+# The quote form's "comparing" screen, shown while an auto quote is priced,
+# brings these up one at a time. On screen they are "some of the companies we
+# work with" and never "asking these right now": which carriers answer varies
+# from one quote to the next. Hagerty (collector cars) and NEXT (business
+# insurance) do not write the everyday car policy the form rates, so showing
+# them there would suggest they are pricing it.
+NOT_PERSONAL_AUTO = ('Hagerty', 'NEXT')
+
+
+def personal_auto():
+    return [n for n in NAMES if n not in NOT_PERSONAL_AUTO]
+
+
+def mark_size(f):
+    """(width, height) of an artwork file, read from its header, so the page
+    can reserve its box before it loads. SVG, WebP and PNG — no Pillow."""
+    path = os.path.join(LOGO_DIR, f)
+    if f.endswith('.svg'):
+        head = open(path, encoding='utf-8').read(4000)
+        m = re.search(r'viewBox="\s*[-\d.]+[\s,]+[-\d.]+[\s,]+([\d.]+)[\s,]+([\d.]+)', head)
+        if m:
+            return float(m.group(1)), float(m.group(2))
+        w = re.search(r'\swidth="([\d.]+)', head)
+        h = re.search(r'\sheight="([\d.]+)', head)
+        return float(w.group(1)), float(h.group(1))
+    b = open(path, 'rb').read(32)
+    if b[:4] == b'RIFF' and b[8:12] == b'WEBP':
+        kind = b[12:16]
+        if kind == b'VP8X':
+            return (1 + int.from_bytes(b[24:27], 'little'),
+                    1 + int.from_bytes(b[27:30], 'little'))
+        if kind == b'VP8 ':
+            return (int.from_bytes(b[26:28], 'little') & 0x3fff,
+                    int.from_bytes(b[28:30], 'little') & 0x3fff)
+        if kind == b'VP8L':
+            v = int.from_bytes(b[21:25], 'little')
+            return (v & 0x3fff) + 1, ((v >> 14) & 0x3fff) + 1
+    if b[:8] == b'\x89PNG\r\n\x1a\n':
+        return int.from_bytes(b[16:20], 'big'), int.from_bytes(b[20:24], 'big')
+    raise SystemExit('carriers.py: cannot read the size of assets/carriers/' + f)
+
+
+# Every mark on the comparing screen is drawn at the same visual weight, which
+# means the same AREA rather than the same height: at one height Progressive's
+# long wordmark is a thin line and National General's stacked one is a block.
+# The area is a 3.5:1 mark 38px tall; heights are held between 22 and 44px so
+# neither extreme escapes the card.
+MARK_AREA = 38 * 38 * 3.5
+
+
+def compare_marks(up=''):
+    """The comparing screen's carrier marks: one <span class="cmpc"> each, the
+    first one showing. A carrier without artwork is its name, set in type, and
+    so is one whose artwork fails to load — data-n is what the script sets."""
+    out = []
+    for i, name in enumerate(personal_auto()):
+        cls = 'cmpc on' if i == 0 else 'cmpc'
+        n = html_mod.escape(name)
+        f = logo_file(name)
+        if f:
+            w, h = mark_size(f)
+            ratio = w / h
+            dh = min(44.0, max(22.0, math.sqrt(MARK_AREA / ratio)))
+            out.append('<span class="' + cls + '" data-n="' + n + '"><img src="' + up
+                       + 'assets/carriers/' + f + '" width="' + str(round(dh * ratio))
+                       + '" height="' + str(round(dh))
+                       + '" alt="" loading="lazy" decoding="async"></span>')
+        else:
+            out.append('<span class="' + cls + '" data-n="' + n + '"><b>' + n + '</b></span>')
+    return ''.join(out)

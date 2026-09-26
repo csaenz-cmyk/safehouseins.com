@@ -1308,7 +1308,8 @@
       "rating": "Working on it",
       "results": "Your options",
       "confirm": "Almost there",
-      "done": "All done"
+      "done": "All done",
+      "mail": "One more step"
     },
     "addr": {
       "home": "What is the property address?",
@@ -1410,8 +1411,8 @@
     "and": " and ",
     "disclosureVersion": "2026-08-25",
     "rate": {
-      "m1": "Sending your details to the carriers we represent…",
-      "m2": "The carriers are running your numbers…",
+      "step": "Step {n} of 3: {step}",
+      "ready": "Your options are ready.",
       "m3": "Still going — some carriers take longer than others…",
       "m4": "Almost there — gathering the last few…"
     },
@@ -1420,7 +1421,9 @@
       "h": "An agent is taking it from here.",
       "pNM": "New Mexico policies are priced by one of our agents rather than by the online rater, so you get real New Mexico limits instead of a Texas price. We have everything you sent — nothing to fill in again. ",
       "p": "We have got your request. ",
-      "tail": "A licensed Safe House agent will text or call you shortly with your options — in English or Spanish."
+      "tail": "A licensed Safe House agent will text or call you shortly with your options — in English or Spanish.",
+      "hMail": "We couldn’t get your prices online.",
+      "pMail": "Something went wrong, so we’ve opened an email with everything you entered. Send it and a licensed agent will price it for you — nothing to fill in again. If no email opened, call us and we’ll do it with you."
     },
     "term": {
       "one": "1 month",
@@ -1678,9 +1681,13 @@
     "free": "Free and no obligation. A licensed agent reviews everything before any policy is issued &mdash; nothing is bound on this page."
   },
   "rating": {
-    "h1": "Checking your options",
-    "msg": "Sending your details to the carriers we represent&hellip;",
-    "who": "Real carriers, real rates &mdash; this can take a minute or two."
+    "h1": "Comparing your options",
+    "sub": "We&rsquo;re checking prices with multiple insurance companies to find the best fit for you.",
+    "cap": "Some of the companies we work with",
+    "s1": "Sending your details",
+    "s2": "Getting prices from carriers",
+    "s3": "Lining up your best options",
+    "note": "This usually takes about a minute."
   },
   "results": {
     "h1": "Your initial options",

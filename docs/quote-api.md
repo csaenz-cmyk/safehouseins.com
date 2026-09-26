@@ -329,6 +329,7 @@ is how you tell them apart:
 | 202 | the AMS could not rate. The lead is saved. **Correct behaviour.** The reason it gives is shown in the panel and left on `window.__quote202` |
 | 202, *"VIN required"* | the visitor skipped the VIN. Nothing to fix — see below |
 | *"Gave up after 95s"* | rating never finished, or GET is not being forwarded. The line reports how many polls ran and the last status |
+| *"did not answer the POST within 60s"* | the bridge took the request and never replied. The visitor got the email hand-off; the lead may or may not be in the AMS, so look before re-keying it. A poll that hangs past 50s is abandoned the same way and simply polled again |
 
 ### Testing it
 
