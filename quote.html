@@ -1636,10 +1636,12 @@
     +'Vietnam,Yemen,Zambia,Zimbabwe').split(',');
   // In another language the list is re-sorted by the translated names — the
   // order that reader scans in. The values stay the English ones either way.
+  // A page with no lang (a host that supplies its own <html>) is English.
+  var PAGE_LANG=document.documentElement.lang||'en';
   var COUNTRY_LIST=COUNTRIES.slice();
-  if(!/^en/.test(document.documentElement.lang)){
+  if(!/^en/.test(PAGE_LANG)){
     var cName=function(c){ return TT('opt.country.'+slug(c))||c; };
-    COUNTRY_LIST.sort(function(a,b){ return cName(a).localeCompare(cName(b),document.documentElement.lang); });
+    COUNTRY_LIST.sort(function(a,b){ return cName(a).localeCompare(cName(b),PAGE_LANG); });
   }
   var COUNTRY_OPTS='<option value="">'+T('chooseOne')+'</option>'
     + COUNTRIES_TOP.map(function(c){ return opt('country',c); }).join('')
@@ -4116,7 +4118,7 @@
      stands (blocks added along the way included), so the email reads in the
      language the form was filled in. */
   function disp(v){
-    if(v==null||v===''||/^en/.test(document.documentElement.lang)) return v;
+    if(v==null||v===''||/^en/.test(PAGE_LANG)) return v;
     if(!disp.map){
       // Values this page derives rather than offers as a choice.
       var m={'Homeowner':TT('mail.homeowner'),'Renter':TT('mail.renter'),'Insured':TT('mail.insuredSelf')};

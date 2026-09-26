@@ -20,7 +20,7 @@ and change that. A hand edit survives until the next person runs the generator,
 which is usually the same afternoon, and then it is gone with no trace of what
 it was for.
 
-Everything under `car-insurance/`, `learn/`, `es/` and `docs/quote-preview.html`
+Everything under `car-insurance/`, `learn/`, `es/` and `docs/quote-preview*.html`
 is generated, and so are most root pages — `about.html`, `careers.html`,
 `investors.html`, `privacy.html`, `sms-terms.html` and the six product pages.
 
@@ -80,6 +80,7 @@ insurance hub *and* all 21 guide pages, because guides carry the strip too.
 | `states.py` | Statutory limits and state-level facts. |
 | `shell.py`, `brandkit.py`, `citykit.py` | Shared page architecture. |
 | `geninvestors.py` | `investors.html`. States no financial figure — read its docstring first. |
+| `genmockups.py` | The homepage phone screens in Spanish, from `tools/mockups/` and `art.json`. By hand, not in the loop. |
 
 ## Conventions that are not obvious
 

@@ -280,7 +280,7 @@
     },
     "trim": {
       "q": "¿La versión o el motor cambian mi precio?",
-      "a": "<p>Sí, y normalmente más de lo que la gente espera. Las aseguradoras le ponen precio al vehículo específico &mdash; motor, carrocería, equipo de seguridad, costo de reparación &mdash; no el nombre del modelo. Una versión de alto desempeño puede caer en un grupo de tarifa totalmente distinto al del modelo base con el que comparte emblema.</p><p>Cotiza la versión exacta. Un número adivinado no va a sobrevivir a la revisión de la aseguradora.</p>"
+      "a": "<p>Sí, y normalmente más de lo que la gente espera. Las aseguradoras le ponen precio al vehículo específico &mdash; motor, carrocería, equipo de seguridad, costo de reparación &mdash; no al nombre del modelo. Una versión de alto desempeño puede caer en un grupo de tarifa totalmente distinto al del modelo base con el que comparte emblema.</p><p>Cotiza la versión exacta. Un número adivinado no va a sobrevivir a la revisión de la aseguradora.</p>"
     },
     "newer": {
       "q": "¿Mi {name} va a costar más de asegurar que mi auto anterior?",

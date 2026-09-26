@@ -42,7 +42,7 @@
     "resRent": "Rento",
     "resFamily": "Vivo con familiares"
   },
-  "chooseOne": "Elige una opción",
+  "chooseOne": "Selecciona",
   "current": {
     "h1": "¿Tienes seguro en este momento?",
     "sub": "Tener seguro sin interrupciones es uno de los mayores descuentos que existen.",
@@ -297,7 +297,7 @@
     "year": "Año",
     "state": "Estado",
     "outsideUS": "Fuera de EE.&nbsp;UU.",
-    "chooseOne": "Elige una opción",
+    "chooseOne": "Selecciona",
     "choose": "Elige",
     "opt": {
       "rel": {
@@ -1061,7 +1061,7 @@
     "vinFail": "No pudimos leer ese VIN — con el año y la marca de abajo es suficiente.",
     "addrTipStreet": "Ahora el nombre de la calle — p. ej. {n} Sunny Slope",
     "addrTipMore": "Sigue escribiendo el nombre de la calle…",
-    "covNone": "Sin cobertura",
+    "covNone": "Ninguna",
     "perPerson": "por persona",
     "perDay": "por día",
     "perDisablement": "por servicio",

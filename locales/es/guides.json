@@ -543,7 +543,7 @@
     "liability-car-insurance": {
       "nav": "Responsabilidad civil",
       "card": "La cobertura que exige la ley, qué significan los tres números y qué pasa cuando no alcanzan.",
-      "title": "Seguro de responsabilidad civil para auto, explicado",
+      "title": "Seguro de responsabilidad civil para auto",
       "desc": "Qué cubre la responsabilidad civil (daños a terceros) de tu seguro de auto, qué significa cada número de 30/60/25 y qué pasa si un reclamo rebasa tu límite.",
       "h1": "Seguro de responsabilidad civil para auto",
       "lede": "La parte de la póliza que de verdad exige la ley, y la que evita que una mala tarde termine en un embargo sobre todo lo que tienes.",
@@ -627,7 +627,7 @@
     "collision-and-comprehensive": {
       "nav": "Colisión e integral",
       "card": "Las dos coberturas que pagan por tu propio carro, cómo funcionan los deducibles y cuándo dejan de valer la pena.",
-      "title": "Cobertura de colisión e integral: qué cubre cada una",
+      "title": "Colisión e integral: qué cubre cada cobertura",
       "desc": "La diferencia entre la cobertura de colisión y la integral, cómo funciona cada deducible y cuándo conviene quitárselas a un carro que ya tiene sus años.",
       "h1": "Cobertura de colisión e integral",
       "lede": "La responsabilidad civil (liability) les paga a los demás. Estas dos son las que pagan por tu carro — y son dos coberturas, no una, cada una con su propio deducible.",
@@ -702,7 +702,7 @@
     "uninsured-motorist-coverage": {
       "nav": "Conductor sin seguro",
       "card": "La cobertura que paga cuando el conductor que te chocó no puede, y por qué, si no la quieres, los dos estados exigen que lo pongas por escrito.",
-      "title": "Cobertura de conductor sin seguro o con seguro insuficiente",
+      "title": "Conductor sin seguro o con seguro insuficiente",
       "desc": "Qué paga la cobertura de conductor sin seguro o con seguro insuficiente, por qué Texas y Nuevo México exigen que se ofrezca y cómo escoger los límites.",
       "h1": "Cobertura de conductor sin seguro o con seguro insuficiente",
       "lede": "Todas las demás coberturas dan por hecho que alguien tiene seguro. Esta es la que funciona cuando nadie lo tiene.",
@@ -1161,7 +1161,7 @@
     "car-insurance-without-a-license": {
       "nav": "Seguro sin licencia",
       "card": "Con licencia extranjera, con matrícula, con permiso o sin ninguna licencia — qué sí se puede y qué se necesita.",
-      "title": "Seguro de auto sin licencia en Texas y Nuevo México",
+      "title": "Seguro de auto sin licencia en TX y NM",
       "desc": "¿Puedes sacar seguro de auto sin licencia de EE. UU.? Qué sirve con licencia extranjera, matrícula, permiso o ITIN, y cómo asegurarte en Texas o Nuevo México.",
       "h1": "Seguro de auto sin licencia de Estados Unidos",
       "lede": "Es una de las preguntas que más nos hacen, y la respuesta que casi todos esperan es la equivocada. En muchos casos sí se puede. Lo que se necesita es la aseguradora correcta y un agente que ya lo haya hecho antes.",
@@ -1251,7 +1251,7 @@
     "new-driver-car-insurance": {
       "nav": "Conductores nuevos y adolescentes",
       "card": "Por qué la primera póliza cuesta lo que cuesta, cuándo agregar a un adolescente a la tuya y los descuentos que nadie menciona.",
-      "title": "Seguro de auto para conductores nuevos y adolescentes",
+      "title": "Seguro para conductores nuevos y adolescentes",
       "desc": "Lo que cuesta una primera póliza de auto y por qué, cuándo poner a un adolescente en la póliza familiar y no en una propia, y los descuentos que le tocan.",
       "h1": "Conductores nuevos y adolescentes",
       "lede": "La primera póliza es la más cara que cualquiera llega a comprar, por razones que no tienen nada que ver con qué tanto cuidado tengas al manejar. Casi todo lo que se puede hacer al respecto está en cómo se arma la póliza.",
@@ -1328,7 +1328,7 @@
     "mexico-auto-insurance": {
       "nav": "Cruzar a México en carro",
       "card": "Tu póliza de Estados Unidos no te cubre al sur de la frontera. Qué seguro se exige de verdad y qué pasa si no lo tienes.",
-      "title": "Cruzar a México en carro: lo que tu seguro de EE. UU. no cubre",
+      "title": "Manejar a México: lo que tu seguro no cubre",
       "desc": "Por qué tu seguro de auto de EE. UU. no te cubre en México, qué seguro mexicano de responsabilidad civil se exige y qué pasa si tienes un accidente sin él.",
       "h1": "Cruzar a México en carro",
       "lede": "De esto la mayoría se entera en el peor momento posible. Una póliza de seguro de auto de Estados Unidos no te cubre en México, y México no la reconoce.",
@@ -1430,7 +1430,7 @@
     "non-owner-car-insurance": {
       "nav": "Pólizas para no propietarios",
       "card": "Cobertura de responsabilidad civil cuando manejas pero no tienes carro propio — y cómo puede incluir un SR-22.",
-      "title": "Qué es el seguro de auto para no propietarios (non-owner)",
+      "title": "Seguro de auto para no propietarios (non-owner)",
       "desc": "Qué cubre una póliza de auto para no propietarios (non-owner), quién la necesita y cómo puede incluir un SR-22 aunque no tengas vehículo propio.",
       "h1": "Seguro de auto para no propietarios (non-owner)",
       "lede": "Es una póliza para quien maneja pero no tiene carro propio. Es un producto real, normalmente es económico y resuelve dos problemas que la mayoría no sabe que resuelve.",
@@ -1508,7 +1508,7 @@
     "car-insurance-after-a-dwi": {
       "nav": "Después de un DWI",
       "card": "Qué le pasa de verdad a tu póliza, cuánto tiempo te sigue y por qué la primera compañía que te dice que sí casi nunca es la indicada.",
-      "title": "Seguro de auto después de un DWI en Texas o Nuevo México",
+      "title": "Seguro de auto después de un DWI en TX y NM",
       "desc": "Qué pasa con tu seguro de auto después de un DWI (manejar intoxicado), cuánto tiempo afecta tu precio, qué exige un SR-22 y cómo volver a tener seguro.",
       "h1": "Seguro de auto después de un DWI",
       "lede": "Después de un DWI (manejar intoxicado), el problema con el seguro se supera y es temporal, aunque mientras lo estás viviendo ninguna de las dos cosas parezca obvia. Lo que más importa es el orden en que haces las cosas y con qué aseguradora terminas.",

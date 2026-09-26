@@ -45,8 +45,10 @@ meaning, the facts and every caveat.
 
 **Tú, not usted**, across the site and the quote form — the English is direct
 and warm, and *tú* is how that sounds in Spanish ("Obtén tu cotización
-gratis", "Llámanos"). Two exceptions keep *usted*: the legal documents
-(privacy, SMS terms), which are legal text and what the 10DLC reviewers read,
+gratis", "Llámanos"). Three exceptions keep *usted*: the legal documents
+(privacy, SMS terms), which are legal text and what the 10DLC reviewers read;
+the text messages in `sms/*.es.txt`, which match the SMS terms they send
+people to (and stay unsent until the 10DLC approval in `docs/a2p-10dlc.md`);
 and the lienholder page (`lienholder.json`), whose readers are bank and
 finance-company staff writing to us on a customer's behalf. The shared menu and
 footer on that page stay in *tú* like everywhere else.
@@ -192,6 +194,18 @@ A picture whose text needs translating gets a twin beside it:
 `assets/step-1.webp` → `assets/step-1.es.webp`. Every Spanish page uses the twin
 wherever the English page uses the original, automatically. Pictures without a
 twin are shown as they are, so check new artwork for English text.
+
+The five homepage phone screens are rebuilt rather than retouched:
+`tools/mockups/step-N.html` holds each screen as HTML, its words come from
+`art.json`, and `python3 tools/genmockups.py` renders `step-N.es.webp` at the
+original's exact size. It needs a browser and the network (for the typeface),
+so it is not part of the page rebuild — run it when `art.json` or a template
+changes, and look at every picture before committing it. It never writes the
+English originals.
+
+Known and accepted: the product-page illustrations in `assets/who/` carry a
+few English prop labels ("NO DRIVER LICENSE", "PASSPORT") that are about three
+pixels tall at the size they are shown, and are marked decorative (`alt=""`).
 
 ## Adding a page
 

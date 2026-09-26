@@ -180,7 +180,7 @@ def register(name):
 
 
 # ------------------------------------------------------------------ apply ---
-_BLOCK = re.compile(r'<!--block:([a-z0-9-]+)((?: [a-z0-9-]+)*)-->(.*?)<!--/block:\1-->', re.S)
+_BLOCK = re.compile(r'<!--block:([a-z0-9-]+)((?: [a-z0-9.-]+)*)-->(.*?)<!--/block:\1-->', re.S)
 _TEXT = re.compile(r'<!--t:([A-Za-z0-9_.-]+)-->(.*?)<!--/t-->', re.S)
 _ATTR = re.compile(r'\sdata-t-([a-z-]+)="([A-Za-z0-9_.-]+)"')
 _ELEM = re.compile(r'<([a-zA-Z][a-zA-Z0-9]*)\b[^>]*\sdata-t="([A-Za-z0-9_.-]+)"[^>]*>')

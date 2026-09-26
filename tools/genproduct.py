@@ -1069,7 +1069,7 @@ CSS = """
   .mchip em.mmask i{color:#B8C6D8}
   .mchip.mlow{box-shadow:0 0 0 2px var(--pblue),0 14px 30px -16px rgba(0,0,0,.6)}
   .mchip.mlow em{color:var(--pblue)}
-  .mchip.mlow::after{content:"lower";position:absolute;top:-9px;right:10px;
+  .mchip.mlow::after{content:attr(data-low);position:absolute;top:-9px;right:10px;
       background:var(--pblue);color:#fff;font-size:10px;font-weight:900;
       letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:99px}
   .mchip{position:relative}
@@ -1597,7 +1597,10 @@ COMPARE = [
     ('Progressive', 'Auto insurance', None),
     ('GEICO', 'Auto insurance', None),
 ]
-COMPARE_NOTE = ''      # e.g. 'Same driver, same 2019 Silverado, same limits, March 2026.'
+# Both languages, because the band prints on the Spanish pages too:
+# {'en': 'Same driver, same 2019 Silverado, same limits, March 2026.',
+#  'es': 'Mismo conductor, misma Silverado 2019, mismos límites, marzo de 2026.'}
+COMPARE_NOTE = ''
 
 # With no real pair set, the chips still read as a price comparison — two
 # carriers, two per-month slots side by side — but the figures are masked
@@ -1643,12 +1646,16 @@ def mixchips(up=''):
         # logo is the name. Same rule the strip makes, and without it the chip
         # reads "PROGRESSIVE Progressive".
         title = '' if f else '<b>' + name + '</b>'
-        low = ' mlow' if best and name == best else ''
+        low = (' mlow" data-low="' + i18n.attr(i18n.t('product.ui.mix.lower'))
+               if best and name == best else '')
         out.append('<span class="mchip' + low + '">' + mark
                    + '<span>' + title + sub + '</span></span>')
 
     if priced and COMPARE_NOTE:
-        note = '<p class="mixnote">' + COMPARE_NOTE + '</p>'
+        if not isinstance(COMPARE_NOTE, dict):
+            raise SystemExit("genproduct: COMPARE_NOTE prints on the Spanish pages too "
+                             "— give it as {'en': ..., 'es': ...}")
+        note = '<p class="mixnote">' + i18n.pick(COMPARE_NOTE) + '</p>'
     elif not priced:
         note = ('<p class="mixnote">' + i18n.t('product.ui.mix.note') + '</p>')
     else:

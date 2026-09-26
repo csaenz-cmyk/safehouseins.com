@@ -929,6 +929,7 @@
     },
     "mix": {
       "mo": "/mo",
+      "lower": "lower",
       "note": "Your two numbers, side by side &mdash; from a real quote, in about five minutes."
     },
     "dsc": {

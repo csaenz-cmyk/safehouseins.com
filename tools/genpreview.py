@@ -17,6 +17,9 @@ Two changes to behaviour, both so the preview does not misrepresent the form:
   at once unhides all of them and labels each, so the whole flow reads top to
   bottom without answering thirty questions to reach the end.
 
+The Spanish form gets its own copy, docs/quote-preview-es.html, built from
+es/quote.html, and each copy's EN | ES switch points at the other.
+
 Never edit docs/quote-preview.html by hand — it is a build output and the next
 run throws the change away. Change quote.html and re-run this.
 """
@@ -26,7 +29,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MIME = {'.webp': 'image/webp', '.png': 'image/png',
         '.jpg': 'image/jpeg', '.svg': 'image/svg+xml'}
 
-CHROME = """<title>Safe House Quote Flow</title>
+CHROME = """<meta charset="utf-8">
+<title>Safe House Quote Flow</title>
 <style>
 /* Preview chrome only. Every color is lifted from the form's own tokens
    (quote.html :root) so the bar reads as part of the same product rather than
@@ -122,32 +126,44 @@ def datauri(path):
         return 'data:' + MIME[ext] + ';base64,' + base64.b64encode(f.read()).decode()
 
 
-def build():
-    src = open(os.path.join(ROOT, 'quote.html'), encoding='utf-8').read()
+# (the form, its preview, the other language's preview, the language to declare)
+PREVIEWS = (('quote.html', 'quote-preview.html', 'quote-preview-es.html', ''),
+            ('es/quote.html', 'quote-preview-es.html', 'quote-preview.html', 'es-MX'))
 
+
+def build(page, name, other, lang):
+    src = open(os.path.join(ROOT, page), encoding='utf-8').read()
+    here = os.path.dirname(os.path.join(ROOT, page))
     n = [0]
+
     def inline(m):
-        p = os.path.join(ROOT, m.group(1))
+        p = os.path.normpath(os.path.join(here, m.group(1)))
         if not os.path.exists(p):
             return m.group(0)
         n[0] += 1
         return 'src="' + datauri(p) + '"'
-    src = re.sub(r'src="(assets/[^"+]*?\.(?:webp|png|jpg|svg))"', inline, src)
+    src = re.sub(r'src="((?:\.\./)*assets/[^"+]*?\.(?:webp|png|jpg|svg))"', inline, src)
     src = re.sub(r'\s*<link[^>]*fonts\.(?:googleapis|gstatic)\.com[^>]*>', '', src)
-
+    # The switch goes to the other preview, not to a page this host does not have.
+    src = re.sub(r'(<!--block:switch(?: [a-z-]+)*-->.*?<a href=")[^"]*(")',
+                 lambda m: m.group(1) + other + m.group(2), src, count=1, flags=re.S)
     style = '\n'.join(re.findall(r'(?s)<style>(.*?)</style>', src))
     body = re.search(r'(?s)<body[^>]*>(.*?)</body>', src).group(1)
     body = (body
         .replace("location.href='mailto:contact@safehouseins.com?subject='",
                  "console.log('[preview] agent email:\\n'+b); window.__mailBody=b; var __skip='mailto:'+")
         .replace("+'&body='+encodeURIComponent(b);\n  }", "+'';\n  }", 1))
-
+    # The host supplies the <html> element, so the page's language is declared
+    # from here; the form reads it (country order, the agency email's wording).
+    if lang:
+        body = "<script>document.documentElement.lang='" + lang + "'</script>" + body
     out = CHROME + '<style>' + style + '</style>\n' + body + TOGGLE
-    path = os.path.join(ROOT, 'docs', 'quote-preview.html')
+    path = os.path.join(ROOT, 'docs', name)
     open(path, 'w', encoding='utf-8').write(out)
-    print('  %d images inlined -> docs/quote-preview.html  %.2f MB'
-          % (n[0], os.path.getsize(path) / 1024 / 1024))
+    print('  %d images inlined -> docs/%s  %.2f MB'
+          % (n[0], name, os.path.getsize(path) / 1024 / 1024))
 
 
 if __name__ == '__main__':
-    build()
+    for entry in PREVIEWS:
+        build(*entry)
