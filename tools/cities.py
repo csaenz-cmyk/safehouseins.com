@@ -304,22 +304,19 @@ SKIP = set()
 # would need a citation we cannot give.
 #
 # The phrases are copy — "I-45, I-10 and the 610 loop" has to read as Spanish
-# on the Spanish page — so they are cities.roads.<slug> in
+# on the Spanish page — so they are cities.roads.<state>.<slug> in
 # locales/<lang>/cities.json, road names kept as they are.
 #
-# Keyed by slug alone, as this table always was. Socorro and Anthony exist in
-# both states, and when the table was a dict literal here the New Mexico entry
-# silently replaced the Texas one: both Anthony pages read "I-10 at the Texas
-# state line" and both Socorro pages "I-25 down the Rio Grande". The catalog
-# carries what the pages actually printed, so the English did not change when
-# the words moved. The Texas phrases that never reached a page were "the I-10
-# corridor southeast of El Paso" (Socorro) and "I-10 at the New Mexico state
-# line" (Anthony); fixing it means keying the roads by state as well.
-def road(slug):
+# Keyed by state as well as slug, like every other per-city table. It used to
+# be keyed by slug alone, and Socorro and Anthony exist in both states: when
+# this was a dict literal the New Mexico entry silently replaced the Texas one,
+# so Socorro, TX told visitors its traffic ran on "I-25 down the Rio Grande"
+# and Anthony, TX that it sat "at the Texas state line".
+def road(state, slug):
     """The road phrase for a city in the language being rendered, or None for
     a city that has none. A phrase the English has and the Spanish lacks is an
     error, not a missing paragraph."""
-    key = 'cities.roads.' + slug
+    key = 'cities.roads.%s.%s' % (state, slug)
     if not i18n.has(key, i18n.DEFAULT):
         return None
     return i18n.t(key)

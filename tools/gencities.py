@@ -141,7 +141,7 @@ def para_road(slug, name, county, st):
     A road and a county are checkable; they are also what actually differs
     between two towns twenty miles apart, which is exactly the pair a search
     engine would otherwise call duplicates."""
-    r = cities.road(slug)
+    r = cities.road(st, slug)
     if not r:
         return ''
     return draft(slug + 'r', 'cities.prose.road', city=name, road=r, county=county)
@@ -1058,7 +1058,7 @@ def salt_for(st, attempt):
 def render_city(slug, name, county, tags, nb, st):
     """One city page in the language being rendered, drawn with the SALT that
     is currently set."""
-    place = PL.get(st, slug) or PL.derive(st, slug, name, county, tags, cities.road(slug))
+    place = PL.get(st, slug) or PL.derive(st, slug, name, county, tags, cities.road(st, slug))
     return city_page_v2(slug, name, county, tags, nb, st, place)
 
 def build_city(slug, name, county, tags, nb, st, seen):

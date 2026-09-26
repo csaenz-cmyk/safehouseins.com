@@ -304,7 +304,7 @@ BASE_INTENTS = ['cheaper', 'renewal', 'bought', 'sr22', 'noprior', 'switch']
 
 def derive(state, slug, name, county, tags, road):
     """A place entry for a city with no hand-written one, in the language
-    being rendered. `road` is cities.road(slug) in that language."""
+    being rendered. `road` is cities.road(state, slug) in that language."""
     t = i18n.t
     factors = []
     if road:
