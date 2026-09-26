@@ -45,9 +45,16 @@ meaning, the facts and every caveat.
 
 **Tú, not usted**, across the site and the quote form — the English is direct
 and warm, and *tú* is how that sounds in Spanish ("Obtén tu cotización
-gratis", "Llámanos"). The two legal documents (privacy, SMS terms) keep
-*usted*: they are legal text, they were written that way and they are what the
-10DLC reviewers read.
+gratis", "Llámanos"). Two exceptions keep *usted*: the legal documents
+(privacy, SMS terms), which are legal text and what the 10DLC reviewers read,
+and the lienholder page (`lienholder.json`), whose readers are bank and
+finance-company staff writing to us on a customer's behalf. The shared menu and
+footer on that page stay in *tú* like everywhere else.
+
+**Write so the reader's gender does not matter** where it is easy: "¿Tienes
+dudas?" rather than "¿No estás seguro?", "Quien solicita el seguro", options
+such as "Casado(a)". Avoid *seguro* meaning "sure" — on an insurance site it
+reads as the product.
 
 **Never translate:** Safe House Insurance; carrier and product names
 (Progressive, GEICO, Chubb, TurboRater…); Uber, Lyft, DoorDash; phone numbers,
@@ -131,3 +138,76 @@ English, name the English term once in parentheses in explanatory copy —
 | Mountain Time | hora de la montaña |
 | New Mexico | Nuevo México |
 | Mon–Fri, 11am–5pm | lun. a vie., 11 a. m. a 5 p. m. |
+
+Also correct, though the checker's word list would otherwise flag them:
+*casa móvil* (a mobile home — *móvil* alone, a phone, is still out).
+The SMS keywords stay in English everywhere, **STOP** and **HELP**: they are
+the keywords the messaging platform answers to.
+
+## How the words reach a page
+
+**Generated pages** (everything under `tools/gen*.py`) ask for text with
+`i18n.t('about.hero.h1')` or put `[[about.hero.h1]]` in a template, and write
+each page once per language with `i18n.write()`. The Spanish copy lands at the
+same path under `es/`. `t()` is strict: a key missing from a catalog stops the
+build, so a page can never ship with a hole in it.
+
+**Hand-kept pages** — `index.html`, `quote.html`, `contact.html`, `404.html`,
+`pay/`, `claims/` (and their guides), `id-card/`, `lienholder/` — keep their
+layout, styles and scripts in the English file as before. Their words are
+marked where they sit (`<!--t:key-->…<!--/t-->`, `data-t="key"`,
+`data-t-placeholder="key"` and friends), and `python3 tools/genlocale.py`
+rewrites the English file from `locales/en` and writes the Spanish twin from
+`locales/es`. **Edit the words in the catalog, not between the markers** — the
+next run puts the catalog's text back, and prints a note naming every marker it
+had to correct. The shared pieces (menu, footer, language switch, hreflang
+head) are blocks the tool writes whole; see the docstring in `genlocale.py`.
+
+**Words a page script puts on screen** are in the catalog too, under
+`<namespace>.js.*`, and reach the page as a JSON block that `T('key')` reads
+(`T('vehicleN', {n: 2})` fills placeholders). In the browser a missing key
+shows nothing and logs an error — never the key itself — and
+`tools/i18ncheck.py` makes sure it never gets that far.
+
+### Option labels and the values behind them
+
+A form option submits the English value the AMS expects whatever language it
+is shown in. In markup the value is written out (`<option value="Rent"
+data-t="…">`). In `quote.html`'s script, lists of values are kept in English and
+their labels are looked up by a slug of the value:
+`quote.js.opt.<group>.<slug>` — `opt.country.mexico`, `opt.occ.carpenter`,
+`opt.mtype.dual-sport`. To add an option, add the value to the script's list
+and the label to **both** catalogs under that key.
+
+### Words that are recorded, not just shown
+
+`quote.js.smsConsentText` and `quote.js.disclosureText` are what the quote form
+sends the AMS as the record of what a person agreed to, in the language they
+saw it in. Change either — in either language — only on purpose, and when the
+disclosure changes, date its language's `quote.js.disclosureVersion`.
+
+### Pictures with words in them
+
+A picture whose text needs translating gets a twin beside it:
+`assets/step-1.webp` → `assets/step-1.es.webp`. Every Spanish page uses the twin
+wherever the English page uses the original, automatically. Pictures without a
+twin are shown as they are, so check new artwork for English text.
+
+## Adding a page
+
+1. English and Spanish copy in a namespace file in both `locales/en` and
+   `locales/es` (a new file is a new namespace).
+2. A generated page: write it with `i18n.write(rel, doc)` inside
+   `for code in i18n.targets(): with i18n.language(code):`, and give
+   `shell.head()` its `path`, `up` and `link` so the canonical, hreflang and the
+   switch point at the right twins. A hand-kept page: add it to `PAGES` in
+   `tools/genlocale.py` and put the blocks and markers in.
+3. `python3 tools/i18ncheck.py` — every English page must have its Spanish twin.
+
+## Checking
+
+```
+python3 tools/i18ncheck.py            # catalogs and built pages, both languages
+python3 tools/i18ncheck.py --accept   # after reviewing changed Spanish
+NODE_PATH=/opt/node22/lib/node_modules node tools/i18nbrowser.js   # in a browser
+```

@@ -13,8 +13,11 @@ artwork has two shapes. Getting either half wrong is quiet rather than loud.
 `tools/carriers.py::NAMES` is the carrier list and drives the logo strip. But a
 carrier we represent is also named in:
 
-- `tools/genabout.py::CARRIERS` — the About page
-- `tools/genlegal.py` — the privacy policy, **in both English and Spanish**
+- `tools/genabout.py` — the About page (built from `NAMES`, plus `EXTRA` for
+  appointments the strip does not carry)
+- the privacy policy, **in both languages**: `locales/en/docs/privacy.html` and
+  `locales/es/docs/privacy.html` (the English page shows both; the Spanish
+  page shows the Spanish), and the sample SMS in `locales/*/docs/sms-terms.html`
 
 Adding means all three. Removing especially means all three: the privacy policy
 enumerates the companies we send a customer's application to, so leaving a
