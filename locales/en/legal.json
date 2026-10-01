@@ -8,5 +8,31 @@
     "title": "SMS Terms of Service",
     "desc": "Text messaging terms for Safe House Insurance. Reply STOP to opt out, HELP for help. Bilingual.",
     "h1": "SMS Terms of Service<br><span lang=\"es-MX\">T&eacute;rminos de Servicio de SMS</span>"
+  },
+  "cc": {
+    "terms": {
+      "title": "Client Center Terms of Use",
+      "desc": "Terms of Use for Safe House Client Center, the online service where Safe House Insurance clients see the policies we service for them.",
+      "h1": "Terms of Use — Safe House Client Center"
+    },
+    "privacy": {
+      "title": "Client Center Privacy Notice",
+      "desc": "What information Safe House Client Center uses and how we protect it.",
+      "h1": "Privacy Notice — Safe House Client Center"
+    },
+    "esign": {
+      "title": "Client Center E‑SIGN Consent",
+      "desc": "Consent to receive the documents and notices of your Safe House Client Center account electronically (E-SIGN).",
+      "h1": "Consent to electronic records and notices (E‑SIGN)"
+    },
+    "draft": "DRAFT — pending legal review. Not in effect.",
+    "version": "Version",
+    "docs": "Client Center documents",
+    "label": {
+      "terms": "Terms of Use",
+      "privacy": "Privacy Notice",
+      "esign": "E‑SIGN consent"
+    },
+    "agency": "Safe House Insurance Privacy Policy"
   }
 }

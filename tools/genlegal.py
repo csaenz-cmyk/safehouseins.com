@@ -1,5 +1,6 @@
 # Builds privacy.html and sms-terms.html from one shell, so the two pages can
-# never drift apart. Content strings are kept verbatim where TCR checks them.
+# never drift apart — and the Client Center's three documents (see CC below).
+# Content strings are kept verbatim where TCR checks them.
 #
 # The documents themselves are in locales/<lang>/docs/privacy.html and
 # sms-terms.html, one file per language. The English page shows BOTH, English
@@ -238,6 +239,8 @@ HEAD = """<!doctype html>
   .tblwrap{overflow-x:auto}
 
   .note{border:1px solid #F5C97B;background:#FFF6E6;border-radius:16px;padding:16px 18px;margin:20px 0}
+  /* the Client Center's draft band opens the page, right under the header */
+  main .wrap>.note:first-child{margin-top:0}
   .note b{display:block;font-size:15px;font-weight:900;color:#7A4E00;margin-bottom:6px}
   .note p{font-size:14.5px;color:#8A5A00;font-weight:600;margin:8px 0 0}
   .note p:first-of-type{margin-top:0}
@@ -402,7 +405,7 @@ def to_dir(page, slug):
     # The shared footer arrived with more root-relative links than this used to
     # carry, and six of them 404ed from one directory down.
     for f in ('quote.html', 'about.html', 'careers.html', 'investors.html', 'contact.html',
-              'car-insurance/', 'pay/', 'claims/', 'id-card/', 'lienholder/',
+              'car-insurance/', 'pay/', 'claims/', 'id-card/', 'lienholder/', 'client-center/',
               'auto-insurance.html', 'home-insurance.html', 'commercial-insurance.html',
               'renters-insurance.html', 'motorcycle-insurance.html',
               'rideshare-insurance.html'):
@@ -428,6 +431,75 @@ def build(slug):
     return flat, nested
 
 
+# ------------------------------------------------ Client Center documents ---
+# The Terms of Use, Privacy Notice and E-SIGN consent of Safe House Client
+# Center (my.safehouseins.com), published here too so anyone can read them
+# without an account: client-center/terms/, client-center/privacy/ and
+# client-center/esign/, and the Spanish under es/.
+#
+# They are copies. The text belongs to the Client Center — safehouse-ams,
+# client-center/public/legal.js — and clients accept THAT copy, whose version is
+# recorded on their account. A change starts there; locales/<lang>/docs/cc-*.html
+# then follows it word for word, and CC_VERSION with it. The only difference
+# here is that the phone number and the email address are links.
+#
+# While CC_DRAFT is set, each page carries the Client Center's own band — "DRAFT
+# — pending legal review. Not in effect." — and asks not to be indexed: they
+# are drafts the owner is reviewing with a lawyer, and a contract that is not in
+# effect has no business in search results. When they are final, clear CC_DRAFT
+# and update CC_VERSION.
+CC = ['terms', 'privacy', 'esign']
+CC_VERSION = '2026-09-draft'
+CC_DRAFT = True
+
+# The root-relative names the shared chrome writes, which a page two directories
+# down has to climb out of — the same list every generator carries (CLAUDE.md).
+ROOT_LINKS = ('index.html', 'about.html', 'careers.html', 'investors.html', 'quote.html',
+              'privacy.html', 'sms-terms.html', 'assets/', 'car-insurance/', 'contact.html',
+              'pay/', 'claims/', 'id-card/', 'lienholder/', 'learn/', 'client-center/',
+              'auto-insurance.html', 'home-insurance.html', 'commercial-insurance.html',
+              'renters-insurance.html', 'motorcycle-insurance.html', 'rideshare-insurance.html')
+
+
+def climb(page, up):
+    for a in ('href="', 'src="'):
+        for f in ROOT_LINKS:
+            page = page.replace(a + f, a + up + f)
+    return page
+
+
+def cc_page(slug):
+    """One Client Center document, in the language being built, alone — unlike
+    the privacy policy there is no reviewer who needs both on one page."""
+    t = i18n.t
+    up, link = '../../', 'client-center/' + slug + '/'
+    k = 'legal.cc.' + slug + '.'
+    out = HEAD.replace('[[TOGGLE_CSS]]', i18n.TOGGLE_CSS)
+    robots = '<meta name="robots" content="noindex">\n' if CC_DRAFT else ''
+    for k2, v in (('{html_open}', i18n.html_open()),
+                  ('{langtags}', robots + i18n.head_tags(link, up, link)),
+                  ('{title}', t(k + 'title')), ('{desc}', t(k + 'desc')),
+                  ('{h1}', t(k + 'h1')),
+                  ('{dates}', t('legal.cc.version') + ' ' + CC_VERSION),
+                  ('{langs}', ''),
+                  ('{logohome}', t('common.logoHome')), ('{logoalt}', t('common.logoAlt')),
+                  ('{help}', t('common.nav.help')),
+                  ('{switch}', i18n.toggle(up, link, 'tight')), ('{burger}', menu.burger()),
+                  ('{panel}', menu.panel(up, link=link)), ('{menujs}', menu.JS)):
+        out = out.replace(k2, v)
+    band = ('<div class="note" role="note"><b>' + t('legal.cc.draft') + '</b></div>\n'
+            if CC_DRAFT else '')
+    # the other two documents, and the agency's own privacy policy, which the
+    # Client Center's notice says it adds to
+    others = ' &middot; '.join(
+        ('<strong aria-current="page">%s</strong>' if s == slug
+         else '<a href="client-center/' + s + '/">%s</a>') % t('legal.cc.label.' + s) for s in CC)
+    docs = ('<div class="contact" role="navigation" aria-label="' + t('legal.cc.docs') + '">'
+            '<b>' + t('legal.cc.docs') + '</b><p>' + others + '</p>'
+            '<p><a href="privacy.html">' + t('legal.cc.agency') + '</a></p></div>\n')
+    return climb(out + band + i18n.doc('cc-' + slug) + docs + foot(), up)
+
+
 if __name__ == '__main__':
     for code in i18n.targets():
         with i18n.language(code):
@@ -437,3 +509,7 @@ if __name__ == '__main__':
                 p2 = i18n.write(slug + '/index.html', nested)
                 print(os.path.relpath(p1, i18n.ROOT), len(flat), 'bytes')
                 print(os.path.relpath(p2, i18n.ROOT), len(nested), 'bytes')
+            for slug in CC:
+                page = cc_page(slug)
+                p3 = i18n.write('client-center/' + slug + '/index.html', page)
+                print(os.path.relpath(p3, i18n.ROOT), len(page), 'bytes')

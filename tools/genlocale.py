@@ -66,7 +66,8 @@ PAGES = [
 # of — the same list every generator carries (see CLAUDE.md).
 ROOT_LINKS = ('index.html', 'about.html', 'careers.html', 'investors.html', 'quote.html',
               'privacy.html', 'sms-terms.html', 'assets/', 'car-insurance/', 'contact.html',
-              'pay/', 'claims/', 'id-card/', 'lienholder/', 'learn/', 'auto-insurance.html',
+              'pay/', 'claims/', 'id-card/', 'lienholder/', 'learn/', 'client-center/',
+              'auto-insurance.html',
               'home-insurance.html', 'commercial-insurance.html', 'renters-insurance.html',
               'motorcycle-insurance.html', 'rideshare-insurance.html')
 

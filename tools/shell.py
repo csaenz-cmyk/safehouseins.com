@@ -505,7 +505,7 @@ def footer():
    <img class="logo" src="assets/safehouse-logo.png" alt=\"""" + t('common.logoAlt') + """\">
    <p class="es">""" + t('common.footer.tagline') + """</p>
    <p class="disc">""" + t('common.footer.disclaimer') + """</p>
-   <p class="legal"><a href="privacy.html">""" + t('common.footer.privacy') + """</a> &middot; <a href="sms-terms.html">""" + t('common.footer.sms') + """</a> &middot; <a href="quote.html">""" + t('common.footer.quote') + """</a></p>
+   <p class="legal"><a href="privacy.html">""" + t('common.footer.privacy') + """</a> &middot; <a href="sms-terms.html">""" + t('common.footer.sms') + """</a> &middot; <a href="client-center/terms/">""" + t('common.footer.cc') + """</a> &middot; <a href="quote.html">""" + t('common.footer.quote') + """</a></p>
   </div>
 
  </div>

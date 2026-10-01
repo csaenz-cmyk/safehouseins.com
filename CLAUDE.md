@@ -120,6 +120,17 @@ represent is a false statement about where a customer's data goes — and the
 sample SMS in `locales/*/docs/sms-terms.html`, which names a carrier and a
 policy prefix.
 
+**The Client Center's legal documents are copies.** `client-center/terms/`,
+`client-center/privacy/` and `client-center/esign/` publish the Terms of Use,
+Privacy Notice and E-SIGN consent of Safe House Client Center
+(my.safehouseins.com). The text belongs to the AMS repo
+(`client-center/public/legal.js`): clients accept that copy, and its version is
+recorded on their account. A change starts there; then
+`locales/<lang>/docs/cc-*.html` follows it word for word, with `CC_VERSION` in
+`tools/genlegal.py`. While `CC_DRAFT` is set — the texts are drafts awaiting the
+lawyer — the pages carry the Client Center's own DRAFT band and are noindex,
+which also keeps them out of the sitemap.
+
 **Do not remove a dropped carrier from the payment and claims routers.**
 `pay/` and `claims/` map a policy-number prefix to that carrier's portal, and
 losing an appointment does not cancel policies already in force. A customer

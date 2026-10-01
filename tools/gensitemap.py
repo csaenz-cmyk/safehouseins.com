@@ -44,6 +44,11 @@ def canonical_of(path):
     return m.group(1) if m else None
 
 
+def noindex(path):
+    with open(path, encoding='utf-8', errors='ignore') as fh:
+        return re.search(r'<meta[^>]+name="robots"[^>]*noindex', fh.read(4096)) is not None
+
+
 def urls():
     out = []
     # The Spanish site is the same tree under es/, so its root pages follow the
@@ -62,6 +67,11 @@ def urls():
     for dirpath, dirnames, filenames in os.walk(ROOT):
         dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS and not d.startswith('.')]
         if dirpath == ROOT or 'index.html' not in filenames:
+            continue
+        # A page that asks not to be indexed is not listed either — the same
+        # contradiction as quote.html above. The Client Center's documents do,
+        # while they are drafts (see CC_DRAFT in genlegal.py).
+        if noindex(os.path.join(dirpath, 'index.html')):
             continue
         rel = os.path.relpath(dirpath, ROOT).replace(os.sep, '/')
         out.append(SITE + '/' + rel + '/')

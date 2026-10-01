@@ -8,5 +8,31 @@
     "title": "Términos de servicio de SMS",
     "desc": "Términos de los mensajes de texto de Safe House Insurance. Responda STOP para darse de baja y HELP para obtener ayuda.",
     "h1": "Términos de servicio de SMS"
+  },
+  "cc": {
+    "terms": {
+      "title": "Términos de uso de Client Center",
+      "desc": "Términos de uso de Safe House Client Center, el servicio en línea donde los clientes de Safe House Insurance ven las pólizas que les atendemos.",
+      "h1": "Términos de uso — Safe House Client Center"
+    },
+    "privacy": {
+      "title": "Aviso de privacidad de Client Center",
+      "desc": "Qué información usa Safe House Client Center y cómo la protegemos.",
+      "h1": "Aviso de privacidad — Safe House Client Center"
+    },
+    "esign": {
+      "title": "Consentimiento E‑SIGN de Client Center",
+      "desc": "Consentimiento para recibir de forma electrónica los documentos y avisos de tu cuenta de Safe House Client Center (E-SIGN).",
+      "h1": "Consentimiento para documentos y avisos electrónicos (E‑SIGN)"
+    },
+    "draft": "BORRADOR — pendiente de revisión legal. No está vigente.",
+    "version": "Versión",
+    "docs": "Documentos de Client Center",
+    "label": {
+      "terms": "Términos de uso",
+      "privacy": "Aviso de privacidad",
+      "esign": "Consentimiento E‑SIGN"
+    },
+    "agency": "Aviso de privacidad de Safe House Insurance"
   }
 }
