@@ -140,12 +140,22 @@ Variables and Secrets, and Settings → Bindings, with the environment selector.
 | `ACCESS_TEAM_DOMAIN` | text | `https://<team>.cloudflareaccess.com` | same |
 | `ACCESS_AUD` | text | AUD tag of the `/agent` Access app | AUD of the previews' Access app |
 | `AGENT_EMAILS` | text | agents' emails, comma separated, or `@safehouseins.com` | same |
+| `AGENT_LINK_ONLY` | text | `1` until the Access login is set up, then remove | `1` |
 | `ALLOW_TEST_HEADER` | text | (never) | `1` |
 | `ASSET_BASE` | text | (blank = https://safehouseins.com, for the email's logo) | (blank) |
 
 Cloudflare Email Service also works (`MAIL_PROVIDER=cloudflare`,
 `CF_ACCOUNT_ID`, `CF_EMAIL_TOKEN`), but sending to customers there needs the
 Workers Paid plan and the domain on Cloudflare DNS first.
+
+**Before the login exists: `AGENT_LINK_ONLY=1`.** The agency chose to open
+requests without a login for now. In this mode the notice's link carries a
+32-character key stored with that request (`view_key`), the page opens only
+with it, and the list of all requests is off. Anyone holding the email can
+open that one request, so the notice says not to forward it. To switch the
+login on: set the `ACCESS_*` and `AGENT_EMAILS` values below, protect the
+`/agent` path with an Access application, and remove `AGENT_LINK_ONLY` — the
+keys then stop opening anything by themselves.
 
 **Finding the Access values.** `ACCESS_AUD` is the application's *Additional
 settings → AUD tag* in Zero Trust (copy it with the copy icon; it is long).

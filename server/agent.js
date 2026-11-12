@@ -10,6 +10,11 @@ import { ensureSchema } from './quote-request.js';
 // checks Access's signed token again anyway — signature, audience, expiry,
 // issuer — and that the email is on AGENT_EMAILS. Anything missing refuses
 // everything: a viewer of people's licence numbers fails closed.
+//
+// Until that login is switched on, AGENT_LINK_ONLY=1 lets the link in the
+// agency's notice open its one request without a login: the link carries a
+// 32-character key stored with the request, and nothing opens without it. The
+// list of all requests stays off in that mode — it has no key to check.
 
 const TEAM_CACHE = { team: '', at: 0, keys: [] };
 
@@ -61,6 +66,15 @@ export async function verifyAccess(request, env, fetchImpl = fetch) {
   // An entry starting with @ allows the whole domain (@safehouseins.com).
   if (!allowed.some((a) => (a[0] === '@' ? email.endsWith(a) : email === a))) deny(403, 'Este correo no tiene acceso.');
   return email;
+}
+
+// Compared in full every time, so the answer takes as long for a wrong key as
+// for a nearly right one.
+function sameKey(a, b) {
+  if (!b || a.length !== b.length) return false;
+  let d = 0;
+  for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return d === 0;
 }
 
 // ------------------------------------------------------------------- page ---
@@ -124,10 +138,10 @@ th{color:#5C6A80;font-weight:600;width:40%}.sub{border-left:3px solid #E5EBF6;pa
 ul{padding:0;list-style:none;margin:0}li{border-top:1px solid #EEF2F8;padding:10px 0}li:first-child{border:0}
 .meta{color:#5C6A80;font-size:13px}@media(max-width:520px){th{width:45%}}`;
 
-function page(title, body) {
+function page(title, body, list = true) {
   return new Response('<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
     + '<meta name="robots" content="noindex,nofollow"><title>' + esc(title) + '</title><style>' + CSS + '</style></head><body>'
-    + '<header><b>Safe House · Solicitudes de cotización</b> &nbsp; <a href="/agent/requests">Ver todas</a></header><main>' + body + '</main></body></html>', {
+    + '<header><b>Safe House · Solicitudes de cotización</b> ' + (list ? '&nbsp; <a href="/agent/requests">Ver todas</a>' : '') + '</header><main>' + body + '</main></body></html>', {
     headers: {
       'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollow',
       'X-Frame-Options': 'DENY', 'Referrer-Policy': 'no-referrer',
@@ -170,12 +184,15 @@ function one(r) {
 export async function agent(request, env, fetchImpl = fetch) {
   try {
     if (request.method !== 'GET') deny(405, 'No permitido.');
-    await verifyAccess(request, env, fetchImpl);
+    const linkOnly = env.AGENT_LINK_ONLY === '1';
+    if (!linkOnly) await verifyAccess(request, env, fetchImpl);
     if (!env.DB) deny(503, 'Esta página todavía no está configurada.');
     await ensureSchema(env.DB);
-    const path = new URL(request.url).pathname.replace(/\/+$/, '');
+    const url = new URL(request.url);
+    const path = url.pathname.replace(/\/+$/, '');
     let m;
     if (path === '/agent/requests' || path === '/agent') {
+      if (linkOnly) deny(403, 'La lista de solicitudes se activa con el inicio de sesión. Abre cada solicitud desde el enlace de su correo.');
       const { results } = await env.DB.prepare('SELECT id, created_at, line, first_name, last_name, delivery, is_test FROM quote_requests ORDER BY created_at DESC LIMIT 100').all();
       return page('Solicitudes', '<section><h2>Últimas solicitudes</h2>' + ((results || []).length ? '<ul>' + results.map((r) => '<li><a href="/agent/requests/' + esc(r.id) + '"><b>' + esc(r.id) + '</b></a> · '
         + esc(r.first_name + ' ' + r.last_name) + ' · ' + esc(LINE[r.line] || r.line) + (r.is_test ? ' <span class="b">PRUEBA</span>' : '') + '<div class="meta">' + esc(when(r.created_at)) + ' · aviso: ' + esc(r.delivery) + '</div></li>').join('') + '</ul>' : '<p class="meta">Todavía no hay solicitudes.</p>') + '</section>');
@@ -183,12 +200,13 @@ export async function agent(request, env, fetchImpl = fetch) {
     if ((m = path.match(/^\/agent\/requests\/(SH-\d{6}-[A-Z0-9]{6})$/))) {
       const r = await env.DB.prepare('SELECT * FROM quote_requests WHERE id = ?').bind(m[1]).first();
       if (!r) deny(404, 'No existe esa solicitud.');
-      return page(r.id, one(r));
+      if (linkOnly && !sameKey(url.searchParams.get('k') || '', r.view_key || '')) deny(404, 'No existe esa solicitud.');
+      return page(r.id, one(r), !linkOnly);
     }
     deny(404, 'No existe esa página.');
   } catch (e) {
     const status = e instanceof Denied ? e.status : 500;
-    const resp = page('Solicitudes', '<section><h1>' + esc(e instanceof Denied ? e.message : 'Algo salió mal.') + '</h1></section>');
+    const resp = page('Solicitudes', '<section><h1>' + esc(e instanceof Denied ? e.message : 'Algo salió mal.') + '</h1></section>', env.AGENT_LINK_ONLY !== '1');
     return new Response(resp.body, { status, headers: resp.headers });
   }
 }

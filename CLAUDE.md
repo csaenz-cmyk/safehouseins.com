@@ -184,7 +184,8 @@ to the site's own `/api/quote-request` (Pages Function →
 `server/quote-request.js`), which saves the request in D1 with the exact
 consent wording shown, then emails contact@safehouseins.com a notice holding
 only the request number, name and a link to `/agent/requests/<id>` behind
-Cloudflare Access (`server/agent.js`). With `CUSTOMER_CONFIRMATION=1` the customer also gets a
+Cloudflare Access (`server/agent.js`) — or, while `AGENT_LINK_ONLY=1`, a
+per-request 32-character key in that link instead of a login. With `CUSTOMER_CONFIRMATION=1` the customer also gets a
 confirmation in their language (`server/customer-email.js`) — never their
 answers. Mail goes through Resend, on the account the AMS also uses, with the
 site's own API key. The visitor sees the confirmation only

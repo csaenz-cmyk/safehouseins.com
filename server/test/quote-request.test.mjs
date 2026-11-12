@@ -292,3 +292,45 @@ test('agency and customer emails never share an idempotency key', async () => {
   assert.equal(keys.length, 2);
   assert.notEqual(keys[0], keys[1]);
 });
+
+test('link-only mode: the notice link opens its one request, nothing else does', async () => {
+  const e = env({ AGENT_LINK_ONLY: '1' });
+  const f = mailer();
+  const r = await post(e, body(), f);
+  const link = f.sent[0].body.text.match(/https?:\/\/\S+\/agent\/requests\/\S+/)[0];
+  assert.match(link, /\?k=[A-Z2-9]{32}$/);
+  const key = link.split('?k=')[1];
+  const open = (path) => agent(new Request(ORIGIN + path), e, async () => { throw new Error('no Access in this mode'); });
+
+  const ok = await open('/agent/requests/' + r.body.id + '?k=' + key);
+  assert.equal(ok.status, 200);
+  const html = await ok.text();
+  assert.ok(html.includes('A1234567') && html.includes('maria@example.com'));
+  assert.ok(!html.includes('Ver todas'), 'no link to a list that is off');
+  assert.equal(ok.headers.get('X-Robots-Tag'), 'noindex, nofollow');
+  assert.equal(ok.headers.get('Cache-Control'), 'no-store');
+
+  assert.equal((await open('/agent/requests/' + r.body.id)).status, 404, 'no key');
+  assert.equal((await open('/agent/requests/' + r.body.id + '?k=' + key.slice(0, -1) + (key.endsWith('A') ? 'B' : 'A'))).status, 404, 'wrong key');
+  assert.equal((await open('/agent/requests/' + r.body.id + '?k=')).status, 404);
+  const list = await open('/agent/requests');
+  assert.equal(list.status, 403, 'the list stays off');
+  assert.ok(!(await list.text()).includes(r.body.id));
+
+  // Another request's key does not open this one.
+  const f2 = mailer();
+  await post(e, body(), f2);
+  const key2 = f2.sent[0].body.text.match(/\?k=([A-Z2-9]{32})/)[1];
+  assert.notEqual(key2, key);
+  assert.equal((await open('/agent/requests/' + r.body.id + '?k=' + key2)).status, 404);
+});
+
+test('without link-only mode the link has no key and Access is required', async () => {
+  const e = env();
+  const f = mailer();
+  const r = await post(e, body(), f);
+  assert.ok(f.sent[0].body.text.includes('/agent/requests/' + r.body.id + '\n'));
+  const key = e.DB.raw.prepare('SELECT view_key FROM quote_requests').get().view_key;
+  const res = await agent(new Request(ORIGIN + '/agent/requests/' + r.body.id + '?k=' + key), e, async () => new Response('{"keys":[]}'));
+  assert.equal(res.status, 503, 'a key alone opens nothing once link-only is off');
+});

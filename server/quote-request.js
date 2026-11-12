@@ -66,7 +66,8 @@ const SCHEMA = [
      attempts INTEGER NOT NULL DEFAULT 0,
      customer_delivery TEXT NOT NULL DEFAULT 'off',
      customer_delivered_at TEXT,
-     is_test INTEGER NOT NULL DEFAULT 0
+     is_test INTEGER NOT NULL DEFAULT 0,
+     view_key TEXT NOT NULL DEFAULT ''
    )`,
   'CREATE INDEX IF NOT EXISTS quote_requests_ip ON quote_requests (ip_hash, created_at)',
   'CREATE INDEX IF NOT EXISTS quote_requests_created ON quote_requests (created_at)',
@@ -143,6 +144,13 @@ async function sha256(s) {
 // SH-261112-7KQ4MZ: the date it came in, then six characters nobody can guess
 // or mistake for one another (no 0/O, 1/I/L).
 const ALPHA = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
+// The key in the notice's link while the agent page has no login
+// (AGENT_LINK_ONLY=1): 32 characters, about 158 bits — not something anyone
+// finds by trying.
+export function newKey() {
+  return [...crypto.getRandomValues(new Uint8Array(32))].map((b) => ALPHA[b % ALPHA.length]).join('');
+}
+
 export function newId(now = new Date()) {
   const r = crypto.getRandomValues(new Uint8Array(6));
   const d = now.toISOString().slice(2, 10).replace(/-/g, '');
@@ -176,7 +184,10 @@ async function turnstile(env, token, ip, fetchImpl) {
 // The notice the agency reads. Deliberately thin: who, which line, which
 // language, and where to read the rest. Phone, email, birth dates, licences,
 // VINs and addresses stay in the store, behind a login.
-export function notice(rec, link, prefix) {
+export function notice(rec, link, prefix, linkOnly = false) {
+  const how = linkOnly
+    ? 'Este enlace abre los datos del cliente sin iniciar sesión: no reenvíes este correo.'
+    : 'Requiere iniciar sesión.';
   const name = rec.first_name + ' ' + rec.last_name;
   const subject = (prefix || '') + 'Nueva solicitud de cotización ' + rec.id + ' — ' + LINE_ES[rec.line] + ' — ' + name;
   const rows = [
@@ -190,7 +201,7 @@ export function notice(rec, link, prefix) {
   ];
   const text = (prefix ? 'ESTA ES UNA PRUEBA DESDE STAGING — no es un cliente real.\n\n' : '')
     + rows.map((r) => r[0] + ': ' + r[1]).join('\n')
-    + '\n\nVer la solicitud completa (requiere iniciar sesión):\n' + link
+    + '\n\nVer la solicitud completa (' + how.replace(/\.$/, '').replace(/^./, (c) => c.toLowerCase()) + '):\n' + link
     + '\n\nPor seguridad, este correo no incluye teléfono, fecha de nacimiento, licencias, VIN ni dirección.\n';
   const html = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#0E1726;max-width:560px">'
     + (prefix ? '<p style="background:#FFF4E0;color:#A15C00;padding:10px 12px;border-radius:8px"><b>PRUEBA desde Staging</b> — no es un cliente real.</p>' : '')
@@ -199,7 +210,7 @@ export function notice(rec, link, prefix) {
     + rows.map((r) => '<tr><td style="color:#5C6A80">' + esc(r[0]) + '</td><td><b>' + esc(r[1]) + '</b></td></tr>').join('')
     + '</table>'
     + '<p style="margin:20px 0"><a href="' + esc(link) + '" style="background:#1666ED;color:#fff;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:bold">Ver la solicitud completa</a></p>'
-    + '<p style="color:#5C6A80;font-size:13px">Requiere iniciar sesión. Por seguridad, este correo no incluye teléfono, fecha de nacimiento, licencias, VIN ni dirección.</p></div>';
+    + '<p style="color:#5C6A80;font-size:13px">' + esc(how) + ' Por seguridad, este correo no incluye teléfono, fecha de nacimiento, licencias, VIN ni dirección.</p></div>';
   return { subject, text, html };
 }
 
@@ -236,7 +247,7 @@ export async function sendMail(env, msg, idemKey, fetchImpl, opts = {}) {
 // same record. Throws on failure so the visitor is never told "received".
 async function deliver(env, rec, link, test, fetchImpl) {
   if (test) return 'test';
-  await sendMail(env, notice(rec, link, env.MAIL_SUBJECT_PREFIX || ''), rec.idem_key + ':agency', fetchImpl);
+  await sendMail(env, notice(rec, link, env.MAIL_SUBJECT_PREFIX || '', env.AGENT_LINK_ONLY === '1'), rec.idem_key + ':agency', fetchImpl);
   return 'sent';
 }
 
@@ -320,7 +331,7 @@ export async function submit(request, env, fetchImpl = fetch) {
         sms_consent: v.sms.accepted ? 1 : 0, sms_text: v.sms.accepted ? v.sms.text : null, sms_at: v.sms.accepted ? now : null,
         marketing_consent: v.marketing.accepted ? 1 : 0, marketing_text: v.marketing.text,
         marketing_version: v.marketing.version, marketing_at: v.marketing.accepted ? now : null,
-        ip_hash: ipHash, delivery: 'pending', attempts: 0, is_test: test ? 1 : 0,
+        ip_hash: ipHash, delivery: 'pending', attempts: 0, is_test: test ? 1 : 0, view_key: newKey(),
       };
       const cols = Object.keys(rec);
       await db.prepare('INSERT INTO quote_requests (' + cols.join(',') + ') VALUES (' + cols.map(() => '?').join(',') + ')')
@@ -331,7 +342,8 @@ export async function submit(request, env, fetchImpl = fetch) {
       return json(200, { ok: true, id, confirmation: rec.customer_delivery === 'sent' });
     }
 
-    const link = url.origin + '/agent/requests/' + rec.id;
+    const link = url.origin + '/agent/requests/' + rec.id
+      + (env.AGENT_LINK_ONLY === '1' ? '?k=' + rec.view_key : '');
     let status;
     try { status = await deliver(env, rec, link, !!rec.is_test, fetchImpl); }
     catch (e) {
