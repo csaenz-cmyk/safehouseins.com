@@ -362,33 +362,18 @@ Run a quote with DevTools open:
 - `window.__quote` holds the quoteId, the ratedCoverage and any warnings
 - `window.__quote202` holds the whole body of a 202, when one comes back
 
-### Demo mode, on previews
+### Today: no rater (November 2026)
 
-To try the whole flow — the comparing screen, results, every hand-off — without
-sending a quote anywhere, open the form on a preview host with `?demo=`:
+The rater is switched off (`SAFEHOUSE_RATER=false` at the top of `quote.html`)
+and so is everything on this page that talks to the AMS. Submit sends one
+request to the site's own `/api/quote-request`, which saves it and emails the
+agency a notice; an agent prepares the quote by hand. See
+`docs/quote-requests.md`. The demo mode that answered for the AMS on previews
+is gone with it: there are no prices to pretend.
 
-```
-https://raw.githack.com/csaenz-cmyk/safehouseins.com/<branch>/quote.html?demo=normal
-```
-
-`assets/quote-demo.js` then answers for the AMS, with the shapes and timings
-the AMS really uses: `fast`, `normal`, `slow`, `polling` (four *keep polling*
-answers, then prices), `handoff` (a 202), `deadline`, `network`, `error`. The
-form's own code runs unchanged; only its requests to the bridge are answered
-locally. A bar at the top of the page picks the scenario, runs the same answers
-again, and leaves demo mode. The choice is remembered on that host until
-`?demo=off`.
-
-It loads only on raw.githack.com, rawcdn.githack.com, localhost and
-`*.pages.dev` — the host check at the top of `quote.html` is the gate — so
-`?demo` on safehouseins.com does nothing. On `*.pages.dev` (the Staging
-versions and the Cloudflare project's own address) it is on without `?demo`,
-starts on `normal`, and cannot be left: the email door is shut before the page
-runs and the script loads before the form can send. The email a real visitor's mail app
-would open goes through `sendMail()`, which demo mode replaces with a note in
-the bar, so testing never writes to the agency. Without `?demo`, a githack
-preview is the real form: the bridge allows that origin, and a submission
-there is a real lead.
+The contract below is unchanged and is what the AMS path will use again. The
+request record already carries the form in this shape (`form` in
+`docs/quote-requests.md`), so connecting the AMS sends what is stored.
 
 ## The VIN decides whether prices appear
 

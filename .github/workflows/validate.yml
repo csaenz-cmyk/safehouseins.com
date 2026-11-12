@@ -38,6 +38,15 @@ jobs:
       - name: Install Pillow
         run: python -m pip install --quiet Pillow
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # The quote request server: saving, consents, the agency notice (and what
+      # it must never contain), duplicates, limits, the agent page's login.
+      - name: Quote requests
+        run: node --test server/test/*.test.mjs
+
       # Every word in both languages, the same keys and markup, no stale Spanish.
       - name: English and Spanish
         run: python3 tools/i18ncheck.py

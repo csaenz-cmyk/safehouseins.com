@@ -76,7 +76,7 @@
   "dob": "Fecha de nacimiento",
   "vehicles": {
     "h1": "¿Qué vehículos?",
-    "sub": "Con el VIN podemos mostrarte precios reales en la siguiente pantalla. Sin él de todos modos podemos tomar tu solicitud, pero un agente tendrá que llamarte para darte los precios.",
+    "sub": "El VIN le ayuda a tu agente a cotizar exactamente tu vehículo. Si no lo tienes a la mano, déjalo en blanco &mdash; tu agente puede buscarlo contigo.",
     "add": "+ Agregar otro vehículo"
   },
   "drivers": {
@@ -278,7 +278,7 @@
     "plain": "Qué significa, en pocas palabras",
     "p1": "Somos una agencia independiente, no una compañía de seguros. Para encontrarte un precio enviamos lo que nos dices a varias aseguradoras a la vez, y cada una consulta los mismos registros públicos que consultaría cualquier aseguradora — tu historial de manejo, tus reclamos anteriores y tu seguro previo — para ver qué te puede ofrecer.",
     "p2": "La usamos solo para cotizar tu seguro. No vendemos tu información, y las únicas personas que te contactan son agentes de Safe House con licencia. Nuestro <a href=\"privacy.html\" target=\"_blank\" rel=\"noopener\">Aviso de privacidad</a> explica cómo la manejamos y cuánto tiempo la conservamos.",
-    "p3": "En esta página no se contrata ni se cobra nada. Todo precio que veas está sujeto a verificación antes de que se pueda emitir una póliza.",
+    "p3": "En esta página no se contrata ni se cobra nada. Todo precio que te dé un agente está sujeto a verificación antes de que se pueda emitir una póliza.",
     "agreeLead": "Leí y acepto el aviso anterior.",
     "agree": "Acepto",
     "decline": "No acepto"
@@ -1028,7 +1028,7 @@
     "driverN": "Conductor {n}",
     "remove": "Quitar",
     "vin": "VIN",
-    "vinNote": "(con esto te mostramos precios en pantalla)",
+    "vinNote": "(le ayuda a tu agente a cotizar exactamente tu vehículo)",
     "vinHint": "17 caracteres — viene en tu tarjeta del seguro, en el marco de la puerta del conductor o en la esquina inferior del parabrisas.",
     "make": "Marca",
     "model": "Modelo",
@@ -1608,11 +1608,20 @@
       "noneReported": "No reportó ninguno",
       "insuredSelf": "Titular de la póliza"
     },
-    "switchConfirm": "Si cambias a inglés, tu cotización empieza de nuevo y lo que llevas no se pasa al otro idioma. ¿Quieres cambiar de todos modos?"
+    "switchConfirm": "Si cambias a inglés, tu cotización empieza de nuevo y lo que llevas no se pasa al otro idioma. ¿Quieres cambiar de todos modos?",
+    "noticeVersion": "2026-11-12",
+    "marketingVersion": "2026-11-12",
+    "req": {
+      "sending": "Enviando tu solicitud&hellip;",
+      "err": "No pudimos enviar tu solicitud en este momento, así que no se envió nada. Intenta de nuevo en un momento o llámanos al 915-503-1207.",
+      "errRate": "Ya recibimos varias solicitudes desde esta conexión en la última hora. Llámanos al 915-503-1207 y te atendemos de inmediato.",
+      "errBot": "No pudimos confirmar que esta solicitud la envió una persona. Intenta de nuevo o llámanos al 915-503-1207.",
+      "errCheck": "Parte de tu información parece incompleta. Revisa tus respuestas e intenta de nuevo."
+    }
   },
   "bikes": {
     "h1": "¿Qué motocicletas?",
-    "sub": "Con el VIN te podemos dar un precio en pantalla. Sin él, un agente tiene que buscar la moto y llamarte.",
+    "sub": "El VIN le ayuda a tu agente a cotizar exactamente tu motocicleta. Si no lo tienes a la mano, déjalo en blanco &mdash; tu agente puede buscarlo contigo.",
     "add": "+ Agregar otra motocicleta"
   },
   "riders": {
@@ -1667,18 +1676,21 @@
     "sub": "Cambia lo que quieras antes de que lo enviemos."
   },
   "contact": {
-    "h1": "¿A dónde te lo enviamos?",
+    "h1": "¿Cómo te contactamos?",
     "sub": "Necesitamos una forma de contactarte antes de contratar cualquier cosa.",
     "phone": "Teléfono",
     "email": "Correo electrónico",
-    "emailNote": "(aquí te enviamos tu cotización)",
+    "emailNote": "(para darle seguimiento a tu cotización)",
     "emailPh": "tu@correo.com",
     "notes": "¿Algo que debamos saber?",
     "notesPh": "SR-22, multas, aseguradora actual&hellip;",
     "smsLinks": "Consulta nuestros <a href=\"sms-terms.html\" target=\"_blank\" rel=\"noopener\">Términos de SMS</a> y nuestro <a href=\"privacy.html\" target=\"_blank\" rel=\"noopener\">Aviso de privacidad</a>.",
-    "smsNote": "Opcional &mdash; recibirás tu cotización de todos modos.",
-    "submit": "Ver mis opciones",
-    "free": "Gratis y sin compromiso. Un agente con licencia revisa todo antes de emitir cualquier póliza &mdash; en esta página no se contrata nada."
+    "smsNote": "Opcional &mdash; un agente te contactará de todos modos.",
+    "submit": "Enviar mi solicitud",
+    "free": "Gratis y sin compromiso. Un agente con licencia revisa todo antes de emitir cualquier póliza &mdash; en esta página no se contrata nada.",
+    "mktLabel": "Acepto recibir correos electrónicos, mensajes de texto y comunicaciones promocionales de Safe House Insurance en el correo y el teléfono que proporcioné, incluidos mensajes enviados con tecnología automatizada. Aceptar no es condición para ninguna compra. La frecuencia de los mensajes varía. Pueden aplicar tarifas por mensajes y datos. Responde STOP para cancelar los mensajes de texto o HELP para obtener ayuda, y date de baja de los correos en cualquier momento.",
+    "mktNote": "Opcional &mdash; puedes enviar tu solicitud sin marcarla.",
+    "notice": "Al seleccionar &ldquo;Enviar mi solicitud&rdquo;, le pides a Safe House Insurance que prepare una cotización de seguro y aceptas que nuestros agentes con licencia te contacten sobre esta solicitud por llamada telefónica o correo electrónico con los datos que proporcionaste, y por mensaje de texto solo si marcaste esa casilla arriba. Estos contactos son únicamente para atender y dar seguimiento a tu solicitud de cotización &mdash; no son publicidad. Solo recibirás promociones si marcaste la casilla de promociones. Consulta nuestro <a href=\"privacy.html\" target=\"_blank\" rel=\"noopener\">Aviso de privacidad</a> y nuestros <a href=\"sms-terms.html\" target=\"_blank\" rel=\"noopener\">Términos de SMS</a>."
   },
   "rating": {
     "h1": "Comparando tus opciones",
@@ -1722,13 +1734,15 @@
   "call": "Llama al 915-503-1207",
   "backSite": "Volver al sitio",
   "done": {
-    "h1": "¡Lo recibimos!",
-    "p": "Un agente de Safe House con licencia te contactará con opciones reales &mdash; en español o en inglés. Si prefieres no esperar, llámanos.",
-    "diag": "Diagnóstico &middot; no se muestra en el sitio en vivo"
+    "h1": "¡Hemos recibido su solicitud de cotización!",
+    "p": "<b>¡Gracias por elegir Safe House Insurance!</b> Uno de nuestros agentes de seguros revisará personalmente su información y comparará las opciones disponibles para ayudarle a encontrar la cobertura adecuada a un precio competitivo.",
+    "diag": "Diagnóstico &middot; no se muestra en el sitio en vivo",
+    "p2": "Un agente se comunicará con usted por teléfono, mensaje de texto o correo electrónico para darle seguimiento a su cotización.",
+    "num": "Su número de solicitud"
   },
   "trust": {
     "h": "Tu información se queda con nosotros",
-    "p": "Usamos lo que nos envías solo para preparar tu cotización. Las únicas personas que te contactan son agentes de Safe House con licencia &mdash; no vendemos tus datos ni le damos tu número a nadie más."
+    "p": "Usamos lo que nos envías para preparar tu cotización, y para enviarte promociones solo si las pediste. Las únicas personas que te contactan son agentes de Safe House con licencia &mdash; no vendemos tus datos ni le damos tu número a nadie más."
   },
   "reach": {
     "call": "Llama al",

@@ -76,7 +76,7 @@
   "dob": "Date of birth",
   "vehicles": {
     "h1": "Which vehicles?",
-    "sub": "With the VIN we can show you real prices on the next screen. Without it we can\n        still take your request, but an agent has to call you with the numbers instead.",
+    "sub": "The VIN helps your agent quote the exact vehicle. If you don&rsquo;t have it handy, leave it blank &mdash; your agent can look it up with you.",
     "add": "+ Add another vehicle"
   },
   "drivers": {
@@ -278,7 +278,7 @@
     "plain": "What that means, in plain terms",
     "p1": "We are an independent agency, not an insurance company. To find you\n            a price we send what you tell us to several carriers at once, and\n            each of them looks up the same public records any insurer would —\n            your driving record, past claims and prior coverage — to work out\n            what they can offer you.",
     "p2": "We use it to quote your insurance and nothing else. We do not sell\n            your information, and the only people who contact you are licensed\n            Safe House agents. Our <a href=\"privacy.html\" target=\"_blank\" rel=\"noopener\">Privacy\n            Policy</a> covers how it is handled and how long it is kept.",
-    "p3": "Nothing is bound and nothing is charged on this page. Every price\n            you see is subject to verification before a policy can be issued.",
+    "p3": "Nothing is bound and nothing is charged on this page. Any price an agent gives you is subject to verification before a policy can be issued.",
     "agreeLead": "I have read and agree to the above disclosure.",
     "agree": "I agree",
     "decline": "I do not agree"
@@ -1028,7 +1028,7 @@
     "driverN": "Driver {n}",
     "remove": "Remove",
     "vin": "VIN",
-    "vinNote": "(this is what gets you prices on screen)",
+    "vinNote": "(helps your agent quote the exact vehicle)",
     "vinHint": "17 characters — on your insurance card, the driver’s door frame, or the bottom corner of the windshield.",
     "make": "Make",
     "model": "Model",
@@ -1608,11 +1608,20 @@
       "noneReported": "None reported",
       "insuredSelf": "Insured"
     },
-    "switchConfirm": "Switching to Spanish starts your quote over — what you have entered so far will not carry across. Switch anyway?"
+    "switchConfirm": "Switching to Spanish starts your quote over — what you have entered so far will not carry across. Switch anyway?",
+    "noticeVersion": "2026-11-12",
+    "marketingVersion": "2026-11-12",
+    "req": {
+      "sending": "Sending your request&hellip;",
+      "err": "We couldn&rsquo;t send your request just now, so nothing was submitted. Please try again in a moment, or call us at 915-503-1207.",
+      "errRate": "We have already received several requests from this connection in the last hour. Please call us at 915-503-1207 and we&rsquo;ll help you right away.",
+      "errBot": "We couldn&rsquo;t confirm this request came from a person. Please try again, or call us at 915-503-1207.",
+      "errCheck": "Some of your information looks incomplete. Please review your answers and try again."
+    }
   },
   "bikes": {
     "h1": "Which motorcycles?",
-    "sub": "The VIN is what gets you a price on screen. Without it an agent\n        has to look the bike up and call you back.",
+    "sub": "The VIN helps your agent quote the exact motorcycle. If you don&rsquo;t have it handy, leave it blank &mdash; your agent can look it up with you.",
     "add": "+ Add another motorcycle"
   },
   "riders": {
@@ -1667,18 +1676,21 @@
     "sub": "Change anything you want before we send it out."
   },
   "contact": {
-    "h1": "Where do we send it?",
+    "h1": "How do we reach you?",
     "sub": "We need a way to reach you before anything can be bound.",
     "phone": "Phone",
     "email": "Email",
-    "emailNote": "(we send your quote here)",
+    "emailNote": "(for your quote follow-up)",
     "emailPh": "you@email.com",
     "notes": "Anything we should know?",
     "notesPh": "SR-22, tickets, current carrier&hellip;",
     "smsLinks": "See our <a href=\"sms-terms.html\" target=\"_blank\" rel=\"noopener\">SMS Terms</a> and <a href=\"privacy.html\" target=\"_blank\" rel=\"noopener\">Privacy Policy</a>.",
-    "smsNote": "Optional &mdash; you will get your quote either way.",
-    "submit": "See my options",
-    "free": "Free and no obligation. A licensed agent reviews everything before any policy is issued &mdash; nothing is bound on this page."
+    "smsNote": "Optional &mdash; an agent will contact you either way.",
+    "submit": "Submit my request",
+    "free": "Free and no obligation. A licensed agent reviews everything before any policy is issued &mdash; nothing is bound on this page.",
+    "mktLabel": "I agree to receive promotional emails, text messages, and marketing communications from Safe House Insurance at the email and phone number I provided, including messages sent using automated technology. Agreeing is not a condition of any purchase. Message frequency varies. Message and data rates may apply. Reply STOP to cancel texts or HELP for help, and unsubscribe from emails at any time.",
+    "mktNote": "Optional &mdash; you can send your request without it.",
+    "notice": "By selecting &ldquo;Submit my request,&rdquo; you ask Safe House Insurance to prepare an insurance quote and agree that our licensed agents may contact you about this request by phone call or email at the contact information you provided, and by text message only if you checked that box above. These contacts are only to respond to and follow up on your quote request &mdash; they are not marketing. You will receive promotions only if you checked the promotions box. See our <a href=\"privacy.html\" target=\"_blank\" rel=\"noopener\">Privacy Policy</a> and <a href=\"sms-terms.html\" target=\"_blank\" rel=\"noopener\">SMS Terms</a>."
   },
   "rating": {
     "h1": "Comparing your options",
@@ -1722,13 +1734,15 @@
   "call": "Call 915-503-1207",
   "backSite": "Back to the site",
   "done": {
-    "h1": "We got it.",
-    "p": "A licensed Safe House agent will get back to you with real options &mdash; in English or Spanish.\n         If you would rather not wait, call us.",
-    "diag": "Diagnostic &middot; not shown on the live site"
+    "h1": "Your Quote Request Has Been Received!",
+    "p": "<b>Thank you for choosing Safe House Insurance!</b> One of our licensed insurance agents will personally review your information and compare available options to help you find the right coverage at a competitive price.",
+    "diag": "Diagnostic &middot; not shown on the live site",
+    "p2": "An agent will contact you by phone, text message, or email to discuss your quote.",
+    "num": "Your request number"
   },
   "trust": {
     "h": "Your information stays with us",
-    "p": "We use what you send only to prepare your quote. The only people who contact you are licensed\n       Safe House agents &mdash; we do not sell your details or hand your number to anyone else."
+    "p": "We use what you send to prepare your quote, and to send you promotions only if you asked for them. The only people who contact you are licensed Safe House agents &mdash; we do not sell your details or hand your number to anyone else."
   },
   "reach": {
     "call": "Call",

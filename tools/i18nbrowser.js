@@ -7,13 +7,14 @@ tools/i18ncheck.py reads the catalogs and the built pages as text. What it
 cannot see is what only happens in a browser: the switch taking you to the
 same page with your query string intact, the stored choice sending you back
 there next time (and nothing guessing from the browser's language first),
-strings a page script puts on screen, and the quote form sending the AMS the
-same answers whichever language it was filled in. This runs those.
+strings a page script puts on screen, and the quote form sending the same
+answers whichever language it was filled in. This runs those.
 
 It serves the repository itself on a local port the way Cloudflare Pages
 does — /es/about finds es/about.html, a missing page gets the nearest 404 —
-and answers the AMS, the VIN decoder and the address service with canned
-replies, so nothing leaves the machine. Playwright is the global install on
+answers the VIN decoder and the address service with canned replies, and runs
+the site's own /api/quote-request against an in-memory database and a mail
+provider that only records, so nothing leaves the machine. Playwright is the global install on
 the image (see CLAUDE.md); it is not a dependency of this project.
 
 Exits 1 if anything fails.
@@ -38,8 +39,28 @@ function resolve(urlPath) {
   return null;
 }
 
+// The site's own quote request endpoint, run for real (server/quote-request.js)
+// against an in-memory database and a mail provider that records instead of
+// sending. Filled in at start-up, because the server code is an ES module.
+const API = { submit: null, env: null, mail: null };
+
+async function answerApi(req, res, port) {
+  const chunks = [];
+  for await (const c of req) chunks.push(c);
+  const headers = { ...req.headers };
+  const r = await API.submit(new Request('http://127.0.0.1:' + port + req.url, {
+    method: req.method, headers, body: req.method === 'POST' ? Buffer.concat(chunks) : undefined,
+  }), API.env, API.mail);
+  res.writeHead(r.status, { 'Content-Type': 'application/json' });
+  res.end(await r.text());
+}
+
 function serve() {
   const srv = http.createServer((req, res) => {
+    if (req.url.startsWith('/api/quote-request')) {
+      if (req.method === 'GET') { res.writeHead(200, { 'Content-Type': 'application/json' }); return res.end('{"turnstileSiteKey":null}'); }
+      return answerApi(req, res, srv.address().port).catch((e) => { res.writeHead(500); res.end(String(e)); });
+    }
     let f = resolve(req.url), status = 200;
     if (!f) {                                   // the nearest 404, as Pages does
       status = 404;
@@ -67,12 +88,6 @@ function catalogKeys() {
   return keys;
 }
 
-const RATES = { ok: true, quoteId: '11111111-2222-3333-4444-555555555555', quoteRef: 'Q481903', clientId: 'c-1',
-  rates: [{ carrier: 'Progressive Insurance', premium: 912, downPayment: 152, installment: 152, payments: 6, term: '6 MO' },
-          { carrier: 'GEICO', premium: 1008, downPayment: 1008, installment: 0, payments: 1, term: 'Semi Annual' },
-          { carrier: 'Root', premium: 1810, downPayment: 1810, installment: 0, payments: 1, term: '12 MO' }],
-  warningDetails: [{ audience: 'client', field: 'rental', code: 'coverage_reduced', direction: 'down', asked: '$50 Per Day', rated: '40' }] };
-
 async function page(ctx, log) {
   const p = await ctx.newPage();
   p.on('pageerror', e => log.push('page error: ' + e.message));
@@ -91,6 +106,14 @@ function check(ok, what) {
 }
 
 (async () => {
+  const { submit, ensureSchema } = await import('../server/quote-request.js');
+  const { fakeD1, fakeMailer } = await import('../server/test/fakes.mjs');
+  API.submit = submit;
+  API.mail = fakeMailer();
+  API.env = { DB: fakeD1(), MAIL_FROM: 'Safe House <solicitudes@example.test>', CF_EMAIL_TOKEN: 't', CF_ACCOUNT_ID: 'a',
+    MAIL_SUBJECT_PREFIX: '[PRUEBA] ' };
+  await ensureSchema(API.env.DB);
+  const rows = () => API.env.DB.raw.prepare('SELECT * FROM quote_requests ORDER BY created_at').all();
   const srv = await serve();
   const BASE = 'http://127.0.0.1:' + srv.address().port;
   const keys = catalogKeys();
@@ -216,21 +239,20 @@ function check(ok, what) {
   }
 
   // ---------------------------------------------------------- the quote ---
-  // The same answers in both languages have to reach the AMS as the same
-  // payload. Only the wording of what was agreed to may differ — and the
-  // language itself, which is sent so the agent knows how to open the call.
-  const payloads = {};
-  for (const lang of ['en', 'es']) {
-    const log = [];
-    const ctx = await b.newContext({ viewport: { width: 390, height: 844 } });
-    const p = await page(ctx, log);
-    let sel = null;
-    await p.route(/agentlogin\.safehouseins\.com/, async r => {
-      const body = JSON.parse(r.request().postData() || '{}');
-      if (body.action === 'select') sel = body; else payloads[lang] = body;
-      return r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(RATES) });
-    });
-    await p.goto(BASE + (lang === 'es' ? '/es' : '') + '/quote.html');
+  // Submit sends one request to the site's own endpoint. The same answers in
+  // both languages must arrive as the same form; only the wording of what was
+  // agreed to, and the language itself, may differ. Nothing may go to the AMS,
+  // a rater or Turnstile, no price may appear, and the agency's notice may not
+  // carry anything sensitive.
+  // Each visitor its own connection, as Cloudflare reports it; the limit of
+  // five an hour per connection is checked on its own below.
+  let ipN = 10;
+  const nextIp = () => '203.0.113.' + (ipN++);
+  const outside = [];
+  const watch = (p) => p.on('request', (r) => {
+    if (/agentlogin|safehouse-ams|turnstile|challenges\.cloudflare|resend\.com|api\.cloudflare\.com/.test(r.url())) outside.push(r.url());
+  });
+  async function carFlow(p, { sms = true, mkt = false } = {}) {
     const next = async () => { await p.click('.step.on [data-next]'); await p.waitForTimeout(150); };
     const pill = (n, v) => p.click('.step.on input[name="' + n + '"][value="' + v + '"] + span');
     await p.click('input[name=type][value=car] ~ .tx'); await next();
@@ -238,6 +260,8 @@ function check(ok, what) {
     await p.fill('#addr', '12426 Paseo Rojo'); await p.fill('#city', 'El Paso'); await p.selectOption('#st', 'TX');
     await p.fill('#zip', '79938'); await p.selectOption('#res', 'Own a home'); await next();
     await pill('insured', 'yes'); await p.selectOption('#yrs', '1 to 3 years'); await next();
+    const at = await p.evaluate(() => document.querySelector('.step.on').dataset.step);
+    if (at !== 'vehicles') throw new Error('expected the vehicles step next, got ' + at);
     await p.fill('#vehList .blk [data-f=vin]', '1HGCM82633A004352'); await p.waitForTimeout(900);
     await p.selectOption('#vehList .blk [data-f=use]', 'Pleasure'); await next();
     await p.fill('#drvList .blk [data-f=first]', 'María'); await p.fill('#drvList .blk [data-f=last]', 'López');
@@ -252,55 +276,157 @@ function check(ok, what) {
     await p.selectOption('#liab', '100/300/50'); await p.selectOption('#medpay', '$1,000 Per Person');
     await p.selectOption('[data-tip=rental]', '$50 Per Day'); await next();
     await p.fill('#cfn', 'María'); await p.fill('#cln', 'López'); await p.fill('#cph', '9155551234');
-    await p.fill('#cem', 'maria@example.com'); await p.click('label[for=sms] .box');
-    await p.click('.step.on button[type=submit]'); await p.waitForTimeout(1200);
-    await p.click('#rlist .rcard >> nth=0'); await p.click('#buy'); await p.waitForTimeout(150);
-    await p.click('#confirmBtn'); await p.waitForTimeout(300);
-    const at = await p.evaluate(() => document.querySelector('.step.on').dataset.step);
-    check(at === 'picked', lang + ': the quote reaches the confirmation screen (' + at + ')');
-    check(!!sel && sel.quoteId === RATES.quoteId, lang + ': the chosen rate is sent back to the AMS');
-    check(log.length === 0, lang + ': no errors in the quote flow' + (log.length ? ': ' + log.join('; ') : ''));
+    await p.fill('#cem', 'maria@example.com');
+    if (sms) await p.click('label[for=sms] .box');
+    if (mkt) await p.click('label[for=mkt] .box');
+  }
+  const stepNow = (p) => p.evaluate(() => document.querySelector('.step.on').dataset.step);
+
+  const forms = {};
+  for (const [lang, width] of [['en', 390], ['es', 390], ['en', 1440]]) {
+    const log = [];
+    const ctx = await b.newContext({ extraHTTPHeaders: { 'CF-Connecting-IP': nextIp() }, viewport: { width, height: width > 500 ? 900 : 844 } });
+    const p = await page(ctx, log); watch(p);
+    const before = rows().length, mails = API.mail.sent.length;
+    await p.goto(BASE + (lang === 'es' ? '/es' : '') + '/quote.html');
+    await carFlow(p, { sms: true, mkt: width > 500 });
+    const tag = lang + ' ' + width + 'px: ';
+    check(!(await p.isChecked('#mkt')) === !(width > 500), tag + 'the promotions box starts unchecked and is only ticked by the visitor');
+    const notice = await p.textContent('#noticeTx');
+    check(lang === 'en' ? /^By selecting/.test(notice) : /^Al seleccionar/.test(notice), tag + 'the contact notice is shown before the button');
+    const btnFits = await p.evaluate(() => { const r = document.getElementById('submit').getBoundingClientRect(); return r.width > 0 && r.right <= innerWidth; });
+    check(btnFits, tag + 'the submit button is on screen');
+    await p.click('.step.on button[type=submit]');
+    await p.waitForFunction(() => document.querySelector('.step.on').dataset.step === 'done', null, { timeout: 8000 }).catch(() => {});
+    const at = await stepNow(p);
+    check(at === 'done', tag + 'Submit reaches the confirmation (' + at + ')');
+    const h1 = (await p.textContent('.step.on h1')).trim();
+    check(h1 === (lang === 'en' ? 'Your Quote Request Has Been Received!' : '¡Hemos recibido su solicitud de cotización!'), tag + 'confirmation headline: ' + h1);
+    const id = (await p.textContent('#reqId')).trim();
+    check(/^SH-\d{6}-[A-Z2-9]{6}$/.test(id) && await p.isVisible('#reqNum'), tag + 'the request number is shown (' + id + ')');
+    const price = await p.evaluate(() => /\$\s?\d/.test(document.querySelector('.step.on').innerText) || !!document.querySelector('#rlist .rcard'));
+    check(!price, tag + 'no price anywhere on the confirmation');
+    const overflow = await p.evaluate(() => document.documentElement.scrollWidth > innerWidth);
+    check(!overflow, tag + 'no sideways scroll');
+    const added = rows().slice(before);
+    check(added.length === 1 && added[0].id === id, tag + 'exactly one request saved');
+    check(API.mail.sent.length === mails + 1, tag + 'exactly one notice to the agency');
+    if (added[0]) {
+      const r = added[0];
+      check(r.lang === lang && r.line === 'car', tag + 'saved with its language and line');
+      check(r.sms_consent === 1 && r.sms_at && /^(I agree|Acepto) /.test(r.sms_text), tag + 'SMS consent recorded with its wording and time');
+      check(r.marketing_consent === (width > 500 ? 1 : 0) && (width > 500 ? !!r.marketing_at : r.marketing_at === null)
+        && /^(I agree to receive promotional|Acepto recibir correos)/.test(r.marketing_text), tag + 'promotions consent recorded as given, with its wording');
+      check(r.notice_text === notice.replace(/\s+/g, ' ').trim() && r.notice_version === '2026-11-12', tag + 'the notice is recorded exactly as shown, with its version');
+      if (width < 500) forms[lang] = JSON.parse(r.form_json);
+    }
+    const m = API.mail.sent[API.mail.sent.length - 1];
+    if (m) {
+      const all = m.body.subject + m.body.text + m.body.html;
+      check(all.includes(id) && all.includes('/agent/requests/' + id), tag + 'the notice names the request and links to it');
+      check(!/A1234567|1990|1HGCM|Paseo|5551234|maria@example/.test(all), tag + 'the notice carries no licence, birth date, VIN, address, phone or email');
+      check(m.body.to === 'contact@safehouseins.com', tag + 'the notice goes to contact@safehouseins.com');
+    }
+    check(log.length === 0, tag + 'no errors' + (log.length ? ': ' + log.join('; ') : ''));
     await ctx.close();
   }
-  if (payloads.en && payloads.es) {
+  check(outside.length === 0, 'nothing went to the AMS, a rater, Turnstile or a mail provider from the browser' + (outside.length ? ': ' + outside.join(', ') : ''));
+  if (forms.en && forms.es) {
     const flat = (o, pre = '', out = {}) => {
       for (const [k, v] of Object.entries(o)) {
         if (v && typeof v === 'object') flat(v, pre + k + '.', out); else out[pre + k] = v;
       }
       return out;
     };
-    const a = flat(payloads.en), c = flat(payloads.es);
+    const a = flat(forms.en), c = flat(forms.es);
     const WORDING = /^(smsConsentText|disclosure\.text|disclosure\.version|preferredLanguage)$|At$|\.at$/;
     const diff = [...new Set([...Object.keys(a), ...Object.keys(c)])]
       .filter(k => !WORDING.test(k) && JSON.stringify(a[k]) !== JSON.stringify(c[k]));
-    check(diff.length === 0, 'both languages send the AMS the same answers' + (diff.length ? ' — differs: ' + diff.join(', ') : ''));
-    check(payloads.en.preferredLanguage === 'en' && payloads.es.preferredLanguage === 'es',
-          'each language tells the AMS which one the visitor used (preferredLanguage '
-          + payloads.en.preferredLanguage + ' / ' + payloads.es.preferredLanguage + ')');
-    check(/^Acepto recibir mensajes/.test(payloads.es.smsConsentText || ''), 'the Spanish SMS consent is recorded in Spanish, as shown');
-    check(/^Al continuar/.test((payloads.es.disclosure || {}).text || ''), 'and so is the Spanish disclosure');
+    check(diff.length === 0, 'both languages send the same answers' + (diff.length ? ' — differs: ' + diff.join(', ') : ''));
+    check(forms.en.preferredLanguage === 'en' && forms.es.preferredLanguage === 'es', 'each language records which one the visitor used');
+    check(/^Al continuar/.test((forms.es.disclosure || {}).text || ''), 'the Spanish disclosure is recorded in Spanish, as shown');
   } else {
-    check(false, 'the quote form sent a payload in both languages');
+    check(false, 'the form reached the server in both languages');
   }
 
-  // Quotes the AMS does not rate leave by email. The agent reading it needs
-  // the language as much as the one reading the AMS record does.
-  for (const [lang, line] of [['en', 'Preferred language: English'], ['es', 'Idioma preferido: Español']]) {
+  // When the agency cannot be told, the visitor is not told "received": they
+  // stay on their answers with a phone number, and a second press sends the
+  // same request once it can.
+  {
     const log = [];
-    const ctx = await b.newContext({ viewport: { width: 390, height: 844 } });
-    const p = await page(ctx, log);
-    let mail = '';
-    const cdp = await ctx.newCDPSession(p); await cdp.send('Page.enable');
-    cdp.on('Page.frameRequestedNavigation', e => { if (/^mailto:/.test(e.url)) mail = decodeURIComponent(e.url); });
+    const ctx = await b.newContext({ extraHTTPHeaders: { 'CF-Connecting-IP': nextIp() }, viewport: { width: 390, height: 844 } });
+    const p = await page(ctx, log); watch(p);
+    await p.goto(BASE + '/es/quote.html');
+    await carFlow(p, { sms: false });
+    const before = rows().length;
+    API.mail.fail = true;
+    await p.click('.step.on button[type=submit]'); await p.waitForTimeout(1200);
+    check(await stepNow(p) === 'contact', 'es: a failed notice does not show the confirmation');
+    const err = (await p.textContent('#e-contact')).trim();
+    check(await p.isVisible('#e-contact') && /915-503-1207/.test(err), 'es: it says so, with the phone number (' + err.slice(0, 50) + '…)');
+    check(await p.inputValue('#cfn') === 'María', 'es: the answers are still there');
+    API.mail.fail = false;
+    const mails = API.mail.sent.length;
+    await p.click('.step.on button[type=submit]');
+    await p.waitForFunction(() => document.querySelector('.step.on').dataset.step === 'done', null, { timeout: 8000 }).catch(() => {});
+    check(await stepNow(p) === 'done', 'es: pressing again once it works reaches the confirmation');
+    check(rows().length === before + 1 && API.mail.sent.length === mails + 1, 'es: still one request and one notice, not two');
+    check(rows()[rows().length - 1].sms_consent === 0 && rows()[rows().length - 1].sms_text === null, 'es: an unticked SMS box is recorded as declined');
+    check(log.length === 0, 'es: no errors on the retry path' + (log.length ? ': ' + log.join('; ') : ''));
+    await ctx.close();
+  }
+
+  // The short lines (renters, commercial) ask only for contact details.
+  for (const [lang, line] of [['en', 'renters'], ['es', 'commercial']]) {
+    const log = [];
+    const ctx = await b.newContext({ extraHTTPHeaders: { 'CF-Connecting-IP': nextIp() }, viewport: { width: 390, height: 844 } });
+    const p = await page(ctx, log); watch(p);
     await p.goto(BASE + (lang === 'es' ? '/es' : '') + '/quote.html');
-    await p.click('input[name=type][value=renters] ~ .tx');
+    await p.click('input[name=type][value=' + line + '] ~ .tx');
     await p.click('.step.on [data-next]'); await p.waitForTimeout(150);
     await p.fill('#cfn', 'María'); await p.fill('#cln', 'López'); await p.fill('#cph', '9155551234');
     await p.fill('#cem', 'maria@example.com');
-    await p.click('.step.on button[type=submit]'); await p.waitForTimeout(600);
-    const second = (mail.split('&body=')[1] || '').split('\n')[1];
-    check(second === line, lang + ': the emailed quote names the language ("' + second + '")');
+    await p.click('.step.on button[type=submit]');
+    await p.waitForFunction(() => document.querySelector('.step.on').dataset.step === 'done', null, { timeout: 8000 }).catch(() => {});
+    check(await stepNow(p) === 'done', lang + ' ' + line + ': reaches the confirmation');
+    const r = rows()[rows().length - 1];
+    check(r.line === line && r.lang === lang, lang + ' ' + line + ': saved as ' + r.line + ' / ' + r.lang);
+    check(log.length === 0, lang + ' ' + line + ': no errors' + (log.length ? ': ' + log.join('; ') : ''));
     await ctx.close();
+  }
+  // Missing contact details stop the form on the page, before anything is sent.
+  {
+    const log = [];
+    const ctx = await b.newContext({ extraHTTPHeaders: { 'CF-Connecting-IP': nextIp() }, viewport: { width: 390, height: 844 } });
+    const p = await page(ctx, log);
+    await p.goto(BASE + '/quote.html');
+    await p.click('input[name=type][value=renters] ~ .tx');
+    await p.click('.step.on [data-next]'); await p.waitForTimeout(150);
+    const before = rows().length;
+    await p.fill('#cfn', 'María'); await p.fill('#cln', 'López'); await p.fill('#cph', '123');
+    await p.click('.step.on button[type=submit]'); await p.waitForTimeout(500);
+    check(await stepNow(p) === 'contact' && await p.isVisible('#e-contact') && rows().length === before, 'a bad phone number is caught on the page and nothing is sent');
+    await ctx.close();
+  }
+
+  // Six requests in an hour from one connection: the sixth is turned away
+  // politely, with the phone number, and nothing is saved or sent for it.
+  {
+    const ip = nextIp(), before = rows().length, mails = API.mail.sent.length;
+    let last = '';
+    for (let i = 0; i < 6; i++) {
+      const ctx = await b.newContext({ extraHTTPHeaders: { 'CF-Connecting-IP': ip }, viewport: { width: 390, height: 844 } });
+      const p = await page(ctx, []);
+      await p.goto(BASE + '/quote.html');
+      await p.click('input[name=type][value=renters] ~ .tx');
+      await p.click('.step.on [data-next]'); await p.waitForTimeout(100);
+      await p.fill('#cfn', 'Ana'); await p.fill('#cln', 'Ruiz'); await p.fill('#cph', '9155550000'); await p.fill('#cem', 'ana@example.com');
+      await p.click('.step.on button[type=submit]'); await p.waitForTimeout(700);
+      last = (await stepNow(p)) + ' ' + ((await p.isVisible('#e-contact')) ? (await p.textContent('#e-contact')).trim() : '');
+      await ctx.close();
+    }
+    check(/^contact .*915-503-1207/.test(last), 'the sixth request in an hour is refused with the phone number (' + last.slice(0, 60) + '…)');
+    check(rows().length === before + 5 && API.mail.sent.length === mails + 5, 'and nothing is saved or sent for it');
   }
 
   await b.close();

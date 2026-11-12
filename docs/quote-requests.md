@@ -1,0 +1,155 @@
+# Quote requests — how Submit works (November 2026)
+
+The quote form no longer prices anything. A finished form becomes a **quote
+request** that a licensed agent prepares by hand. TurboRater is gone, the AMS
+is not connected, and Quotemation will come later through the AMS.
+
+```
+browser ── POST /api/quote-request ──► Pages Function (server/quote-request.js)
+                                         1. same-site, size cap, honeypot
+                                         2. Turnstile (when configured)
+                                         3. checks the answers again
+                                         4. idempotency key: one request per press
+                                         5. 5/hour per connection, 60/hour site-wide
+                                         6. saves to D1 with the consents as shown
+                                         7. emails a notice to contact@
+        ◄── { ok, id } only after 6 and 7 ──┘
+
+agent ── /agent/requests/<id> ── Cloudflare Access login ──► server/agent.js
+```
+
+The visitor sees "Your Quote Request Has Been Received!" only when the request
+was saved **and** the notice was accepted by the mail service. Otherwise they
+stay on the contact screen, answers intact, with the phone number; pressing
+again resends the same request (same number, one email).
+
+## What the email says — and what it never says
+
+Subject: `Nueva solicitud de cotización SH-261112-7KQ4MZ — Auto — María López`
+
+Body: request number, time received (El Paso), name, line, language, SMS and
+promotions consent (yes/no), and a button to the full request.
+
+Never in the email: phone, email address, date of birth, licence numbers, VINs,
+street address, notes. Those are only on `/agent/requests/<id>`, behind a
+Cloudflare Access login. `server/test/quote-request.test.mjs` fails if any of
+them leaks into the notice.
+
+## What is stored (D1 table `quote_requests`)
+
+| Column | |
+|---|---|
+| `id` | `SH-YYMMDD-XXXXXX`, shown to the visitor and in the email |
+| `idem_key` | the form's idempotency key (unique) |
+| `created_at` | server time, UTC |
+| `line`, `lang` | car / home / moto / commercial / renters; en / es |
+| `first_name`, `last_name`, `email`, `phone` | contact |
+| `form_json` | **every answer, in the AMS contract's shape** (`docs/quote-api.md`) |
+| `notice_text`, `notice_version`, `notice_at` | the contact notice next to the button, word for word as shown |
+| `sms_consent`, `sms_text`, `sms_at` | the existing quote/policy texts checkbox (A2P 10DLC) |
+| `marketing_consent`, `marketing_text`, `marketing_version`, `marketing_at` | the promotions checkbox; wording kept even when declined |
+| `ip_hash` | SHA-256 of salt + IP, for the rate limit — never the IP itself |
+| `delivery`, `delivered_at`, `attempts` | `sent`, `failed`, `test` |
+| `is_test` | a Staging test that sent no email |
+
+The table creates itself on first use. Logs carry only the request number and
+status.
+
+## Connecting the AMS and Quotemation later
+
+`form_json` is already exactly what the AMS's `/public-quote` takes, and the
+consents map onto its `smsConsent*` and `disclosure` fields plus two new ones
+for marketing. The change is one function, `deliver()` in
+`server/quote-request.js`: post the stored form to the AMS (server to server,
+with its secret in a Pages secret) instead of, or as well as, sending the
+notice. The form, the record and the confirmation do not change. Requests
+already stored can be replayed into the AMS from D1. The old in-browser rating
+path is still in `quote.html`, switched off (`SAFEHOUSE_RATER`), if prices on
+screen ever come back.
+
+## Consent — what each piece is
+
+1. **Contact notice** (text above the button, not a checkbox). Submitting
+   asks for a quote and agrees to be contacted *about that request* by call or
+   email, and by text only if the SMS box was ticked. It says it is not
+   marketing.
+2. **SMS checkbox** — unchanged, so it still matches what the A2P 10DLC
+   application describes (`docs/a2p-10dlc.md`). Optional, unchecked.
+3. **Promotions checkbox** — new, separate, unchecked, optional. Names the
+   company, says automated technology may be used, not a condition of purchase,
+   frequency, rates, STOP/HELP, email unsubscribe.
+
+### Before any promotion is sent (none is today)
+
+- [ ] Attorney review of the notice and the promotions wording (TCPA prior
+      express written consent; Texas Bus. & Com. Code ch. 302/304 as amended in
+      2025 for texts; New Mexico; CAN-SPAM for email).
+- [ ] The A2P 10DLC campaign covers quote and policy messages. **Promotional
+      texts need a campaign registered for marketing** with the SMS provider;
+      until then, marketing consent is recorded but no promotional text may be
+      sent.
+- [ ] Every promotional email: Safe House's postal address, a working
+      unsubscribe honoured within 10 business days, an honest subject.
+- [ ] The Privacy Policy (`locales/*/docs/privacy.html`) says how promotional
+      consent is used and withdrawn; today it does not mention Safe House's own
+      marketing. Legal text — attorney first.
+- [ ] Terms of Service: draft in `docs/legal-drafts/terms-of-service.md`, not
+      published. When approved, add its link to the notice.
+
+## Configuration (Cloudflare Pages project `safehouse-site`)
+
+Preview (Staging) and Production each get their own values: Settings →
+Variables and Secrets, and Settings → Bindings, with the environment selector.
+
+| Name | Kind | Production | Preview (Staging) |
+|---|---|---|---|
+| `DB` | D1 binding | `safehouse-quotes` | `safehouse-quotes-staging` |
+| `MAIL_FROM` | text | `Safe House <solicitudes@avisos.safehouseins.com>` | same |
+| `MAIL_TO` | text | (blank = contact@safehouseins.com) | (blank) |
+| `MAIL_SUBJECT_PREFIX` | text | (blank) | `[PRUEBA] ` |
+| `CF_ACCOUNT_ID` | text | account id | same |
+| `CF_EMAIL_TOKEN` | **secret** | API token, *Email Sending: Edit* only | same |
+| `TURNSTILE_SITEKEY` | text | site key | same |
+| `TURNSTILE_SECRET` | **secret** | secret key | same |
+| `HASH_SALT` | **secret** | any long random text | any long random text |
+| `ACCESS_TEAM_DOMAIN` | text | `https://<team>.cloudflareaccess.com` | same |
+| `ACCESS_AUD` | text | AUD tag of the `/agent` Access app | AUD of the previews' Access app |
+| `AGENT_EMAILS` | text | agents' emails, comma separated, or `@safehouseins.com` | same |
+| `ALLOW_TEST_HEADER` | text | (never) | `1` — lets automated tests send no email |
+
+With Resend instead of Cloudflare: `MAIL_PROVIDER=resend` and `RESEND_API_KEY`
+(secret), and `MAIL_FROM` on the domain verified there.
+
+Missing settings refuse rather than pretend: no `DB` or no mail settings → the
+visitor gets the "call us" message, never a false confirmation; no Access
+settings → the agent page shows nothing.
+
+## Mail: Cloudflare Email Service (recommended) or Resend
+
+Checked November 12, 2026, on each provider's own pages.
+
+| | Cloudflare Email Service | Resend |
+|---|---|---|
+| Cost for this | **$0**: sending to a *verified destination address* (contact@) is free on the Workers Free plan and does not count toward any quota | $0 on Free: 3,000/month, **100/day**; Pro $20/month |
+| New account / vendor | none — same Cloudflare account | one more account and API key |
+| DNS | Email Routing on a **subdomain** (e.g. `avisos.safehouseins.com`): MX/SPF/DKIM only on that subdomain | 3 records on a subdomain (MX + SPF on `send.`, DKIM TXT) |
+| Affects current email | no — the root domain's MX is not touched | no |
+| Needs safehouseins.com on Cloudflare DNS first | **yes** | no — can be added at GoDaddy today |
+| Where the notice text lives | Cloudflare | Resend keeps logs 30 days |
+
+Sending to anyone other than verified addresses (e.g. confirmations to the
+customer) would need Workers Paid on Cloudflare ($5/month, 3,000 included) —
+not needed for notices to the agency.
+
+## Testing
+
+```
+node --test server/test/*.test.mjs                                  # server, 13 cases
+NODE_PATH=/opt/node22/lib/node_modules node tools/i18nbrowser.js    # both languages, end to end
+```
+
+Both run the real server code against an in-memory database and a mail stub;
+nothing leaves the machine. On a Staging preview, a request sent with header
+`X-Quote-Test: 1` (allowed only where `ALLOW_TEST_HEADER=1`) is stored as a test
+and sends no email; a person pressing Submit there sends a real notice marked
+`[PRUEBA]`.

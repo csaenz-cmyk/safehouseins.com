@@ -15,6 +15,9 @@ Two changes to behaviour, both so the preview does not misrepresent the form:
   sendMail(), which defers to window.SAFEHOUSE_MAIL when a page sets it; this
   copy sets it, and the body it would have sent goes to the console and to
   window.__mailBody instead.
+- Submit is stubbed the same way: window.SAFEHOUSE_SUBMIT answers for the
+  site's /api/quote-request, so the confirmation screen can be reviewed and
+  nothing is sent anywhere.
 - A mode toggle is added. Click-through behaves like the real form; every step
   at once unhides all of them and labels each, so the whole flow reads top to
   bottom without answering thirty questions to reach the end.
@@ -137,7 +140,12 @@ PREVIEWS = (('quote.html', 'quote-preview.html', 'quote-preview-es.html', ''),
 # app: what would have been sent is logged and kept on window.__mailBody.
 MAILSTUB = ("<script>window.SAFEHOUSE_MAIL=function(u){"
             "var b=decodeURIComponent(String(u).split('&body=')[1]||'');"
-            "console.log('[preview] agent email:\\n'+b); window.__mailBody=b;};</script>")
+            "console.log('[preview] agent email:\\n'+b); window.__mailBody=b;};"
+            # Submit answers here instead of the site's /api/quote-request,
+            # which this host does not have: nothing is sent, the request is
+            # kept on window.__request and the confirmation is shown.
+            "window.SAFEHOUSE_SUBMIT=function(r){console.log('[preview] quote request',r);"
+            "window.__request=r;return {ok:true,id:'SH-PREVIEW-0000'};};</script>")
 
 
 def build(page, name, other, lang):

@@ -179,15 +179,20 @@ same payload apart from the consent wording, which is recorded as shown, and
 visitor used — and `tools/i18nbrowser.js` checks exactly that. What the AMS
 still has to add to store it is in `docs/ams-language.md`.
 
-**The quote form has a demo mode, for previews only.** On any `*.pages.dev`
-address — every Staging version, and the Cloudflare project's own address — it
-is always on and cannot be turned off; on localhost and githack it loads with
-`?demo=<scenario>`. `assets/quote-demo.js` answers for the AMS so the flow can
-be tried end to end without creating a lead (see "Demo mode" in
-`docs/quote-api.md`). The host check at the top of `quote.html` is the gate that
-keeps it off the live site — keep it that way — and the form's email hand-offs
-all go through `sendMail()` so demo mode and the review copies can stop a mail
-app opening.
+**The quote form sends a request, not a rating (November 2026).** Submit posts
+to the site's own `/api/quote-request` (Pages Function →
+`server/quote-request.js`), which saves the request in D1 with the exact
+consent wording shown, then emails contact@safehouseins.com a notice holding
+only the request number, name and a link to `/agent/requests/<id>` behind
+Cloudflare Access (`server/agent.js`). The visitor sees the confirmation only
+when both happened. Nothing goes to the AMS or a rater and no price is shown;
+the rater path is kept in `quote.html`, off (`SAFEHOUSE_RATER`). Never put a
+licence number, date of birth, VIN or address in that email. A Staging version
+sends real notices marked `[PRUEBA]`; automated tests send none (`X-Quote-Test`
+where `ALLOW_TEST_HEADER` is set, or `QUOTE_TEST_MODE`). Everything to configure
+is in `docs/quote-requests.md`; `node --test server/test/*.test.mjs` tests it.
+`_routes.json` keeps Functions to `/api/*` and `/agent/*` so static pages stay
+free of invocations.
 
 **Live and Staging versions.** `live` is the branch Cloudflare Pages publishes
 to safehouseins.com; every `staging/<name>` branch is a separate version with
