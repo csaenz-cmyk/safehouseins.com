@@ -379,9 +379,12 @@ locally. A bar at the top of the page picks the scenario, runs the same answers
 again, and leaves demo mode. The choice is remembered on that host until
 `?demo=off`.
 
-It loads only on raw.githack.com, rawcdn.githack.com, localhost and Pages
-preview subdomains — the host check at the top of `quote.html` is the gate — so
-`?demo` on safehouseins.com does nothing. The email a real visitor's mail app
+It loads only on raw.githack.com, rawcdn.githack.com, localhost and
+`*.pages.dev` — the host check at the top of `quote.html` is the gate — so
+`?demo` on safehouseins.com does nothing. On `*.pages.dev` (the Staging
+versions and the Cloudflare project's own address) it is on without `?demo`,
+starts on `normal`, and cannot be left: the email door is shut before the page
+runs and the script loads before the form can send. The email a real visitor's mail app
 would open goes through `sendMail()`, which demo mode replaces with a note in
 the bar, so testing never writes to the agency. Without `?demo`, a githack
 preview is the real form: the bridge allows that origin, and a submission

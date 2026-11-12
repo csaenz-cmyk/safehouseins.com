@@ -41,19 +41,29 @@
   /* Demo mode, for previews only. assets/quote-demo.js answers for the AMS with
      the shapes and timings it really uses, so the whole flow can be tried —
      submit, the comparing screen, results, every hand-off — without sending a
-     quote anywhere. It loads only on a preview host AND with ?demo=<scenario>
-     in the address (remembered on that host until ?demo=off). The live site is
-     not a preview host, so there this does nothing, ?demo or not. */
+     quote anywhere. The live site is not a preview host, so there this does
+     nothing, ?demo or not.
+
+     On Cloudflare Pages (any *.pages.dev address: every Staging version and the
+     project's own address before the domain points at it) demo mode is always
+     on and cannot be turned off: a version under test must never create a
+     lead, a message or an email. The email door is shut before anything else
+     runs, and the script is loaded synchronously so it is in place before the
+     form can send. If it still failed to load, the AMS refuses *.pages.dev
+     origins, so a submission would go nowhere.
+     Elsewhere (localhost, githack) it loads only with ?demo=<scenario> in the
+     address, remembered on that host until ?demo=off. */
   (function(){
-    var h=location.hostname;
-    if(!(h==='localhost'||h==='127.0.0.1'||h==='raw.githack.com'||h==='rawcdn.githack.com'
-         ||/^[^.]+\.[^.]+\.pages\.dev$/.test(h))) return;
+    var h=location.hostname, cf=/\.pages\.dev$/.test(h);
+    if(!(cf||h==='localhost'||h==='127.0.0.1'||h==='raw.githack.com'||h==='rawcdn.githack.com')) return;
     var q=new URLSearchParams(location.search).get('demo'), on=q&&q!=='off'?q:null;
-    try{ if(q==='off') localStorage.removeItem('shi-demo'); else if(q) localStorage.setItem('shi-demo',q);
-         on=localStorage.getItem('shi-demo'); }catch(e){}
+    try{ if(q==='off'&&!cf) localStorage.removeItem('shi-demo'); else if(on) localStorage.setItem('shi-demo',q);
+         on=localStorage.getItem('shi-demo')||on; }catch(e){}
+    if(cf){ on=on||'normal'; window.SAFEHOUSE_DEMO_FORCED=true; window.SAFEHOUSE_MAIL=function(){}; }
     if(!on) return;
     window.SAFEHOUSE_DEMO=on;
-    var s=document.createElement('script'); s.src='assets/quote-demo.js'; document.head.appendChild(s);
+    if(cf) document.write('<script src="assets/quote-demo.js"><\/script>');
+    else { var s=document.createElement('script'); s.src='assets/quote-demo.js'; document.head.appendChild(s); }
   })();
 </script>
 <style>

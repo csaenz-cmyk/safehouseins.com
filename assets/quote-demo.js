@@ -175,7 +175,8 @@
     bar.innerHTML='<div class="in">'
       +'<button type="button" class="tag" title="Demo mode: pretend AMS, sample prices, nothing is sent">DEMO</button>'
       +'<select aria-label="Demo scenario"><optgroup label="Pretend AMS · sample prices · nothing is sent"></optgroup>'
-      +'<option value="off">Exit demo — send real quotes…</option></select>'
+      // On a Staging address demo mode cannot be left (see quote.html's head).
+      +(window.SAFEHOUSE_DEMO_FORCED?'':'<option value="off">Exit demo — send real quotes…</option>')+'</select>'
       +'<button type="button" class="again" hidden>↻ Run again</button>'
       +'<button type="button" class="x" aria-label="Fold the demo controls away">×</button>'
       +'<p class="msg" role="status"></p></div>';

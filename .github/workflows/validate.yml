@@ -1,0 +1,71 @@
+# The checks a version has to pass before the site panel lets it be published.
+#
+# Runs on every push to a Staging version (staging/...) and to live. The panel
+# reads the result of the "validate" job on the version's latest commit, and
+# its Publish button stays off until that result is green — so what reaches
+# safehouseins.com is exactly what was checked here.
+#
+# Nothing here deploys anything. Cloudflare Pages builds the previews and the
+# live site on its own; this only reports whether a version is fit to publish.
+name: Validate
+
+on:
+  push:
+    branches: ['staging/**', 'live']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history: gensitemap.py reads lastmod out of git log (CLAUDE.md).
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Pillow
+        run: python -m pip install --quiet Pillow
+
+      # Every word in both languages, the same keys and markup, no stale Spanish.
+      - name: English and Spanish
+        run: python3 tools/i18ncheck.py
+
+      - name: SEO
+        run: python3 tools/seocheck.py
+
+      - name: Similar pages
+        run: python3 tools/dupcheck.py
+
+      - name: SMS templates
+        run: python3 tools/smscheck.py
+
+      - name: Links
+        run: python3 tools/linkcheck.py
+
+      # A version whose generated pages were edited by hand, or whose generators
+      # were changed without rebuilding, would publish pages that the next
+      # rebuild silently throws away. Rebuild and require no difference.
+      - name: Pages match their generators
+        run: |
+          for g in genabout gencareers geninvestors genlegal genmakes genguides genproduct gencities genlocale genpreview; do
+            python3 tools/$g.py > /dev/null || exit 1
+          done
+          changed=$(git status --porcelain -- . ':!sitemap.xml')
+          if [ -n "$changed" ]; then
+            echo "These files differ from what the generators produce:"
+            echo "$changed" | head -50
+            echo "Run the rebuild in CLAUDE.md and commit the result."
+            exit 1
+          fi
