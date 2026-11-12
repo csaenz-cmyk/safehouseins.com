@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f2a4a">
+<title>Versiones del sitio · Safe House</title>
+<style>
+:root{
+  --bg:#f4f6f9; --card:#fff; --ink:#14202e; --muted:#5d6b7c; --line:#e3e8ef;
+  --brand:#0f2a4a; --accent:#1f6feb; --ok:#13804b; --okbg:#e6f5ec; --warn:#a15c00; --warnbg:#fff4e0;
+  --bad:#b42318; --badbg:#fdecea; --live:#13804b; --radius:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%}
+a{color:var(--accent)}
+header{background:var(--brand);color:#fff;padding:14px 16px;padding-top:max(14px,env(safe-area-inset-top))}
+header .in{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px}
+header h1{font-size:17px;margin:0;font-weight:650;letter-spacing:.2px}
+header small{display:block;opacity:.75;font-size:12px;font-weight:400}
+header .sp{flex:1}
+header .who{font-size:12px;opacity:.8;max-width:42vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+main{max-width:960px;margin:0 auto;padding:16px 16px 80px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:26px 2px 10px;font-weight:650}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.grow{flex:1;min-width:0}
+.title{font-weight:650;font-size:16px;overflow-wrap:anywhere}
+.meta{color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:#eef1f5;color:var(--muted);white-space:nowrap}
+.badge.ok{background:var(--okbg);color:var(--ok)}
+.badge.warn{background:var(--warnbg);color:var(--warn)}
+.badge.bad{background:var(--badbg);color:var(--bad)}
+.badge.live{background:var(--live);color:#fff}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.btn{appearance:none;border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-weight:600;font-size:14px;padding:9px 14px;border-radius:10px;cursor:pointer;min-height:40px;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:#c7d0dc}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.go{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn.danger{color:var(--bad)}
+.btn.danger.solid{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.sm{min-height:34px;padding:6px 11px;font-size:13px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.livecard{border-left:5px solid var(--live)}
+.empty{text-align:center;color:var(--muted);padding:26px 16px}
+.hist{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+.hist:first-child{border-top:0;padding-top:0}
+.hist .ic{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:14px;flex:none;background:#eef1f5}
+details summary{cursor:pointer;color:var(--muted);font-weight:600;padding:4px 2px}
+.toast{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);background:#14202e;color:#fff;padding:11px 16px;border-radius:10px;font-size:14px;z-index:60;max-width:calc(100% - 32px);box-shadow:0 6px 24px rgba(0,0,0,.2)}
+.toast.bad{background:var(--bad)}
+.notice{border-radius:12px;padding:12px 14px;font-size:14px;margin:0 0 12px}
+.notice.bad{background:var(--badbg);color:var(--bad)}
+.notice.warn{background:var(--warnbg);color:var(--warn)}
+.notice.info{background:#e8f0fe;color:#1a4fa0}
+/* dialogs */
+.veil{position:fixed;inset:0;background:rgba(15,25,40,.45);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:#fff;width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:20px 18px;padding-bottom:max(20px,env(safe-area-inset-bottom))}
+@media(min-width:700px){.veil{align-items:center}.sheet{border-radius:18px;padding:24px}}
+.sheet h3{margin:0 0 6px;font-size:19px}
+.sheet p{margin:6px 0 12px;color:var(--muted)}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
+input[type=text],select{width:100%;font:inherit;font-size:16px;padding:10px 12px;border:1px solid #cdd5e0;border-radius:10px;background:#fff;color:var(--ink)}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:500;margin:16px 0 4px;background:#f6f8fb;padding:12px;border-radius:10px}
+.check input{width:20px;height:20px;margin:1px 0 0;flex:none}
+.sheet .actions{justify-content:flex-end;margin-top:18px}
+.list{border:1px solid var(--line);border-radius:10px;max-height:260px;overflow:auto;font-size:13px}
+.list div{padding:7px 10px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center}
+.list div:first-child{border-top:0}
+.list code{flex:1;min-width:0;overflow-wrap:anywhere;font-size:12px}
+.st{font-size:11px;font-weight:700;width:18px;text-align:center}
+.st.added{color:var(--ok)}.st.removed{color:var(--bad)}.st.modified,.st.renamed{color:var(--warn)}
+.gates{margin:10px 0;padding:0;list-style:none}
+.gates li{display:flex;gap:8px;align-items:flex-start;padding:5px 0;font-size:14px}
+.gates .g{flex:none;width:20px;text-align:center}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:#f1f4f8;padding:2px 6px;border-radius:6px;overflow-wrap:anywhere}
+.skel{height:86px;border-radius:var(--radius);background:linear-gradient(90deg,#e9edf2,#f4f6f9,#e9edf2);background-size:200% 100%;animation:sk 1.2s infinite;margin-bottom:12px}
+@keyframes sk{to{background-position:-200% 0}}
+@media(max-width:520px){.actions .btn{flex:1 1 auto}}
+</style>
+</head>
+<body>
+<header><div class="in">
+  <div><h1>Versiones del sitio <small>Safe House Insurance</small></h1></div>
+  <div class="sp"></div>
+  <div class="who" id="who"></div>
+  <button class="btn sm" id="refresh" type="button" title="Actualizar">↻</button>
+</div></header>
+
+<main id="app">
+  <div class="skel"></div><div class="skel"></div><div class="skel"></div>
+</main>
+
+<script>
+(function(){
+'use strict';
+var S = null, busy = false;
+var app = document.getElementById('app');
+
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function when(iso){
+  if(!iso) return '';
+  var d = new Date(iso), s = (Date.now() - d) / 1000;
+  if(s < 60) return 'hace un momento';
+  if(s < 3600) return 'hace ' + Math.floor(s/60) + ' min';
+  if(s < 86400) return 'hace ' + Math.floor(s/3600) + ' h';
+  return d.toLocaleDateString('es-MX', {day:'numeric', month:'short', year:'numeric'}) + ', ' +
+         d.toLocaleTimeString('es-MX', {hour:'numeric', minute:'2-digit'});
+}
+function short(sha){ return String(sha || '').slice(0, 7); }
+
+function api(method, path, body){
+  return fetch('/api' + path, {
+    method: method, credentials: 'same-origin',
+    headers: Object.assign({'Accept':'application/json'}, method === 'GET' ? {} : {'X-Panel':'1','Content-Type':'application/json'}),
+    body: body ? JSON.stringify(body) : undefined
+  }).then(function(r){
+    return r.json().catch(function(){ return {}; }).then(function(d){
+      if(!r.ok){ var e = new Error(d.error || ('Error ' + r.status)); e.status = r.status; throw e; }
+      return d;
+    });
+  });
+}
+
+var toastT;
+function toast(msg, bad){
+  var t = document.querySelector('.toast'); if(t) t.remove();
+  t = document.createElement('div'); t.className = 'toast' + (bad ? ' bad' : ''); t.setAttribute('role','status');
+  t.textContent = msg; document.body.appendChild(t);
+  clearTimeout(toastT); toastT = setTimeout(function(){ t.remove(); }, bad ? 7000 : 3500);
+}
+
+// --------------------------------------------------------------- dialogs ---
+function sheet(html, onReady){
+  var v = document.createElement('div'); v.className = 'veil';
+  v.innerHTML = '<div class="sheet" role="dialog" aria-modal="true">' + html + '</div>';
+  document.body.appendChild(v);
+  var close = function(){ v.remove(); document.removeEventListener('keydown', key); };
+  var key = function(e){ if(e.key === 'Escape') close(); };
+  document.addEventListener('keydown', key);
+  v.addEventListener('click', function(e){ if(e.target === v || e.target.closest('[data-close]')) close(); });
+  var first = v.querySelector('input,select'); if(first) setTimeout(function(){ first.focus(); }, 30);
+  if(onReady) onReady(v.querySelector('.sheet'), close);
+  return close;
+}
+
+// Run an action from a dialog: lock its buttons, report, reload.
+function act(btn, fn, ok, close){
+  if(busy) return; busy = true;
+  var label = btn.textContent; btn.disabled = true; btn.textContent = 'Un momento…';
+  fn().then(function(r){
+    if(close) close();
+    toast(typeof ok === 'function' ? ok(r) : ok);
+    return load();
+  }).catch(function(e){
+    btn.disabled = false; btn.textContent = label; toast(e.message, true);
+  }).then(function(){ busy = false; });
+}
+
+function sourceOptions(selected){
+  var o = S.live ? '<option value="live"' + (selected === 'live' ? ' selected' : '') + '>Live (el sitio publicado)</option>' : '';
+  S.versions.filter(function(v){ return !v.archived; }).forEach(function(v){
+    o += '<option value="' + esc(v.slug) + '"' + (selected === v.slug ? ' selected' : '') + '>' + esc(v.name) + '</option>';
+  });
+  return o;
+}
+
+function createDialog(from){
+  sheet(
+    '<h3>' + (from && from !== 'live' ? 'Duplicar versión' : 'Nueva versión') + '</h3>' +
+    '<p>Es una copia independiente con su propia vista previa privada. Lo que cambies ahí no toca el sitio publicado.</p>' +
+    '<label for="nv-name">Nombre</label><input id="nv-name" type="text" maxlength="60" placeholder="Por ejemplo: Rediseño 2027" autocomplete="off">' +
+    '<label for="nv-from">Copiar de</label><select id="nv-from">' + sourceOptions(from || 'live') + '</select>' +
+    '<div class="actions"><button class="btn" data-close type="button">Cancelar</button><button class="btn primary" id="nv-go" type="button">Crear versión</button></div>',
+    function(el, close){
+      var go = el.querySelector('#nv-go'), name = el.querySelector('#nv-name');
+      var run = function(){
+        if(!name.value.trim()){ name.focus(); return; }
+        act(go, function(){ return api('POST', '/versions', {name: name.value, from: el.querySelector('#nv-from').value}); },
+          'Versión creada. Su vista previa estará lista en un par de minutos.', close);
+      };
+      go.onclick = run;
+      name.onkeydown = function(e){ if(e.key === 'Enter') run(); };
+    });
+}
+
+function renameDialog(v){
+  sheet(
+    '<h3>Renombrar</h3><label for="rn">Nombre nuevo</label><input id="rn" type="text" maxlength="60" value="' + esc(v.name) + '">' +
+    '<p>Si el nombre cambia, también cambia la dirección de la vista previa.</p>' +
+    '<div class="actions"><button class="btn" data-close type="button">Cancelar</button><button class="btn primary" id="rn-go" type="button">Guardar</button></div>',
+    function(el, close){
+      var go = el.querySelector('#rn-go');
+      go.onclick = function(){
+        act(go, function(){ return api('POST', '/versions/' + v.slug + '/rename', {name: el.querySelector('#rn').value}); }, 'Nombre actualizado.', close);
+      };
+    });
+}
+
+function archiveDialog(v){
+  sheet(
+    '<h3>Archivar “' + esc(v.name) + '”</h3>' +
+    '<p>Se guarda sin perder nada y deja de tener vista previa. Puedes restaurarla cuando quieras.</p>' +
+    '<div class="actions"><button class="btn" data-close type="button">Cancelar</button><button class="btn" id="ar-go" type="button">Archivar</button></div>',
+    function(el, close){
+      var go = el.querySelector('#ar-go');
+      go.onclick = function(){ act(go, function(){ return api('POST', '/versions/' + v.slug + '/archive'); }, 'Versión archivada.', close); };
+    });
+}
+
+function deleteDialog(v){
+  sheet(
+    '<h3>Eliminar “' + esc(v.name) + '”</h3>' +
+    '<p>Esto no se puede deshacer desde el panel. Para confirmar, escribe <span class="mono">' + esc(v.slug) + '</span></p>' +
+    '<input id="dl" type="text" autocomplete="off" autocapitalize="off" spellcheck="false">' +
+    '<div class="actions"><button class="btn" data-close type="button">Cancelar</button><button class="btn danger solid" id="dl-go" type="button" disabled>Eliminar</button></div>',
+    function(el, close){
+      var go = el.querySelector('#dl-go'), inp = el.querySelector('#dl');
+      inp.oninput = function(){ go.disabled = inp.value.trim() !== v.slug; };
+      go.onclick = function(){
+        act(go, function(){ return api('DELETE', '/versions/' + v.slug, {confirm: inp.value.trim()}); }, 'Versión eliminada.', close);
+      };
+    });
+}
+
+function workDialog(v){
+  sheet(
+    '<h3>Cómo trabajar en “' + esc(v.name) + '”</h3>' +
+    '<p>Para hacer cambios en esta versión, pídeselos a Claude indicando esta versión:</p>' +
+    '<div class="check" style="display:block"><span class="mono" id="wk">' + esc(v.branch) + '</span></div>' +
+    '<p>Por ejemplo: <em>“Trabaja en la versión ' + esc(v.branch) + ' y cambia…”</em>. ' +
+    'Cada cambio aparece en su vista previa en un par de minutos y nunca en el sitio publicado.</p>' +
+    '<div class="actions"><button class="btn" id="wk-copy" type="button">Copiar nombre</button><button class="btn primary" data-close type="button">Listo</button></div>',
+    function(el){
+      el.querySelector('#wk-copy').onclick = function(){
+        var done = function(){ toast('Copiado.'); };
+        if(navigator.clipboard) navigator.clipboard.writeText(v.branch).then(done, function(){ toast('No se pudo copiar.', true); });
+      };
+    });
+}
+
+function updateDialog(v){
+  sheet(
+    '<h3>Traer cambios de Live</h3>' +
+    '<p>Live tiene ' + v.behind + ' cambio' + (v.behind === 1 ? '' : 's') + ' que esta versión no incluye ' +
+    '(por ejemplo, otra versión que se publicó después de crear esta). Se combinan aquí para poder publicar sin deshacerlos.</p>' +
+    '<div class="actions"><button class="btn" data-close type="button">Cancelar</button><button class="btn primary" id="up-go" type="button">Traer cambios</button></div>',
+    function(el, close){
+      var go = el.querySelector('#up-go');
+      go.onclick = function(){ act(go, function(){ return api('POST', '/versions/' + v.slug + '/update'); },
+        'Listo. Revisa la vista previa otra vez cuando se actualice.', close); };
+    });
+}
+
+function gate(ok, text, pending){
+  return '<li><span class="g">' + (ok ? '✅' : (pending ? '⏳' : '⛔')) + '</span><span>' + text + '</span></li>';
+}
+
+function compareDialog(v){
+  var close = sheet('<h3>Revisar y publicar “' + esc(v.name) + '”</h3><div id="cmp"><div class="skel"></div></div>', function(el, cl){
+    api('GET', '/versions/' + v.slug + '/compare').then(function(c){
+      var chk = c.checks || {state:'missing'};
+      var okChecks = chk.state === 'success', okBehind = c.behind === 0, okAhead = c.ahead > 0;
+      var html = '<p>Esto es lo que cambiaría en el sitio publicado si publicas esta versión.</p>' +
+        '<div class="row" style="margin-bottom:8px"><a class="btn sm" target="_blank" rel="noopener" href="' + esc(c.preview) + '">Abrir vista previa ↗</a>' +
+        '<a class="btn sm" target="_blank" rel="noopener" href="' + esc(c.liveUrl) + '">Abrir Live ↗</a></div>' +
+        '<ul class="gates">' +
+        gate(okAhead, okAhead ? c.ahead + (c.ahead === 1 ? ' cambio nuevo' : ' cambios nuevos') + ' respecto a Live' : 'No hay cambios respecto a Live') +
+        gate(okChecks, okChecks ? 'Validaciones automáticas aprobadas' :
+          chk.state === 'running' ? 'Validaciones en curso — espera un par de minutos y vuelve a abrir esto' :
+          chk.state === 'failure' ? 'Las validaciones fallaron' + (chk.url ? ' — <a target="_blank" rel="noopener" href="' + esc(chk.url) + '">ver detalle</a>' : '') :
+          'Esta versión todavía no tiene validaciones (aparecen con su próximo cambio)', chk.state === 'running') +
+        gate(okBehind, okBehind ? 'Incluye todo lo que ya está publicado' :
+          'Live tiene ' + c.behind + ' cambio' + (c.behind === 1 ? '' : 's') + ' que esta versión no incluye — usa “Traer cambios de Live”') +
+        '</ul>';
+      if(c.commits.length){
+        html += '<label>Cambios (' + c.ahead + ')</label><div class="list">' + c.commits.map(function(k){
+          return '<div><code>' + esc(k.message) + '</code><span class="meta">' + esc(when(k.date)) + '</span></div>';
+        }).join('') + '</div>';
+      }
+      if(c.files.length){
+        var base = c.liveUrl.replace(/\/$/, ''), prev = c.preview.replace(/\/$/, '');
+        html += '<label>Archivos (' + c.totalFiles + ')</label><div class="list">' + c.files.map(function(f){
+          var mark = {added:'+', removed:'−', modified:'•', renamed:'→'}[f.status] || '•';
+          var links = f.page ? ' <a target="_blank" rel="noopener" href="' + esc(base + f.page) + '">Live</a> · <a target="_blank" rel="noopener" href="' + esc(prev + f.page) + '">Nueva</a>' : '';
+          return '<div><span class="st ' + esc(f.status) + '">' + mark + '</span><code>' + esc(f.file) + '</code><span class="meta" style="white-space:nowrap">' + links + '</span></div>';
+        }).join('') + '</div>';
+      }
+      var can = okChecks && okBehind && okAhead;
+      html += '<label class="check"><input type="checkbox" id="pb-ok"' + (can ? '' : ' disabled') + '>' +
+        '<span>Revisé la vista previa y quiero que esto sea lo que ven los clientes en safehouseins.com.</span></label>' +
+        '<p style="font-size:13px">Se publica exactamente la versión que revisaste (' + esc(short(c.sha)) + '). Si se equivoca algo, puedes restaurar la anterior desde el historial.</p>' +
+        '<div class="actions"><button class="btn" data-close type="button">Cancelar</button>' +
+        (!okBehind ? '<button class="btn" id="pb-up" type="button">Traer cambios de Live</button>' : '') +
+        '<button class="btn go" id="pb-go" type="button" disabled>Publicar en Live</button></div>';
+      el.querySelector('#cmp').innerHTML = html;
+      var box = el.querySelector('#pb-ok'), go = el.querySelector('#pb-go'), up = el.querySelector('#pb-up');
+      box.onchange = function(){ go.disabled = !(can && box.checked); };
+      go.onclick = function(){
+        act(go, function(){ return api('POST', '/versions/' + v.slug + '/publish', {sha: c.sha, confirm: true}); },
+          'Publicado. El sitio se actualiza en un par de minutos.', cl);
+      };
+      if(up) up.onclick = function(){ cl(); updateDialog(Object.assign({}, v, {behind: c.behind})); };
+    }).catch(function(e){
+      el.querySelector('#cmp').innerHTML = '<div class="notice bad">' + esc(e.message) + '</div><div class="actions"><button class="btn" data-close type="button">Cerrar</button></div>';
+    });
+  });
+  return close;
+}
+
+function rollbackDialog(h){
+  sheet(
+    '<h3>Restaurar esta versión en Live</h3>' +
+    '<p>El sitio publicado vuelve a ser <strong>' + esc(h.label) + '</strong> (' + esc(short(h.sha)) + '). ' +
+    'Lo que está publicado ahora no se pierde: queda en el historial y puedes volver a él.</p>' +
+    '<label class="check"><input type="checkbox" id="rb-ok"><span>Sí, quiero restaurar esta versión en safehouseins.com.</span></label>' +
+    '<div class="actions"><button class="btn" data-close type="button">Cancelar</button><button class="btn danger solid" id="rb-go" type="button" disabled>Restaurar</button></div>',
+    function(el, close){
+      var go = el.querySelector('#rb-go'), box = el.querySelector('#rb-ok');
+      box.onchange = function(){ go.disabled = !box.checked; };
+      go.onclick = function(){
+        act(go, function(){ return api('POST', '/rollback', {sha: h.sha, confirm: true}); },
+          function(r){ return r.instant ? 'Restaurado. El sitio ya muestra esa versión.' : 'Restaurado. El sitio se actualiza en un par de minutos.'; }, close);
+      };
+    });
+}
+
+function initDialog(){
+  var pref = 'claude/determined-gauss-2jtges';
+  var opts = S.candidates.map(function(b){ return '<option' + (b === pref ? ' selected' : '') + '>' + esc(b) + '</option>'; }).join('');
+  sheet(
+    '<h3>Crear Live</h3>' +
+    '<p>Live es la versión que publica Cloudflare. Crearla <strong>no cambia safehouseins.com</strong> mientras el dominio no esté conectado a Cloudflare: primero la verás en su dirección privada.</p>' +
+    '<label for="in-from">Empezar desde</label><select id="in-from">' + opts + '</select>' +
+    '<label class="check"><input type="checkbox" id="in-ok"><span>Entiendo que esta será la versión base de la que salen todas las demás.</span></label>' +
+    '<div class="actions"><button class="btn" data-close type="button">Cancelar</button><button class="btn primary" id="in-go" type="button" disabled>Crear Live</button></div>',
+    function(el, close){
+      var go = el.querySelector('#in-go'), box = el.querySelector('#in-ok');
+      box.onchange = function(){ go.disabled = !box.checked; };
+      go.onclick = function(){
+        act(go, function(){ return api('POST', '/init', {from: el.querySelector('#in-from').value, confirm: true}); }, 'Live creado.', close);
+      };
+    });
+}
+
+// ---------------------------------------------------------------- render ---
+function checkBadge(c){
+  if(!c) return '';
+  if(c.state === 'success') return '<span class="badge ok"><span class="dot"></span>Validada</span>';
+  if(c.state === 'running') return '<span class="badge warn"><span class="dot"></span>Validando…</span>';
+  if(c.state === 'failure') return '<span class="badge bad"><span class="dot"></span>No pasó validaciones</span>';
+  return '<span class="badge">Sin validar</span>';
+}
+function buildBadge(b){
+  if(b === 'building') return '<span class="badge warn"><span class="dot"></span>Preparando vista previa…</span>';
+  if(b === 'failure') return '<span class="badge bad"><span class="dot"></span>La vista previa falló</span>';
+  return '';
+}
+
+function versionCard(v){
+  var diff = v.ahead == null ? '' :
+    (v.ahead === 0 ? 'Igual que Live' : v.ahead + ' cambio' + (v.ahead === 1 ? '' : 's') + ' sin publicar') +
+    (v.behind ? ' · Live tiene ' + v.behind + ' más' : '');
+  return '<div class="card" data-slug="' + esc(v.slug) + '">' +
+    '<div class="row"><div class="grow"><div class="title">' + esc(v.name) + '</div>' +
+    '<div class="meta">Modificada ' + esc(when(v.updated)) + (v.from ? ' · copia de ' + esc(v.from) : '') + '</div>' +
+    (diff ? '<div class="meta">' + esc(diff) + '</div>' : '') + '</div>' +
+    checkBadge(v.checks) + buildBadge(v.build) + '</div>' +
+    '<div class="actions">' +
+      '<a class="btn primary" target="_blank" rel="noopener" href="' + esc(v.preview) + '">Abrir vista previa ↗</a>' +
+      '<button class="btn" data-a="compare" type="button">Revisar y publicar</button>' +
+      (v.behind ? '<button class="btn" data-a="update" type="button">Traer cambios de Live</button>' : '') +
+      '<button class="btn" data-a="dup" type="button">Duplicar</button>' +
+      '<button class="btn" data-a="work" type="button">Cómo trabajar aquí</button>' +
+      '<button class="btn" data-a="rename" type="button">Renombrar</button>' +
+      '<button class="btn danger" data-a="archive" type="button">Archivar</button>' +
+    '</div></div>';
+}
+
+function archivedCard(v){
+  return '<div class="card" data-slug="' + esc(v.slug) + '"><div class="row"><div class="grow"><div class="title">' + esc(v.name) + '</div>' +
+    '<div class="meta">Modificada ' + esc(when(v.updated)) + '</div></div>' +
+    '<button class="btn sm" data-a="restore" type="button">Restaurar</button>' +
+    '<button class="btn sm danger" data-a="delete" type="button">Eliminar</button></div></div>';
+}
+
+var ICON = {init:'★', publish:'↑', rollback:'↺'};
+function historyRow(h, i){
+  var label = h.name || short(h.sha);
+  var verb = h.action === 'publish' ? 'Publicó' : h.action === 'rollback' ? 'Restauró' : 'Creó Live desde';
+  var isLive = S.live && S.live.sha === h.sha;
+  var btn = '';
+  if(!isLive) btn = '<button class="btn sm" data-h="' + i + '" data-kind="sha" type="button">Restaurar</button>';
+  else if(h.prev && i === 0) btn = '<button class="btn sm" data-h="' + i + '" data-kind="prev" type="button">Deshacer</button>';
+  return '<div class="hist"><div class="ic">' + (ICON[h.action] || '•') + '</div><div class="grow">' +
+    '<div><strong>' + esc(verb) + '</strong> ' + esc(label) + (isLive ? ' <span class="badge live">En Live</span>' : '') + '</div>' +
+    '<div class="meta">' + esc(when(h.at)) + (h.by ? ' · ' + esc(h.by) : '') + ' · ' + esc(short(h.sha)) + '</div></div>' + btn + '</div>';
+}
+
+function render(){
+  document.getElementById('who').textContent = S.user || '';
+  var html = '';
+  html += '<h2>Sitio publicado</h2>';
+  if(!S.live){
+    html += '<div class="card livecard"><div class="title">Live todavía no existe</div>' +
+      '<p class="meta">Elige qué versión será la base del sitio. Antes de conectar el dominio, la revisarás en su dirección privada.</p>' +
+      '<div class="actions"><button class="btn primary" id="init" type="button">Crear Live</button></div></div>';
+  } else {
+    var L = S.live;
+    html += '<div class="card livecard"><div class="row"><div class="grow"><div class="title">Live</div>' +
+      '<div class="meta">Publicado ' + esc(when(L.updated)) + ' · ' + esc(L.message) + '</div></div>' +
+      '<span class="badge live"><span class="dot"></span>Público</span>' + buildBadge(L.build) + '</div>' +
+      '<div class="actions">' +
+        (L.url ? '<a class="btn" target="_blank" rel="noopener" href="' + esc(L.url) + '">Abrir ' + esc(L.url.replace(/^https?:\/\//, '').replace(/\/$/, '')) + ' ↗</a>' : '') +
+        '<a class="btn" target="_blank" rel="noopener" href="' + esc(L.projectUrl) + '">Abrir en Cloudflare ↗</a>' +
+        '<button class="btn primary" id="new" type="button">+ Nueva versión</button>' +
+      '</div></div>';
+  }
+
+  var active = S.versions.filter(function(v){ return !v.archived; });
+  var archived = S.versions.filter(function(v){ return v.archived; });
+  html += '<h2>Versiones Staging (' + active.length + ')</h2>';
+  if(!active.length) html += '<div class="card empty">' + (S.live ? 'Todavía no hay versiones. Crea una con “+ Nueva versión”.' : 'Primero crea Live.') + '</div>';
+  html += active.map(versionCard).join('');
+
+  html += '<h2>Historial de publicaciones</h2><div class="card">' +
+    (S.history.length ? S.history.map(historyRow).join('') : '<div class="meta">Todavía no se ha publicado nada desde el panel.</div>') + '</div>';
+
+  if(archived.length){
+    html += '<details><summary>Archivadas (' + archived.length + ')</summary><div style="margin-top:10px">' + archived.map(archivedCard).join('') + '</div></details>';
+  }
+  if(!S.cloudflare){
+    html += '<p class="meta" style="margin-top:22px">El estado de cada vista previa aparece aquí cuando se agrega la llave de Cloudflare al panel (opcional).</p>';
+  }
+  app.innerHTML = html;
+}
+
+app.addEventListener('click', function(e){
+  var t = e.target.closest('button'); if(!t || !S) return;
+  if(t.id === 'new') return createDialog('live');
+  if(t.id === 'init') return initDialog();
+  if(t.dataset.h != null){
+    var h = S.history[+t.dataset.h], useSha = t.dataset.kind === 'sha';
+    return rollbackDialog({sha: useSha ? h.sha : h.prev, label: useSha ? (h.name || short(h.sha)) : 'lo que estaba antes de ' + (h.name || short(h.sha))});
+  }
+  var card = t.closest('[data-slug]'); if(!card) return;
+  var v = S.versions.filter(function(x){ return x.slug === card.dataset.slug; })[0]; if(!v) return;
+  var a = t.dataset.a;
+  if(a === 'compare') compareDialog(v);
+  else if(a === 'dup') createDialog(v.slug);
+  else if(a === 'work') workDialog(v);
+  else if(a === 'rename') renameDialog(v);
+  else if(a === 'archive') archiveDialog(v);
+  else if(a === 'update') updateDialog(v);
+  else if(a === 'delete') deleteDialog(v);
+  else if(a === 'restore') act(t, function(){ return api('POST', '/versions/' + v.slug + '/restore'); }, 'Versión restaurada.');
+});
+
+function load(){
+  return api('GET', '/state').then(function(d){ S = d; render(); }).catch(function(e){
+    var login = e.status === 401;
+    app.innerHTML = '<div class="notice ' + (login ? 'info' : 'bad') + '">' + esc(e.message) + '</div>' +
+      '<button class="btn" type="button" onclick="location.reload()">' + (login ? 'Iniciar sesión' : 'Intentar otra vez') + '</button>';
+  });
+}
+document.getElementById('refresh').onclick = function(){ load().then(function(){ toast('Actualizado.'); }); };
+load();
+})();
+</script>
+</body>
+</html>
