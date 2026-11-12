@@ -118,7 +118,7 @@ export function customerEmail(rec, { assetBase = 'https://safehouseins.com', pre
   </td></tr>
 
   <tr><td style="padding:36px 40px 0 40px;" class="px">
-    ${prefix ? '<p style="margin:0 0 14px 0;padding:10px 12px;background-color:#FFF4E0;border-radius:10px;font-family:' + F_BODY + ';font-size:13px;color:#A15C00;font-weight:700;">PRUEBA · TEST — Staging</p>' : ''}
+    ${prefix ? '<p style="margin:0 0 14px 0;padding:10px 12px;background-color:#FFF4E0;border-radius:10px;font-family:' + F_BODY + ';font-size:13px;color:#A15C00;font-weight:700;">TEST — Staging</p>' : ''}
     <p style="margin:0;font-family:${F_BODY};font-size:12px;line-height:16px;color:#1B62F0;font-weight:700;letter-spacing:2.4px;">${c.eyebrow}</p>
     <p class="h1" style="margin:16px 0 0 0;font-family:${F_HEAD};font-size:36px;line-height:42px;mso-line-height-rule:exactly;color:#0B1738;font-weight:800;letter-spacing:-0.9px;">${c.h1}</p>
     ${p(fill(c.hello, v), 'margin-top:20px;color:#0B1738;font-weight:700;')}
@@ -183,7 +183,7 @@ export function customerEmail(rec, { assetBase = 'https://safehouseins.com', pre
 </html>`;
 
   const text = [
-    prefix ? 'PRUEBA · TEST — Staging\n' : '',
+    prefix ? 'TEST — Staging\n' : '',
     c.h1, '', fill(c.hello, { name: rec.first_name }), '', c.thanks + ' ' + c.p1, '', c.p2, '',
     c.numLabel + ': ' + rec.id + (lineName ? ' (' + lineName + ')' : ''), c.numNote, '',
     c.s1h + ' ' + c.s1, c.s2h + ' ' + c.s2, '',

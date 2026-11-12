@@ -186,13 +186,13 @@ consent wording shown, then emails contact@safehouseins.com a notice holding
 only the request number, name and a link to `/agent/requests/<id>` behind
 Cloudflare Access (`server/agent.js`) — or, while `AGENT_LINK_ONLY=1`, a
 per-request 32-character key in that link instead of a login. With `CUSTOMER_CONFIRMATION=1` the customer also gets a
-confirmation in their language (`server/customer-email.js`) — never their
+confirmation, in English unless `CUSTOMER_EMAIL_LANG=auto` (`server/customer-email.js`) — never their
 answers. Mail goes through Resend, on the account the AMS also uses, with the
 site's own API key. The visitor sees the confirmation only
 when both happened. Nothing goes to the AMS or a rater and no price is shown;
 the rater path is kept in `quote.html`, off (`SAFEHOUSE_RATER`). Never put a
 licence number, date of birth, VIN or address in that email. A Staging version
-sends real notices marked `[PRUEBA]`; automated tests send none (`X-Quote-Test`
+sends real notices marked `[TEST]`; automated tests send none (`X-Quote-Test`
 where `ALLOW_TEST_HEADER` is set, or `QUOTE_TEST_MODE`). Everything to configure
 is in `docs/quote-requests.md`; `node --test server/test/*.test.mjs` tests it.
 `_routes.json` keeps Functions to `/api/*` and `/agent/*` so static pages stay

@@ -158,11 +158,13 @@ export function newId(now = new Date()) {
 }
 
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const LINE_ES = { car: 'Auto', home: 'Casa', moto: 'Motocicleta', commercial: 'Vehículo comercial', renters: 'Inquilinos' };
+const LINE_EN = { car: 'Auto', home: 'Home', moto: 'Motorcycle', commercial: 'Commercial vehicle', renters: 'Renters' };
 
 export function elPaso(iso) {
-  return new Date(iso).toLocaleString('es-MX', { timeZone: 'America/Denver', dateStyle: 'long', timeStyle: 'short' });
+  return new Date(iso).toLocaleString('en-US', { timeZone: 'America/Denver', dateStyle: 'long', timeStyle: 'short' });
 }
+
+
 
 // ------------------------------------------------------------- turnstile ---
 async function turnstile(env, token, ip, fetchImpl) {
@@ -186,31 +188,31 @@ async function turnstile(env, token, ip, fetchImpl) {
 // VINs and addresses stay in the store, behind a login.
 export function notice(rec, link, prefix, linkOnly = false) {
   const how = linkOnly
-    ? 'Este enlace abre los datos del cliente sin iniciar sesión: no reenvíes este correo.'
-    : 'Requiere iniciar sesión.';
+    ? 'This link opens the client’s details without a login — do not forward this email.'
+    : 'Sign-in required.';
   const name = rec.first_name + ' ' + rec.last_name;
-  const subject = (prefix || '') + 'Nueva solicitud de cotización ' + rec.id + ' — ' + LINE_ES[rec.line] + ' — ' + name;
+  const subject = (prefix || '') + 'New quote request ' + rec.id + ' — ' + LINE_EN[rec.line] + ' — ' + name;
   const rows = [
-    ['Número de solicitud', rec.id],
-    ['Recibida', elPaso(rec.created_at) + ' (hora de El Paso)'],
-    ['Cliente', name],
-    ['Seguro', LINE_ES[rec.line]],
-    ['Idioma del cliente', rec.lang === 'es' ? 'Español' : 'Inglés'],
-    ['Mensajes de texto sobre la cotización', rec.sms_consent ? 'Aceptó' : 'No aceptó'],
-    ['Promociones (correo y texto)', rec.marketing_consent ? 'Aceptó' : 'No aceptó'],
+    ['Request number', rec.id],
+    ['Received', elPaso(rec.created_at) + ' (El Paso time)'],
+    ['Client', name],
+    ['Insurance', LINE_EN[rec.line]],
+    ['Client’s language', rec.lang === 'es' ? 'Spanish' : 'English'],
+    ['Quote-related text messages', rec.sms_consent ? 'Agreed' : 'Declined'],
+    ['Promotions (email and text)', rec.marketing_consent ? 'Agreed' : 'Declined'],
   ];
-  const text = (prefix ? 'ESTA ES UNA PRUEBA DESDE STAGING — no es un cliente real.\n\n' : '')
+  const text = (prefix ? 'THIS IS A STAGING TEST — not a real client.\n\n' : '')
     + rows.map((r) => r[0] + ': ' + r[1]).join('\n')
-    + '\n\nVer la solicitud completa (' + how.replace(/\.$/, '').replace(/^./, (c) => c.toLowerCase()) + '):\n' + link
-    + '\n\nPor seguridad, este correo no incluye teléfono, fecha de nacimiento, licencias, VIN ni dirección.\n';
+    + '\n\nView the full request (' + how.replace(/\.$/, '').replace(/^./, (c) => c.toLowerCase()) + '):\n' + link
+    + '\n\nFor security, this email does not include phone, date of birth, licenses, VIN or address.\n';
   const html = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#0E1726;max-width:560px">'
-    + (prefix ? '<p style="background:#FFF4E0;color:#A15C00;padding:10px 12px;border-radius:8px"><b>PRUEBA desde Staging</b> — no es un cliente real.</p>' : '')
-    + '<h2 style="font-size:19px;margin:0 0 12px">Nueva solicitud de cotización</h2>'
+    + (prefix ? '<p style="background:#FFF4E0;color:#A15C00;padding:10px 12px;border-radius:8px"><b>STAGING TEST</b> — not a real client.</p>' : '')
+    + '<h2 style="font-size:19px;margin:0 0 12px">New quote request</h2>'
     + '<table cellpadding="6" style="border-collapse:collapse">'
     + rows.map((r) => '<tr><td style="color:#5C6A80">' + esc(r[0]) + '</td><td><b>' + esc(r[1]) + '</b></td></tr>').join('')
     + '</table>'
-    + '<p style="margin:20px 0"><a href="' + esc(link) + '" style="background:#1666ED;color:#fff;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:bold">Ver la solicitud completa</a></p>'
-    + '<p style="color:#5C6A80;font-size:13px">' + esc(how) + ' Por seguridad, este correo no incluye teléfono, fecha de nacimiento, licencias, VIN ni dirección.</p></div>';
+    + '<p style="margin:20px 0"><a href="' + esc(link) + '" style="background:#1666ED;color:#fff;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:bold">View the full request</a></p>'
+    + '<p style="color:#5C6A80;font-size:13px">' + esc(how) + ' For security, this email does not include phone, date of birth, licenses, VIN or address.</p></div>';
   return { subject, text, html };
 }
 
@@ -261,7 +263,10 @@ async function confirm(env, rec, test, fetchImpl) {
   // Turnstile, which keeps scripts from filling it in.
   if (!env.TURNSTILE_SECRET && env.ALLOW_TEST_HEADER !== '1') return 'needs-turnstile';
   try {
-    const msg = customerEmail(rec, { assetBase: env.ASSET_BASE || 'https://safehouseins.com', prefix: env.MAIL_SUBJECT_PREFIX || '' });
+    // English for everyone, as the agency asked; CUSTOMER_EMAIL_LANG=auto sends
+    // each customer the language they filled the form in.
+    const lang = env.CUSTOMER_EMAIL_LANG === 'auto' ? rec.lang : 'en';
+    const msg = customerEmail({ ...rec, lang }, { assetBase: env.ASSET_BASE || 'https://safehouseins.com', prefix: env.MAIL_SUBJECT_PREFIX || '' });
     await sendMail(env, msg, rec.idem_key + ':customer', fetchImpl, {
       to: rec.email, from: env.CUSTOMER_FROM || env.MAIL_FROM, replyTo: env.MAIL_TO || 'contact@safehouseins.com',
     });

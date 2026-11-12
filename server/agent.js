@@ -32,7 +32,7 @@ const deny = (status, msg) => { throw new Denied(status, msg); };
 async function keys(team, fetchImpl, force) {
   if (!force && TEAM_CACHE.team === team && Date.now() - TEAM_CACHE.at < 3600e3) return TEAM_CACHE.keys;
   const r = await fetchImpl(team + '/cdn-cgi/access/certs');
-  if (!r.ok) deny(503, 'No se pudieron leer las llaves de inicio de sesión.');
+  if (!r.ok) deny(503, 'Could not read the sign-in keys.');
   const d = await r.json();
   Object.assign(TEAM_CACHE, { team, at: Date.now(), keys: d.keys || [] });
   return TEAM_CACHE.keys;
@@ -43,28 +43,28 @@ export async function verifyAccess(request, env, fetchImpl = fetch) {
   if (team && !/^https:\/\//.test(team)) team = 'https://' + team;
   const auds = String(env.ACCESS_AUD || '').split(',').map((s) => s.trim()).filter(Boolean);
   const allowed = String(env.AGENT_EMAILS || '').toLowerCase().split(',').map((s) => s.trim()).filter(Boolean);
-  if (!team || !auds.length || !allowed.length) deny(503, 'Esta página todavía no está configurada.');
+  if (!team || !auds.length || !allowed.length) deny(503, 'This page is not set up yet.');
   const token = request.headers.get('Cf-Access-Jwt-Assertion');
-  if (!token) deny(401, 'Inicia sesión para ver las solicitudes.');
+  if (!token) deny(401, 'Sign in to see quote requests.');
   const parts = token.split('.');
-  if (parts.length !== 3) deny(401, 'Sesión no válida.');
+  if (parts.length !== 3) deny(401, 'Invalid session.');
   let header, claims;
-  try { header = b64urlJson(parts[0]); claims = b64urlJson(parts[1]); } catch (e) { deny(401, 'Sesión no válida.'); }
-  if (header.alg !== 'RS256') deny(401, 'Sesión no válida.');
+  try { header = b64urlJson(parts[0]); claims = b64urlJson(parts[1]); } catch (e) { deny(401, 'Invalid session.'); }
+  if (header.alg !== 'RS256') deny(401, 'Invalid session.');
   let ks = await keys(team, fetchImpl, false), jwk = ks.find((k) => k.kid === header.kid);
   if (!jwk) { ks = await keys(team, fetchImpl, true); jwk = ks.find((k) => k.kid === header.kid); }
-  if (!jwk) deny(401, 'Sesión no válida.');
+  if (!jwk) deny(401, 'Invalid session.');
   const key = await crypto.subtle.importKey('jwk', jwk, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']);
   const ok = await crypto.subtle.verify('RSASSA-PKCS1-v1_5', key, b64urlBytes(parts[2]), new TextEncoder().encode(parts[0] + '.' + parts[1]));
-  if (!ok) deny(401, 'Sesión no válida.');
+  if (!ok) deny(401, 'Invalid session.');
   const now = Math.floor(Date.now() / 1000);
   const aud = Array.isArray(claims.aud) ? claims.aud : [claims.aud];
-  if (!aud.some((a) => auds.includes(a))) deny(401, 'Sesión no válida.');
-  if (typeof claims.exp !== 'number' || claims.exp < now) deny(401, 'Tu sesión venció.');
-  if (claims.iss && claims.iss !== team) deny(401, 'Sesión no válida.');
+  if (!aud.some((a) => auds.includes(a))) deny(401, 'Invalid session.');
+  if (typeof claims.exp !== 'number' || claims.exp < now) deny(401, 'Your session expired.');
+  if (claims.iss && claims.iss !== team) deny(401, 'Invalid session.');
   const email = String(claims.email || '').toLowerCase();
   // An entry starting with @ allows the whole domain (@safehouseins.com).
-  if (!allowed.some((a) => (a[0] === '@' ? email.endsWith(a) : email === a))) deny(403, 'Este correo no tiene acceso.');
+  if (!allowed.some((a) => (a[0] === '@' ? email.endsWith(a) : email === a))) deny(403, 'This email does not have access.');
   return email;
 }
 
@@ -79,26 +79,26 @@ function sameKey(a, b) {
 
 // ------------------------------------------------------------------- page ---
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const LINE = { car: 'Auto', home: 'Casa', moto: 'Motocicleta', commercial: 'Vehículo comercial', renters: 'Inquilinos' };
-const when = (iso) => (iso ? new Date(iso).toLocaleString('es-MX', { timeZone: 'America/Denver', dateStyle: 'medium', timeStyle: 'short' }) : '—');
+const LINE = { car: 'Auto', home: 'Home', moto: 'Motorcycle', commercial: 'Commercial vehicle', renters: 'Renters' };
+const when = (iso) => (iso ? new Date(iso).toLocaleString('en-US', { timeZone: 'America/Denver', dateStyle: 'medium', timeStyle: 'short' }) : '—');
 
 // Labels for the keys agents read most; anything else is shown under its own
 // name, so a new question on the form is never silently left out of the page.
 const LABEL = {
-  firstName: 'Nombre', lastName: 'Apellido', phone: 'Teléfono', email: 'Correo', street: 'Calle', city: 'Ciudad',
-  state: 'Estado', zip: 'Código postal', residenceType: 'Vivienda', hasPriorInsurance: 'Tiene seguro actualmente',
+  firstName: 'First name', lastName: 'Last name', phone: 'Phone', email: 'Email', street: 'Street', city: 'City',
+  state: 'State', zip: 'ZIP', residenceType: 'Residence', hasPriorInsurance: 'Currently insured',
   priorMonths: 'Meses con seguro', priorCarrier: 'Aseguradora actual', priorExpiration: 'Vence',
   biLimit: 'Responsabilidad civil', dob: 'Fecha de nacimiento', gender: 'Sexo', maritalStatus: 'Estado civil',
-  relationship: 'Parentesco', licenseNumber: 'Número de licencia', licenseType: 'Tipo de licencia',
-  licenseState: 'Estado de la licencia', licenseCountry: 'País de la licencia', employment: 'Empleo', occupation: 'Ocupación',
-  usage: 'Uso', vin: 'VIN', year: 'Año', make: 'Marca', model: 'Modelo', annualMiles: 'Millas al año',
-  comprehensive: 'Comprensiva', collision: 'Colisión', rental: 'Auto de renta', roadside: 'Asistencia en el camino',
-  notes: 'Notas del cliente', preferredLanguage: 'Idioma', submittedAt: 'Enviado (reloj del cliente)', source: 'Origen',
+  relationship: 'Relationship', licenseNumber: 'License number', licenseType: 'License type',
+  licenseState: 'License state', licenseCountry: 'License country', employment: 'Employment', occupation: 'Occupation',
+  usage: 'Use', vin: 'VIN', year: 'Year', make: 'Make', model: 'Model', annualMiles: 'Annual miles',
+  comprehensive: 'Comprehensive', collision: 'Collision', rental: 'Rental', roadside: 'Roadside',
+  notes: 'Client notes', preferredLanguage: 'Language', submittedAt: 'Submitted (client clock)', source: 'Source',
 };
 const human = (k) => LABEL[k] || k.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, (c) => c.toUpperCase());
 
 function value(v) {
-  if (v === true) return 'Sí';
+  if (v === true) return 'Yes';
   if (v === false) return 'No';
   if (v == null || v === '') return '—';
   return esc(v);
@@ -139,9 +139,9 @@ ul{padding:0;list-style:none;margin:0}li{border-top:1px solid #EEF2F8;padding:10
 .meta{color:#5C6A80;font-size:13px}@media(max-width:520px){th{width:45%}}`;
 
 function page(title, body, list = true) {
-  return new Response('<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+  return new Response('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
     + '<meta name="robots" content="noindex,nofollow"><title>' + esc(title) + '</title><style>' + CSS + '</style></head><body>'
-    + '<header><b>Safe House · Solicitudes de cotización</b> ' + (list ? '&nbsp; <a href="/agent/requests">Ver todas</a>' : '') + '</header><main>' + body + '</main></body></html>', {
+    + '<header><b>Safe House · Quote requests</b> ' + (list ? '&nbsp; <a href="/agent/requests">See all</a>' : '') + '</header><main>' + body + '</main></body></html>', {
     headers: {
       'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollow',
       'X-Frame-Options': 'DENY', 'Referrer-Policy': 'no-referrer',
@@ -150,63 +150,63 @@ function page(title, body, list = true) {
   });
 }
 
-const badge = (yes) => '<span class="b ' + (yes ? 'ok' : 'no') + '">' + (yes ? 'Aceptó' : 'No aceptó') + '</span>';
+const badge = (yes) => '<span class="b ' + (yes ? 'ok' : 'no') + '">' + (yes ? 'Agreed' : 'Declined') + '</span>';
 
 function one(r) {
   let f = {};
   try { f = JSON.parse(r.form_json); } catch (e) { f = {}; }
-  const contact = { Nombre: r.first_name + ' ' + r.last_name, Teléfono: r.phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'), Correo: r.email,
-    Idioma: r.lang === 'es' ? 'Español' : 'Inglés' };
+  const contact = { Name: r.first_name + ' ' + r.last_name, Phone: r.phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'), Email: r.email,
+    Language: r.lang === 'es' ? 'Spanish' : 'English' };
   const address = ['street', 'city', 'state', 'zip', 'residenceType'].reduce((o, k) => (f[k] ? Object.assign(o, { [k]: f[k] }) : o), {});
   const coverage = Object.assign({}, f.biLimit ? { biLimit: f.biLimit } : {}, f.coverages || {});
   const other = ['hasPriorInsurance', 'priorMonths', 'priorCarrier', 'priorExpiration', 'prefillUsed', 'source', 'submittedAt']
     .reduce((o, k) => (f[k] !== undefined ? Object.assign(o, { [k]: f[k] }) : o), {});
-  let html = '<section><h1>' + esc(r.id) + ' · ' + esc(LINE[r.line] || r.line) + (r.is_test ? ' <span class="b">PRUEBA</span>' : '') + '</h1>'
-    + '<div class="meta">Recibida ' + esc(when(r.created_at)) + ' (hora de El Paso) · Aviso al correo: ' + esc(r.delivery) + '</div></section>';
-  html += '<section><h2>Cliente y contacto</h2><table>' + Object.entries(contact).map(([k, v]) => '<tr><th>' + esc(k) + '</th><td>' + esc(v) + '</td></tr>').join('')
-    + '</table>' + (Object.keys(address).length ? '<h3>Dirección</h3>' + table(address) : '') + '</section>';
-  if (Array.isArray(f.vehicles) && f.vehicles.length) html += '<section><h2>Vehículos</h2>' + tree({ vehicles: f.vehicles }).replace(/^<h3>[^<]*<\/h3>/, '') + '</section>';
-  if (Array.isArray(f.drivers) && f.drivers.length) html += '<section><h2>Conductores</h2>' + tree({ drivers: f.drivers }).replace(/^<h3>[^<]*<\/h3>/, '') + '</section>';
-  if (Object.keys(coverage).length) html += '<section><h2>Cobertura</h2>' + tree(coverage) + '</section>';
-  if (f.property) html += '<section><h2>Propiedad</h2>' + tree(f.property) + '</section>';
-  if (f.motorcycle) html += '<section><h2>Motocicleta</h2>' + tree(f.motorcycle, ['disclosure']) + '</section>';
-  html += '<section><h2>Información adicional</h2>' + (f.notes ? '<p class="q">' + esc(f.notes) + '</p>' : '') + (table(other) || '<p class="meta">Nada más.</p>') + '</section>';
+  let html = '<section><h1>' + esc(r.id) + ' · ' + esc(LINE[r.line] || r.line) + (r.is_test ? ' <span class="b">TEST</span>' : '') + '</h1>'
+    + '<div class="meta">Received ' + esc(when(r.created_at)) + ' (El Paso time) · Agency email: ' + esc(r.delivery) + ' · Client email: ' + esc(r.customer_delivery || 'off') + '</div></section>';
+  html += '<section><h2>Client and contact</h2><table>' + Object.entries(contact).map(([k, v]) => '<tr><th>' + esc(k) + '</th><td>' + esc(v) + '</td></tr>').join('')
+    + '</table>' + (Object.keys(address).length ? '<h3>Address</h3>' + table(address) : '') + '</section>';
+  if (Array.isArray(f.vehicles) && f.vehicles.length) html += '<section><h2>Vehicles</h2>' + tree({ vehicles: f.vehicles }).replace(/^<h3>[^<]*<\/h3>/, '') + '</section>';
+  if (Array.isArray(f.drivers) && f.drivers.length) html += '<section><h2>Drivers</h2>' + tree({ drivers: f.drivers }).replace(/^<h3>[^<]*<\/h3>/, '') + '</section>';
+  if (Object.keys(coverage).length) html += '<section><h2>Coverage</h2>' + tree(coverage) + '</section>';
+  if (f.property) html += '<section><h2>Property</h2>' + tree(f.property) + '</section>';
+  if (f.motorcycle) html += '<section><h2>Motorcycle</h2>' + tree(f.motorcycle, ['disclosure']) + '</section>';
+  html += '<section><h2>Additional information</h2>' + (f.notes ? '<p class="q">' + esc(f.notes) + '</p>' : '') + (table(other) || '<p class="meta">Nothing else.</p>') + '</section>';
   const disc = f.disclosure || {};
-  html += '<section><h2>Consentimientos</h2>'
-    + '<h3>Aviso de contacto para esta solicitud (mostrado junto al botón de envío)</h3><div class="meta">Versión ' + esc(r.notice_version) + ' · ' + esc(when(r.notice_at)) + '</div><p class="q">' + esc(r.notice_text) + '</p>'
-    + '<h3>Mensajes de texto sobre la cotización ' + badge(r.sms_consent) + '</h3>' + (r.sms_consent ? '<div class="meta">' + esc(when(r.sms_at)) + '</div><p class="q">' + esc(r.sms_text) + '</p>' : '')
-    + '<h3>Promociones por correo y texto ' + badge(r.marketing_consent) + '</h3><div class="meta">Versión ' + esc(r.marketing_version) + (r.marketing_consent ? ' · ' + esc(when(r.marketing_at)) : '') + '</div><p class="q">' + esc(r.marketing_text) + '</p>'
-    + (disc.text ? '<h3>Autorización para cotizar ' + badge(disc.accepted) + '</h3><div class="meta">Versión ' + esc(disc.version) + '</div><p class="q">' + esc(disc.text) + '</p>' : '')
+  html += '<section><h2>Consents</h2>'
+    + '<h3>Contact notice for this request (shown next to the submit button)</h3><div class="meta">Version ' + esc(r.notice_version) + ' · ' + esc(when(r.notice_at)) + '</div><p class="q">' + esc(r.notice_text) + '</p>'
+    + '<h3>Quote-related text messages ' + badge(r.sms_consent) + '</h3>' + (r.sms_consent ? '<div class="meta">' + esc(when(r.sms_at)) + '</div><p class="q">' + esc(r.sms_text) + '</p>' : '')
+    + '<h3>Promotions by email and text ' + badge(r.marketing_consent) + '</h3><div class="meta">Version ' + esc(r.marketing_version) + (r.marketing_consent ? ' · ' + esc(when(r.marketing_at)) : '') + '</div><p class="q">' + esc(r.marketing_text) + '</p>'
+    + (disc.text ? '<h3>Authorization to quote ' + badge(disc.accepted) + '</h3><div class="meta">Version ' + esc(disc.version) + '</div><p class="q">' + esc(disc.text) + '</p>' : '')
     + '</section>';
   return html;
 }
 
 export async function agent(request, env, fetchImpl = fetch) {
   try {
-    if (request.method !== 'GET') deny(405, 'No permitido.');
+    if (request.method !== 'GET') deny(405, 'Not allowed.');
     const linkOnly = env.AGENT_LINK_ONLY === '1';
     if (!linkOnly) await verifyAccess(request, env, fetchImpl);
-    if (!env.DB) deny(503, 'Esta página todavía no está configurada.');
+    if (!env.DB) deny(503, 'This page is not set up yet.');
     await ensureSchema(env.DB);
     const url = new URL(request.url);
     const path = url.pathname.replace(/\/+$/, '');
     let m;
     if (path === '/agent/requests' || path === '/agent') {
-      if (linkOnly) deny(403, 'La lista de solicitudes se activa con el inicio de sesión. Abre cada solicitud desde el enlace de su correo.');
+      if (linkOnly) deny(403, 'The list of requests turns on with sign-in. Open each request from the link in its email.');
       const { results } = await env.DB.prepare('SELECT id, created_at, line, first_name, last_name, delivery, is_test FROM quote_requests ORDER BY created_at DESC LIMIT 100').all();
-      return page('Solicitudes', '<section><h2>Últimas solicitudes</h2>' + ((results || []).length ? '<ul>' + results.map((r) => '<li><a href="/agent/requests/' + esc(r.id) + '"><b>' + esc(r.id) + '</b></a> · '
-        + esc(r.first_name + ' ' + r.last_name) + ' · ' + esc(LINE[r.line] || r.line) + (r.is_test ? ' <span class="b">PRUEBA</span>' : '') + '<div class="meta">' + esc(when(r.created_at)) + ' · aviso: ' + esc(r.delivery) + '</div></li>').join('') + '</ul>' : '<p class="meta">Todavía no hay solicitudes.</p>') + '</section>');
+      return page('Quote requests', '<section><h2>Latest requests</h2>' + ((results || []).length ? '<ul>' + results.map((r) => '<li><a href="/agent/requests/' + esc(r.id) + '"><b>' + esc(r.id) + '</b></a> · '
+        + esc(r.first_name + ' ' + r.last_name) + ' · ' + esc(LINE[r.line] || r.line) + (r.is_test ? ' <span class="b">TEST</span>' : '') + '<div class="meta">' + esc(when(r.created_at)) + ' · agency email: ' + esc(r.delivery) + '</div></li>').join('') + '</ul>' : '<p class="meta">No requests yet.</p>') + '</section>');
     }
     if ((m = path.match(/^\/agent\/requests\/(SH-\d{6}-[A-Z0-9]{6})$/))) {
       const r = await env.DB.prepare('SELECT * FROM quote_requests WHERE id = ?').bind(m[1]).first();
-      if (!r) deny(404, 'No existe esa solicitud.');
-      if (linkOnly && !sameKey(url.searchParams.get('k') || '', r.view_key || '')) deny(404, 'No existe esa solicitud.');
+      if (!r) deny(404, 'No such request.');
+      if (linkOnly && !sameKey(url.searchParams.get('k') || '', r.view_key || '')) deny(404, 'No such request.');
       return page(r.id, one(r), !linkOnly);
     }
-    deny(404, 'No existe esa página.');
+    deny(404, 'No such page.');
   } catch (e) {
     const status = e instanceof Denied ? e.status : 500;
-    const resp = page('Solicitudes', '<section><h1>' + esc(e instanceof Denied ? e.message : 'Algo salió mal.') + '</h1></section>', env.AGENT_LINK_ONLY !== '1');
+    const resp = page('Quote requests', '<section><h1>' + esc(e instanceof Denied ? e.message : 'Something went wrong.') + '</h1></section>', env.AGENT_LINK_ONLY !== '1');
     return new Response(resp.body, { status, headers: resp.headers });
   }
 }

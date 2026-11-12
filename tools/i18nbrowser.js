@@ -111,7 +111,7 @@ function check(ok, what) {
   API.submit = submit;
   API.mail = fakeMailer();
   API.env = { DB: fakeD1(), MAIL_FROM: 'Safe House <solicitudes@example.test>', CF_EMAIL_TOKEN: 't', CF_ACCOUNT_ID: 'a',
-    MAIL_SUBJECT_PREFIX: '[PRUEBA] ', CUSTOMER_CONFIRMATION: '1', ALLOW_TEST_HEADER: '1' };
+    MAIL_SUBJECT_PREFIX: '[TEST] ', CUSTOMER_CONFIRMATION: '1', ALLOW_TEST_HEADER: '1' };
   // Emails to the agency, and to everybody else (the customer's confirmation).
   const toAgency = () => API.mail.sent.filter((m) => m.body.to === 'contact@safehouseins.com');
   const toCustomer = () => API.mail.sent.filter((m) => m.body.to !== 'contact@safehouseins.com');
@@ -318,8 +318,8 @@ function check(ok, what) {
     check(cm.length === 1 && cm[0].body.to === 'maria@example.com' && cm[0].body.reply_to === 'contact@safehouseins.com',
           tag + 'one confirmation to the customer, replies going to the agency');
     if (cm[0]) {
-      check(cm[0].body.subject.includes(lang === 'en' ? 'We received your quote request' : 'Recibimos su solicitud de cotización') && cm[0].body.html.includes(id),
-            tag + 'the confirmation is in the visitor\'s language and carries the request number');
+      check(cm[0].body.subject.includes('We received your quote request') && cm[0].body.html.includes(id),
+            tag + 'the confirmation is in English and carries the request number');
       check(!/A1234567|1990|1HGCM|Paseo|5551234/.test(cm[0].body.html + cm[0].body.text), tag + 'the confirmation carries none of the answers');
     }
     const dm = await p.isVisible('#doneMail') ? (await p.textContent('#doneMail')).trim() : '';

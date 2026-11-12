@@ -73,7 +73,7 @@ test('a good request is saved, then the agency is told, then the visitor', async
   const m = f.sent[0];
   assert.match(m.url, /\/accounts\/acc\/email\/sending\/send$/);
   assert.equal(m.body.to, 'contact@safehouseins.com');
-  assert.match(m.body.subject, /^\[PRUEBA\] Nueva solicitud de cotización SH-/);
+  assert.match(m.body.subject, /^\[PRUEBA\] New quote request SH-/);
   assert.ok(m.body.text.includes(ORIGIN + '/agent/requests/' + r.body.id));
   for (const secret of ['A1234567', '1990', '1HGCM82633A004352', 'Paseo Rojo', '555', 'maria@example.com', 'SR-22']) {
     assert.ok(!m.body.text.includes(secret) && !m.body.html.includes(secret), 'notice must not carry ' + secret);
@@ -185,7 +185,7 @@ test('helpers', () => {
   const v = check(body());
   assert.equal(v.phone, '9155551234');
   const m = notice({ id: 'SH-261112-ABCDEF', created_at: '2026-11-12T18:00:00Z', line: 'home', lang: 'en', first_name: 'A', last_name: 'B', sms_consent: 0, marketing_consent: 1, idem_key: 'x' }, 'https://x/agent', '');
-  assert.match(m.subject, /^Nueva solicitud de cotización SH-261112-ABCDEF — Casa — A B$/);
+  assert.match(m.subject, /^New quote request SH-261112-ABCDEF — Home — A B$/);
   assert.ok(!/PRUEBA/.test(m.text));
 });
 
@@ -207,7 +207,7 @@ test('with a valid Access login the agent sees the whole request', async () => {
   const one = await get('/agent/requests/' + r.body.id, {});
   assert.equal(one.status, 200);
   const html = await one.text();
-  for (const s of ['A1234567', '1HGCM82633A004352', '915-555-1234', 'maria@example.com', 'Acepto recibir mensajes', 'Acepto recibir promociones', 'No aceptó', 'Paseo Rojo', 'SR-22']) {
+  for (const s of ['A1234567', '1HGCM82633A004352', '915-555-1234', 'maria@example.com', 'Acepto recibir mensajes', 'Acepto recibir promociones', 'Declined', 'Paseo Rojo', 'SR-22']) {
     assert.ok(html.includes(s), 'agent page shows ' + s);
   }
   assert.equal(one.headers.get('X-Robots-Tag'), 'noindex, nofollow');
@@ -229,7 +229,7 @@ test('the customer gets a confirmation in their language, when switched on', asy
 
   // On, Staging-style (no Turnstile, test header allowed).
   f = mailer();
-  const e = env({ MAIL_PROVIDER: 'resend', RESEND_API_KEY: 're', CUSTOMER_CONFIRMATION: '1', ALLOW_TEST_HEADER: '1',
+  const e = env({ MAIL_PROVIDER: 'resend', RESEND_API_KEY: 're', CUSTOMER_CONFIRMATION: '1', ALLOW_TEST_HEADER: '1', CUSTOMER_EMAIL_LANG: 'auto',
     CUSTOMER_FROM: 'Safe House Insurance <quotes@safehouseins.com>' });
   r = await post(e, body({ lang: 'es' }), f);
   assert.equal(r.status, 200);
@@ -333,4 +333,18 @@ test('without link-only mode the link has no key and Access is required', async 
   const key = e.DB.raw.prepare('SELECT view_key FROM quote_requests').get().view_key;
   const res = await agent(new Request(ORIGIN + '/agent/requests/' + r.body.id + '?k=' + key), e, async () => new Response('{"keys":[]}'));
   assert.equal(res.status, 503, 'a key alone opens nothing once link-only is off');
+});
+
+test('everything the agency and the customer read is in English by default', async () => {
+  const f = mailer();
+  const e = env({ MAIL_PROVIDER: 'resend', RESEND_API_KEY: 're', CUSTOMER_CONFIRMATION: '1', ALLOW_TEST_HEADER: '1', MAIL_SUBJECT_PREFIX: '[TEST] ' });
+  const r = await post(e, body({ lang: 'es' }), f);
+  const [agency, cust] = f.sent;
+  assert.match(agency.body.subject, /^\[TEST\] New quote request SH-.* — Auto — María López$/);
+  assert.ok(agency.body.text.includes("Client’s language: Spanish"));
+  assert.ok(agency.body.html.includes('View the full request'));
+  assert.match(cust.body.subject, /^\[TEST\] We received your quote request — SH-/);
+  assert.ok(cust.body.html.includes('Your Quote Request Has Been Received!'));
+  assert.ok(!/Nueva|Recibimos|Hemos recibido/.test(agency.body.html + cust.body.html));
+  assert.equal(e.DB.raw.prepare('SELECT lang FROM quote_requests').get().lang, 'es', 'the record still says which language the client used');
 });

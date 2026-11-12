@@ -25,7 +25,7 @@ again resends the same request (same number, one email).
 
 ## What the email says — and what it never says
 
-Subject: `Nueva solicitud de cotización SH-261112-7KQ4MZ — Auto — María López`
+Subject: `New quote request SH-261112-7KQ4MZ — Auto — María López`
 
 Body: request number, time received (El Paso), name, line, language, SMS and
 promotions consent (yes/no), and a button to the full request.
@@ -99,8 +99,8 @@ screen ever come back.
 
 ## The customer's confirmation
 
-With `CUSTOMER_CONFIRMATION=1` the customer also gets an email in the language
-they used (`server/customer-email.js`, built on the agency's design in
+With `CUSTOMER_CONFIRMATION=1` the customer also gets an email — in English,
+as the agency chose (`CUSTOMER_EMAIL_LANG=auto` sends the language they used instead) (`server/customer-email.js`, built on the agency's design in
 `email/quote-pending.html`): their first name, the request number, the line,
 what happens next, the call and text buttons. None of their answers. Replies go
 to contact@safehouseins.com.
@@ -133,7 +133,7 @@ Variables and Secrets, and Settings → Bindings, with the environment selector.
 | `MAIL_FROM` | text | `Safe House Insurance <quotes@safehouseins.com>` | same |
 | `MAIL_TO` | text | (blank = contact@safehouseins.com) | (blank) |
 | `CUSTOMER_CONFIRMATION` | text | `1` | `1` |
-| `MAIL_SUBJECT_PREFIX` | text | (blank) | `[PRUEBA] ` |
+| `MAIL_SUBJECT_PREFIX` | text | (blank) | `[TEST] ` |
 | `TURNSTILE_SITEKEY` | text | site key | site key |
 | `TURNSTILE_SECRET` | **secret** | secret key (required for customer emails) | optional |
 | `HASH_SALT` | **secret** | any long random text | any long random text |
@@ -181,4 +181,4 @@ Both run the real server code against an in-memory database and a mail stub;
 nothing leaves the machine. On a Staging preview, a request sent with header
 `X-Quote-Test: 1` (allowed only where `ALLOW_TEST_HEADER=1`) is stored as a test
 and sends no email; a person pressing Submit there sends a real notice marked
-`[PRUEBA]`.
+`[TEST]`.
