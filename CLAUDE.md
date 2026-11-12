@@ -184,7 +184,10 @@ to the site's own `/api/quote-request` (Pages Function →
 `server/quote-request.js`), which saves the request in D1 with the exact
 consent wording shown, then emails contact@safehouseins.com a notice holding
 only the request number, name and a link to `/agent/requests/<id>` behind
-Cloudflare Access (`server/agent.js`). The visitor sees the confirmation only
+Cloudflare Access (`server/agent.js`). With `CUSTOMER_CONFIRMATION=1` the customer also gets a
+confirmation in their language (`server/customer-email.js`) — never their
+answers. Mail goes through Resend, on the account the AMS also uses, with the
+site's own API key. The visitor sees the confirmation only
 when both happened. Nothing goes to the AMS or a rater and no price is shown;
 the rater path is kept in `quote.html`, off (`SAFEHOUSE_RATER`). Never put a
 licence number, date of birth, VIN or address in that email. A Staging version

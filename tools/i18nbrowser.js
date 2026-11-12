@@ -111,7 +111,10 @@ function check(ok, what) {
   API.submit = submit;
   API.mail = fakeMailer();
   API.env = { DB: fakeD1(), MAIL_FROM: 'Safe House <solicitudes@example.test>', CF_EMAIL_TOKEN: 't', CF_ACCOUNT_ID: 'a',
-    MAIL_SUBJECT_PREFIX: '[PRUEBA] ' };
+    MAIL_SUBJECT_PREFIX: '[PRUEBA] ', CUSTOMER_CONFIRMATION: '1', ALLOW_TEST_HEADER: '1' };
+  // Emails to the agency, and to everybody else (the customer's confirmation).
+  const toAgency = () => API.mail.sent.filter((m) => m.body.to === 'contact@safehouseins.com');
+  const toCustomer = () => API.mail.sent.filter((m) => m.body.to !== 'contact@safehouseins.com');
   await ensureSchema(API.env.DB);
   const rows = () => API.env.DB.raw.prepare('SELECT * FROM quote_requests ORDER BY created_at').all();
   const srv = await serve();
@@ -287,7 +290,7 @@ function check(ok, what) {
     const log = [];
     const ctx = await b.newContext({ extraHTTPHeaders: { 'CF-Connecting-IP': nextIp() }, viewport: { width, height: width > 500 ? 900 : 844 } });
     const p = await page(ctx, log); watch(p);
-    const before = rows().length, mails = API.mail.sent.length;
+    const before = rows().length, mails = toAgency().length, custs = toCustomer().length;
     await p.goto(BASE + (lang === 'es' ? '/es' : '') + '/quote.html');
     await carFlow(p, { sms: true, mkt: width > 500 });
     const tag = lang + ' ' + width + 'px: ';
@@ -310,7 +313,17 @@ function check(ok, what) {
     check(!overflow, tag + 'no sideways scroll');
     const added = rows().slice(before);
     check(added.length === 1 && added[0].id === id, tag + 'exactly one request saved');
-    check(API.mail.sent.length === mails + 1, tag + 'exactly one notice to the agency');
+    check(toAgency().length === mails + 1, tag + 'exactly one notice to the agency');
+    const cm = toCustomer().slice(custs);
+    check(cm.length === 1 && cm[0].body.to === 'maria@example.com' && cm[0].body.reply_to === 'contact@safehouseins.com',
+          tag + 'one confirmation to the customer, replies going to the agency');
+    if (cm[0]) {
+      check(cm[0].body.subject.includes(lang === 'en' ? 'We received your quote request' : 'Recibimos su solicitud de cotización') && cm[0].body.html.includes(id),
+            tag + 'the confirmation is in the visitor\'s language and carries the request number');
+      check(!/A1234567|1990|1HGCM|Paseo|5551234/.test(cm[0].body.html + cm[0].body.text), tag + 'the confirmation carries none of the answers');
+    }
+    const dm = await p.isVisible('#doneMail') ? (await p.textContent('#doneMail')).trim() : '';
+    check(dm.includes('maria@example.com'), tag + 'the confirmation screen says the email was sent (' + dm + ')');
     if (added[0]) {
       const r = added[0];
       check(r.lang === lang && r.line === 'car', tag + 'saved with its language and line');
@@ -320,7 +333,7 @@ function check(ok, what) {
       check(r.notice_text === notice.replace(/\s+/g, ' ').trim() && r.notice_version === '2026-11-12', tag + 'the notice is recorded exactly as shown, with its version');
       if (width < 500) forms[lang] = JSON.parse(r.form_json);
     }
-    const m = API.mail.sent[API.mail.sent.length - 1];
+    const m = toAgency()[toAgency().length - 1];
     if (m) {
       const all = m.body.subject + m.body.text + m.body.html;
       check(all.includes(id) && all.includes('/agent/requests/' + id), tag + 'the notice names the request and links to it');
@@ -360,17 +373,19 @@ function check(ok, what) {
     await carFlow(p, { sms: false });
     const before = rows().length;
     API.mail.fail = true;
+    const custs0 = toCustomer().length;
     await p.click('.step.on button[type=submit]'); await p.waitForTimeout(1200);
     check(await stepNow(p) === 'contact', 'es: a failed notice does not show the confirmation');
     const err = (await p.textContent('#e-contact')).trim();
     check(await p.isVisible('#e-contact') && /915-503-1207/.test(err), 'es: it says so, with the phone number (' + err.slice(0, 50) + '…)');
     check(await p.inputValue('#cfn') === 'María', 'es: the answers are still there');
     API.mail.fail = false;
-    const mails = API.mail.sent.length;
+    check(toCustomer().length === custs0, 'es: no confirmation goes to the customer while the agency was not told');
+    const mails = toAgency().length;
     await p.click('.step.on button[type=submit]');
     await p.waitForFunction(() => document.querySelector('.step.on').dataset.step === 'done', null, { timeout: 8000 }).catch(() => {});
     check(await stepNow(p) === 'done', 'es: pressing again once it works reaches the confirmation');
-    check(rows().length === before + 1 && API.mail.sent.length === mails + 1, 'es: still one request and one notice, not two');
+    check(rows().length === before + 1 && toAgency().length === mails + 1 && toCustomer().length === custs0 + 1, 'es: still one request, one notice and one confirmation');
     check(rows()[rows().length - 1].sms_consent === 0 && rows()[rows().length - 1].sms_text === null, 'es: an unticked SMS box is recorded as declined');
     check(log.length === 0, 'es: no errors on the retry path' + (log.length ? ': ' + log.join('; ') : ''));
     await ctx.close();
@@ -412,7 +427,7 @@ function check(ok, what) {
   // Six requests in an hour from one connection: the sixth is turned away
   // politely, with the phone number, and nothing is saved or sent for it.
   {
-    const ip = nextIp(), before = rows().length, mails = API.mail.sent.length;
+    const ip = nextIp(), before = rows().length, mails = toAgency().length;
     let last = '';
     for (let i = 0; i < 6; i++) {
       const ctx = await b.newContext({ extraHTTPHeaders: { 'CF-Connecting-IP': ip }, viewport: { width: 390, height: 844 } });
@@ -426,7 +441,7 @@ function check(ok, what) {
       await ctx.close();
     }
     check(/^contact .*915-503-1207/.test(last), 'the sixth request in an hour is refused with the phone number (' + last.slice(0, 60) + '…)');
-    check(rows().length === before + 5 && API.mail.sent.length === mails + 5, 'and nothing is saved or sent for it');
+    check(rows().length === before + 5 && toAgency().length === mails + 5, 'and nothing is saved or sent for it');
   }
 
   await b.close();

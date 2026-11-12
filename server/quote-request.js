@@ -14,6 +14,9 @@
 //   7. a short notice to contact@safehouseins.com: request number, name and a
 //      link to read the rest behind Cloudflare Access (server/agent.js). No
 //      licence number, date of birth, VIN or address ever goes by email.
+//   8. when CUSTOMER_CONFIRMATION=1, a confirmation to the customer in their
+//      language (server/customer-email.js). Best effort: the request is
+//      received once the agency knows, so a bounce here never hides that.
 //
 // Nothing here is a rater. When the AMS and Quotemation are ready, deliver()
 // is the one function that changes: today it sends the notice; then it posts
@@ -21,6 +24,8 @@
 // AMS. The form and the record do not change.
 //
 // Logs carry the request number and status only, never what the person typed.
+
+import { customerEmail } from './customer-email.js';
 
 export const LINES = ['car', 'home', 'moto', 'commercial', 'renters'];
 const MAX_BODY = 64 * 1024;
@@ -59,6 +64,8 @@ const SCHEMA = [
      delivery TEXT NOT NULL DEFAULT 'pending',
      delivered_at TEXT,
      attempts INTEGER NOT NULL DEFAULT 0,
+     customer_delivery TEXT NOT NULL DEFAULT 'off',
+     customer_delivered_at TEXT,
      is_test INTEGER NOT NULL DEFAULT 0
    )`,
   'CREATE INDEX IF NOT EXISTS quote_requests_ip ON quote_requests (ip_hash, created_at)',
@@ -196,9 +203,10 @@ export function notice(rec, link, prefix) {
   return { subject, text, html };
 }
 
-export async function sendMail(env, msg, idemKey, fetchImpl) {
-  const to = env.MAIL_TO || 'contact@safehouseins.com';
-  const from = env.MAIL_FROM;
+export async function sendMail(env, msg, idemKey, fetchImpl, opts = {}) {
+  const to = opts.to || env.MAIL_TO || 'contact@safehouseins.com';
+  const from = opts.from || env.MAIL_FROM;
+  const replyTo = opts.replyTo;
   if (!from) refuse(503, 'mail-config');
   const provider = env.MAIL_PROVIDER || (env.RESEND_API_KEY ? 'resend' : 'cloudflare');
   let r;
@@ -207,14 +215,14 @@ export async function sendMail(env, msg, idemKey, fetchImpl) {
     r = await fetchImpl('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: 'Bearer ' + env.RESEND_API_KEY, 'Content-Type': 'application/json', 'Idempotency-Key': idemKey },
-      body: JSON.stringify({ from, to: [to], subject: msg.subject, text: msg.text, html: msg.html }),
+      body: JSON.stringify({ from, to: [to], subject: msg.subject, text: msg.text, html: msg.html, ...(replyTo ? { reply_to: replyTo } : {}) }),
     });
   } else {
     if (!env.CF_EMAIL_TOKEN || !env.CF_ACCOUNT_ID) refuse(503, 'mail-config');
     r = await fetchImpl('https://api.cloudflare.com/client/v4/accounts/' + env.CF_ACCOUNT_ID + '/email/sending/send', {
       method: 'POST',
       headers: { Authorization: 'Bearer ' + env.CF_EMAIL_TOKEN, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from, to, subject: msg.subject, text: msg.text, html: msg.html }),
+      body: JSON.stringify({ from, to, subject: msg.subject, text: msg.text, html: msg.html, ...(replyTo ? { reply_to: replyTo } : {}) }),
     });
   }
   const d = await r.json().catch(() => ({}));
@@ -228,8 +236,28 @@ export async function sendMail(env, msg, idemKey, fetchImpl) {
 // same record. Throws on failure so the visitor is never told "received".
 async function deliver(env, rec, link, test, fetchImpl) {
   if (test) return 'test';
-  await sendMail(env, notice(rec, link, env.MAIL_SUBJECT_PREFIX || ''), rec.idem_key, fetchImpl);
+  await sendMail(env, notice(rec, link, env.MAIL_SUBJECT_PREFIX || ''), rec.idem_key + ':agency', fetchImpl);
   return 'sent';
+}
+
+// The customer's copy. Never throws: by now the agency has the request.
+// Replies go to the agency, not to an unattended sender address.
+async function confirm(env, rec, test, fetchImpl) {
+  if (env.CUSTOMER_CONFIRMATION !== '1') return 'off';
+  if (test) return 'test';
+  // A form that emails any address it is given is a way to send mail from
+  // safehouseins.com to strangers. Outside Staging it only does so behind
+  // Turnstile, which keeps scripts from filling it in.
+  if (!env.TURNSTILE_SECRET && env.ALLOW_TEST_HEADER !== '1') return 'needs-turnstile';
+  try {
+    const msg = customerEmail(rec, { assetBase: env.ASSET_BASE || 'https://safehouseins.com', prefix: env.MAIL_SUBJECT_PREFIX || '' });
+    await sendMail(env, msg, rec.idem_key + ':customer', fetchImpl, {
+      to: rec.email, from: env.CUSTOMER_FROM || env.MAIL_FROM, replyTo: env.MAIL_TO || 'contact@safehouseins.com',
+    });
+    return 'sent';
+  } catch (e) {
+    return 'failed';
+  }
 }
 
 // ----------------------------------------------------------------- handler ---
@@ -299,7 +327,9 @@ export async function submit(request, env, fetchImpl = fetch) {
         .bind(...cols.map((c) => rec[c])).run();
     }
     id = rec.id;
-    if (rec.delivery === 'sent' || rec.delivery === 'test') return json(200, { ok: true, id });
+    if (rec.delivery === 'sent' || rec.delivery === 'test') {
+      return json(200, { ok: true, id, confirmation: rec.customer_delivery === 'sent' });
+    }
 
     const link = url.origin + '/agent/requests/' + rec.id;
     let status;
@@ -310,8 +340,11 @@ export async function submit(request, env, fetchImpl = fetch) {
     }
     await db.prepare('UPDATE quote_requests SET delivery = ?, delivered_at = ?, attempts = attempts + 1 WHERE id = ?')
       .bind(status, new Date().toISOString(), rec.id).run();
-    console.log('[quote-request]', rec.id, status);
-    return json(200, { ok: true, id });
+    const cust = await confirm(env, rec, !!rec.is_test, fetchImpl);
+    await db.prepare('UPDATE quote_requests SET customer_delivery = ?, customer_delivered_at = ? WHERE id = ?')
+      .bind(cust, cust === 'sent' ? new Date().toISOString() : null, rec.id).run();
+    console.log('[quote-request]', rec.id, status, 'customer:' + cust);
+    return json(200, { ok: true, id, confirmation: cust === 'sent' });
   } catch (e) {
     if (e instanceof Refusal) {
       console.warn('[quote-request] refused', e.code, id || '');

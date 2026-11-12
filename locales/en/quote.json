@@ -1616,7 +1616,8 @@
       "err": "We couldn&rsquo;t send your request just now, so nothing was submitted. Please try again in a moment, or call us at 915-503-1207.",
       "errRate": "We have already received several requests from this connection in the last hour. Please call us at 915-503-1207 and we&rsquo;ll help you right away.",
       "errBot": "We couldn&rsquo;t confirm this request came from a person. Please try again, or call us at 915-503-1207.",
-      "errCheck": "Some of your information looks incomplete. Please review your answers and try again."
+      "errCheck": "Some of your information looks incomplete. Please review your answers and try again.",
+      "mailed": "We also sent a confirmation to {email}."
     }
   },
   "bikes": {

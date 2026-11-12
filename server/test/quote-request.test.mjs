@@ -219,3 +219,76 @@ test('with a valid Access login the agent sees the whole request', async () => {
   assert.equal((await get('/agent/requests/SH-000000-AAAAAA', {})).status, 404);
   assert.equal((await get('/agent/requests/<script>', {})).status, 404);
 });
+
+test('the customer gets a confirmation in their language, when switched on', async () => {
+  // Off unless asked for.
+  let f = mailer();
+  let r = await post(env({ MAIL_PROVIDER: 'resend', RESEND_API_KEY: 're' }), body(), f);
+  assert.equal(r.body.confirmation, false);
+  assert.equal(f.sent.length, 1);
+
+  // On, Staging-style (no Turnstile, test header allowed).
+  f = mailer();
+  const e = env({ MAIL_PROVIDER: 'resend', RESEND_API_KEY: 're', CUSTOMER_CONFIRMATION: '1', ALLOW_TEST_HEADER: '1',
+    CUSTOMER_FROM: 'Safe House Insurance <cotizaciones@safehouseins.com>' });
+  r = await post(e, body({ lang: 'es' }), f);
+  assert.equal(r.status, 200);
+  assert.equal(r.body.confirmation, true);
+  assert.equal(f.sent.length, 2);
+  const [agency, cust] = f.sent;
+  assert.deepEqual(agency.body.to, ['contact@safehouseins.com']);
+  assert.deepEqual(cust.body.to, ['maria@example.com']);
+  assert.equal(cust.body.from, 'Safe House Insurance <cotizaciones@safehouseins.com>');
+  assert.equal(cust.body.reply_to, 'contact@safehouseins.com');
+  assert.match(cust.body.subject, /^\[PRUEBA\] Recibimos su solicitud de cotización — SH-/);
+  assert.ok(cust.body.html.includes('¡Hemos recibido su solicitud de cotización!'));
+  assert.ok(cust.body.html.includes(r.body.id) && cust.body.text.includes(r.body.id));
+  for (const secret of ['A1234567', '1990', '1HGCM82633A004352', 'Paseo Rojo', '5551234', 'SR-22']) {
+    assert.ok(!cust.body.html.includes(secret) && !cust.body.text.includes(secret), 'confirmation must not carry ' + secret);
+  }
+  const row = e.DB.raw.prepare('SELECT customer_delivery, customer_delivered_at FROM quote_requests').get();
+  assert.equal(row.customer_delivery, 'sent');
+  assert.ok(row.customer_delivered_at);
+
+  // English for an English visitor; the name is escaped.
+  f = mailer();
+  await post(e, body({ lang: 'en', contact: { firstName: '<b>Ann</b>', lastName: 'Lee', phone: '9155551234', email: 'ann@example.com' } }), f);
+  assert.match(f.sent[1].body.subject, /We received your quote request/);
+  assert.ok(f.sent[1].body.html.includes('&lt;b&gt;Ann&lt;/b&gt;') && !f.sent[1].body.html.includes('<b>Ann</b>'));
+});
+
+test('a confirmation that bounces never hides that the request was received', async () => {
+  const e = env({ MAIL_PROVIDER: 'resend', RESEND_API_KEY: 're', CUSTOMER_CONFIRMATION: '1', ALLOW_TEST_HEADER: '1' });
+  const sent = [];
+  const f = async (url, init) => {
+    const b = JSON.parse(init.body);
+    if (b.to[0] !== 'contact@safehouseins.com') return new Response('{"message":"bad address"}', { status: 422 });
+    sent.push(b); return new Response('{"id":"x"}');
+  };
+  const r = await post(e, body(), f);
+  assert.equal(r.status, 200);
+  assert.equal(r.body.confirmation, false);
+  assert.equal(sent.length, 1);
+  assert.equal(e.DB.raw.prepare('SELECT customer_delivery FROM quote_requests').get().customer_delivery, 'failed');
+});
+
+test('outside Staging, no customer email without Turnstile', async () => {
+  const f = mailer();
+  const e = env({ MAIL_PROVIDER: 'resend', RESEND_API_KEY: 're', CUSTOMER_CONFIRMATION: '1' });
+  const r = await post(e, body(), f);
+  assert.equal(r.body.confirmation, false);
+  assert.equal(f.sent.length, 1, 'agency only');
+  assert.equal(e.DB.raw.prepare('SELECT customer_delivery FROM quote_requests').get().customer_delivery, 'needs-turnstile');
+  const f2 = mailer();
+  const r2 = await post(env({ MAIL_PROVIDER: 'resend', RESEND_API_KEY: 're', CUSTOMER_CONFIRMATION: '1', TURNSTILE_SECRET: 's' }), body({ turnstile: 'good' }), f2);
+  assert.equal(r2.body.confirmation, true);
+  assert.equal(f2.sent.length, 2);
+});
+
+test('agency and customer emails never share an idempotency key', async () => {
+  const keys = [];
+  const f = async (url, init) => { if (/resend/.test(url)) keys.push(init.headers['Idempotency-Key']); return new Response('{"id":"x"}'); };
+  await post(env({ MAIL_PROVIDER: 'resend', RESEND_API_KEY: 're', CUSTOMER_CONFIRMATION: '1', ALLOW_TEST_HEADER: '1' }), body(), f);
+  assert.equal(keys.length, 2);
+  assert.notEqual(keys[0], keys[1]);
+});

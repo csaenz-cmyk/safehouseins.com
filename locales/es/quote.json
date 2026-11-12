@@ -1616,7 +1616,8 @@
       "err": "No pudimos enviar tu solicitud en este momento, así que no se envió nada. Intenta de nuevo en un momento o llámanos al 915-503-1207.",
       "errRate": "Ya recibimos varias solicitudes desde esta conexión en la última hora. Llámanos al 915-503-1207 y te atendemos de inmediato.",
       "errBot": "No pudimos confirmar que esta solicitud la envió una persona. Intenta de nuevo o llámanos al 915-503-1207.",
-      "errCheck": "Parte de tu información parece incompleta. Revisa tus respuestas e intenta de nuevo."
+      "errCheck": "Parte de tu información parece incompleta. Revisa tus respuestas e intenta de nuevo.",
+      "mailed": "También le enviamos una confirmación a {email}."
     }
   },
   "bikes": {

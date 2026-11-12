@@ -50,6 +50,7 @@ them leaks into the notice.
 | `marketing_consent`, `marketing_text`, `marketing_version`, `marketing_at` | the promotions checkbox; wording kept even when declined |
 | `ip_hash` | SHA-256 of salt + IP, for the rate limit — never the IP itself |
 | `delivery`, `delivered_at`, `attempts` | `sent`, `failed`, `test` |
+| `customer_delivery`, `customer_delivered_at` | the customer's confirmation: `sent`, `failed`, `off`, `test`, `needs-turnstile` |
 | `is_test` | a Staging test that sent no email |
 
 The table creates itself on first use. Logs carry only the request number and
@@ -96,7 +97,30 @@ screen ever come back.
 - [ ] Terms of Service: draft in `docs/legal-drafts/terms-of-service.md`, not
       published. When approved, add its link to the notice.
 
+## The customer's confirmation
+
+With `CUSTOMER_CONFIRMATION=1` the customer also gets an email in the language
+they used (`server/customer-email.js`, built on the agency's design in
+`email/quote-pending.html`): their first name, the request number, the line,
+what happens next, the call and text buttons. None of their answers. Replies go
+to contact@safehouseins.com.
+
+It is best effort: it goes out only after the agency was told, and if it
+bounces the visitor still sees "received" — the request was received. The
+confirmation screen adds "We also sent a confirmation to …" only when it went.
+
+A form that emails any address typed into it can be used to send mail from
+safehouseins.com to strangers, so outside Staging it is sent only when
+Turnstile is configured (`TURNSTILE_SECRET`); without it the request still
+works and `customer_delivery` reads `needs-turnstile`.
+
 ## Configuration (Cloudflare Pages project `safehouse-site`)
+
+**Mail goes through Resend, on the agency's existing account** — the one the
+AMS uses. `safehouseins.com` is already verified there, so no DNS change is
+needed. The site gets **its own API key** ("Sending access", domain
+`safehouseins.com` only), so it can be revoked without touching the AMS. The
+two share the account's sending quota: each request is two emails.
 
 Preview (Staging) and Production each get their own values: Settings →
 Variables and Secrets, and Settings → Bindings, with the environment selector.
@@ -104,47 +128,33 @@ Variables and Secrets, and Settings → Bindings, with the environment selector.
 | Name | Kind | Production | Preview (Staging) |
 |---|---|---|---|
 | `DB` | D1 binding | `safehouse-quotes` | `safehouse-quotes-staging` |
-| `MAIL_FROM` | text | `Safe House <solicitudes@avisos.safehouseins.com>` | same |
+| `MAIL_PROVIDER` | text | `resend` | `resend` |
+| `RESEND_API_KEY` | **secret** | the site's own sending key | same |
+| `MAIL_FROM` | text | `Safe House Insurance <cotizaciones@safehouseins.com>` | same |
 | `MAIL_TO` | text | (blank = contact@safehouseins.com) | (blank) |
+| `CUSTOMER_CONFIRMATION` | text | `1` | `1` |
 | `MAIL_SUBJECT_PREFIX` | text | (blank) | `[PRUEBA] ` |
-| `CF_ACCOUNT_ID` | text | account id | same |
-| `CF_EMAIL_TOKEN` | **secret** | API token, *Email Sending: Edit* only | same |
-| `TURNSTILE_SITEKEY` | text | site key | same |
-| `TURNSTILE_SECRET` | **secret** | secret key | same |
+| `TURNSTILE_SITEKEY` | text | site key | site key |
+| `TURNSTILE_SECRET` | **secret** | secret key (required for customer emails) | optional |
 | `HASH_SALT` | **secret** | any long random text | any long random text |
 | `ACCESS_TEAM_DOMAIN` | text | `https://<team>.cloudflareaccess.com` | same |
 | `ACCESS_AUD` | text | AUD tag of the `/agent` Access app | AUD of the previews' Access app |
 | `AGENT_EMAILS` | text | agents' emails, comma separated, or `@safehouseins.com` | same |
-| `ALLOW_TEST_HEADER` | text | (never) | `1` — lets automated tests send no email |
+| `ALLOW_TEST_HEADER` | text | (never) | `1` |
+| `ASSET_BASE` | text | (blank = https://safehouseins.com, for the email's logo) | (blank) |
 
-With Resend instead of Cloudflare: `MAIL_PROVIDER=resend` and `RESEND_API_KEY`
-(secret), and `MAIL_FROM` on the domain verified there.
+Cloudflare Email Service also works (`MAIL_PROVIDER=cloudflare`,
+`CF_ACCOUNT_ID`, `CF_EMAIL_TOKEN`), but sending to customers there needs the
+Workers Paid plan and the domain on Cloudflare DNS first.
 
 Missing settings refuse rather than pretend: no `DB` or no mail settings → the
 visitor gets the "call us" message, never a false confirmation; no Access
 settings → the agent page shows nothing.
 
-## Mail: Cloudflare Email Service (recommended) or Resend
-
-Checked November 12, 2026, on each provider's own pages.
-
-| | Cloudflare Email Service | Resend |
-|---|---|---|
-| Cost for this | **$0**: sending to a *verified destination address* (contact@) is free on the Workers Free plan and does not count toward any quota | $0 on Free: 3,000/month, **100/day**; Pro $20/month |
-| New account / vendor | none — same Cloudflare account | one more account and API key |
-| DNS | Email Routing on a **subdomain** (e.g. `avisos.safehouseins.com`): MX/SPF/DKIM only on that subdomain | 3 records on a subdomain (MX + SPF on `send.`, DKIM TXT) |
-| Affects current email | no — the root domain's MX is not touched | no |
-| Needs safehouseins.com on Cloudflare DNS first | **yes** | no — can be added at GoDaddy today |
-| Where the notice text lives | Cloudflare | Resend keeps logs 30 days |
-
-Sending to anyone other than verified addresses (e.g. confirmations to the
-customer) would need Workers Paid on Cloudflare ($5/month, 3,000 included) —
-not needed for notices to the agency.
-
 ## Testing
 
 ```
-node --test server/test/*.test.mjs                                  # server, 13 cases
+node --test server/test/*.test.mjs                                  # server, 17 cases
 NODE_PATH=/opt/node22/lib/node_modules node tools/i18nbrowser.js    # both languages, end to end
 ```
 
