@@ -147,6 +147,15 @@ Cloudflare Email Service also works (`MAIL_PROVIDER=cloudflare`,
 `CF_ACCOUNT_ID`, `CF_EMAIL_TOKEN`), but sending to customers there needs the
 Workers Paid plan and the domain on Cloudflare DNS first.
 
+**Finding the Access values.** `ACCESS_AUD` is the application's *Additional
+settings → AUD tag* in Zero Trust (copy it with the copy icon; it is long).
+`ACCESS_TEAM_DOMAIN` is the start of the address Cloudflare's login screen
+opens on — `https://<team>.cloudflareaccess.com` — the quickest way to read it
+is to open any Staging preview while signed out. The previews' Access
+application was created from the Pages project (*Settings → General → Preview
+access → Restrict previews*); its policy allows only the listed emails, with
+One-time PIN as the login method.
+
 Missing settings refuse rather than pretend: no `DB` or no mail settings → the
 visitor gets the "call us" message, never a false confirmation; no Access
 settings → the agent page shows nothing.
