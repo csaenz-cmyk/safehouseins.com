@@ -130,7 +130,7 @@ Variables and Secrets, and Settings → Bindings, with the environment selector.
 | `DB` | D1 binding | `safehouse-quotes` | `safehouse-quotes-staging` |
 | `MAIL_PROVIDER` | text | `resend` | `resend` |
 | `RESEND_API_KEY` | **secret** | the site's own sending key | same |
-| `MAIL_FROM` | text | `Safe House Insurance <cotizaciones@safehouseins.com>` | same |
+| `MAIL_FROM` | text | `Safe House Insurance <quotes@safehouseins.com>` | same |
 | `MAIL_TO` | text | (blank = contact@safehouseins.com) | (blank) |
 | `CUSTOMER_CONFIRMATION` | text | `1` | `1` |
 | `MAIL_SUBJECT_PREFIX` | text | (blank) | `[PRUEBA] ` |

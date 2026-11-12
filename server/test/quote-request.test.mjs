@@ -230,7 +230,7 @@ test('the customer gets a confirmation in their language, when switched on', asy
   // On, Staging-style (no Turnstile, test header allowed).
   f = mailer();
   const e = env({ MAIL_PROVIDER: 'resend', RESEND_API_KEY: 're', CUSTOMER_CONFIRMATION: '1', ALLOW_TEST_HEADER: '1',
-    CUSTOMER_FROM: 'Safe House Insurance <cotizaciones@safehouseins.com>' });
+    CUSTOMER_FROM: 'Safe House Insurance <quotes@safehouseins.com>' });
   r = await post(e, body({ lang: 'es' }), f);
   assert.equal(r.status, 200);
   assert.equal(r.body.confirmation, true);
@@ -238,7 +238,7 @@ test('the customer gets a confirmation in their language, when switched on', asy
   const [agency, cust] = f.sent;
   assert.deepEqual(agency.body.to, ['contact@safehouseins.com']);
   assert.deepEqual(cust.body.to, ['maria@example.com']);
-  assert.equal(cust.body.from, 'Safe House Insurance <cotizaciones@safehouseins.com>');
+  assert.equal(cust.body.from, 'Safe House Insurance <quotes@safehouseins.com>');
   assert.equal(cust.body.reply_to, 'contact@safehouseins.com');
   assert.match(cust.body.subject, /^\[PRUEBA\] Recibimos su solicitud de cotización — SH-/);
   assert.ok(cust.body.html.includes('¡Hemos recibido su solicitud de cotización!'));
