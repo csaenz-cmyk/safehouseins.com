@@ -2388,6 +2388,7 @@
     function close(){ list.classList.remove('on'); list.innerHTML=''; hi=-1;
       input.setAttribute('aria-expanded','false'); }
     function pick(f){
+      if(f.gid){ gPick(f); return; }
       input.value=[f.number,f.street].filter(Boolean).join(' ').trim()||f.line1;
       if(f.city)  document.getElementById('city').value=f.city;
       if(f.zip)   document.getElementById('zip').value=f.zip;
@@ -2427,8 +2428,64 @@
       return m?{num:m[1],rest:m[2].trim()}:{num:'',rest:String(q).trim()};
     }
 
+    /* Google first. /api/address answers from Google Places when the site has
+       a key (server/address.js) — whole addresses, house numbers included, from
+       the third character. Without a key it answers 501 once, and from then on
+       the free OpenStreetMap search below does the job as it always has. One
+       session token runs from the first keystroke to the pick, which Google
+       bills as a single lookup. */
+    var G={on:null, s:null};
+    function gToken(){ if(!G.s) G.s=newKey(); return G.s; }
+    function gSearch(q){
+      var ctrl=new AbortController(), t=setTimeout(function(){ ctrl.abort(); },5000);
+      fetch('/api/address?q='+encodeURIComponent(q)+'&s='+encodeURIComponent(gToken()),{signal:ctrl.signal})
+        .then(function(r){
+          clearTimeout(t);
+          if(r.status===501){ G.on=false; throw 'off'; }
+          if(!r.ok) throw 'err';
+          return r.json();
+        })
+        .then(function(d){
+          G.on=true;
+          if(input.value.trim()!==q) return;          // a newer keystroke owns the list
+          items=(d.suggestions||[]).map(function(x){ return {gid:x.id, line1:x.main, line2:x.secondary}; });
+          if(items.length) render(); else close();
+        })
+        .catch(function(){ clearTimeout(t); osm(input.value.trim()); });  // free search instead
+    }
+    function gPick(f){
+      input.value=f.line1; close();
+      var tok=gToken(); G.s=null;                    // the pick ends the session
+      fetch('/api/address/place?id='+encodeURIComponent(f.gid)+'&s='+encodeURIComponent(tok))
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+        .then(function(a){
+          var line=[a.number,a.street].filter(Boolean).join(' ');
+          if(line) input.value=line;
+          var u=document.getElementById('unit');
+          if(a.unit&&u&&!u.value) u.value=a.unit;
+          if(a.city) document.getElementById('city').value=a.city;
+          if(a.zip)  document.getElementById('zip').value=a.zip;
+          if(a.state&&['TX','NM'].indexOf(a.state)>-1) document.getElementById('st').value=a.state;
+          ['city','zip','st','unit'].forEach(function(id){ var el=document.getElementById(id);
+            if(el) el.dispatchEvent(new Event('input',{bubbles:true})); });
+        })
+        .catch(function(){});                        // the line typed so far stays
+    }
+
     input.addEventListener('input',function(){
-      var q=input.value.trim(), parts=splitNum(q),
+      var q=input.value.trim();
+      clearTimeout(timer);
+      if(G.on!==false){
+        if(q.length<3){ close(); lastQ=''; if(!q) G.s=null; return; }
+        if(q===lastQ) return;
+        timer=setTimeout(function(){ lastQ=q; gSearch(q); },220);
+        return;
+      }
+      osm(q);
+    });
+
+    function osm(q){
+      var parts=splitNum(q),
           letters=parts.rest.replace(/[^A-Za-z]/g,'').length;
       clearTimeout(timer);
       // A house number on its own is not a question any geocoder can answer,
@@ -2439,9 +2496,8 @@
         else close();
         return;
       }
-      if(q===lastQ) return;
       timer=setTimeout(function(){ lastQ=q; num=parts.num; search(parts.rest); },320);
-    });
+    }
 
     /* Not a suggestion — a line telling the visitor what the field is waiting
        for. It carries no data-i, so the click handler ignores it. */

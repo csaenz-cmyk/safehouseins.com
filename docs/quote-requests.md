@@ -141,6 +141,7 @@ Variables and Secrets, and Settings → Bindings, with the environment selector.
 | `ACCESS_AUD` | text | AUD tag of the `/agent` Access app | AUD of the previews' Access app |
 | `AGENT_EMAILS` | text | agents' emails, comma separated, or `@safehouseins.com` | same |
 | `AGENT_LINK_ONLY` | text | `1` until the Access login is set up, then remove | `1` |
+| `GOOGLE_PLACES_KEY` | **secret** | Google key, *Places API (New)* only | same key |
 | `ALLOW_TEST_HEADER` | text | (never) | `1` |
 | `ASSET_BASE` | text | (blank = https://safehouseins.com, for the email's logo) | (blank) |
 
@@ -170,10 +171,25 @@ Missing settings refuse rather than pretend: no `DB` or no mail settings → the
 visitor gets the "call us" message, never a false confirmation; no Access
 settings → the agent page shows nothing.
 
+## Address suggestions (Google Places)
+
+The street field asks `/api/address` (`server/address.js`), which asks
+Google Places (New) with `GOOGLE_PLACES_KEY` — the key stays on the server.
+Suggestions start at the third character, cover Texas and New Mexico only,
+and picking one fills street, unit, city, state and ZIP. One session token runs
+from the first keystroke to the pick, so Google bills a lookup, not a letter.
+Without the key the routes answer 501 and the form uses its free OpenStreetMap
+search as before.
+
+In Google Cloud: a project with billing, **Places API (New)** enabled, an API
+key restricted to that API only, a daily quota cap on Autocomplete and Place
+Details, and a monthly budget alert. The key goes in the Pages project as the
+secret `GOOGLE_PLACES_KEY`, in Preview and Production.
+
 ## Testing
 
 ```
-node --test server/test/*.test.mjs                                  # server, 17 cases
+node --test server/test/*.test.mjs                                  # server and address search
 NODE_PATH=/opt/node22/lib/node_modules node tools/i18nbrowser.js    # both languages, end to end
 ```
 

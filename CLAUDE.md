@@ -196,7 +196,9 @@ sends real notices marked `[TEST]`; automated tests send none (`X-Quote-Test`
 where `ALLOW_TEST_HEADER` is set, or `QUOTE_TEST_MODE`). Everything to configure
 is in `docs/quote-requests.md`; `node --test server/test/*.test.mjs` tests it.
 `_routes.json` keeps Functions to `/api/*` and `/agent/*` so static pages stay
-free of invocations.
+free of invocations. The street field's suggestions come from Google Places through
+`/api/address` (`server/address.js`, key `GOOGLE_PLACES_KEY`), falling back to
+OpenStreetMap when no key is set.
 
 **Live and Staging versions.** `live` is the branch Cloudflare Pages publishes
 to safehouseins.com; every `staging/<name>` branch is a separate version with
