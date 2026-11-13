@@ -260,7 +260,7 @@ function check(ok, what) {
     const pill = (n, v) => p.click('.step.on input[name="' + n + '"][value="' + v + '"] + span');
     await p.click('input[name=type][value=car] ~ .tx'); await next();
     await pill('mDisc', 'Agree'); await next();
-    await p.fill('#addr', '12426 Paseo Rojo'); await p.fill('#city', 'El Paso'); await p.selectOption('#st', 'TX');
+    await p.fill('#addr', '100 Example Street'); await p.fill('#city', 'El Paso'); await p.selectOption('#st', 'TX');
     await p.fill('#zip', '79938'); await p.selectOption('#res', 'Own a home'); await next();
     await pill('insured', 'yes'); await p.selectOption('#yrs', '1 to 3 years'); await next();
     const at = await p.evaluate(() => document.querySelector('.step.on').dataset.step);
@@ -320,7 +320,7 @@ function check(ok, what) {
     if (cm[0]) {
       check(cm[0].body.subject.includes('We received your quote request') && cm[0].body.html.includes(id),
             tag + 'the confirmation is in English and carries the request number');
-      check(!/A1234567|1990|1HGCM|Paseo|5551234/.test(cm[0].body.html + cm[0].body.text), tag + 'the confirmation carries none of the answers');
+      check(!/A1234567|1990|1HGCM|Example Street|5551234/.test(cm[0].body.html + cm[0].body.text), tag + 'the confirmation carries none of the answers');
     }
     const dm = await p.isVisible('#doneMail') ? (await p.textContent('#doneMail')).trim() : '';
     check(dm.includes('maria@example.com'), tag + 'the confirmation screen says the email was sent (' + dm + ')');
@@ -337,7 +337,7 @@ function check(ok, what) {
     if (m) {
       const all = m.body.subject + m.body.text + m.body.html;
       check(all.includes(id) && all.includes('/agent/requests/' + id), tag + 'the notice names the request and links to it');
-      check(!/A1234567|1990|1HGCM|Paseo|5551234|maria@example/.test(all), tag + 'the notice carries no licence, birth date, VIN, address, phone or email');
+      check(!/A1234567|1990|1HGCM|Example Street|5551234|maria@example/.test(all), tag + 'the notice carries no licence, birth date, VIN, address, phone or email');
       check(m.body.to === 'contact@safehouseins.com', tag + 'the notice goes to contact@safehouseins.com');
     }
     check(log.length === 0, tag + 'no errors' + (log.length ? ': ' + log.join('; ') : ''));

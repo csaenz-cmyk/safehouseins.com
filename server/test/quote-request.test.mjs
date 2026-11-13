@@ -15,7 +15,7 @@ function body(over = {}) {
     idemKey: 'k-' + String(n).padStart(4, '0') + '-abcdefghijklmnop',
     line: 'car', lang: 'es', website: '',
     contact: { firstName: 'María', lastName: 'López', phone: '(915) 555-1234', email: 'maria@example.com' },
-    form: { firstName: 'María', lastName: 'López', street: '12426 Paseo Rojo', city: 'El Paso', state: 'TX', zip: '79938',
+    form: { firstName: 'María', lastName: 'López', street: '100 Example Street', city: 'El Paso', state: 'TX', zip: '79938',
       vehicles: [{ vin: '1HGCM82633A004352', year: 2019, make: 'HONDA', model: 'Civic' }],
       drivers: [{ firstName: 'María', lastName: 'López', dob: '1990-05-12', licenseNumber: 'A1234567' }], notes: 'SR-22' },
     consents: {
@@ -75,7 +75,7 @@ test('a good request is saved, then the agency is told, then the visitor', async
   assert.equal(m.body.to, 'contact@safehouseins.com');
   assert.match(m.body.subject, /^\[PRUEBA\] New quote request SH-/);
   assert.ok(m.body.text.includes(ORIGIN + '/agent/requests/' + r.body.id));
-  for (const secret of ['A1234567', '1990', '1HGCM82633A004352', 'Paseo Rojo', '555', 'maria@example.com', 'SR-22']) {
+  for (const secret of ['A1234567', '1990', '1HGCM82633A004352', 'Example Street', '555', 'maria@example.com', 'SR-22']) {
     assert.ok(!m.body.text.includes(secret) && !m.body.html.includes(secret), 'notice must not carry ' + secret);
   }
 });
@@ -207,7 +207,7 @@ test('with a valid Access login the agent sees the whole request', async () => {
   const one = await get('/agent/requests/' + r.body.id, {});
   assert.equal(one.status, 200);
   const html = await one.text();
-  for (const s of ['A1234567', '1HGCM82633A004352', '915-555-1234', 'maria@example.com', 'Acepto recibir mensajes', 'Acepto recibir promociones', 'Declined', 'Paseo Rojo', 'SR-22']) {
+  for (const s of ['A1234567', '1HGCM82633A004352', '915-555-1234', 'maria@example.com', 'Acepto recibir mensajes', 'Acepto recibir promociones', 'Declined', 'Example Street', 'SR-22']) {
     assert.ok(html.includes(s), 'agent page shows ' + s);
   }
   assert.equal(one.headers.get('X-Robots-Tag'), 'noindex, nofollow');
@@ -243,7 +243,7 @@ test('the customer gets a confirmation in their language, when switched on', asy
   assert.match(cust.body.subject, /^\[PRUEBA\] Recibimos su solicitud de cotización — SH-/);
   assert.ok(cust.body.html.includes('¡Hemos recibido su solicitud de cotización!'));
   assert.ok(cust.body.html.includes(r.body.id) && cust.body.text.includes(r.body.id));
-  for (const secret of ['A1234567', '1990', '1HGCM82633A004352', 'Paseo Rojo', '5551234', 'SR-22']) {
+  for (const secret of ['A1234567', '1990', '1HGCM82633A004352', 'Example Street', '5551234', 'SR-22']) {
     assert.ok(!cust.body.html.includes(secret) && !cust.body.text.includes(secret), 'confirmation must not carry ' + secret);
   }
   const row = e.DB.raw.prepare('SELECT customer_delivery, customer_delivered_at FROM quote_requests').get();
