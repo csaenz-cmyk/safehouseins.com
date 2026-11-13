@@ -11,7 +11,7 @@
   "manage": "Administrar mi póliza",
   "manageSub": "Client Center",
   "pay": "Hacer un pago",
-  "paySub": "Todas nuestras aseguradoras",
+  "paySub": "Todas las aseguradoras",
   "claim": "Reportar un reclamo",
   "claimSub": "Líneas 24/7 de las aseguradoras",
   "idcard": "Tarjetas de seguro",
@@ -44,5 +44,20 @@
   "metaDesc": "{name}, {title} en Safe House Insurance en El Paso. Cotiza gratis, llama o envía un texto.",
   "shareText": "{name} · Safe House Insurance",
   "photoAlt": "Foto de {name}",
-  "home": "Inicio de Safe House Insurance"
+  "home": "Inicio de Safe House Insurance",
+  "licensedShort": "Con licencia en TX y NM",
+  "visitUs": "Visítanos",
+  "directions": "Cómo llegar",
+  "googleReviews": "Reseñas en Google",
+  "daysLong": [
+    "domingo",
+    "lunes",
+    "martes",
+    "miércoles",
+    "jueves",
+    "viernes",
+    "sábado"
+  ],
+  "toWord": "a",
+  "tzShort": "MT"
 }

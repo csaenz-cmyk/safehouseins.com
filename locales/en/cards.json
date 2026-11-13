@@ -11,7 +11,7 @@
   "manage": "Manage my policy",
   "manageSub": "Client Center",
   "pay": "Make a payment",
-  "paySub": "All our carriers",
+  "paySub": "All carriers",
   "claim": "Report a claim",
   "claimSub": "24/7 carrier lines",
   "idcard": "ID cards",
@@ -44,5 +44,20 @@
   "metaDesc": "{name}, {title} at Safe House Insurance in El Paso. Get a free quote, call or text.",
   "shareText": "{name} · Safe House Insurance",
   "photoAlt": "Photo of {name}",
-  "home": "Safe House Insurance home"
+  "home": "Safe House Insurance home",
+  "licensedShort": "Licensed in TX & NM",
+  "visitUs": "Visit us",
+  "directions": "Get directions",
+  "googleReviews": "Google reviews",
+  "daysLong": [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ],
+  "toWord": "to",
+  "tzShort": "MT"
 }

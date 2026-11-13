@@ -102,31 +102,42 @@ const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/6
   await shot(am, 'admin-cards-390');
 
   // --------------------------------------------------------- the card page ---
-  for (const [lang, width] of [['en', 390], ['es', 390], ['en', 960], ['es', 960], ['en', 1440], ['es', 1440]]) {
+  // The default design (gradient) at every width, then the first design
+  // (navy), which the panel can switch back to.
+  const setDesign = (d) => a.evaluate(async (d) => fetch('/api/admin/settings', { method: 'PUT', headers: { 'X-Panel': '1', 'Content-Type': 'application/json' }, body: JSON.stringify({ design: d }) }).then((r) => r.ok), d);
+  for (const [design, lang, width] of [['gradient', 'en', 390], ['gradient', 'es', 390], ['gradient', 'en', 960], ['gradient', 'es', 960], ['gradient', 'en', 1440], ['gradient', 'es', 1440], ['navy', 'en', 390], ['navy', 'es', 1440]]) {
+    if (design === 'navy' && lang === 'en') check(await setDesign('navy'), 'the panel switches the design to navy');
     const ctx = await b.newContext({ viewport: { width, height: width > 500 ? 900 : 844 }, deviceScaleFactor: 1 });
-    const p = await ctx.newPage(); watch(p, 'card ' + lang + ' ' + width);
+    const p = await ctx.newPage(); watch(p, 'card ' + design + ' ' + lang + ' ' + width);
     const r = await p.goto(BASE + (lang === 'es' ? '/es' : '') + '/team/maria-jose-hernandez');
-    const tag = 'card ' + lang + ' ' + width + 'px: ';
+    const tag = 'card ' + design + ' ' + lang + ' ' + width + 'px: ';
     check(r.status() === 200, tag + 'opens');
-    await p.waitForLoadState('load'); await p.waitForTimeout(700);
+    await p.waitForLoadState('load'); await p.waitForTimeout(800);
     check(await noScroll(p), tag + 'no sideways scroll');
     check(await p.evaluate(() => { const i = document.querySelector('.av img'); return i && i.complete && i.naturalWidth === 512; }), tag + 'the photo loads');
-    check(await p.isVisible('#open'), tag + 'open/closed badge shown (' + (await p.textContent('#open')) + ')');
     const cta = await p.textContent('.cta');
     check(lang === 'es' ? /Obtén tu cotización gratis/.test(cta) : /Get my free quote/.test(cta), tag + 'the quote button reads ' + cta.trim());
-    check((await p.locator('.acts .act').count()) === 5, tag + 'call, text, email, save, share');
+    check((await p.locator('.act').count()) === 5, tag + 'call, text, email, save, share');
     const fits = await p.evaluate(() => [...document.querySelectorAll('.act,.cta,.row')].every((e) => { const r = e.getBoundingClientRect(); return r.right <= innerWidth + 0.5 && r.height >= 44; }));
     check(fits, tag + 'every button is on screen and at least 44 px tall');
-    check(width >= 900 ? await p.isVisible('#qr svg') : !(await p.isVisible('#qrbox')), tag + (width >= 900 ? 'QR shown on a desk' : 'no QR on a phone'));
-    await shot(p, 'card-' + lang + '-' + width);
+    if (design === 'gradient') {
+      const body = await p.textContent('main');
+      check(lang === 'es' ? /Visítanos/.test(body) && /Lunes a viernes/.test(body) : /Visit us/.test(body) && /Monday to Friday/.test(body), tag + 'office and hours in the page language');
+      check(/Montserrat/.test(await p.evaluate(() => getComputedStyle(document.querySelector('h1')).fontFamily)), tag + 'Montserrat');
+      check(!!(await p.$('a.lang[hreflang="' + (lang === 'es' ? 'en' : 'es') + '"]')), tag + 'the language button offers the other language');
+    } else {
+      check(await p.isVisible('#open'), tag + 'open/closed badge shown (' + (await p.textContent('#open')) + ')');
+    }
+    await shot(p, 'card-' + design + '-' + lang + '-' + width);
     await ctx.close();
   }
+  check(await setDesign('gradient'), 'and back to gradient');
   {
     const ctx = await b.newContext({ viewport: { width: 390, height: 844 } });
-    const p = await ctx.newPage(); watch(p, 'initials');
+    const p = await ctx.newPage(); watch(p, 'no photo');
     await p.goto(BASE + '/team/carlos-ramirez'); await p.waitForTimeout(300);
-    check((await p.textContent('.av')).trim() === 'CR', 'a card without a photo shows the initials');
-    await shot(p, 'card-initials-390');
+    check(await p.evaluate(() => { const i = document.querySelector('.av img.ht'); return !!i && /heart-white/.test(i.src); }), 'a card without a photo shows the Safe House heart');
+    await shot(p, 'card-nophoto-390');
     await ctx.close();
   }
 

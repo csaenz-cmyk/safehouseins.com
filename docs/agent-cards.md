@@ -54,6 +54,12 @@ quote request. The owner runs everything from `/admin`.
 
 ## Cards
 
+- Two designs, switched for every card at once in **Settings → Card design**:
+  **Gradient** (default since November 2026: white page, blue glow, the
+  Safe House heart, Montserrat) and **Navy Executive** (the first one, kept to
+  go back to). Both are in `server/cards.js` (`renderGradient`, `renderNavy`).
+  A card without a photo shows the heart in Gradient and the initials in Navy.
+
 - Draft → Publish. The public card shows the published copy; edits stay in
   the draft until "Publish changes". Publishing draws the link-preview image
   (1200×630) in the browser.

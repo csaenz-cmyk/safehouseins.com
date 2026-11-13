@@ -86,6 +86,7 @@ const I = {
   pin: '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>',
   clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
   check: '<path d="M20 6 9 17l-5-5"/>',
+  chevR: '<path d="M9 6l6 6-6 6"/>',
 };
 const icon = (k) => '<svg viewBox="0 0 24 24" aria-hidden="true">' + I[k] + '</svg>';
 
@@ -156,7 +157,14 @@ a.row:hover{border-color:#BCD2F7;transform:translateX(2px)}
 
 // The card as HTML, from a card's fields. Used for live cards and, without
 // tracking, for the panel's preview of a draft.
-export function renderCard({ agent, card, settings, lang, origin, source = 'link', preview = false, mediaBase }) {
+// Two designs, chosen in the panel (Settings → design): 'gradient' (default,
+// November 2026) and 'navy', the first one, kept so the agency can go back.
+export const DESIGNS = ['gradient', 'navy'];
+export function renderCard(o) {
+  return (o.settings && o.settings.design === 'navy') ? renderNavy(o) : renderGradient(o);
+}
+
+function renderNavy({ agent, card, settings, lang, origin, source = 'link', preview = false, mediaBase }) {
   const c = COPY[lang] || COPY.en;
   const other = lang === 'es' ? 'en' : 'es';
   const name = displayName(card);
@@ -248,6 +256,176 @@ export function renderCard({ agent, card, settings, lang, origin, source = 'link
   return { html, nonce };
 }
 
+// Is the office open now, in its own time zone?
+export function isOpen(office, now = new Date()) {
+  try {
+    const p = {};
+    new Intl.DateTimeFormat('en-US', { timeZone: office.tz || 'America/Denver', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+      .formatToParts(now).forEach((x) => { p[x.type] = x.value; });
+    const wd = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(p.weekday), hm = p.hour + ':' + p.minute;
+    return (office.hours || []).some((h) => (h.days || []).includes(wd) && hm >= h.open && hm < h.close);
+  } catch (e) { return false; }
+}
+
+// "Monday to Friday" / "11 AM – 5 PM MT", one pair per row of hours.
+function hoursLong(office, c) {
+  return (office.hours || []).map((h) => {
+    const d = [...(h.days || [])].sort();
+    const run = d.length > 1 && d[d.length - 1] - d[0] === d.length - 1;
+    const days = run ? c.daysLong[d[0]] + ' ' + c.toWord + ' ' + c.daysLong[d[d.length - 1]]
+      : d.map((x) => c.daysLong[x]).join(', ');
+    return [days.charAt(0).toUpperCase() + days.slice(1), clock(h.open, c) + ' – ' + clock(h.close, c) + ' ' + c.tzShort];
+  });
+}
+
+const G_CSS = `*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:#0A1A3A;font-family:Montserrat,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1763E5;text-decoration:none}a:hover{color:#0E3F96}.nw{white-space:nowrap}
+.pg{min-height:100vh;position:relative;overflow:hidden;background:#fff}
+.glow{position:absolute;left:0;right:0;top:0;height:720px;pointer-events:none;background:radial-gradient(55% 60% at 50% 0%,rgba(58,134,255,.32),rgba(58,134,255,0) 70%),radial-gradient(35% 40% at 88% 18%,rgba(140,190,255,.45),rgba(140,190,255,0) 70%),radial-gradient(35% 40% at 8% 32%,rgba(23,99,229,.16),rgba(23,99,229,0) 70%),linear-gradient(180deg,rgba(255,255,255,0) 60%,#fff 100%)}
+.mark{position:absolute;left:50%;top:-120px;transform:translateX(-50%);width:min(900px,140vw);height:auto;opacity:.7;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,#000 10%,transparent 70%);mask-image:linear-gradient(180deg,#000 10%,transparent 70%)}
+header{position:relative;max-width:1040px;margin:0 auto;padding:24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.logo img{height:40px;width:auto;display:block}
+.lang{display:inline-flex;align-items:center;justify-content:center;height:40px;min-width:56px;padding:0 16px;border-radius:999px;border:1px solid #E3E9F3;background:#fff;color:#0A1A3A;font:700 12px Montserrat,sans-serif;letter-spacing:.08em}
+.lang:hover{border-color:#1763E5;color:#1763E5}
+main{position:relative;max-width:640px;margin:0 auto;padding:40px 20px 64px;display:flex;flex-direction:column;align-items:center;gap:44px}
+.prof{display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center}
+.ring{position:relative}
+.ring>div{padding:5px;border-radius:50%;background:conic-gradient(from 210deg,#8CC2FF,#1763E5,#0B3FA8,#8CC2FF);box-shadow:0 22px 50px -18px rgba(23,99,229,.8)}
+.av{width:104px;height:104px;border-radius:50%;border:4px solid #fff;background:linear-gradient(145deg,#4D93FF,#1763E5 55%,#0F4FC2);display:grid;place-items:center;overflow:hidden}
+.av img.ph{width:100%;height:100%;object-fit:cover;display:block}.av img.ht{width:44px;height:44px}
+.dot{position:absolute;right:8px;bottom:10px;width:18px;height:18px;border-radius:50%;background:#1BA160;border:3px solid #fff}
+.who{display:flex;flex-direction:column;gap:10px;align-items:center}
+h1{margin:0;font-size:clamp(38px,7vw,56px);font-weight:800;letter-spacing:-.04em;line-height:1;overflow-wrap:anywhere}
+.sub{margin:0;font-size:17px;font-weight:500;color:#56657F}
+.sig{margin:0;max-width:52ch;font-size:15px;line-height:1.55;color:#56657F}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:999px;background:#F2F6FD;color:#0A1A3A;font-size:13px;font-weight:600}
+.chip.on{background:#E9F7EF;color:#0E7A44}.chip.on i{width:7px;height:7px;border-radius:50%;background:#1BA160}
+.acts{width:100%;display:flex;flex-direction:column;gap:14px}
+.cta{display:flex;align-items:center;justify-content:center;gap:12px;height:60px;border-radius:16px;background:linear-gradient(120deg,#4D93FF 0%,#1763E5 50%,#0B3FA8 100%);color:#fff;font-size:17px;font-weight:700;box-shadow:0 18px 36px -14px rgba(23,99,229,.85)}
+.cta:hover{background:linear-gradient(120deg,#3A86FF 0%,#0F52C6 50%,#08328A 100%);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(var(--n,4),minmax(0,1fr));gap:10px}
+.act{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 4px;border-radius:16px;border:1px solid #E3E9F3;background:#fff;color:#0A1A3A;font:600 13px Montserrat,sans-serif;cursor:pointer}
+.act:hover{border-color:#1763E5;color:#1763E5}
+.act svg{width:22px;height:22px;fill:none;stroke:#1763E5;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sec{width:100%;display:flex;flex-direction:column;gap:14px}
+h2{margin:0;font-size:13px;font-weight:700;color:#56657F;letter-spacing:.08em;text-transform:uppercase}
+.list{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.row{display:flex;align-items:center;gap:14px;padding:16px;border-radius:16px;border:1px solid #E3E9F3;background:linear-gradient(90deg,#fff 0%,#fff 55%,#F2F7FF 100%);color:#0A1A3A}
+.row:hover{border-color:#1763E5;box-shadow:0 14px 30px -18px rgba(23,99,229,.7);color:#0A1A3A}
+.tile{flex:none;width:44px;height:44px;border-radius:12px;background:linear-gradient(145deg,#4D93FF,#1763E5 60%,#0F4FC2);box-shadow:0 8px 18px -8px rgba(23,99,229,.7);display:grid;place-items:center}
+.tile svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tx{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}.tx b{font-size:15px;font-weight:700}.tx small{font-size:13px;color:#56657F}
+.chev{width:18px;height:18px;flex:none;fill:none;stroke:#1763E5;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round}
+.visit{border-radius:16px;border:1px solid #DCE7FB;background:linear-gradient(135deg,#F5F9FF 0%,#E6EFFE 100%);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));overflow:hidden}
+.visit>*{padding:18px;display:flex;flex-direction:column;gap:6px;color:#0A1A3A}
+.visit>*+*{border-left:1px solid #D3E0F8}
+.visit b{font-size:15px;font-weight:700;line-height:1.4}.visit em{font-style:normal;font-size:13px;font-weight:600;color:#1763E5}
+a.vis:hover{color:#1763E5}
+.foot{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;font-size:13px;color:#56657F}.foot a{color:#0A1A3A;font-weight:600}.foot a:hover{color:#1763E5}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;background:#0A1A3A;color:#fff;font-size:14px;font-weight:700;border-radius:999px;padding:10px 16px;display:flex;gap:8px;align-items:center;box-shadow:0 8px 20px rgba(10,26,58,.3);white-space:nowrap;transition:opacity .2s,transform .2s;pointer-events:none;z-index:9}
+.toast.on{opacity:1;transform:translate(-50%,0)}.toast i{width:18px;height:18px;border-radius:50%;background:#1BA160;display:grid;place-items:center}.toast svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:3}
+.rise{animation:rise .55s cubic-bezier(.2,.7,.2,1) both}.d1{animation-delay:.06s}.d2{animation-delay:.12s}.d3{animation-delay:.18s}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+:focus-visible{outline:3px solid #8CC2FF;outline-offset:2px;border-radius:12px}
+@media(max-width:600px){.visit>*+*{border-left:0;border-top:1px solid #D3E0F8}}
+@media(max-width:359px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}`;
+
+const G_ICON = {
+  call: I.call, text: I.text, email: I.email, save: I.save,
+  share: '<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/>',
+  shieldCheck: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>',
+  idcard: '<rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="11" r="2"/><path d="M5 16c.6-1.2 1.7-2 3-2s2.4.8 3 2M14 10h4M14 14h4"/>',
+};
+
+function renderGradient({ agent, card, settings, lang, origin, source = 'link', preview = false, mediaBase }) {
+  const c = COPY[lang] || COPY.en;
+  const other = lang === 'es' ? 'en' : 'es';
+  const name = displayName(card);
+  const title = (card.title && (card.title[lang] || card.title.en)) || '';
+  const tagline = (card.tagline && (card.tagline[lang] || card.tagline.en)) || '';
+  const path = (l) => (l === 'es' ? '/es' : '') + '/team/' + agent.slug;
+  const url = origin + path(lang);
+  const office = settings.office || {};
+  const base = mediaBase || path('en');
+  const photo = card.photo ? base + '/photo-v' + card.photo + '.webp' : '';
+  const og = card.og ? origin + path('en') + '/og-v' + card.og + '.png' : origin + '/assets/hero-photo.jpg';
+  const callNo = card.call && card.call.enabled ? digits(card.call.number || office.call) : '';
+  const textNo = card.text && card.text.enabled ? digits(card.text.number || office.text) : '';
+  const mail = card.email && card.email.enabled ? String(card.email.address || office.email || '') : '';
+  const langs = (card.languages || []).filter((x) => x === 'en' || x === 'es');
+  const open = card.show_office !== false && isOpen(office);
+  const svg = (k, cls) => '<svg' + (cls ? ' class="' + cls + '"' : '') + ' viewBox="0 0 24 24" aria-hidden="true">' + (G_ICON[k] || I[k]) + '</svg>';
+
+  const acts = [];
+  if (callNo) acts.push('<a class="act" href="tel:+1' + callNo + '" data-ev="call">' + svg('call') + esc(c.call) + '</a>');
+  if (textNo) acts.push('<a class="act" href="sms:+1' + textNo + '" data-ev="text">' + svg('text') + esc(c.text) + '</a>');
+  if (mail) acts.push('<a class="act" href="mailto:' + esc(mail) + '" data-ev="email">' + svg('email') + esc(c.email) + '</a>');
+  acts.push('<a class="act" href="' + esc(path('en')) + '/contact.vcf" data-ev="save" download>' + svg('save') + esc(c.save) + '</a>');
+  acts.push('<button class="act" type="button" id="share" data-ev="share">' + svg('share') + esc(c.share) + '</button>');
+
+  const svc = settings.services || {};
+  const loc = (href) => (/^\//.test(href) && lang === 'es' ? (href === '/' ? '/es/' : '/es' + href) : href);
+  const rows = [['manage', 'shield'], ['pay', 'card'], ['claim', 'alert'], ['idcard', 'idcard']].filter((r) => svc[r[0]]).map(([k, ic]) =>
+    '<a class="row" href="' + esc(loc(svc[k])) + '" data-ev="service" data-d="' + k + '"><span class="tile">' + svg(ic) + '</span><span class="tx"><b>'
+    + esc(c[k]) + '</b><small>' + esc(c[k + 'Sub']) + '</small></span>' + svg('chevR', 'chev') + '</a>').join('');
+
+  const hrs = hoursLong(office, c);
+  const visit = card.show_office === false ? '' : '<section class="sec rise d3"><h2>' + esc(c.visitUs) + '</h2><div class="visit">'
+    + (office.maps ? '<a class="vis" href="' + esc(office.maps) + '" target="_blank" rel="noopener" data-ev="map">' : '<div>')
+    + '<b>' + esc(office.street || '') + '<br>' + esc([office.city, office.region].filter(Boolean).join(', ') + ' ' + (office.zip || '')) + '</b>'
+    + (office.maps ? '<em>' + esc(c.directions) + ' →</em></a>' : '</div>')
+    + '<div><b>' + hrs.map((h) => esc(h[0]) + '<br>' + esc(h[1])).join('<br>') + '</b>'
+    + (office.call ? '<a href="tel:+1' + digits(office.call) + '" data-ev="call" data-d="office"><em><span class="nw">' + esc(pretty(office.call)) + '</span></em></a>' : '') + '</div>'
+    + '</div></section>';
+
+  const social = card.show_social === false ? [] : (settings.social || []).filter((s) => s && s.url && NETWORKS[s.network]);
+  const foot = [['/', 'safehouseins.com', null], ...social.map((s) => [s.url, s.network === 'google' ? c.googleReviews : NETWORKS[s.network], s.network])];
+  const footer = '<nav class="foot rise d3" aria-label="Safe House Insurance">' + foot.map(([href, label, net]) => net
+    ? '<a href="' + esc(href) + '" target="_blank" rel="noopener" data-ev="social" data-d="' + esc(net) + '">' + esc(label) + '</a>'
+    : '<a href="' + loc(href) + '" data-ev="service" data-d="website">' + esc(label) + '</a>').join('') + '</nav>';
+
+  const avatar = photo ? '<img class="ph" src="' + esc(photo) + '" alt="' + esc(fill(c.photoAlt, { name })) + '" width="96" height="96">'
+    : '<img class="ht" src="/assets/safehouse-heart-white.png" alt="" width="44" height="44">';
+  const metaTitle = fill(c.metaTitle, { name });
+  const metaDesc = fill(c.metaDesc, { name, title });
+  const nonce = btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(12))));
+  const pageData = { slug: agent.slug, lang, source, preview, url, copied: c.copied, shared: c.shared, saved: c.saved, openNow: c.openNow, closed: c.closed, shareText: fill(c.shareText, { name }) };
+  const LN = { en: 'English', es: 'Español' };
+
+  const html = '<!doctype html><html lang="' + lang + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
+    + '<title>' + esc(metaTitle) + '</title><meta name="description" content="' + esc(metaDesc) + '"><meta name="robots" content="noindex,follow">'
+    + '<meta name="theme-color" content="#FFFFFF"><link rel="canonical" href="' + esc(url) + '">'
+    + '<link rel="alternate" hreflang="en" href="' + esc(origin + path('en')) + '"><link rel="alternate" hreflang="es" href="' + esc(origin + path('es')) + '">'
+    + '<meta property="og:type" content="profile"><meta property="og:site_name" content="Safe House Insurance"><meta property="og:title" content="' + esc(metaTitle) + '">'
+    + '<meta property="og:description" content="' + esc(metaDesc) + '"><meta property="og:url" content="' + esc(url) + '"><meta property="og:image" content="' + esc(og) + '">'
+    + (card.og ? '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' : '')
+    + '<meta property="og:locale" content="' + (lang === 'es' ? 'es_US' : 'en_US') + '"><meta name="twitter:card" content="summary_large_image">'
+    + '<link rel="icon" href="/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+    + '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">'
+    + '<style>' + G_CSS + '</style></head><body><div class="pg"><div class="glow" aria-hidden="true"></div>'
+    + '<img class="mark" src="/assets/safehouse-heart-white.png" alt="" aria-hidden="true">'
+    + '<header><a class="logo" href="' + (lang === 'es' ? '/es/' : '/') + '" aria-label="' + esc(c.home) + '"><img src="/assets/safehouse-logo.png" alt="Safe House Insurance" width="100" height="40"></a>'
+    + '<a class="lang" href="' + esc(path(other)) + '" hreflang="' + other + '" lang="' + other + '" data-ev="lang" data-d="' + other + '">' + (other === 'es' ? esc(c.langEs) : esc(c.langEn)) + '</a></header>'
+    + '<main><section class="prof rise"><div class="ring"><div><div class="av">' + avatar + '</div></div>' + (open ? '<span class="dot" aria-hidden="true"></span>' : '') + '</div>'
+    + '<div class="who"><h1>' + esc(name) + '</h1><p class="sub">' + (title ? esc(title) + ' · ' : '') + 'Safe House Insurance</p></div>'
+    + (tagline ? '<p class="sig">' + esc(tagline) + '</p>' : '')
+    + '<div class="chips"><span class="chip">' + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1763E5" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + G_ICON.shieldCheck + '</svg>' + esc(c.licensedShort) + '</span>'
+    + (langs.length ? '<span class="chip" aria-label="' + esc(c.speaks) + '">' + langs.map((l) => LN[l]).join(' · ') + '</span>' : '')
+    + (open ? '<span class="chip on"><i aria-hidden="true"></i>' + esc(c.openNow) + '</span>' : '') + '</div></section>'
+    + '<section class="acts rise d1"><a class="cta" href="' + (lang === 'es' ? '/es/quote' : '/quote') + '" data-ev="quote">' + esc(c.quote)
+    + '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + I.arrow + '</svg></a>'
+    + '<div class="grid" style="--n:' + Math.min(acts.length, 5) + '">' + acts.join('') + '</div></section>'
+    + (rows ? '<section class="sec rise d2"><h2>' + esc(c.secPolicy) + '</h2><div class="list">' + rows + '</div></section>' : '')
+    + visit + footer + '</main></div>'
+    + '<div class="toast" id="toast" role="status" aria-live="polite"><i><svg viewBox="0 0 24 24">' + I.check + '</svg></i><span></span></div>'
+    + '<script nonce="' + nonce + '">var CARD=' + JSON.stringify(pageData).replace(/</g, '\\u003c') + ';' + CLIENT + '</script>'
+    + '</body></html>';
+  return { html, nonce };
+}
+
 // What runs on the card: the clicks it reports, share, the "open now" badge
 // and, on a desk, a QR code for moving to a phone.
 const CLIENT = `(function(){
@@ -266,7 +444,7 @@ else if(navigator.clipboard){navigator.clipboard.writeText(D.url).then(function(
 var o=document.getElementById('open');if(o){try{var H=JSON.parse(o.getAttribute('data-hours')),f=new Intl.DateTimeFormat('en-US',{timeZone:o.getAttribute('data-tz'),weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()),p={};f.forEach(function(x){p[x.type]=x.value});
 var wd=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(p.weekday),hm=p.hour+':'+p.minute,on=H.some(function(h){return h.days.indexOf(wd)>-1&&hm>=h.open&&hm<h.close});
 o.textContent=on?D.openNow:D.closed;o.classList.toggle('shut',!on);o.hidden=false}catch(e){}}
-function qr(){if(!window.qrcode||!matchMedia('(min-width:900px)').matches)return;var q=qrcode(0,'M');q.addData(D.url+'?s=qr');q.make();document.getElementById('qr').innerHTML=q.createSvgTag({cellSize:4,margin:0,scalable:true});document.getElementById('qrbox').hidden=false}
+function qr(){if(!window.qrcode||!document.getElementById('qr')||!matchMedia('(min-width:900px)').matches)return;var q=qrcode(0,'M');q.addData(D.url+'?s=qr');q.make();document.getElementById('qr').innerHTML=q.createSvgTag({cellSize:4,margin:0,scalable:true});document.getElementById('qrbox').hidden=false}
 if(document.readyState==='complete')qr();else addEventListener('load',qr);
 })();`;
 

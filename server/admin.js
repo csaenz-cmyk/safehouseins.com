@@ -29,7 +29,7 @@ import { ensureSchema as ensureQuoteSchema } from './quote-request.js';
 import {
   ensureCardsSchema, getSettings, setSetting, parseAgent, agentById, RESERVED, SLUG_RE, displayName, DEFAULT_SETTINGS,
 } from './cards-db.js';
-import { renderCard, media, NETWORKS } from './cards.js';
+import { renderCard, media, NETWORKS, DESIGNS } from './cards.js';
 import { handle as versions } from './versions.js';
 import { VERSIONS_HTML } from './versions-ui.js';
 import { ADMIN_HTML } from './admin-ui.js';
@@ -522,6 +522,7 @@ const LOCAL = /^\/[a-z0-9/_-]{0,80}$/i;
 export function cleanSettings(b, cur) {
   const out = {};
   if (b.rule !== undefined) { if (!['first_touch', 'last_touch'].includes(b.rule)) fail(400, 'Regla no válida.'); out.rule = b.rule; }
+  if (b.design !== undefined) { if (!DESIGNS.includes(b.design)) fail(400, 'Diseño no válido.'); out.design = b.design; }
   if (b.window_days !== undefined) { const n = Number(b.window_days); if (!(n >= 1 && n <= 90)) fail(400, 'La ventana debe ser de 1 a 90 días.'); out.window_days = Math.round(n); }
   if (b.repeat_days !== undefined) { const n = Number(b.repeat_days); if (!(n >= 1 && n <= 365)) fail(400, 'Las solicitudes repetidas se buscan de 1 a 365 días.'); out.repeat_days = Math.round(n); }
   if (b.office !== undefined) {

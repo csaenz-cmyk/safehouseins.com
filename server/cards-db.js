@@ -97,6 +97,7 @@ export function ensureCardsSchema(db) {
 // point. Everything here is editable in the panel's Settings.
 export const DEFAULT_SETTINGS = {
   rule: 'first_touch',            // first_touch | last_touch
+  design: 'gradient',             // gradient | navy (server/cards.js)
   window_days: 30,
   repeat_days: 90,
   office: {
