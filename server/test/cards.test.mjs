@@ -121,7 +121,12 @@ test('ten wrong passwords lock the login; changes need the panel header', async 
   const r2 = await o.api('POST', '/cards', { first_name: 'A', last_name: 'B' }, { Origin: 'https://evil.example' });
   assert.equal(r2.status, 403);
   // A forged session cookie is nobody.
-  const f = browser(e); f.jar['__Host-shi_admin'] = o.jar['__Host-shi_admin'].replace(/.$/, (c) => (c === 'A' ? 'B' : 'A'));
+  // (The payload is changed, not the signature's last character: in base64url
+  // that one carries padding bits and can decode to the same bytes.)
+  const [sb, ss] = o.jar['__Host-shi_admin'].split('.');
+  const claims = JSON.parse(Buffer.from(sb, 'base64url').toString());
+  claims.x += 86400 * 365;
+  const f = browser(e); f.jar['__Host-shi_admin'] = Buffer.from(JSON.stringify(claims)).toString('base64url') + '.' + ss;
   assert.equal((await f.api('GET', '/me')).status, 401);
   // Website versions cannot be published with the Staging password.
   assert.equal((await o.api('POST', '/site/versions', { name: 'x' })).status, 403);
