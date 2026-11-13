@@ -12,7 +12,7 @@ builders, look at what moved, decide whether it should have.
 ## Run them all, in this order
 
 ```bash
-for g in genabout gencareers geninvestors genlegal genmakes genguides genproduct gencities genlocale genpreview; do
+for g in genabout gencareers geninvestors genlegal genmakes genguides genproduct gencities genlocale genpreview gencards; do
   echo "--- $g"; python3 tools/$g.py || break
 done
 python3 tools/gensitemap.py

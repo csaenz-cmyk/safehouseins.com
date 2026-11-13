@@ -68,7 +68,7 @@ jobs:
       # rebuild silently throws away. Rebuild and require no difference.
       - name: Pages match their generators
         run: |
-          for g in genabout gencareers geninvestors genlegal genmakes genguides genproduct gencities genlocale genpreview; do
+          for g in genabout gencareers geninvestors genlegal genmakes genguides genproduct gencities genlocale genpreview gencards; do
             python3 tools/$g.py > /dev/null || exit 1
           done
           changed=$(git status --porcelain -- . ':!sitemap.xml')

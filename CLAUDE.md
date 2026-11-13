@@ -48,7 +48,7 @@ Run every generator, then the sitemap last. The sitemap walks what is on disk,
 so it has to see the finished pages:
 
 ```
-for g in genabout gencareers geninvestors genlegal genmakes genguides genproduct gencities genlocale genpreview; do
+for g in genabout gencareers geninvestors genlegal genmakes genguides genproduct gencities genlocale genpreview gencards; do
   python3 tools/$g.py || break
 done
 python3 tools/gensitemap.py
@@ -199,6 +199,21 @@ is in `docs/quote-requests.md`; `node --test server/test/*.test.mjs` tests it.
 free of invocations. The street field's suggestions come from Google Places through
 `/api/address` (`server/address.js`, key `GOOGLE_PLACES_KEY`), falling back to
 OpenStreetMap when no key is set.
+
+**Agents' digital cards (`/team/{slug}`, `/es/team/{slug}`) and the owner's
+panel (`/admin`).** Server-rendered by Pages Functions — `server/cards.js`,
+`server/attribution.js`, `server/admin.js` — from D1 (tables in
+`server/cards-db.js`, next to `quote_requests`). There is no static file per
+card; the words are `locales/*/cards.json`, compiled into `server/cards-copy.js`
+by `tools/gencards.py` (in the rebuild loop). A card sets the signed
+`__Host-shi_ref` cookie; the quote form asks `/api/referral` and sends
+`referral` with the request; `attribute()` settles First/Last/Official touch at
+submit and never blocks it. The panel signs in with a temporary password only
+on Staging previews (`PANEL_MODE=staging` + `PANEL_PASSWORD`), and with
+Cloudflare Access everywhere else — Access is required before Live. Everything
+to configure, the rules and the data model are in `docs/agent-cards.md`.
+`node tools/devserver.mjs` runs the site with every Function locally;
+`tools/cardsbrowser.js` checks cards, panel and referral in a browser.
 
 **Live and Staging versions.** `live` is the branch Cloudflare Pages publishes
 to safehouseins.com; every `staging/<name>` branch is a separate version with

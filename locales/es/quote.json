@@ -1618,6 +1618,15 @@
       "errBot": "No pudimos confirmar que esta solicitud la envió una persona. Intenta de nuevo o llámanos al 915-503-1207.",
       "errCheck": "Parte de tu información parece incompleta. Revisa tus respuestas e intenta de nuevo.",
       "mailed": "También le enviamos una confirmación a {email}."
+    },
+    "ref": {
+      "by": "Tu agente",
+      "confirm": "Es correcto",
+      "change": "Cambiar",
+      "ask": "¿Te recomendó alguno de nuestros agentes?",
+      "pick": "Elige un agente",
+      "none": "Nadie me recomendó",
+      "thanks": "Gracias — tu agente verá esta solicitud."
     }
   },
   "bikes": {

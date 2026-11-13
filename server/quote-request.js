@@ -14,6 +14,9 @@
 //   7. a short notice to contact@safehouseins.com: request number, name and a
 //      link to read the rest behind Cloudflare Access (server/agent.js). No
 //      licence number, date of birth, VIN or address ever goes by email.
+//   7b. which agent's digital card brought the visitor, if any
+//      (server/attribution.js). Best effort: an attribution that cannot be
+//      worked out is recorded as unknown, and the request goes on regardless.
 //   8. when CUSTOMER_CONFIRMATION=1, a confirmation to the customer in their
 //      language (server/customer-email.js). Best effort: the request is
 //      received once the agency knows, so a bounce here never hides that.
@@ -26,6 +29,7 @@
 // Logs carry the request number and status only, never what the person typed.
 
 import { customerEmail } from './customer-email.js';
+import { attribute, describe } from './attribution.js';
 
 export const LINES = ['car', 'home', 'moto', 'commercial', 'renters'];
 const MAX_BODY = 64 * 1024;
@@ -186,7 +190,7 @@ async function turnstile(env, token, ip, fetchImpl) {
 // The notice the agency reads. Deliberately thin: who, which line, which
 // language, and where to read the rest. Phone, email, birth dates, licences,
 // VINs and addresses stay in the store, behind a login.
-export function notice(rec, link, prefix, linkOnly = false) {
+export function notice(rec, link, prefix, linkOnly = false, referral = null) {
   const how = linkOnly
     ? 'This link opens the client’s details without a login — do not forward this email.'
     : 'Sign-in required.';
@@ -204,13 +208,16 @@ export function notice(rec, link, prefix, linkOnly = false) {
   const text = (prefix ? 'THIS IS A STAGING TEST — not a real client.\n\n' : '')
     + rows.map((r) => r[0] + ': ' + r[1]).join('\n')
     + '\n\nView the full request (' + how.replace(/\.$/, '').replace(/^./, (c) => c.toLowerCase()) + '):\n' + link
-    + '\n\nFor security, this email does not include phone, date of birth, licenses, VIN or address.\n';
+    + '\n\n' + (referral ? 'Referral\n' + referral.map((r) => '  ' + r[0] + ': ' + r[1]).join('\n') + '\n\n' : '')
+    + 'For security, this email does not include phone, date of birth, licenses, VIN or address.\n';
   const html = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#0E1726;max-width:560px">'
     + (prefix ? '<p style="background:#FFF4E0;color:#A15C00;padding:10px 12px;border-radius:8px"><b>STAGING TEST</b> — not a real client.</p>' : '')
     + '<h2 style="font-size:19px;margin:0 0 12px">New quote request</h2>'
     + '<table cellpadding="6" style="border-collapse:collapse">'
     + rows.map((r) => '<tr><td style="color:#5C6A80">' + esc(r[0]) + '</td><td><b>' + esc(r[1]) + '</b></td></tr>').join('')
     + '</table>'
+    + (referral ? '<h3 style="font-size:15px;margin:18px 0 6px">Referral</h3><table cellpadding="6" style="border-collapse:collapse">'
+      + referral.map((r) => '<tr><td style="color:#5C6A80">' + esc(r[0]) + '</td><td><b>' + esc(r[1]) + '</b></td></tr>').join('') + '</table>' : '')
     + '<p style="margin:20px 0"><a href="' + esc(link) + '" style="background:#1666ED;color:#fff;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:bold">View the full request</a></p>'
     + '<p style="color:#5C6A80;font-size:13px">' + esc(how) + ' For security, this email does not include phone, date of birth, licenses, VIN or address.</p></div>';
   return { subject, text, html };
@@ -247,9 +254,9 @@ export async function sendMail(env, msg, idemKey, fetchImpl, opts = {}) {
 
 // Today: the notice. Tomorrow: the AMS (and through it the rater), with the
 // same record. Throws on failure so the visitor is never told "received".
-async function deliver(env, rec, link, test, fetchImpl) {
+async function deliver(env, rec, link, test, fetchImpl, referral) {
   if (test) return 'test';
-  await sendMail(env, notice(rec, link, env.MAIL_SUBJECT_PREFIX || '', env.AGENT_LINK_ONLY === '1'), rec.idem_key + ':agency', fetchImpl);
+  await sendMail(env, notice(rec, link, env.MAIL_SUBJECT_PREFIX || '', env.AGENT_LINK_ONLY === '1', referral), rec.idem_key + ':agency', fetchImpl);
   return 'sent';
 }
 
@@ -341,6 +348,14 @@ export async function submit(request, env, fetchImpl = fetch) {
       const cols = Object.keys(rec);
       await db.prepare('INSERT INTO quote_requests (' + cols.join(',') + ') VALUES (' + cols.map(() => '?').join(',') + ')')
         .bind(...cols.map((c) => rec[c])).run();
+      // Each request is attributed on its own, when it is sent — never
+      // inherited from an earlier request by the same person.
+      try {
+        await attribute(env, db, {
+          requestId: rec.id, cookieHeader: request.headers.get('Cookie'), clientAnswer: body.referral,
+          phone: rec.phone, email: rec.email,
+        });
+      } catch (e) { console.warn('[quote-request] attribution failed', rec.id, e && e.message); }
     }
     id = rec.id;
     if (rec.delivery === 'sent' || rec.delivery === 'test') {
@@ -349,8 +364,13 @@ export async function submit(request, env, fetchImpl = fetch) {
 
     const link = url.origin + '/agent/requests/' + rec.id
       + (env.AGENT_LINK_ONLY === '1' ? '?k=' + rec.view_key : '');
+    let referral = null;
+    try {
+      const a = await db.prepare('SELECT * FROM request_attribution WHERE request_id = ?').bind(rec.id).first();
+      referral = await describe(db, a);
+    } catch (e) { referral = null; }
     let status;
-    try { status = await deliver(env, rec, link, !!rec.is_test, fetchImpl); }
+    try { status = await deliver(env, rec, link, !!rec.is_test, fetchImpl, referral); }
     catch (e) {
       await db.prepare("UPDATE quote_requests SET delivery = 'failed', attempts = attempts + 1 WHERE id = ?").bind(rec.id).run();
       throw e;

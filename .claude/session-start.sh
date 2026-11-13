@@ -32,7 +32,7 @@ fi
 
 say ""
 say "Rebuild (all of them, sitemap last — generators share modules):"
-say "  for g in genabout gencareers geninvestors genlegal genmakes genguides genproduct gencities genlocale genpreview; do python3 tools/\$g.py || break; done && python3 tools/gensitemap.py"
+say "  for g in genabout gencareers geninvestors genlegal genmakes genguides genproduct gencities genlocale genpreview gencards; do python3 tools/\$g.py || break; done && python3 tools/gensitemap.py"
 say "Check: python3 tools/i18ncheck.py; browser: NODE_PATH=... node tools/i18nbrowser.js"
 
 # A dirty tree at session start is usually a previous session's unfinished

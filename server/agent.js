@@ -1,4 +1,6 @@
 import { ensureSchema } from './quote-request.js';
+import { describe } from './attribution.js';
+import { ensureCardsSchema } from './cards-db.js';
 
 // Where the link in the agency's notice email goes: the full quote request,
 // for licensed agents only.
@@ -26,7 +28,7 @@ function b64urlBytes(s) {
 }
 const b64urlJson = (s) => JSON.parse(new TextDecoder().decode(b64urlBytes(s)));
 
-class Denied extends Error { constructor(status, msg) { super(msg); this.status = status; } }
+export class Denied extends Error { constructor(status, msg) { super(msg); this.status = status; } }
 const deny = (status, msg) => { throw new Denied(status, msg); };
 
 async function keys(team, fetchImpl, force) {
@@ -38,12 +40,14 @@ async function keys(team, fetchImpl, force) {
   return TEAM_CACHE.keys;
 }
 
-export async function verifyAccess(request, env, fetchImpl = fetch) {
+// opts.anyEmail: check the token only and return its email; the caller
+// decides what that person may do (the admin panel's roles).
+export async function verifyAccess(request, env, fetchImpl = fetch, opts = {}) {
   let team = String(env.ACCESS_TEAM_DOMAIN || '').trim().replace(/\/+$/, '');
   if (team && !/^https:\/\//.test(team)) team = 'https://' + team;
   const auds = String(env.ACCESS_AUD || '').split(',').map((s) => s.trim()).filter(Boolean);
   const allowed = String(env.AGENT_EMAILS || '').toLowerCase().split(',').map((s) => s.trim()).filter(Boolean);
-  if (!team || !auds.length || !allowed.length) deny(503, 'This page is not set up yet.');
+  if (!team || !auds.length || (!allowed.length && !opts.anyEmail)) deny(503, 'This page is not set up yet.');
   const token = request.headers.get('Cf-Access-Jwt-Assertion');
   if (!token) deny(401, 'Sign in to see quote requests.');
   const parts = token.split('.');
@@ -63,6 +67,7 @@ export async function verifyAccess(request, env, fetchImpl = fetch) {
   if (typeof claims.exp !== 'number' || claims.exp < now) deny(401, 'Your session expired.');
   if (claims.iss && claims.iss !== team) deny(401, 'Invalid session.');
   const email = String(claims.email || '').toLowerCase();
+  if (opts.anyEmail) return email;
   // An entry starting with @ allows the whole domain (@safehouseins.com).
   if (!allowed.some((a) => (a[0] === '@' ? email.endsWith(a) : email === a))) deny(403, 'This email does not have access.');
   return email;
@@ -152,7 +157,7 @@ function page(title, body, list = true) {
 
 const badge = (yes) => '<span class="b ' + (yes ? 'ok' : 'no') + '">' + (yes ? 'Agreed' : 'Declined') + '</span>';
 
-function one(r) {
+function one(r, referral) {
   let f = {};
   try { f = JSON.parse(r.form_json); } catch (e) { f = {}; }
   const contact = { Name: r.first_name + ' ' + r.last_name, Phone: r.phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'), Email: r.email,
@@ -163,6 +168,10 @@ function one(r) {
     .reduce((o, k) => (f[k] !== undefined ? Object.assign(o, { [k]: f[k] }) : o), {});
   let html = '<section><h1>' + esc(r.id) + ' · ' + esc(LINE[r.line] || r.line) + (r.is_test ? ' <span class="b">TEST</span>' : '') + '</h1>'
     + '<div class="meta">Received ' + esc(when(r.created_at)) + ' (El Paso time) · Agency email: ' + esc(r.delivery) + ' · Client email: ' + esc(r.customer_delivery || 'off') + '</div></section>';
+  if (referral) {
+    html += '<section><h2>Referral</h2><table>' + referral.map(([k, v]) => '<tr><th>' + esc(k) + '</th><td>'
+      + (k === 'Needs review' ? '<span class="b no">' + esc(v) + '</span>' : esc(v)) + '</td></tr>').join('') + '</table></section>';
+  }
   html += '<section><h2>Client and contact</h2><table>' + Object.entries(contact).map(([k, v]) => '<tr><th>' + esc(k) + '</th><td>' + esc(v) + '</td></tr>').join('')
     + '</table>' + (Object.keys(address).length ? '<h3>Address</h3>' + table(address) : '') + '</section>';
   if (Array.isArray(f.vehicles) && f.vehicles.length) html += '<section><h2>Vehicles</h2>' + tree({ vehicles: f.vehicles }).replace(/^<h3>[^<]*<\/h3>/, '') + '</section>';
@@ -201,7 +210,12 @@ export async function agent(request, env, fetchImpl = fetch) {
       const r = await env.DB.prepare('SELECT * FROM quote_requests WHERE id = ?').bind(m[1]).first();
       if (!r) deny(404, 'No such request.');
       if (linkOnly && !sameKey(url.searchParams.get('k') || '', r.view_key || '')) deny(404, 'No such request.');
-      return page(r.id, one(r), !linkOnly);
+      let referral = null;
+      try {
+        await ensureCardsSchema(env.DB);
+        referral = await describe(env.DB, await env.DB.prepare('SELECT * FROM request_attribution WHERE request_id = ?').bind(r.id).first());
+      } catch (e) { referral = null; }
+      return page(r.id, one(r, referral), !linkOnly);
     }
     deny(404, 'No such page.');
   } catch (e) {
