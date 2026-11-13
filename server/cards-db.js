@@ -108,7 +108,9 @@ export const DEFAULT_SETTINGS = {
     hours: [{ days: [1, 2, 3, 4, 5], open: '11:00', close: '17:00' }],
     tz: 'America/Denver',
   },
-  social: [{ network: 'google', url: 'https://maps.google.com/?cid=9791616154088810738' }],
+  // Official social links, added in the panel (Settings). None by default:
+  // the agency asked for the Google reviews link to come off the cards.
+  social: [],
   // "Manage my policy" (https://my.safehouseins.com) is off until the agency
   // turns it on: Settings → Services, put the address back.
   services: {
