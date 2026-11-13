@@ -16,6 +16,10 @@ function google() {
         { placePrediction: { placeId: 'ChIJabc1234567', text: { text: '1244 Sunny Slope Dr, El Paso, TX, USA' },
           structuredFormat: { mainText: { text: '1244 Sunny Slope Dr' }, secondaryText: { text: 'El Paso, TX, USA' } } } },
         { queryPrediction: { text: { text: 'ignored' } } },
+        { placePrediction: { placeId: 'ChIJoutside1234', text: { text: '1244 Sun Ave, Phoenix, AZ, USA' },
+          structuredFormat: { mainText: { text: '1244 Sun Ave' }, secondaryText: { text: 'Phoenix, AZ, USA' } } } },
+        { placePrediction: { placeId: 'ChIJnewmex12345', text: { text: '1244 Sun Rd, Las Cruces, NM, USA' },
+          structuredFormat: { mainText: { text: '1244 Sun Rd' }, secondaryText: { text: 'Las Cruces, NM, USA' } } } },
       ] }));
     }
     return new Response(JSON.stringify({ addressComponents: [
@@ -37,13 +41,16 @@ test('suggestions come from Google, limited to Texas and New Mexico, key never r
   const r = await suggest(get('/api/address?q=1244%20Sun&s=tok-12345678'), KEY, g);
   assert.equal(r.status, 200);
   const d = await r.json();
-  assert.deepEqual(d, { suggestions: [{ id: 'ChIJabc1234567', main: '1244 Sunny Slope Dr', secondary: 'El Paso, TX' }] });
+  assert.deepEqual(d, { suggestions: [
+    { id: 'ChIJabc1234567', main: '1244 Sunny Slope Dr', secondary: 'El Paso, TX' },
+    { id: 'ChIJnewmex12345', main: '1244 Sun Rd', secondary: 'Las Cruces, NM' },
+  ] }, 'Arizona is left out');
   const call = g.calls[0];
   assert.equal(call.init.headers['X-Goog-Api-Key'], 'g-key');
   assert.equal(call.body.input, '1244 Sun');
   assert.equal(call.body.sessionToken, 'tok-12345678');
   assert.deepEqual(call.body.includedRegionCodes, ['us']);
-  assert.equal(call.body.locationRestriction.rectangle.low.latitude, 25.83);
+  assert.equal(call.body.locationBias.circle.center.latitude, 31.7619);
   assert.ok(!JSON.stringify(d).includes('g-key'));
 });
 

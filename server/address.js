@@ -8,8 +8,8 @@
 // session token runs from the first keystroke to the pick, which is how
 // Google bills a lookup as one session rather than a request per letter.
 //
-// Suggestions are limited to Texas and New Mexico, the two states the agency
-// writes in. Without a key both routes answer 501 and the form falls back to
+// Suggestions lean towards El Paso and are limited to Texas and New Mexico,
+// the two states the agency writes in. Without a key both routes answer 501 and the form falls back to
 // its free OpenStreetMap search — the field is always free text either way.
 //
 // Only same-site pages may ask (Sec-Fetch-Site), and the cost ceiling is the
@@ -17,8 +17,6 @@
 
 const AUTOCOMPLETE = 'https://places.googleapis.com/v1/places:autocomplete';
 const PLACE = 'https://places.googleapis.com/v1/places/';
-// Texas and New Mexico together.
-const BOX = { low: { latitude: 25.83, longitude: -109.06 }, high: { latitude: 37.01, longitude: -93.5 } };
 const TOKEN = /^[A-Za-z0-9-]{8,64}$/;
 const PLACE_ID = /^[A-Za-z0-9_-]{10,300}$/;
 
@@ -45,19 +43,21 @@ export async function suggest(request, env, fetchImpl = fetch) {
       headers: { 'Content-Type': 'application/json', 'X-Goog-Api-Key': env.GOOGLE_PLACES_KEY },
       body: JSON.stringify({
         input: q, sessionToken: s, languageCode: 'en', includedRegionCodes: ['us'],
-        locationRestriction: { rectangle: BOX },
+        // Near El Paso first — most of the agency's customers live there —
+        // then anywhere; the filter below keeps Texas and New Mexico only.
+        locationBias: { circle: { center: { latitude: 31.7619, longitude: -106.485 }, radius: 50000 } },
         includedPrimaryTypes: ['street_address', 'premise', 'subpremise', 'route'],
       }),
     });
   } catch (e) { return json(502, { error: 'google' }); }
   if (!r.ok) { console.warn('[address] autocomplete', r.status); return json(502, { error: 'google' }); }
   const d = await r.json().catch(() => ({}));
-  const out = (d.suggestions || []).map((x) => x.placePrediction).filter(Boolean).slice(0, 5).map((p) => ({
+  const out = (d.suggestions || []).map((x) => x.placePrediction).filter(Boolean).map((p) => ({
     id: p.placeId,
     main: (p.structuredFormat && p.structuredFormat.mainText && p.structuredFormat.mainText.text) || (p.text && p.text.text) || '',
     secondary: ((p.structuredFormat && p.structuredFormat.secondaryText && p.structuredFormat.secondaryText.text) || '').replace(/, USA$/, ''),
-  })).filter((x) => x.id && x.main);
-  return json(200, { suggestions: out });
+  })).filter((x) => x.id && x.main && /(^|, )(TX|NM)(\b|$)/.test(x.secondary));
+  return json(200, { suggestions: out.slice(0, 5) });
 }
 
 export function parseComponents(list) {
