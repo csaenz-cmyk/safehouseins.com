@@ -109,8 +109,10 @@ export const DEFAULT_SETTINGS = {
     tz: 'America/Denver',
   },
   social: [{ network: 'google', url: 'https://maps.google.com/?cid=9791616154088810738' }],
+  // "Manage my policy" (https://my.safehouseins.com) is off until the agency
+  // turns it on: Settings → Services, put the address back.
   services: {
-    manage: 'https://my.safehouseins.com', pay: '/pay/', claim: '/claims/', idcard: '/id-card/', website: '/',
+    manage: '', pay: '/pay/', claim: '/claims/', idcard: '/id-card/', website: '/',
   },
 };
 

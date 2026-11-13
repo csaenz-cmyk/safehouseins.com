@@ -153,6 +153,8 @@ test('a card is a draft until published; its address is checked and then reserve
   assert.match(html, /tel:\+19155031207/);
   assert.match(html, /sms:\+19155943777/);
   assert.doesNotMatch(html, /mailto:/, 'email button off');
+  assert.doesNotMatch(html, /Manage my policy/, '"Manage my policy" is off until the agency turns it on');
+  assert.match(html, /Make a payment/);
   const es = await (await browser(e).get('/es/team/ana')).text();
   assert.match(es, /lang="es"/);
   assert.match(es, /Obtén tu cotización gratis/);
