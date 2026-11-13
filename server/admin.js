@@ -164,7 +164,11 @@ export function cleanCard(d, prev = {}) {
     title: pair(d.title, 60), tagline: pair(d.tagline, 220),
     languages: ['en', 'es'].filter((l) => Array.isArray(d.languages) && d.languages.includes(l)),
     call: contact(d.call), text: contact(d.text), email: contact(d.email, 'email'),
-    show_office: d.show_office !== false, show_social: d.show_social !== false,
+    // Address and hours separately; a card saved with the older single switch
+    // (show_office) keeps what it had.
+    show_address: d.show_address !== undefined ? d.show_address !== false : d.show_office !== false,
+    show_hours: d.show_hours !== undefined ? d.show_hours !== false : d.show_office !== false,
+    show_social: d.show_social !== false,
     photo: d.photo === 0 ? 0 : Number(prev.photo) || 0,
     og: Number(prev.og) || 0,
   };

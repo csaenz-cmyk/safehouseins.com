@@ -164,7 +164,7 @@ function card(id){
     +'<div class="contact"><label class="chk"><input type="checkbox" id="ce"> Llamadas</label><input type="tel" id="cn" placeholder="Número de la oficina"></div>'
     +'<div class="contact"><label class="chk"><input type="checkbox" id="xe"> Mensajes de texto (SMS)</label><input type="tel" id="xn" placeholder="Número de la oficina"></div>'
     +'<div class="contact"><label class="chk"><input type="checkbox" id="ee"> Correo electrónico</label><input type="email" id="ea" placeholder="Correo de la oficina"></div>'
-    +'<label class="chk"><input type="checkbox" id="so"> Mostrar oficina y horario</label><label class="chk"><input type="checkbox" id="ss"> Mostrar redes sociales oficiales</label></div>'
+    +'<label class="chk"><input type="checkbox" id="sa"> Mostrar dirección de la oficina</label><label class="chk"><input type="checkbox" id="sh"> Mostrar horario (y «Abierto ahora»)</label><label class="chk"><input type="checkbox" id="ss"> Mostrar redes sociales oficiales</label></div>'
     +'<div class="box"><h2 style="margin-top:0">Dirección</h2>'+(a.published_at?'<p><b>'+h(url)+'</b></p><p class="meta">Una tarjeta publicada conserva su dirección para siempre.</p>'
       :'<div class="row" style="gap:6px;flex-wrap:nowrap"><span class="meta">/team/</span><input type="text" id="slug" maxlength="30" value="'+h(a.slug)+'" '+(ed?'':'disabled')+'><button class="btn sm" id="slugSave" '+(ed?'':'disabled')+'>Cambiar</button></div><div class="meta" id="slugMsg"></div>')+'</div>'
     +(a.published?'<div class="box"><h2 style="margin-top:0">Código QR</h2><div class="qr"><div class="code" id="qr"></div><div class="grow"><p class="meta">Lleva a <b>'+h(url)+'</b> y cuenta las visitas como «QR».</p><div class="row"><button class="btn sm" id="qrPng">Descargar PNG</button><button class="btn sm" id="qrSvg">Descargar SVG</button><button class="btn sm" id="copyEn">Copiar enlace</button><button class="btn sm" id="copyEs">Copiar enlace en español</button></div></div></div></div>':'')
@@ -181,11 +181,11 @@ function card(id){
     $('fn').value=c.first_name;$('ln').value=c.last_name;$('ten').value=c.title.en;$('tes').value=c.title.es;$('gen').value=c.tagline.en;$('ges').value=c.tagline.es;
     $('len').checked=c.languages.indexOf('en')>-1;$('les').checked=c.languages.indexOf('es')>-1;
     $('ce').checked=c.call.enabled;$('cn').value=c.call.number;$('xe').checked=c.text.enabled;$('xn').value=c.text.number;$('ee').checked=c.email.enabled;$('ea').value=c.email.address;
-    $('so').checked=c.show_office;$('ss').checked=c.show_social;
+    $('sa').checked=c.show_address;$('sh').checked=c.show_hours;$('ss').checked=c.show_social;
     if(!ed)[].forEach.call(MAIN.querySelectorAll('.edit input,.edit textarea'),function(i){if(i.id!=='slug')i.disabled=true});
     function form(){return {first_name:$('fn').value,last_name:$('ln').value,title:{en:$('ten').value,es:$('tes').value},tagline:{en:$('gen').value,es:$('ges').value},
       languages:[$('len').checked?'en':'',$('les').checked?'es':''].filter(Boolean),call:{enabled:$('ce').checked,number:$('cn').value},text:{enabled:$('xe').checked,number:$('xn').value},
-      email:{enabled:$('ee').checked,address:$('ea').value},show_office:$('so').checked,show_social:$('ss').checked}}
+      email:{enabled:$('ee').checked,address:$('ea').value},show_address:$('sa').checked,show_hours:$('sh').checked,show_social:$('ss').checked}}
     var dirty=false;
     function save(){return api('PUT','/cards/'+a.id,{draft:form()}).then(function(r){dirty=false;CUR=r.agent;reloadPv();return r})}
     function reloadPv(){$('pv').src='/api/admin/cards/'+a.id+'/preview?lang='+PVLANG+'&t='+Date.now()}

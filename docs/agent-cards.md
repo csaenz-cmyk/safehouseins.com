@@ -59,6 +59,9 @@ quote request. The owner runs everything from `/admin`.
   Safe House heart, Montserrat) and **Navy Executive** (the first one, kept to
   go back to). Both are in `server/cards.js` (`renderGradient`, `renderNavy`).
   A card without a photo shows the heart in Gradient and the initials in Navy.
+- The office address and the office hours are switched separately per card
+  ("Mostrar dirección" / "Mostrar horario"); "Open now" follows the hours.
+  Cards saved with the older single `show_office` switch keep their choice.
 
 - Draft → Publish. The public card shows the published copy; edits stay in
   the draft until "Publish changes". Publishing draws the link-preview image

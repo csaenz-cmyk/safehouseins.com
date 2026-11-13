@@ -470,3 +470,33 @@ test('names are escaped on the card', async () => {
   assert.doesNotMatch(html, /<script>x<\/script>/);
   assert.match(html, /&lt;script&gt;x&lt;\/script&gt; Ruiz&quot;/);
 });
+
+test('the office address and its hours are shown or hidden separately', async () => {
+  const e = env();
+  const o = await owner(e);
+  const id = await makeCard(o, 'Ana', 'Ruiz', 'ana');
+  const base = { first_name: 'Ana', last_name: 'Ruiz', title: { en: 'Agent', es: 'Agente' }, call: { enabled: true } };
+  const page = async (draft, lang = '') => {
+    await o.api('PUT', '/cards/' + id, { draft: { ...base, ...draft } });
+    await publish(o, id);
+    return (await browser(e).get(lang + '/team/ana')).text();
+  };
+  let h = await page({ show_address: true, show_hours: false });
+  assert.match(h, /6065 Montana Ave Ste C8/); assert.match(h, /Get directions/);
+  assert.doesNotMatch(h, /Monday to Friday/); assert.match(h, /915-503-1207/, 'the office phone moves under the address');
+  assert.doesNotMatch(h, /class="dot"|class="chip on"/, 'no "Open now" without hours');
+  h = await page({ show_address: false, show_hours: true }, '/es');
+  assert.doesNotMatch(h, /6065 Montana/); assert.match(h, /Lunes a viernes/); assert.match(h, /915-503-1207/);
+  h = await page({ show_address: false, show_hours: false });
+  assert.doesNotMatch(h, /Visit us/);
+  // A card saved before the split (one show_office switch) keeps its choice.
+  e.DB.raw.prepare('UPDATE agents SET published = ? WHERE id = ?').run(JSON.stringify({ ...base, call: { enabled: true }, text: {}, email: {}, show_office: false }), id);
+  h = await (await browser(e).get('/team/ana')).text();
+  assert.doesNotMatch(h, /Visit us/);
+  const ed = await o.api('GET', '/cards/' + id);
+  assert.equal(typeof ed.body.agent.draft.show_address, 'boolean');
+  // And in the first design, too.
+  await o.api('PUT', '/settings', { design: 'navy' });
+  h = await page({ show_address: true, show_hours: false });
+  assert.match(h, /6065 Montana/); assert.doesNotMatch(h, /id="open"/);
+});

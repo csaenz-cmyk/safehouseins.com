@@ -160,6 +160,10 @@ a.row:hover{border-color:#BCD2F7;transform:translateX(2px)}
 // Two designs, chosen in the panel (Settings → design): 'gradient' (default,
 // November 2026) and 'navy', the first one, kept so the agency can go back.
 export const DESIGNS = ['gradient', 'navy'];
+// The office's address and its hours are shown or hidden separately. Cards
+// saved before that had one switch (show_office) for both.
+export const showAddress = (card) => (card.show_address !== undefined ? card.show_address !== false : card.show_office !== false);
+export const showHours = (card) => (card.show_hours !== undefined ? card.show_hours !== false : card.show_office !== false);
 export function renderCard(o) {
   return (o.settings && o.settings.design === 'navy') ? renderNavy(o) : renderGradient(o);
 }
@@ -201,12 +205,12 @@ function renderNavy({ agent, card, settings, lang, origin, source = 'link', prev
   }).join('');
 
   const addr = [office.street, [office.city, office.region].filter(Boolean).join(', ') + ' ' + (office.zip || '')].filter(Boolean).join(' · ').trim();
-  const officeBlock = card.show_office === false ? '' : '<div class="sec rise d2"><div class="lab">' + esc(c.secOffice) + '</div>'
-    + (office.maps ? '<a class="row" href="' + esc(office.maps) + '" target="_blank" rel="noopener" data-ev="map">' : '<div class="row">')
+  const officeBlock = !showAddress(card) && !showHours(card) ? '' : '<div class="sec rise d2"><div class="lab">' + esc(c.secOffice) + '</div>'
+    + (!showAddress(card) ? '' : (office.maps ? '<a class="row" href="' + esc(office.maps) + '" target="_blank" rel="noopener" data-ev="map">' : '<div class="row">')
     + '<span class="ic">' + icon('pin') + '</span><span class="t">' + esc(office.name || 'Safe House Insurance') + '<small>' + esc(addr) + '</small></span>'
-    + (office.maps ? '<svg class="go" viewBox="0 0 24 24">' + I.arrow + '</svg></a>' : '</div>')
-    + '<div class="row"><span class="ic">' + icon('clock') + '</span><span class="t">' + esc(hoursText(office, c))
-    + '<small>' + esc(c.tz) + '</small></span><span class="open shut" id="open" data-hours="' + esc(JSON.stringify(office.hours || [])) + '" data-tz="' + esc(office.tz || 'America/Denver') + '" hidden></span></div></div>';
+    + (office.maps ? '<svg class="go" viewBox="0 0 24 24">' + I.arrow + '</svg></a>' : '</div>'))
+    + (!showHours(card) ? '' : '<div class="row"><span class="ic">' + icon('clock') + '</span><span class="t">' + esc(hoursText(office, c))
+    + '<small>' + esc(c.tz) + '</small></span><span class="open shut" id="open" data-hours="' + esc(JSON.stringify(office.hours || [])) + '" data-tz="' + esc(office.tz || 'America/Denver') + '" hidden></span></div>') + '</div>';
 
   const social = (settings.social || []).filter((s) => s && s.url && NETWORKS[s.network]);
   const socialBlock = card.show_social === false || !social.length ? '' : '<div class="sec rise d3"><div class="lab">' + esc(c.secFollow) + '</div><div class="soc">'
@@ -322,7 +326,7 @@ h2{margin:0;font-size:13px;font-weight:700;color:#56657F;letter-spacing:.08em;te
 .visit>*{padding:18px;display:flex;flex-direction:column;gap:6px;color:#0A1A3A}
 .visit>*+*{border-left:1px solid #D3E0F8}
 .visit b{font-size:15px;font-weight:700;line-height:1.4}.visit em{font-style:normal;font-size:13px;font-weight:600;color:#1763E5}
-a.vis:hover{color:#1763E5}
+a.vis{display:flex;flex-direction:column;gap:6px;color:#0A1A3A}a.vis:hover{color:#1763E5}
 .foot{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;font-size:13px;color:#56657F}.foot a{color:#0A1A3A;font-weight:600}.foot a:hover{color:#1763E5}
 .toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;background:#0A1A3A;color:#fff;font-size:14px;font-weight:700;border-radius:999px;padding:10px 16px;display:flex;gap:8px;align-items:center;box-shadow:0 8px 20px rgba(10,26,58,.3);white-space:nowrap;transition:opacity .2s,transform .2s;pointer-events:none;z-index:9}
 .toast.on{opacity:1;transform:translate(-50%,0)}.toast i{width:18px;height:18px;border-radius:50%;background:#1BA160;display:grid;place-items:center}.toast svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:3}
@@ -356,7 +360,7 @@ function renderGradient({ agent, card, settings, lang, origin, source = 'link', 
   const textNo = card.text && card.text.enabled ? digits(card.text.number || office.text) : '';
   const mail = card.email && card.email.enabled ? String(card.email.address || office.email || '') : '';
   const langs = (card.languages || []).filter((x) => x === 'en' || x === 'es');
-  const open = card.show_office !== false && isOpen(office);
+  const open = showHours(card) && isOpen(office);
   const svg = (k, cls) => '<svg' + (cls ? ' class="' + cls + '"' : '') + ' viewBox="0 0 24 24" aria-hidden="true">' + (G_ICON[k] || I[k]) + '</svg>';
 
   const acts = [];
@@ -373,13 +377,16 @@ function renderGradient({ agent, card, settings, lang, origin, source = 'link', 
     + esc(c[k]) + '</b><small>' + esc(c[k + 'Sub']) + '</small></span>' + svg('chevR', 'chev') + '</a>').join('');
 
   const hrs = hoursLong(office, c);
-  const visit = card.show_office === false ? '' : '<section class="sec rise d3"><h2>' + esc(c.visitUs) + '</h2><div class="visit">'
-    + (office.maps ? '<a class="vis" href="' + esc(office.maps) + '" target="_blank" rel="noopener" data-ev="map">' : '<div>')
-    + '<b>' + esc(office.street || '') + '<br>' + esc([office.city, office.region].filter(Boolean).join(', ') + ' ' + (office.zip || '')) + '</b>'
-    + (office.maps ? '<em>' + esc(c.directions) + ' →</em></a>' : '</div>')
-    + '<div><b>' + hrs.map((h) => esc(h[0]) + '<br>' + esc(h[1])).join('<br>') + '</b>'
-    + (office.call ? '<a href="tel:+1' + digits(office.call) + '" data-ev="call" data-d="office"><em><span class="nw">' + esc(pretty(office.call)) + '</span></em></a>' : '') + '</div>'
-    + '</div></section>';
+  const phone = office.call ? '<a href="tel:+1' + digits(office.call) + '" data-ev="call" data-d="office"><em><span class="nw">' + esc(pretty(office.call)) + '</span></em></a>' : '';
+  const cols = [];
+  if (showAddress(card)) {
+    const where = '<b>' + esc(office.street || '') + '<br>' + esc([office.city, office.region].filter(Boolean).join(', ') + ' ' + (office.zip || '')) + '</b>';
+    cols.push('<div>' + (office.maps
+      ? '<a class="vis" href="' + esc(office.maps) + '" target="_blank" rel="noopener" data-ev="map">' + where + '<em>' + esc(c.directions) + ' →</em></a>'
+      : where) + (showHours(card) ? '' : phone) + '</div>');
+  }
+  if (showHours(card)) cols.push('<div><b>' + hrs.map((h) => esc(h[0]) + '<br>' + esc(h[1])).join('<br>') + '</b>' + phone + '</div>');
+  const visit = !cols.length ? '' : '<section class="sec rise d3"><h2>' + esc(c.visitUs) + '</h2><div class="visit">' + cols.join('') + '</div></section>';
 
   const social = card.show_social === false ? [] : (settings.social || []).filter((s) => s && s.url && NETWORKS[s.network]);
   const foot = [['/', 'safehouseins.com', null], ...social.map((s) => [s.url, s.network === 'google' ? c.googleReviews : NETWORKS[s.network], s.network])];
