@@ -16,6 +16,7 @@ import { submit, config } from '../server/quote-request.js';
 import { card, cardEvent, referral } from '../server/cards.js';
 import { admin } from '../server/admin.js';
 import { agent } from '../server/agent.js';
+import { apply } from '../server/careers.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.mjs': 'text/javascript', '.json': 'application/json',
@@ -35,7 +36,7 @@ export async function start(port = 0, over = {}) {
   const mail = fakeMailer();
   const env = {
     DB: fakeD1(), HASH_SALT: 'local-dev', MAIL_FROM: 'Safe House <quotes@example.test>', RESEND_API_KEY: 'local',
-    MAIL_SUBJECT_PREFIX: '[LOCAL] ', AGENT_LINK_ONLY: '1', PANEL_MODE: 'staging', PANEL_PASSWORD: 'staging-local', ...over,
+    MAIL_SUBJECT_PREFIX: '[LOCAL] ', ALLOW_TEST_HEADER: '1', AGENT_LINK_ONLY: '1', PANEL_MODE: 'staging', PANEL_PASSWORD: 'staging-local', ...over,
   };
   env.ASSETS = { fetch: async (req) => { const f = resolve(new URL(req.url).pathname); return new Response(f ? fs.readFileSync(f) : 'Not found', { status: f ? 200 : 404 }); } };
   const fetchMail = (url, init) => mail(url, init);
@@ -51,6 +52,7 @@ export async function start(port = 0, over = {}) {
       const u = new URL(request.url), p = u.pathname;
       let r = null;
       if (p === '/api/quote-request') r = req.method === 'GET' ? await config(env) : await submit(request, env, fetchMail);
+      else if (p === '/api/careers') r = await apply(request, env, fetchMail);
       else if (p === '/api/referral') r = await referral(request, env);
       else if (p === '/api/card-event') r = await cardEvent(request, env);
       else if (p.startsWith('/api/admin') || p === '/admin' || p.startsWith('/admin/')) r = await admin(request, env, fetchMail);

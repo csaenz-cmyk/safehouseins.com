@@ -215,6 +215,12 @@ to configure, the rules and the data model are in `docs/agent-cards.md`.
 `node tools/devserver.mjs` runs the site with every Function locally;
 `tools/cardsbrowser.js` checks cards, panel and referral in a browser.
 
+**Job applications (`/careers#apply`).** A five-step form posting to
+`/api/careers` (`server/careers.js`): saved in D1 with the resume, a notice to
+csaenz@safehouseins.com, a confirmation to the applicant in their language.
+Resumes download only from the panel (Empleo). See `docs/careers-api.md`;
+`tools/careersbrowser.js` checks it in a browser.
+
 **Live and Staging versions.** `live` is the branch Cloudflare Pages publishes
 to safehouseins.com; every `staging/<name>` branch is a separate version with
 its own private preview address. They are created, duplicated, compared,

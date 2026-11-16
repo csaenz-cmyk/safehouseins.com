@@ -33,10 +33,11 @@ import { renderCard, media, NETWORKS, DESIGNS } from './cards.js';
 import { handle as versions } from './versions.js';
 import { VERSIONS_HTML } from './versions-ui.js';
 import { ADMIN_HTML } from './admin-ui.js';
+import { ensureCareersSchema, resume as jobResume, deliver as jobDeliver, noticeRows } from './careers.js';
 
 export const ROLES = {
   owner: ['cards.view', 'cards.edit', 'cards.publish', 'stats.view', 'requests.view', 'attribution.correct',
-    'settings.edit', 'log.view', 'site.publish', 'admins.manage'],
+    'settings.edit', 'log.view', 'site.publish', 'admins.manage', 'jobs.view', 'jobs.manage'],
 };
 const can = (who, perm) => (ROLES[who.role] || []).includes(perm);
 
@@ -519,6 +520,52 @@ export async function recalculate(db, who, { rule, from, to, dryRun, reason }) {
   return { checked: (results || []).length, changes };
 }
 
+// ------------------------------------------------------- job applications ---
+// From /careers (server/careers.js). The resume never has a public link: it
+// is downloaded here, behind the panel's sign-in, and served as an attachment
+// the browser will not open in the page.
+async function jobsApi(db, who, method, rest, request, url, env, fetchImpl) {
+  await ensureCareersSchema(db);
+  let m;
+  if (method === 'GET' && rest === '') {
+    need(who, 'jobs.view');
+    const { from, to } = range({ searchParams: new URLSearchParams({ from: url.searchParams.get('from') || new Date(Date.now() - 365 * 86400e3).toISOString().slice(0, 10), to: url.searchParams.get('to') || '' }) });
+    const tests = url.searchParams.get('tests') === '1';
+    const { results } = await db.prepare('SELECT id, created_at, lang, first_name, last_name, email, phone, position, review, is_test, notice_status, confirm_status FROM job_applications WHERE created_at >= ? AND created_at <= ?' + (tests ? '' : ' AND is_test = 0') + ' ORDER BY created_at DESC LIMIT 500')
+      .bind(from, to + 'T23:59:59.999Z').all();
+    return json(200, { applications: results || [] });
+  }
+  if (!(m = rest.match(/^\/(JA-\d{6}-[A-Z0-9]{6})(\/resume|\/resend)?$/))) fail(404, 'No existe esa acción.');
+  const rec = await db.prepare('SELECT * FROM job_applications WHERE id = ?').bind(m[1]).first();
+  if (!rec) fail(404, 'No existe esa solicitud.');
+  if (method === 'GET' && !m[2]) {
+    need(who, 'jobs.view');
+    const { idem_key, ip_hash, ...pub } = rec;
+    return json(200, { application: { ...pub, answers: JSON.parse(rec.answers) }, rows: noticeRows(rec) });
+  }
+  if (method === 'GET' && m[2] === '/resume') {
+    need(who, 'jobs.view');
+    const f = await jobResume(db, rec.id);
+    if (!f) fail(404, 'No se encontró el currículum.');
+    await log(db, who, 'job.resume', rec.id, { name: f.name });
+    const ascii = f.name.replace(/[^\x20-\x7E]/g, '_').replace(/"/g, '');
+    return new Response(f.bytes, { headers: {
+      'Content-Type': f.mime, 'Content-Disposition': 'attachment; filename="' + ascii + '"', 'Cache-Control': 'private, no-store',
+      'X-Content-Type-Options': 'nosniff', 'Content-Security-Policy': "default-src 'none'; sandbox", 'X-Robots-Tag': 'noindex, nofollow',
+    } });
+  }
+  if (method === 'POST' && m[2] === '/resend') {
+    need(who, 'jobs.manage');
+    const b = await request.json().catch(() => ({}));
+    const which = ['notice', 'confirm'].filter((k) => k === b.which);
+    if (!which.length) fail(400, 'Elige qué correo enviar.');
+    const out = await jobDeliver(env, db, rec, url.origin, fetchImpl, which);
+    await log(db, who, 'job.resend', rec.id, { which: which[0], result: out[which[0]] });
+    return json(200, { result: out[which[0]] });
+  }
+  fail(404, 'No existe esa acción.');
+}
+
 // --------------------------------------------------------------- settings ---
 const HM = /^([01]\d|2[0-3]):[0-5]\d$/;
 const HTTPS = /^https:\/\/[^\s<>"']{3,300}$/;
@@ -613,6 +660,7 @@ async function api(request, env, fetchImpl) {
     return json(200, await recalculate(db, who, { rule: b.rule, from: b.from, to: b.to, dryRun: b.dry_run !== false, reason: b.reason }));
   }
   if (method === 'POST' && path === '/retention') { need(who, 'settings.edit'); return json(200, await retention(db, Date.now(), true)); }
+  if (path === '/applications' || path.startsWith('/applications/')) return jobsApi(db, who, method, path.slice(13), request, url, env, fetchImpl);
   if (method === 'GET' && path === '/log') {
     need(who, 'log.view');
     const { results } = await db.prepare('SELECT * FROM admin_log ORDER BY id DESC LIMIT 200').all();

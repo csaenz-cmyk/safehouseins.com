@@ -50,76 +50,117 @@
     }
   },
   "apply": {
-    "h2": "Mándanos tu currículum",
-    "lead": "Una persona real lee cada uno. Si hay una oportunidad para ti, te llamamos &mdash; y si ahorita\n     no la hay, lo guardamos en lugar de borrarlo."
+    "h2": "Postúlate para formar parte de nuestro equipo",
+    "lead": "Cinco pasos cortos, unos cinco minutos. Una persona real lee cada solicitud &mdash; si hay una oportunidad para ti, te contactaremos."
   },
   "form": {
+    "stepOf": "Paso {n} de 5",
+    "steps": {
+      "s1": "Información personal",
+      "s2": "Puesto y experiencia",
+      "s3": "Idiomas",
+      "s4": "Disponibilidad y requisitos",
+      "s5": "Preguntas finales y currículum"
+    },
     "first": "Nombre",
     "last": "Apellido",
-    "phone": "Teléfono",
+    "phone": "Número de teléfono",
     "email": "Correo electrónico",
     "emailPh": "tu@correo.com",
-    "area": "¿Qué te interesa?",
+    "position": "¿A qué puesto te postulas?",
+    "positionOpt": {
+      "csr": "Representante de servicio al cliente",
+      "sales": "Representante de ventas",
+      "both": "Ambos puestos"
+    },
+    "licensed": "¿Tienes licencia para vender seguros actualmente?",
+    "licensedHint": "No necesitas licencia para postularte.",
+    "yes": "Sí",
+    "no": "No",
+    "years": "¿Cuántos años de experiencia en seguros tienes?",
     "choose": "Elige una opción",
-    "areaOpt": {
-      "personal": "Seguros personales",
-      "commercial": "Seguros comerciales",
-      "service": "Servicio al cliente",
-      "open": "Todavía no sé &mdash; me interesa todo"
-    },
-    "lic": "¿Tienes licencia?",
-    "licOpt": {
-      "tx": "Sí &mdash; General Lines de Texas",
-      "other": "Sí &mdash; de otro estado",
-      "willing": "No, pero me interesa sacarla",
-      "no": "No"
-    },
-    "exp": "Años en seguros",
-    "expOpt": {
-      "none": "Ninguno todavía",
+    "yearsOpt": {
+      "none": "Ninguno",
       "lt1": "Menos de 1 año",
-      "y1": "De 1 a 3 años",
-      "y3": "De 3 a 5 años",
-      "y5": "De 5 a 10 años",
+      "y1": "1&ndash;2 años",
+      "y3": "3&ndash;5 años",
+      "y6": "6&ndash;10 años",
       "y10": "Más de 10 años"
     },
-    "langs": "Idiomas",
-    "langOpt": {
-      "both": "Inglés y español",
-      "en": "Solo inglés",
-      "es": "Solo español"
+    "background": "¿Tienes experiencia previa en ventas o servicio al cliente?",
+    "backgroundOpt": {
+      "sales": "Ventas",
+      "service": "Servicio al cliente",
+      "both": "Ambas",
+      "neither": "Ninguna"
     },
-    "resume": "Currículum <span class=\"opt\">(PDF o Word)</span>",
-    "resumeHint": "Adjúntalo aquí y nos llega directo.",
-    "note": "Algo más que quieras contarnos <span class=\"opt\">(opcional)</span>",
-    "notePh": "Dónde trabajas ahora, qué estás buscando, cuándo podrías empezar&hellip;",
-    "submit": "Enviar mi solicitud",
-    "fine": "Usamos lo que nos mandas solo para considerarte para un trabajo aquí. No se comparte con\n       nadie más. Consulta nuestro <a href=\"privacy.html\">Aviso de privacidad</a>."
+    "computers": "¿Te sientes con confianza usando computadoras y aprendiendo programas nuevos?",
+    "languages": "¿Qué idiomas hablas?",
+    "languagesOpt": {
+      "en": "Inglés",
+      "es": "Español",
+      "both": "Ambos"
+    },
+    "required": "Estos puestos requieren dominio del inglés.",
+    "english": "¿Cómo calificarías tu nivel de inglés?",
+    "spanish": "¿Cómo calificarías tu nivel de español?",
+    "scale": "1 = Principiante &middot; 5 = Fluido",
+    "scaleLo": "Principiante",
+    "scaleHi": "Fluido",
+    "optional": "(opcional)",
+    "start": "¿Cuándo puedes empezar?",
+    "startOpt": {
+      "now": "De inmediato",
+      "w2": "En 2 semanas",
+      "d30": "En 30 días",
+      "other": "Otro"
+    },
+    "startOther": "Dinos cuándo",
+    "employment": "¿Qué tipo de empleo buscas?",
+    "employmentOpt": {
+      "ft": "Tiempo completo",
+      "pt": "Medio tiempo",
+      "both": "Cualquiera de los dos"
+    },
+    "onsite": "¿Puedes trabajar de forma presencial en nuestra oficina de El Paso?",
+    "onsiteHint": "Todos nuestros puestos actuales son presenciales en la oficina de El Paso.",
+    "events": "¿Podrías participar ocasionalmente en eventos promocionales fuera de la oficina o representar a Safe House Insurance en ubicaciones de socios?",
+    "transport": "¿Tienes transporte confiable para asistir a eventos de trabajo ocasionales?",
+    "why": "¿Por qué te gustaría trabajar en Safe House Insurance?",
+    "strengths": "¿Qué fortalezas aportarías a nuestro equipo?",
+    "resume": "Sube tu currículum",
+    "resumeHint": "PDF, DOC o DOCX, hasta 5 MB.",
+    "resumePick": "Elegir archivo",
+    "resumeChange": "Cambiar archivo",
+    "comments": "Comentarios adicionales",
+    "back": "Atrás",
+    "next": "Continuar",
+    "submit": "Enviar solicitud",
+    "fine": "Usamos lo que nos envías solo para considerarte para un puesto en Safe House Insurance. No lo compartimos con nadie, y en esta etapa nunca te pedimos tu número de Seguro Social ni tu fecha de nacimiento. Consulta nuestra <a href=\"privacy.html\">Política de Privacidad</a>."
   },
   "done": {
-    "h3": "Recibido &mdash; gracias.",
-    "p": "Una persona va a leer tu solicitud y te buscará si hay una oportunidad para ti.",
-    "fine": "¿Prefieres platicar primero? Llama al <a href=\"tel:+19155031207\">915-503-1207</a>\n       o manda un mensaje al <a href=\"sms:+19155943777\">915-594-3777</a>."
+    "h3": "Solicitud recibida &mdash; ¡gracias!",
+    "p": "Recibimos tu solicitud y tu currículum. Nuestro equipo de contratación los revisará y se comunicará contigo si tu perfil coincide con nuestras oportunidades actuales.",
+    "ref": "Número de solicitud",
+    "fine": "¿Tienes preguntas? Llama al <a href=\"tel:+19155031207\">915-503-1207</a>."
   },
   "js": {
-    "noUpload": "En el siguiente paso te pediremos que lo adjuntes a un correo; todavía no está activada la opción de subir archivos.",
-    "errFirst": "Por favor escribe tu nombre.",
-    "errPhone": "Por favor escribe un teléfono donde te podamos localizar.",
-    "errEmail": "Por favor escribe tu correo electrónico.",
-    "errEmailBad": "Ese correo parece incompleto. Revísalo, por favor.",
-    "mailHead": "Solicitud de empleo desde safehouseins.com",
-    "mailName": "Nombre",
-    "mailPhone": "Teléfono",
-    "mailEmail": "Correo",
-    "mailArea": "Le interesa",
-    "mailLicensed": "Licencia",
-    "mailExperience": "Experiencia",
-    "mailLanguages": "Idiomas",
-    "mailNotes": "Notas",
-    "notStated": "no lo indicó",
-    "attach": "*** Por favor adjunta tu currículum a este correo antes de enviarlo. ***",
-    "subject": "Solicitud de empleo - {name}",
-    "doneMail": "Te abrimos un correo con tus datos ya escritos. Adjunta tu currículum, envíalo y una persona lo va a leer.",
-    "sending": "Enviando…"
+    "errRequired": "Responde esta pregunta, por favor.",
+    "errFirst": "Escribe tu nombre, por favor.",
+    "errLast": "Escribe tu apellido, por favor.",
+    "errPhone": "Escribe un número de teléfono de 10 dígitos.",
+    "errEmail": "Escribe un correo electrónico válido.",
+    "errWhy": "Cuéntanos un poco más (al menos una oración).",
+    "errStrengths": "Cuéntanos al menos una fortaleza.",
+    "errFile": "Sube tu currículum, por favor.",
+    "errFileType": "Tu currículum debe ser un archivo PDF, DOC o DOCX.",
+    "errFileSize": "Tu currículum debe pesar 5 MB o menos.",
+    "errStep": "Completa las preguntas marcadas para continuar.",
+    "errRate": "Ya recibimos varias solicitudes desde esta conexión. Inténtalo más tarde o llámanos al 915-503-1207.",
+    "errBot": "No pudimos confirmar que esta solicitud la envía una persona. Inténtalo de nuevo.",
+    "errServer": "No pudimos enviar tu solicitud en este momento; tus respuestas siguen aquí. Inténtalo de nuevo en un momento o llámanos al 915-503-1207.",
+    "englishNote": "Gracias por tu honestidad. Estos puestos requieren inglés — de todos modos revisaremos tu solicitud.",
+    "sending": "Enviando…",
+    "stepOf": "Paso {n} de 5"
   }
 }

@@ -140,7 +140,7 @@ export function check(body) {
 }
 
 // ------------------------------------------------------------- utilities ---
-async function sha256(s) {
+export async function sha256(s) {
   const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
   return [...new Uint8Array(h)].map((b) => b.toString(16).padStart(2, '0')).join('');
 }
@@ -171,7 +171,7 @@ export function elPaso(iso) {
 
 
 // ------------------------------------------------------------- turnstile ---
-async function turnstile(env, token, ip, fetchImpl) {
+export async function turnstile(env, token, ip, fetchImpl) {
   if (!env.TURNSTILE_SECRET) return;           // see docs/quote-requests.md
   if (!token || typeof token !== 'string' || token.length > 4096) refuse(403, 'bot');
   const form = new FormData();

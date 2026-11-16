@@ -50,76 +50,117 @@
     }
   },
   "apply": {
-    "h2": "Send us your resume",
-    "lead": "A real person reads every one of these. If there is a fit we call you &mdash; and\n     if there is not one right now, we keep it on file rather than deleting it."
+    "h2": "Apply to join our team",
+    "lead": "Five short steps, about five minutes. A real person reads every application &mdash; if there is a fit, we will reach out."
   },
   "form": {
+    "stepOf": "Step {n} of 5",
+    "steps": {
+      "s1": "Personal information",
+      "s2": "Position &amp; experience",
+      "s3": "Languages",
+      "s4": "Availability &amp; work requirements",
+      "s5": "Final questions &amp; resume"
+    },
     "first": "First name",
     "last": "Last name",
-    "phone": "Phone",
-    "email": "Email",
+    "phone": "Phone number",
+    "email": "Email address",
     "emailPh": "you@email.com",
-    "area": "What are you interested in?",
+    "position": "Which position are you applying for?",
+    "positionOpt": {
+      "csr": "Customer Service Representative",
+      "sales": "Sales Representative",
+      "both": "Both Positions"
+    },
+    "licensed": "Are you currently licensed to sell insurance?",
+    "licensedHint": "A license is not required to apply.",
+    "yes": "Yes",
+    "no": "No",
+    "years": "How many years of insurance experience do you have?",
     "choose": "Choose one",
-    "areaOpt": {
-      "personal": "Personal lines",
-      "commercial": "Commercial lines",
-      "service": "Customer service",
-      "open": "Not sure yet &mdash; open to anything"
-    },
-    "lic": "Are you licensed?",
-    "licOpt": {
-      "tx": "Yes &mdash; Texas General Lines",
-      "other": "Yes &mdash; another state",
-      "willing": "No, but I am willing to get licensed",
-      "no": "No"
-    },
-    "exp": "Years in insurance",
-    "expOpt": {
-      "none": "None yet",
+    "yearsOpt": {
+      "none": "None",
       "lt1": "Less than 1 year",
-      "y1": "1&ndash;3 years",
+      "y1": "1&ndash;2 years",
       "y3": "3&ndash;5 years",
-      "y5": "5&ndash;10 years",
+      "y6": "6&ndash;10 years",
       "y10": "More than 10 years"
     },
-    "langs": "Languages",
-    "langOpt": {
-      "both": "English and Spanish",
-      "en": "English only",
-      "es": "Spanish only"
+    "background": "Do you have previous sales or customer service experience?",
+    "backgroundOpt": {
+      "sales": "Sales",
+      "service": "Customer service",
+      "both": "Both",
+      "neither": "Neither"
     },
-    "resume": "Resume <span class=\"opt\">(PDF or Word)</span>",
-    "resumeHint": "Attach it here and it comes straight to us.",
-    "note": "Anything you want us to know <span class=\"opt\">(optional)</span>",
-    "notePh": "Where you are now, what you are looking for, when you could start&hellip;",
-    "submit": "Send my application",
-    "fine": "We use what you send only to consider you for work here. It is not shared with\n       anyone else. See our <a href=\"privacy.html\">Privacy Policy</a>."
+    "computers": "Are you comfortable using computers and learning new software?",
+    "languages": "Which languages do you speak?",
+    "languagesOpt": {
+      "en": "English",
+      "es": "Spanish",
+      "both": "Both"
+    },
+    "required": "English proficiency is required for these positions.",
+    "english": "How would you rate your English proficiency?",
+    "spanish": "How would you rate your Spanish proficiency?",
+    "scale": "1 = Beginner &middot; 5 = Fluent",
+    "scaleLo": "Beginner",
+    "scaleHi": "Fluent",
+    "optional": "(optional)",
+    "start": "When are you available to start?",
+    "startOpt": {
+      "now": "Immediately",
+      "w2": "Within 2 weeks",
+      "d30": "Within 30 days",
+      "other": "Other"
+    },
+    "startOther": "Tell us when",
+    "employment": "What type of employment are you seeking?",
+    "employmentOpt": {
+      "ft": "Full-time",
+      "pt": "Part-time",
+      "both": "Open to both"
+    },
+    "onsite": "Are you available to work on-site at our El Paso office?",
+    "onsiteHint": "All of our current positions are in person at our El Paso office.",
+    "events": "Are you willing to participate in occasional off-site promotional events or represent Safe House Insurance at partner locations?",
+    "transport": "Do you have reliable transportation to travel to occasional work-related events?",
+    "why": "Why would you like to work at Safe House Insurance?",
+    "strengths": "What strengths would you bring to our team?",
+    "resume": "Upload your resume",
+    "resumeHint": "PDF, DOC or DOCX, up to 5 MB.",
+    "resumePick": "Choose a file",
+    "resumeChange": "Change file",
+    "comments": "Additional comments",
+    "back": "Back",
+    "next": "Continue",
+    "submit": "Submit application",
+    "fine": "We use what you send only to consider you for work at Safe House Insurance. It is not shared with anyone else, and we never ask for your Social Security number or date of birth at this stage. See our <a href=\"privacy.html\">Privacy Policy</a>."
   },
   "done": {
-    "h3": "Got it &mdash; thank you.",
-    "p": "A person will read your application and reach out if there is a fit.",
-    "fine": "Would rather talk first? Call <a href=\"tel:+19155031207\">915-503-1207</a>\n       or text <a href=\"sms:+19155943777\">915-594-3777</a>."
+    "h3": "Application received &mdash; thank you!",
+    "p": "We have your application and resume. Our hiring team will review them and contact you if your qualifications match our current opportunities.",
+    "ref": "Application number",
+    "fine": "Questions? Call <a href=\"tel:+19155031207\">915-503-1207</a>."
   },
   "js": {
-    "noUpload": "We will ask you to attach this to an email on the next step — uploads are not switched on yet.",
+    "errRequired": "Please answer this question.",
     "errFirst": "Please add your first name.",
-    "errPhone": "Please add a phone number we can reach you at.",
-    "errEmail": "Please add your email.",
-    "errEmailBad": "That email looks incomplete — please check it.",
-    "mailHead": "Application from safehouseins.com/careers",
-    "mailName": "Name",
-    "mailPhone": "Phone",
-    "mailEmail": "Email",
-    "mailArea": "Interested in",
-    "mailLicensed": "Licensed",
-    "mailExperience": "Experience",
-    "mailLanguages": "Languages",
-    "mailNotes": "Notes",
-    "notStated": "not stated",
-    "attach": "*** Please attach your resume to this email before sending. ***",
-    "subject": "Application - {name}",
-    "doneMail": "We opened an email for you with your details filled in. Attach your resume and send it, and a person will read it.",
-    "sending": "Sending…"
+    "errLast": "Please add your last name.",
+    "errPhone": "Please add a 10-digit phone number.",
+    "errEmail": "Please add a valid email address.",
+    "errWhy": "Please tell us a little more (at least a sentence).",
+    "errStrengths": "Please tell us at least one strength.",
+    "errFile": "Please upload your resume.",
+    "errFileType": "Your resume must be a PDF, DOC or DOCX file.",
+    "errFileSize": "Your resume must be 5 MB or smaller.",
+    "errStep": "Please complete the highlighted questions to continue.",
+    "errRate": "We have already received several applications from this connection. Please try again later or call us at 915-503-1207.",
+    "errBot": "We couldn’t confirm this application came from a person. Please try again.",
+    "errServer": "We couldn’t send your application just now, and nothing was lost on your screen. Please try again in a moment, or call us at 915-503-1207.",
+    "englishNote": "Thank you for your honesty. English is required for these positions — we will still review your application.",
+    "sending": "Sending…",
+    "stepOf": "Step {n} of 5"
   }
 }
