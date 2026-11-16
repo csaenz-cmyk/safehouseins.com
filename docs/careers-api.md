@@ -28,6 +28,17 @@ twice. The success screen survives a reload without sending again.
 Never asked: SSN, date of birth, marital status, vehicle, driver's licence,
 car insurance, salary expectation.
 
+## The candidates panel
+
+`/admin` → **Candidatos** (permission `jobs.view`; changes need `jobs.manage`).
+Every application with its date, position, interview availability and status
+(**New Application**, **Under Review**, **Interview**, **Hired**,
+**Rejected** — `job_app_status`, new until someone moves it) and internal
+notes (`job_app_notes`). Search by name, email or phone; filter by position
+and status; new applications are highlighted and counted on the tab. Status
+changes and notes are written to the panel's log. Private: Cloudflare Access
+on Live, the Staging password on previews.
+
 ## Settings (optional)
 
 | Variable | Default |

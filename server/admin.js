@@ -33,7 +33,7 @@ import { renderCard, media, NETWORKS, DESIGNS } from './cards.js';
 import { handle as versions } from './versions.js';
 import { VERSIONS_HTML } from './versions-ui.js';
 import { ADMIN_HTML } from './admin-ui.js';
-import { ensureCareersSchema, resume as jobResume, deliver as jobDeliver, noticeRows } from './careers.js';
+import { ensureCareersSchema, resume as jobResume, deliver as jobDeliver, noticeRows, STATUSES, STATUS_LABEL, OPTIONS as JOB_OPTIONS } from './careers.js';
 
 export const ROLES = {
   owner: ['cards.view', 'cards.edit', 'cards.publish', 'stats.view', 'requests.view', 'attribution.correct',
@@ -529,19 +529,42 @@ async function jobsApi(db, who, method, rest, request, url, env, fetchImpl) {
   let m;
   if (method === 'GET' && rest === '') {
     need(who, 'jobs.view');
-    const { from, to } = range({ searchParams: new URLSearchParams({ from: url.searchParams.get('from') || new Date(Date.now() - 365 * 86400e3).toISOString().slice(0, 10), to: url.searchParams.get('to') || '' }) });
-    const tests = url.searchParams.get('tests') === '1';
-    const { results } = await db.prepare('SELECT id, created_at, lang, first_name, last_name, email, phone, position, review, is_test, notice_status, confirm_status FROM job_applications WHERE created_at >= ? AND created_at <= ?' + (tests ? '' : ' AND is_test = 0') + ' ORDER BY created_at DESC LIMIT 500')
-      .bind(from, to + 'T23:59:59.999Z').all();
-    return json(200, { applications: results || [] });
+    // Every application, newest first, with where each one stands. Filters:
+    // q (name, email or phone), position, status; tests=1 shows test sends.
+    const where = [], args = [];
+    if (url.searchParams.get('tests') !== '1') where.push('a.is_test = 0');
+    const q = String(url.searchParams.get('q') || '').trim().toLowerCase().slice(0, 80);
+    if (q) {
+      const digits = q.replace(/\D/g, '');
+      where.push("(lower(a.first_name || ' ' || a.last_name) LIKE ? OR lower(a.email) LIKE ?" + (digits.length >= 3 ? ' OR a.phone LIKE ?' : '') + ')');
+      args.push('%' + q + '%', '%' + q + '%', ...(digits.length >= 3 ? ['%' + digits + '%'] : []));
+    }
+    const pos = url.searchParams.get('position');
+    if (pos && JOB_OPTIONS.position.includes(pos)) { where.push('a.position = ?'); args.push(pos); }
+    const st = url.searchParams.get('status');
+    if (st && STATUSES.includes(st)) { where.push("COALESCE(s.status, 'new') = ?"); args.push(st); }
+    const { results } = await db.prepare("SELECT a.id, a.created_at, a.lang, a.first_name, a.last_name, a.email, a.phone, a.position, a.review, a.is_test, a.notice_status, a.confirm_status, a.answers, COALESCE(s.status, 'new') AS status, s.updated_at AS status_at, (SELECT COUNT(*) FROM job_app_notes n WHERE n.app_id = a.id) AS notes FROM job_applications a LEFT JOIN job_app_status s ON s.app_id = a.id"
+      + (where.length ? ' WHERE ' + where.join(' AND ') : '') + ' ORDER BY a.created_at DESC LIMIT 500').bind(...args).all();
+    const counts = await db.prepare("SELECT COALESCE(s.status, 'new') AS status, COUNT(*) AS n FROM job_applications a LEFT JOIN job_app_status s ON s.app_id = a.id WHERE a.is_test = 0 GROUP BY 1").all();
+    return json(200, {
+      applications: (results || []).map(({ answers, ...r }) => {
+        let a = {}; try { a = JSON.parse(answers); } catch (e) { a = {}; }
+        return { ...r, interviewDays: a.interviewDays || [], interviewTimes: a.interviewTimes || [] };
+      }),
+      counts: Object.fromEntries((counts.results || []).map((r) => [r.status, r.n])), statuses: STATUSES, labels: STATUS_LABEL,
+    });
   }
-  if (!(m = rest.match(/^\/(JA-\d{6}-[A-Z0-9]{6})(\/resume|\/resend)?$/))) fail(404, 'No existe esa acción.');
+  if (!(m = rest.match(/^\/(JA-\d{6}-[A-Z0-9]{6})(\/resume|\/resend|\/status|\/notes)?$/))) fail(404, 'No existe esa acción.');
   const rec = await db.prepare('SELECT * FROM job_applications WHERE id = ?').bind(m[1]).first();
   if (!rec) fail(404, 'No existe esa solicitud.');
   if (method === 'GET' && !m[2]) {
     need(who, 'jobs.view');
     const { idem_key, ip_hash, ...pub } = rec;
-    return json(200, { application: { ...pub, answers: JSON.parse(rec.answers) }, rows: noticeRows(rec) });
+    const st = await db.prepare('SELECT * FROM job_app_status WHERE app_id = ?').bind(rec.id).first();
+    const { results: notes } = await db.prepare('SELECT id, at, actor, text FROM job_app_notes WHERE app_id = ? ORDER BY at DESC, id DESC').bind(rec.id).all();
+    return json(200, { application: { ...pub, answers: JSON.parse(rec.answers) }, rows: noticeRows(rec),
+      status: st ? st.status : 'new', statusAt: st ? st.updated_at : null, statusBy: st ? st.updated_by : null,
+      notes: notes || [], statuses: STATUSES, labels: STATUS_LABEL });
   }
   if (method === 'GET' && m[2] === '/resume') {
     need(who, 'jobs.view');
@@ -553,6 +576,26 @@ async function jobsApi(db, who, method, rest, request, url, env, fetchImpl) {
       'Content-Type': f.mime, 'Content-Disposition': 'attachment; filename="' + ascii + '"', 'Cache-Control': 'private, no-store',
       'X-Content-Type-Options': 'nosniff', 'Content-Security-Policy': "default-src 'none'; sandbox", 'X-Robots-Tag': 'noindex, nofollow',
     } });
+  }
+  if (method === 'PUT' && m[2] === '/status') {
+    need(who, 'jobs.manage');
+    const b = await request.json().catch(() => ({}));
+    if (!STATUSES.includes(b.status)) fail(400, 'Estatus no válido.');
+    const old = await db.prepare('SELECT status FROM job_app_status WHERE app_id = ?').bind(rec.id).first();
+    const now = new Date().toISOString();
+    await db.prepare('INSERT INTO job_app_status (app_id, status, updated_at, updated_by) VALUES (?, ?, ?, ?) ON CONFLICT(app_id) DO UPDATE SET status = excluded.status, updated_at = excluded.updated_at, updated_by = excluded.updated_by')
+      .bind(rec.id, b.status, now, who.email).run();
+    await log(db, who, 'job.status', rec.id, { from: old ? old.status : 'new', to: b.status });
+    return json(200, { status: b.status });
+  }
+  if (method === 'POST' && m[2] === '/notes') {
+    need(who, 'jobs.manage');
+    const b = await request.json().catch(() => ({}));
+    const text = String(b.text || '').trim().slice(0, 2000);
+    if (!text) fail(400, 'Escribe la nota.');
+    await db.prepare('INSERT INTO job_app_notes (app_id, at, actor, text) VALUES (?, ?, ?, ?)').bind(rec.id, new Date().toISOString(), who.email, text).run();
+    await log(db, who, 'job.note', rec.id, null);
+    return json(200, { ok: true });
   }
   if (method === 'POST' && m[2] === '/resend') {
     need(who, 'jobs.manage');

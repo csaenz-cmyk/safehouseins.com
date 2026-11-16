@@ -61,6 +61,7 @@ textarea{min-height:76px;resize:vertical}input:focus,select:focus,textarea:focus
 .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:#fff}
 table{border-collapse:collapse;width:100%;font-size:13.5px}th,td{text-align:left;padding:9px 11px;border-top:1px solid var(--line);vertical-align:top}th{background:#F6F8FC;border-top:0;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);white-space:nowrap}
 td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}tr.click{cursor:pointer}tr.click:hover td{background:#F8FAFE}
+.jnew td{background:#F7FAFF}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue);margin-right:7px;vertical-align:middle}
 .chart{display:flex;align-items:flex-end;gap:2px;height:120px;padding-top:6px}.chart i{flex:1;max-width:36px;background:#1666ED;border-radius:3px 3px 0 0;min-height:1px;opacity:.85}
 .filters{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));align-items:end}
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--navy);color:#fff;font-weight:800;font-size:14px;padding:11px 18px;border-radius:99px;box-shadow:0 10px 26px rgba(10,33,72,.3);z-index:20;max-width:92vw}
@@ -74,7 +75,7 @@ dialog{border:0;border-radius:20px;padding:20px;max-width:460px;width:calc(100% 
 </style></head><body>
 <header><div class="in"><b>Safe House · Panel</b><span class="tag" id="modeTag" hidden>STAGING</span><span class="sp"></span><span class="who" id="who"></span><button id="logout" hidden>Salir</button></div></header>
 <nav class="tabs" aria-label="Secciones"><div class="in">
-<a href="#cards" data-tab="cards">Tarjetas</a><a href="#stats" data-tab="stats">Estadísticas</a><a href="#requests" data-tab="requests">Solicitudes</a><a href="#jobs" data-tab="jobs">Empleo</a>
+<a href="#cards" data-tab="cards">Tarjetas</a><a href="#stats" data-tab="stats">Estadísticas</a><a href="#requests" data-tab="requests">Solicitudes</a><a href="#jobs" data-tab="jobs">Candidatos <span class="pill blue" id="jnewc" hidden></span></a>
 <a href="#settings" data-tab="settings">Configuración</a><a href="#log" data-tab="log">Registro</a><a href="/admin/site" id="verTab" hidden>Versiones del sitio</a></div></nav>
 <main id="main"><p class="empty">Cargando…</p></main>
 <script src="/assets/vendor/qrcode-1.4.4.js" nonce="__NONCE__"></script>
@@ -377,37 +378,62 @@ var JST={sent:['Enviado','ok'],failed:['Falló','bad'],pending:['Pendiente','war
 function jpill(s){var x=JST[s]||[s,''];return '<span class="pill '+x[1]+'">'+x[0]+'</span>'}
 var POS={'Customer Service Representative':'Servicio al cliente','Sales Representative':'Ventas','Both Positions':'Ambos puestos'};
 var JF={tests:false};
+// Where each applicant stands. The labels are the agency's own words.
+var JSS={new:'blue',review:'warn',interview:'ok',hired:'ok',rejected:'bad'};
+function spill(st,labels){return '<span class="pill '+(JSS[st]||'')+'">'+h((labels||{})[st]||st)+'</span>'}
+var DAYES={Monday:'Lun',Tuesday:'Mar',Wednesday:'Mié',Thursday:'Jue',Friday:'Vie'},TIMES={Morning:'mañana',Afternoon:'tarde'};
+function avail(a){return (a.interviewDays||[]).map(function(d){return DAYES[d]||d}).join(', ')+((a.interviewTimes||[]).length?' · '+a.interviewTimes.map(function(t){return TIMES[t]||t}).join(', '):'')}
+var JF={tests:false,q:'',position:'',status:''};
 function jobs(){
-  return api('GET','/applications'+(JF.tests?'?tests=1':'')).then(function(d){
-    MAIN.innerHTML='<div class="row"><div class="grow"><h1>Solicitudes de empleo</h1><p class="sub">Desde safehouseins.com/careers. El currículum solo se descarga aquí, con tu sesión iniciada.</p></div>'
-    +'<label class="chk"><input type="checkbox" id="jt"'+(JF.tests?' checked':'')+'> Incluir pruebas</label></div>'
-    +'<div class="tbl"><table><thead><tr><th>Solicitud</th><th>Fecha</th><th>Nombre</th><th>Puesto</th><th>Aviso</th><th>Confirmación</th><th></th></tr></thead><tbody>'
-    +(d.applications.length?d.applications.map(function(a){return '<tr class="click" data-id="'+h(a.id)+'" tabindex="0"><td><b>'+h(a.id)+'</b>'+(a.is_test?' <span class="pill">PRUEBA</span>':'')+'</td><td>'+fmtDate(a.created_at)+'</td><td>'+h(a.first_name+' '+a.last_name)+'<div class="meta">'+h(a.email)+'</div></td>'
-      +'<td>'+h(POS[a.position]||a.position)+'</td><td>'+jpill(a.notice_status)+'</td><td>'+jpill(a.confirm_status)+'</td><td>'+(a.review?'<span class="pill warn">Revisar inglés</span>':'')+'</td></tr>'}).join(''):'<tr><td colspan="7" class="empty">Todavía no hay solicitudes.</td></tr>')
+  var qs='?q='+encodeURIComponent(JF.q)+'&position='+encodeURIComponent(JF.position)+'&status='+JF.status+(JF.tests?'&tests=1':'');
+  return api('GET','/applications'+qs).then(function(d){
+    var c=d.counts||{},L=d.labels;
+    MAIN.innerHTML='<div class="row"><div class="grow"><h1>Candidatos</h1><p class="sub">Solicitudes de empleo desde safehouseins.com/careers. Privado: solo usuarios autorizados del panel.</p></div></div>'
+    +'<div class="row" style="gap:8px;margin-bottom:12px">'+d.statuses.map(function(s){return '<button class="btn sm'+(JF.status===s?' pri':'')+'" data-st="'+s+'">'+h(L[s])+' <span class="pill'+(s==='new'&&c[s]?' blue':'')+'" style="margin-left:4px">'+(c[s]||0)+'</span></button>'}).join('')
+    +(JF.status?'<button class="btn sm" data-st="">Todos</button>':'')+'</div>'
+    +'<div class="box filters"><div><label class="f" for="jq">Buscar</label><input type="text" id="jq" value="'+h(JF.q)+'" placeholder="Nombre, correo o teléfono"></div>'
+    +'<div><label class="f" for="jp">Puesto</label><select id="jp"><option value="">Todos</option>'+Object.keys(POS).map(function(p){return '<option value="'+h(p)+'"'+(JF.position===p?' selected':'')+'>'+h(p)+'</option>'}).join('')+'</select></div>'
+    +'<div><label class="f" for="js">Estatus</label><select id="js"><option value="">Todos</option>'+d.statuses.map(function(s){return '<option value="'+s+'"'+(JF.status===s?' selected':'')+'>'+h(L[s])+'</option>'}).join('')+'</select></div>'
+    +'<div><label class="chk"><input type="checkbox" id="jt"'+(JF.tests?' checked':'')+'> Incluir pruebas</label></div>'
+    +'<div><button class="btn pri" id="jgo" style="width:100%">Buscar</button></div></div>'
+    +'<div class="tbl"><table><thead><tr><th>Fecha</th><th>Candidato</th><th>Puesto</th><th>Entrevista</th><th>Estatus</th><th></th></tr></thead><tbody>'
+    +(d.applications.length?d.applications.map(function(a){var isNew=a.status==='new';return '<tr class="click'+(isNew?' jnew':'')+'" data-id="'+h(a.id)+'" tabindex="0"><td>'+fmtDate(a.created_at)+'</td><td>'+(isNew?'<span class="dot" title="Nueva"></span>':'')+'<b>'+h(a.first_name+' '+a.last_name)+'</b>'+(a.is_test?' <span class="pill">PRUEBA</span>':'')+'<div class="meta">'+h(a.email)+' · '+h(a.id)+'</div></td>'
+      +'<td>'+h(a.position)+'</td><td class="meta">'+h(avail(a))+'</td><td>'+spill(a.status,L)+'</td><td>'+(a.review?'<span class="pill warn">Revisar inglés</span> ':'')+(a.notes?'<span class="pill">'+a.notes+' nota'+(a.notes>1?'s':'')+'</span>':'')+'</td></tr>'}).join(''):'<tr><td colspan="6" class="empty">No hay candidatos con estos filtros.</td></tr>')
     +'</tbody></table></div>';
-    document.getElementById('jt').onchange=function(){JF.tests=this.checked;route()};
+    function go(){JF.q=document.getElementById('jq').value.trim();JF.position=document.getElementById('jp').value;JF.status=document.getElementById('js').value;JF.tests=document.getElementById('jt').checked;route()}
+    document.getElementById('jgo').onclick=go;
+    document.getElementById('jq').onkeydown=function(e){if(e.key==='Enter')go()};
+    [].forEach.call(MAIN.querySelectorAll('[data-st]'),function(b){b.onclick=function(){JF.status=b.getAttribute('data-st');route()}});
     [].forEach.call(MAIN.querySelectorAll('tr.click'),function(tr){tr.onclick=tr.onkeydown=function(e){if(e.type==='keydown'&&e.key!=='Enter')return;location.hash='job/'+tr.getAttribute('data-id')}});
   });
 }
+var POS={'Customer Service Representative':1,'Sales Representative':1,'Both Positions':1};
 function job(id){
   return api('GET','/applications/'+id).then(function(d){
-    var a=d.application;
-    MAIN.innerHTML='<p><a href="#jobs">← Solicitudes de empleo</a></p><div class="row"><div class="grow"><h1>'+h(a.first_name+' '+a.last_name)+'</h1><p class="sub">'+h(a.id)+' · '+fmtDate(a.created_at)+(a.is_test?' · <span class="pill">PRUEBA</span>':'')+'</p></div>'
+    var a=d.application,L=d.labels;
+    MAIN.innerHTML='<p><a href="#jobs">← Candidatos</a></p><div class="row"><div class="grow"><h1>'+h(a.first_name+' '+a.last_name)+'</h1><p class="sub">'+h(a.position)+' · solicitud '+h(a.id)+' · '+fmtDate(a.created_at)+(a.is_test?' · <span class="pill">PRUEBA</span>':'')+'</p></div>'
     +'<a class="btn pri" id="jres" href="/api/admin/applications/'+h(a.id)+'/resume">Descargar currículum</a></div>'
     +(a.review?'<div class="warnbox">Se calificó con 2 o menos en inglés, o indicó que solo habla español. El inglés es requisito para estos puestos; la solicitud no se rechazó automáticamente.</div>':'')
-    +'<div class="edit"><div><div class="tbl"><table><tbody>'+d.rows.map(function(r){return '<tr><th style="width:42%">'+h(r[0])+'</th><td style="white-space:pre-wrap">'+h(r[1])+'</td></tr>'}).join('')+'</tbody></table></div></div>'
-    +'<div><div class="box"><h2 style="margin-top:0">Correos</h2>'
+    +'<div class="edit"><div><div class="tbl"><table><tbody>'+d.rows.map(function(r){return '<tr><th style="width:40%">'+h(r[0])+'</th><td style="white-space:pre-wrap">'+h(r[1])+'</td></tr>'}).join('')+'</tbody></table></div></div>'
+    +'<div><div class="box"><h2 style="margin-top:0">Estatus</h2><div class="row">'+spill(d.status,L)+(d.statusAt?'<span class="meta">desde '+fmtDate(d.statusAt)+' · '+h(d.statusBy)+'</span>':'')+'</div>'
+    +(can('jobs.manage')?'<div class="row" style="margin-top:10px;flex-wrap:nowrap"><select id="jst">'+d.statuses.map(function(s){return '<option value="'+s+'"'+(s===d.status?' selected':'')+'>'+h(L[s])+'</option>'}).join('')+'</select><button class="btn sm pri" id="jsts">Guardar</button></div>':'')+'</div>'
+    +'<div class="box"><h2 style="margin-top:0">Disponibilidad para entrevista</h2><p><b>'+h(avail(a.answers))+'</b></p>'+(a.answers.interviewNote?'<p class="meta">'+h(a.answers.interviewNote)+'</p>':'')+'<p class="meta"><a href="tel:+1'+h(a.phone)+'">'+h(a.phone.replace(/(\\d{3})(\\d{3})(\\d{4})/,'$1-$2-$3'))+'</a> · <a href="mailto:'+h(a.email)+'">'+h(a.email)+'</a></p></div>'
+    +'<div class="box"><h2 style="margin-top:0">Notas internas</h2>'+(can('jobs.manage')?'<textarea id="jnote" maxlength="2000" placeholder="Solo las ve el equipo administrativo"></textarea><div class="row" style="margin-top:8px"><button class="btn sm pri" id="jnadd">Agregar nota</button></div>':'')
+    +(d.notes.length?d.notes.map(function(n){return '<div class="note" style="margin-top:10px;white-space:pre-wrap">'+h(n.text)+'<div class="meta" style="margin-top:4px">'+fmtDate(n.at)+' · '+h(n.actor)+'</div></div>'}).join(''):'<p class="meta" style="margin-top:10px">Sin notas todavía.</p>')+'</div>'
+    +'<div class="box"><h2 style="margin-top:0">Correos</h2>'
     +'<p>Aviso a contratación: '+jpill(a.notice_status)+(a.notice_error?' <span class="meta">'+h(a.notice_error)+'</span>':'')+'</p>'
     +'<p>Confirmación al candidato ('+(a.lang==='es'?'español':'inglés')+'): '+jpill(a.confirm_status)+(a.confirm_error?' <span class="meta">'+h(a.confirm_error)+'</span>':'')+'</p>'
-    +(can('jobs.manage')?'<div class="row"><button class="btn sm" id="jrn">Reenviar aviso</button><button class="btn sm" id="jrc">Reenviar confirmación</button></div><p class="note">Un reenvío de un correo que sí salió en las últimas 24 horas no se duplica.</p>':'')
-    +'<p class="meta" style="margin-top:12px"><a href="mailto:'+h(a.email)+'">'+h(a.email)+'</a> · <a href="tel:+1'+h(a.phone)+'">'+h(a.phone.replace(/(\\d{3})(\\d{3})(\\d{4})/,'$1-$2-$3'))+'</a></p></div></div></div>';
+    +(can('jobs.manage')?'<div class="row"><button class="btn sm" id="jrn">Reenviar aviso</button><button class="btn sm" id="jrc">Reenviar confirmación</button></div><p class="note">Un reenvío de un correo que sí salió en las últimas 24 horas no se duplica.</p>':'')+'</div></div></div>';
     function rs(which){return function(){busy(this,api('POST','/applications/'+id+'/resend',{which:which})).then(function(r){toast(r.result==='sent'?'Correo enviado.':'Resultado: '+r.result,r.result!=='sent');route()}).catch(oops)}}
-    if(document.getElementById('jrn')){document.getElementById('jrn').onclick=rs('notice');document.getElementById('jrc').onclick=rs('confirm')}
+    var $=function(i){return document.getElementById(i)};
+    if($('jrn')){$('jrn').onclick=rs('notice');$('jrc').onclick=rs('confirm')}
+    if($('jsts'))$('jsts').onclick=function(){busy(this,api('PUT','/applications/'+id+'/status',{status:$('jst').value})).then(function(){toast('Estatus actualizado.');route()}).catch(oops)};
+    if($('jnadd'))$('jnadd').onclick=function(){var t=$('jnote').value.trim();if(!t){toast('Escribe la nota.',true);return}busy(this,api('POST','/applications/'+id+'/notes',{text:t})).then(function(){toast('Nota agregada.');route()}).catch(oops)};
   });
 }
 
 // ----------------------------------------------------------------- log ---
-var ACT={'login':'Inició sesión','job.resume':'Descargó currículum','job.resend':'Reenvió correo de empleo','card.create':'Creó tarjeta','card.save':'Guardó borrador','card.publish':'Publicó tarjeta','card.deactivate':'Desactivó tarjeta','card.reactivate':'Reactivó tarjeta','card.archive':'Archivó tarjeta','card.restore':'Restauró tarjeta','card.delete':'Borró borrador','card.slug':'Cambió dirección','card.photo':'Subió foto','settings.save':'Guardó configuración','attribution.correct':'Corrigió atribución','attribution.recalculate':'Recalculó atribución'};
+var ACT={'login':'Inició sesión','job.status':'Cambió estatus de candidato','job.note':'Agregó nota a candidato','job.resume':'Descargó currículum','job.resend':'Reenvió correo de empleo','card.create':'Creó tarjeta','card.save':'Guardó borrador','card.publish':'Publicó tarjeta','card.deactivate':'Desactivó tarjeta','card.reactivate':'Reactivó tarjeta','card.archive':'Archivó tarjeta','card.restore':'Restauró tarjeta','card.delete':'Borró borrador','card.slug':'Cambió dirección','card.photo':'Subió foto','settings.save':'Guardó configuración','attribution.correct':'Corrigió atribución','attribution.recalculate':'Recalculó atribución'};
 function logView(){
   return api('GET','/log').then(function(d){
     MAIN.innerHTML='<h1>Registro</h1><p class="sub">Los últimos 200 cambios hechos en el panel.</p><div class="tbl"><table><thead><tr><th>Fecha</th><th>Usuario</th><th>Acción</th><th>Sobre</th><th>Detalle</th></tr></thead><tbody>'
@@ -422,6 +448,7 @@ api('GET','/me').then(function(m){
   ME=m;document.getElementById('who').textContent=m.email;
   if(m.mode==='password'){document.getElementById('modeTag').hidden=false;document.getElementById('logout').hidden=false}
   if(m.perms.indexOf('site.publish')>-1&&m.versions)document.getElementById('verTab').hidden=false;
+  if(m.perms.indexOf('jobs.view')>-1)api('GET','/applications?status=new').then(function(j){var n=(j.counts||{}).new||0,e=document.getElementById('jnewc');if(n){e.textContent=n;e.hidden=false}}).catch(function(){});
   return api('GET','/cards').then(function(d){d.cards.forEach(function(c){AG[c.id]={name:c.name,slug:c.slug,status:c.status}})});
 }).then(route).catch(oops);
 })();

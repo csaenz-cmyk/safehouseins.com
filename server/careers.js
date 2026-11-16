@@ -47,7 +47,12 @@ export const OPTIONS = {
   onsite: ['Yes', 'No'],
   events: ['Yes', 'No'],
   transport: ['Yes', 'No'],
+  interviewDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+  interviewTimes: ['Morning', 'Afternoon'],
 };
+// Where an applicant stands, set in the panel. New until someone moves it.
+export const STATUSES = ['new', 'review', 'interview', 'hired', 'rejected'];
+export const STATUS_LABEL = { new: 'New Application', review: 'Under Review', interview: 'Interview', hired: 'Hired', rejected: 'Rejected' };
 
 const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS job_applications (
@@ -78,6 +83,13 @@ const SCHEMA = [
    )`,
   'CREATE INDEX IF NOT EXISTS job_applications_created ON job_applications (created_at)',
   'CREATE INDEX IF NOT EXISTS job_applications_ip ON job_applications (ip_hash, created_at)',
+  `CREATE TABLE IF NOT EXISTS job_app_status (
+     app_id TEXT PRIMARY KEY, status TEXT NOT NULL, updated_at TEXT NOT NULL, updated_by TEXT NOT NULL
+   )`,
+  `CREATE TABLE IF NOT EXISTS job_app_notes (
+     id INTEGER PRIMARY KEY AUTOINCREMENT, app_id TEXT NOT NULL, at TEXT NOT NULL, actor TEXT NOT NULL, text TEXT NOT NULL
+   )`,
+  'CREATE INDEX IF NOT EXISTS job_app_notes_app ON job_app_notes (app_id, at)',
   `CREATE TABLE IF NOT EXISTS job_resume_chunks (
      app_id TEXT NOT NULL, n INTEGER NOT NULL, bytes BLOB NOT NULL, PRIMARY KEY (app_id, n)
    )`,
@@ -93,6 +105,11 @@ const str = (v, max) => (typeof v === 'string' ? v.replace(/[\u0000-\u0008\u000B
 const EMAIL = /^[^\s@]{1,64}@[^\s@]{1,190}\.[a-z]{2,}$/i;
 const IDEM = /^[A-Za-z0-9-]{16,64}$/;
 const oneOf = (list, v, code) => (list.includes(v) ? v : refuse(400, code));
+const subset = (list, v, code) => {
+  const out = [...new Set(Array.isArray(v) ? v : [])].filter((x) => list.includes(x));
+  if (!out.length || (Array.isArray(v) && out.length !== v.length)) refuse(400, code);
+  return list.filter((x) => out.includes(x));
+};
 const rating = (v, required, code) => {
   if (v === '' || v == null) return required ? refuse(400, code) : null;
   const n = Number(v);
@@ -126,13 +143,23 @@ export function checkAnswers(d) {
     onsite: oneOf(OPTIONS.onsite, d.onsite, 'onsite'),
     events: oneOf(OPTIONS.events, d.events, 'events'),
     transport: oneOf(OPTIONS.transport, d.transport, 'transport'),
+    interviewDays: subset(OPTIONS.interviewDays, d.interviewDays, 'interview'),
+    interviewTimes: subset(OPTIONS.interviewTimes, d.interviewTimes, 'interview'),
+    interviewNote: str(d.interviewNote, 300),
     why: str(d.why, 3000),
     strengths: str(d.strengths, 600),
+    unsure: str(d.unsure, 2000),
+    initiative: str(d.initiative, 2000),
+    mistake: str(d.mistake, 2000),
     comments: str(d.comments, 3000),
+    // The confirmation, in the words the applicant was shown.
+    confirmText: str(d.confirmText, 1000),
   };
   if (a.start === 'Other' && !a.startOther) refuse(400, 'start');
   if (a.schedule === 'With some limitations' && !a.scheduleNote) refuse(400, 'schedule');
   if (a.why.length < 10) refuse(400, 'why');
+  for (const k of ['unsure', 'initiative', 'mistake']) if (a[k].length < 10) refuse(400, k);
+  if (d.confirm !== true || a.confirmText.length < 20) refuse(400, 'confirm');
   if (a.strengths.length < 2) refuse(400, 'strengths');
   // English is required for these positions. A low self-rating is flagged
   // for a person to look at — never a reason to refuse an application.
@@ -194,7 +221,12 @@ export function noticeRows(rec) {
     ['Reliable transportation', a.transport],
     ['Why Safe House', a.why],
     ['Strengths', a.strengths],
+    ['If a customer has a problem you don’t know how to solve', a.unsure],
+    ['A time you solved a problem without being asked', a.initiative],
+    ['If you made a mistake while helping a customer', a.mistake],
+    ['Available for an in-person interview', (a.interviewDays || []).join(', ') + ' · ' + (a.interviewTimes || []).join(', ') + (a.interviewNote ? ' — ' + a.interviewNote : '')],
     ['Additional comments', a.comments || '—'],
+    ['Confirmed', a.confirmText ? 'On-site in El Paso, punctuality and responsibility, information true and correct' : '—'],
     ['Resume', rec.resume_name + ' (' + Math.max(1, Math.round(rec.resume_size / 1024)) + ' KB)'],
   ];
 }

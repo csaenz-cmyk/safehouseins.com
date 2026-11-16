@@ -34,7 +34,11 @@ function answers(over = {}) {
     position: 'Sales Representative', licensed: 'No', years: 'None', background: 'Customer Service', computers: 'Yes',
     languages: 'Both', english: '4', spanish: '5', start: 'Within 2 weeks', startOther: '', employment: 'Full-time', schedule: 'Yes', scheduleNote: '',
     onsite: 'Yes', events: 'Yes', transport: 'Yes', why: 'I want to help families in El Paso find good coverage.',
-    strengths: 'Patient, bilingual, organized', comments: '', ...over };
+    strengths: 'Patient, bilingual, organized', comments: '',
+    unsure: 'I would ask a teammate and follow up with the customer.', initiative: 'I fixed a broken schedule before anyone noticed.',
+    mistake: 'I would tell the customer, fix it and tell my manager.',
+    interviewDays: ['Monday', 'Wednesday'], interviewTimes: ['Afternoon'], interviewNote: '',
+    confirm: true, confirmText: 'I confirm that: on-site in El Paso; punctuality; true and correct.', ...over };
 }
 function post(e, f, { data = answers(), file = pdf(), name = 'Ana Resume.pdf', idem, headers = {}, extra = {} } = {}) {
   n++;
@@ -223,4 +227,60 @@ test('Sales (or both) is asked about variable hours; Customer Service is not', a
   const csr = await post(e, f, { data: answers({ position: 'Customer Service Representative', schedule: 'Yes' }) });
   assert.equal(csr.status, 200);
   assert.equal(JSON.parse(row(e, csr.body.id).answers).schedule, '', 'not asked, not kept');
+});
+
+test('the three open questions, interview availability and the confirmation are required', async () => {
+  const e = env(), f = mailer();
+  const bad = async (over, code) => { const r = await post(e, f, { data: answers(over) }); assert.equal(r.status, 400, JSON.stringify(over)); assert.equal(r.body.error, code); };
+  await bad({ unsure: '' }, 'unsure');
+  await bad({ initiative: 'short' }, 'initiative');
+  await bad({ mistake: '' }, 'mistake');
+  await bad({ interviewDays: [] }, 'interview');
+  await bad({ interviewTimes: ['Midnight'] }, 'interview');
+  await bad({ interviewDays: ['Sunday'] }, 'interview');
+  await bad({ confirm: false }, 'confirm');
+  await bad({ confirm: 'yes' }, 'confirm');
+  const ok = await post(e, f, { data: answers({ interviewDays: ['Friday', 'Monday'], interviewTimes: ['Morning', 'Afternoon'], interviewNote: 'After 2 PM' }) });
+  assert.equal(ok.status, 200);
+  const a = JSON.parse(row(e, ok.body.id).answers);
+  assert.deepEqual(a.interviewDays, ['Monday', 'Friday'], 'kept in week order');
+  assert.match(a.confirmText, /^I confirm that/);
+  const n = f.sent.find((m) => m.body.to[0] === 'csaenz@safehouseins.com' && m.body.text.includes(ok.body.id)).body.text;
+  assert.match(n, /Available for an in-person interview: Monday, Friday · Morning, Afternoon — After 2 PM/);
+  assert.match(n, /A time you solved a problem without being asked: I fixed a broken schedule/);
+});
+
+test('the panel tracks each candidate: status, notes, search and filters', async () => {
+  const e = env(), f = mailer();
+  const a = await post(e, f, { data: answers({ firstName: 'Ana', lastName: 'Ruiz', email: 'ana@example.com', position: 'Sales Representative' }) });
+  const b = await post(e, f, { data: answers({ firstName: 'Beto', lastName: 'Gil', email: 'beto@example.com', position: 'Customer Service Representative', schedule: '' }) });
+  const login = await admin(new Request(HOST + '/api/admin/login', { method: 'POST', headers: { 'X-Panel': '1', Origin: HOST, 'Content-Type': 'application/json' }, body: '{"password":"pw-for-tests-123"}' }), e);
+  const cookie = login.headers.get('Set-Cookie').split(';')[0];
+  const call = (method, path, body) => admin(new Request(HOST + '/api/admin' + path, { method, headers: { Cookie: cookie, 'X-Panel': '1', Origin: HOST, 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined }), e).then(async (r) => ({ status: r.status, body: await r.json() }));
+  let list = await call('GET', '/applications');
+  assert.equal(list.body.applications.length, 2);
+  assert.ok(list.body.applications.every((x) => x.status === 'new'), 'new until someone moves it');
+  assert.equal(list.body.counts.new, 2);
+  assert.deepEqual(list.body.applications.find((x) => x.id === a.body.id).interviewDays, ['Monday', 'Wednesday']);
+  assert.equal((await call('PUT', '/applications/' + a.body.id + '/status', { status: 'nope' })).status, 400);
+  assert.equal((await call('PUT', '/applications/' + a.body.id + '/status', { status: 'interview' })).status, 200);
+  assert.equal((await call('POST', '/applications/' + a.body.id + '/notes', { text: '' })).status, 400);
+  assert.equal((await call('POST', '/applications/' + a.body.id + '/notes', { text: 'Called — interview Tuesday 3 PM' })).status, 200);
+  const one = await call('GET', '/applications/' + a.body.id);
+  assert.equal(one.body.status, 'interview');
+  assert.equal(one.body.statusBy, 'owner (staging)');
+  assert.equal(one.body.notes[0].text, 'Called — interview Tuesday 3 PM');
+  assert.equal(one.body.labels.interview, 'Interview');
+  assert.deepEqual((await call('GET', '/applications?status=interview')).body.applications.map((x) => x.id), [a.body.id]);
+  assert.deepEqual((await call('GET', '/applications?status=new')).body.applications.map((x) => x.id), [b.body.id]);
+  assert.deepEqual((await call('GET', '/applications?q=beto')).body.applications.map((x) => x.id), [b.body.id]);
+  assert.deepEqual((await call('GET', '/applications?position=' + encodeURIComponent('Sales Representative'))).body.applications.map((x) => x.id), [a.body.id]);
+  list = await call('GET', '/applications');
+  assert.equal(list.body.applications.find((x) => x.id === a.body.id).notes, 1);
+  // Not signed in: nothing.
+  assert.equal((await admin(new Request(HOST + '/api/admin/applications'), e)).status, 401);
+  const nope = await admin(new Request(HOST + '/api/admin/applications/' + a.body.id + '/status', { method: 'PUT', headers: { 'X-Panel': '1', Origin: HOST, 'Content-Type': 'application/json' }, body: '{"status":"hired"}' }), e);
+  assert.equal(nope.status, 401);
+  const log = e.DB.raw.prepare("SELECT action FROM admin_log WHERE action LIKE 'job.%'").all().map((r) => r.action);
+  assert.deepEqual(log, ['job.status', 'job.note']);
 });

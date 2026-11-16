@@ -68,17 +68,36 @@ BODY = """
 
 <section class="blk cr-tight"><div class="wrap">
   <div class="cr-head"><h2>[[careers.look.h2]]</h2></div>
-  <ul class="cr-req">
-    <li>[[ICON:check]]<span>[[careers.look.r1]]</span></li>
-    <li>[[ICON:check]]<span>[[careers.look.r2]]</span></li>
-    <li>[[ICON:check]]<span>[[careers.look.r3]]</span></li>
-    <li>[[ICON:check]]<span>[[careers.look.r4]]</span></li>
-    <li>[[ICON:check]]<span>[[careers.look.r5]]</span></li>
-    <li>[[ICON:check]]<span>[[careers.look.r6]]</span></li>
-    <li>[[ICON:check]]<span>[[careers.look.r7]]</span></li>
-  </ul>
-  <p class="cr-lic">[[careers.look.license]]</p>
-  <p class="cr-lic cr-bg">[[ICON:shield]]<span>[[careers.look.background]]</span></p>
+  <div class="cr-cols">
+    <div>
+      <h3 class="cr-sub">[[careers.look.reqH]]</h3>
+      <ul class="cr-req">
+        <li>[[ICON:check]]<span>[[careers.look.r1]]</span></li>
+        <li>[[ICON:check]]<span>[[careers.look.r5]]</span></li>
+        <li>[[ICON:check]]<span>[[careers.look.r4]]</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="cr-sub">[[careers.look.plusH]]</h3>
+      <ul class="cr-req cr-plus">
+        <li>[[ICON:plus]]<span>[[careers.look.r2]]</span></li>
+        <li>[[ICON:plus]]<span>[[careers.look.r7]]</span></li>
+      </ul>
+    </div>
+  </div>
+  <h3 class="cr-sub cr-sub2">[[careers.look.qualH]]</h3>
+  <p class="cr-qlead">[[careers.look.qualLead]]</p>
+  <div class="cr-quals">
+    <div class="cr-q">[[ICON:puzzle]]<div><b>[[careers.look.q1.h]]</b><span>[[careers.look.q1.p]]</span></div></div>
+    <div class="cr-q">[[ICON:spark]]<div><b>[[careers.look.q2.h]]</b><span>[[careers.look.q2.p]]</span></div></div>
+    <div class="cr-q">[[ICON:book]]<div><b>[[careers.look.q3.h]]</b><span>[[careers.look.q3.p]]</span></div></div>
+    <div class="cr-q">[[ICON:chat]]<div><b>[[careers.look.q4.h]]</b><span>[[careers.look.q4.p]]</span></div></div>
+    <div class="cr-q">[[ICON:compass]]<div><b>[[careers.look.q5.h]]</b><span>[[careers.look.q5.p]]</span></div></div>
+    <div class="cr-q">[[ICON:shield]]<div><b>[[careers.look.q6.h]]</b><span>[[careers.look.q6.p]]</span></div></div>
+    <div class="cr-q">[[ICON:target]]<div><b>[[careers.look.q7.h]]</b><span>[[careers.look.q7.p]]</span></div></div>
+  </div>
+  <p class="cr-lic">[[careers.look.r6]] [[careers.look.license]]</p>
+  <div class="cr-screen">[[ICON:shield]]<div><b>[[careers.look.screenH]]</b><span>[[careers.look.background]]</span></div></div>
 </div></section>
 
 <style>
@@ -152,6 +171,30 @@ BODY = """
     .cr-tight .cr-req{gap:8px;margin-top:16px}
     section.blk.cr-tight .cr-req li{padding:10px 12px;font-size:14.5px}
     section.blk.cr-tight .cr-lic{margin-top:12px}
+  }
+  .cr-cols{display:grid;gap:4px 22px;margin-top:6px}
+  @media(min-width:820px){ .cr-cols{grid-template-columns:1.4fr 1fr} }
+  .cr-sub{font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-top:22px}
+  .cr-sub2{margin-top:30px}
+  section.blk .cr-req.cr-plus li{background:var(--ice);border-color:transparent}
+  section.blk .cr-req{margin-top:12px}
+  @media(min-width:820px){ .cr-cols .cr-req{grid-template-columns:1fr} }
+  section.blk .cr-qlead{font-size:15px;color:var(--muted);margin-top:6px;max-width:62ch}
+  .cr-quals{display:grid;gap:10px;margin-top:14px}
+  @media(min-width:640px){ .cr-quals{grid-template-columns:1fr 1fr} }
+  @media(min-width:1000px){ .cr-quals{grid-template-columns:repeat(3,1fr)} }
+  .cr-q{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px 15px}
+  .cr-q>svg{flex:0 0 34px;width:34px;height:34px;padding:8px;border-radius:10px;background:var(--grad);fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;box-sizing:border-box}
+  .cr-q b{display:block;font-size:15px;color:var(--navy);line-height:1.3}
+  .cr-q span{display:block;font-size:14px;color:var(--muted);font-weight:600;line-height:1.5;margin-top:3px}
+  .cr-screen{display:flex;gap:12px;align-items:flex-start;margin-top:14px;background:#fff;border:1.5px solid var(--line);border-left:4px solid var(--blue);border-radius:14px;padding:13px 15px;max-width:760px}
+  .cr-screen>svg{flex:0 0 20px;width:20px;height:20px;fill:none;stroke:var(--blue);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+  .cr-screen b{display:block;font-size:14.5px;color:var(--navy)}
+  .cr-screen span{display:block;font-size:13.5px;color:var(--muted);font-weight:600;line-height:1.55;margin-top:2px}
+  @media(max-width:640px){
+    .cr-tight .cr-q{padding:12px 13px}
+    .cr-tight .cr-quals{gap:8px}
+    .cr-sub2{margin-top:24px}
   }
   .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .cr-rise{animation:crRise .5s cubic-bezier(.2,.7,.2,1) both}
@@ -229,6 +272,13 @@ BODY = """
         [[R:onsite:careers.form.onsite:Yes=careers.form.yes|No=careers.form.no::careers.form.onsiteHint]]
         [[R:events:careers.form.events:Yes=careers.form.yes|No=careers.form.no]]
         [[R:transport:careers.form.transport:Yes=careers.form.yes|No=careers.form.no]]
+        <div class="fl q" data-q="interview" role="group" aria-labelledby="q-interview"><span class="qh" id="q-interview">[[careers.form.interview]]</span>
+          <span class="qhint">[[careers.form.interviewHint]]</span>
+          <div class="chs days">[[CHK:interviewDays:Monday=careers.form.day.mon|Tuesday=careers.form.day.tue|Wednesday=careers.form.day.wed|Thursday=careers.form.day.thu|Friday=careers.form.day.fri]]</div>
+          <div class="chs" style="margin-top:8px">[[CHK:interviewTimes:Morning=careers.form.time.am|Afternoon=careers.form.time.pm]]</div>
+          <p class="fe"></p></div>
+        <div class="fl q" data-q="interviewNote"><label for="cintnote">[[careers.form.interviewNote]] <span class="opt">[[careers.form.optional]]</span></label>
+          <input id="cintnote" name="interviewNote" maxlength="300"></div>
       </fieldset>
 
       <fieldset class="wz-pane" data-step="5" hidden>
@@ -237,12 +287,23 @@ BODY = """
           <textarea id="cwhy" name="why" rows="5" maxlength="3000"></textarea><p class="fe"></p></div>
         <div class="fl q" data-q="strengths"><label for="cstr">[[careers.form.strengths]]</label>
           <input id="cstr" name="strengths" maxlength="600"><p class="fe"></p></div>
+        <div class="fl q" data-q="unsure"><label for="cunsure">[[careers.form.unsure]]</label>
+          <textarea id="cunsure" name="unsure" rows="3" maxlength="2000"></textarea><p class="fe"></p></div>
+        <div class="fl q" data-q="initiative"><label for="cinit">[[careers.form.initiative]]</label>
+          <textarea id="cinit" name="initiative" rows="3" maxlength="2000"></textarea><p class="fe"></p></div>
+        <div class="fl q" data-q="mistake"><label for="cmistake">[[careers.form.mistake]]</label>
+          <textarea id="cmistake" name="mistake" rows="3" maxlength="2000"></textarea><p class="fe"></p></div>
         <div class="fl q" data-q="resume"><span class="lbl" id="cresumeL">[[careers.form.resume]]</span>
           <label class="drop" for="cresume"><span class="dr-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3-3 3 3"/></svg></span>
             <span class="dr-tx"><b id="cresumeName">[[careers.form.resumePick]]</b><small>[[careers.form.resumeHint]]</small></span></label>
           <input id="cresume" name="resume" type="file" class="vh" aria-labelledby="cresumeL" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"><p class="fe"></p></div>
         <div class="fl q" data-q="comments"><label for="ccom">[[careers.form.comments]] <span class="opt">[[careers.form.optional]]</span></label>
           <textarea id="ccom" name="comments" rows="3" maxlength="3000"></textarea></div>
+        <div class="fl q" data-q="confirm">
+          <label class="cfm" for="cconfirm"><input type="checkbox" id="cconfirm" name="confirm" value="yes"><span class="cfm-box" aria-hidden="true"></span>
+            <span class="cfm-tx" id="confirmTx"><b>[[careers.form.confirmH]]</b>
+              <span>[[careers.form.confirm1]]</span><span>[[careers.form.confirm2]]</span><span>[[careers.form.confirm3]]</span></span></label>
+          <p class="fe"></p></div>
         <p class="fine">[[careers.form.fine]]</p>
       </fieldset>
 
@@ -308,6 +369,19 @@ BODY = """
   .ch input:checked+span{border-color:var(--blue);background:var(--ice);color:var(--navy)}
   .ch input:checked+span::before{border:5px solid var(--blue)}
   .ch input:focus-visible+span{box-shadow:0 0 0 4px rgba(22,102,237,.2)}
+  .ch input[type=checkbox]+span::before{border-radius:6px}
+  .ch input[type=checkbox]:checked+span::before{border:0;background:var(--blue) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>") center/12px no-repeat}
+  .chs.days{grid-template-columns:repeat(2,1fr)}
+  @media(min-width:520px){ .chs.days{grid-template-columns:repeat(5,1fr)} .chs.days .ch span{justify-content:center;padding-left:8px;padding-right:8px} }
+  .cfm{display:flex;gap:12px;align-items:flex-start;cursor:pointer;border:1.5px solid var(--line);border-radius:16px;padding:14px 15px;background:#fff;margin:0!important;font-weight:600!important}
+  .cfm input{position:absolute;opacity:0;width:1px;height:1px}
+  .cfm-box{flex:0 0 22px;width:22px;height:22px;border:2px solid #C6D4E8;border-radius:7px;margin-top:1px;transition:.15s}
+  .cfm input:checked+.cfm-box{background:var(--blue) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>") center/13px no-repeat;border-color:var(--blue)}
+  .cfm input:focus-visible+.cfm-box{box-shadow:0 0 0 4px rgba(22,102,237,.2)}
+  .cfm-tx{display:grid;gap:4px;font-size:14px;line-height:1.45;color:var(--ink)}
+  .cfm-tx b{font-size:14.5px;color:var(--navy)}
+  .cfm-tx span::before{content:"• ";color:var(--blue)}
+  .wiz .q.bad .cfm{border-color:#C2410C}
   .rate{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
   .rate .ch span{justify-content:center;font-size:17px;min-height:52px;padding:10px 4px}
   .rate .ch span::before{display:none}
@@ -379,6 +453,7 @@ BODY = """
     if(el.length!==undefined&&el.tagName!=='SELECT'){ for(var i=0;i<el.length;i++) if(el[i].checked) return el[i].value; return ''; }
     return String(el.value||'').trim(); }
   function q(n){ return form.querySelector('.q[data-q="'+n+'"]'); }
+  function vals(n){ return [].filter.call(form.querySelectorAll('input[name="'+n+'"]'),function(i){ return i.checked; }).map(function(i){ return i.value; }); }
   function bad(n,msg){ var w=q(n); if(!w) return; w.classList.add('bad'); var fe=w.querySelector('.fe'); fe.textContent=msg||T('errRequired');
     fe.id='fe-'+n; fe.setAttribute('aria-live','polite');
     [].forEach.call(w.querySelectorAll('input,select,textarea'),function(i){ i.setAttribute('aria-invalid','true'); i.setAttribute('aria-describedby',fe.id); }); }
@@ -416,10 +491,13 @@ BODY = """
     if(n===2){ ['position','licensed','years','background','computers'].forEach(function(k){ need(k); }); }
     if(n===3){ need('languages'); need('english'); if(val('languages')&&val('languages')!=='English') need('spanish'); }
     if(n===4){ need('start'); if(val('start')==='Other') need('startOther'); ['employment','onsite','events','transport'].forEach(function(k){ need(k); });
-      if(needSched()){ need('schedule'); if(val('schedule')==='With some limitations') need('scheduleNote'); } }
+      if(needSched()){ need('schedule'); if(val('schedule')==='With some limitations') need('scheduleNote'); }
+      if(!vals('interviewDays').length||!vals('interviewTimes').length){ bad('interview',T('errInterview')); ok=false; } }
     if(n===5){
       if(val('why').length<10){ bad('why',T('errWhy')); ok=false; }
       if(val('strengths').length<2){ bad('strengths',T('errStrengths')); ok=false; }
+      ['unsure','initiative','mistake'].forEach(function(k){ if(val(k).length<10){ bad(k,T('errOpen')); ok=false; } });
+      if(!document.getElementById('cconfirm').checked){ bad('confirm',T('errConfirm')); ok=false; }
       var f=file.files&&file.files[0];
       if(!f){ bad('resume',T('errFile')); ok=false; }
       else if(!/\.(pdf|docx?)$/i.test(f.name)){ bad('resume',T('errFileType')); ok=false; }
@@ -496,6 +574,10 @@ BODY = """
     ['firstName','lastName','phone','email','position','licensed','years','background','computers','languages','english','spanish',
      'start','startOther','employment','schedule','scheduleNote','onsite','events','transport','why','strengths','comments'].forEach(function(k){ data[k]=val(k); });
     if(!needSched()){ data.schedule=''; data.scheduleNote=''; }
+    ['unsure','initiative','mistake','interviewNote'].forEach(function(k){ data[k]=val(k); });
+    data.interviewDays=vals('interviewDays'); data.interviewTimes=vals('interviewTimes');
+    data.confirm=document.getElementById('cconfirm').checked;
+    data.confirmText=document.getElementById('confirmTx').innerText.replace(/\s+/g,' ').trim();
     var body=new FormData();
     body.append('data',JSON.stringify(data)); body.append('idemKey',idem); body.append('website',val('website'));
     body.append('resume',file.files[0]);
@@ -532,6 +614,12 @@ def radios(m):
             % (name, name, name, label, ('<span class="qhint">[[%s]]</span>' % hint) if hint else '', layout, items))
 
 
+def checks(m):
+    name, opts = m.group(1), m.group(2)
+    return ''.join('<label class="ch"><input type="checkbox" name="%s" value="%s"><span>[[%s]]</span></label>'
+                   % (name, v, k) for v, k in (o.split('=', 1) for o in opts.split('|')))
+
+
 def scale(m):
     name, label = m.group(1), m.group(2)
     opt = ' <span class="opt" hidden>[[careers.form.optional]]</span>' if name == 'spanish' else ''
@@ -553,6 +641,11 @@ ICONS = {
   'grow': '<path d="M12 20V10"/><path d="M12 10c0-4 3-6 7-6 0 4-3 6-7 6zM12 13c0-3-2.5-5-6-5 0 3.5 2.5 5 6 5z"/>',
   'team': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
   'check': '<path d="M20 6 9 17l-5-5"/>',
+  'plus': '<path d="M12 5v14M5 12h14"/>',
+  'puzzle': '<path d="M19.4 13a2 2 0 1 0 0-4H18V6a2 2 0 0 0-2-2h-3v1.4a2 2 0 1 1-4 0V4H6a2 2 0 0 0-2 2v3h1.4a2 2 0 1 1 0 4H4v5a2 2 0 0 0 2 2h3v-1.4a2 2 0 1 1 4 0V20h3a2 2 0 0 0 2-2v-5z"/>',
+  'chat': '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  'compass': '<circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2.1 6.3-6.3 2.1 2.1-6.3z"/>',
+  'target': '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
   'shield': '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>',
 }
 
@@ -587,6 +680,7 @@ def job_ld():
 def expand(body):
     body = re.sub(r'\[\[ICON:(\w+)\]\]', lambda m: '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICONS[m.group(1)] + '</svg>', body)
     body = re.sub(r'\[\[R:(\w+):([\w.]+):([^:\]]+)(?::(\w*))?(?::([\w.]+))?\]\]', radios, body)
+    body = re.sub(r'\[\[CHK:(\w+):([^\]]+)\]\]', checks, body)
     return re.sub(r'\[\[S:(\w+):([\w.]+)\]\]', scale, body)
 
 

@@ -40,7 +40,7 @@
       "p": "¿Los seguros son algo nuevo para ti? Te capacitamos para que conozcas la industria y desarrolles las habilidades que tu puesto requiere."
     },
     "c2": {
-      "h3": "Crecimiento profesional",
+      "h3": "Compensación y crecimiento profesional",
       "p": "Salario base, comisiones y capacitación, con muchas oportunidades para crecer profesionalmente en seguros, servicio al cliente y ventas."
     },
     "c3": {
@@ -52,13 +52,45 @@
     "h2": "Lo que buscamos",
     "r1": "Se requiere comunicación en inglés.",
     "r2": "Hablar español es una ventaja.",
-    "r3": "Buenas habilidades de comunicación y trato con las personas.",
     "r4": "Conocimientos básicos de computación y ganas de aprender.",
     "r5": "Disponibilidad para trabajar de forma presencial en El Paso.",
     "r6": "Algunos puestos pueden incluir eventos comunitarios ocasionales o visitas a ubicaciones de socios.",
     "r7": "La experiencia previa en ventas, servicio al cliente o seguros es útil, pero no es requisito.",
     "license": "No necesitas licencia de seguros para postularte. Las actividades que legalmente requieren licencia las realiza únicamente personal autorizado con licencia.",
-    "background": "Los candidatos seleccionados estarán sujetos a una verificación de antecedentes y una prueba de drogas antes de la contratación, conforme a las leyes aplicables."
+    "background": "Los candidatos seleccionados estarán sujetos a una verificación de antecedentes y una prueba de drogas antes de la contratación, conforme a las leyes aplicables.",
+    "reqH": "Requisitos",
+    "plusH": "Una ventaja",
+    "qualH": "Cualidades que valoramos",
+    "qualLead": "Buscamos personas responsables, independientes, con iniciativa y ganas de crecer profesionalmente.",
+    "q1": {
+      "h": "Resolución de problemas",
+      "p": "Resuelves problemas por tu cuenta y encuentras cómo avanzar."
+    },
+    "q2": {
+      "h": "Iniciativa",
+      "p": "Actúas por tu cuenta y no necesitas supervisión constante."
+    },
+    "q3": {
+      "h": "Aprendizaje rápido",
+      "p": "Aprendes rápido nuevos sistemas y procedimientos."
+    },
+    "q4": {
+      "h": "Comunicación con seguridad",
+      "p": "Hablas con los clientes con claridad y seguridad."
+    },
+    "q5": {
+      "h": "Toma de decisiones independiente",
+      "p": "Tomas decisiones responsables dentro de las políticas de la agencia &mdash; y sabes cuándo escalar un problema."
+    },
+    "q6": {
+      "h": "Responsabilidad",
+      "p": "Asumes la responsabilidad de tu trabajo y de tus errores."
+    },
+    "q7": {
+      "h": "Enfoque en resultados",
+      "p": "Te comprometes con tus objetivos y con los resultados que entregas."
+    },
+    "screenH": "Evaluación previa a la contratación"
   },
   "apply": {
     "h2": "Postúlate",
@@ -141,13 +173,34 @@
     "onsiteHint": "Todos nuestros puestos actuales son presenciales en la oficina de El Paso.",
     "events": "¿Podrías participar ocasionalmente en eventos promocionales fuera de la oficina o representar a Safe House Insurance en ubicaciones de socios?",
     "transport": "¿Tienes transporte confiable para asistir a eventos de trabajo ocasionales?",
+    "interview": "¿Qué días y horarios tienes disponibles para una entrevista presencial?",
+    "interviewHint": "Elige todos los que te funcionen. Las entrevistas son en nuestra oficina de El Paso.",
+    "day": {
+      "mon": "Lunes",
+      "tue": "Martes",
+      "wed": "Miércoles",
+      "thu": "Jueves",
+      "fri": "Viernes"
+    },
+    "time": {
+      "am": "Mañana",
+      "pm": "Tarde"
+    },
+    "interviewNote": "¿Algo más sobre tu disponibilidad?",
     "why": "¿Por qué te gustaría trabajar en Safe House Insurance?",
     "strengths": "¿Qué fortalezas aportarías a nuestro equipo?",
+    "unsure": "Cuando un cliente te plantea un problema y no sabes de inmediato cómo resolverlo, ¿qué harías?",
+    "initiative": "Cuéntanos de una ocasión en la que resolviste un problema sin que te lo pidieran.",
+    "mistake": "¿Qué harías si te dieras cuenta de que cometiste un error al ayudar a un cliente?",
     "resume": "Sube tu currículum",
     "resumeHint": "PDF, DOC o DOCX, hasta 5 MB.",
     "resumePick": "Elegir archivo",
     "resumeChange": "Cambiar archivo",
     "comments": "Comentarios adicionales",
+    "confirmH": "Confirmo que:",
+    "confirm1": "Entiendo que este puesto es presencial en El Paso, Texas.",
+    "confirm2": "Entiendo que se espera puntualidad y responsabilidad.",
+    "confirm3": "La información que proporcioné es verdadera y correcta.",
     "back": "Atrás",
     "next": "Continuar",
     "submit": "Enviar solicitud",
@@ -176,6 +229,9 @@
     "errServer": "No pudimos enviar tu solicitud en este momento; tus respuestas siguen aquí. Inténtalo de nuevo en un momento o llámanos al 915-503-1207.",
     "englishNote": "Gracias por tu honestidad. Estos puestos requieren inglés — de todos modos revisaremos tu solicitud.",
     "sending": "Enviando…",
-    "stepOf": "Paso {n} de 5"
+    "stepOf": "Paso {n} de 5",
+    "errInterview": "Elige al menos un día y un horario.",
+    "errOpen": "Responde en una o dos oraciones, por favor.",
+    "errConfirm": "Marca la casilla para confirmar antes de enviar."
   }
 }

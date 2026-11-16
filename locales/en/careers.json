@@ -40,7 +40,7 @@
       "p": "New to insurance? We&rsquo;ll provide training to help you learn the industry and develop the skills needed for your role."
     },
     "c2": {
-      "h3": "Professional growth",
+      "h3": "Compensation &amp; career growth",
       "p": "Base salary, commissions and training, with plenty of room to grow your career in insurance, customer service and sales."
     },
     "c3": {
@@ -52,13 +52,45 @@
     "h2": "What we&rsquo;re looking for",
     "r1": "English communication skills required.",
     "r2": "Spanish is a plus.",
-    "r3": "Strong communication and interpersonal skills.",
     "r4": "Basic computer skills and willingness to learn.",
     "r5": "Availability to work on-site in El Paso.",
     "r6": "Some positions may involve occasional community events or visits to partner locations.",
     "r7": "Previous sales, customer service, or insurance experience is helpful but not required.",
     "license": "An insurance license is not required to apply. Activities that legally require a license are performed only by licensed, authorized staff.",
-    "background": "Selected candidates will be subject to a background check and drug test before hiring, in accordance with applicable law."
+    "background": "Selected candidates will be subject to a background check and drug test before hiring, in accordance with applicable law.",
+    "reqH": "Requirements",
+    "plusH": "A plus",
+    "qualH": "Qualities we value",
+    "qualLead": "We&rsquo;re looking for responsible, independent people with initiative who want to grow professionally.",
+    "q1": {
+      "h": "Problem-solving",
+      "p": "You work through problems on your own and find a way forward."
+    },
+    "q2": {
+      "h": "Initiative",
+      "p": "You&rsquo;re proactive and don&rsquo;t need constant supervision."
+    },
+    "q3": {
+      "h": "Quick learning",
+      "p": "You pick up new systems and procedures quickly."
+    },
+    "q4": {
+      "h": "Confident communication",
+      "p": "You speak with customers clearly and with confidence."
+    },
+    "q5": {
+      "h": "Independent decision-making",
+      "p": "You make responsible decisions within agency policies &mdash; and know when to escalate an issue."
+    },
+    "q6": {
+      "h": "Accountability",
+      "p": "You take ownership of your work and your mistakes."
+    },
+    "q7": {
+      "h": "Results-driven mindset",
+      "p": "You&rsquo;re committed to your goals and the results you deliver."
+    },
+    "screenH": "Pre-Employment Screening"
   },
   "apply": {
     "h2": "Apply now",
@@ -141,13 +173,34 @@
     "onsiteHint": "All of our current positions are in person at our El Paso office.",
     "events": "Are you willing to participate in occasional off-site promotional events or represent Safe House Insurance at partner locations?",
     "transport": "Do you have reliable transportation to travel to occasional work-related events?",
+    "interview": "What days and times are you available for an in-person interview?",
+    "interviewHint": "Choose all that work for you. Interviews are at our El Paso office.",
+    "day": {
+      "mon": "Monday",
+      "tue": "Tuesday",
+      "wed": "Wednesday",
+      "thu": "Thursday",
+      "fri": "Friday"
+    },
+    "time": {
+      "am": "Morning",
+      "pm": "Afternoon"
+    },
+    "interviewNote": "Anything else about your availability?",
     "why": "Why would you like to work at Safe House Insurance?",
     "strengths": "What strengths would you bring to our team?",
+    "unsure": "When a customer comes to you with a problem you don&rsquo;t immediately know how to solve, what would you do?",
+    "initiative": "Tell us about a time you solved a problem without being asked.",
+    "mistake": "What would you do if you realized you made a mistake while helping a customer?",
     "resume": "Upload your resume",
     "resumeHint": "PDF, DOC or DOCX, up to 5 MB.",
     "resumePick": "Choose a file",
     "resumeChange": "Change file",
     "comments": "Additional comments",
+    "confirmH": "I confirm that:",
+    "confirm1": "I understand this position is on-site in El Paso, Texas.",
+    "confirm2": "I understand that punctuality and responsibility are expected.",
+    "confirm3": "The information I have provided is true and correct.",
     "back": "Back",
     "next": "Continue",
     "submit": "Submit application",
@@ -176,6 +229,9 @@
     "errServer": "We couldn’t send your application just now, and nothing was lost on your screen. Please try again in a moment, or call us at 915-503-1207.",
     "englishNote": "Thank you for your honesty. English is required for these positions — we will still review your application.",
     "sending": "Sending…",
-    "stepOf": "Step {n} of 5"
+    "stepOf": "Step {n} of 5",
+    "errInterview": "Please choose at least one day and one time.",
+    "errOpen": "Please answer in a sentence or two.",
+    "errConfirm": "Please check the box to confirm before submitting."
   }
 }
