@@ -32,7 +32,7 @@ let n = 0;
 function answers(over = {}) {
   return { lang: 'en', firstName: 'Ana', lastName: 'Ruiz', phone: '(915) 555-0101', email: 'ana@example.com',
     position: 'Sales Representative', licensed: 'No', years: 'None', background: 'Customer Service', computers: 'Yes',
-    languages: 'Both', english: '4', spanish: '5', start: 'Within 2 weeks', startOther: '', employment: 'Full-time',
+    languages: 'Both', english: '4', spanish: '5', start: 'Within 2 weeks', startOther: '', employment: 'Full-time', schedule: 'Yes', scheduleNote: '',
     onsite: 'Yes', events: 'Yes', transport: 'Yes', why: 'I want to help families in El Paso find good coverage.',
     strengths: 'Patient, bilingual, organized', comments: '', ...over };
 }
@@ -61,7 +61,7 @@ test('an application is saved with its resume, the hiring inbox is told, the app
   assert.equal(a.notice_status, 'sent'); assert.equal(a.confirm_status, 'sent');
   assert.equal(a.review, null);
   const [notice, confirm] = f.sent;
-  assert.deepEqual(notice.body.to, ['contact@safehouseins.com']);
+  assert.deepEqual(notice.body.to, ['csaenz@safehouseins.com']);
   assert.equal(notice.body.reply_to, 'ana@example.com');
   assert.match(notice.body.subject, /^New job application JA-.* — Sales Representative — Ana Ruiz$/);
   for (const s of ['915-555-0101', 'ana@example.com', 'Licensed to sell insurance: No', 'English (1 = beginner, 5 = fluent): 4 / 5', 'Within 2 weeks', 'Patient, bilingual']) assert.ok(notice.body.text.includes(s), s);
@@ -207,4 +207,20 @@ test('test sends (X-Quote-Test on Staging) are kept and send nothing', async () 
   assert.equal(r.status, 200);
   assert.equal(f.sent.length, 0);
   assert.equal(row(e, r.body.id).notice_status, 'test');
+});
+
+test('Sales (or both) is asked about variable hours; Customer Service is not', async () => {
+  const e = env(), f = mailer();
+  const no = await post(e, f, { data: answers({ position: 'Sales Representative', schedule: '' }) });
+  assert.equal(no.status, 400); assert.equal(no.body.error, 'schedule');
+  const lim = await post(e, f, { data: answers({ position: 'Both Positions', schedule: 'With some limitations', scheduleNote: '' }) });
+  assert.equal(lim.body.error, 'schedule', 'limitations need an explanation');
+  const ok = await post(e, f, { data: answers({ position: 'Both Positions', schedule: 'With some limitations', scheduleNote: 'No Sundays' }) });
+  assert.equal(ok.status, 200);
+  const a = JSON.parse(row(e, ok.body.id).answers);
+  assert.equal(a.schedule, 'With some limitations'); assert.equal(a.scheduleNote, 'No Sundays');
+  assert.ok(f.sent.some((m) => m.body.text.includes('Variable hours (evenings, weekends, events): With some limitations — No Sundays')));
+  const csr = await post(e, f, { data: answers({ position: 'Customer Service Representative', schedule: 'Yes' }) });
+  assert.equal(csr.status, 200);
+  assert.equal(JSON.parse(row(e, csr.body.id).answers).schedule, '', 'not asked, not kept');
 });

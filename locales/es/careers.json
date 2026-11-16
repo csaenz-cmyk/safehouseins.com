@@ -28,8 +28,10 @@
     },
     "sales": {
       "title": "Representante de ventas",
-      "p": "Ayuda a los clientes a conocer sus opciones de seguro, prepara cotizaciones y encuentra la cobertura que se ajuste a sus necesidades."
-    }
+      "p": "Ayuda a los clientes a conocer sus opciones de seguro, prepara cotizaciones y encuentra la cobertura que se ajuste a sus necesidades.",
+      "schedule": "Requiere disponibilidad para horarios variables, incluyendo ocasionalmente tardes, fines de semana y eventos."
+    },
+    "pay": "Salario base más comisiones"
   },
   "why": {
     "h2": "¿Por qué unirte a Safe House Insurance?",
@@ -39,7 +41,7 @@
     },
     "c2": {
       "h3": "Crecimiento profesional",
-      "p": "Adquiere experiencia valiosa en seguros, servicio al cliente y ventas mientras desarrollas tus habilidades profesionales."
+      "p": "Salario base, comisiones y capacitación, con muchas oportunidades para crecer profesionalmente en seguros, servicio al cliente y ventas."
     },
     "c3": {
       "h3": "Un equipo que te apoya",
@@ -53,13 +55,14 @@
     "r3": "Buenas habilidades de comunicación y trato con las personas.",
     "r4": "Conocimientos básicos de computación y ganas de aprender.",
     "r5": "Disponibilidad para trabajar de forma presencial en El Paso.",
-    "r6": "Disposición para participar ocasionalmente en eventos promocionales o actividades fuera de la oficina cuando sea necesario.",
+    "r6": "Algunos puestos pueden incluir eventos comunitarios ocasionales o visitas a ubicaciones de socios.",
     "r7": "La experiencia previa en ventas, servicio al cliente o seguros es útil, pero no es requisito.",
-    "license": "No necesitas licencia de seguros para postularte. Las actividades que legalmente requieren licencia las realiza únicamente personal autorizado con licencia."
+    "license": "No necesitas licencia de seguros para postularte. Las actividades que legalmente requieren licencia las realiza únicamente personal autorizado con licencia.",
+    "background": "Los candidatos seleccionados estarán sujetos a una verificación de antecedentes y una prueba de drogas antes de la contratación, conforme a las leyes aplicables."
   },
   "apply": {
     "h2": "Postúlate",
-    "lead": "Cinco pasos cortos, unos cinco minutos. Una persona real lee cada solicitud."
+    "lead": "Completa nuestra solicitud en cinco sencillos pasos. Nuestro equipo de contratación revisará tu información y se comunicará contigo para el siguiente paso."
   },
   "form": {
     "stepOf": "Paso {n} de 5",
@@ -130,6 +133,10 @@
       "pt": "Medio tiempo",
       "both": "Cualquiera de los dos"
     },
+    "schedule": "¿Tienes disponibilidad para trabajar en horarios variables, incluyendo ocasionalmente tardes, fines de semana y eventos?",
+    "scheduleHint": "Requisito para el puesto de Representante de ventas.",
+    "scheduleLimited": "Con algunas limitaciones",
+    "scheduleNote": "Cuéntanos tus limitaciones",
     "onsite": "¿Puedes trabajar de forma presencial en nuestra oficina de El Paso?",
     "onsiteHint": "Todos nuestros puestos actuales son presenciales en la oficina de El Paso.",
     "events": "¿Podrías participar ocasionalmente en eventos promocionales fuera de la oficina o representar a Safe House Insurance en ubicaciones de socios?",

@@ -14,7 +14,7 @@
 //      never reachable by a public link: only the owner's panel (Cloudflare
 //      Access on Live) can download it
 //   4. a notice to the hiring inbox (CAREERS_TO, default
-//      contact@safehouseins.com) with the answers and a link to the panel
+//      csaenz@safehouseins.com) with the answers and a link to the panel
 //   5. a confirmation to the applicant in the language they used
 //
 // Emails are best effort after the save: a failure is recorded on the
@@ -43,6 +43,7 @@ export const OPTIONS = {
   languages: ['English', 'Spanish', 'Both'],
   start: ['Immediately', 'Within 2 weeks', 'Within 30 days', 'Other'],
   employment: ['Full-time', 'Part-time', 'Open to both'],
+  schedule: ['Yes', 'No', 'With some limitations'],
   onsite: ['Yes', 'No'],
   events: ['Yes', 'No'],
   transport: ['Yes', 'No'],
@@ -119,6 +120,9 @@ export function checkAnswers(d) {
     start: oneOf(OPTIONS.start, d.start, 'start'),
     startOther: d.start === 'Other' ? str(d.startOther, 120) : '',
     employment: oneOf(OPTIONS.employment, d.employment, 'employment'),
+    // Variable hours (evenings, weekends, events) are asked of Sales only.
+    schedule: d.position === 'Customer Service Representative' ? '' : oneOf(OPTIONS.schedule, d.schedule, 'schedule'),
+    scheduleNote: d.position !== 'Customer Service Representative' && d.schedule === 'With some limitations' ? str(d.scheduleNote, 600) : '',
     onsite: oneOf(OPTIONS.onsite, d.onsite, 'onsite'),
     events: oneOf(OPTIONS.events, d.events, 'events'),
     transport: oneOf(OPTIONS.transport, d.transport, 'transport'),
@@ -127,6 +131,7 @@ export function checkAnswers(d) {
     comments: str(d.comments, 3000),
   };
   if (a.start === 'Other' && !a.startOther) refuse(400, 'start');
+  if (a.schedule === 'With some limitations' && !a.scheduleNote) refuse(400, 'schedule');
   if (a.why.length < 10) refuse(400, 'why');
   if (a.strengths.length < 2) refuse(400, 'strengths');
   // English is required for these positions. A low self-rating is flagged
@@ -183,6 +188,7 @@ export function noticeRows(rec) {
     ['Spanish (1 = beginner, 5 = fluent)', a.spanish == null ? 'Not rated' : a.spanish + ' / 5'],
     ['Available to start', a.start === 'Other' ? 'Other: ' + a.startOther : a.start],
     ['Employment sought', a.employment],
+    ...(a.schedule ? [['Variable hours (evenings, weekends, events)', a.schedule + (a.scheduleNote ? ' — ' + a.scheduleNote : '')]] : []),
     ['On-site at the El Paso office', a.onsite],
     ['Occasional off-site events', a.events],
     ['Reliable transportation', a.transport],
@@ -260,7 +266,7 @@ export async function deliver(env, db, rec, origin, fetchImpl, which = ['notice'
   if (which.includes('notice')) {
     try {
       await sendMail(env, notice(rec, origin + '/admin#job/' + rec.id, prefix), rec.idem_key + ':careers-notice', fetchImpl, {
-        to: env.CAREERS_TO || 'contact@safehouseins.com', from: env.CAREERS_FROM || env.MAIL_FROM, replyTo: rec.email,
+        to: env.CAREERS_TO || 'csaenz@safehouseins.com', from: env.CAREERS_FROM || env.MAIL_FROM, replyTo: rec.email,
       });
       out.notice = 'sent';
       await db.prepare("UPDATE job_applications SET notice_status = 'sent', notice_at = ?, notice_error = NULL, attempts = attempts + 1 WHERE id = ?").bind(now(), rec.id).run();

@@ -28,8 +28,10 @@
     },
     "sales": {
       "title": "Sales Representative",
-      "p": "Help customers explore insurance options, prepare quotes, and find coverage that meets their needs."
-    }
+      "p": "Help customers explore insurance options, prepare quotes, and find coverage that meets their needs.",
+      "schedule": "Requires availability for variable hours, including occasional evenings, weekends and events."
+    },
+    "pay": "Base salary plus commissions"
   },
   "why": {
     "h2": "Why join Safe House Insurance?",
@@ -39,7 +41,7 @@
     },
     "c2": {
       "h3": "Professional growth",
-      "p": "Build valuable experience in insurance, customer service, and sales while developing your professional skills."
+      "p": "Base salary, commissions and training, with plenty of room to grow your career in insurance, customer service and sales."
     },
     "c3": {
       "h3": "Supportive team",
@@ -53,13 +55,14 @@
     "r3": "Strong communication and interpersonal skills.",
     "r4": "Basic computer skills and willingness to learn.",
     "r5": "Availability to work on-site in El Paso.",
-    "r6": "Willingness to participate in occasional promotional events or off-site activities when needed.",
+    "r6": "Some positions may involve occasional community events or visits to partner locations.",
     "r7": "Previous sales, customer service, or insurance experience is helpful but not required.",
-    "license": "An insurance license is not required to apply. Activities that legally require a license are performed only by licensed, authorized staff."
+    "license": "An insurance license is not required to apply. Activities that legally require a license are performed only by licensed, authorized staff.",
+    "background": "Selected candidates will be subject to a background check and drug test before hiring, in accordance with applicable law."
   },
   "apply": {
     "h2": "Apply now",
-    "lead": "Five short steps, about five minutes. A real person reads every application."
+    "lead": "Complete our application in five easy steps. Our hiring team will review your information and contact you for the next step."
   },
   "form": {
     "stepOf": "Step {n} of 5",
@@ -130,6 +133,10 @@
       "pt": "Part-time",
       "both": "Open to both"
     },
+    "schedule": "Are you available to work variable hours, including occasional evenings, weekends and events?",
+    "scheduleHint": "Required for the Sales Representative position.",
+    "scheduleLimited": "With some limitations",
+    "scheduleNote": "Tell us about your limitations",
     "onsite": "Are you available to work on-site at our El Paso office?",
     "onsiteHint": "All of our current positions are in person at our El Paso office.",
     "events": "Are you willing to participate in occasional off-site promotional events or represent Safe House Insurance at partner locations?",

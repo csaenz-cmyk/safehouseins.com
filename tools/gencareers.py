@@ -42,7 +42,7 @@ BODY = """
         <h3>[[careers.positions.csr.title]]</h3></div>
       <ul class="cr-tags"><li>[[careers.positions.tagType]]</li><li>[[careers.positions.tagPlace]]</li></ul>
       <p>[[careers.positions.csr.p]]</p>
-      <ul class="cr-ticks"><li>[[ICON:check]][[careers.positions.noExp]]</li><li>[[ICON:check]][[careers.positions.training]]</li></ul>
+      <ul class="cr-ticks"><li>[[ICON:check]][[careers.positions.pay]]</li><li>[[ICON:check]][[careers.positions.noExp]]</li><li>[[ICON:check]][[careers.positions.training]]</li></ul>
       <a class="btn cr-apply" href="#apply" data-position="Customer Service Representative">[[careers.positions.apply]] <span aria-hidden="true">&rarr;</span><span class="vh"> &mdash; [[careers.positions.csr.title]]</span></a>
     </article>
     <article class="cr-job cr-rise">
@@ -50,13 +50,14 @@ BODY = """
         <h3>[[careers.positions.sales.title]]</h3></div>
       <ul class="cr-tags"><li>[[careers.positions.tagType]]</li><li>[[careers.positions.tagPlace]]</li></ul>
       <p>[[careers.positions.sales.p]]</p>
-      <ul class="cr-ticks"><li>[[ICON:check]][[careers.positions.noExp]]</li><li>[[ICON:check]][[careers.positions.training]]</li></ul>
+      <ul class="cr-ticks"><li>[[ICON:check]][[careers.positions.pay]]</li><li>[[ICON:check]][[careers.positions.noExp]]</li><li>[[ICON:check]][[careers.positions.training]]</li></ul>
+      <p class="cr-sched">[[ICON:clock]]<span>[[careers.positions.sales.schedule]]</span></p>
       <a class="btn cr-apply" href="#apply" data-position="Sales Representative">[[careers.positions.apply]] <span aria-hidden="true">&rarr;</span><span class="vh"> &mdash; [[careers.positions.sales.title]]</span></a>
     </article>
   </div>
 </div></section>
 
-<section class="blk tint"><div class="wrap">
+<section class="blk tint cr-tight"><div class="wrap">
   <div class="cr-head"><h2>[[careers.why.h2]]</h2></div>
   <div class="cr-why">
     <div class="cr-card cr-rise"><span class="cr-ic sm">[[ICON:book]]</span><h3>[[careers.why.c1.h3]]</h3><p>[[careers.why.c1.p]]</p></div>
@@ -65,7 +66,7 @@ BODY = """
   </div>
 </div></section>
 
-<section class="blk"><div class="wrap">
+<section class="blk cr-tight"><div class="wrap">
   <div class="cr-head"><h2>[[careers.look.h2]]</h2></div>
   <ul class="cr-req">
     <li>[[ICON:check]]<span>[[careers.look.r1]]</span></li>
@@ -77,6 +78,7 @@ BODY = """
     <li>[[ICON:check]]<span>[[careers.look.r7]]</span></li>
   </ul>
   <p class="cr-lic">[[careers.look.license]]</p>
+  <p class="cr-lic cr-bg">[[ICON:shield]]<span>[[careers.look.background]]</span></p>
 </div></section>
 
 <style>
@@ -130,6 +132,27 @@ BODY = """
   section.blk .cr-tags li{font-size:12.5px;color:var(--blue)}
   section.blk .cr-ticks li{font-size:14.5px;color:var(--navy)}
   section.blk .cr-req li{font-size:15px;color:var(--ink)}
+  .cr-sched{display:flex;align-items:flex-start;gap:9px;margin-top:4px!important;margin-bottom:22px!important;font-size:13.5px!important;
+      font-weight:700;color:#7A4600!important;background:#FFF4E0;border-radius:12px;padding:10px 12px;line-height:1.45!important}
+  .cr-sched svg{flex:0 0 16px;width:16px;height:16px;margin-top:1px;fill:none;stroke:#A15C00;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  section.blk .cr-job .cr-sched + .cr-apply{margin-top:auto}
+  .cr-job .cr-ticks:has(+ .cr-sched){margin-bottom:12px!important}
+  section.blk .cr-bg{display:flex;align-items:flex-start;gap:9px;margin-top:10px}
+  .cr-bg svg{flex:0 0 16px;width:16px;height:16px;margin-top:2px;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  /* Under the sticky site header: anchors land with their heading in view. */
+  #positions,#apply,.wiz{scroll-margin-top:84px}
+  @media(prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
+  /* A little more compact on phones, the same on a desk. */
+  @media(max-width:640px){
+    section.blk.cr-tight{padding:38px 0}
+    .cr-tight .cr-why{gap:10px;margin-top:18px}
+    .cr-tight .cr-card{padding:16px 16px 18px;border-radius:18px}
+    .cr-tight .cr-card h3{margin-top:10px}
+    section.blk.cr-tight .cr-card p{margin-top:6px;font-size:14.5px;line-height:1.55}
+    .cr-tight .cr-req{gap:8px;margin-top:16px}
+    section.blk.cr-tight .cr-req li{padding:10px 12px;font-size:14.5px}
+    section.blk.cr-tight .cr-lic{margin-top:12px}
+  }
   .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .cr-rise{animation:crRise .5s cubic-bezier(.2,.7,.2,1) both}
   .cr-jobs .cr-rise:nth-child(2),.cr-why .cr-rise:nth-child(2){animation-delay:.07s}
@@ -198,6 +221,11 @@ BODY = """
         <div class="fl q" data-q="startOther" id="startOtherWrap" hidden><label for="cstartother">[[careers.form.startOther]]</label>
           <input id="cstartother" name="startOther" maxlength="120"><p class="fe"></p></div>
         [[R:employment:careers.form.employment:Full-time=careers.form.employmentOpt.ft|Part-time=careers.form.employmentOpt.pt|Open to both=careers.form.employmentOpt.both:tri]]
+        <div id="schedWrap" hidden>
+        [[R:schedule:careers.form.schedule:Yes=careers.form.yes|No=careers.form.no|With some limitations=careers.form.scheduleLimited:tri:careers.form.scheduleHint]]
+        <div class="fl q" data-q="scheduleNote" id="schedNoteWrap" hidden><label for="cschednote">[[careers.form.scheduleNote]]</label>
+          <textarea id="cschednote" name="scheduleNote" rows="3" maxlength="600"></textarea><p class="fe"></p></div>
+        </div>
         [[R:onsite:careers.form.onsite:Yes=careers.form.yes|No=careers.form.no::careers.form.onsiteHint]]
         [[R:events:careers.form.events:Yes=careers.form.yes|No=careers.form.no]]
         [[R:transport:careers.form.transport:Yes=careers.form.yes|No=careers.form.no]]
@@ -299,6 +327,8 @@ BODY = """
   .wz-nav{display:flex;gap:10px;margin-top:22px}
   .wz-nav .btn{flex:1;min-height:52px}
   .wz-nav #wzBack{white-space:nowrap}
+  /* .btn sets display, which would otherwise beat [hidden]: no Back on step 1. */
+  .wiz [hidden]{display:none!important}
   @media(max-width:479px){ .wz-nav .btn{padding-left:16px;padding-right:16px;font-size:15.5px} }
   .wz-nav #wzBack{flex:0 0 auto}
   @media(min-width:640px){ .wz-nav{justify-content:space-between} .wz-nav #wzNext{flex:0 0 auto;margin-left:auto;min-width:200px} }
@@ -349,8 +379,9 @@ BODY = """
     if(el.length!==undefined&&el.tagName!=='SELECT'){ for(var i=0;i<el.length;i++) if(el[i].checked) return el[i].value; return ''; }
     return String(el.value||'').trim(); }
   function q(n){ return form.querySelector('.q[data-q="'+n+'"]'); }
-  function bad(n,msg){ var w=q(n); if(!w) return; w.classList.add('bad'); w.querySelector('.fe').textContent=msg||T('errRequired');
-    [].forEach.call(w.querySelectorAll('input,select,textarea'),function(i){ i.setAttribute('aria-invalid','true'); }); }
+  function bad(n,msg){ var w=q(n); if(!w) return; w.classList.add('bad'); var fe=w.querySelector('.fe'); fe.textContent=msg||T('errRequired');
+    fe.id='fe-'+n; fe.setAttribute('aria-live','polite');
+    [].forEach.call(w.querySelectorAll('input,select,textarea'),function(i){ i.setAttribute('aria-invalid','true'); i.setAttribute('aria-describedby',fe.id); }); }
   function clear(pane){ [].forEach.call(pane.querySelectorAll('.q.bad'),function(w){ w.classList.remove('bad');
     [].forEach.call(w.querySelectorAll('[aria-invalid]'),function(i){ i.removeAttribute('aria-invalid'); }); });
     err.classList.remove('on'); err.textContent=''; }
@@ -358,6 +389,8 @@ BODY = """
   function react(t){
     if(!t) return;
     if(t.name==='start') document.getElementById('startOtherWrap').hidden=val('start')!=='Other';
+    if(t.name==='position') document.getElementById('schedWrap').hidden=!needSched();
+    if(t.name==='schedule') document.getElementById('schedNoteWrap').hidden=val('schedule')!=='With some limitations';
     if(t.name==='languages'||t.name==='english'){
       var en=Number(val('english')), l=val('languages'), note=document.getElementById('engNote');
       var low=(en&&en<=2)||l==='Spanish'; note.hidden=!low; note.textContent=low?T('englishNote'):'';
@@ -370,6 +403,8 @@ BODY = """
     document.getElementById('cresumeName').textContent=f?f.name:PICK; d.classList.toggle('has',!!f);
   }
 
+  // Sales asks for variable hours (evenings, weekends, events).
+  function needSched(){ var p=val('position'); return p==='Sales Representative'||p==='Both Positions'; }
   function checkStep(n){
     var ok=true, need=function(name,msg){ if(!val(name)){ bad(name,msg); ok=false; } };
     if(n===1){
@@ -380,7 +415,8 @@ BODY = """
     }
     if(n===2){ ['position','licensed','years','background','computers'].forEach(function(k){ need(k); }); }
     if(n===3){ need('languages'); need('english'); if(val('languages')&&val('languages')!=='English') need('spanish'); }
-    if(n===4){ need('start'); if(val('start')==='Other') need('startOther'); ['employment','onsite','events','transport'].forEach(function(k){ need(k); }); }
+    if(n===4){ need('start'); if(val('start')==='Other') need('startOther'); ['employment','onsite','events','transport'].forEach(function(k){ need(k); });
+      if(needSched()){ need('schedule'); if(val('schedule')==='With some limitations') need('scheduleNote'); } }
     if(n===5){
       if(val('why').length<10){ bad('why',T('errWhy')); ok=false; }
       if(val('strengths').length<2){ bad('strengths',T('errStrengths')); ok=false; }
@@ -416,7 +452,9 @@ BODY = """
   [].forEach.call(document.querySelectorAll('[data-position]'),function(a){
     a.addEventListener('click',function(){
       var r=form.querySelector('input[name="position"][value="'+a.getAttribute('data-position')+'"]');
-      if(r&&!val('position')){ r.checked=true; idem=null; }
+      // The card's position, even over an earlier pick; the applicant can
+      // still change it on step 2.
+      if(r){ r.checked=true; idem=null; react(r); }
     });
   });
 
@@ -456,7 +494,8 @@ BODY = """
     if(!idem) idem=key();
     var data={lang:LANG};
     ['firstName','lastName','phone','email','position','licensed','years','background','computers','languages','english','spanish',
-     'start','startOther','employment','onsite','events','transport','why','strengths','comments'].forEach(function(k){ data[k]=val(k); });
+     'start','startOther','employment','schedule','scheduleNote','onsite','events','transport','why','strengths','comments'].forEach(function(k){ data[k]=val(k); });
+    if(!needSched()){ data.schedule=''; data.scheduleNote=''; }
     var body=new FormData();
     body.append('data',JSON.stringify(data)); body.append('idemKey',idem); body.append('website',val('website'));
     body.append('resume',file.files[0]);
@@ -514,11 +553,12 @@ ICONS = {
   'grow': '<path d="M12 20V10"/><path d="M12 10c0-4 3-6 7-6 0 4-3 6-7 6zM12 13c0-3-2.5-5-6-5 0 3.5 2.5 5 6 5z"/>',
   'team': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
   'check': '<path d="M20 6 9 17l-5-5"/>',
+  'shield': '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>',
 }
 
 # The two open positions, for search engines (schema.org JobPosting). The same
-# facts the cards state, nothing more: no pay is stated because none has been
-# set. DATE_POSTED is fixed so a rebuild does not make the jobs look new.
+# facts the cards state, nothing more: base salary plus commissions, as the
+# agency confirmed, but no amount, because none has been published. DATE_POSTED is fixed so a rebuild does not make the jobs look new.
 DATE_POSTED = '2026-11-16'
 
 
@@ -530,7 +570,8 @@ def job_ld():
             '@context': 'https://schema.org', '@type': 'JobPosting',
             'title': i18n.t('careers.positions.%s.title' % key),
             'description': '<p>' + i18n.t('careers.positions.%s.p' % key) + '</p><ul><li>'
-                + '</li><li>'.join(i18n.t(k) for k in ('careers.positions.tagType', 'careers.positions.noExp', 'careers.positions.training', 'careers.look.r1')) + '</li></ul>',
+                + '</li><li>'.join(i18n.t(k) for k in ('careers.positions.tagType', 'careers.positions.pay', 'careers.positions.noExp', 'careers.positions.training', 'careers.look.r1')
+                                   + (('careers.positions.sales.schedule',) if key == 'sales' else ())) + '</li></ul>',
             'datePosted': DATE_POSTED,
             'employmentType': ['FULL_TIME', 'PART_TIME'],
             'hiringOrganization': {'@type': 'Organization', 'name': nap.NAME, 'sameAs': nap.SITE, 'logo': nap.LOGO},
