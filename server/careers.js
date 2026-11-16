@@ -14,7 +14,7 @@
 //      never reachable by a public link: only the owner's panel (Cloudflare
 //      Access on Live) can download it
 //   4. a notice to the hiring inbox (CAREERS_TO, default
-//      csaenz@safehouseins.com) with the answers and a link to the panel
+//      contact@safehouseins.com) with the answers and a link to the panel
 //   5. a confirmation to the applicant in the language they used
 //
 // Emails are best effort after the save: a failure is recorded on the
@@ -260,7 +260,7 @@ export async function deliver(env, db, rec, origin, fetchImpl, which = ['notice'
   if (which.includes('notice')) {
     try {
       await sendMail(env, notice(rec, origin + '/admin#job/' + rec.id, prefix), rec.idem_key + ':careers-notice', fetchImpl, {
-        to: env.CAREERS_TO || 'csaenz@safehouseins.com', from: env.CAREERS_FROM || env.MAIL_FROM, replyTo: rec.email,
+        to: env.CAREERS_TO || 'contact@safehouseins.com', from: env.CAREERS_FROM || env.MAIL_FROM, replyTo: rec.email,
       });
       out.notice = 'sent';
       await db.prepare("UPDATE job_applications SET notice_status = 'sent', notice_at = ?, notice_error = NULL, attempts = attempts + 1 WHERE id = ?").bind(now(), rec.id).run();

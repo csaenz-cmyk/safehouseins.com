@@ -125,12 +125,35 @@ const SHOTS = process.argv[2] || '';
     const a = JSON.parse(row.answers || '{}');
     check(a.english === 4 && a.spanish === 5 && a.start === 'Other' && a.startOther === 'January 5' && a.licensed === 'No', tag + 'answers saved in English values');
     const sent = S.mail.sent.slice(mails);
-    check(sent.length === 2 && sent[0].body.to[0] === 'csaenz@safehouseins.com' && sent[1].body.to[0] === row.email, tag + 'notice to the hiring inbox and confirmation to the applicant');
+    check(sent.length === 2 && sent[0].body.to[0] === 'contact@safehouseins.com' && sent[1].body.to[0] === row.email, tag + 'notice to the hiring inbox and confirmation to the applicant');
     check(sent[1] && sent[1].body.subject === '[LOCAL] ' + (lang === 'es' ? 'Solicitud recibida — Safe House Insurance' : 'Application Received — Safe House Insurance'), tag + 'confirmation in the applicant\'s language');
     await p.reload(); await p.waitForTimeout(500);
     check(await p.isVisible('#cdone') && !(await p.isVisible('#careerForm')) && db.prepare('SELECT COUNT(*) AS n FROM job_applications').get().n === before + 1, tag + 'reload shows the confirmation and sends nothing again');
     await ctx.close();
   }
+  // The page around the form: hero, the two positions, why, requirements.
+  for (const [lang, width] of [['en', 390], ['es', 390], ['en', 960], ['es', 960], ['en', 1440], ['es', 1440]]) {
+    const tag = 'page ' + lang + ' ' + width + 'px: ';
+    const ctx = await b.newContext({ viewport: { width, height: width > 500 ? 900 : 844 }, deviceScaleFactor: 1 });
+    const p = await ctx.newPage();
+    p.on('pageerror', (e) => errors.push(tag + e.message));
+    await p.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
+    await p.goto(BASE + (lang === 'es' ? '/es' : '') + '/careers.html'); await p.waitForTimeout(700);
+    const order = await p.$$eval('main h1, main h2, body > section h2, header.cr-hero h1', (l) => l.map((x) => x.textContent.trim()));
+    const want = lang === 'es' ? ['Construye tu carrera', 'Vacantes disponibles', '¿Por qué unirte', 'Lo que buscamos', 'Postúlate'] : ['Build Your Career', 'Open positions', 'Why join', 'What we’re looking for', 'Apply now'];
+    let i = 0; for (const t of order) if (i < want.length && t.startsWith(want[i])) i++;
+    check(i === want.length, tag + 'sections in order: hero, positions, why, requirements, apply');
+    check((await p.locator('.cr-job').count()) === 2, tag + 'exactly two position cards');
+    const text = await p.textContent('body');
+    check(!/always hiring|siempre estamos contratando|personal lines|commercial lines|líneas personales|líneas comerciales|remote|remoto|hybrid|híbrido|keep it on file/i.test(text), tag + 'no outdated or conflicting hiring copy');
+    check(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth), tag + 'no sideways scroll');
+    if (SHOTS) await p.screenshot({ path: path.join(SHOTS, 'careers-page-' + lang + '-' + width + '.png'), fullPage: true });
+    await p.click('.cr-job:nth-child(2) .cr-apply'); await p.waitForTimeout(900);
+    const inView = await p.evaluate(() => { const r = document.getElementById('wiz').getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0; });
+    check(inView && await p.isChecked('input[name=position][value="Sales Representative"]'), tag + 'Apply now (Sales) goes to the form with Sales picked');
+    await ctx.close();
+  }
+
   // The panel: the applications, one opened, the resume downloaded.
   {
     const ctx = await b.newContext({ viewport: { width: 1440, height: 900 }, acceptDownloads: true });

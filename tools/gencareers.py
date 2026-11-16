@@ -17,56 +17,126 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import shell, i18n, json
 
 BODY = """
-<header class="pg"><div class="wrap">
+<header class="cr-hero"><div class="wrap">
   <span class="kick">[[careers.hero.kick]]</span>
   <h1>[[careers.hero.h1]]</h1>
-  <p>[[careers.hero.lede]]</p>
-  <div class="acts"><a class="btn" href="#apply">[[careers.hero.btn]]</a></div>
+  <p class="cr-lede">[[careers.hero.lede]]</p>
+  <ul class="cr-hl">
+    <li>[[ICON:clock]][[careers.hero.hl1]]</li>
+    <li>[[ICON:pin]][[careers.hero.hl2]]</li>
+    <li>[[ICON:spark]][[careers.hero.hl3]]</li>
+    <li>[[ICON:book]][[careers.hero.hl4]]</li>
+  </ul>
+  <div class="acts"><a class="btn" href="#positions">[[careers.hero.btn]]</a>
+    <a class="btn ghost" href="#apply">[[careers.hero.btn2]]</a></div>
 </div></header>
 
-<section class="blk"><div class="wrap narrow">
-  <h2>[[careers.work.h2]]</h2>
-  <p>[[careers.work.p1]]</p>
-  <p>[[careers.work.p2]]</p>
+<section class="blk" id="positions"><div class="wrap">
+  <div class="cr-head">
+    <h2>[[careers.positions.h2]]</h2>
+    <p class="lead">[[careers.positions.lead]]</p>
+  </div>
+  <div class="cr-jobs">
+    <article class="cr-job cr-rise">
+      <div class="cr-job-top"><span class="cr-ic">[[ICON:headset]]</span>
+        <h3>[[careers.positions.csr.title]]</h3></div>
+      <ul class="cr-tags"><li>[[careers.positions.tagType]]</li><li>[[careers.positions.tagPlace]]</li></ul>
+      <p>[[careers.positions.csr.p]]</p>
+      <ul class="cr-ticks"><li>[[ICON:check]][[careers.positions.noExp]]</li><li>[[ICON:check]][[careers.positions.training]]</li></ul>
+      <a class="btn cr-apply" href="#apply" data-position="Customer Service Representative">[[careers.positions.apply]] <span aria-hidden="true">&rarr;</span><span class="vh"> &mdash; [[careers.positions.csr.title]]</span></a>
+    </article>
+    <article class="cr-job cr-rise">
+      <div class="cr-job-top"><span class="cr-ic">[[ICON:chart]]</span>
+        <h3>[[careers.positions.sales.title]]</h3></div>
+      <ul class="cr-tags"><li>[[careers.positions.tagType]]</li><li>[[careers.positions.tagPlace]]</li></ul>
+      <p>[[careers.positions.sales.p]]</p>
+      <ul class="cr-ticks"><li>[[ICON:check]][[careers.positions.noExp]]</li><li>[[ICON:check]][[careers.positions.training]]</li></ul>
+      <a class="btn cr-apply" href="#apply" data-position="Sales Representative">[[careers.positions.apply]] <span aria-hidden="true">&rarr;</span><span class="vh"> &mdash; [[careers.positions.sales.title]]</span></a>
+    </article>
+  </div>
 </div></section>
 
 <section class="blk tint"><div class="wrap">
-  <div class="narrow">
-    <h2>[[careers.kinds.h2]]</h2>
-    <p class="lead">[[careers.kinds.lead]]</p>
-  </div>
-  <div class="grid c3">
-    <div class="card">
-      <h3>[[careers.kinds.c1.h3]]</h3>
-      <p>[[careers.kinds.c1.p]]</p></div>
-    <div class="card">
-      <h3>[[careers.kinds.c2.h3]]</h3>
-      <p>[[careers.kinds.c2.p]]</p></div>
-    <div class="card">
-      <h3>[[careers.kinds.c3.h3]]</h3>
-      <p>[[careers.kinds.c3.p]]</p></div>
+  <div class="cr-head"><h2>[[careers.why.h2]]</h2></div>
+  <div class="cr-why">
+    <div class="cr-card cr-rise"><span class="cr-ic sm">[[ICON:book]]</span><h3>[[careers.why.c1.h3]]</h3><p>[[careers.why.c1.p]]</p></div>
+    <div class="cr-card cr-rise"><span class="cr-ic sm">[[ICON:grow]]</span><h3>[[careers.why.c2.h3]]</h3><p>[[careers.why.c2.p]]</p></div>
+    <div class="cr-card cr-rise"><span class="cr-ic sm">[[ICON:team]]</span><h3>[[careers.why.c3.h3]]</h3><p>[[careers.why.c3.p]]</p></div>
   </div>
 </div></section>
 
 <section class="blk"><div class="wrap">
-  <div class="narrow">
-    <h2>[[careers.look.h2]]</h2>
-  </div>
-  <div class="grid c2">
-    <div class="card">
-      <h3>[[careers.look.c1.h3]]</h3>
-      <p>[[careers.look.c1.p]]</p></div>
-    <div class="card">
-      <h3>[[careers.look.c2.h3]]</h3>
-      <p>[[careers.look.c2.p]]</p></div>
-    <div class="card">
-      <h3>[[careers.look.c3.h3]]</h3>
-      <p>[[careers.look.c3.p]]</p></div>
-    <div class="card">
-      <h3>[[careers.look.c4.h3]]</h3>
-      <p>[[careers.look.c4.p]]</p></div>
-  </div>
+  <div class="cr-head"><h2>[[careers.look.h2]]</h2></div>
+  <ul class="cr-req">
+    <li>[[ICON:check]]<span>[[careers.look.r1]]</span></li>
+    <li>[[ICON:check]]<span>[[careers.look.r2]]</span></li>
+    <li>[[ICON:check]]<span>[[careers.look.r3]]</span></li>
+    <li>[[ICON:check]]<span>[[careers.look.r4]]</span></li>
+    <li>[[ICON:check]]<span>[[careers.look.r5]]</span></li>
+    <li>[[ICON:check]]<span>[[careers.look.r6]]</span></li>
+    <li>[[ICON:check]]<span>[[careers.look.r7]]</span></li>
+  </ul>
+  <p class="cr-lic">[[careers.look.license]]</p>
 </div></section>
+
+<style>
+  .cr-hero{position:relative;overflow:hidden;padding:64px 0 56px;
+      background:radial-gradient(60% 80% at 85% 0%,rgba(0,194,255,.16),transparent 70%),radial-gradient(50% 70% at 0% 100%,rgba(22,102,237,.10),transparent 70%),var(--ice)}
+  @media(min-width:900px){ .cr-hero{padding:96px 0 84px} }
+  .cr-hero h1{font-size:clamp(34px,6vw,58px);line-height:1.05;letter-spacing:-.025em;color:var(--navy);margin-top:12px;max-width:16ch}
+  .cr-lede{font-size:clamp(16.5px,2.1vw,19px);line-height:1.6;color:#33415A;font-weight:600;margin-top:16px;max-width:60ch}
+  .cr-hl{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:10px;grid-template-columns:1fr 1fr;max-width:720px}
+  @media(min-width:900px){ .cr-hl{grid-template-columns:repeat(4,auto);justify-content:start} }
+  .cr-hl li{display:flex;align-items:center;gap:9px;background:#fff;border:1.5px solid var(--line);border-radius:14px;
+      padding:11px 13px;font-size:14px;font-weight:800;color:var(--navy);line-height:1.3}
+  .cr-hl svg,.cr-ticks svg,.cr-req svg{flex:0 0 18px;width:18px;height:18px;fill:none;stroke:var(--blue);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .cr-hero .acts{margin-top:28px;display:flex;gap:10px;flex-wrap:wrap}
+  .cr-head{max-width:640px}
+  .cr-head .lead{margin-top:8px}
+  .cr-jobs{display:grid;gap:16px;margin-top:26px}
+  @media(min-width:820px){ .cr-jobs{grid-template-columns:1fr 1fr;gap:22px} }
+  .cr-job{display:flex;flex-direction:column;background:#fff;border:1.5px solid var(--line);border-radius:24px;padding:24px 22px;
+      box-shadow:0 1px 2px rgba(10,33,72,.05),0 18px 40px -26px rgba(10,33,72,.35);transition:transform .2s,box-shadow .2s,border-color .2s}
+  .cr-job:hover{transform:translateY(-2px);border-color:#BCD2F7;box-shadow:0 1px 2px rgba(10,33,72,.05),0 24px 48px -26px rgba(10,33,72,.45)}
+  .cr-job-top{display:flex;align-items:center;gap:14px}
+  .cr-job h3{font-size:21px;line-height:1.2;color:var(--navy);margin:0}
+  .cr-ic{flex:0 0 52px;width:52px;height:52px;border-radius:15px;background:var(--grad);display:grid;place-items:center;
+      box-shadow:0 10px 22px -12px rgba(22,102,237,.8)}
+  .cr-ic.sm{width:46px;height:46px;flex-basis:46px;border-radius:13px}
+  .cr-ic svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .cr-tags{list-style:none;padding:0;margin:16px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+  .cr-tags li{font-size:12.5px;font-weight:800;color:var(--blue);background:var(--ice);border-radius:99px;padding:6px 11px}
+  section.blk .cr-job p{font-size:15.5px;line-height:1.6;color:#33415A;margin-top:14px}
+  .cr-ticks{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:8px}
+  .cr-ticks li{display:flex;align-items:center;gap:9px;font-size:14.5px;font-weight:800;color:var(--navy)}
+  .cr-apply{margin-top:auto;align-self:stretch}
+  .cr-ticks{margin-bottom:22px!important}
+  @media(min-width:520px){ .cr-apply{align-self:flex-start} }
+  .cr-why{display:grid;gap:14px;margin-top:24px}
+  @media(min-width:820px){ .cr-why{grid-template-columns:repeat(3,1fr);gap:18px} }
+  .cr-card{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:22px 20px}
+  .cr-card h3{font-size:18px;color:var(--navy);margin-top:14px}
+  section.blk .cr-card p{font-size:15px;line-height:1.6;color:var(--muted);margin-top:8px}
+  .cr-req{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:10px}
+  @media(min-width:820px){ .cr-req{grid-template-columns:1fr 1fr;gap:12px 18px} }
+  .cr-req li{display:flex;align-items:flex-start;gap:11px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:13px 15px;
+      font-size:15px;font-weight:700;color:var(--ink);line-height:1.45}
+  .cr-req li svg{margin-top:2px}
+  section.blk .cr-lic{font-size:13.5px;color:var(--muted);font-weight:600;margin-top:16px;max-width:70ch;line-height:1.6}
+  /* The site's article lists (section.blk ul/li) indent and space every list;
+     these are layout, not prose. */
+  section.blk .cr-tags,section.blk .cr-ticks,section.blk .cr-req{margin-left:0}
+  section.blk .cr-tags li,section.blk .cr-ticks li,section.blk .cr-req li{margin:0}
+  section.blk .cr-tags li{font-size:12.5px;color:var(--blue)}
+  section.blk .cr-ticks li{font-size:14.5px;color:var(--navy)}
+  section.blk .cr-req li{font-size:15px;color:var(--ink)}
+  .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .cr-rise{animation:crRise .5s cubic-bezier(.2,.7,.2,1) both}
+  .cr-jobs .cr-rise:nth-child(2),.cr-why .cr-rise:nth-child(2){animation-delay:.07s}
+  .cr-why .cr-rise:nth-child(3){animation-delay:.14s}
+  @keyframes crRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){ .cr-rise{animation:none} .cr-job{transition:none} .cr-job:hover{transform:none} }
+</style>
 
 <section class="blk tint" id="apply"><div class="wrap narrow">
   <h2>[[careers.apply.h2]]</h2>
@@ -342,6 +412,14 @@ BODY = """
   }
   back.addEventListener('click',function(){ if(step>1&&!busy) go(step-1,-1); });
 
+  // "Apply now" on a position card picks that position on step 2.
+  [].forEach.call(document.querySelectorAll('[data-position]'),function(a){
+    a.addEventListener('click',function(){
+      var r=form.querySelector('input[name="position"][value="'+a.getAttribute('data-position')+'"]');
+      if(r&&!val('position')){ r.checked=true; idem=null; }
+    });
+  });
+
   form.addEventListener('submit',function(e){
     e.preventDefault(); if(busy) return;
     clear(panes[step-1]);
@@ -426,7 +504,47 @@ def scale(m):
             '<p class="fe"></p></div>' % (name, name, name, name, label, opt, items, name))
 
 
+ICONS = {
+  'clock': '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  'pin': '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>',
+  'spark': '<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>',
+  'book': '<path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2zM22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/>',
+  'headset': '<path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 15a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 15a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/><path d="M18 17v1a3 3 0 0 1-3 3h-3"/>',
+  'chart': '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-6"/><path d="M15 8h5v5"/>',
+  'grow': '<path d="M12 20V10"/><path d="M12 10c0-4 3-6 7-6 0 4-3 6-7 6zM12 13c0-3-2.5-5-6-5 0 3.5 2.5 5 6 5z"/>',
+  'team': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+  'check': '<path d="M20 6 9 17l-5-5"/>',
+}
+
+# The two open positions, for search engines (schema.org JobPosting). The same
+# facts the cards state, nothing more: no pay is stated because none has been
+# set. DATE_POSTED is fixed so a rebuild does not make the jobs look new.
+DATE_POSTED = '2026-11-16'
+
+
+def job_ld():
+    import nap
+    out = []
+    for key, title in (('csr', 'Customer Service Representative'), ('sales', 'Sales Representative')):
+        out.append({
+            '@context': 'https://schema.org', '@type': 'JobPosting',
+            'title': i18n.t('careers.positions.%s.title' % key),
+            'description': '<p>' + i18n.t('careers.positions.%s.p' % key) + '</p><ul><li>'
+                + '</li><li>'.join(i18n.t(k) for k in ('careers.positions.tagType', 'careers.positions.noExp', 'careers.positions.training', 'careers.look.r1')) + '</li></ul>',
+            'datePosted': DATE_POSTED,
+            'employmentType': ['FULL_TIME', 'PART_TIME'],
+            'hiringOrganization': {'@type': 'Organization', 'name': nap.NAME, 'sameAs': nap.SITE, 'logo': nap.LOGO},
+            'jobLocation': {'@type': 'Place', 'address': {'@type': 'PostalAddress', 'streetAddress': nap.STREET,
+                'addressLocality': nap.CITY, 'addressRegion': nap.REGION, 'postalCode': nap.POSTAL, 'addressCountry': nap.COUNTRY}},
+            'directApply': True,
+            'inLanguage': 'es' if i18n.lang() == 'es' else 'en',
+            'url': nap.SITE + ('/es' if i18n.lang() == 'es' else '') + '/careers#positions',
+        })
+    return '<script type="application/ld+json">' + json.dumps(out, ensure_ascii=False) + '</script>'
+
+
 def expand(body):
+    body = re.sub(r'\[\[ICON:(\w+)\]\]', lambda m: '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICONS[m.group(1)] + '</svg>', body)
     body = re.sub(r'\[\[R:(\w+):([\w.]+):([^:\]]+)(?::(\w*))?(?::([\w.]+))?\]\]', radios, body)
     return re.sub(r'\[\[S:(\w+):([\w.]+)\]\]', scale, body)
 
@@ -436,7 +554,7 @@ if __name__ == '__main__':
         with i18n.language(code):
             body = (i18n.render(expand(BODY).replace('[[I18N_JS]]', i18n.js_dict('careers.js'))
                                     .replace('[[I18N_T]]', i18n.JS_T)
-                                    .replace('[[SUBMIT_JSON]]', json.dumps(i18n.t('careers.form.submit'))), n=1))
+                                    .replace('[[SUBMIT_JSON]]', json.dumps(i18n.t('careers.form.submit'))), n=1)) + job_ld()
             out = (shell.head(i18n.t('careers.meta.title'), i18n.t('careers.meta.desc'),
                               canonical='https://safehouseins.com/careers', up='', link='careers.html')
                    + body + shell.footer())

@@ -15,7 +15,7 @@ site's own `POST /api/careers` (`functions/api/careers.js` → `server/careers.j
 4. Saved in D1 (`job_applications`, resume in `job_resume_chunks`, in pieces
    under D1's 2 MB row limit) with a number like `JA-261116-7KQ4MZ`.
 5. A notice with the answers to `CAREERS_TO` (default
-   `csaenz@safehouseins.com`), reply-to the applicant, with a link to
+   `contact@safehouseins.com`), reply-to the applicant, with a link to
    `/admin#job/<id>`. The resume is never attached and has no public link: it
    downloads only from the panel (Cloudflare Access on Live).
 6. A confirmation to the applicant in the language they used.
@@ -32,7 +32,7 @@ car insurance, salary expectation.
 
 | Variable | Default |
 | --- | --- |
-| `CAREERS_TO` | `csaenz@safehouseins.com` |
+| `CAREERS_TO` | `contact@safehouseins.com` |
 | `CAREERS_FROM` | `MAIL_FROM` |
 | `CAREERS_REPLY_TO` | `MAIL_TO` or `contact@safehouseins.com` (replies to the applicant's confirmation) |
 

@@ -217,7 +217,7 @@ to configure, the rules and the data model are in `docs/agent-cards.md`.
 
 **Job applications (`/careers#apply`).** A five-step form posting to
 `/api/careers` (`server/careers.js`): saved in D1 with the resume, a notice to
-csaenz@safehouseins.com, a confirmation to the applicant in their language.
+contact@safehouseins.com, a confirmation to the applicant in their language.
 Resumes download only from the panel (Empleo). See `docs/careers-api.md`;
 `tools/careersbrowser.js` checks it in a browser.
 

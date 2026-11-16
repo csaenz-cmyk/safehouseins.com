@@ -61,7 +61,7 @@ test('an application is saved with its resume, the hiring inbox is told, the app
   assert.equal(a.notice_status, 'sent'); assert.equal(a.confirm_status, 'sent');
   assert.equal(a.review, null);
   const [notice, confirm] = f.sent;
-  assert.deepEqual(notice.body.to, ['csaenz@safehouseins.com']);
+  assert.deepEqual(notice.body.to, ['contact@safehouseins.com']);
   assert.equal(notice.body.reply_to, 'ana@example.com');
   assert.match(notice.body.subject, /^New job application JA-.* — Sales Representative — Ana Ruiz$/);
   for (const s of ['915-555-0101', 'ana@example.com', 'Licensed to sell insurance: No', 'English (1 = beginner, 5 = fluent): 4 / 5', 'Within 2 weeks', 'Patient, bilingual']) assert.ok(notice.body.text.includes(s), s);

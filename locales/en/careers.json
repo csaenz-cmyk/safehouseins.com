@@ -1,57 +1,65 @@
 {
   "meta": {
-    "title": "Careers",
-    "desc": "Safe House Insurance is always hiring in El Paso. Send us your resume — personal lines, commercial lines and customer service."
+    "title": "Customer Service & Sales Jobs in El Paso, TX",
+    "desc": "Join Safe House Insurance in El Paso, Texas. Full-time and part-time, on-site Customer Service and Sales Representative positions. No insurance experience required — training provided."
   },
   "hero": {
     "kick": "Careers",
-    "h1": "We are always hiring.",
-    "lede": "No postings, no closing dates. We are a growing agency in El Paso and we would rather meet\n     the right person than wait for a vacancy to open. Send us your resume and we will read it.",
-    "btn": "Send my resume"
+    "h1": "Build Your Career With Safe House Insurance",
+    "lede": "We&rsquo;re looking for motivated individuals to join our growing team in El Paso, Texas. Whether you&rsquo;re experienced or just starting your career, we&rsquo;d love to hear from you.",
+    "hl1": "Full-time &amp; part-time opportunities",
+    "hl2": "On-site positions",
+    "hl3": "No insurance experience required",
+    "hl4": "Training provided",
+    "btn": "See open positions",
+    "btn2": "Apply now"
   },
-  "work": {
-    "h2": "What the work is",
-    "p1": "Safe House is an independent agency, which means we shop a shelf of carriers on behalf of the\n     person in front of us rather than selling one company's product. Day to day that looks like\n     quoting, explaining, and then looking after the policy afterwards &mdash; payments, changes,\n     ID cards, claims, the renewal a year later.",
-    "p2": "The customers are our neighbors: families in El Paso and Las Cruces, work trucks, first-time\n     drivers, people with a foreign license who have been told no somewhere else. A lot of the job\n     is patience and plain language."
+  "positions": {
+    "h2": "Open positions",
+    "lead": "Two roles at our office in El Paso, Texas.",
+    "tagType": "Full-time / Part-time",
+    "tagPlace": "On-site &mdash; El Paso, Texas",
+    "noExp": "No insurance experience required",
+    "training": "Training provided",
+    "apply": "Apply now",
+    "csr": {
+      "title": "Customer Service Representative",
+      "p": "Assist customers with insurance policies, payments, documents, and everyday service needs while delivering excellent customer service."
+    },
+    "sales": {
+      "title": "Sales Representative",
+      "p": "Help customers explore insurance options, prepare quotes, and find coverage that meets their needs."
+    }
   },
-  "kinds": {
-    "h2": "The kind of work we take people on for",
-    "lead": "Not a list of openings &mdash; a description of what happens here. Tell us which\n       of these sounds like you, or tell us something we have not thought of.",
+  "why": {
+    "h2": "Why join Safe House Insurance?",
     "c1": {
-      "h3": "Personal lines",
-      "p": "Car, home, renters, motorcycle. Quoting, advising and servicing the policies that make up\n         most of what we write."
+      "h3": "Training &amp; development",
+      "p": "New to insurance? We&rsquo;ll provide training to help you learn the industry and develop the skills needed for your role."
     },
     "c2": {
-      "h3": "Commercial lines",
-      "p": "Work trucks, fleets, tow rigs and small business. More moving parts, longer conversations,\n         and a customer whose livelihood is on the policy."
+      "h3": "Professional growth",
+      "p": "Build valuable experience in insurance, customer service, and sales while developing your professional skills."
     },
     "c3": {
-      "h3": "Customer service",
-      "p": "The person who answers when something has gone wrong or a payment did not go through. Not\n         a stepping stone &mdash; it is the job most people judge us by."
+      "h3": "Supportive team",
+      "p": "Work alongside a team focused on helping customers and delivering quality service."
     }
   },
   "look": {
-    "h2": "What we look for",
-    "c1": {
-      "h3": "English and Spanish",
-      "p": "Genuinely both. Half of our conversations start in Spanish and a customer can tell\n         immediately whether you are comfortable or translating."
-    },
-    "c2": {
-      "h3": "Licensed &mdash; or willing to be",
-      "p": "A Texas General Lines license is ideal. If you do not have one and you are serious about\n         getting it, say so; we would rather train someone good than hire someone available."
-    },
-    "c3": {
-      "h3": "Straight with people",
-      "p": "Telling a customer the honest number, including when it is higher than they hoped or when\n         we are not the right agency for them. That is the whole reputation."
-    },
-    "c4": {
-      "h3": "You finish things",
-      "p": "Insurance is follow-through: the document that still needs a signature, the payment due\n         Friday, the call back you promised. The work is mostly remembering."
-    }
+    "h2": "What we&rsquo;re looking for",
+    "r1": "English communication skills required.",
+    "r2": "Spanish is a plus.",
+    "r3": "Strong communication and interpersonal skills.",
+    "r4": "Basic computer skills and willingness to learn.",
+    "r5": "Availability to work on-site in El Paso.",
+    "r6": "Willingness to participate in occasional promotional events or off-site activities when needed.",
+    "r7": "Previous sales, customer service, or insurance experience is helpful but not required.",
+    "license": "An insurance license is not required to apply. Activities that legally require a license are performed only by licensed, authorized staff."
   },
   "apply": {
-    "h2": "Apply to join our team",
-    "lead": "Five short steps, about five minutes. A real person reads every application &mdash; if there is a fit, we will reach out."
+    "h2": "Apply now",
+    "lead": "Five short steps, about five minutes. A real person reads every application."
   },
   "form": {
     "stepOf": "Step {n} of 5",

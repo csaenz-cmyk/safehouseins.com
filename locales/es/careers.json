@@ -1,57 +1,65 @@
 {
   "meta": {
-    "title": "Empleos",
-    "desc": "Safe House Insurance siempre está contratando en El Paso. Mándanos tu currículum: seguros personales, seguros comerciales y servicio al cliente."
+    "title": "Empleos de ventas y servicio en El Paso, TX",
+    "desc": "Únete a Safe House Insurance en El Paso, Texas. Puestos presenciales de tiempo completo y medio tiempo en servicio al cliente y ventas. No se requiere experiencia en seguros — te capacitamos."
   },
   "hero": {
     "kick": "Empleos",
-    "h1": "Siempre estamos contratando.",
-    "lede": "Sin vacantes publicadas y sin fechas límite. Somos una agencia en crecimiento en El Paso y preferimos\n     conocer a la persona indicada que esperar a que se abra una vacante. Mándanos tu currículum y lo vamos a leer.",
-    "btn": "Enviar mi currículum"
+    "h1": "Construye tu carrera con Safe House Insurance",
+    "lede": "Buscamos personas motivadas para unirse a nuestro equipo en crecimiento en El Paso, Texas. Ya sea que tengas experiencia o estés empezando tu carrera, nos encantaría conocerte.",
+    "hl1": "Tiempo completo y medio tiempo",
+    "hl2": "Puestos presenciales",
+    "hl3": "No se requiere experiencia en seguros",
+    "hl4": "Capacitación incluida",
+    "btn": "Ver vacantes",
+    "btn2": "Postúlate"
   },
-  "work": {
-    "h2": "En qué consiste el trabajo",
-    "p1": "Safe House es una agencia independiente: comparamos varias aseguradoras a favor de la persona que\n     tenemos enfrente, en lugar de vender el producto de una sola compañía. En el día a día eso significa\n     cotizar, explicar y después cuidar la póliza &mdash; pagos, cambios, tarjetas de seguro, reclamos y\n     la renovación un año después.",
-    "p2": "Los clientes son nuestros vecinos: familias de El Paso y Las Cruces, camionetas de trabajo,\n     conductores primerizos, personas con licencia extranjera a quienes les dijeron que no en otro lado.\n     Buena parte del trabajo es tener paciencia y hablar claro."
+  "positions": {
+    "h2": "Vacantes disponibles",
+    "lead": "Dos puestos en nuestra oficina de El Paso, Texas.",
+    "tagType": "Tiempo completo / Medio tiempo",
+    "tagPlace": "Presencial &mdash; El Paso, Texas",
+    "noExp": "No se requiere experiencia en seguros",
+    "training": "Capacitación incluida",
+    "apply": "Postúlate",
+    "csr": {
+      "title": "Representante de servicio al cliente",
+      "p": "Ayuda a los clientes con sus pólizas, pagos, documentos y necesidades de servicio del día a día, brindando una excelente atención."
+    },
+    "sales": {
+      "title": "Representante de ventas",
+      "p": "Ayuda a los clientes a conocer sus opciones de seguro, prepara cotizaciones y encuentra la cobertura que se ajuste a sus necesidades."
+    }
   },
-  "kinds": {
-    "h2": "El tipo de trabajo para el que contratamos",
-    "lead": "No es una lista de vacantes &mdash; es una descripción de lo que se hace aquí. Dinos cuál de\n       estas va contigo, o cuéntanos algo que no se nos haya ocurrido.",
+  "why": {
+    "h2": "¿Por qué unirte a Safe House Insurance?",
     "c1": {
-      "h3": "Seguros personales",
-      "p": "Auto, casa, inquilinos, motocicleta. Cotizar, asesorar y dar servicio a las pólizas que forman\n         la mayor parte de lo que vendemos."
+      "h3": "Capacitación y desarrollo",
+      "p": "¿Los seguros son algo nuevo para ti? Te capacitamos para que conozcas la industria y desarrolles las habilidades que tu puesto requiere."
     },
     "c2": {
-      "h3": "Seguros comerciales",
-      "p": "Camionetas de trabajo, flotillas, grúas y negocios pequeños. Más detalles que cuidar,\n         conversaciones más largas y un cliente cuyo sustento depende de la póliza."
+      "h3": "Crecimiento profesional",
+      "p": "Adquiere experiencia valiosa en seguros, servicio al cliente y ventas mientras desarrollas tus habilidades profesionales."
     },
     "c3": {
-      "h3": "Servicio al cliente",
-      "p": "La persona que contesta cuando algo salió mal o cuando un pago no pasó. No es un trampolín\n         &mdash; es el puesto por el que la mayoría de la gente nos juzga."
+      "h3": "Un equipo que te apoya",
+      "p": "Trabaja junto a un equipo enfocado en ayudar a los clientes y en dar un servicio de calidad."
     }
   },
   "look": {
     "h2": "Lo que buscamos",
-    "c1": {
-      "h3": "Inglés y español",
-      "p": "De verdad los dos. La mitad de nuestras conversaciones empiezan en español, y un cliente se da\n         cuenta enseguida si estás cómodo o si estás traduciendo."
-    },
-    "c2": {
-      "h3": "Con licencia &mdash; o con ganas de sacarla",
-      "p": "Lo ideal es una licencia General Lines de Texas. Si no la tienes y de verdad quieres sacarla,\n         dínoslo; preferimos capacitar a alguien bueno que contratar a alguien solo porque está disponible."
-    },
-    "c3": {
-      "h3": "Derecho con la gente",
-      "p": "Decirle a un cliente el precio real, aunque sea más alto de lo que esperaba o aunque no seamos\n         la agencia indicada para él. De eso depende toda nuestra reputación."
-    },
-    "c4": {
-      "h3": "Terminas lo que empiezas",
-      "p": "El seguro es darle seguimiento a todo: el documento que todavía necesita firma, el pago que vence\n         el viernes, la llamada que prometiste regresar. El trabajo es, más que nada, no olvidar nada."
-    }
+    "r1": "Se requiere comunicación en inglés.",
+    "r2": "Hablar español es una ventaja.",
+    "r3": "Buenas habilidades de comunicación y trato con las personas.",
+    "r4": "Conocimientos básicos de computación y ganas de aprender.",
+    "r5": "Disponibilidad para trabajar de forma presencial en El Paso.",
+    "r6": "Disposición para participar ocasionalmente en eventos promocionales o actividades fuera de la oficina cuando sea necesario.",
+    "r7": "La experiencia previa en ventas, servicio al cliente o seguros es útil, pero no es requisito.",
+    "license": "No necesitas licencia de seguros para postularte. Las actividades que legalmente requieren licencia las realiza únicamente personal autorizado con licencia."
   },
   "apply": {
-    "h2": "Postúlate para formar parte de nuestro equipo",
-    "lead": "Cinco pasos cortos, unos cinco minutos. Una persona real lee cada solicitud &mdash; si hay una oportunidad para ti, te contactaremos."
+    "h2": "Postúlate",
+    "lead": "Cinco pasos cortos, unos cinco minutos. Una persona real lee cada solicitud."
   },
   "form": {
     "stepOf": "Paso {n} de 5",
