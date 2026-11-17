@@ -4,48 +4,55 @@
     "desc": "Únete a Safe House Insurance en El Paso, Texas. Puestos presenciales de tiempo completo y medio tiempo en servicio al cliente y ventas. No se requiere experiencia en seguros — te capacitamos."
   },
   "hero": {
-    "kick": "Empleos",
+    "kick": "Empleos · El Paso, Texas",
     "h1": "Construye tu carrera con Safe House Insurance",
     "lede": "Buscamos personas motivadas para unirse a nuestro equipo en crecimiento en El Paso, Texas. Ya sea que tengas experiencia o estés empezando tu carrera, nos encantaría conocerte.",
-    "hl1": "Tiempo completo y medio tiempo",
-    "hl2": "Puestos presenciales",
-    "hl3": "No se requiere experiencia en seguros",
+    "hl1": "Tiempo completo o medio tiempo",
+    "hl2": "Presencial",
+    "hl3": "No necesitas experiencia en seguros",
     "hl4": "Capacitación incluida",
     "btn": "Ver vacantes",
     "btn2": "Postúlate"
   },
   "positions": {
     "h2": "Vacantes disponibles",
-    "lead": "Dos puestos en nuestra oficina de El Paso, Texas.",
+    "lead": "Dos vacantes en nuestra oficina de la Montana Avenue.",
     "tagType": "Tiempo completo / Medio tiempo",
-    "tagPlace": "Presencial &mdash; El Paso, Texas",
+    "tagPlace": "Presencial en El Paso, TX",
     "noExp": "No se requiere experiencia en seguros",
     "training": "Capacitación incluida",
     "apply": "Postúlate",
     "csr": {
       "title": "Representante de servicio al cliente",
-      "p": "Ayuda a los clientes con sus pólizas, pagos, documentos y necesidades de servicio del día a día, brindando una excelente atención."
+      "p": "Ayuda a los clientes con sus pólizas, pagos, documentos y necesidades de servicio del día a día, brindando una excelente atención.",
+      "do1": "Atender a clientes por teléfono, mensaje de texto y en persona, en inglés (y en español si lo hablas)",
+      "do2": "Recibir pagos, hacer cambios a pólizas y enviar tarjetas de seguro y documentos",
+      "do3": "Dar seguimiento hasta que cada solicitud quede resuelta"
     },
     "sales": {
       "title": "Representante de ventas",
       "p": "Ayuda a los clientes a conocer sus opciones de seguro, prepara cotizaciones y encuentra la cobertura que se ajuste a sus necesidades.",
-      "schedule": "Requiere disponibilidad para horarios variables, incluyendo ocasionalmente tardes, fines de semana y eventos."
+      "schedule": "Requiere disponibilidad para horarios variables, incluyendo ocasionalmente tardes, fines de semana y eventos.",
+      "do1": "Platicar con los clientes sobre lo que necesitan asegurar: auto, casa, renta o negocio",
+      "do2": "Preparar cotizaciones y comparar opciones de las aseguradoras con las que trabajamos",
+      "do3": "Dar seguimiento, resolver dudas y ayudar a cada cliente a elegir"
     },
-    "pay": "Salario base más comisiones"
+    "pay": "Salario base más comisiones",
+    "doH": "Lo que harás"
   },
   "why": {
     "h2": "¿Por qué unirte a Safe House Insurance?",
     "c1": {
       "h3": "Capacitación y desarrollo",
-      "p": "¿Los seguros son algo nuevo para ti? Te capacitamos para que conozcas la industria y desarrolles las habilidades que tu puesto requiere."
+      "p": "¿Los seguros son algo nuevo para ti? Te capacitamos en los productos, nuestros sistemas y cómo atendemos a los clientes."
     },
     "c2": {
       "h3": "Compensación y crecimiento profesional",
-      "p": "Salario base, comisiones y capacitación, con muchas oportunidades para crecer profesionalmente en seguros, servicio al cliente y ventas."
+      "p": "Salario base más comisiones, y experiencia real en seguros, servicio al cliente y ventas sobre la que puedes construir una carrera."
     },
     "c3": {
       "h3": "Un equipo que te apoya",
-      "p": "Trabaja junto a un equipo enfocado en ayudar a los clientes y en dar un servicio de calidad."
+      "p": "Un equipo que se apoya y que se preocupa por hacer las cosas bien para cada cliente."
     }
   },
   "look": {
@@ -61,14 +68,14 @@
     "reqH": "Requisitos",
     "plusH": "Una ventaja",
     "qualH": "Cualidades que valoramos",
-    "qualLead": "Buscamos personas responsables, independientes, con iniciativa y ganas de crecer profesionalmente.",
+    "qualLead": "A quien le va bien aquí resuelve por su cuenta, se hace cargo de su trabajo y no deja de aprender.",
     "q1": {
       "h": "Resolución de problemas",
       "p": "Resuelves problemas por tu cuenta y encuentras cómo avanzar."
     },
     "q2": {
       "h": "Iniciativa",
-      "p": "Actúas por tu cuenta y no necesitas supervisión constante."
+      "p": "Ves lo que hace falta y lo haces, sin esperar a que te lo pidan."
     },
     "q3": {
       "h": "Aprendizaje rápido",
@@ -80,7 +87,7 @@
     },
     "q5": {
       "h": "Toma de decisiones independiente",
-      "p": "Tomas decisiones responsables dentro de las políticas de la agencia &mdash; y sabes cuándo escalar un problema."
+      "p": "Tomas buenas decisiones dentro de las políticas de la agencia, y sabes cuándo llevarle un problema a un gerente."
     },
     "q6": {
       "h": "Responsabilidad",

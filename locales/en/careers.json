@@ -4,48 +4,55 @@
     "desc": "Join Safe House Insurance in El Paso, Texas. Full-time and part-time, on-site Customer Service and Sales Representative positions. No insurance experience required — training provided."
   },
   "hero": {
-    "kick": "Careers",
+    "kick": "Careers · El Paso, Texas",
     "h1": "Build Your Career With Safe House Insurance",
     "lede": "We&rsquo;re looking for motivated individuals to join our growing team in El Paso, Texas. Whether you&rsquo;re experienced or just starting your career, we&rsquo;d love to hear from you.",
-    "hl1": "Full-time &amp; part-time opportunities",
-    "hl2": "On-site positions",
-    "hl3": "No insurance experience required",
+    "hl1": "Full-time or part-time",
+    "hl2": "On-site",
+    "hl3": "No insurance experience needed",
     "hl4": "Training provided",
     "btn": "See open positions",
     "btn2": "Apply now"
   },
   "positions": {
     "h2": "Open positions",
-    "lead": "Two roles at our office in El Paso, Texas.",
+    "lead": "Two openings at our office on Montana Avenue.",
     "tagType": "Full-time / Part-time",
-    "tagPlace": "On-site &mdash; El Paso, Texas",
+    "tagPlace": "On-site in El Paso, TX",
     "noExp": "No insurance experience required",
     "training": "Training provided",
     "apply": "Apply now",
     "csr": {
       "title": "Customer Service Representative",
-      "p": "Assist customers with insurance policies, payments, documents, and everyday service needs while delivering excellent customer service."
+      "p": "Assist customers with insurance policies, payments, documents, and everyday service needs while delivering excellent customer service.",
+      "do1": "Help customers by phone, text and in person, in English (and Spanish if you speak it)",
+      "do2": "Take payments, make policy changes and send ID cards and documents",
+      "do3": "Follow up until each request is done"
     },
     "sales": {
       "title": "Sales Representative",
       "p": "Help customers explore insurance options, prepare quotes, and find coverage that meets their needs.",
-      "schedule": "Requires availability for variable hours, including occasional evenings, weekends and events."
+      "schedule": "Requires availability for variable hours, including occasional evenings, weekends and events.",
+      "do1": "Talk with customers about what they need to cover: car, home, renters or business",
+      "do2": "Prepare quotes and compare options from the carriers we work with",
+      "do3": "Follow up, answer questions and help each customer choose"
     },
-    "pay": "Base salary plus commissions"
+    "pay": "Base salary plus commissions",
+    "doH": "What you’ll do"
   },
   "why": {
     "h2": "Why join Safe House Insurance?",
     "c1": {
       "h3": "Training &amp; development",
-      "p": "New to insurance? We&rsquo;ll provide training to help you learn the industry and develop the skills needed for your role."
+      "p": "New to insurance? We’ll train you on the products, our systems and how we work with customers."
     },
     "c2": {
       "h3": "Compensation &amp; career growth",
-      "p": "Base salary, commissions and training, with plenty of room to grow your career in insurance, customer service and sales."
+      "p": "Base salary plus commissions, and real experience in insurance, customer service and sales that you can build a career on."
     },
     "c3": {
       "h3": "Supportive team",
-      "p": "Work alongside a team focused on helping customers and delivering quality service."
+      "p": "A team that backs each other up and cares about getting it right for every customer."
     }
   },
   "look": {
@@ -61,14 +68,14 @@
     "reqH": "Requirements",
     "plusH": "A plus",
     "qualH": "Qualities we value",
-    "qualLead": "We&rsquo;re looking for responsible, independent people with initiative who want to grow professionally.",
+    "qualLead": "The people who do well here figure things out on their own, own their work and keep learning.",
     "q1": {
       "h": "Problem-solving",
       "p": "You work through problems on your own and find a way forward."
     },
     "q2": {
       "h": "Initiative",
-      "p": "You&rsquo;re proactive and don&rsquo;t need constant supervision."
+      "p": "You see what needs doing and do it, without waiting to be told."
     },
     "q3": {
       "h": "Quick learning",
@@ -80,7 +87,7 @@
     },
     "q5": {
       "h": "Independent decision-making",
-      "p": "You make responsible decisions within agency policies &mdash; and know when to escalate an issue."
+      "p": "You make sound decisions within agency policy, and you know when to bring a problem to a manager."
     },
     "q6": {
       "h": "Accountability",

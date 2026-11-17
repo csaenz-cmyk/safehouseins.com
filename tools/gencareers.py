@@ -18,15 +18,10 @@ import shell, i18n, json
 
 BODY = """
 <header class="cr-hero"><div class="wrap">
-  <span class="kick">[[careers.hero.kick]]</span>
+  <span class="cr-kick">[[careers.hero.kick]]</span>
   <h1>[[careers.hero.h1]]</h1>
   <p class="cr-lede">[[careers.hero.lede]]</p>
-  <ul class="cr-hl">
-    <li>[[ICON:clock]][[careers.hero.hl1]]</li>
-    <li>[[ICON:pin]][[careers.hero.hl2]]</li>
-    <li>[[ICON:spark]][[careers.hero.hl3]]</li>
-    <li>[[ICON:book]][[careers.hero.hl4]]</li>
-  </ul>
+  <p class="cr-facts"><span>[[careers.hero.hl1]]</span><span>[[careers.hero.hl2]]</span><span>[[careers.hero.hl3]]</span><span>[[careers.hero.hl4]]</span></p>
   <div class="acts"><a class="btn" href="#positions">[[careers.hero.btn]]</a>
     <a class="btn ghost" href="#apply">[[careers.hero.btn2]]</a></div>
 </div></header>
@@ -34,25 +29,27 @@ BODY = """
 <section class="blk" id="positions"><div class="wrap">
   <div class="cr-head">
     <h2>[[careers.positions.h2]]</h2>
-    <p class="lead">[[careers.positions.lead]]</p>
+    <p class="cr-sublead">[[careers.positions.lead]]</p>
   </div>
   <div class="cr-jobs">
     <article class="cr-job cr-rise">
-      <div class="cr-job-top"><span class="cr-ic">[[ICON:headset]]</span>
-        <h3>[[careers.positions.csr.title]]</h3></div>
-      <ul class="cr-tags"><li>[[careers.positions.tagType]]</li><li>[[careers.positions.tagPlace]]</li></ul>
-      <p>[[careers.positions.csr.p]]</p>
-      <ul class="cr-ticks"><li>[[ICON:check]][[careers.positions.pay]]</li><li>[[ICON:check]][[careers.positions.noExp]]</li><li>[[ICON:check]][[careers.positions.training]]</li></ul>
-      <a class="btn cr-apply" href="#apply" data-position="Customer Service Representative">[[careers.positions.apply]] <span aria-hidden="true">&rarr;</span><span class="vh"> &mdash; [[careers.positions.csr.title]]</span></a>
+      <p class="cr-meta">[[careers.positions.tagType]] <i>/</i> [[careers.positions.tagPlace]]</p>
+      <h3>[[careers.positions.csr.title]]</h3>
+      <p class="cr-desc">[[careers.positions.csr.p]]</p>
+      <p class="cr-doh">[[careers.positions.doH]]</p>
+      <ul class="cr-do"><li>[[careers.positions.csr.do1]]</li><li>[[careers.positions.csr.do2]]</li><li>[[careers.positions.csr.do3]]</li></ul>
+      <p class="cr-terms"><b>[[careers.positions.pay]]</b><span>[[careers.positions.training]]</span><span>[[careers.positions.noExp]]</span></p>
+      <a class="btn cr-apply" href="#apply" data-position="Customer Service Representative">[[careers.positions.apply]]<span class="vh"> &mdash; [[careers.positions.csr.title]]</span></a>
     </article>
     <article class="cr-job cr-rise">
-      <div class="cr-job-top"><span class="cr-ic">[[ICON:chart]]</span>
-        <h3>[[careers.positions.sales.title]]</h3></div>
-      <ul class="cr-tags"><li>[[careers.positions.tagType]]</li><li>[[careers.positions.tagPlace]]</li></ul>
-      <p>[[careers.positions.sales.p]]</p>
-      <ul class="cr-ticks"><li>[[ICON:check]][[careers.positions.pay]]</li><li>[[ICON:check]][[careers.positions.noExp]]</li><li>[[ICON:check]][[careers.positions.training]]</li></ul>
-      <p class="cr-sched">[[ICON:clock]]<span>[[careers.positions.sales.schedule]]</span></p>
-      <a class="btn cr-apply" href="#apply" data-position="Sales Representative">[[careers.positions.apply]] <span aria-hidden="true">&rarr;</span><span class="vh"> &mdash; [[careers.positions.sales.title]]</span></a>
+      <p class="cr-meta">[[careers.positions.tagType]] <i>/</i> [[careers.positions.tagPlace]]</p>
+      <h3>[[careers.positions.sales.title]]</h3>
+      <p class="cr-desc">[[careers.positions.sales.p]]</p>
+      <p class="cr-doh">[[careers.positions.doH]]</p>
+      <ul class="cr-do"><li>[[careers.positions.sales.do1]]</li><li>[[careers.positions.sales.do2]]</li><li>[[careers.positions.sales.do3]]</li></ul>
+      <p class="cr-terms"><b>[[careers.positions.pay]]</b><span>[[careers.positions.training]]</span><span>[[careers.positions.noExp]]</span></p>
+      <p class="cr-sched">[[careers.positions.sales.schedule]]</p>
+      <a class="btn cr-apply" href="#apply" data-position="Sales Representative">[[careers.positions.apply]]<span class="vh"> &mdash; [[careers.positions.sales.title]]</span></a>
     </article>
   </div>
 </div></section>
@@ -60,9 +57,9 @@ BODY = """
 <section class="blk tint cr-tight"><div class="wrap">
   <div class="cr-head"><h2>[[careers.why.h2]]</h2></div>
   <div class="cr-why">
-    <div class="cr-card cr-rise"><span class="cr-ic sm">[[ICON:book]]</span><h3>[[careers.why.c1.h3]]</h3><p>[[careers.why.c1.p]]</p></div>
-    <div class="cr-card cr-rise"><span class="cr-ic sm">[[ICON:grow]]</span><h3>[[careers.why.c2.h3]]</h3><p>[[careers.why.c2.p]]</p></div>
-    <div class="cr-card cr-rise"><span class="cr-ic sm">[[ICON:team]]</span><h3>[[careers.why.c3.h3]]</h3><p>[[careers.why.c3.p]]</p></div>
+    <div class="cr-col cr-rise"><h3>[[careers.why.c1.h3]]</h3><p>[[careers.why.c1.p]]</p></div>
+    <div class="cr-col cr-rise"><h3>[[careers.why.c2.h3]]</h3><p>[[careers.why.c2.p]]</p></div>
+    <div class="cr-col cr-rise"><h3>[[careers.why.c3.h3]]</h3><p>[[careers.why.c3.p]]</p></div>
   </div>
 </div></section>
 
@@ -71,137 +68,102 @@ BODY = """
   <div class="cr-cols">
     <div>
       <h3 class="cr-sub">[[careers.look.reqH]]</h3>
-      <ul class="cr-req">
-        <li>[[ICON:check]]<span>[[careers.look.r1]]</span></li>
-        <li>[[ICON:check]]<span>[[careers.look.r5]]</span></li>
-        <li>[[ICON:check]]<span>[[careers.look.r4]]</span></li>
-      </ul>
+      <ul class="cr-list"><li>[[careers.look.r1]]</li><li>[[careers.look.r5]]</li><li>[[careers.look.r4]]</li></ul>
     </div>
     <div>
       <h3 class="cr-sub">[[careers.look.plusH]]</h3>
-      <ul class="cr-req cr-plus">
-        <li>[[ICON:plus]]<span>[[careers.look.r2]]</span></li>
-        <li>[[ICON:plus]]<span>[[careers.look.r7]]</span></li>
-      </ul>
+      <ul class="cr-list cr-plus"><li>[[careers.look.r2]]</li><li>[[careers.look.r7]]</li></ul>
     </div>
   </div>
   <h3 class="cr-sub cr-sub2">[[careers.look.qualH]]</h3>
   <p class="cr-qlead">[[careers.look.qualLead]]</p>
-  <div class="cr-quals">
-    <div class="cr-q">[[ICON:puzzle]]<div><b>[[careers.look.q1.h]]</b><span>[[careers.look.q1.p]]</span></div></div>
-    <div class="cr-q">[[ICON:spark]]<div><b>[[careers.look.q2.h]]</b><span>[[careers.look.q2.p]]</span></div></div>
-    <div class="cr-q">[[ICON:book]]<div><b>[[careers.look.q3.h]]</b><span>[[careers.look.q3.p]]</span></div></div>
-    <div class="cr-q">[[ICON:chat]]<div><b>[[careers.look.q4.h]]</b><span>[[careers.look.q4.p]]</span></div></div>
-    <div class="cr-q">[[ICON:compass]]<div><b>[[careers.look.q5.h]]</b><span>[[careers.look.q5.p]]</span></div></div>
-    <div class="cr-q">[[ICON:shield]]<div><b>[[careers.look.q6.h]]</b><span>[[careers.look.q6.p]]</span></div></div>
-    <div class="cr-q">[[ICON:target]]<div><b>[[careers.look.q7.h]]</b><span>[[careers.look.q7.p]]</span></div></div>
+  <dl class="cr-quals">
+    <div><dt>[[careers.look.q1.h]]</dt><dd>[[careers.look.q1.p]]</dd></div>
+    <div><dt>[[careers.look.q2.h]]</dt><dd>[[careers.look.q2.p]]</dd></div>
+    <div><dt>[[careers.look.q3.h]]</dt><dd>[[careers.look.q3.p]]</dd></div>
+    <div><dt>[[careers.look.q4.h]]</dt><dd>[[careers.look.q4.p]]</dd></div>
+    <div><dt>[[careers.look.q5.h]]</dt><dd>[[careers.look.q5.p]]</dd></div>
+    <div><dt>[[careers.look.q6.h]]</dt><dd>[[careers.look.q6.p]]</dd></div>
+    <div><dt>[[careers.look.q7.h]]</dt><dd>[[careers.look.q7.p]]</dd></div>
+  </dl>
+  <div class="cr-notes">
+    <p>[[careers.look.r6]] [[careers.look.license]]</p>
+    <p class="cr-screen"><b>[[careers.look.screenH]].</b> [[careers.look.background]]</p>
   </div>
-  <p class="cr-lic">[[careers.look.r6]] [[careers.look.license]]</p>
-  <div class="cr-screen">[[ICON:shield]]<div><b>[[careers.look.screenH]]</b><span>[[careers.look.background]]</span></div></div>
 </div></section>
 
 <style>
-  .cr-hero{position:relative;overflow:hidden;padding:64px 0 56px;
-      background:radial-gradient(60% 80% at 85% 0%,rgba(0,194,255,.16),transparent 70%),radial-gradient(50% 70% at 0% 100%,rgba(22,102,237,.10),transparent 70%),var(--ice)}
-  @media(min-width:900px){ .cr-hero{padding:96px 0 84px} }
+  /* Careers. The site's colours, type and buttons; laid out like a job
+     listing rather than a feature grid: text and hairlines, few boxes, no
+     icon tiles. */
+  .cr-hero{position:relative;overflow:hidden;padding:56px 0 48px;
+      background:radial-gradient(60% 80% at 85% 0%,rgba(0,194,255,.14),transparent 70%),var(--ice)}
+  @media(min-width:900px){ .cr-hero{padding:88px 0 76px} }
+  .cr-kick{display:block;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--blue)}
   .cr-hero h1{font-size:clamp(34px,6vw,58px);line-height:1.05;letter-spacing:-.025em;color:var(--navy);margin-top:12px;max-width:16ch}
-  .cr-lede{font-size:clamp(16.5px,2.1vw,19px);line-height:1.6;color:#33415A;font-weight:600;margin-top:16px;max-width:60ch}
-  .cr-hl{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:10px;grid-template-columns:1fr 1fr;max-width:720px}
-  @media(min-width:900px){ .cr-hl{grid-template-columns:repeat(4,auto);justify-content:start} }
-  .cr-hl li{display:flex;align-items:center;gap:9px;background:#fff;border:1.5px solid var(--line);border-radius:14px;
-      padding:11px 13px;font-size:14px;font-weight:800;color:var(--navy);line-height:1.3}
-  .cr-hl svg,.cr-ticks svg,.cr-req svg{flex:0 0 18px;width:18px;height:18px;fill:none;stroke:var(--blue);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-  .cr-hero .acts{margin-top:28px;display:flex;gap:10px;flex-wrap:wrap}
+  .cr-lede{font-size:clamp(16.5px,2.1vw,19px);line-height:1.6;color:#33415A;font-weight:600;margin-top:16px;max-width:58ch}
+  .cr-facts{display:flex;flex-wrap:wrap;gap:6px 0;margin-top:22px;font-size:14.5px;font-weight:800;color:var(--navy);max-width:760px}
+  .cr-facts span{white-space:nowrap}
+  .cr-facts span+span::before{content:"";display:inline-block;width:1px;height:14px;background:#B8C6DC;margin:0 14px;vertical-align:-2px}
+  @media(max-width:520px){ .cr-facts{display:grid;gap:8px} .cr-facts span+span::before{display:none}
+    .cr-facts span{position:relative;padding-left:16px} .cr-facts span::after{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;border-radius:2px;background:var(--blue)} }
+  .cr-hero .acts{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap}
   .cr-head{max-width:640px}
-  .cr-head .lead{margin-top:8px}
-  .cr-jobs{display:grid;gap:16px;margin-top:26px}
-  @media(min-width:820px){ .cr-jobs{grid-template-columns:1fr 1fr;gap:22px} }
-  .cr-job{display:flex;flex-direction:column;background:#fff;border:1.5px solid var(--line);border-radius:24px;padding:24px 22px;
-      box-shadow:0 1px 2px rgba(10,33,72,.05),0 18px 40px -26px rgba(10,33,72,.35);transition:transform .2s,box-shadow .2s,border-color .2s}
-  .cr-job:hover{transform:translateY(-2px);border-color:#BCD2F7;box-shadow:0 1px 2px rgba(10,33,72,.05),0 24px 48px -26px rgba(10,33,72,.45)}
-  .cr-job-top{display:flex;align-items:center;gap:14px}
-  .cr-job h3{font-size:21px;line-height:1.2;color:var(--navy);margin:0}
-  .cr-ic{flex:0 0 52px;width:52px;height:52px;border-radius:15px;background:var(--grad);display:grid;place-items:center;
-      box-shadow:0 10px 22px -12px rgba(22,102,237,.8)}
-  .cr-ic.sm{width:46px;height:46px;flex-basis:46px;border-radius:13px}
-  .cr-ic svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-  .cr-tags{list-style:none;padding:0;margin:16px 0 0;display:flex;flex-wrap:wrap;gap:8px}
-  .cr-tags li{font-size:12.5px;font-weight:800;color:var(--blue);background:var(--ice);border-radius:99px;padding:6px 11px}
-  section.blk .cr-job p{font-size:15.5px;line-height:1.6;color:#33415A;margin-top:14px}
-  .cr-ticks{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:8px}
-  .cr-ticks li{display:flex;align-items:center;gap:9px;font-size:14.5px;font-weight:800;color:var(--navy)}
-  .cr-apply{margin-top:auto;align-self:stretch}
-  .cr-ticks{margin-bottom:22px!important}
+  section.blk .cr-sublead{font-size:15.5px;color:var(--muted);font-weight:600;margin-top:6px}
+  .cr-jobs{display:grid;gap:18px;margin-top:26px}
+  @media(min-width:820px){ .cr-jobs{grid-template-columns:1fr 1fr;gap:24px} }
+  .cr-job{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-top:3px solid var(--blue);border-radius:6px 6px 18px 18px;padding:24px 22px 22px}
+  section.blk .cr-meta{font-size:12.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--blue);margin:0}
+  .cr-meta i{font-style:normal;color:#B8C6DC;margin:0 4px}
+  .cr-job h3{font-size:clamp(21px,2.4vw,25px);line-height:1.2;letter-spacing:-.01em;color:var(--navy);margin-top:8px}
+  section.blk .cr-desc{font-size:15.5px;line-height:1.6;color:#33415A;margin-top:10px}
+  section.blk .cr-doh{font-size:13px;font-weight:900;color:var(--navy);margin-top:18px}
+  section.blk .cr-do{list-style:none;margin:8px 0 0;padding:0}
+  section.blk .cr-do li{position:relative;padding-left:18px;font-size:15px;line-height:1.5;color:var(--ink);margin:6px 0 0}
+  section.blk .cr-do li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:2px;background:var(--blue)}
+  section.blk .cr-terms{display:grid;gap:3px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);font-weight:700;line-height:1.45}
+  .cr-terms b{color:var(--navy);font-weight:900}
+  section.blk .cr-sched{margin-top:12px;font-size:13.5px;line-height:1.5;font-weight:700;color:#7A4600;border-left:3px solid #F2B861;padding:2px 0 2px 11px}
+  .cr-apply{margin-top:22px;align-self:stretch}
   @media(min-width:520px){ .cr-apply{align-self:flex-start} }
-  .cr-why{display:grid;gap:14px;margin-top:24px}
-  @media(min-width:820px){ .cr-why{grid-template-columns:repeat(3,1fr);gap:18px} }
-  .cr-card{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:22px 20px}
-  .cr-card h3{font-size:18px;color:var(--navy);margin-top:14px}
-  section.blk .cr-card p{font-size:15px;line-height:1.6;color:var(--muted);margin-top:8px}
-  .cr-req{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:10px}
-  @media(min-width:820px){ .cr-req{grid-template-columns:1fr 1fr;gap:12px 18px} }
-  .cr-req li{display:flex;align-items:flex-start;gap:11px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:13px 15px;
-      font-size:15px;font-weight:700;color:var(--ink);line-height:1.45}
-  .cr-req li svg{margin-top:2px}
-  section.blk .cr-lic{font-size:13.5px;color:var(--muted);font-weight:600;margin-top:16px;max-width:70ch;line-height:1.6}
-  /* The site's article lists (section.blk ul/li) indent and space every list;
-     these are layout, not prose. */
-  section.blk .cr-tags,section.blk .cr-ticks,section.blk .cr-req{margin-left:0}
-  section.blk .cr-tags li,section.blk .cr-ticks li,section.blk .cr-req li{margin:0}
-  section.blk .cr-tags li{font-size:12.5px;color:var(--blue)}
-  section.blk .cr-ticks li{font-size:14.5px;color:var(--navy)}
-  section.blk .cr-req li{font-size:15px;color:var(--ink)}
-  .cr-sched{display:flex;align-items:flex-start;gap:9px;margin-top:4px!important;margin-bottom:22px!important;font-size:13.5px!important;
-      font-weight:700;color:#7A4600!important;background:#FFF4E0;border-radius:12px;padding:10px 12px;line-height:1.45!important}
-  .cr-sched svg{flex:0 0 16px;width:16px;height:16px;margin-top:1px;fill:none;stroke:#A15C00;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-  section.blk .cr-job .cr-sched + .cr-apply{margin-top:auto}
-  .cr-job .cr-ticks:has(+ .cr-sched){margin-bottom:12px!important}
-  section.blk .cr-bg{display:flex;align-items:flex-start;gap:9px;margin-top:10px}
-  .cr-bg svg{flex:0 0 16px;width:16px;height:16px;margin-top:2px;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-  /* Under the sticky site header: anchors land with their heading in view. */
+  @media(min-width:820px){ section.blk .cr-job .cr-do{margin-bottom:18px} section.blk .cr-job .cr-terms{margin-top:auto} }
+  .cr-why{display:grid;gap:0;margin-top:20px}
+  @media(min-width:820px){ .cr-why{grid-template-columns:repeat(3,1fr);gap:0 32px} }
+  .cr-col{border-top:2px solid var(--navy);padding:16px 0 18px}
+  .cr-col h3{font-size:17px;color:var(--navy)}
+  section.blk .cr-col p{font-size:15px;line-height:1.6;color:#33415A;margin-top:6px}
+  .cr-cols{display:grid;gap:0 40px;margin-top:4px}
+  @media(min-width:820px){ .cr-cols{grid-template-columns:1.3fr 1fr} }
+  .cr-sub{font-size:13px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin-top:22px}
+  .cr-sub2{margin-top:34px}
+  section.blk .cr-list{list-style:none;margin:10px 0 0;padding:0}
+  section.blk .cr-list li{position:relative;padding:10px 0 10px 22px;border-bottom:1px solid var(--line);font-size:15.5px;font-weight:700;color:var(--ink);line-height:1.45;margin:0}
+  section.blk .cr-list li::before{content:"";position:absolute;left:2px;top:1.05em;width:8px;height:8px;border-radius:2px;background:var(--blue)}
+  section.blk .cr-plus li::before{background:none;border:2px solid var(--blue);width:6px;height:6px}
+  section.blk .cr-qlead{font-size:15.5px;color:#33415A;margin-top:6px;max-width:60ch}
+  .cr-quals{display:grid;gap:0 40px;margin:8px 0 0}
+  @media(min-width:760px){ .cr-quals{grid-template-columns:1fr 1fr} }
+  .cr-quals>div{padding:14px 0;border-bottom:1px solid var(--line)}
+  .cr-quals dt{font-size:15.5px;font-weight:900;color:var(--navy)}
+  .cr-quals dd{margin:3px 0 0;font-size:14.5px;line-height:1.55;color:var(--muted);font-weight:600}
+  .cr-notes{margin-top:24px;max-width:72ch}
+  section.blk .cr-notes p{font-size:13.5px;line-height:1.6;color:var(--muted);margin-top:8px}
+  section.blk .cr-notes .cr-screen{color:#33415A}
+  .cr-screen b{color:var(--navy)}
   #positions,#apply,.wiz{scroll-margin-top:84px}
   @media(prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
-  /* A little more compact on phones, the same on a desk. */
   @media(max-width:640px){
     section.blk.cr-tight{padding:38px 0}
-    .cr-tight .cr-why{gap:10px;margin-top:18px}
-    .cr-tight .cr-card{padding:16px 16px 18px;border-radius:18px}
-    .cr-tight .cr-card h3{margin-top:10px}
-    section.blk.cr-tight .cr-card p{margin-top:6px;font-size:14.5px;line-height:1.55}
-    .cr-tight .cr-req{gap:8px;margin-top:16px}
-    section.blk.cr-tight .cr-req li{padding:10px 12px;font-size:14.5px}
-    section.blk.cr-tight .cr-lic{margin-top:12px}
-  }
-  .cr-cols{display:grid;gap:4px 22px;margin-top:6px}
-  @media(min-width:820px){ .cr-cols{grid-template-columns:1.4fr 1fr} }
-  .cr-sub{font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-top:22px}
-  .cr-sub2{margin-top:30px}
-  section.blk .cr-req.cr-plus li{background:var(--ice);border-color:transparent}
-  section.blk .cr-req{margin-top:12px}
-  @media(min-width:820px){ .cr-cols .cr-req{grid-template-columns:1fr} }
-  section.blk .cr-qlead{font-size:15px;color:var(--muted);margin-top:6px;max-width:62ch}
-  .cr-quals{display:grid;gap:10px;margin-top:14px}
-  @media(min-width:640px){ .cr-quals{grid-template-columns:1fr 1fr} }
-  @media(min-width:1000px){ .cr-quals{grid-template-columns:repeat(3,1fr)} }
-  .cr-q{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px 15px}
-  .cr-q>svg{flex:0 0 34px;width:34px;height:34px;padding:8px;border-radius:10px;background:var(--grad);fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;box-sizing:border-box}
-  .cr-q b{display:block;font-size:15px;color:var(--navy);line-height:1.3}
-  .cr-q span{display:block;font-size:14px;color:var(--muted);font-weight:600;line-height:1.5;margin-top:3px}
-  .cr-screen{display:flex;gap:12px;align-items:flex-start;margin-top:14px;background:#fff;border:1.5px solid var(--line);border-left:4px solid var(--blue);border-radius:14px;padding:13px 15px;max-width:760px}
-  .cr-screen>svg{flex:0 0 20px;width:20px;height:20px;fill:none;stroke:var(--blue);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
-  .cr-screen b{display:block;font-size:14.5px;color:var(--navy)}
-  .cr-screen span{display:block;font-size:13.5px;color:var(--muted);font-weight:600;line-height:1.55;margin-top:2px}
-  @media(max-width:640px){
-    .cr-tight .cr-q{padding:12px 13px}
-    .cr-tight .cr-quals{gap:8px}
-    .cr-sub2{margin-top:24px}
+    .cr-col{padding:13px 0 14px}
+    section.blk.cr-tight .cr-list li{padding:9px 0 9px 22px;font-size:15px}
+    .cr-quals>div{padding:11px 0}
   }
   .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .cr-rise{animation:crRise .5s cubic-bezier(.2,.7,.2,1) both}
   .cr-jobs .cr-rise:nth-child(2),.cr-why .cr-rise:nth-child(2){animation-delay:.07s}
   .cr-why .cr-rise:nth-child(3){animation-delay:.14s}
-  @keyframes crRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-  @media(prefers-reduced-motion:reduce){ .cr-rise{animation:none} .cr-job{transition:none} .cr-job:hover{transform:none} }
+  @keyframes crRise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){ .cr-rise{animation:none} }
 </style>
 
 <section class="blk tint" id="apply"><div class="wrap narrow">
