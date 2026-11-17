@@ -31,11 +31,12 @@
     },
     "sales": {
       "title": "Representante de ventas",
-      "p": "Ayuda a los clientes a conocer sus opciones de seguro, prepara cotizaciones y encuentra la cobertura que se ajuste a sus necesidades.",
+      "p": "Ayuda a los clientes a conocer sus opciones de seguro, prepara cotizaciones y encuentra la cobertura que se ajuste a sus necesidades. El puesto también incluye visitas a negocios, eventos comunitarios, actividades de representación y la búsqueda activa de nuevos clientes.",
       "schedule": "Requiere disponibilidad para horarios variables, incluyendo ocasionalmente tardes, fines de semana y eventos.",
       "do1": "Platicar con los clientes sobre lo que necesitan asegurar: auto, casa, renta o negocio",
       "do2": "Preparar cotizaciones y comparar opciones de las aseguradoras con las que trabajamos",
-      "do3": "Dar seguimiento, resolver dudas y ayudar a cada cliente a elegir"
+      "do3": "Dar seguimiento, resolver dudas y ayudar a cada cliente a elegir",
+      "do4": "Visitar negocios de la zona, representar a Safe House Insurance en eventos comunitarios y otras actividades, y buscar activamente nuevos clientes"
     },
     "pay": "Salario base más comisiones",
     "doH": "Lo que harás"
@@ -101,7 +102,7 @@
   },
   "apply": {
     "h2": "Postúlate",
-    "lead": "Completa nuestra solicitud en cinco sencillos pasos. Nuestro equipo de contratación revisará tu información y se comunicará contigo para el siguiente paso."
+    "lead": "Nuestro equipo de contratación revisa las solicitudes y se comunicará con los candidatos seleccionados sobre los siguientes pasos."
   },
   "form": {
     "stepOf": "Paso {n} de 5",
@@ -208,6 +209,7 @@
     "confirm1": "Entiendo que este puesto es presencial en El Paso, Texas.",
     "confirm2": "Entiendo que se espera puntualidad y responsabilidad.",
     "confirm3": "La información que proporcioné es verdadera y correcta.",
+    "confirmTap": "Toca la casilla para confirmar",
     "back": "Atrás",
     "next": "Continuar",
     "submit": "Enviar solicitud",
@@ -239,6 +241,8 @@
     "stepOf": "Paso {n} de 5",
     "errInterview": "Elige al menos un día y un horario.",
     "errOpen": "Responde en una o dos oraciones, por favor.",
-    "errConfirm": "Marca la casilla para confirmar antes de enviar."
+    "errConfirm": "Marca la casilla para confirmar antes de enviar.",
+    "confirmTap": "Toca la casilla para confirmar",
+    "confirmDone": "✓ Confirmado"
   }
 }

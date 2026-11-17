@@ -534,9 +534,9 @@
     <article class="cr-job cr-rise">
       <p class="cr-meta">Tiempo completo / Medio tiempo <i>/</i> Presencial en El Paso, TX</p>
       <h3>Representante de ventas</h3>
-      <p class="cr-desc">Ayuda a los clientes a conocer sus opciones de seguro, prepara cotizaciones y encuentra la cobertura que se ajuste a sus necesidades.</p>
+      <p class="cr-desc">Ayuda a los clientes a conocer sus opciones de seguro, prepara cotizaciones y encuentra la cobertura que se ajuste a sus necesidades. El puesto también incluye visitas a negocios, eventos comunitarios, actividades de representación y la búsqueda activa de nuevos clientes.</p>
       <p class="cr-doh">Lo que harás</p>
-      <ul class="cr-do"><li>Platicar con los clientes sobre lo que necesitan asegurar: auto, casa, renta o negocio</li><li>Preparar cotizaciones y comparar opciones de las aseguradoras con las que trabajamos</li><li>Dar seguimiento, resolver dudas y ayudar a cada cliente a elegir</li></ul>
+      <ul class="cr-do"><li>Platicar con los clientes sobre lo que necesitan asegurar: auto, casa, renta o negocio</li><li>Preparar cotizaciones y comparar opciones de las aseguradoras con las que trabajamos</li><li>Dar seguimiento, resolver dudas y ayudar a cada cliente a elegir</li><li>Visitar negocios de la zona, representar a Safe House Insurance en eventos comunitarios y otras actividades, y buscar activamente nuevos clientes</li></ul>
       <p class="cr-terms"><b>Salario base más comisiones</b><span>Capacitación incluida</span><span>No se requiere experiencia en seguros</span></p>
       <p class="cr-sched">Requiere disponibilidad para horarios variables, incluyendo ocasionalmente tardes, fines de semana y eventos.</p>
       <a class="btn cr-apply" href="#apply" data-position="Sales Representative">Postúlate<span class="vh"> &mdash; Representante de ventas</span></a>
@@ -658,7 +658,7 @@
 
 <section class="blk tint" id="apply"><div class="wrap narrow">
   <h2>Postúlate</h2>
-  <p class="lead">Completa nuestra solicitud en cinco sencillos pasos. Nuestro equipo de contratación revisará tu información y se comunicará contigo para el siguiente paso.</p>
+  <p class="lead">Nuestro equipo de contratación revisa las solicitudes y se comunicará con los candidatos seleccionados sobre los siguientes pasos.</p>
 
   <div class="wiz" id="wiz">
     <div class="wz-head">
@@ -753,8 +753,9 @@
           <textarea id="ccom" name="comments" rows="3" maxlength="3000"></textarea></div>
         <div class="fl q" data-q="confirm">
           <label class="cfm" for="cconfirm"><input type="checkbox" id="cconfirm" name="confirm" value="yes"><span class="cfm-box" aria-hidden="true"></span>
-            <span class="cfm-tx" id="confirmTx"><b>Confirmo que:</b>
-              <span>Entiendo que este puesto es presencial en El Paso, Texas.</span><span>Entiendo que se espera puntualidad y responsabilidad.</span><span>La información que proporcioné es verdadera y correcta.</span></span></label>
+            <span class="cfm-tx"><span id="confirmTx" class="cfm-all"><b>Confirmo que:</b>
+              <span>Entiendo que este puesto es presencial en El Paso, Texas.</span><span>Entiendo que se espera puntualidad y responsabilidad.</span><span>La información que proporcioné es verdadera y correcta.</span></span>
+              <small class="cfm-tap" id="cfmTap">Toca la casilla para confirmar</small></span></label>
           <p class="fe"></p></div>
         <p class="fine">Usamos lo que nos envías solo para considerarte para un puesto en Safe House Insurance. No lo compartimos con nadie, y en esta etapa nunca te pedimos tu número de Seguro Social ni tu fecha de nacimiento. Consulta nuestra <a href="privacy.html">Política de Privacidad</a>.</p>
       </fieldset>
@@ -825,15 +826,27 @@
   .ch input[type=checkbox]:checked+span::before{border:0;background:var(--blue) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>") center/12px no-repeat}
   .chs.days{grid-template-columns:repeat(2,1fr)}
   @media(min-width:520px){ .chs.days{grid-template-columns:repeat(5,1fr)} .chs.days .ch span{justify-content:center;padding-left:8px;padding-right:8px} }
-  .cfm{display:flex;gap:12px;align-items:flex-start;cursor:pointer;border:1.5px solid var(--line);border-radius:16px;padding:14px 15px;background:#fff;margin:0!important;font-weight:600!important}
+  /* The confirmation: one big box to tick. Scoped under .wiz .fl so the
+     form's general label rule (display:block, small caps) cannot flatten it. */
+  .wiz .fl label.cfm{display:flex;align-items:flex-start;gap:14px;cursor:pointer;border:2px solid #C6D4E8;border-radius:16px;
+      padding:16px;background:#fff;margin:0;font-size:inherit;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink);transition:.15s}
+  .wiz .fl label.cfm:hover{border-color:var(--blue)}
   .cfm input{position:absolute;opacity:0;width:1px;height:1px}
-  .cfm-box{flex:0 0 22px;width:22px;height:22px;border:2px solid #C6D4E8;border-radius:7px;margin-top:1px;transition:.15s}
-  .cfm input:checked+.cfm-box{background:var(--blue) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>") center/13px no-repeat;border-color:var(--blue)}
-  .cfm input:focus-visible+.cfm-box{box-shadow:0 0 0 4px rgba(22,102,237,.2)}
-  .cfm-tx{display:grid;gap:4px;font-size:14px;line-height:1.45;color:var(--ink)}
-  .cfm-tx b{font-size:14.5px;color:var(--navy)}
-  .cfm-tx span::before{content:"• ";color:var(--blue)}
-  .wiz .q.bad .cfm{border-color:#C2410C}
+  .cfm-box{flex:0 0 26px;width:26px;height:26px;border:2px solid #9FB3CF;border-radius:8px;background:#fff;margin-top:1px;
+      display:grid;place-items:center;transition:.15s}
+  .cfm-box::after{content:"";width:12px;height:7px;border-left:3px solid #fff;border-bottom:3px solid #fff;transform:rotate(-45deg) translate(1px,-1px);opacity:0;transition:.15s}
+  .cfm input:checked+.cfm-box{background:var(--blue);border-color:var(--blue)}
+  .cfm input:checked+.cfm-box::after{opacity:1}
+  .wiz .fl label.cfm:has(input:checked){border-color:var(--blue);background:var(--ice)}
+  .cfm input:focus-visible+.cfm-box{box-shadow:0 0 0 4px rgba(22,102,237,.25)}
+  .cfm-tx{display:grid;gap:5px;font-size:14.5px;line-height:1.45;color:var(--ink);font-weight:600}
+  .cfm-tx b{font-size:15px;color:var(--navy);font-weight:900}
+  .cfm-all{display:grid;gap:5px}
+  .cfm-all>span{position:relative;padding-left:14px}
+  .cfm-all>span::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+  .cfm-tap{display:block;font-size:12.5px;font-weight:700;color:var(--blue);margin-top:4px}
+  .cfm input:checked~.cfm-tx .cfm-tap{color:#13804B}
+  .wiz .q.bad label.cfm{border-color:#C2410C}
   .rate{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
   .rate .ch span{justify-content:center;font-size:17px;min-height:52px;padding:10px 4px}
   .rate .ch span::before{display:none}
@@ -868,7 +881,7 @@
   @media(prefers-reduced-motion:reduce){ .wz-pane.in,.wz-pane.back{animation:none} .wz-bar i{transition:none} }
 </style>
 
-<script type="application/json" id="i18n">{"englishNote": "Gracias por tu honestidad. Estos puestos requieren inglés — de todos modos revisaremos tu solicitud.", "errBot": "No pudimos confirmar que esta solicitud la envía una persona. Inténtalo de nuevo.", "errConfirm": "Marca la casilla para confirmar antes de enviar.", "errEmail": "Escribe un correo electrónico válido.", "errFile": "Sube tu currículum, por favor.", "errFileSize": "Tu currículum debe pesar 5 MB o menos.", "errFileType": "Tu currículum debe ser un archivo PDF, DOC o DOCX.", "errFirst": "Escribe tu nombre, por favor.", "errInterview": "Elige al menos un día y un horario.", "errLast": "Escribe tu apellido, por favor.", "errOpen": "Responde en una o dos oraciones, por favor.", "errPhone": "Escribe un número de teléfono de 10 dígitos.", "errRate": "Ya recibimos varias solicitudes desde esta conexión. Inténtalo más tarde o llámanos al 915-503-1207.", "errRequired": "Responde esta pregunta, por favor.", "errServer": "No pudimos enviar tu solicitud en este momento; tus respuestas siguen aquí. Inténtalo de nuevo en un momento o llámanos al 915-503-1207.", "errStep": "Completa las preguntas marcadas para continuar.", "errStrengths": "Cuéntanos al menos una fortaleza.", "errWhy": "Cuéntanos un poco más (al menos una oración).", "sending": "Enviando…", "stepOf": "Paso {n} de 5"}</script>
+<script type="application/json" id="i18n">{"confirmDone": "✓ Confirmado", "confirmTap": "Toca la casilla para confirmar", "englishNote": "Gracias por tu honestidad. Estos puestos requieren inglés — de todos modos revisaremos tu solicitud.", "errBot": "No pudimos confirmar que esta solicitud la envía una persona. Inténtalo de nuevo.", "errConfirm": "Marca la casilla para confirmar antes de enviar.", "errEmail": "Escribe un correo electrónico válido.", "errFile": "Sube tu currículum, por favor.", "errFileSize": "Tu currículum debe pesar 5 MB o menos.", "errFileType": "Tu currículum debe ser un archivo PDF, DOC o DOCX.", "errFirst": "Escribe tu nombre, por favor.", "errInterview": "Elige al menos un día y un horario.", "errLast": "Escribe tu apellido, por favor.", "errOpen": "Responde en una o dos oraciones, por favor.", "errPhone": "Escribe un número de teléfono de 10 dígitos.", "errRate": "Ya recibimos varias solicitudes desde esta conexión. Inténtalo más tarde o llámanos al 915-503-1207.", "errRequired": "Responde esta pregunta, por favor.", "errServer": "No pudimos enviar tu solicitud en este momento; tus respuestas siguen aquí. Inténtalo de nuevo en un momento o llámanos al 915-503-1207.", "errStep": "Completa las preguntas marcadas para continuar.", "errStrengths": "Cuéntanos al menos una fortaleza.", "errWhy": "Cuéntanos un poco más (al menos una oración).", "sending": "Enviando…", "stepOf": "Paso {n} de 5"}</script>
 <script>
 var T=(function(){
   var d={};try{d=JSON.parse(document.getElementById('i18n').textContent)||{};}catch(e){}
@@ -931,6 +944,7 @@ var T=(function(){
       var so=q('spanish').querySelector('.opt'); if(so) so.hidden=l!=='English';
     }
     if(t===file) showFile();
+    if(t.id==='cconfirm') document.getElementById('cfmTap').textContent=t.checked?T('confirmDone'):T('confirmTap');
   }
   function showFile(){
     var f=file.files&&file.files[0], d=file.parentNode.querySelector('.drop');
@@ -1061,7 +1075,7 @@ var T=(function(){
   }
 })();
 </script>
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "JobPosting", "title": "Representante de servicio al cliente", "description": "<p>Ayuda a los clientes con sus pólizas, pagos, documentos y necesidades de servicio del día a día, brindando una excelente atención.</p><ul><li>Tiempo completo / Medio tiempo</li><li>Salario base más comisiones</li><li>No se requiere experiencia en seguros</li><li>Capacitación incluida</li><li>Se requiere comunicación en inglés.</li></ul>", "datePosted": "2026-11-16", "employmentType": ["FULL_TIME", "PART_TIME"], "hiringOrganization": {"@type": "Organization", "name": "Safe House Insurance", "sameAs": "https://safehouseins.com", "logo": "https://safehouseins.com/assets/safehouse-logo.png"}, "jobLocation": {"@type": "Place", "address": {"@type": "PostalAddress", "streetAddress": "6065 Montana Ave Ste C8", "addressLocality": "El Paso", "addressRegion": "TX", "postalCode": "79925", "addressCountry": "US"}}, "directApply": true, "inLanguage": "es", "url": "https://safehouseins.com/es/careers#positions"}, {"@context": "https://schema.org", "@type": "JobPosting", "title": "Representante de ventas", "description": "<p>Ayuda a los clientes a conocer sus opciones de seguro, prepara cotizaciones y encuentra la cobertura que se ajuste a sus necesidades.</p><ul><li>Tiempo completo / Medio tiempo</li><li>Salario base más comisiones</li><li>No se requiere experiencia en seguros</li><li>Capacitación incluida</li><li>Se requiere comunicación en inglés.</li><li>Requiere disponibilidad para horarios variables, incluyendo ocasionalmente tardes, fines de semana y eventos.</li></ul>", "datePosted": "2026-11-16", "employmentType": ["FULL_TIME", "PART_TIME"], "hiringOrganization": {"@type": "Organization", "name": "Safe House Insurance", "sameAs": "https://safehouseins.com", "logo": "https://safehouseins.com/assets/safehouse-logo.png"}, "jobLocation": {"@type": "Place", "address": {"@type": "PostalAddress", "streetAddress": "6065 Montana Ave Ste C8", "addressLocality": "El Paso", "addressRegion": "TX", "postalCode": "79925", "addressCountry": "US"}}, "directApply": true, "inLanguage": "es", "url": "https://safehouseins.com/es/careers#positions"}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "JobPosting", "title": "Representante de servicio al cliente", "description": "<p>Ayuda a los clientes con sus pólizas, pagos, documentos y necesidades de servicio del día a día, brindando una excelente atención.</p><ul><li>Tiempo completo / Medio tiempo</li><li>Salario base más comisiones</li><li>No se requiere experiencia en seguros</li><li>Capacitación incluida</li><li>Se requiere comunicación en inglés.</li></ul>", "datePosted": "2026-11-16", "employmentType": ["FULL_TIME", "PART_TIME"], "hiringOrganization": {"@type": "Organization", "name": "Safe House Insurance", "sameAs": "https://safehouseins.com", "logo": "https://safehouseins.com/assets/safehouse-logo.png"}, "jobLocation": {"@type": "Place", "address": {"@type": "PostalAddress", "streetAddress": "6065 Montana Ave Ste C8", "addressLocality": "El Paso", "addressRegion": "TX", "postalCode": "79925", "addressCountry": "US"}}, "directApply": true, "inLanguage": "es", "url": "https://safehouseins.com/es/careers#positions"}, {"@context": "https://schema.org", "@type": "JobPosting", "title": "Representante de ventas", "description": "<p>Ayuda a los clientes a conocer sus opciones de seguro, prepara cotizaciones y encuentra la cobertura que se ajuste a sus necesidades. El puesto también incluye visitas a negocios, eventos comunitarios, actividades de representación y la búsqueda activa de nuevos clientes.</p><ul><li>Tiempo completo / Medio tiempo</li><li>Salario base más comisiones</li><li>No se requiere experiencia en seguros</li><li>Capacitación incluida</li><li>Se requiere comunicación en inglés.</li><li>Visitar negocios de la zona, representar a Safe House Insurance en eventos comunitarios y otras actividades, y buscar activamente nuevos clientes</li><li>Requiere disponibilidad para horarios variables, incluyendo ocasionalmente tardes, fines de semana y eventos.</li></ul>", "datePosted": "2026-11-16", "employmentType": ["FULL_TIME", "PART_TIME"], "hiringOrganization": {"@type": "Organization", "name": "Safe House Insurance", "sameAs": "https://safehouseins.com", "logo": "https://safehouseins.com/assets/safehouse-logo.png"}, "jobLocation": {"@type": "Place", "address": {"@type": "PostalAddress", "streetAddress": "6065 Montana Ave Ste C8", "addressLocality": "El Paso", "addressRegion": "TX", "postalCode": "79925", "addressCountry": "US"}}, "directApply": true, "inLanguage": "es", "url": "https://safehouseins.com/es/careers#positions"}]</script>
 </main>
 
 <footer>

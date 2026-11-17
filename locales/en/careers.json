@@ -31,11 +31,12 @@
     },
     "sales": {
       "title": "Sales Representative",
-      "p": "Help customers explore insurance options, prepare quotes, and find coverage that meets their needs.",
+      "p": "Help customers explore insurance options, prepare quotes, and find coverage that meets their needs. The role also includes visiting businesses, attending community events, representing the agency and actively finding new clients.",
       "schedule": "Requires availability for variable hours, including occasional evenings, weekends and events.",
       "do1": "Talk with customers about what they need to cover: car, home, renters or business",
       "do2": "Prepare quotes and compare options from the carriers we work with",
-      "do3": "Follow up, answer questions and help each customer choose"
+      "do3": "Follow up, answer questions and help each customer choose",
+      "do4": "Visit local businesses, represent Safe House Insurance at community events and other activities, and actively look for new clients"
     },
     "pay": "Base salary plus commissions",
     "doH": "What you’ll do"
@@ -101,7 +102,7 @@
   },
   "apply": {
     "h2": "Apply now",
-    "lead": "Complete our application in five easy steps. Our hiring team will review your information and contact you for the next step."
+    "lead": "Our hiring team reviews applications and will contact selected candidates regarding next steps."
   },
   "form": {
     "stepOf": "Step {n} of 5",
@@ -208,6 +209,7 @@
     "confirm1": "I understand this position is on-site in El Paso, Texas.",
     "confirm2": "I understand that punctuality and responsibility are expected.",
     "confirm3": "The information I have provided is true and correct.",
+    "confirmTap": "Tap the box to confirm",
     "back": "Back",
     "next": "Continue",
     "submit": "Submit application",
@@ -239,6 +241,8 @@
     "stepOf": "Step {n} of 5",
     "errInterview": "Please choose at least one day and one time.",
     "errOpen": "Please answer in a sentence or two.",
-    "errConfirm": "Please check the box to confirm before submitting."
+    "errConfirm": "Please check the box to confirm before submitting.",
+    "confirmTap": "Tap the box to confirm",
+    "confirmDone": "✓ Confirmed"
   }
 }

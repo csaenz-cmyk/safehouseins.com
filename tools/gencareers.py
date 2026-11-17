@@ -46,7 +46,7 @@ BODY = """
       <h3>[[careers.positions.sales.title]]</h3>
       <p class="cr-desc">[[careers.positions.sales.p]]</p>
       <p class="cr-doh">[[careers.positions.doH]]</p>
-      <ul class="cr-do"><li>[[careers.positions.sales.do1]]</li><li>[[careers.positions.sales.do2]]</li><li>[[careers.positions.sales.do3]]</li></ul>
+      <ul class="cr-do"><li>[[careers.positions.sales.do1]]</li><li>[[careers.positions.sales.do2]]</li><li>[[careers.positions.sales.do3]]</li><li>[[careers.positions.sales.do4]]</li></ul>
       <p class="cr-terms"><b>[[careers.positions.pay]]</b><span>[[careers.positions.training]]</span><span>[[careers.positions.noExp]]</span></p>
       <p class="cr-sched">[[careers.positions.sales.schedule]]</p>
       <a class="btn cr-apply" href="#apply" data-position="Sales Representative">[[careers.positions.apply]]<span class="vh"> &mdash; [[careers.positions.sales.title]]</span></a>
@@ -263,8 +263,9 @@ BODY = """
           <textarea id="ccom" name="comments" rows="3" maxlength="3000"></textarea></div>
         <div class="fl q" data-q="confirm">
           <label class="cfm" for="cconfirm"><input type="checkbox" id="cconfirm" name="confirm" value="yes"><span class="cfm-box" aria-hidden="true"></span>
-            <span class="cfm-tx" id="confirmTx"><b>[[careers.form.confirmH]]</b>
-              <span>[[careers.form.confirm1]]</span><span>[[careers.form.confirm2]]</span><span>[[careers.form.confirm3]]</span></span></label>
+            <span class="cfm-tx"><span id="confirmTx" class="cfm-all"><b>[[careers.form.confirmH]]</b>
+              <span>[[careers.form.confirm1]]</span><span>[[careers.form.confirm2]]</span><span>[[careers.form.confirm3]]</span></span>
+              <small class="cfm-tap" id="cfmTap">[[careers.form.confirmTap]]</small></span></label>
           <p class="fe"></p></div>
         <p class="fine">[[careers.form.fine]]</p>
       </fieldset>
@@ -335,15 +336,27 @@ BODY = """
   .ch input[type=checkbox]:checked+span::before{border:0;background:var(--blue) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>") center/12px no-repeat}
   .chs.days{grid-template-columns:repeat(2,1fr)}
   @media(min-width:520px){ .chs.days{grid-template-columns:repeat(5,1fr)} .chs.days .ch span{justify-content:center;padding-left:8px;padding-right:8px} }
-  .cfm{display:flex;gap:12px;align-items:flex-start;cursor:pointer;border:1.5px solid var(--line);border-radius:16px;padding:14px 15px;background:#fff;margin:0!important;font-weight:600!important}
+  /* The confirmation: one big box to tick. Scoped under .wiz .fl so the
+     form's general label rule (display:block, small caps) cannot flatten it. */
+  .wiz .fl label.cfm{display:flex;align-items:flex-start;gap:14px;cursor:pointer;border:2px solid #C6D4E8;border-radius:16px;
+      padding:16px;background:#fff;margin:0;font-size:inherit;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink);transition:.15s}
+  .wiz .fl label.cfm:hover{border-color:var(--blue)}
   .cfm input{position:absolute;opacity:0;width:1px;height:1px}
-  .cfm-box{flex:0 0 22px;width:22px;height:22px;border:2px solid #C6D4E8;border-radius:7px;margin-top:1px;transition:.15s}
-  .cfm input:checked+.cfm-box{background:var(--blue) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>") center/13px no-repeat;border-color:var(--blue)}
-  .cfm input:focus-visible+.cfm-box{box-shadow:0 0 0 4px rgba(22,102,237,.2)}
-  .cfm-tx{display:grid;gap:4px;font-size:14px;line-height:1.45;color:var(--ink)}
-  .cfm-tx b{font-size:14.5px;color:var(--navy)}
-  .cfm-tx span::before{content:"• ";color:var(--blue)}
-  .wiz .q.bad .cfm{border-color:#C2410C}
+  .cfm-box{flex:0 0 26px;width:26px;height:26px;border:2px solid #9FB3CF;border-radius:8px;background:#fff;margin-top:1px;
+      display:grid;place-items:center;transition:.15s}
+  .cfm-box::after{content:"";width:12px;height:7px;border-left:3px solid #fff;border-bottom:3px solid #fff;transform:rotate(-45deg) translate(1px,-1px);opacity:0;transition:.15s}
+  .cfm input:checked+.cfm-box{background:var(--blue);border-color:var(--blue)}
+  .cfm input:checked+.cfm-box::after{opacity:1}
+  .wiz .fl label.cfm:has(input:checked){border-color:var(--blue);background:var(--ice)}
+  .cfm input:focus-visible+.cfm-box{box-shadow:0 0 0 4px rgba(22,102,237,.25)}
+  .cfm-tx{display:grid;gap:5px;font-size:14.5px;line-height:1.45;color:var(--ink);font-weight:600}
+  .cfm-tx b{font-size:15px;color:var(--navy);font-weight:900}
+  .cfm-all{display:grid;gap:5px}
+  .cfm-all>span{position:relative;padding-left:14px}
+  .cfm-all>span::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+  .cfm-tap{display:block;font-size:12.5px;font-weight:700;color:var(--blue);margin-top:4px}
+  .cfm input:checked~.cfm-tx .cfm-tap{color:#13804B}
+  .wiz .q.bad label.cfm{border-color:#C2410C}
   .rate{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
   .rate .ch span{justify-content:center;font-size:17px;min-height:52px;padding:10px 4px}
   .rate .ch span::before{display:none}
@@ -434,6 +447,7 @@ BODY = """
       var so=q('spanish').querySelector('.opt'); if(so) so.hidden=l!=='English';
     }
     if(t===file) showFile();
+    if(t.id==='cconfirm') document.getElementById('cfmTap').textContent=t.checked?T('confirmDone'):T('confirmTap');
   }
   function showFile(){
     var f=file.files&&file.files[0], d=file.parentNode.querySelector('.drop');
@@ -626,7 +640,7 @@ def job_ld():
             'title': i18n.t('careers.positions.%s.title' % key),
             'description': '<p>' + i18n.t('careers.positions.%s.p' % key) + '</p><ul><li>'
                 + '</li><li>'.join(i18n.t(k) for k in ('careers.positions.tagType', 'careers.positions.pay', 'careers.positions.noExp', 'careers.positions.training', 'careers.look.r1')
-                                   + (('careers.positions.sales.schedule',) if key == 'sales' else ())) + '</li></ul>',
+                                   + (('careers.positions.sales.do4', 'careers.positions.sales.schedule') if key == 'sales' else ())) + '</li></ul>',
             'datePosted': DATE_POSTED,
             'employmentType': ['FULL_TIME', 'PART_TIME'],
             'hiringOrganization': {'@type': 'Organization', 'name': nap.NAME, 'sameAs': nap.SITE, 'logo': nap.LOGO},
