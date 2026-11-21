@@ -34,9 +34,10 @@
     "related": "Related articles",
     "readMore": "Read article",
     "disclaimerH": "Please note",
-    "disclaimer": "This article is general, educational information. It is not a quote, an offer of coverage or a substitute for reading a specific policy. Eligibility, prices and available products vary by insurance company and by applicant, and every policy is subject to its own terms, conditions and exclusions.",
+    "disclaimer": "This article is for general educational purposes only and is not an offer of insurance, a guarantee of coverage or eligibility, or legal advice. Insurance availability, premiums, coverage, deductibles, exclusions, and claim decisions depend on the insurer, applicant, policy documents, and circumstances. Review the actual policy and ask a licensed insurance professional about your situation. Information may change after publication.",
     "sample": "Design sample — this is not a real article and will not be published.",
-    "sampleTag": "Sample"
+    "sampleTag": "Sample",
+    "guides": "From our car insurance guides"
   },
   "cta": {
     "h2": "Have Questions About Your Insurance Options?",
@@ -79,8 +80,8 @@
   },
   "authors": {
     "editorial": {
-      "name": "Safe House Insurance Editorial Team",
-      "bio": "Written by the team at Safe House Insurance, an independent agency in El Paso licensed in Texas and New Mexico."
+      "name": "Safe House Insurance",
+      "bio": "Safe House Insurance is an independent insurance agency in El Paso, Texas, licensed in Texas and New Mexico."
     }
   }
 }

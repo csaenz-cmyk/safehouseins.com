@@ -94,7 +94,9 @@ def main():
 
         low = text.lower()
         for a in ABSOLUTES:
-            if a in low:
+            # "Not every insurance company offers SR-22 filings" is the
+            # caveat, not the claim: a phrase preceded by "not" is negated.
+            if re.search(r'(?<!not )' + re.escape(a), low):
                 p0.append((rel, 'unsupportable claim: "' + a + '"'))
 
         for br, us in BRITISH.items():

@@ -37,6 +37,7 @@ is `/blog/what-is-sr22-insurance-in-texas/`. Lowercase words and hyphens.
    featured: yes
    status: published
    related: another-slug, a-third-slug
+   guides: sr-22-texas-new-mexico
    sources:
      - Texas Department of Insurance — page title | https://www.tdi.texas.gov/...
    ---
@@ -46,7 +47,10 @@ is `/blog/what-is-sr22-insurance-in-texas/`. Lowercase words and hyphens.
    Required: `id`, `title`, `description`, `category`, `published`, `author`,
    `status`. Everything else is optional — no image gives the card a drawn
    cover for its topic; no `seo_title` uses the title plus " · Safe House
-   Insurance"; no `related` picks articles on the same topic.
+   Insurance"; no `related` picks articles on the same topic. `guides` names
+   guides under `/learn/` on the same subject; the article links them in a
+   "From our car insurance guides" box, so the blog post and the standing
+   guide point at each other instead of competing for the same search.
 
 2. Rebuild (CLAUDE.md) — every generator, then the sitemap. The Blog link
    appears in the menu and the footer once the first article exists.

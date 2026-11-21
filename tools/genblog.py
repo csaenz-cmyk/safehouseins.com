@@ -291,7 +291,7 @@ CSS = """
     .toc{position:sticky;top:28px;align-self:start;padding-top:64px}
     .toc details{border:0;background:none;padding:0}
     .toc summary{pointer-events:none}
-    .toc summary::after{content:none}
+    .toc summary::after,.toc details[open] summary::after{content:none}
   }
   .art{padding:56px 0 0;min-width:0}
   @media(min-width:900px){ .art{padding:68px 0 0} }
@@ -323,7 +323,11 @@ CSS = """
   .prose figure img{border-radius:18px;width:100%}
   .prose figcaption{margin-top:8px;font-size:13.5px;color:#7D8CA4}
   .tbl{overflow-x:auto;border:1.5px solid var(--pline);border-radius:16px;-webkit-overflow-scrolling:touch}
-  .tbl table{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.5;min-width:480px}
+  .tbl table{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.5}
+  /* Three columns or more scroll sideways on a phone rather than crush;
+     two fit. */
+  .tbl table:has(th:nth-child(3)){min-width:480px}
+  @media(max-width:599px){ .tbl th,.tbl td{padding:11px 12px} }
   .tbl th{background:#F4F8FF;text-align:left;font-weight:800;color:var(--pnavy);padding:12px 16px;
       border-bottom:1.5px solid var(--pline)}
   .tbl td{padding:12px 16px;border-top:1px solid #EEF2F8;vertical-align:top}
@@ -339,6 +343,14 @@ CSS = """
       color:#4A5A74}
   .src a{color:var(--pblue);font-weight:700;word-break:break-word}
   .src a:hover{text-decoration:underline}
+  /* Our guides on the same subject: the blog explains a question, the guide
+     is the standing reference, and the two link rather than compete. */
+  .gd{margin-top:36px;border:1.5px solid var(--pline);border-radius:18px;padding:20px 22px}
+  .gd h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:#5C7AA8}
+  .gd ul{list-style:none;margin-top:12px;display:grid;gap:14px}
+  .gd a{display:block;font-weight:800;color:var(--pblue);font-size:16px}
+  .gd a:hover{text-decoration:underline}
+  .gd span{display:block;margin-top:3px;font-size:14px;line-height:1.55;color:#5A6B85}
   .bio{margin-top:40px;display:flex;gap:16px;align-items:flex-start;padding-top:28px;
       border-top:1px solid var(--pline)}
   .bio img{width:52px;height:52px;border-radius:50%;border:1.5px solid var(--pline);padding:8px;flex:0 0 auto}
@@ -774,6 +786,12 @@ def post_page(p):
                 % (t('blog.post.sources'),
                    ''.join('<li>%s</li>' % (('<a href="%s" target="_blank" rel="noopener">%s</a>' % (a(u), e(l)))
                                             if u else e(l)) for l, u in w['sources'])))
+    if p['guides']:
+        out += ('<aside class="gd" aria-labelledby="gdh"><h2 id="gdh">%s</h2><ul>%s</ul></aside>\n'
+                % (t('blog.post.guides'),
+                   ''.join('<li><a href="%slearn/%s/">%s</a><span>%s</span></li>'
+                           % (up, g, t('guides.items.%s.nav' % g), t('guides.items.%s.card' % g))
+                           for g in p['guides'])))
     out += ('<div class="bio"><img src="%sassets/safehouse-heart.png" alt="" width="52" height="52">'
             '<div><b>%s</b><p>%s</p></div></div>\n'
             % (up, author, t('blog.authors.%s.bio' % p['author'])))

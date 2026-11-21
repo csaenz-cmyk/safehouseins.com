@@ -25,6 +25,7 @@ A FILE
     featured: yes
     status: published
     related: other-slug, another-slug
+    guides: sr-22-texas-new-mexico
     sources:
       - Texas Department of Insurance — SR-22 | https://www.tdi.texas.gov/...
     ---
@@ -80,7 +81,7 @@ REQUIRED = ('id', 'title', 'description', 'category', 'published', 'author', 'st
 # What a translation may set. Anything else comes from the English file.
 LANGUAGE_FIELDS = {'title', 'description', 'seo_title', 'seo_description', 'image_alt',
                    'sources', 'updated', 'status'}
-KNOWN = set(REQUIRED) | LANGUAGE_FIELDS | {'image', 'featured', 'related'}
+KNOWN = set(REQUIRED) | LANGUAGE_FIELDS | {'image', 'featured', 'related', 'guides'}
 STATUSES = ('published', 'draft', 'sample')
 
 # Promises an independent agency cannot make, in either language. Whether a
@@ -242,9 +243,13 @@ def posts():
             'author': meta['author'], 'status': meta['status'],
             'featured': str(meta.get('featured', '')).lower() in ('yes', 'true', '1'),
             'related': _list(meta.get('related', [])),
+            'guides': _list(meta.get('guides', [])),
             'image': meta.get('image') or None, 'image_size': None,
             'en': _lang_part(meta, body, where), 'es': None,
         }
+        for g in p['guides']:
+            if not os.path.isfile(os.path.join(ROOT, 'learn', g, 'index.html')):
+                raise BlogError('%s: guide "%s" is not one of the guides under /learn/' % (where, g))
         if p['updated'] < p['published']:
             raise BlogError('%s: updated is before published' % where)
         if p['image']:
@@ -281,7 +286,9 @@ def posts():
             if r not in known:
                 raise BlogError('locales/en/blog/%s.md: related article "%s" does not exist (or is a draft)'
                                 % (p['slug'], r))
-    out.sort(key=lambda p: (p['published'], p['slug']), reverse=True)
+    # Newest first; articles published the same day keep the order of their ids.
+    out.sort(key=lambda p: p['id'])
+    out.sort(key=lambda p: p['published'], reverse=True)
     _cache['all'] = out
     return out
 
@@ -457,6 +464,7 @@ def selftest():
         ('a related article that does not exist', {'en': {'ok': good.replace('status:', 'related: nope\nstatus:')}}, 'does not exist'),
         ('a translation that sets the category', {'en': {'ok': good}, 'es': {'ok': '---\ntitle: T\ndescription: D\ncategory: home\n---\nTexto.\n'}}, 'come from the English'),
         ('a translation with no English', {'en': {'ok': good}, 'es': {'other': '---\ntitle: T\ndescription: D\n---\nTexto.\n'}}, 'no English article'),
+        ('a guide that does not exist', {'en': {'ok': good.replace('status:', 'guides: no-such-guide\nstatus:')}}, 'not one of the guides'),
         ('an unknown field', {'en': {'ok': good.replace('status:', 'price: 49\nstatus:')}}, 'unknown field'),
         ('a bad file name', {'en': {'Bad_Name': good}}, 'file name'),
     ]

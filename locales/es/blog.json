@@ -34,9 +34,10 @@
     "related": "Artículos relacionados",
     "readMore": "Leer artículo",
     "disclaimerH": "Ten en cuenta",
-    "disclaimer": "Este artículo es información general y educativa. No es una cotización, una oferta de cobertura ni sustituye la lectura de una póliza específica. La elegibilidad, los precios y los productos disponibles varían según la aseguradora y el solicitante, y cada póliza está sujeta a sus propios términos, condiciones y exclusiones.",
+    "disclaimer": "Este artículo es solo información general y educativa; no es una oferta de seguro, una garantía de cobertura o de elegibilidad, ni asesoría legal. La disponibilidad del seguro, las primas, la cobertura, los deducibles, las exclusiones y las decisiones sobre reclamos dependen de la aseguradora, del solicitante, de los documentos de la póliza y de las circunstancias. Revisa tu póliza y consulta tu situación con un profesional de seguros con licencia. La información puede cambiar después de su publicación.",
     "sample": "Muestra de diseño: este no es un artículo real y no se publicará.",
-    "sampleTag": "Muestra"
+    "sampleTag": "Muestra",
+    "guides": "De nuestras guías de seguro de auto"
   },
   "cta": {
     "h2": "¿Tienes preguntas sobre tus opciones de seguro?",
@@ -79,8 +80,8 @@
   },
   "authors": {
     "editorial": {
-      "name": "Equipo editorial de Safe House Insurance",
-      "bio": "Escrito por el equipo de Safe House Insurance, una agencia independiente en El Paso con licencia en Texas y Nuevo México."
+      "name": "Safe House Insurance",
+      "bio": "Safe House Insurance es una agencia de seguros independiente en El Paso, Texas, con licencia en Texas y Nuevo México."
     }
   }
 }
