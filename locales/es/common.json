@@ -33,6 +33,7 @@
     "companyHead": "La agencia",
     "company": {
       "about": "Quiénes somos",
+      "blog": "Blog",
       "reviews": "Reseñas",
       "faq": "Preguntas frecuentes",
       "careers": "Empleos",
@@ -95,6 +96,7 @@
     "company": {
       "head": "La agencia",
       "about": "Quiénes somos",
+      "blog": "Blog",
       "careers": "Empleos",
       "investors": "Inversionistas",
       "faq": "Preguntas frecuentes",

@@ -320,19 +320,29 @@ def check_pages(errors, warnings, en_cat):
     for rel in sorted(english_pages()):
         es_rel = os.path.join('es', rel)
         en_doc = open(os.path.join(ROOT, rel), encoding='utf-8').read()
+        pairs = []
         if not os.path.exists(os.path.join(ROOT, es_rel)):
-            errors.append((rel, 'no Spanish version at ' + es_rel))
-            continue
-        es_doc = open(os.path.join(ROOT, es_rel), encoding='utf-8').read()
+            # A blog article written in English and not yet translated has no
+            # Spanish page on purpose (tools/genblog.py) — and says so itself,
+            # by naming no Spanish alternate. Everything else needs its twin.
+            if not (rel.startswith('blog' + os.sep)
+                    and '<link rel="alternate" hreflang="es"' not in en_doc
+                    and '<link rel="alternate" hreflang="en"' in en_doc):
+                errors.append((rel, 'no Spanish version at ' + es_rel))
+                continue
+        else:
+            es_doc = open(os.path.join(ROOT, es_rel), encoding='utf-8').read()
+            pairs.append(('es', es_doc, es_rel))
         n += 1
-        for code, doc, where in (('en', en_doc, rel), ('es', es_doc, es_rel)):
+        for code, doc, where in [('en', en_doc, rel)] + pairs:
             want = i18n.HTML_LANG[code]
             if not re.search(r'<html[^>]*\blang="%s"' % re.escape(want), doc):
                 errors.append((where, 'html lang is not "%s"' % want))
             if '[[' in doc and re.search(r'\[\[[A-Za-z0-9_.-]+\]\]', doc):
                 errors.append((where, 'unrendered [[key]] marker'))
             alts = dict(re.findall(r'<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"', doc))
-            if 'noindex' not in doc[:3000] and not ({'en', 'es', 'x-default'} <= set(alts)):
+            want_alts = {'en', 'es', 'x-default'} if pairs else {'en', 'x-default'}
+            if 'noindex' not in doc[:3000] and not (want_alts <= set(alts)):
                 errors.append((where, 'missing hreflang alternates'))
             for text, lang in visible_runs(doc):
                 s = ' '.join(text.split())

@@ -405,7 +405,7 @@ def to_dir(page, slug):
     # The shared footer arrived with more root-relative links than this used to
     # carry, and six of them 404ed from one directory down.
     for f in ('quote.html', 'about.html', 'careers.html', 'investors.html', 'contact.html',
-              'car-insurance/', 'pay/', 'claims/', 'id-card/', 'lienholder/', 'client-center/',
+              'car-insurance/', 'pay/', 'claims/', 'id-card/', 'lienholder/', 'client-center/', 'blog/',
               'auto-insurance.html', 'home-insurance.html', 'commercial-insurance.html',
               'renters-insurance.html', 'motorcycle-insurance.html',
               'rideshare-insurance.html'):
@@ -456,7 +456,7 @@ CC_DRAFT = True
 # down has to climb out of — the same list every generator carries (CLAUDE.md).
 ROOT_LINKS = ('index.html', 'about.html', 'careers.html', 'investors.html', 'quote.html',
               'privacy.html', 'sms-terms.html', 'assets/', 'car-insurance/', 'contact.html',
-              'pay/', 'claims/', 'id-card/', 'lienholder/', 'learn/', 'client-center/',
+              'pay/', 'claims/', 'id-card/', 'lienholder/', 'learn/', 'client-center/', 'blog/',
               'auto-insurance.html', 'home-insurance.html', 'commercial-insurance.html',
               'renters-insurance.html', 'motorcycle-insurance.html', 'rideshare-insurance.html')
 

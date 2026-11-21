@@ -1,0 +1,86 @@
+{
+  "index": {
+    "title": "Blog de seguros — Guías para Texas y Nuevo México",
+    "titleShort": "Blog",
+    "desc": "Artículos claros y prácticos sobre seguros de auto, casa, negocio, motocicleta y RV en Texas y Nuevo México, del equipo de Safe House Insurance en El Paso.",
+    "kick": "El blog de Safe House",
+    "h1": "Los seguros, explicados con claridad",
+    "lede": "Artículos prácticos sobre seguros de auto, casa, negocio, motocicleta y RV en Texas y Nuevo México: qué significan los términos, qué pide la ley y qué preguntar antes de contratar.",
+    "featured": "Destacados",
+    "latest": "Artículos recientes",
+    "all": "Todos",
+    "filterLabel": "Filtrar artículos por tema",
+    "search": "Buscar artículos",
+    "searchPh": "Busca por tema o palabra clave",
+    "noMatch": "Ningún artículo coincide con tu búsqueda.",
+    "more": "Ver más artículos",
+    "count": "{n} artículos",
+    "empty": "Nuestros primeros artículos vienen en camino.",
+    "emptyP": "Mientras tanto, nuestras guías de seguro de auto responden las preguntas que más nos hacen.",
+    "emptyBtn": "Leer las guías",
+    "inEnglishH": "Artículos en inglés",
+    "inEnglishP": "Estos artículos todavía no tienen versión en español.",
+    "inEnglish": "En inglés"
+  },
+  "post": {
+    "titleSuffix": " · Safe House Insurance",
+    "by": "Por",
+    "published": "Publicado",
+    "updated": "Actualizado",
+    "read": "{n} min de lectura",
+    "toc": "En este artículo",
+    "sources": "Fuentes",
+    "back": "Regresar al Blog",
+    "related": "Artículos relacionados",
+    "readMore": "Leer artículo",
+    "disclaimerH": "Ten en cuenta",
+    "disclaimer": "Este artículo es información general y educativa. No es una cotización, una oferta de cobertura ni sustituye la lectura de una póliza específica. La elegibilidad, los precios y los productos disponibles varían según la aseguradora y el solicitante, y cada póliza está sujeta a sus propios términos, condiciones y exclusiones.",
+    "sample": "Muestra de diseño: este no es un artículo real y no se publicará.",
+    "sampleTag": "Muestra"
+  },
+  "cta": {
+    "h2": "¿Tienes preguntas sobre tus opciones de seguro?",
+    "p": "Nuestro equipo puede ayudarte a conocer las opciones de cobertura disponibles según tus necesidades.",
+    "quote": "Cotiza ahora",
+    "call": "Llama al {call}"
+  },
+  "ui": {
+    "breadcrumb": "Ruta de navegación",
+    "home": "Inicio",
+    "blog": "Blog",
+    "months": "enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre",
+    "date": "{day} de {month} de {year}"
+  },
+  "categories": {
+    "auto": {
+      "name": "Seguro de auto",
+      "short": "Auto"
+    },
+    "home": {
+      "name": "Seguro de casa",
+      "short": "Casa"
+    },
+    "commercial": {
+      "name": "Seguro comercial",
+      "short": "Comercial"
+    },
+    "motorcycle": {
+      "name": "Seguro de motocicleta",
+      "short": "Motocicleta"
+    },
+    "rv": {
+      "name": "Seguro de RV y remolque",
+      "short": "RV y remolque"
+    },
+    "guides": {
+      "name": "Guías de seguros",
+      "short": "Guías"
+    }
+  },
+  "authors": {
+    "editorial": {
+      "name": "Equipo editorial de Safe House Insurance",
+      "bio": "Escrito por el equipo de Safe House Insurance, una agencia independiente en El Paso con licencia en Texas y Nuevo México."
+    }
+  }
+}

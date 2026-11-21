@@ -1,0 +1,86 @@
+{
+  "index": {
+    "title": "Insurance Blog — Guides for Texas &amp; New Mexico Drivers and Owners",
+    "titleShort": "Blog",
+    "desc": "Clear, practical articles on auto, home, commercial, motorcycle and RV insurance in Texas and New Mexico, from the team at Safe House Insurance in El Paso.",
+    "kick": "The Safe House Blog",
+    "h1": "Insurance, explained plainly",
+    "lede": "Practical articles on auto, home, commercial, motorcycle and RV insurance in Texas and New Mexico — what the terms mean, what the law asks for and what to ask before you buy.",
+    "featured": "Featured",
+    "latest": "Latest articles",
+    "all": "All",
+    "filterLabel": "Filter articles by topic",
+    "search": "Search articles",
+    "searchPh": "Search by topic or keyword",
+    "noMatch": "No articles match that search.",
+    "more": "Show more articles",
+    "count": "{n} articles",
+    "empty": "Our first articles are on the way.",
+    "emptyP": "In the meantime, our car insurance guides answer the questions we hear most often.",
+    "emptyBtn": "Read the guides",
+    "inEnglishH": "Articles in English",
+    "inEnglishP": "These articles do not have a Spanish version yet.",
+    "inEnglish": "In English"
+  },
+  "post": {
+    "titleSuffix": " · Safe House Insurance",
+    "by": "By",
+    "published": "Published",
+    "updated": "Updated",
+    "read": "{n} min read",
+    "toc": "In this article",
+    "sources": "Sources",
+    "back": "Back to the Blog",
+    "related": "Related articles",
+    "readMore": "Read article",
+    "disclaimerH": "Please note",
+    "disclaimer": "This article is general, educational information. It is not a quote, an offer of coverage or a substitute for reading a specific policy. Eligibility, prices and available products vary by insurance company and by applicant, and every policy is subject to its own terms, conditions and exclusions.",
+    "sample": "Design sample — this is not a real article and will not be published.",
+    "sampleTag": "Sample"
+  },
+  "cta": {
+    "h2": "Have Questions About Your Insurance Options?",
+    "p": "Our team can help you explore available coverage options based on your needs.",
+    "quote": "Get a Quote",
+    "call": "Call {call}"
+  },
+  "ui": {
+    "breadcrumb": "Breadcrumb",
+    "home": "Home",
+    "blog": "Blog",
+    "months": "January,February,March,April,May,June,July,August,September,October,November,December",
+    "date": "{month} {day}, {year}"
+  },
+  "categories": {
+    "auto": {
+      "name": "Auto Insurance",
+      "short": "Auto"
+    },
+    "home": {
+      "name": "Homeowners Insurance",
+      "short": "Home"
+    },
+    "commercial": {
+      "name": "Commercial Insurance",
+      "short": "Commercial"
+    },
+    "motorcycle": {
+      "name": "Motorcycle Insurance",
+      "short": "Motorcycle"
+    },
+    "rv": {
+      "name": "RV &amp; Trailer Insurance",
+      "short": "RV &amp; Trailer"
+    },
+    "guides": {
+      "name": "Insurance Guides",
+      "short": "Guides"
+    }
+  },
+  "authors": {
+    "editorial": {
+      "name": "Safe House Insurance Editorial Team",
+      "bio": "Written by the team at Safe House Insurance, an independent agency in El Paso licensed in Texas and New Mexico."
+    }
+  }
+}

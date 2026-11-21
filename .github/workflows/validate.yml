@@ -57,6 +57,11 @@ jobs:
       - name: Similar pages
         run: python3 tools/dupcheck.py
 
+      # The blog's article rules: required fields, categories, dates, links,
+      # and the promises no agency can make.
+      - name: Blog articles
+        run: python3 tools/blog_data.py
+
       - name: SMS templates
         run: python3 tools/smscheck.py
 
@@ -68,7 +73,7 @@ jobs:
       # rebuild silently throws away. Rebuild and require no difference.
       - name: Pages match their generators
         run: |
-          for g in genabout gencareers geninvestors genlegal genmakes genguides genproduct gencities genlocale genpreview gencards; do
+          for g in genabout gencareers geninvestors genlegal genmakes genguides genblog genproduct gencities genlocale genpreview gencards; do
             python3 tools/$g.py > /dev/null || exit 1
           done
           changed=$(git status --porcelain -- . ':!sitemap.xml')

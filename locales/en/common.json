@@ -33,6 +33,7 @@
     "companyHead": "Company",
     "company": {
       "about": "About us",
+      "blog": "Blog",
       "reviews": "Reviews",
       "faq": "FAQ",
       "careers": "Careers",
@@ -95,6 +96,7 @@
     "company": {
       "head": "Company",
       "about": "About us",
+      "blog": "Blog",
       "careers": "Careers",
       "investors": "Investors",
       "faq": "FAQ",

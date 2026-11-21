@@ -48,7 +48,7 @@ Run every generator, then the sitemap last. The sitemap walks what is on disk,
 so it has to see the finished pages:
 
 ```
-for g in genabout gencareers geninvestors genlegal genmakes genguides genproduct gencities genlocale genpreview gencards; do
+for g in genabout gencareers geninvestors genlegal genmakes genguides genblog genproduct gencities genlocale genpreview gencards; do
   python3 tools/$g.py || break
 done
 python3 tools/gensitemap.py
@@ -80,6 +80,7 @@ insurance hub *and* all 21 guide pages, because guides carry the strip too.
 | `states.py` | Statutory limits and state-level facts. |
 | `shell.py`, `brandkit.py`, `citykit.py` | Shared page architecture. |
 | `geninvestors.py` | `investors.html`. States no financial figure — read its docstring first. |
+| `genblog.py` / `blog_data.py` | The blog, `/blog/`. Articles are Markdown in `locales/<lang>/blog/`; see `docs/blog.md`. |
 | `genmockups.py` | The homepage phone screens in Spanish, from `tools/mockups/` and `art.json`. By hand, not in the loop. |
 
 ## Conventions that are not obvious
@@ -214,6 +215,18 @@ Cloudflare Access everywhere else — Access is required before Live. Everything
 to configure, the rules and the data model are in `docs/agent-cards.md`.
 `node tools/devserver.mjs` runs the site with every Function locally;
 `tools/cardsbrowser.js` checks cards, panel and referral in a browser.
+
+**The blog (`/blog/`, `/es/blog/`).** One Markdown file per article per
+language in `locales/<lang>/blog/<slug>.md`, rendered by `tools/genblog.py`
+(in the rebuild loop) — no CMS. An article with no Spanish file gets no Spanish
+page, by design: its English page names only itself in hreflang, and
+`i18ncheck.py`/`seocheck.py` accept that for `blog/` alone. The build refuses
+promises no agency can make (`PROMISES` in `tools/blog_data.py`) and links to
+missing pages. `status: sample` articles are for Staging design review on
+`staging/blog-muestras` only — never publish that branch. The Blog link in the
+menu and footer appears once an article exists. How to add one:
+`docs/blog.md`; `python3 tools/blog_data.py` tests the rules and
+`tools/blogbrowser.js` the pages.
 
 **Job applications (`/careers#apply`).** A five-step form posting to
 `/api/careers` (`server/careers.js`): saved in D1 with the resume, a notice to

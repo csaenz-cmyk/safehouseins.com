@@ -9,7 +9,7 @@ Both the header and the footer are rendered in the language being built (see
 tools/i18n.py): the words come from locales/<lang>/common.json, and the header
 carries the EN | ES switch next to the quote button.
 """
-import i18n, menu
+import blog_data, i18n, menu
 
 CALL  = '915-503-1207'
 TEXT  = '915-594-3777'
@@ -487,7 +487,7 @@ def footer():
      <h5>""" + t('common.footer.company.head') + """</h5>
      <div class="fcols">
      <a href="about.html">""" + t('common.footer.company.about') + """</a>
-     <a href="careers.html">""" + t('common.footer.company.careers') + """</a>
+""" + (('     <a href="blog/">' + t('common.footer.company.blog') + '</a>\n') if blog_data.has_any() else '') + """     <a href="careers.html">""" + t('common.footer.company.careers') + """</a>
      <a href="investors.html">""" + t('common.footer.company.investors') + """</a>
      <a href="index.html#faq">""" + t('common.footer.company.faq') + """</a>
      <a href="car-insurance/">""" + t('common.footer.company.cities') + """</a>

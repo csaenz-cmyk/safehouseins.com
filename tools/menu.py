@@ -25,6 +25,7 @@ Every word in the panel comes from locales/<lang>/common.json (the `menu.*`
 keys), and the panel carries the language switch in its top row, so on a phone
 changing language is one tap once the menu is open.
 """
+import blog_data
 import i18n
 
 PANEL_CSS = """  /* ---- the menu panel ----
@@ -236,7 +237,7 @@ def _panel_html(toggle):
     <div class="dcol">
       <h6>{company}</h6>
       <a href="about.html">{about}</a>
-      <a href="#reviews">{reviews}</a>
+      {blog}<a href="#reviews">{reviews}</a>
       <a href="#faq">{faq}</a>
       <a href="careers.html">{careers}</a>
       <a href="investors.html">{investors}</a>
@@ -277,6 +278,8 @@ def _panel_html(toggle):
         trucks=t('common.menu.types.commercial'),
         company=t('common.menu.companyHead'), about=t('common.menu.company.about'),
         reviews=t('common.menu.company.reviews'), faq=t('common.menu.company.faq'),
+        blog=('<a href="blog/">' + t('common.menu.company.blog') + '</a>\n      ')
+        if blog_data.has_any() else '',
         careers=t('common.menu.company.careers'), investors=t('common.menu.company.investors'),
         contact=t('common.menu.company.contact'),
         customer=t('common.menu.customerHead'), pay=t('common.menu.customer.pay'),
@@ -316,7 +319,7 @@ def panel(up='', home=False, link=None):
         for f in ('index.html', 'about.html', 'careers.html', 'investors.html', 'contact.html',
                   'quote.html', 'auto-insurance.html', 'home-insurance.html',
                   'commercial-insurance.html', 'renters-insurance.html',
-                  'motorcycle-insurance.html', 'rideshare-insurance.html', 'pay/', 'claims/', 'id-card/',
+                  'motorcycle-insurance.html', 'rideshare-insurance.html', 'pay/', 'claims/', 'id-card/', 'blog/',
                   'lienholder/'):
             out = out.replace('href="' + f, 'href="' + up + f)
     return out

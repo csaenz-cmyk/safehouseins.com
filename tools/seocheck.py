@@ -203,6 +203,12 @@ def main():
         if not alts:
             continue
         canon = one(r'<link rel="canonical" href="([^"]+)"', html)
+        # A blog article in English with no Spanish version yet names itself
+        # alone (tools/genblog.py): en and x-default, both this page.
+        english_only = (rel.startswith('blog' + os.sep) and set(alts) == {'en', 'x-default'}
+                        and canon and alts['en'] == canon[0] == alts['x-default'])
+        if english_only:
+            continue
         if not {'en', 'es', 'x-default'} <= set(alts):
             p0.append((rel, 'hreflang set is incomplete: ' + ', '.join(sorted(alts))))
             continue
