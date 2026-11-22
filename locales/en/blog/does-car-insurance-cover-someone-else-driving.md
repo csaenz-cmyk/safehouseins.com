@@ -6,6 +6,8 @@ category: auto
 published: 2026-11-21
 updated: 2026-11-21
 author: editorial
+image: blog/does-car-insurance-cover-someone-else-driving.webp
+image_alt: A woman handing her car keys to a man in front of a parked car
 seo_title: Does Car Insurance Cover Someone Else Driving Your Car?
 seo_description: Learn how permission, excluded drivers, regular vehicle use, and policy terms may affect insurance when someone borrows your car.
 status: published

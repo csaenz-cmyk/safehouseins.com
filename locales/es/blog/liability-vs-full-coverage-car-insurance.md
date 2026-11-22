@@ -3,6 +3,7 @@ title: Responsabilidad civil o cobertura completa en el seguro de auto: ¿cuál 
 description: Entiende la diferencia entre el seguro de responsabilidad civil y la llamada cobertura completa, incluido lo que cada uno puede cubrir y lo que no.
 seo_title: Responsabilidad civil o cobertura completa | Safe House Insurance
 seo_description: Entiende la diferencia entre el seguro de responsabilidad civil y la llamada cobertura completa, incluido lo que cada uno puede cubrir y lo que no.
+image_alt: Dos sedanes estacionados lado a lado en una cochera, uno más nuevo y otro más viejo con la pintura gastada
 sources:
   - Departamento de Seguros de Texas (TDI) — Guía del seguro de auto | https://www.tdi.texas.gov/pubs/consumer/cb020s.html
 ---

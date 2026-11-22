@@ -6,6 +6,8 @@ category: auto
 published: 2026-11-21
 updated: 2026-11-21
 author: editorial
+image: blog/driving-without-car-insurance-texas.webp
+image_alt: A woman sitting in a dark sedan stopped on the shoulder of a road, reading a document
 seo_title: Driving Without Car Insurance in Texas: What to Know
 seo_description: Understand Texas financial responsibility rules, possible fines for driving uninsured, and steps to take if your coverage has lapsed.
 status: published

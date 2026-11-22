@@ -3,6 +3,7 @@ title: ¿Qué pasa si manejas sin seguro de auto en Texas?
 description: Entiende las reglas de responsabilidad financiera de Texas, las posibles multas por manejar sin seguro y qué hacer si tu cobertura se venció.
 seo_title: Manejar sin seguro de auto en Texas: lo que debes saber
 seo_description: Entiende las reglas de responsabilidad financiera de Texas, las posibles multas por manejar sin seguro y qué hacer si tu cobertura se venció.
+image_alt: Una mujer sentada en un sedán oscuro detenido a un lado del camino, leyendo un documento
 sources:
   - Código de Transporte de Texas, capítulo 601 (en inglés) | https://tcss.legis.texas.gov/resources/TN/htm/TN.601.htm
   - Departamento de Seguros de Texas (TDI) — Guía del seguro de auto | https://www.tdi.texas.gov/pubs/consumer/cb020s.html

@@ -6,6 +6,8 @@ category: auto
 published: 2026-11-21
 updated: 2026-11-21
 author: editorial
+image: blog/what-does-car-insurance-cover-texas.webp
+image_alt: A silver SUV parked on a quiet residential street in front of a stucco home
 seo_title: What Does Car Insurance Cover in Texas? | Safe House Insurance
 seo_description: Learn what liability, collision, comprehensive, and other car insurance coverages may do for Texas drivers in this simple guide.
 featured: yes

@@ -3,6 +3,7 @@ title: 10 factores que pueden influir en el precio de tu seguro de auto en Texas
 description: Conoce 10 factores comunes que las aseguradoras pueden considerar al fijar el precio del seguro de auto en Texas, desde el historial de manejo y la ubicación hasta las coberturas que eliges.
 seo_title: 10 factores que pueden influir en tu seguro de auto en Texas
 seo_description: Conoce 10 factores que las aseguradoras pueden considerar al fijar el precio del seguro de auto en Texas, del historial de manejo a las coberturas que eliges.
+image_alt: Una SUV plateada estacionada en una calle residencial con las montañas Franklin al fondo
 sources:
   - Departamento de Seguros de Texas (TDI) — ¿Cómo se calculan los costos de su seguro? | https://www.tdi.texas.gov/consumer/how-are-your-auto-and-homeowners-insurance-costs-calculated-sp.html
   - TDI — La suscripción de pólizas de auto y de vivienda | https://www.tdi.texas.gov/tips/spanish/auto-and-home-policy-underwriting-sp.html

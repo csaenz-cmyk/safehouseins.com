@@ -3,6 +3,7 @@ title: ¿Por qué subió mi seguro de auto? Las razones más comunes
 description: Conoce las razones comunes por las que puede subir la prima de un seguro de auto en Texas al renovarse y cómo revisar tus opciones sin descuidar tu cobertura.
 seo_title: ¿Por qué subió mi seguro de auto? Razones comunes
 seo_description: Conoce las razones comunes por las que puede subir la prima de un seguro de auto en Texas al renovarse y cómo revisar tus opciones sin descuidar tu cobertura.
+image_alt: Una mujer en la mesa del comedor leyendo una carta junto a una laptop
 sources:
   - Departamento de Seguros de Texas (TDI) — ¿Cómo se calculan los costos de su seguro? | https://www.tdi.texas.gov/consumer/how-are-your-auto-and-homeowners-insurance-costs-calculated-sp.html
   - TDI — Cómo comprar seguro de auto inteligentemente | https://tdi.texas.gov/consumer/auto-insurance-shopping-guide-sp.html

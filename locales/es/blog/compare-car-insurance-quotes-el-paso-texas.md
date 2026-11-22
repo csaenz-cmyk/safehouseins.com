@@ -3,6 +3,7 @@ title: Cómo comparar cotizaciones de seguro de auto en El Paso, Texas
 description: Compara cotizaciones de seguro de auto en El Paso, Texas, revisando los límites de responsabilidad civil, los deducibles, los conductores, las exclusiones y los detalles de pago.
 seo_title: Cómo comparar cotizaciones de seguro de auto en El Paso, TX
 seo_description: Compara cotizaciones de seguro de auto en El Paso, Texas, revisando límites de responsabilidad civil, deducibles, conductores, exclusiones y detalles de pago.
+image_alt: Un sedán blanco en un estacionamiento con vista al centro de El Paso y las montañas Franklin
 sources:
   - Departamento de Seguros de Texas (TDI) — Cómo comprar seguro de auto inteligentemente | https://tdi.texas.gov/consumer/auto-insurance-shopping-guide-sp.html
   - TDI — Guía del seguro de auto | https://www.tdi.texas.gov/pubs/consumer/cb020s.html

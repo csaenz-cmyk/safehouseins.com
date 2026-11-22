@@ -3,6 +3,7 @@ title: ¿El seguro de auto cubre a otra persona que maneja tu carro?
 description: Conoce cómo el permiso, los conductores excluidos, el uso habitual del vehículo y los términos de la póliza pueden afectar el seguro cuando alguien te pide prestado el carro.
 seo_title: ¿El seguro cubre a otra persona que maneja tu carro?
 seo_description: Conoce cómo el permiso, los conductores excluidos, el uso habitual y los términos de la póliza pueden afectar el seguro cuando alguien maneja tu carro.
+image_alt: Una mujer entregándole las llaves de su carro a un hombre frente a un carro estacionado
 sources:
   - Departamento de Seguros de Texas (TDI) — Preguntas frecuentes sobre el seguro de auto | https://tdi.texas.gov/consumer/auto-insurance-faq-sp.html
 ---

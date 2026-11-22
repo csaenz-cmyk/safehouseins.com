@@ -500,12 +500,32 @@ def href_post(p, up, here):
     return up + 'blog/' + p['slug'] + '/'
 
 
+def srcset(p, up):
+    """A picture's smaller copy, when there is one beside it —
+    assets/blog/<name>-800.webp next to assets/blog/<name>.webp — so a phone
+    or a card downloads 800 pixels instead of the full header image."""
+    base, _, ext = p['image'].rpartition('.')
+    small = base + '-800.' + ext
+    if not os.path.exists(os.path.join(ROOT, 'assets', small)):
+        return ''
+    return ' srcset="%sassets/%s 800w, %sassets/%s %dw"' % (up, small, up, p['image'], p['image_size'][0])
+
+
+def og_image(p):
+    """The picture link previews use: a JPEG copy (<name>.jpg) when there is
+    one, because not every app that unfurls a link reads WebP."""
+    if not p['image']:
+        return None
+    jpg = p['image'].rpartition('.')[0] + '.jpg'
+    return SITE + '/assets/' + (jpg if os.path.exists(os.path.join(ROOT, 'assets', jpg)) else p['image'])
+
+
 def cover(p, up, lazy=True, sizes='(min-width:1000px) 360px, (min-width:640px) 45vw, 100vw', code=None):
     code = code or i18n.lang()
     if p['image']:
         w, h = p['image_size']
-        return ('<div class="cov"><img src="%sassets/%s" alt="%s" width="%d" height="%d"%s sizes="%s"></div>'
-                % (up, p['image'], a(part(p, code)['image_alt']), w, h,
+        return ('<div class="cov"><img src="%sassets/%s"%s alt="%s" width="%d" height="%d"%s sizes="%s"></div>'
+                % (up, p['image'], srcset(p, up), a(part(p, code)['image_alt']), w, h,
                    ' loading="lazy" decoding="async"' if lazy else ' fetchpriority="high"', sizes))
     return '<div class="cov cov-%s" aria-hidden="true">%s</div>' % (p['category'], glyph(p['category']))
 
@@ -744,7 +764,7 @@ def post_page(p):
     # plus the agency's name.
     title = w['seo_title'] or (plain(w['title']) + plain(t('blog.post.titleSuffix')))
     desc = w['seo_description'] or plain(w['description'])
-    img_abs = (SITE + '/assets/' + p['image']) if p['image'] else None
+    img_abs = og_image(p)
     author = t('blog.authors.%s.name' % p['author'])
     cat_href = up + 'blog/?topic=' + p['category']
 
@@ -770,9 +790,9 @@ def post_page(p):
     out += '<main id="main">\n'
     if p['image']:
         iw, ih = p['image_size']
-        out += ('<div class="hero"><figure><img src="%sassets/%s" alt="%s" width="%d" height="%d" '
+        out += ('<div class="hero"><figure><img src="%sassets/%s"%s alt="%s" width="%d" height="%d" '
                 'fetchpriority="high" sizes="(min-width:1080px) 1040px, 100vw"></figure></div>\n'
-                % (up, p['image'], a(w['image_alt']), iw, ih))
+                % (up, p['image'], srcset(p, up), a(w['image_alt']), iw, ih))
     has_toc = len(toc) >= 3
     out += '<div class="layout%s">\n' % (' has-toc' if has_toc else '')
     if has_toc:

@@ -3,6 +3,7 @@ title: ¿Qué cubre el seguro de auto en Texas? Una guía sencilla para conducto
 description: Conoce qué pueden hacer por los conductores de Texas la responsabilidad civil, la colisión, la cobertura integral y otras coberturas de auto, en esta guía sencilla.
 seo_title: ¿Qué cubre el seguro de auto en Texas? | Safe House Insurance
 seo_description: Conoce qué pueden hacer por los conductores de Texas la responsabilidad civil, la colisión, la cobertura integral y otras coberturas de auto.
+image_alt: Una SUV plateada estacionada en una calle residencial tranquila, frente a una casa de estuco
 sources:
   - Departamento de Seguros de Texas (TDI) — Guía del seguro de auto | https://www.tdi.texas.gov/pubs/consumer/cb020s.html
 ---

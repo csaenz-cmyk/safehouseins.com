@@ -3,6 +3,7 @@ title: ¿Cuánto seguro de auto necesitas en Texas?
 description: Los límites mínimos de responsabilidad civil de auto en Texas son 30/60/25. Conoce qué significan esos números y qué otras preguntas de cobertura conviene considerar.
 seo_title: ¿Cuánto seguro de auto necesitas en Texas?
 seo_description: Los límites mínimos de responsabilidad civil de auto en Texas son 30/60/25. Conoce qué significan y qué otras preguntas de cobertura considerar.
+image_alt: Una mujer en la mesa de la cocina revisando documentos de seguro junto a una calculadora y las llaves del carro
 sources:
   - Departamento de Seguros de Texas (TDI) — Guía del seguro de auto | https://www.tdi.texas.gov/pubs/consumer/cb020s.html
   - TDI — ¿Tiene usted suficiente cobertura de seguro? | https://www.tdi.texas.gov/tips/spanish/do-you-have-enough-insurance-coverage-sp.html

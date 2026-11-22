@@ -6,6 +6,8 @@ category: auto
 published: 2026-11-21
 updated: 2026-11-21
 author: editorial
+image: blog/liability-vs-full-coverage-car-insurance.webp
+image_alt: Two sedans parked side by side in a driveway, one newer and one older with worn paint
 seo_title: Liability vs. Full Coverage Car Insurance | Safe House Insurance
 seo_description: Understand the difference between liability and so-called full coverage car insurance, including what each may and may not cover.
 status: published

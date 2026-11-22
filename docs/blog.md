@@ -9,7 +9,7 @@ to log in to.
 | --- | --- |
 | An article, in English (required) | `locales/en/blog/<slug>.md` |
 | Its Spanish version (optional) | `locales/es/blog/<slug>.md` |
-| A picture | `assets/blog/<name>.webp` |
+| A picture | `assets/blog/<name>.webp` (1600 px wide), plus `<name>-800.webp` for cards and phones and `<name>.jpg` (1200 px) for link previews |
 | The blog's own words (headings, buttons, categories, the note under each article) | `locales/<lang>/blog.json` |
 | The format and the rules the build enforces | `tools/blog_data.py` |
 | The pages | `tools/genblog.py` → `blog/`, `es/blog/` |
@@ -151,3 +151,19 @@ out of search by Cloudflare itself (`X-Robots-Tag: noindex` on every
 `status: sample`, for looking at the layout with content in it. That branch is
 never published. Publish `staging/blog` (or the branch carrying the real
 articles), never the samples one.
+
+## Pictures
+
+16:9, the shape of the cards and the article header, so nothing is cropped
+(the heart logo in the corner stays visible). From a source PNG:
+
+```
+convert in.png -strip -resize 1600x -quality 88 -define webp:method=6 -define webp:sns-strength=40 assets/blog/<slug>.webp
+convert in.png -strip -resize 800x  -quality 84 -define webp:method=6 assets/blog/<slug>-800.webp
+convert in.png -strip -resize 1200x -quality 84 -interlace JPEG assets/blog/<slug>.jpg
+```
+
+The page offers both WebP sizes (`srcset`) so a card or a phone downloads the
+800-pixel copy; Open Graph and the article data use the JPEG, which every app
+that unfurls a link can read. Each picture needs `image_alt` in English and in
+the Spanish file.

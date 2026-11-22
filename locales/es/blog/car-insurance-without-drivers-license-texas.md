@@ -3,6 +3,7 @@ title: ¿Puedes contratar seguro de auto sin licencia de manejo en Texas?
 description: Conoce por qué importa la situación de tu licencia de manejo al solicitar un seguro de auto en Texas y qué preguntas hacer antes de buscar una póliza.
 seo_title: ¿Seguro de auto sin licencia de manejo en Texas?
 seo_description: Conoce por qué importa la situación de tu licencia de manejo al solicitar un seguro de auto en Texas y qué preguntas hacer antes de buscar una póliza.
+image_alt: Llaves de carro, una cartera y una tarjeta en blanco sobre una mesa de madera, con un carro estacionado afuera de la ventana
 sources:
   - Departamento de Seguros de Texas (TDI) — Guía del seguro de auto | https://www.tdi.texas.gov/pubs/consumer/cb020s.html
   - Departamento de Seguridad Pública de Texas (DPS) — Preguntas frecuentes sobre el SR-22 (en inglés) | https://www.dps.texas.gov/section/driver-license/faq/section-9-sr-22-proof-financial-responsibility

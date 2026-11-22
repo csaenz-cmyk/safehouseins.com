@@ -3,6 +3,7 @@ title: ¿Qué es un SR-22 en Texas y cuándo podrías necesitarlo?
 description: Conoce qué es la presentación de un SR-22 en Texas, por qué puede exigirse, cuánto tiempo puede ser necesaria y por qué por sí sola no restablece una licencia.
 seo_title: ¿Qué es un SR-22 en Texas y cuándo se exige?
 seo_description: Conoce qué es un SR-22 en Texas, por qué puede exigirse, cuánto tiempo puede ser necesario y por qué por sí solo no restablece una licencia.
+image_alt: Una mujer en un escritorio de oficina revisando documentos junto a una carpeta azul y unas llaves de carro
 sources:
   - Departamento de Seguridad Pública de Texas (DPS) — Preguntas frecuentes sobre el SR-22 (en inglés) | https://www.dps.texas.gov/section/driver-license/faq/section-9-sr-22-proof-financial-responsibility
 ---
