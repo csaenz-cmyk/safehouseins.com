@@ -266,6 +266,22 @@
      two fit. */
   .tbl table:has(th:nth-child(3)){min-width:480px}
   @media(max-width:599px){ .tbl th,.tbl td{padding:11px 12px} }
+  /* On a phone a table of three columns or more becomes one card per row,
+     each value under its column's name: the third column of a 480-pixel table
+     in a 350-pixel box was cut off with nothing to say it scrolled. */
+  @media(max-width:599px){
+    .tbl:has(th:nth-child(3)){overflow:visible;border:0;border-radius:0}
+    .tbl table:has(th:nth-child(3)){min-width:0}
+    .tbl table:has(th:nth-child(3)) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .tbl table:has(th:nth-child(3)),.tbl table:has(th:nth-child(3)) tbody,
+    .tbl table:has(th:nth-child(3)) tr,.tbl table:has(th:nth-child(3)) td{display:block;width:100%}
+    .tbl table:has(th:nth-child(3)) tr{border:1.5px solid var(--pline);border-radius:14px;padding:6px 0;margin-top:12px;background:#fff}
+    .tbl table:has(th:nth-child(3)) tr:first-child{margin-top:0}
+    .tbl table:has(th:nth-child(3)) td{border:0;padding:7px 16px}
+    .tbl table:has(th:nth-child(3)) td::before{content:attr(data-label);display:block;font-size:11.5px;
+        letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:#5C7AA8;margin-bottom:2px}
+    .tbl table:has(th:nth-child(3)) td:first-child{font-weight:800;color:var(--pnavy)}
+  }
   .tbl th{background:#F4F8FF;text-align:left;font-weight:800;color:var(--pnavy);padding:12px 16px;
       border-bottom:1.5px solid var(--pline)}
   .tbl td{padding:12px 16px;border-top:1px solid #EEF2F8;vertical-align:top}
@@ -867,7 +883,7 @@
 <p>Collision puede ayudar con daños cubiertos al automóvil asegurado después de un choque contra otro vehículo u objeto. Comprehensive puede aplicar a ciertas pérdidas no ocasionadas por colisiones, como granizo, robo, incendio o vandalismo. Ambas están sujetas al contrato y normalmente requieren un deducible.</p>
 <p>Considere tres situaciones separadas: daña otro automóvil, su vehículo también resulta afectado en ese choque y, días después, le cae granizo mientras está estacionado. Cada situación puede involucrar una cobertura diferente. Contratar una no significa haber comprado automáticamente las otras.</p>
 <h3 id="comparacion-rapida-de-coberturas">Comparación rápida de coberturas</h3>
-<div class="tbl" role="region" tabindex="0" aria-label="Cobertura"><table><thead><tr><th scope="col">Cobertura</th><th scope="col">Qué podría cubrir</th><th scope="col">Límite importante</th></tr></thead><tbody><tr><td><strong>Liability por lesiones y daños a propiedad</strong></td><td>Lesiones o daños cubiertos a terceros de los que el asegurado sea responsable.</td><td>Generalmente no repara el automóvil propio del conductor responsable.</td></tr><tr><td><strong>Collision</strong></td><td>Determinados daños por choque al vehículo asegurado.</td><td>Puede haber deducible, reglas de valoración y exclusiones.</td></tr><tr><td><strong>Comprehensive</strong></td><td>Algunas pérdidas no relacionadas con choques, como robo o granizo.</td><td>No cubre todo tipo de evento; suele tener su propio deducible.</td></tr></tbody></table></div>
+<div class="tbl" role="region" tabindex="0" aria-label="Cobertura"><table><thead><tr><th scope="col">Cobertura</th><th scope="col">Qué podría cubrir</th><th scope="col">Límite importante</th></tr></thead><tbody><tr><td data-label="Cobertura"><strong>Liability por lesiones y daños a propiedad</strong></td><td data-label="Qué podría cubrir">Lesiones o daños cubiertos a terceros de los que el asegurado sea responsable.</td><td data-label="Límite importante">Generalmente no repara el automóvil propio del conductor responsable.</td></tr><tr><td data-label="Cobertura"><strong>Collision</strong></td><td data-label="Qué podría cubrir">Determinados daños por choque al vehículo asegurado.</td><td data-label="Límite importante">Puede haber deducible, reglas de valoración y exclusiones.</td></tr><tr><td data-label="Cobertura"><strong>Comprehensive</strong></td><td data-label="Qué podría cubrir">Algunas pérdidas no relacionadas con choques, como robo o granizo.</td><td data-label="Límite importante">No cubre todo tipo de evento; suele tener su propio deducible.</td></tr></tbody></table></div>
 <p>La tabla ayuda a leer una cotización, pero solo los documentos de la póliza permiten confirmar qué se compró realmente.</p>
 <h2 id="como-afecta-el-deducible-una-cotizacion">¿Cómo afecta el deducible una cotización?</h2>
 <p>El deducible es la parte de una pérdida cubierta que generalmente corresponde pagar al asegurado antes de calcular ciertos beneficios por daños físicos. Imagine $4,000 de daños que sí califican bajo collision. Con un deducible de $500, la cantidad que podría corresponder al asegurado sería diferente a la de una póliza con $1,500 de deducible. Ambas podrían tener collision, pero su exposición económica después del accidente sería distinta.</p>

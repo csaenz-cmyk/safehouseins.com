@@ -328,6 +328,22 @@ CSS = """
      two fit. */
   .tbl table:has(th:nth-child(3)){min-width:480px}
   @media(max-width:599px){ .tbl th,.tbl td{padding:11px 12px} }
+  /* On a phone a table of three columns or more becomes one card per row,
+     each value under its column's name: the third column of a 480-pixel table
+     in a 350-pixel box was cut off with nothing to say it scrolled. */
+  @media(max-width:599px){
+    .tbl:has(th:nth-child(3)){overflow:visible;border:0;border-radius:0}
+    .tbl table:has(th:nth-child(3)){min-width:0}
+    .tbl table:has(th:nth-child(3)) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .tbl table:has(th:nth-child(3)),.tbl table:has(th:nth-child(3)) tbody,
+    .tbl table:has(th:nth-child(3)) tr,.tbl table:has(th:nth-child(3)) td{display:block;width:100%}
+    .tbl table:has(th:nth-child(3)) tr{border:1.5px solid var(--pline);border-radius:14px;padding:6px 0;margin-top:12px;background:#fff}
+    .tbl table:has(th:nth-child(3)) tr:first-child{margin-top:0}
+    .tbl table:has(th:nth-child(3)) td{border:0;padding:7px 16px}
+    .tbl table:has(th:nth-child(3)) td::before{content:attr(data-label);display:block;font-size:11.5px;
+        letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:#5C7AA8;margin-bottom:2px}
+    .tbl table:has(th:nth-child(3)) td:first-child{font-weight:800;color:var(--pnavy)}
+  }
   .tbl th{background:#F4F8FF;text-align:left;font-weight:800;color:var(--pnavy);padding:12px 16px;
       border-bottom:1.5px solid var(--pline)}
   .tbl td{padding:12px 16px;border-top:1px solid #EEF2F8;vertical-align:top}

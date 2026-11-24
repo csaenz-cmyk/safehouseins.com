@@ -266,6 +266,22 @@
      two fit. */
   .tbl table:has(th:nth-child(3)){min-width:480px}
   @media(max-width:599px){ .tbl th,.tbl td{padding:11px 12px} }
+  /* On a phone a table of three columns or more becomes one card per row,
+     each value under its column's name: the third column of a 480-pixel table
+     in a 350-pixel box was cut off with nothing to say it scrolled. */
+  @media(max-width:599px){
+    .tbl:has(th:nth-child(3)){overflow:visible;border:0;border-radius:0}
+    .tbl table:has(th:nth-child(3)){min-width:0}
+    .tbl table:has(th:nth-child(3)) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .tbl table:has(th:nth-child(3)),.tbl table:has(th:nth-child(3)) tbody,
+    .tbl table:has(th:nth-child(3)) tr,.tbl table:has(th:nth-child(3)) td{display:block;width:100%}
+    .tbl table:has(th:nth-child(3)) tr{border:1.5px solid var(--pline);border-radius:14px;padding:6px 0;margin-top:12px;background:#fff}
+    .tbl table:has(th:nth-child(3)) tr:first-child{margin-top:0}
+    .tbl table:has(th:nth-child(3)) td{border:0;padding:7px 16px}
+    .tbl table:has(th:nth-child(3)) td::before{content:attr(data-label);display:block;font-size:11.5px;
+        letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:#5C7AA8;margin-bottom:2px}
+    .tbl table:has(th:nth-child(3)) td:first-child{font-weight:800;color:var(--pnavy)}
+  }
   .tbl th{background:#F4F8FF;text-align:left;font-weight:800;color:var(--pnavy);padding:12px 16px;
       border-bottom:1.5px solid var(--pline)}
   .tbl td{padding:12px 16px;border-top:1px solid #EEF2F8;vertical-align:top}
@@ -858,7 +874,7 @@
 <div class="prose">
 <p>Abrir la notificación de renovación y descubrir una prima más alta puede resultar frustrante, especialmente si no ha tenido ningún accidente. La reacción suele ser: «Si no hice nada malo, ¿por qué aumentó mi seguro?». Un aumento no significa necesariamente que la compañía considere que usted maneja peor.</p>
 <p>Los precios pueden cambiar por información personal, vehículos o coberturas de la póliza, ajustes generales en las tarifas de una aseguradora y costos de reclamaciones. Para saber qué ocurrió con <strong>su</strong> renovación, lo apropiado es revisar los documentos y pedir una explicación, no asumir que una noticia general describe su caso.</p>
-<div class="tbl" role="region" tabindex="0" aria-label="Tipo de cambio"><table><thead><tr><th scope="col">Tipo de cambio</th><th scope="col">Qué podría revisar</th><th scope="col">Quién puede aclararlo</th></tr></thead><tbody><tr><td><strong>Información personal o del hogar</strong></td><td>Conductor nuevo, historial, domicilio de garaging, millas o uso.</td><td>Agente o aseguradora con los datos actuales de la póliza.</td></tr><tr><td><strong>Cobertura o facturación</strong></td><td>Vehículo agregado, límites más altos, deducible diferente, descuento eliminado o cargos distintos.</td><td>Declaraciones de ambas vigencias y calendario de pagos.</td></tr><tr><td><strong>Precio general de la aseguradora</strong></td><td>Actualización de estructura de tarifas u otros costos asociados con reclamaciones.</td><td>La aseguradora mediante su explicación; no suponga una causa concreta.</td></tr></tbody></table></div>
+<div class="tbl" role="region" tabindex="0" aria-label="Tipo de cambio"><table><thead><tr><th scope="col">Tipo de cambio</th><th scope="col">Qué podría revisar</th><th scope="col">Quién puede aclararlo</th></tr></thead><tbody><tr><td data-label="Tipo de cambio"><strong>Información personal o del hogar</strong></td><td data-label="Qué podría revisar">Conductor nuevo, historial, domicilio de garaging, millas o uso.</td><td data-label="Quién puede aclararlo">Agente o aseguradora con los datos actuales de la póliza.</td></tr><tr><td data-label="Tipo de cambio"><strong>Cobertura o facturación</strong></td><td data-label="Qué podría revisar">Vehículo agregado, límites más altos, deducible diferente, descuento eliminado o cargos distintos.</td><td data-label="Quién puede aclararlo">Declaraciones de ambas vigencias y calendario de pagos.</td></tr><tr><td data-label="Tipo de cambio"><strong>Precio general de la aseguradora</strong></td><td data-label="Qué podría revisar">Actualización de estructura de tarifas u otros costos asociados con reclamaciones.</td><td data-label="Quién puede aclararlo">La aseguradora mediante su explicación; no suponga una causa concreta.</td></tr></tbody></table></div>
 <p>Varias categorías pueden coincidir. Una renovación puede cambiar aunque su información y coberturas parezcan iguales.</p>
 <h2 id="compare-las-declaraciones-de-la-poliza-anterior-y-la-renovac">Compare las declaraciones de la póliza anterior y la renovación</h2>
 <p>Empiece con documentos verificables. Ponga lado a lado la <strong>declarations page</strong> anterior y la propuesta de renovación. Revise vigencia, conductores, dirección, automóviles, millaje estimado, límites de liability, protecciones opcionales, deducibles y descuentos. Un cambio en alguno podría influir en el total.</p>

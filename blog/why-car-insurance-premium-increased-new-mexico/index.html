@@ -266,6 +266,22 @@
      two fit. */
   .tbl table:has(th:nth-child(3)){min-width:480px}
   @media(max-width:599px){ .tbl th,.tbl td{padding:11px 12px} }
+  /* On a phone a table of three columns or more becomes one card per row,
+     each value under its column's name: the third column of a 480-pixel table
+     in a 350-pixel box was cut off with nothing to say it scrolled. */
+  @media(max-width:599px){
+    .tbl:has(th:nth-child(3)){overflow:visible;border:0;border-radius:0}
+    .tbl table:has(th:nth-child(3)){min-width:0}
+    .tbl table:has(th:nth-child(3)) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .tbl table:has(th:nth-child(3)),.tbl table:has(th:nth-child(3)) tbody,
+    .tbl table:has(th:nth-child(3)) tr,.tbl table:has(th:nth-child(3)) td{display:block;width:100%}
+    .tbl table:has(th:nth-child(3)) tr{border:1.5px solid var(--pline);border-radius:14px;padding:6px 0;margin-top:12px;background:#fff}
+    .tbl table:has(th:nth-child(3)) tr:first-child{margin-top:0}
+    .tbl table:has(th:nth-child(3)) td{border:0;padding:7px 16px}
+    .tbl table:has(th:nth-child(3)) td::before{content:attr(data-label);display:block;font-size:11.5px;
+        letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:#5C7AA8;margin-bottom:2px}
+    .tbl table:has(th:nth-child(3)) td:first-child{font-weight:800;color:var(--pnavy)}
+  }
   .tbl th{background:#F4F8FF;text-align:left;font-weight:800;color:var(--pnavy);padding:12px 16px;
       border-bottom:1.5px solid var(--pline)}
   .tbl td{padding:12px 16px;border-top:1px solid #EEF2F8;vertical-align:top}
@@ -858,7 +874,7 @@
 <div class="prose">
 <p>Opening a car insurance renewal notice and seeing a larger premium can be frustrating—especially if you have not had an accident. The immediate reaction is often, “I did nothing wrong, so why did my insurance go up?” An increase does not always mean the company is saying you are a worse driver.</p>
 <p>Insurance premiums may change for several reasons, including changes to your own information, the vehicles and coverages on the policy, an insurer's approved pricing approach, and broader costs of covered claims. The specific reason for <strong>your</strong> renewal is something to investigate with the insurer, not guess from a generic news headline.</p>
-<div class="tbl" role="region" tabindex="0" aria-label="Type of change"><table><thead><tr><th scope="col">Type of change</th><th scope="col">Examples to check</th><th scope="col">Who can clarify it?</th></tr></thead><tbody><tr><td><strong>Personal or household information</strong></td><td>A new driver, changed driving record, garaging address, mileage or vehicle use</td><td>Agent or insurer, using the current policy information</td></tr><tr><td><strong>Coverage or billing arrangement</strong></td><td>Added vehicle, higher limits, changed deductible, lost discount, different fees or term</td><td>Old and new declarations pages plus billing schedule</td></tr><tr><td><strong>General insurer pricing</strong></td><td>An insurer's updated rate structure or costs associated with claims</td><td>The insurer's explanation; do not assume a specific cause</td></tr></tbody></table></div>
+<div class="tbl" role="region" tabindex="0" aria-label="Type of change"><table><thead><tr><th scope="col">Type of change</th><th scope="col">Examples to check</th><th scope="col">Who can clarify it?</th></tr></thead><tbody><tr><td data-label="Type of change"><strong>Personal or household information</strong></td><td data-label="Examples to check">A new driver, changed driving record, garaging address, mileage or vehicle use</td><td data-label="Who can clarify it?">Agent or insurer, using the current policy information</td></tr><tr><td data-label="Type of change"><strong>Coverage or billing arrangement</strong></td><td data-label="Examples to check">Added vehicle, higher limits, changed deductible, lost discount, different fees or term</td><td data-label="Who can clarify it?">Old and new declarations pages plus billing schedule</td></tr><tr><td data-label="Type of change"><strong>General insurer pricing</strong></td><td data-label="Examples to check">An insurer's updated rate structure or costs associated with claims</td><td data-label="Who can clarify it?">The insurer's explanation; do not assume a specific cause</td></tr></tbody></table></div>
 <p>These categories can overlap. A renewal can change even when the first two categories appear unchanged.</p>
 <h2 id="review-the-old-and-new-declarations-pages">Review the old and new declarations pages</h2>
 <p>Start with documents you can verify. Put the previous declarations page and renewal offer next to each other. Check the policy term, drivers, garaging address, vehicles, estimated mileage, liability limits, optional coverages, deductibles, and discounts. A change in any of these can influence the amount quoted.</p>

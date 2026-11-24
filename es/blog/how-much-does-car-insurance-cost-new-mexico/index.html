@@ -266,6 +266,22 @@
      two fit. */
   .tbl table:has(th:nth-child(3)){min-width:480px}
   @media(max-width:599px){ .tbl th,.tbl td{padding:11px 12px} }
+  /* On a phone a table of three columns or more becomes one card per row,
+     each value under its column's name: the third column of a 480-pixel table
+     in a 350-pixel box was cut off with nothing to say it scrolled. */
+  @media(max-width:599px){
+    .tbl:has(th:nth-child(3)){overflow:visible;border:0;border-radius:0}
+    .tbl table:has(th:nth-child(3)){min-width:0}
+    .tbl table:has(th:nth-child(3)) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .tbl table:has(th:nth-child(3)),.tbl table:has(th:nth-child(3)) tbody,
+    .tbl table:has(th:nth-child(3)) tr,.tbl table:has(th:nth-child(3)) td{display:block;width:100%}
+    .tbl table:has(th:nth-child(3)) tr{border:1.5px solid var(--pline);border-radius:14px;padding:6px 0;margin-top:12px;background:#fff}
+    .tbl table:has(th:nth-child(3)) tr:first-child{margin-top:0}
+    .tbl table:has(th:nth-child(3)) td{border:0;padding:7px 16px}
+    .tbl table:has(th:nth-child(3)) td::before{content:attr(data-label);display:block;font-size:11.5px;
+        letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:#5C7AA8;margin-bottom:2px}
+    .tbl table:has(th:nth-child(3)) td:first-child{font-weight:800;color:var(--pnavy)}
+  }
   .tbl th{background:#F4F8FF;text-align:left;font-weight:800;color:var(--pnavy);padding:12px 16px;
       border-bottom:1.5px solid var(--pline)}
   .tbl td{padding:12px 16px;border-top:1px solid #EEF2F8;vertical-align:top}
@@ -860,7 +876,7 @@
 <p>Su precio real depende del automóvil, los conductores, las coberturas, los deducibles, el lugar donde normalmente se guarda el vehículo y las reglas de cada aseguradora. Para conocer el costo de su seguro en Las Cruces, Sunland Park, Albuquerque u otra comunidad, utilice el promedio como contexto y solicite una cotización personalizada con las coberturas claramente especificadas.</p>
 <h2 id="que-significan-realmente-los-promedios-de-new-mexico">¿Qué significan realmente los promedios de New Mexico?</h2>
 <p>El <a href="https://content.naic.org/sites/default/files/2024-adb-average-premium-supplement.pdf" target="_blank" rel="noopener">2024 Auto Database Average Premium Supplement de NAIC</a>, publicado en 2026, presenta dos medidas que no deben confundirse:</p>
-<div class="tbl" role="region" tabindex="0" aria-label="Medida de New Mexico para 2024"><table><thead><tr><th scope="col">Medida de New Mexico para 2024</th><th scope="col">Importe anual</th><th scope="col">Qué representa</th></tr></thead><tbody><tr><td><strong>Gasto promedio (Average Expenditure), Tabla 4</strong></td><td><strong>$1,180.17</strong></td><td>Total de primas emitidas por liability, collision y comprehensive dividido entre los años-vehículo con liability. No todos los vehículos incluidos tenían necesariamente collision y comprehensive.</td></tr><tr><td><strong>Prima promedio combinada (Combined Average Premium), Tabla 5</strong></td><td><strong>$1,421.95</strong></td><td>Suma de las primas promedio de liability, collision y comprehensive. Es una medida estadística, no un producto universal llamado “full coverage”.</td></tr></tbody></table></div>
+<div class="tbl" role="region" tabindex="0" aria-label="Medida de New Mexico para 2024"><table><thead><tr><th scope="col">Medida de New Mexico para 2024</th><th scope="col">Importe anual</th><th scope="col">Qué representa</th></tr></thead><tbody><tr><td data-label="Medida de New Mexico para 2024"><strong>Gasto promedio (Average Expenditure), Tabla 4</strong></td><td data-label="Importe anual"><strong>$1,180.17</strong></td><td data-label="Qué representa">Total de primas emitidas por liability, collision y comprehensive dividido entre los años-vehículo con liability. No todos los vehículos incluidos tenían necesariamente collision y comprehensive.</td></tr><tr><td data-label="Medida de New Mexico para 2024"><strong>Prima promedio combinada (Combined Average Premium), Tabla 5</strong></td><td data-label="Importe anual"><strong>$1,421.95</strong></td><td data-label="Qué representa">Suma de las primas promedio de liability, collision y comprehensive. Es una medida estadística, no un producto universal llamado “full coverage”.</td></tr></tbody></table></div>
 <p>La NAIC utiliza datos agregados, no cotizaciones para una persona específica. Tampoco elige un solo deducible ni un límite de responsabilidad civil para todos. Por eso, ninguna de las cifras representa una tarifa garantizada, una promesa de que Safe House Insurance puede ofrecer menos, ni una predicción del costo de seis meses. <strong>El año de los datos es 2024</strong>, aunque el suplemento se publicó después.</p>
 <h2 id="que-es-una-prima-de-seguro">¿Qué es una prima de seguro?</h2>
 <p>La prima es el costo de una póliza durante un periodo determinado. Las compañías pueden ofrecer pago completo o plazos, a veces con diferentes condiciones de facturación y cargos. Un pago mensual no es lo mismo que el costo total del contrato. Pregunte cuál es la duración de la póliza, la prima total, el pago inicial, las mensualidades posteriores y los cargos aplicables.</p>

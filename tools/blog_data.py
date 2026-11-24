@@ -430,7 +430,8 @@ def render(body, link, image):
             out.append('<div class="tbl" role="region" tabindex="0" aria-label="%s"><table><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div>'
                        % (html.escape(re.sub(r'[*`]', '', head[0]) or 'Table'),
                           ''.join('<th scope="col">' + inline(c, link) + '</th>' for c in head),
-                          ''.join('<tr>' + ''.join('<td>' + inline(c, link) + '</td>' for c in r) + '</tr>'
+                          ''.join('<tr>' + ''.join('<td data-label="%s">' % html.escape(re.sub(r'[*`]', '', head[k]) if k < len(head) else '', quote=True)
+                                                   + inline(c, link) + '</td>' for k, c in enumerate(r)) + '</tr>'
                                   for r in rest)))
             continue
         if line.startswith('>'):

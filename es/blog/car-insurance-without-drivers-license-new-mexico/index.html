@@ -266,6 +266,22 @@
      two fit. */
   .tbl table:has(th:nth-child(3)){min-width:480px}
   @media(max-width:599px){ .tbl th,.tbl td{padding:11px 12px} }
+  /* On a phone a table of three columns or more becomes one card per row,
+     each value under its column's name: the third column of a 480-pixel table
+     in a 350-pixel box was cut off with nothing to say it scrolled. */
+  @media(max-width:599px){
+    .tbl:has(th:nth-child(3)){overflow:visible;border:0;border-radius:0}
+    .tbl table:has(th:nth-child(3)){min-width:0}
+    .tbl table:has(th:nth-child(3)) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .tbl table:has(th:nth-child(3)),.tbl table:has(th:nth-child(3)) tbody,
+    .tbl table:has(th:nth-child(3)) tr,.tbl table:has(th:nth-child(3)) td{display:block;width:100%}
+    .tbl table:has(th:nth-child(3)) tr{border:1.5px solid var(--pline);border-radius:14px;padding:6px 0;margin-top:12px;background:#fff}
+    .tbl table:has(th:nth-child(3)) tr:first-child{margin-top:0}
+    .tbl table:has(th:nth-child(3)) td{border:0;padding:7px 16px}
+    .tbl table:has(th:nth-child(3)) td::before{content:attr(data-label);display:block;font-size:11.5px;
+        letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:#5C7AA8;margin-bottom:2px}
+    .tbl table:has(th:nth-child(3)) td:first-child{font-weight:800;color:var(--pnavy)}
+  }
   .tbl th{background:#F4F8FF;text-align:left;font-weight:800;color:var(--pnavy);padding:12px 16px;
       border-bottom:1.5px solid var(--pline)}
   .tbl td{padding:12px 16px;border-top:1px solid #EEF2F8;vertical-align:top}
@@ -860,7 +876,7 @@
 <p><strong>Puede ser posible hablar con una aseguradora sobre un vehículo del que es propietario aunque no tenga licencia vigente, pero la elegibilidad depende de cada compañía.</strong> No todas aceptan la misma identificación ni los mismos arreglos entre dueño, solicitante y conductores. Comprar una póliza <strong>no autoriza</strong> a manejar sin licencia válida. Quien conduce debe cumplir por separado los requisitos legales correspondientes.</p>
 <h2 id="cuatro-funciones-que-conviene-distinguir">Cuatro funciones que conviene distinguir</h2>
 <p>Primero, ¿quién <strong>es dueño</strong> del automóvil? Un título o documento de compra puede demostrar propiedad, sin autorizar por sí mismo la conducción. Segundo, ¿quién <strong>solicita y mantiene</strong> la póliza? Esto depende de las reglas de la aseguradora. Tercero, ¿quién <strong>utiliza normalmente</strong> el vehículo? Es información importante para underwriting. Cuarto, ¿quién tiene una <strong>licencia apropiada y vigente</strong> para conducirlo?</p>
-<div class="tbl" role="region" tabindex="0" aria-label="Función"><table><thead><tr><th scope="col">Función</th><th scope="col">Qué informa a la aseguradora</th><th scope="col">Qué no demuestra</th></tr></thead><tbody><tr><td><strong>Propietario</strong></td><td>Quién tiene el interés de propiedad sobre el automóvil.</td><td>Que puede conducir legalmente.</td></tr><tr><td><strong>Solicitante o asegurado nombrado</strong></td><td>Quién solicita o aparece como titular bajo las reglas de la póliza.</td><td>Que todo conductor queda automáticamente incluido.</td></tr><tr><td><strong>Conductor principal</strong></td><td>Quién maneja el vehículo con mayor frecuencia.</td><td>Que cualquiera no declarado o excluido puede manejar.</td></tr><tr><td><strong>Conductor con licencia válida</strong></td><td>Que la persona cuenta con autorización de conducción apropiada.</td><td>Que cualquier pérdida estaría cubierta.</td></tr></tbody></table></div>
+<div class="tbl" role="region" tabindex="0" aria-label="Función"><table><thead><tr><th scope="col">Función</th><th scope="col">Qué informa a la aseguradora</th><th scope="col">Qué no demuestra</th></tr></thead><tbody><tr><td data-label="Función"><strong>Propietario</strong></td><td data-label="Qué informa a la aseguradora">Quién tiene el interés de propiedad sobre el automóvil.</td><td data-label="Qué no demuestra">Que puede conducir legalmente.</td></tr><tr><td data-label="Función"><strong>Solicitante o asegurado nombrado</strong></td><td data-label="Qué informa a la aseguradora">Quién solicita o aparece como titular bajo las reglas de la póliza.</td><td data-label="Qué no demuestra">Que todo conductor queda automáticamente incluido.</td></tr><tr><td data-label="Función"><strong>Conductor principal</strong></td><td data-label="Qué informa a la aseguradora">Quién maneja el vehículo con mayor frecuencia.</td><td data-label="Qué no demuestra">Que cualquiera no declarado o excluido puede manejar.</td></tr><tr><td data-label="Función"><strong>Conductor con licencia válida</strong></td><td data-label="Qué informa a la aseguradora">Que la persona cuenta con autorización de conducción apropiada.</td><td data-label="Qué no demuestra">Que cualquier pérdida estaría cubierta.</td></tr></tbody></table></div>
 <p>Una persona cuya licencia venció, otra que la tiene suspendida, alguien que nunca ha obtenido una y un propietario que no maneja no necesariamente presentan la misma situación. Se deben revisar por separado la ley de licencias y las reglas de aceptación de cada compañía.</p>
 <h2 id="una-poliza-no-sustituye-una-licencia">Una póliza no sustituye una licencia</h2>
 <p>Demostrar que un vehículo tiene seguro y estar legalmente autorizado para manejarlo son dos asuntos distintos. El MVD administra los requisitos de licencias de New Mexico. El seguro no corrige automáticamente una licencia vencida, suspendida o inexistente, y tampoco resuelve por sí solo los trámites de registro del vehículo.</p>

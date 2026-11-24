@@ -266,6 +266,22 @@
      two fit. */
   .tbl table:has(th:nth-child(3)){min-width:480px}
   @media(max-width:599px){ .tbl th,.tbl td{padding:11px 12px} }
+  /* On a phone a table of three columns or more becomes one card per row,
+     each value under its column's name: the third column of a 480-pixel table
+     in a 350-pixel box was cut off with nothing to say it scrolled. */
+  @media(max-width:599px){
+    .tbl:has(th:nth-child(3)){overflow:visible;border:0;border-radius:0}
+    .tbl table:has(th:nth-child(3)){min-width:0}
+    .tbl table:has(th:nth-child(3)) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .tbl table:has(th:nth-child(3)),.tbl table:has(th:nth-child(3)) tbody,
+    .tbl table:has(th:nth-child(3)) tr,.tbl table:has(th:nth-child(3)) td{display:block;width:100%}
+    .tbl table:has(th:nth-child(3)) tr{border:1.5px solid var(--pline);border-radius:14px;padding:6px 0;margin-top:12px;background:#fff}
+    .tbl table:has(th:nth-child(3)) tr:first-child{margin-top:0}
+    .tbl table:has(th:nth-child(3)) td{border:0;padding:7px 16px}
+    .tbl table:has(th:nth-child(3)) td::before{content:attr(data-label);display:block;font-size:11.5px;
+        letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:#5C7AA8;margin-bottom:2px}
+    .tbl table:has(th:nth-child(3)) td:first-child{font-weight:800;color:var(--pnavy)}
+  }
   .tbl th{background:#F4F8FF;text-align:left;font-weight:800;color:var(--pnavy);padding:12px 16px;
       border-bottom:1.5px solid var(--pline)}
   .tbl td{padding:12px 16px;border-top:1px solid #EEF2F8;vertical-align:top}
@@ -864,7 +880,7 @@
 <h2 id="occasional-borrowing-versus-regular-access">Occasional borrowing versus regular access</h2>
 <p>Imagine a friend who drives your car once to pick up groceries. Now imagine a roommate who takes the car to work three times a week. Those arrangements may not be treated alike. Insurers commonly ask about people in the household and anyone with regular access because regular use is relevant to how they assess the policy.</p>
 <p>If someone drives frequently, tell your insurer. Do not assume you can avoid listing a regular operator by describing each trip as a one-time favor. Accurate driver information can affect underwriting, premium, and what happens after a claim.</p>
-<div class="tbl" role="region" tabindex="0" aria-label="Borrowing situation"><table><thead><tr><th scope="col">Borrowing situation</th><th scope="col">What changes about the insurance question?</th></tr></thead><tbody><tr><td><strong>Visiting relative makes a single personal errand</strong></td><td>Ask whether the policy allows that eligible occasional driver and whether exclusions apply.</td></tr><tr><td><strong>Roommate takes the car to work several days a week</strong></td><td>Regular access and household-driver disclosure become especially important.</td></tr><tr><td><strong>Person named in a driver exclusion asks for the keys</strong></td><td>Permission alone cannot be assumed to override the exclusion.</td></tr><tr><td><strong>Friend plans paid delivery or ride-hailing</strong></td><td>The vehicle's commercial use and any personal-auto restrictions must be reviewed before use.</td></tr></tbody></table></div>
+<div class="tbl" role="region" tabindex="0" aria-label="Borrowing situation"><table><thead><tr><th scope="col">Borrowing situation</th><th scope="col">What changes about the insurance question?</th></tr></thead><tbody><tr><td data-label="Borrowing situation"><strong>Visiting relative makes a single personal errand</strong></td><td data-label="What changes about the insurance question?">Ask whether the policy allows that eligible occasional driver and whether exclusions apply.</td></tr><tr><td data-label="Borrowing situation"><strong>Roommate takes the car to work several days a week</strong></td><td data-label="What changes about the insurance question?">Regular access and household-driver disclosure become especially important.</td></tr><tr><td data-label="Borrowing situation"><strong>Person named in a driver exclusion asks for the keys</strong></td><td data-label="What changes about the insurance question?">Permission alone cannot be assumed to override the exclusion.</td></tr><tr><td data-label="Borrowing situation"><strong>Friend plans paid delivery or ride-hailing</strong></td><td data-label="What changes about the insurance question?">The vehicle's commercial use and any personal-auto restrictions must be reviewed before use.</td></tr></tbody></table></div>
 <p>These are questions to ask, <strong>not</strong> a chart of coverage approvals. Policies and facts differ.</p>
 <h2 id="why-driver-exclusions-deserve-special-attention">Why driver exclusions deserve special attention</h2>
 <p>Some policies may include specific driver exclusions or restrictions, where permitted. If the person borrowing your car is excluded, the consequences of allowing them to drive can be serious. Even permission from the owner may not override the actual exclusion. Exclusion language is a matter of the policy and applicable law, not a casual promise from the person borrowing the car.</p>

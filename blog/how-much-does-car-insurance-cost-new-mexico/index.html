@@ -266,6 +266,22 @@
      two fit. */
   .tbl table:has(th:nth-child(3)){min-width:480px}
   @media(max-width:599px){ .tbl th,.tbl td{padding:11px 12px} }
+  /* On a phone a table of three columns or more becomes one card per row,
+     each value under its column's name: the third column of a 480-pixel table
+     in a 350-pixel box was cut off with nothing to say it scrolled. */
+  @media(max-width:599px){
+    .tbl:has(th:nth-child(3)){overflow:visible;border:0;border-radius:0}
+    .tbl table:has(th:nth-child(3)){min-width:0}
+    .tbl table:has(th:nth-child(3)) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .tbl table:has(th:nth-child(3)),.tbl table:has(th:nth-child(3)) tbody,
+    .tbl table:has(th:nth-child(3)) tr,.tbl table:has(th:nth-child(3)) td{display:block;width:100%}
+    .tbl table:has(th:nth-child(3)) tr{border:1.5px solid var(--pline);border-radius:14px;padding:6px 0;margin-top:12px;background:#fff}
+    .tbl table:has(th:nth-child(3)) tr:first-child{margin-top:0}
+    .tbl table:has(th:nth-child(3)) td{border:0;padding:7px 16px}
+    .tbl table:has(th:nth-child(3)) td::before{content:attr(data-label);display:block;font-size:11.5px;
+        letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:#5C7AA8;margin-bottom:2px}
+    .tbl table:has(th:nth-child(3)) td:first-child{font-weight:800;color:var(--pnavy)}
+  }
   .tbl th{background:#F4F8FF;text-align:left;font-weight:800;color:var(--pnavy);padding:12px 16px;
       border-bottom:1.5px solid var(--pline)}
   .tbl td{padding:12px 16px;border-top:1px solid #EEF2F8;vertical-align:top}
@@ -860,7 +876,7 @@
 <p>Your actual cost depends on the vehicle, drivers, coverages, deductibles, garaging address, insurer's current rates, and other lawful underwriting factors. To understand the price of a policy in Las Cruces, Sunland Park, Albuquerque, or another New Mexico community, use the statewide data as context and obtain an individualized quote with clearly stated coverage selections.</p>
 <h2 id="what-do-those-new-mexico-average-cost-figures-mean">What do those New Mexico average-cost figures mean?</h2>
 <p>The <a href="https://content.naic.org/sites/default/files/2024-adb-average-premium-supplement.pdf" target="_blank" rel="noopener">NAIC 2024 Auto Database Average Premium Supplement</a>, released in 2026, presents two measurements that should not be confused:</p>
-<div class="tbl" role="region" tabindex="0" aria-label="2024 New Mexico measure"><table><thead><tr><th scope="col">2024 New Mexico measure</th><th scope="col">Annual amount</th><th scope="col">What it measures</th></tr></thead><tbody><tr><td><strong>Average expenditure</strong> (Table 4)</td><td><strong>$1,180.17</strong></td><td>Total written premiums for liability, collision, and comprehensive divided by liability-insured vehicle years. Not every vehicle in the measure necessarily carried collision and comprehensive.</td></tr><tr><td><strong>Combined average premium</strong> (Table 5)</td><td><strong>$1,421.95</strong></td><td>The sum of average premiums for liability, collision, and comprehensive. This is a constructed average for those three coverage types, not a universal retail package called “full coverage.”</td></tr></tbody></table></div>
+<div class="tbl" role="region" tabindex="0" aria-label="2024 New Mexico measure"><table><thead><tr><th scope="col">2024 New Mexico measure</th><th scope="col">Annual amount</th><th scope="col">What it measures</th></tr></thead><tbody><tr><td data-label="2024 New Mexico measure"><strong>Average expenditure</strong> (Table 4)</td><td data-label="Annual amount"><strong>$1,180.17</strong></td><td data-label="What it measures">Total written premiums for liability, collision, and comprehensive divided by liability-insured vehicle years. Not every vehicle in the measure necessarily carried collision and comprehensive.</td></tr><tr><td data-label="2024 New Mexico measure"><strong>Combined average premium</strong> (Table 5)</td><td data-label="Annual amount"><strong>$1,421.95</strong></td><td data-label="What it measures">The sum of average premiums for liability, collision, and comprehensive. This is a constructed average for those three coverage types, not a universal retail package called “full coverage.”</td></tr></tbody></table></div>
 <p>NAIC uses aggregated insurance statistics, not a quote for a specific driver. It does not select one universal liability limit or deductible, and its figures do not measure the premium charged today for your application. Do <strong>not</strong> use either amount as a guaranteed price, a claim that Safe House Insurance can beat the average, or an exact prediction of six-month premiums. The data year is 2024 even though the report was issued later.</p>
 <h2 id="what-a-premium-actually-is">What a premium actually is</h2>
 <p>The premium is the price charged for an insurance policy over a stated term. Companies may let customers pay the full term or use installments, sometimes with different billing arrangements or fees. A monthly payment should not be mistaken for the total cost of the policy. Ask for the term, total premium, initial payment, installment schedule, and any applicable fees.</p>

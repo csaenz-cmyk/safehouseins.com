@@ -266,6 +266,22 @@
      two fit. */
   .tbl table:has(th:nth-child(3)){min-width:480px}
   @media(max-width:599px){ .tbl th,.tbl td{padding:11px 12px} }
+  /* On a phone a table of three columns or more becomes one card per row,
+     each value under its column's name: the third column of a 480-pixel table
+     in a 350-pixel box was cut off with nothing to say it scrolled. */
+  @media(max-width:599px){
+    .tbl:has(th:nth-child(3)){overflow:visible;border:0;border-radius:0}
+    .tbl table:has(th:nth-child(3)){min-width:0}
+    .tbl table:has(th:nth-child(3)) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .tbl table:has(th:nth-child(3)),.tbl table:has(th:nth-child(3)) tbody,
+    .tbl table:has(th:nth-child(3)) tr,.tbl table:has(th:nth-child(3)) td{display:block;width:100%}
+    .tbl table:has(th:nth-child(3)) tr{border:1.5px solid var(--pline);border-radius:14px;padding:6px 0;margin-top:12px;background:#fff}
+    .tbl table:has(th:nth-child(3)) tr:first-child{margin-top:0}
+    .tbl table:has(th:nth-child(3)) td{border:0;padding:7px 16px}
+    .tbl table:has(th:nth-child(3)) td::before{content:attr(data-label);display:block;font-size:11.5px;
+        letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:#5C7AA8;margin-bottom:2px}
+    .tbl table:has(th:nth-child(3)) td:first-child{font-weight:800;color:var(--pnavy)}
+  }
   .tbl th{background:#F4F8FF;text-align:left;font-weight:800;color:var(--pnavy);padding:12px 16px;
       border-bottom:1.5px solid var(--pline)}
   .tbl td{padding:12px 16px;border-top:1px solid #EEF2F8;vertical-align:top}
@@ -872,7 +888,7 @@
 <h2 id="compare-total-costs-not-just-monthly-payments">Compare total costs, not just monthly payments</h2>
 <h3 id="a-worked-comparison-using-entirely-fictional-numbers">A worked comparison using entirely fictional numbers</h3>
 <p>The following <strong>invented example is only a worksheet</strong>, not a quote from any carrier, a statewide price estimate, or a representation of Safe House Insurance's rates. Imagine the same vehicle and drivers, with the same listed coverages and deductibles, but two proposed billing arrangements:</p>
-<div class="tbl" role="region" tabindex="0" aria-label="Item"><table><thead><tr><th scope="col">Item</th><th scope="col">Hypothetical Quote A</th><th scope="col">Hypothetical Quote B</th></tr></thead><tbody><tr><td>Policy term</td><td>6 months</td><td>12 months</td></tr><tr><td>Liability limits</td><td>$50k/$100k/$50k</td><td>$50k/$100k/$50k</td></tr><tr><td>Collision deductible</td><td>$500</td><td>$500</td></tr><tr><td>Comprehensive deductible</td><td>$500</td><td>$500</td></tr><tr><td>UM/UIM bodily injury selection</td><td>Same requested selection, if offered</td><td>Same requested selection, if offered</td></tr><tr><td>Base premium for that term</td><td>$720</td><td>$1,380</td></tr><tr><td>Initial payment</td><td>$180</td><td>$280</td></tr><tr><td>Later base payments</td><td>5 × $108</td><td>11 × $100</td></tr><tr><td>Illustrative billing fee</td><td>$5 on each of 5 later payments</td><td>$4 on each of 11 later payments</td></tr><tr><td><strong>Full term cost with shown fees</strong></td><td><strong>$745</strong></td><td><strong>$1,424</strong></td></tr></tbody></table></div>
+<div class="tbl" role="region" tabindex="0" aria-label="Item"><table><thead><tr><th scope="col">Item</th><th scope="col">Hypothetical Quote A</th><th scope="col">Hypothetical Quote B</th></tr></thead><tbody><tr><td data-label="Item">Policy term</td><td data-label="Hypothetical Quote A">6 months</td><td data-label="Hypothetical Quote B">12 months</td></tr><tr><td data-label="Item">Liability limits</td><td data-label="Hypothetical Quote A">$50k/$100k/$50k</td><td data-label="Hypothetical Quote B">$50k/$100k/$50k</td></tr><tr><td data-label="Item">Collision deductible</td><td data-label="Hypothetical Quote A">$500</td><td data-label="Hypothetical Quote B">$500</td></tr><tr><td data-label="Item">Comprehensive deductible</td><td data-label="Hypothetical Quote A">$500</td><td data-label="Hypothetical Quote B">$500</td></tr><tr><td data-label="Item">UM/UIM bodily injury selection</td><td data-label="Hypothetical Quote A">Same requested selection, if offered</td><td data-label="Hypothetical Quote B">Same requested selection, if offered</td></tr><tr><td data-label="Item">Base premium for that term</td><td data-label="Hypothetical Quote A">$720</td><td data-label="Hypothetical Quote B">$1,380</td></tr><tr><td data-label="Item">Initial payment</td><td data-label="Hypothetical Quote A">$180</td><td data-label="Hypothetical Quote B">$280</td></tr><tr><td data-label="Item">Later base payments</td><td data-label="Hypothetical Quote A">5 × $108</td><td data-label="Hypothetical Quote B">11 × $100</td></tr><tr><td data-label="Item">Illustrative billing fee</td><td data-label="Hypothetical Quote A">$5 on each of 5 later payments</td><td data-label="Hypothetical Quote B">$4 on each of 11 later payments</td></tr><tr><td data-label="Item"><strong>Full term cost with shown fees</strong></td><td data-label="Hypothetical Quote A"><strong>$745</strong></td><td data-label="Hypothetical Quote B"><strong>$1,424</strong></td></tr></tbody></table></div>
 <p>Check the math: A's $180 plus five $108 installments equals its $720 premium; five additional $5 fees create a $745 full-term outlay. B's $280 plus eleven $100 installments equals $1,380, and eleven $4 fees make $1,424. In this imaginary example, the smaller initial payment is not the entire policy cost.</p>
 <p><strong>How do you compare six and twelve months?</strong> Divide each <em>current-term total</em> by its number of months to understand the period's approximate monthly cost: A is about $124.17 and B about $118.67. That is a comparison tool, not a promise of monthly billing or future rates. <strong>Do not double A's six-month price and call it a guaranteed annual quote.</strong> A renewal six months later could be different, and the policies may differ in details not visible in this illustrative table.</p>
 <p>When reviewing real proposals, use the insurer's written payment schedule, total premium, and fees. Confirm the listed coverages really match, including exclusions, driver rules, UM/UIM selections, and any lender requirements.</p>

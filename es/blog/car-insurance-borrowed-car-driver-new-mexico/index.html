@@ -266,6 +266,22 @@
      two fit. */
   .tbl table:has(th:nth-child(3)){min-width:480px}
   @media(max-width:599px){ .tbl th,.tbl td{padding:11px 12px} }
+  /* On a phone a table of three columns or more becomes one card per row,
+     each value under its column's name: the third column of a 480-pixel table
+     in a 350-pixel box was cut off with nothing to say it scrolled. */
+  @media(max-width:599px){
+    .tbl:has(th:nth-child(3)){overflow:visible;border:0;border-radius:0}
+    .tbl table:has(th:nth-child(3)){min-width:0}
+    .tbl table:has(th:nth-child(3)) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .tbl table:has(th:nth-child(3)),.tbl table:has(th:nth-child(3)) tbody,
+    .tbl table:has(th:nth-child(3)) tr,.tbl table:has(th:nth-child(3)) td{display:block;width:100%}
+    .tbl table:has(th:nth-child(3)) tr{border:1.5px solid var(--pline);border-radius:14px;padding:6px 0;margin-top:12px;background:#fff}
+    .tbl table:has(th:nth-child(3)) tr:first-child{margin-top:0}
+    .tbl table:has(th:nth-child(3)) td{border:0;padding:7px 16px}
+    .tbl table:has(th:nth-child(3)) td::before{content:attr(data-label);display:block;font-size:11.5px;
+        letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:#5C7AA8;margin-bottom:2px}
+    .tbl table:has(th:nth-child(3)) td:first-child{font-weight:800;color:var(--pnavy)}
+  }
   .tbl th{background:#F4F8FF;text-align:left;font-weight:800;color:var(--pnavy);padding:12px 16px;
       border-bottom:1.5px solid var(--pline)}
   .tbl td{padding:12px 16px;border-top:1px solid #EEF2F8;vertical-align:top}
@@ -864,7 +880,7 @@
 <h2 id="uso-ocasional-frente-a-acceso-habitual">Uso ocasional frente a acceso habitual</h2>
 <p>Imagine a un amigo que maneja una vez su automóvil para comprar víveres. Ahora imagine a un compañero de vivienda que lo usa tres veces por semana para ir al trabajo. No necesariamente se manejan igual. Las compañías suelen preguntar quién reside en el hogar y quién tiene acceso frecuente al auto porque esa información es relevante para evaluar el riesgo.</p>
 <p>Si una persona conduce regularmente, comuníquelo a su aseguradora. No suponga que puede evitar declararla si considera cada salida como un favor aislado. Los datos correctos pueden afectar la aceptación, la prima y la investigación de una reclamación.</p>
-<div class="tbl" role="region" tabindex="0" aria-label="Situación"><table><thead><tr><th scope="col">Situación</th><th scope="col">Qué pregunta de seguro plantea</th></tr></thead><tbody><tr><td><strong>Familiar visitante hace un mandado personal una sola vez</strong></td><td>¿La póliza permite a ese conductor ocasional elegible y existen exclusiones?</td></tr><tr><td><strong>Compañero de vivienda usa el auto varios días a la semana</strong></td><td>La declaración de conductores habituales y residentes adquiere mayor importancia.</td></tr><tr><td><strong>Una persona excluida solicita las llaves</strong></td><td>El permiso del propietario no debe suponerse suficiente para dejar sin efecto la exclusión.</td></tr><tr><td><strong>Un amigo quiere hacer entregas pagadas o viajes de transporte remunerado</strong></td><td>Deben revisarse el uso comercial y las restricciones de la póliza personal.</td></tr></tbody></table></div>
+<div class="tbl" role="region" tabindex="0" aria-label="Situación"><table><thead><tr><th scope="col">Situación</th><th scope="col">Qué pregunta de seguro plantea</th></tr></thead><tbody><tr><td data-label="Situación"><strong>Familiar visitante hace un mandado personal una sola vez</strong></td><td data-label="Qué pregunta de seguro plantea">¿La póliza permite a ese conductor ocasional elegible y existen exclusiones?</td></tr><tr><td data-label="Situación"><strong>Compañero de vivienda usa el auto varios días a la semana</strong></td><td data-label="Qué pregunta de seguro plantea">La declaración de conductores habituales y residentes adquiere mayor importancia.</td></tr><tr><td data-label="Situación"><strong>Una persona excluida solicita las llaves</strong></td><td data-label="Qué pregunta de seguro plantea">El permiso del propietario no debe suponerse suficiente para dejar sin efecto la exclusión.</td></tr><tr><td data-label="Situación"><strong>Un amigo quiere hacer entregas pagadas o viajes de transporte remunerado</strong></td><td data-label="Qué pregunta de seguro plantea">Deben revisarse el uso comercial y las restricciones de la póliza personal.</td></tr></tbody></table></div>
 <p>La tabla contiene preguntas, <strong>no aprobaciones de cobertura</strong>. Las pólizas y los hechos cambian de caso en caso.</p>
 <h2 id="que-pasa-con-los-conductores-excluidos">¿Qué pasa con los conductores excluidos?</h2>
 <p>Algunas pólizas contemplan exclusiones o restricciones para conductores específicos cuando la normativa lo permite. Si la persona que toma prestado su auto está excluida, autorizarla a manejar puede tener consecuencias importantes. El permiso del dueño no necesariamente anula el texto contractual. La exclusión se interpreta según la póliza y la ley, no según una promesa de quien solicita el automóvil.</p>

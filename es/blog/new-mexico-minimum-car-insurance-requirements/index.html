@@ -266,6 +266,22 @@
      two fit. */
   .tbl table:has(th:nth-child(3)){min-width:480px}
   @media(max-width:599px){ .tbl th,.tbl td{padding:11px 12px} }
+  /* On a phone a table of three columns or more becomes one card per row,
+     each value under its column's name: the third column of a 480-pixel table
+     in a 350-pixel box was cut off with nothing to say it scrolled. */
+  @media(max-width:599px){
+    .tbl:has(th:nth-child(3)){overflow:visible;border:0;border-radius:0}
+    .tbl table:has(th:nth-child(3)){min-width:0}
+    .tbl table:has(th:nth-child(3)) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .tbl table:has(th:nth-child(3)),.tbl table:has(th:nth-child(3)) tbody,
+    .tbl table:has(th:nth-child(3)) tr,.tbl table:has(th:nth-child(3)) td{display:block;width:100%}
+    .tbl table:has(th:nth-child(3)) tr{border:1.5px solid var(--pline);border-radius:14px;padding:6px 0;margin-top:12px;background:#fff}
+    .tbl table:has(th:nth-child(3)) tr:first-child{margin-top:0}
+    .tbl table:has(th:nth-child(3)) td{border:0;padding:7px 16px}
+    .tbl table:has(th:nth-child(3)) td::before{content:attr(data-label);display:block;font-size:11.5px;
+        letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:#5C7AA8;margin-bottom:2px}
+    .tbl table:has(th:nth-child(3)) td:first-child{font-weight:800;color:var(--pnavy)}
+  }
   .tbl th{background:#F4F8FF;text-align:left;font-weight:800;color:var(--pnavy);padding:12px 16px;
       border-bottom:1.5px solid var(--pline)}
   .tbl td{padding:12px 16px;border-top:1px solid #EEF2F8;vertical-align:top}
@@ -858,7 +874,7 @@
 <div class="prose">
 <p>Si conduce en New Mexico, una de las primeras preguntas es: «¿Qué cantidad de seguro exige el estado?». Es una pregunta importante, pero también conviene entender para qué sirven esos límites y qué gastos podrían quedar fuera de ellos. Una póliza puede cumplir con el requisito legal y, aun así, dejar al conductor responsable de costos que excedan sus límites.</p>
 <p>La División de Vehículos Motorizados de New Mexico (MVD) establece los siguientes límites mínimos para una póliza ordinaria de responsabilidad civil de automóvil. En conjunto se conocen como <strong>25/50/10</strong>. Estas cantidades están relacionadas con los daños cubiertos que usted pueda causar <strong>a otras personas</strong>; no representan dinero reservado para reparar su propio vehículo.</p>
-<div class="tbl" role="region" tabindex="0" aria-label="Límite de responsabilidad civil"><table><thead><tr><th scope="col">Límite de responsabilidad civil</th><th scope="col">Mínimo en New Mexico</th><th scope="col">Qué limita</th></tr></thead><tbody><tr><td>Lesiones corporales, por persona</td><td><strong>$25,000</strong></td><td>Reclamaciones elegibles por lesiones o fallecimiento de una persona en un accidente.</td></tr><tr><td>Lesiones corporales, por accidente</td><td><strong>$50,000</strong></td><td>Total de reclamaciones elegibles por lesiones o fallecimiento de todas las personas en un mismo accidente.</td></tr><tr><td>Daños a propiedad, por accidente</td><td><strong>$10,000</strong></td><td>Daños cubiertos a propiedad ajena en un accidente.</td></tr></tbody></table></div>
+<div class="tbl" role="region" tabindex="0" aria-label="Límite de responsabilidad civil"><table><thead><tr><th scope="col">Límite de responsabilidad civil</th><th scope="col">Mínimo en New Mexico</th><th scope="col">Qué limita</th></tr></thead><tbody><tr><td data-label="Límite de responsabilidad civil">Lesiones corporales, por persona</td><td data-label="Mínimo en New Mexico"><strong>$25,000</strong></td><td data-label="Qué limita">Reclamaciones elegibles por lesiones o fallecimiento de una persona en un accidente.</td></tr><tr><td data-label="Límite de responsabilidad civil">Lesiones corporales, por accidente</td><td data-label="Mínimo en New Mexico"><strong>$50,000</strong></td><td data-label="Qué limita">Total de reclamaciones elegibles por lesiones o fallecimiento de todas las personas en un mismo accidente.</td></tr><tr><td data-label="Límite de responsabilidad civil">Daños a propiedad, por accidente</td><td data-label="Mínimo en New Mexico"><strong>$10,000</strong></td><td data-label="Qué limita">Daños cubiertos a propiedad ajena en un accidente.</td></tr></tbody></table></div>
 <p>El MVD también describe algunas alternativas limitadas para demostrar responsabilidad financiera. Sin embargo, cuando un conductor compara seguros, lo habitual es analizar una póliza de responsabilidad civil y los límites específicos que incluye.</p>
 <h2 id="que-significa-25-50-10-en-la-practica">¿Qué significa 25/50/10 en la práctica?</h2>
 <p>El primer límite de $25,000 es la cantidad máxima que la cobertura de responsabilidad civil por lesiones podría pagar por <strong>una sola persona lesionada</strong> en un accidente cubierto, conforme a los hechos y a la póliza. El segundo límite, $50,000, es la cantidad máxima para <strong>todas las personas lesionadas en conjunto</strong> en ese mismo accidente. Los dos límites funcionan al mismo tiempo: $50,000 no significa que cada persona lesionada disponga de $50,000.</p>

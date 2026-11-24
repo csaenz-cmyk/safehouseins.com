@@ -266,6 +266,22 @@
      two fit. */
   .tbl table:has(th:nth-child(3)){min-width:480px}
   @media(max-width:599px){ .tbl th,.tbl td{padding:11px 12px} }
+  /* On a phone a table of three columns or more becomes one card per row,
+     each value under its column's name: the third column of a 480-pixel table
+     in a 350-pixel box was cut off with nothing to say it scrolled. */
+  @media(max-width:599px){
+    .tbl:has(th:nth-child(3)){overflow:visible;border:0;border-radius:0}
+    .tbl table:has(th:nth-child(3)){min-width:0}
+    .tbl table:has(th:nth-child(3)) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .tbl table:has(th:nth-child(3)),.tbl table:has(th:nth-child(3)) tbody,
+    .tbl table:has(th:nth-child(3)) tr,.tbl table:has(th:nth-child(3)) td{display:block;width:100%}
+    .tbl table:has(th:nth-child(3)) tr{border:1.5px solid var(--pline);border-radius:14px;padding:6px 0;margin-top:12px;background:#fff}
+    .tbl table:has(th:nth-child(3)) tr:first-child{margin-top:0}
+    .tbl table:has(th:nth-child(3)) td{border:0;padding:7px 16px}
+    .tbl table:has(th:nth-child(3)) td::before{content:attr(data-label);display:block;font-size:11.5px;
+        letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:#5C7AA8;margin-bottom:2px}
+    .tbl table:has(th:nth-child(3)) td:first-child{font-weight:800;color:var(--pnavy)}
+  }
   .tbl th{background:#F4F8FF;text-align:left;font-weight:800;color:var(--pnavy);padding:12px 16px;
       border-bottom:1.5px solid var(--pline)}
   .tbl td{padding:12px 16px;border-top:1px solid #EEF2F8;vertical-align:top}
@@ -873,7 +889,7 @@
 <p>No canceles tu seguro actual antes de confirmar que la cobertura de reemplazo ya está vigente. Revisa las declaraciones finales y los documentos de la póliza, no solo la primera pantalla de la cotización.</p>
 <h2 id="arma-una-comparacion-de-igual-a-igual">Arma una comparación de igual a igual</h2>
 <p>Empieza por anotar las coberturas que tienes en tu póliza actual. Usa la misma información para la siguiente cotización: los datos correctos de cada conductor, la identificación de cada vehículo, el lugar donde se guarda cada carro, el millaje anual y el uso real del vehículo. Después compara uno por uno los siguientes puntos:</p>
-<div class="tbl" role="region" tabindex="0" aria-label="Punto"><table><thead><tr><th scope="col">Punto</th><th scope="col">Qué comparar</th></tr></thead><tbody><tr><td>Responsabilidad civil</td><td>Límites por lesiones corporales y por daños a la propiedad</td></tr><tr><td>Protección de tu vehículo</td><td>Si se incluyen la colisión y la cobertura integral</td></tr><tr><td>Deducibles</td><td>Lo que pagas tú después de las pérdidas cubiertas que apliquen</td></tr><tr><td>Otras protecciones</td><td>Conductor sin seguro, PIP, auto de renta, asistencia vial y otras opciones elegidas</td></tr><tr><td>Condiciones de los conductores</td><td>Conductores listados y cualquier restricción o exclusión</td></tr><tr><td>Pago</td><td>Enganche, pagos, prima total y cargos indicados por separado</td></tr><tr><td>Fechas de vigencia</td><td>Cuándo empieza y cuándo termina realmente la cobertura</td></tr></tbody></table></div>
+<div class="tbl" role="region" tabindex="0" aria-label="Punto"><table><thead><tr><th scope="col">Punto</th><th scope="col">Qué comparar</th></tr></thead><tbody><tr><td data-label="Punto">Responsabilidad civil</td><td data-label="Qué comparar">Límites por lesiones corporales y por daños a la propiedad</td></tr><tr><td data-label="Punto">Protección de tu vehículo</td><td data-label="Qué comparar">Si se incluyen la colisión y la cobertura integral</td></tr><tr><td data-label="Punto">Deducibles</td><td data-label="Qué comparar">Lo que pagas tú después de las pérdidas cubiertas que apliquen</td></tr><tr><td data-label="Punto">Otras protecciones</td><td data-label="Qué comparar">Conductor sin seguro, PIP, auto de renta, asistencia vial y otras opciones elegidas</td></tr><tr><td data-label="Punto">Condiciones de los conductores</td><td data-label="Qué comparar">Conductores listados y cualquier restricción o exclusión</td></tr><tr><td data-label="Punto">Pago</td><td data-label="Qué comparar">Enganche, pagos, prima total y cargos indicados por separado</td></tr><tr><td data-label="Punto">Fechas de vigencia</td><td data-label="Qué comparar">Cuándo empieza y cuándo termina realmente la cobertura</td></tr></tbody></table></div>
 <p>No supongas que la póliza con el enganche más bajo tiene el costo total más bajo. Del mismo modo, una prima de seis meses y una de doce meses no deben compararse como si cubrieran el mismo tiempo.</p>
 <h2 id="en-que-puede-ayudarte-una-agencia-independiente">En qué puede ayudarte una agencia independiente</h2>
 <p>Una agencia independiente puede explicarte las opciones disponibles de las aseguradoras con las que trabaja, describir las diferencias de cobertura y ayudarte a entender los pasos para solicitar una póliza. La agencia no controla las decisiones de suscripción de la aseguradora y no puede garantizar que todos los solicitantes califiquen ni que una compañía vaya a ser siempre la más económica.</p>
