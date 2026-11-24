@@ -3,8 +3,8 @@ id: tx-auto-09
 title: Why Did My Car Insurance Go Up? Common Reasons Explained
 description: Explore common reasons a Texas car insurance premium may rise at renewal and how to review your options without compromising coverage.
 category: auto
-published: 2026-11-21
-updated: 2026-11-21
+published: 2026-11-24
+updated: 2026-11-24
 author: editorial
 image: blog/why-did-my-car-insurance-go-up.webp
 image_alt: A woman at a dining table reading a letter next to a laptop

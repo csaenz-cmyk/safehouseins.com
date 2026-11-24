@@ -3,8 +3,8 @@ id: tx-auto-02
 title: Liability vs. Full Coverage Car Insurance: What's the Difference?
 description: Understand the difference between liability and so-called full coverage car insurance, including what each may and may not cover.
 category: auto
-published: 2026-11-21
-updated: 2026-11-21
+published: 2026-11-24
+updated: 2026-11-24
 author: editorial
 image: blog/liability-vs-full-coverage-car-insurance.webp
 image_alt: Two sedans parked side by side in a driveway, one newer and one older with worn paint

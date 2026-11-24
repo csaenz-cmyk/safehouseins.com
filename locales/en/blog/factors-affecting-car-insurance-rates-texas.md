@@ -3,8 +3,8 @@ id: tx-auto-05
 title: 10 Factors That May Affect Your Car Insurance Rates in Texas
 description: Learn 10 common factors insurers may consider when pricing Texas auto insurance, from driving history and location to coverage choices.
 category: auto
-published: 2026-11-21
-updated: 2026-11-21
+published: 2026-11-24
+updated: 2026-11-24
 author: editorial
 image: blog/factors-affecting-car-insurance-rates-texas.webp
 image_alt: A silver SUV parked on a residential street with the Franklin Mountains in the background

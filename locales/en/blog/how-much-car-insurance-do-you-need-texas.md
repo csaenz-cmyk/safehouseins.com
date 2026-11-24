@@ -3,8 +3,8 @@ id: tx-auto-03
 title: How Much Car Insurance Do You Need in Texas?
 description: Texas minimum auto liability limits are 30/60/25. Learn what those numbers mean and which other coverage questions to consider.
 category: auto
-published: 2026-11-21
-updated: 2026-11-21
+published: 2026-11-24
+updated: 2026-11-24
 author: editorial
 image: blog/how-much-car-insurance-do-you-need-texas.webp
 image_alt: A woman at a kitchen table reviewing insurance documents next to a calculator and car keys

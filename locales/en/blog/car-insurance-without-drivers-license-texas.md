@@ -3,8 +3,8 @@ id: tx-auto-04
 title: Can You Get Car Insurance Without a Driver's License in Texas?
 description: Learn why driver’s license status matters when applying for Texas auto insurance and which questions to ask before seeking a policy.
 category: auto
-published: 2026-11-21
-updated: 2026-11-21
+published: 2026-11-24
+updated: 2026-11-24
 author: editorial
 image: blog/car-insurance-without-drivers-license-texas.webp
 image_alt: Car keys, a wallet and a blank card on a wooden table, with a parked car visible through the window
