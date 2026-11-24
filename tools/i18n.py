@@ -59,7 +59,7 @@ import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOCALES = os.path.join(ROOT, 'locales')
-SITE = 'https://safehouseins.com'
+SITE = 'https://www.safehouseins.com'
 
 LANGS = ('en', 'es')
 DEFAULT = 'en'
@@ -353,7 +353,7 @@ def unbreak(text):
 # script that builds an image path. The Spanish tree sits one directory
 # deeper, so each one needs one more '../' to reach the same folder. Page
 # links do not change at all — they stay inside the /es/ tree, which is the
-# point. Absolute URLs (https://safehouseins.com/assets/...) are preceded by a
+# point. Absolute URLs (https://www.safehouseins.com/assets/...) are preceded by a
 # slash and are left alone.
 _ASSET = re.compile(r'''(?<=["'(\s,=])((?:\.\./)*)assets/''')
 

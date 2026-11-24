@@ -13,7 +13,7 @@ P0 fails the build. P1 is reported and does not.
 import os, re, sys, json, collections
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE = 'https://safehouseins.com'
+SITE = 'https://www.safehouseins.com'
 
 # Directories that are deliberately not production.
 SKIP_DIRS = {'.git', 'tools', 'docs', 'email', 'sms', 'mockups', '__pycache__',
@@ -122,6 +122,14 @@ def main():
             p0.append((rel, 'no canonical'))
         elif not one(r'rel=["\']canonical["\'][^>]*href=["\']https://', html):
             p1.append((rel, 'canonical is not an absolute https URL'))
+        # safehouseins.com answers with a 301 to www.safehouseins.com. A
+        # canonical, hreflang or og:url on the bare domain names a redirect as
+        # the page's address — two signals that disagree about one page.
+        for u in re.findall(r'<link[^>]+rel=["\'](?:canonical|alternate)["\'][^>]*href=["\']([^"\']+)', html) + \
+                 re.findall(r'<meta[^>]+property=["\']og:(?:url|image)["\'][^>]*content=["\']([^"\']+)', html):
+            if u.startswith('https://safehouseins.com'):
+                p0.append((rel, 'address on the bare domain, which redirects to www: ' + u))
+                break
 
         h1 = one(r'<h1[\s>]', html)
         if len(h1) == 0:

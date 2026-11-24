@@ -40,7 +40,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import carriers, i18n, menu, nap, shell
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE = 'https://safehouseins.com'
+SITE = 'https://www.safehouseins.com'
 
 
 def e(s):

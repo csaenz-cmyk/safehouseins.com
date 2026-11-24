@@ -170,7 +170,7 @@ if __name__ == '__main__':
     for code in i18n.targets():
         with i18n.language(code):
             out = (shell.head(i18n.t('about.meta.title'), i18n.t('about.meta.desc'),
-                              canonical='https://safehouseins.com/about', up='', link='about.html')
+                              canonical='https://www.safehouseins.com/about', up='', link='about.html')
                    + i18n.render(BODY).replace('{carrier_chips}',
                                   ''.join('<span>' + c + '</span>' for c in CARRIERS))
                    + shell.footer())

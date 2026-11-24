@@ -31,7 +31,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import carriers, genproduct, guides_data, i18n, menu, nap, shell
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE = 'https://safehouseins.com'
+SITE = 'https://www.safehouseins.com'
 GUIDES = guides_data.GUIDES
 UP = '../../'          # learn/<slug>/index.html is two deep
 UP1 = '../'            # learn/index.html is one deep

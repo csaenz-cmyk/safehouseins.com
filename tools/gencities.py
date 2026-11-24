@@ -28,7 +28,7 @@ import shell, cities, places as PL, citykit as CK, states as ST, brandkit as BK
 import carriers
 import i18n
 
-SITE = 'https://safehouseins.com'
+SITE = 'https://www.safehouseins.com'
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 'name' is the English name, read only by the old city_page() below. The live

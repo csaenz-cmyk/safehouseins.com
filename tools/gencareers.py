@@ -667,7 +667,7 @@ if __name__ == '__main__':
                                     .replace('[[I18N_T]]', i18n.JS_T)
                                     .replace('[[SUBMIT_JSON]]', json.dumps(i18n.t('careers.form.submit'))), n=1)) + job_ld()
             out = (shell.head(i18n.t('careers.meta.title'), i18n.t('careers.meta.desc'),
-                              canonical='https://safehouseins.com/careers', up='', link='careers.html')
+                              canonical='https://www.safehouseins.com/careers', up='', link='careers.html')
                    + body + shell.footer())
             path = i18n.write('careers.html', out)
             print(os.path.relpath(path, i18n.ROOT), len(out), 'bytes')

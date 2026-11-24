@@ -37,7 +37,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import shell, nap, i18n
 
-SITE = 'https://safehouseins.com'
+SITE = 'https://www.safehouseins.com'
 
 # Nothing here is known yet. Each entry is (figure, label, note) — see the note
 # at the top of this file before adding one.

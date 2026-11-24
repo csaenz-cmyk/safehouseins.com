@@ -81,12 +81,12 @@ const fill = (s, v) => s.replace(/\{(\w+)\}/g, (m, k) => (k in v ? v[k] : m));
 const SANS = "'Figtree','Segoe UI',Helvetica,Arial,sans-serif";
 const MONO = "'SFMono-Regular',Menlo,Consolas,'Courier New',monospace";
 
-export function customerEmail(rec, { assetBase = 'https://safehouseins.com', prefix = '' } = {}) {
+export function customerEmail(rec, { assetBase = 'https://www.safehouseins.com', prefix = '' } = {}) {
   const c = COPY[rec.lang === 'es' ? 'es' : 'en'];
   const name = esc(rec.first_name), id = esc(rec.id);
   const lineName = c.line[rec.line] || '';
   const base = String(assetBase).replace(/\/+$/, '');
-  const privacy = 'https://safehouseins.com/' + (rec.lang === 'es' ? 'es/' : '') + 'privacy';
+  const privacy = 'https://www.safehouseins.com/' + (rec.lang === 'es' ? 'es/' : '') + 'privacy';
   const when = new Date(rec.created_at).toLocaleString(c.locale, { timeZone: 'America/Denver', dateStyle: 'medium', timeStyle: 'short' });
 
   const row = (k, v, last) => `<tr>
@@ -218,7 +218,7 @@ export function customerEmail(rec, { assetBase = 'https://safehouseins.com', pre
       <!-- footer -->
       <tr><td class="px" bgcolor="${C.navy}" style="background-color:${C.navy};padding:28px 40px 30px 40px;border-radius:0 0 18px 18px;">
         <p style="margin:0;font-family:${SANS};font-size:15px;line-height:20px;font-weight:800;color:#FFFFFF;">Safe House Insurance</p>
-        <p style="margin:6px 0 0 0;font-family:${SANS};font-size:13px;line-height:20px;color:#B9C6DD;">6065 Montana Ave Ste C8, El Paso, TX 79925<br><a href="tel:${CALL_E164}" style="color:#B9C6DD;white-space:nowrap;">${CALL}</a> &nbsp;·&nbsp; <a href="mailto:contact@safehouseins.com" style="color:#B9C6DD;">contact@safehouseins.com</a> &nbsp;·&nbsp; <a href="https://safehouseins.com" style="color:#B9C6DD;">safehouseins.com</a></p>
+        <p style="margin:6px 0 0 0;font-family:${SANS};font-size:13px;line-height:20px;color:#B9C6DD;">6065 Montana Ave Ste C8, El Paso, TX 79925<br><a href="tel:${CALL_E164}" style="color:#B9C6DD;white-space:nowrap;">${CALL}</a> &nbsp;·&nbsp; <a href="mailto:contact@safehouseins.com" style="color:#B9C6DD;">contact@safehouseins.com</a> &nbsp;·&nbsp; <a href="https://www.safehouseins.com" style="color:#B9C6DD;">safehouseins.com</a></p>
         <p style="margin:16px 0 0 0;padding-top:16px;border-top:1px solid #1E3762;font-family:${SANS};font-size:12px;line-height:18px;color:#8EA0BF;">${c.foot1} ${c.foot2}<br><a href="${privacy}" style="color:#FFFFFF;font-weight:700;">${c.privacy}</a> &nbsp;·&nbsp; &copy; ${new Date(rec.created_at).getUTCFullYear()} Safe House Insurance LLC</p>
       </td></tr>
 

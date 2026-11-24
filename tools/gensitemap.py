@@ -9,7 +9,7 @@ filesystem cannot go stale that way.
 """
 import os, re, sys, subprocess, time
 
-SITE = 'https://safehouseins.com'
+SITE = 'https://www.safehouseins.com'
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Working files, mockups and dead experiments that should never be indexed.

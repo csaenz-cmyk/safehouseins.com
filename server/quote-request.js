@@ -273,7 +273,7 @@ async function confirm(env, rec, test, fetchImpl) {
     // English for everyone, as the agency asked; CUSTOMER_EMAIL_LANG=auto sends
     // each customer the language they filled the form in.
     const lang = env.CUSTOMER_EMAIL_LANG === 'auto' ? rec.lang : 'en';
-    const msg = customerEmail({ ...rec, lang }, { assetBase: env.ASSET_BASE || 'https://safehouseins.com', prefix: env.MAIL_SUBJECT_PREFIX || '' });
+    const msg = customerEmail({ ...rec, lang }, { assetBase: env.ASSET_BASE || 'https://www.safehouseins.com', prefix: env.MAIL_SUBJECT_PREFIX || '' });
     await sendMail(env, msg, rec.idem_key + ':customer', fetchImpl, {
       to: rec.email, from: env.CUSTOMER_FROM || env.MAIL_FROM, replyTo: env.MAIL_TO || 'contact@safehouseins.com',
     });

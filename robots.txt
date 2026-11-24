@@ -1,4 +1,4 @@
-# Safe House Insurance — https://safehouseins.com
+# Safe House Insurance — https://www.safehouseins.com
 #
 # Policy: everything a customer would want to find is open to every crawler,
 # AI assistants included. This is a local agency whose growth problem is being
@@ -33,4 +33,4 @@ Disallow: /assets/carriers/_incoming/
 # search result should land on cold. Crawling stays allowed on purpose so the
 # robots meta tag can actually be read.
 
-Sitemap: https://safehouseins.com/sitemap.xml
+Sitemap: https://www.safehouseins.com/sitemap.xml

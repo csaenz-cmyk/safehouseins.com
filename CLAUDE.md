@@ -266,6 +266,33 @@ titles are the `x.html` + `x/index.html` pairs serving one page two ways, and
 city-page similarity is inherent to the format. Compare against the state
 before your change rather than expecting silence.
 
+## Look at the Staging preview, every time
+
+Tests on this machine are not the end of a change. After every push to a
+`staging/<name>` branch, once Cloudflare has published it, open the preview —
+`https://staging-<name>.safehouse-site.pages.dev` — and look at the pages the
+change touched, on a computer (1440 px) and on a phone, in English and in
+Spanish:
+
+```
+NODE_PATH=/opt/node22/lib/node_modules node tools/previewshots.js \
+    https://staging-<name>.safehouse-site.pages.dev <scratch-dir> /page /es/page ...
+```
+
+It saves a full-page screenshot per page and width and fails on a page that
+does not load, scrolls sideways, has a broken image or a script error. Then
+**look at the screenshots** before reporting — the owner asked for this
+explicitly, after changes were reported done that had only been checked
+locally. A new branch's preview host has to be allowed in the session's
+network settings first; ask for it rather than skipping the look. After
+publishing, do the same on www.safehouseins.com.
+
+**The site's address is `https://www.safehouseins.com`.** The bare domain
+answers with a 301 to www, so every canonical, hreflang, og:url, sitemap entry
+and absolute link uses www (`SITE` in `tools/i18n.py`, `tools/nap.py` and the
+generators that keep their own copy). `tools/seocheck.py` fails a page that
+names the bare domain.
+
 ## Browsers
 
 Chromium and Playwright are preinstalled on the image, not in the project.

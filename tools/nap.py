@@ -20,7 +20,7 @@ must never merge them into one "call or text" on a single number.
 # ---- identity ----------------------------------------------------------
 NAME        = 'Safe House Insurance'
 LEGAL_NAME  = 'Safe House Insurance LLC'   # what the license is issued to
-SITE        = 'https://safehouseins.com'
+SITE        = 'https://www.safehouseins.com'
 LOGO        = SITE + '/assets/safehouse-logo.png'
 
 # ---- address (verified: appears on the current public site) -------------

@@ -29,7 +29,7 @@ import os, re, sys, html, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import i18n, shell, brandkit as BK, lineup as LU, makes as M, vehiclesvg
 
-SITE = 'https://safehouseins.com'
+SITE = 'https://www.safehouseins.com'
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UP = '../../'
 # Shorter than the site default so a long make name still fits in a search result.

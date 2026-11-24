@@ -390,7 +390,7 @@ def head(slug, up, link):
     return out
 
 
-SITE = 'https://safehouseins.com'
+SITE = 'https://www.safehouseins.com'
 
 
 def to_dir(page, slug):
