@@ -191,6 +191,8 @@ CSS = """
   .card{position:relative}
   .card h3 a::after{content:"";position:absolute;inset:0}
   .dot{width:3px;height:3px;border-radius:50%;background:#B7C3D6}
+  .stl{font-size:11px;font-weight:800;letter-spacing:.04em;color:#0E3A8C;background:#EAF2FF;
+      border-radius:99px;padding:3px 9px;line-height:1.3}
 
   /* ---- featured ---- */
   .feat{padding:44px 0 8px}
@@ -556,16 +558,19 @@ def card(p, up, cls='', heading='h3', code=None, lazy=True):
         tags += ' <span class="stag">%s</span>' % t('blog.post.sampleTag')
     if code != here:
         tags += ' <span class="entag">%s</span>' % t('blog.index.inEnglish')
-    return ('<article class="card%s" data-cat="%s" data-q="%s">'
+    state = ('<span class="stl">%s</span>' % t('blog.states.' + p['state'])) if p['state'] else ''
+    when = ('' if p['published'] == blog_data.PENDING else
+            '<span class="dot"></span><time datetime="%s">%s</time>' % (p['published'], date(p['published'])))
+    return ('<article class="card%s" data-cat="%s" data-state="%s" data-q="%s">'
             '%s<div class="tx">'
-            '<div class="meta"><span class="cat">%s</span><span class="dot"></span>'
-            '<time datetime="%s">%s</time>%s</div>'
+            '<div class="meta"><span class="cat">%s</span>%s%s%s</div>'
             '<%s%s><a href="%s">%s</a></%s>'
             '<p%s>%s</p></div></article>\n'
-            % ((' ' + cls) if cls else '', p['category'],
-               a(plain(w['title'] + ' ' + w['description'] + ' ' + cat_name(p)).lower()),
+            % ((' ' + cls) if cls else '', p['category'], p['state'] or '',
+               a(plain(w['title'] + ' ' + w['description'] + ' ' + cat_name(p)
+                       + (' ' + t('blog.states.' + p['state']) if p['state'] else '')).lower()),
                cover(p, up, lazy),
-               cat_name(p, True), p['published'], date(p['published']), tags,
+               cat_name(p, True), state, when, tags,
                heading, lang_attr, href_post(p, up, here), w['title'], heading,
                lang_attr, w['description']))
 
@@ -576,15 +581,22 @@ INDEX_JS = """<script>
   var grid=document.getElementById('grid'); if(!grid) return;
   var cards=[].slice.call(grid.querySelectorAll('.card')), feat=document.getElementById('feat'),
       more=document.getElementById('more'), none=document.getElementById('nomatch'),
-      q=document.getElementById('q'), chips=[].slice.call(document.querySelectorAll('.chip')),
-      cat='all', shown=%(page)d, PAGE=%(page)d;
+      q=document.getElementById('q'), chips=[].slice.call(document.querySelectorAll('.chip[data-cat]')),
+      schips=[].slice.call(document.querySelectorAll('.chip[data-state]')),
+      cat='all', st='all', shown=%(page)d, PAGE=%(page)d;
   var u=new URLSearchParams(location.search);
   if(u.get('topic')&&chips.some(function(c){return c.dataset.cat===u.get('topic');})) cat=u.get('topic');
+  if(u.get('state')&&schips.some(function(c){return c.dataset.state===u.get('state');})) st=u.get('state');
+  function setParam(k,v){
+    try{var s=new URL(location.href); if(v==='all') s.searchParams.delete(k); else s.searchParams.set(k,v);
+      history.replaceState(null,'',s);}catch(_){}
+  }
   function apply(){
-    var term=(q&&q.value||'').trim().toLowerCase(), active=cat!=='all'||term, n=0, v=0;
+    var term=(q&&q.value||'').trim().toLowerCase(), active=cat!=='all'||st!=='all'||term, n=0, v=0;
     if(feat) feat.hidden=!!active;
     cards.forEach(function(c){
-      var ok=(cat==='all'||c.dataset.cat===cat)&&(!term||c.dataset.q.indexOf(term)>-1)&&(active||!c.classList.contains('isf'));
+      var ok=(cat==='all'||c.dataset.cat===cat)&&(st==='all'||c.dataset.state===st)
+        &&(!term||c.dataset.q.indexOf(term)>-1)&&(active||!c.classList.contains('isf'));
       if(ok) n++;
       var vis=ok&&(active||n<=shown); if(vis) v++;
       c.hidden=!vis;
@@ -592,12 +604,10 @@ INDEX_JS = """<script>
     if(more) more.hidden=active||n<=shown;
     if(none) none.hidden=n>0;
     chips.forEach(function(c){c.setAttribute('aria-pressed',c.dataset.cat===cat?'true':'false');});
+    schips.forEach(function(c){c.setAttribute('aria-pressed',c.dataset.state===st?'true':'false');});
   }
-  chips.forEach(function(c){c.addEventListener('click',function(){
-    cat=c.dataset.cat; apply();
-    try{var s=new URL(location.href); if(cat==='all') s.searchParams.delete('topic'); else s.searchParams.set('topic',cat);
-      history.replaceState(null,'',s);}catch(_){}
-  });});
+  chips.forEach(function(c){c.addEventListener('click',function(){ cat=c.dataset.cat; shown=PAGE; apply(); setParam('topic',cat); });});
+  schips.forEach(function(c){c.addEventListener('click',function(){ st=c.dataset.state; shown=PAGE; apply(); setParam('state',st); });});
   if(q) q.addEventListener('input',apply);
   if(more) more.querySelector('button').addEventListener('click',function(){
     var first=null; shown+=PAGE;
@@ -624,6 +634,7 @@ def index_page():
     # articles marked featured, or else the newest one.
     feats = ([p for p in mine if p['featured']][:3] or mine[:1]) if len(mine) >= 4 else []
     cats = [c for c in blog_data.CATEGORIES if any(p['category'] == c for p in mine)]
+    states = [s for s in blog_data.STATES if any(p['state'] == s for p in mine)]
 
     out = head(up=up, path=path, link='blog/', title=plain(title), desc=plain(desc), og_type='website',
                image=None, robots=robots, sample=False, body_class='blog-page',
@@ -647,6 +658,13 @@ def index_page():
                            'sizes="(min-width:900px) 680px, 100vw"'),
                        ''.join(card(p, up) for p in side)))
         tools = ''
+        # The state filter: every article here is about one state's law, and
+        # a reader in Las Cruces should not have to sift through Texas.
+        if len(mine) >= FILTERS_FROM and len(states) >= 2:
+            tools += ('<div class="chips" role="group" aria-label="%s"><button class="chip" type="button" data-state="all" aria-pressed="true">%s</button>%s</div>'
+                      % (t('blog.index.stateLabel'), t('blog.index.allStates'),
+                         ''.join('<button class="chip" type="button" data-state="%s" aria-pressed="false">%s</button>'
+                                 % (s_, t('blog.states.' + s_)) for s_ in states)))
         if len(mine) >= FILTERS_FROM and len(cats) >= 2:
             tools += ('<div class="chips" role="group" aria-label="%s"><button class="chip" type="button" data-cat="all" aria-pressed="true">%s</button>%s</div>'
                       % (t('blog.index.filterLabel'), t('blog.index.all'),
@@ -683,7 +701,8 @@ def index_page():
                    'description': plain(desc), 'url': i18n.url(path), 'inLanguage': i18n.LD_LANG[code],
                    'publisher': {'@type': 'Organization', 'name': nap.NAME, 'logo': LOGO},
                    'blogPost': [{'@type': 'BlogPosting', 'headline': plain(part(p)['title']),
-                                 'url': i18n.url('blog/%s/' % p['slug']), 'datePublished': p['published']}
+                                 'url': i18n.url('blog/%s/' % p['slug']),
+                                 **({} if p['published'] == blog_data.PENDING else {'datePublished': p['published']})}
                                 for p in listed]})
     out += ld(breadcrumb_ld([(i18n.url(''), t('blog.ui.home')), (i18n.url(path), t('blog.ui.blog'))]))
     return out + footer(1)
@@ -763,6 +782,21 @@ def source_lang(p, code, label, url):
     return ' lang="en"' if (label, url) in p['en']['sources'] else ''
 
 
+def say(p, key, **kw):
+    """The blog's own words inside an article, in the article's voice: a
+    Spanish article in "usted" (register: formal) gets blog.formal.<key> where
+    one exists, every other page blog.<key>."""
+    if i18n.lang() == 'es' and (p['es'] or {}).get('register') == 'formal' and i18n.has('blog.formal.' + key):
+        return t('blog.formal.' + key, **kw)
+    return t('blog.' + key, **kw)
+
+
+def guide_words(p, g, field):
+    if i18n.lang() == 'es' and (p['es'] or {}).get('register') == 'formal' and i18n.has('blog.formal.guides.%s.%s' % (g, field)):
+        return t('blog.formal.guides.%s.%s' % (g, field))
+    return t('guides.items.%s.%s' % (g, field))
+
+
 def related(p, code):
     pool = blog_data.visible(code)
     slugs = {x['slug']: x for x in pool}
@@ -793,22 +827,29 @@ def post_page(p):
     author = t('blog.authors.%s.name' % p['author'])
     cat_href = up + 'blog/?topic=' + p['category']
 
+    pending = p['published'] == blog_data.PENDING
+    # An article not yet on Live shows no date at all: no "Published" line,
+    # no article:published_time, no datePublished (see blog_data.PENDING).
+    dates = '' if pending else (
+        '<span class="dot"></span><span>%s <time datetime="%s">%s</time></span>%s'
+        % (t('blog.post.published'), p['published'], date(p['published']),
+           ('<span class="dot"></span><span>%s <time datetime="%s">%s</time></span>'
+            % (t('blog.post.updated'), updated, date(updated))) if updated != p['published'] else ''))
     byline = ('      <div class="byline"><span class="au"><img src="%sassets/safehouse-heart.png" alt="" width="34" height="34">'
-              '<span>%s %s</span></span><span class="dot"></span>'
-              '<span>%s <time datetime="%s">%s</time></span>%s'
+              '<span>%s %s</span></span>%s'
               '<span class="dot"></span><span>%s</span></div>'
-              % (up, t('blog.post.by'), author, t('blog.post.published'), p['published'], date(p['published']),
-                 ('<span class="dot"></span><span>%s <time datetime="%s">%s</time></span>'
-                  % (t('blog.post.updated'), updated, date(updated))) if updated != p['published'] else '',
-                 t('blog.post.read', n=minutes)))
-    extra = ('<meta property="article:published_time" content="%s">\n'
-             '<meta property="article:modified_time" content="%s">\n'
-             '<meta property="article:section" content="%s">\n'
-             % (p['published'], updated, a(plain(cat_name(p)))))
+              % (up, t('blog.post.by'), author, dates, t('blog.post.read', n=minutes)))
+    extra = (('' if pending else
+              '<meta property="article:published_time" content="%s">\n'
+              '<meta property="article:modified_time" content="%s">\n' % (p['published'], updated))
+             + '<meta property="article:section" content="%s">\n' % a(plain(cat_name(p))))
+    kick = '<a href="%s">%s</a>' % (cat_href, cat_name(p))
+    if p['state']:
+        kick += ' <span aria-hidden="true">·</span> <a href="%sblog/?state=%s">%s</a>' % (up, p['state'], t('blog.states.' + p['state']))
     out = head(up=up, path=path, link=path, title=title, desc=desc, og_type='article', image=img_abs,
                extra_head=extra, body_class='post-page', langs=langs, sample=sample,
                robots='noindex, nofollow' if sample else None,
-               kick_html='<a href="%s">%s</a>' % (cat_href, cat_name(p)),
+               kick_html=kick,
                crumbs=crumbs(up, [(up + 'index.html', t('blog.ui.home')), (up + 'blog/', t('blog.ui.blog')),
                                   (cat_href, cat_name(p, True))]),
                header_inner='      <h1>%s</h1>\n      <p class="lede">%s</p>\n%s' % (w['title'], w['description'], byline))
@@ -825,7 +866,7 @@ def post_page(p):
                 % (t('blog.post.toc'), ''.join('<li><a href="#%s">%s</a></li>' % (i, x) for i, x in toc)))
     out += '<article class="art">\n<div class="prose">\n' + body + '\n</div>\n'
     out += ('<aside class="note" aria-label="%s"><b>%s</b>%s</aside>\n'
-            % (a(plain(t('blog.post.disclaimerH'))), t('blog.post.disclaimerH'), t('blog.post.disclaimer')))
+            % (a(plain(say(p, 'post.disclaimerH'))), say(p, 'post.disclaimerH'), say(p, 'post.disclaimer')))
     if w['sources']:
         out += ('<section class="src" aria-labelledby="srch"><h2 id="srch">%s</h2><ol>%s</ol></section>\n'
                 % (t('blog.post.sources'),
@@ -836,7 +877,7 @@ def post_page(p):
         out += ('<aside class="gd" aria-labelledby="gdh"><h2 id="gdh">%s</h2><ul>%s</ul></aside>\n'
                 % (t('blog.post.guides'),
                    ''.join('<li><a href="%slearn/%s/">%s</a><span>%s</span></li>'
-                           % (up, g, t('guides.items.%s.nav' % g), t('guides.items.%s.card' % g))
+                           % (up, g, guide_words(p, g, 'nav'), guide_words(p, g, 'card'))
                            for g in p['guides'])))
     out += ('<div class="bio"><img src="%sassets/safehouse-heart.png" alt="" width="52" height="52">'
             '<div><b>%s</b><p>%s</p></div></div>\n'
@@ -845,8 +886,8 @@ def post_page(p):
     out += ('<section class="cta" aria-labelledby="ctah"><h2 id="ctah">%s</h2><p>%s</p><div class="row">'
             '<a class="btn pri" href="%squote.html%s">%s</a>'
             '<a class="btn sec" href="tel:%s">%s</a></div></section>\n'
-            % (t('blog.cta.h2'), t('blog.cta.p'), up, ('?type=' + qtype) if qtype else '',
-               t('blog.cta.quote'), nap.CALL_E164, t('blog.cta.call', call=nap.CALL)))
+            % (say(p, 'cta.h2'), say(p, 'cta.p'), up, ('?type=' + qtype) if qtype else '',
+               say(p, 'cta.quote'), nap.CALL_E164, say(p, 'cta.call', call=nap.CALL)))
     out += ('<p class="back"><a href="%sblog/"><span aria-hidden="true">&larr;</span> %s</a></p>\n'
             % (up, t('blog.post.back')))
     out += '</article>\n</div>\n'
@@ -862,11 +903,12 @@ def post_page(p):
     # category, picture. Nothing the reader cannot see.
     post_ld = {'@context': 'https://schema.org', '@type': 'BlogPosting',
                'headline': plain(w['title']), 'description': plain(w['description']),
-               'datePublished': p['published'], 'dateModified': updated,
                'author': {'@type': 'Organization', 'name': plain(author), 'url': SITE + '/about'},
                'publisher': {'@type': 'Organization', 'name': nap.NAME, 'logo': {'@type': 'ImageObject', 'url': LOGO}},
                'mainEntityOfPage': i18n.url(path), 'url': i18n.url(path),
                'articleSection': plain(cat_name(p)), 'inLanguage': i18n.LD_LANG[code]}
+    if not pending:
+        post_ld['datePublished'], post_ld['dateModified'] = p['published'], updated
     if img_abs:
         post_ld['image'] = img_abs
     out += ld(post_ld)

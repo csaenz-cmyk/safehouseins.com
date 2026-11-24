@@ -3,6 +3,7 @@ id: tx-auto-01
 title: What Does Car Insurance Cover in Texas? A Simple Guide for Drivers
 description: Learn what liability, collision, comprehensive, and other car insurance coverages may do for Texas drivers in this simple guide.
 category: auto
+state: tx
 published: 2026-11-24
 updated: 2026-11-24
 author: editorial

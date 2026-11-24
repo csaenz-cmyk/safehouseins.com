@@ -3,6 +3,7 @@ id: tx-auto-06
 title: What Happens If You Drive Without Car Insurance in Texas?
 description: Understand Texas financial responsibility rules, possible fines for driving uninsured, and steps to take if your coverage has lapsed.
 category: auto
+state: tx
 published: 2026-11-24
 updated: 2026-11-24
 author: editorial

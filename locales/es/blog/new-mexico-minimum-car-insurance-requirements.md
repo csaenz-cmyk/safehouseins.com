@@ -1,19 +1,20 @@
 ---
-title: ¿Cuáles son los requisitos mínimos de seguro de auto en New Mexico?
-description: Conozca los límites mínimos 25/50/10 del seguro de auto en New Mexico, qué significan y qué revisar antes de contratar una póliza.
-seo_title: Seguro de auto mínimo en New Mexico: requisitos 25/50/10 | Safe House Insurance
-seo_description: Conozca los límites mínimos 25/50/10 del seguro de auto en New Mexico, qué significan y qué revisar antes de contratar una póliza.
+register: formal
+title: ¿Cuáles son los requisitos mínimos de seguro de auto en Nuevo México?
+description: Conozca los límites mínimos 25/50/10 del seguro de auto en Nuevo México, qué significan y qué revisar antes de contratar una póliza.
+seo_title: Seguro de auto mínimo en Nuevo México: requisitos 25/50/10 | Safe House Insurance
+seo_description: Conozca los límites mínimos 25/50/10 del seguro de auto en Nuevo México, qué significan y qué revisar antes de contratar una póliza.
 image_alt: Sedán plateado en una carretera de dos carriles con montañas desérticas al fondo.
 sources:
-  - New Mexico MVD — Seguro obligatorio | https://www.mvd.newmexico.gov/what-automobile-insurance-am-i-required-to-have-in-new-mexico/
-  - New Mexico MVD — Seguros e IIDB | https://www.mvd.newmexico.gov/vehicles/insurance/
-  - New Mexico OSI — Guía de seguro de auto (PDF) | https://www.osi.state.nm.us/wp-content/uploads/2022-april-insurance-tip-of-the-month-auto-insurance.pdf
+  - MVD de Nuevo México — Seguro de auto obligatorio (en inglés) | https://www.mvd.newmexico.gov/what-automobile-insurance-am-i-required-to-have-in-new-mexico/
+  - MVD de Nuevo México — Seguros, avisos e IIDB (en inglés) | https://www.mvd.newmexico.gov/vehicles/insurance/
+  - OSI de Nuevo México — Consejos sobre el seguro de auto (PDF, en inglés) | https://www.osi.state.nm.us/wp-content/uploads/2022-april-insurance-tip-of-the-month-auto-insurance.pdf
 ---
-Si conduce en New Mexico, una de las primeras preguntas es: «¿Qué cantidad de seguro exige el estado?». Es una pregunta importante, pero también conviene entender para qué sirven esos límites y qué gastos podrían quedar fuera de ellos. Una póliza puede cumplir con el requisito legal y, aun así, dejar al conductor responsable de costos que excedan sus límites.
+Si conduce en Nuevo México, una de las primeras preguntas es: «¿Qué cantidad de seguro exige el estado?». Es una pregunta importante, pero también conviene entender para qué sirven esos límites y qué gastos podrían quedar fuera de ellos. Una póliza puede cumplir con el requisito legal y, aun así, dejar al conductor responsable de costos que excedan sus límites.
 
-La División de Vehículos Motorizados de New Mexico (MVD) establece los siguientes límites mínimos para una póliza ordinaria de responsabilidad civil de automóvil. En conjunto se conocen como **25/50/10**. Estas cantidades están relacionadas con los daños cubiertos que usted pueda causar **a otras personas**; no representan dinero reservado para reparar su propio vehículo.
+La División de Vehículos Motorizados de Nuevo México (MVD) establece los siguientes límites mínimos para una póliza ordinaria de responsabilidad civil de automóvil. En conjunto se conocen como **25/50/10**. Estas cantidades están relacionadas con los daños cubiertos que usted pueda causar **a otras personas**; no representan dinero reservado para reparar su propio vehículo.
 
-| Límite de responsabilidad civil | Mínimo en New Mexico | Qué limita |
+| Límite de responsabilidad civil | Mínimo en Nuevo México | Qué limita |
 |---|---:|---|
 | Lesiones corporales, por persona | **$25,000** | Reclamaciones elegibles por lesiones o fallecimiento de una persona en un accidente. |
 | Lesiones corporales, por accidente | **$50,000** | Total de reclamaciones elegibles por lesiones o fallecimiento de todas las personas en un mismo accidente. |
@@ -43,19 +44,19 @@ Puede solicitar cotizaciones con diferentes límites de responsabilidad civil y 
 
 ## ¿El seguro mínimo cubre su propio automóvil?
 
-Por lo general, no. La responsabilidad civil está diseñada principalmente para ciertas lesiones y daños que usted causa a terceros. Para pérdidas cubiertas de su propio vehículo puede resultar útil preguntar por **collision** (colisión) y **comprehensive** (daños no causados por colisión), si están disponibles y son adecuados para su situación.
+Por lo general, no. La responsabilidad civil está diseñada principalmente para ciertas lesiones y daños que usted causa a terceros. Para pérdidas cubiertas de su propio vehículo puede resultar útil preguntar por **colisión** (collision) y **cobertura integral** (comprehensive, para daños no causados por un choque), si están disponibles y son adecuados para su situación.
 
-Collision puede responder a determinados daños por choque del automóvil asegurado. Comprehensive puede contemplar algunas pérdidas no relacionadas con choques, como robo, granizo, vandalismo u objetos que caen. Ambas suelen tener deducibles y están sujetas a términos y exclusiones. Si el vehículo está financiado o arrendado, el contrato de financiamiento podría exigir estas coberturas aunque la obligación estatal ordinaria se refiera a responsabilidad civil.
+La cobertura de colisión puede responder a determinados daños por choque del automóvil asegurado. La cobertura integral puede contemplar algunas pérdidas no relacionadas con choques, como robo, granizo, vandalismo u objetos que caen. Ambas suelen tener deducibles y están sujetas a términos y exclusiones. Si el vehículo está financiado o arrendado, el contrato de financiamiento podría exigir estas coberturas aunque la obligación estatal ordinaria se refiera a responsabilidad civil.
 
 ## ¿Y si otro conductor no tiene seguro?
 
-Las coberturas para conductores sin seguro o con seguro insuficiente, conocidas como **UM/UIM**, son un tema distinto. New Mexico tiene reglas sobre cómo deben ofrecerse estas protecciones y cómo pueden rechazarse. No suponga que comprar los mínimos 25/50/10 significa que también adquirió UM/UIM, ni que toda situación de un conductor que huye del accidente está automáticamente cubierta. Revise las selecciones, el lenguaje de la póliza y cualquier documento de rechazo.
+Las coberturas para conductores sin seguro o con seguro insuficiente, conocidas como **UM/UIM**, son un tema distinto. Nuevo México tiene reglas sobre cómo deben ofrecerse estas protecciones y cómo pueden rechazarse. No suponga que comprar los mínimos 25/50/10 significa que también adquirió UM/UIM, ni que toda situación de un conductor que huye del accidente está automáticamente cubierta. Revise las selecciones, el lenguaje de la póliza y cualquier documento de rechazo.
 
 ## ¿Qué comprobante de seguro debe conservar?
 
-Para registrar un vehículo, el MVD enumera como ejemplos de comprobantes una tarjeta vigente, una copia de la póliza actual o una carta de la aseguradora. New Mexico también utiliza una base electrónica, el **Insurance Identification Database (IIDB)**, para verificar los seguros asociados con los vehículos registrados. El número VIN correcto y los reportes oportunos de la aseguradora importan.
+Para registrar un vehículo, el MVD enumera como ejemplos de comprobantes una tarjeta vigente, una copia de la póliza actual o una carta de la aseguradora. Nuevo México también utiliza una base electrónica, el **Insurance Identification Database (IIDB)**, para verificar los seguros asociados con los vehículos registrados. El número VIN correcto y los reportes oportunos de la aseguradora importan.
 
-Si recibe un aviso de incumplimiento aunque tenga seguro, comuníquese rápidamente con su compañía y siga las instrucciones oficiales; no dé por hecho que el problema se resolverá solo. Quienes se muden a New Mexico deben revisar, por separado pero de manera coordinada, el seguro, la licencia, el título y el registro del automóvil. Una tarjeta emitida en otro estado no demuestra que todos los trámites de New Mexico estén completos.
+Si recibe un aviso de incumplimiento aunque tenga seguro, comuníquese rápidamente con su compañía y siga las instrucciones oficiales; no dé por hecho que el problema se resolverá solo. Quienes se muden a Nuevo México deben revisar, por separado pero de manera coordinada, el seguro, la licencia, el título y el registro del automóvil. Una tarjeta emitida en otro estado no demuestra que todos los trámites de Nuevo México estén completos.
 
 ## Preguntas útiles antes de contratar
 
@@ -67,4 +68,4 @@ Si recibe un aviso de incumplimiento aunque tenga seguro, comuníquese rápidame
 
 La conversación no tiene que limitarse a «¿cuál es el seguro más barato para poder conducir?». También debe responder: «¿Qué protección estoy comprando realmente y qué podría seguir siendo mi responsabilidad?».
 
-**¿Quiere comparar límites de responsabilidad civil superiores al mínimo de New Mexico?** Tome el requisito 25/50/10 como punto de partida y solicite una cotización de seguro de auto con Safe House Insurance. Un agente puede explicarle opciones disponibles; la cobertura y el precio dependen de la evaluación de la aseguradora.
+**¿Quiere comparar límites de responsabilidad civil superiores al mínimo de Nuevo México?** Tome el requisito 25/50/10 como punto de partida y solicite una cotización de seguro de auto con Safe House Insurance. Un agente puede explicarle opciones disponibles; la cobertura y el precio dependen de la evaluación de la aseguradora.

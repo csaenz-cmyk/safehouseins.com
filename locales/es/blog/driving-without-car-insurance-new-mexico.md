@@ -1,17 +1,18 @@
 ---
-title: ¿Qué pasa si conduce sin seguro de auto en New Mexico?
-description: Entienda el seguro obligatorio en New Mexico, el sistema IIDB y qué hacer si recibe un aviso de incumplimiento o suspensión.
-seo_title: Conducir sin seguro de auto en New Mexico: qué puede pasar | Safe House Insurance
-seo_description: Entienda el seguro obligatorio en New Mexico, el sistema IIDB y qué hacer si recibe un aviso de incumplimiento o suspensión.
+register: formal
+title: ¿Qué pasa si conduce sin seguro de auto en Nuevo México?
+description: Entienda el seguro obligatorio en Nuevo México, el sistema IIDB y qué hacer si recibe un aviso de incumplimiento o suspensión.
+seo_title: Conducir sin seguro de auto en Nuevo México: qué puede pasar | Safe House Insurance
+seo_description: Entienda el seguro obligatorio en Nuevo México, el sistema IIDB y qué hacer si recibe un aviso de incumplimiento o suspensión.
 image_alt: Conductor revisando una tarjeta dentro de un sedán estacionado en una calle residencial.
 sources:
-  - New Mexico MVD — Insurance, avisos, preguntas frecuentes e IIDB | https://www.mvd.newmexico.gov/vehicles/insurance/
+  - MVD de Nuevo México — Seguros, avisos e IIDB (en inglés) | https://www.mvd.newmexico.gov/vehicles/insurance/
 ---
-Conducir sin el seguro requerido en New Mexico puede provocar dos problemas diferentes: uno relacionado con el cumplimiento de los requisitos y el registro del vehículo, y otro económico si ocurre un accidente. No son lo mismo. Tampoco desaparecen simplemente porque el automóvil funcione o tenga una calcomanía de registro que parezca vigente.
+Conducir sin el seguro requerido en Nuevo México puede provocar dos problemas diferentes: uno relacionado con el cumplimiento de los requisitos y el registro del vehículo, y otro económico si ocurre un accidente. No son lo mismo. Tampoco desaparecen simplemente porque el automóvil funcione o tenga una calcomanía de registro que parezca vigente.
 
 El MVD indica que los conductores deben operar sus vehículos contando con al menos el seguro de responsabilidad civil obligatorio. Para una póliza ordinaria, esto corresponde a **25/50/10**: $25,000 por persona lesionada, $50,000 por accidente en lesiones corporales y $10,000 por accidente para daños a propiedad.
 
-## Cómo verifica New Mexico los seguros
+## Cómo verifica Nuevo México los seguros
 
 El estado utiliza una base electrónica llamada **Insurance Identification Database (IIDB)** para asociar seguros vigentes con vehículos registrados. Las compañías transmiten datos que se comparan con los registros del MVD. Por ello, haber recibido una tarjeta hace meses no demuestra por sí solo que la póliza continúe activa o que la base de datos tenga la información correcta.
 
@@ -29,6 +30,8 @@ Los vehículos que no cumplen con la obligación de responsabilidad civil pueden
 
 Para un registro ya suspendido, el MVD publica actualmente una **tarifa de reinstalación de $30**. Señala que, una vez recibida la comprobación electrónica correcta en el IIDB, el registro generalmente debería reunir los requisitos para reinstalación el siguiente día hábil, y aconseja esperar al menos 24 horas tras la actualización de la aseguradora antes de acudir a una oficina. Esto **no garantiza** que una suspensión específica se haya eliminado ni que sea legal conducir de inmediato. Confirme el estado real con el MVD.
 
+Lo mejor es no conducir un vehículo sin seguro mientras intenta resolver la situación. Obtener un seguro no necesariamente vuelve válido de inmediato un registro que ya fue suspendido. Confirme con el MVD el proceso de reinstalación y el estado real del registro antes de volver a circular.
+
 ## ¿Qué hacer si sí tiene seguro, pero recibió una carta?
 
 No concluya automáticamente que está sin seguro. Primero confirme directamente con la compañía la vigencia y las fechas de la póliza. Después compare el VIN, descripción y demás datos del vehículo con el registro. El MVD recomienda contactar rápidamente a la aseguradora para que proporcione o corrija la información del IIDB cuando el cliente tiene la cobertura exigida.
@@ -43,7 +46,7 @@ Comprar un seguro después de ocurrido el accidente generalmente no crea cobertu
 
 ## ¿Y si el automóvil está guardado y no se utiliza?
 
-Un vehículo realmente fuera de circulación plantea una situación distinta a uno que se conduce por las vías públicas. El MVD tiene procedimientos relacionados con un formulario de no uso o de seguro fuera del estado para situaciones determinadas. No debe interpretarse como autorización general para manejar un vehículo sin seguro.
+Un vehículo realmente fuera de circulación plantea una situación distinta a uno que se conduce por las vías públicas. El MVD tiene procedimientos relacionados con un formulario de no uso o de seguro fuera del estado para situaciones determinadas. Ese proceso es administrativo y depende de los hechos de cada caso; no debe interpretarse como autorización general para manejar un vehículo sin seguro.
 
 Antes de cancelar el seguro de un automóvil almacenado, pregunte por riesgos mientras está estacionado, revise si un banco exige determinadas coberturas y consulte las obligaciones ante el MVD. Podrían existir opciones, pero sus condiciones dependen del vehículo y de los requisitos aplicables.
 

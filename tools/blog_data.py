@@ -80,9 +80,26 @@ CATEGORIES = {
 REQUIRED = ('id', 'title', 'description', 'category', 'published', 'author', 'status')
 # What a translation may set. Anything else comes from the English file.
 LANGUAGE_FIELDS = {'title', 'description', 'seo_title', 'seo_description', 'image_alt',
-                   'sources', 'updated', 'status'}
-KNOWN = set(REQUIRED) | LANGUAGE_FIELDS | {'image', 'featured', 'related', 'guides'}
+                   'sources', 'updated', 'status', 'register'}
+KNOWN = set(REQUIRED) | LANGUAGE_FIELDS | {'image', 'featured', 'related', 'guides', 'state'}
 STATUSES = ('published', 'draft', 'sample')
+
+# The state an article is about, for the blog's state filter and the label on
+# its card. Names are blog.states.<key>. An article about neither leaves it out.
+STATES = ('tx', 'nm')
+
+# How a Spanish article addresses the reader. The site speaks "tú"; an article
+# delivered in "usted" says `register: formal` in its Spanish file, and the
+# blog's own words inside that article (the note, the quote button, the guide
+# boxes) switch to their blog.formal.* versions, so one page keeps one voice.
+REGISTERS = ('informal', 'formal')
+
+# An article not yet on Live is dated `published: pending`. It shows no date;
+# tools/blog_publish.py writes the real one — the day it goes live, in El
+# Paso's time zone — just before it is published. A dated page that said
+# "November 24" for an article nobody could read until December would be a
+# small untruth on every page and in its structured data.
+PENDING = 'pending'
 
 # Promises an independent agency cannot make, in either language. Whether a
 # policy is written, what it costs and whether a claim is paid depend on the
@@ -138,6 +155,8 @@ def _front(text, where):
 
 
 def _date(v, field, where):
+    if v == PENDING:
+        return v
     if not re.match(r'^\d{4}-\d{2}-\d{2}$', v or ''):
         raise BlogError('%s: %s must be YYYY-MM-DD, not "%s"' % (where, field, v))
     y, m, d = map(int, v.split('-'))
@@ -241,6 +260,7 @@ def posts():
             'published': _date(meta['published'], 'published', where),
             'updated': _date(meta.get('updated') or meta['published'], 'updated', where),
             'author': meta['author'], 'status': meta['status'],
+            'state': meta.get('state') or None,
             'featured': str(meta.get('featured', '')).lower() in ('yes', 'true', '1'),
             'related': _list(meta.get('related', [])),
             'guides': _list(meta.get('guides', [])),
@@ -250,7 +270,11 @@ def posts():
         for g in p['guides']:
             if not os.path.isfile(os.path.join(ROOT, 'learn', g, 'index.html')):
                 raise BlogError('%s: guide "%s" is not one of the guides under /learn/' % (where, g))
-        if p['updated'] < p['published']:
+        if p['state'] and p['state'] not in STATES:
+            raise BlogError('%s: state must be one of %s' % (where, ', '.join(STATES)))
+        if (p['published'] == PENDING) != (p['updated'] == PENDING):
+            raise BlogError('%s: a pending article is pending in both dates (it has not been updated yet)' % where)
+        if p['published'] != PENDING and p['updated'] < p['published']:
             raise BlogError('%s: updated is before published' % where)
         if p['image']:
             if not os.path.exists(os.path.join(ROOT, 'assets', p['image'])):
@@ -275,6 +299,9 @@ def posts():
                     raise BlogError('%s: the article has an image, so it needs image_alt' % ewhere)
                 part = _lang_part(emeta, ebody, ewhere)
                 part['updated'] = _date(emeta.get('updated') or p['updated'], 'updated', ewhere)
+                part['register'] = emeta.get('register') or 'informal'
+                if part['register'] not in REGISTERS:
+                    raise BlogError('%s: register must be one of %s' % (ewhere, ', '.join(REGISTERS)))
                 # A translation of a sample is a sample; a translation of a
                 # published article can be held back as a draft, not promoted.
                 part['status'] = 'sample' if 'sample' in (st, p['status']) else st
@@ -288,7 +315,7 @@ def posts():
                                 % (p['slug'], r))
     # Newest first; articles published the same day keep the order of their ids.
     out.sort(key=lambda p: p['id'])
-    out.sort(key=lambda p: p['published'], reverse=True)
+    out.sort(key=lambda p: '9999-12-31' if p['published'] == PENDING else p['published'], reverse=True)
     _cache['all'] = out
     return out
 

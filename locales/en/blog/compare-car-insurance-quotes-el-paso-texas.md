@@ -3,6 +3,7 @@ id: tx-auto-10
 title: How to Compare Car Insurance Quotes in El Paso, Texas
 description: Compare car insurance quotes in El Paso, Texas, by reviewing liability limits, deductibles, drivers, exclusions, and payment details.
 category: auto
+state: tx
 published: 2026-11-24
 updated: 2026-11-24
 author: editorial

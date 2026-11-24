@@ -60,15 +60,42 @@ function check(ok, what) { console.log((ok ? 'ok    ' : 'FAIL  ') + what); if (!
       check(await p.locator('.empty a[href$="learn/"]').count() === 1, lang + ': empty blog points to the guides');
       continue;
     }
+    // State filter, alone, with the search, and with Show more
+    if (await p.locator('.chip[data-state]').count()) {
+      const all = await p.locator('#grid .card').count();
+      for (const st of ['nm', 'tx']) {
+        await p.locator('.chip[data-state="' + st + '"]').click();
+        const vis = await p.locator('#grid .card:not([hidden])').evaluateAll((cs) => cs.map((c) => c.dataset.state));
+        check(vis.length > 0 && vis.every((x) => x === st), lang + ': state filter ' + st + ' shows only its articles (' + vis.length + ')');
+        check(new URL(p.url()).searchParams.get('state') === st, lang + ': the state is in the address');
+        check(await p.locator('.chip[data-state="' + st + '"]').getAttribute('aria-pressed') === 'true', lang + ': the chosen state is marked pressed');
+        check(await p.locator('#feat').isHidden(), lang + ': featured row steps aside while a state is chosen');
+      }
+      await p.locator('.chip[data-state="nm"]').focus();
+      await p.keyboard.press('Enter');
+      check(await p.locator('.chip[data-state="nm"]').getAttribute('aria-pressed') === 'true', lang + ': the state filter works from the keyboard');
+      if (await p.locator('#q').count()) {
+        const word = (await p.locator('#grid .card[data-state="nm"]').first().getAttribute('data-q')).split(' ').find((w) => w.length > 6);
+        await p.fill('#q', word);
+        const vis = await p.locator('#grid .card:not([hidden])').evaluateAll((cs) => cs.map((c) => c.dataset.state));
+        check(vis.length > 0 && vis.every((x) => x === 'nm'), lang + ': state filter and search combine ("' + word + '", ' + vis.length + ')');
+        await p.fill('#q', '');
+      }
+      await p.locator('.chip[data-state="all"]').click();
+      const shownAll = await p.locator('#grid .card:not([hidden])').count();
+      check(!(await p.locator('#feat').isHidden()) && (await p.locator('#more').count() === 0 || await p.locator('#more').isVisible()),
+        lang + ': back to all articles: featured row and Show more return (' + shownAll + ' of ' + all + ')');
+      check((await p.locator('#grid .card .stl').count()) === all, lang + ': every card says its state');
+    }
     // Filters
-    if (await p.locator('.chip').count()) {
-      const cat = await p.locator('.chip').nth(1).getAttribute('data-cat');
-      await p.locator('.chip').nth(1).click();
+    if (await p.locator('.chip[data-cat]').count()) {
+      const cat = await p.locator('.chip[data-cat]').nth(1).getAttribute('data-cat');
+      await p.locator('.chip[data-cat]').nth(1).click();
       const vis = await p.locator('#grid .card:not([hidden])').evaluateAll((cs) => cs.map((c) => c.dataset.cat));
       check(vis.length > 0 && vis.every((c) => c === cat), lang + ': topic filter shows only ' + cat + ' (' + vis.length + ')');
       check(new URL(p.url()).searchParams.get('topic') === cat, lang + ': the topic is in the address');
       check(await p.locator('#feat').isHidden(), lang + ': featured row steps aside while filtering');
-      await p.locator('.chip').first().click();
+      await p.locator('.chip[data-cat]').first().click();
     }
     if (await p.locator('#q').count()) {
       await p.fill('#q', 'zzzz-no-such-thing');

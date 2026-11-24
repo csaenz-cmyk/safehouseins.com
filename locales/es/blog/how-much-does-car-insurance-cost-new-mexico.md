@@ -1,25 +1,26 @@
 ---
-title: ¿Cuánto cuesta el seguro de auto en New Mexico y qué influye en el precio?
-description: Conozca los promedios de seguro de auto de New Mexico publicados por NAIC para 2024 y los factores que afectan su cotización individual.
-seo_title: ¿Cuánto cuesta el seguro de auto en New Mexico? Datos y factores | Safe House Insurance
-seo_description: Conozca los promedios de seguro de auto de New Mexico publicados por NAIC para 2024 y los factores que afectan su cotización individual.
+register: formal
+title: ¿Cuánto cuesta el seguro de auto en Nuevo México y qué influye en el precio?
+description: Conozca los promedios de seguro de auto de Nuevo México publicados por NAIC para 2024 y los factores que afectan su cotización individual.
+seo_title: ¿Cuánto cuesta el seguro de auto en Nuevo México? Datos y factores | Safe House Insurance
+seo_description: Conozca los promedios de seguro de auto de Nuevo México publicados por NAIC para 2024 y los factores que afectan su cotización individual.
 image_alt: Persona revisando documentos junto a un automóvil estacionado.
 sources:
-  - NAIC — Suplemento de primas promedio 2024 (PDF) | https://content.naic.org/sites/default/files/2024-adb-average-premium-supplement.pdf
-  - New Mexico OSI — Guía de seguro de auto (PDF) | https://www.osi.state.nm.us/wp-content/uploads/2022-april-insurance-tip-of-the-month-auto-insurance.pdf
+  - NAIC — Suplemento de primas promedio 2024 (PDF, en inglés) | https://content.naic.org/sites/default/files/2024-adb-average-premium-supplement.pdf
+  - OSI de Nuevo México — Consejos sobre el seguro de auto (PDF, en inglés) | https://www.osi.state.nm.us/wp-content/uploads/2022-april-insurance-tip-of-the-month-auto-insurance.pdf
 ---
-El suplemento más reciente sobre primas promedio de la Asociación Nacional de Comisionados de Seguros (NAIC) disponible al realizar esta revisión ofrece una referencia **histórica**, aunque no una cotización individual. Para **2024**, NAIC informó que en New Mexico el **gasto promedio anual estimado fue de $1,180.17 por vehículo asegurado**. Su otra medida, llamada **prima promedio combinada**, fue de **$1,421.95**. Ambas cifras representan información agregada de todo el estado y se calculan de manera distinta.
+El suplemento más reciente sobre primas promedio de la Asociación Nacional de Comisionados de Seguros (NAIC) disponible al realizar esta revisión ofrece una referencia **histórica**, aunque no una cotización individual. Para **2024**, NAIC informó que en Nuevo México el **gasto promedio anual estimado fue de $1,180.17 por vehículo asegurado**. Su otra medida, llamada **prima promedio combinada**, fue de **$1,421.95**. Ambas cifras representan información agregada de todo el estado y se calculan de manera distinta.
 
 Su precio real depende del automóvil, los conductores, las coberturas, los deducibles, el lugar donde normalmente se guarda el vehículo y las reglas de cada aseguradora. Para conocer el costo de su seguro en Las Cruces, Sunland Park, Albuquerque u otra comunidad, utilice el promedio como contexto y solicite una cotización personalizada con las coberturas claramente especificadas.
 
-## ¿Qué significan realmente los promedios de New Mexico?
+## ¿Qué significan realmente los promedios de Nuevo México?
 
 El [2024 Auto Database Average Premium Supplement de NAIC](https://content.naic.org/sites/default/files/2024-adb-average-premium-supplement.pdf), publicado en 2026, presenta dos medidas que no deben confundirse:
 
-| Medida de New Mexico para 2024 | Importe anual | Qué representa |
+| Medida de Nuevo México para 2024 | Importe anual | Qué representa |
 |---|---:|---|
-| **Gasto promedio (Average Expenditure), Tabla 4** | **$1,180.17** | Total de primas emitidas por liability, collision y comprehensive dividido entre los años-vehículo con liability. No todos los vehículos incluidos tenían necesariamente collision y comprehensive. |
-| **Prima promedio combinada (Combined Average Premium), Tabla 5** | **$1,421.95** | Suma de las primas promedio de liability, collision y comprehensive. Es una medida estadística, no un producto universal llamado “full coverage”. |
+| **Gasto promedio (Average Expenditure), Tabla 4** | **$1,180.17** | Total de primas emitidas por responsabilidad civil (liability), colisión (collision) y cobertura integral (comprehensive) dividido entre los años-vehículo con responsabilidad civil. No todos los vehículos incluidos tenían necesariamente colisión y cobertura integral. |
+| **Prima promedio combinada (Combined Average Premium), Tabla 5** | **$1,421.95** | Suma de las primas promedio de responsabilidad civil, colisión y cobertura integral. Es una medida estadística, no un producto universal llamado “cobertura completa” (full coverage). |
 
 La NAIC utiliza datos agregados, no cotizaciones para una persona específica. Tampoco elige un solo deducible ni un límite de responsabilidad civil para todos. Por eso, ninguna de las cifras representa una tarifa garantizada, una promesa de que Safe House Insurance puede ofrecer menos, ni una predicción del costo de seis meses. **El año de los datos es 2024**, aunque el suplemento se publicó después.
 
@@ -39,15 +40,15 @@ Proporcione información correcta sobre los conductores regulares y miembros del
 
 Las características del automóvil pueden influir en el precio de las coberturas de daños físicos: costo de reparación, valor de reemplazo y dispositivos de seguridad o antirrobo son algunos ejemplos, según la aseguradora. Dos versiones de un mismo modelo no necesariamente se cotizan igual. También pueden importar el kilometraje anual y si el vehículo se utiliza para asuntos personales, trabajo, entregas o actividades comerciales.
 
-El domicilio donde se guarda normalmente el automóvil, conocido como **garaging address**, no es simplemente una dirección de correspondencia. Los factores geográficos pueden influir en el precio. Por ello, una propuesta calculada con un código postal de New Mexico no debe suponerse válida para cualquier otro domicilio. Si se muda, informe oportunamente a su aseguradora.
+El domicilio donde se guarda normalmente el automóvil, conocido en inglés como **garaging address**, no es simplemente una dirección de correspondencia. Los factores geográficos pueden influir en el precio. Por ello, una propuesta calculada con un código postal de Nuevo México no debe suponerse válida para cualquier otro domicilio. Si se muda, informe oportunamente a su aseguradora.
 
 ### Ejemplo hipotético: vivir en Sunland Park y trabajar en El Paso
 
-Imagine a una persona **hipotética** que reside en Sunland Park, New Mexico, deja su sedán allí casi todas las noches y maneja a su trabajo en El Paso, Texas. La dirección del empleo en Texas no sustituye automáticamente el domicilio de New Mexico donde normalmente se guarda el automóvil. Al solicitar seguro, debe indicar con precisión su residencia, dónde permanece el vehículo, los trayectos habituales, las millas estimadas y cualquier otro dato requerido. Como cruza frecuentemente la frontera estatal, conviene preguntar si la póliza propuesta corresponde a ese uso. Si el auto realmente permanece la mayoría de las noches en El Paso, debe declararse esa situación distinta. Elegir un código postal únicamente para intentar pagar menos puede causar problemas posteriormente.
+Imagine a una persona **hipotética** que reside en Sunland Park, Nuevo México, deja su sedán allí casi todas las noches y maneja a su trabajo en El Paso, Texas. La dirección del empleo en Texas no sustituye automáticamente el domicilio de Nuevo México donde normalmente se guarda el automóvil. Al solicitar seguro, debe indicar con precisión su residencia, dónde permanece el vehículo, los trayectos habituales, las millas estimadas y cualquier otro dato requerido. Como cruza frecuentemente la frontera estatal, conviene preguntar si la póliza propuesta corresponde a ese uso. Si el auto realmente permanece la mayoría de las noches en El Paso, debe declararse esa situación distinta. Elegir un código postal únicamente para intentar pagar menos puede causar problemas posteriormente.
 
 ## Las coberturas elegidas también afectan el costo
 
-Los límites mínimos ordinarios de responsabilidad civil en New Mexico son **25/50/10**, pero puede preguntar por límites mayores. Collision y comprehensive, si se contratan, pueden aumentar la prima y responder a ciertos daños cubiertos del vehículo asegurado. UM/UIM y otras opciones requieren decisiones separadas.
+Los límites mínimos ordinarios de responsabilidad civil en Nuevo México son **25/50/10**, pero puede preguntar por límites mayores. La colisión y la cobertura integral, si se contratan, pueden aumentar la prima y responder a ciertos daños cubiertos del vehículo asegurado. UM/UIM y otras opciones requieren decisiones separadas.
 
 Subir un deducible podría modificar el precio, pero también aumenta la cantidad que tal vez deba pagar después de una reclamación cubierta. Para comparar correctamente, solicite propuestas con **los mismos conductores, vehículos, límites, deducibles, coberturas y fechas**. No compare una póliza solo de responsabilidad mínima con otra que incluye coberturas físicas y límites superiores sin reconocer esas diferencias.
 
@@ -59,13 +60,13 @@ Pregunte cuáles podrían aplicar a su situación y confirme que aparezcan en la
 
 ## Ejemplo práctico de dos conductores
 
-Imagine dos personas de New Mexico que solicitan cotización para un sedán. Una conduce alrededor de 5,000 millas anuales y pide deducibles de $1,000 para daños físicos. Otra realiza traslados mucho más largos y solicita deducibles de $500. Aunque sus autos parezcan similares, las cotizaciones podrían ser distintas. Esa diferencia por sí sola no demuestra un trato indebido; cada compañía utiliza factores permitidos y sus propias reglas.
+Imagine dos personas de Nuevo México que solicitan cotización para un sedán. Una conduce alrededor de 5,000 millas anuales y pide deducibles de $1,000 para daños físicos. Otra realiza traslados mucho más largos y solicita deducibles de $500. Aunque sus autos parezcan similares, las cotizaciones podrían ser distintas. Esa diferencia por sí sola no demuestra un trato indebido; cada compañía utiliza factores permitidos y sus propias reglas.
 
 Ahora imagine que una propuesta cubre seis meses y otra presenta un total de doce. No tiene sentido comparar únicamente el número más grande o pequeño sin considerar la duración. Apunte el costo total de cada periodo y sus condiciones.
 
 ## Qué tener preparado antes de pedir una cotización
 
-Reúna el VIN correcto, año y modelo, código postal de garaging, millas anuales aproximadas, uso del vehículo, información relevante de los conductores y requisitos del préstamo o arrendamiento, si los hay. Piense qué límites y deducibles desea comparar. Informe también con veracidad sobre seguro previo y cualquier interrupción de cobertura.
+Reúna el VIN correcto, año y modelo, código postal donde se guarda el vehículo, millas anuales aproximadas, uso del vehículo, información relevante de los conductores y requisitos del préstamo o arrendamiento, si los hay. Piense qué límites y deducibles desea comparar. Informe también con veracidad sobre seguro previo y cualquier interrupción de cobertura.
 
 Al recibir la cotización, confirme si es preliminar o definitiva, qué verificaciones faltan y cuál sería la fecha y hora efectiva si decide continuar. **Una cotización por sí sola no activa una póliza.**
 
@@ -73,4 +74,4 @@ Al recibir la cotización, confirme si es preliminar o definitiva, qué verifica
 
 Revise los supuestos utilizados: información incorrecta del vehículo, dirección anterior, conductores duplicados o coberturas que no esperaba. Pida alternativas sin eliminar protecciones necesarias ni incumplir los requisitos del financiamiento. Puede buscar otra propuesta, pero ninguna agencia puede garantizar una prima específica o la aceptación de una solicitud.
 
-**¿Quiere cotizar según su automóvil y su forma real de conducir?** Solicite a Safe House Insurance una cotización de seguro de auto de New Mexico para comparar coberturas disponibles y formas de pago. Los promedios estatales no son ofertas individuales; cada aseguradora determina sus precios.
+**¿Quiere cotizar según su automóvil y su forma real de conducir?** Solicite a Safe House Insurance una cotización de seguro de auto de Nuevo México para comparar coberturas disponibles y formas de pago. Los promedios estatales no son ofertas individuales; cada aseguradora determina sus precios.

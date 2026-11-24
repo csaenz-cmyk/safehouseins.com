@@ -20,7 +20,9 @@
     "emptyBtn": "Leer las guías",
     "inEnglishH": "Artículos en inglés",
     "inEnglishP": "Estos artículos todavía no tienen versión en español.",
-    "inEnglish": "En inglés"
+    "inEnglish": "En inglés",
+    "stateLabel": "Filtrar artículos por estado",
+    "allStates": "Todos"
   },
   "post": {
     "titleSuffix": " · Safe House Insurance",
@@ -78,10 +80,40 @@
       "short": "Guías"
     }
   },
+  "states": {
+    "tx": "Texas",
+    "nm": "Nuevo México"
+  },
   "authors": {
     "editorial": {
       "name": "Safe House Insurance",
       "bio": "Safe House Insurance es una agencia de seguros independiente en El Paso, Texas, con licencia en Texas y Nuevo México."
+    }
+  },
+  "formal": {
+    "post": {
+      "disclaimerH": "Tenga en cuenta",
+      "disclaimer": "Este artículo tiene fines informativos generales. No constituye una cotización, una oferta de seguro, una garantía de cobertura o elegibilidad, ni asesoría legal. La disponibilidad, los precios, deducibles, exclusiones y resultados de reclamaciones dependen de la aseguradora, la solicitud, la póliza y las circunstancias del caso. Revise sus documentos y consulte a un profesional de seguros debidamente autorizado. Los requisitos y procedimientos pueden cambiar."
+    },
+    "cta": {
+      "h2": "¿Tiene preguntas sobre sus opciones de seguro?",
+      "p": "Nuestro equipo puede ayudarle a conocer las opciones de cobertura disponibles según sus necesidades.",
+      "quote": "Solicite una cotización",
+      "call": "Llame al {call}"
+    },
+    "guides": {
+      "how-car-insurance-is-calculated": {
+        "nav": "Cómo se calcula su tarifa",
+        "card": "Lo que de verdad toma en cuenta el sistema que calcula su tarifa, y qué de todo eso todavía puede cambiar."
+      },
+      "car-insurance-after-a-lapse": {
+        "nav": "Después de un periodo sin seguro",
+        "card": "Lo que de verdad cuesta quedarse sin seguro, cuánto tiempo cuenta en su contra y cómo evitar que vuelva a pasar."
+      },
+      "uninsured-motorist-coverage": {
+        "nav": "Conductor sin seguro",
+        "card": "La cobertura que paga cuando el conductor que lo chocó no puede, y por qué, si no la quiere, los dos estados exigen que lo ponga por escrito."
+      }
     }
   }
 }

@@ -3,8 +3,9 @@ id: nm-auto-08
 title: Why Did My Car Insurance Premium Increase in New Mexico?
 description: Understand possible reasons a New Mexico auto insurance premium changed and how to review your renewal notice and options carefully.
 category: auto
-published: 2026-11-24
-updated: 2026-11-24
+state: nm
+published: pending
+updated: pending
 author: editorial
 image: blog/08-nm-premium-increase.webp
 image_alt: Homeowner checking a renewal letter at the kitchen counter with an ordinary car visible outside.

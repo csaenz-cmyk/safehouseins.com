@@ -1,18 +1,19 @@
 ---
-title: ¿Mi seguro de auto cubre a alguien que toma prestado mi vehículo en New Mexico?
-description: Aprenda qué revisar antes de prestar su vehículo en New Mexico: permissive use, conductores del hogar, exclusiones y uso habitual.
-seo_title: ¿Mi seguro cubre a alguien que toma prestado mi auto en New Mexico?
-seo_description: Aprenda qué revisar antes de prestar su vehículo en New Mexico: permissive use, conductores del hogar, exclusiones y uso habitual.
+register: formal
+title: ¿Mi seguro de auto cubre a alguien que toma prestado mi vehículo en Nuevo México?
+description: Aprenda qué revisar antes de prestar su vehículo en Nuevo México: uso con permiso (permissive use), conductores del hogar, exclusiones y uso habitual.
+seo_title: ¿Mi seguro cubre a alguien que toma prestado mi auto en Nuevo México?
+seo_description: Aprenda qué revisar antes de prestar su vehículo en Nuevo México: uso con permiso (permissive use), conductores del hogar, exclusiones y uso habitual.
 image_alt: Dos adultos intercambiando las llaves junto a un sedán gris en una entrada residencial.
 sources:
-  - New Mexico OSI — Guía de seguro de auto (PDF) | https://www.osi.state.nm.us/wp-content/uploads/2022-april-insurance-tip-of-the-month-auto-insurance.pdf
-  - New Mexico MVD — Insurance | https://www.mvd.newmexico.gov/vehicles/insurance/
+  - OSI de Nuevo México — Consejos sobre el seguro de auto (PDF, en inglés) | https://www.osi.state.nm.us/wp-content/uploads/2022-april-insurance-tip-of-the-month-auto-insurance.pdf
+  - MVD de Nuevo México — Seguros, avisos e IIDB (en inglés) | https://www.mvd.newmexico.gov/vehicles/insurance/
 ---
 Un vecino pide prestado su automóvil para un mandado. Un familiar quiere ir a la tienda. Una visita en Las Cruces se ofrece a manejar durante un viaje largo. En cualquiera de estas situaciones surge una pregunta natural: **si ocurre un accidente mientras otra persona conduce mi auto, ¿cuál seguro podría responder?**
 
 Existe una frase común en inglés: “insurance follows the car”, es decir, que el seguro sigue al automóvil. Puede describir cómo responden algunas pólizas en determinadas circunstancias, pero es demasiado general para usarla como garantía. La respuesta puede depender del permiso, frecuencia de uso, licencia del conductor, definiciones del contrato, restricciones, exclusiones y finalidad del viaje.
 
-## ¿Qué significa permissive use?
+## ¿Qué significa el uso con permiso (permissive use)?
 
 En seguros, **permissive use** suele referirse al uso de un automóvil con autorización de su propietario. Algunas pólizas personales ofrecen ciertas protecciones para conductores ocasionales elegibles que cuentan con ese permiso. Pero los términos, límites y exclusiones varían; una póliza puede tratar de manera distinta a una visita y a alguien que vive en el mismo hogar.
 
@@ -37,7 +38,7 @@ La tabla contiene preguntas, **no aprobaciones de cobertura**. Las pólizas y lo
 
 Algunas pólizas contemplan exclusiones o restricciones para conductores específicos cuando la normativa lo permite. Si la persona que toma prestado su auto está excluida, autorizarla a manejar puede tener consecuencias importantes. El permiso del dueño no necesariamente anula el texto contractual. La exclusión se interpreta según la póliza y la ley, no según una promesa de quien solicita el automóvil.
 
-Revise la página de declaraciones y los endorsements para identificar nombres, restricciones y exclusiones. Si no entiende el lenguaje, pida a un agente autorizado o a la aseguradora que lo explique antes de entregar las llaves.
+Revise la hoja de declaraciones y los endosos (endorsements, cambios o anexos a la póliza) para identificar nombres, restricciones y exclusiones. Si no entiende el lenguaje, pida a un agente autorizado o a la aseguradora que lo explique antes de entregar las llaves.
 
 ## ¿Qué ocurre si la persona no tiene licencia válida?
 
@@ -47,13 +48,13 @@ Si la persona tiene licencia extranjera, de otro estado, permiso de aprendizaje 
 
 ## ¿Qué seguro podría responder después de un accidente?
 
-Pueden entrar en juego coberturas distintas. Liability podría ayudar con daños o lesiones cubiertos a terceros de los que una persona asegurada sea responsable, dentro de los límites. Collision, si está contratado y aplica, podría responder por determinados daños al propio automóvil. Cada cobertura tiene condiciones y exclusiones.
+Pueden entrar en juego coberturas distintas. La responsabilidad civil (liability) podría ayudar con daños o lesiones cubiertos a terceros de los que una persona asegurada sea responsable, dentro de los límites. La cobertura de colisión (collision), si está contratada y aplica, podría responder por determinados daños al propio automóvil. Cada cobertura tiene condiciones y exclusiones.
 
 No es correcto prometer que la póliza del dueño **siempre paga primero**, que la del conductor **siempre paga después**, o que ambas necesariamente pagan. La coordinación entre contratos depende de su lenguaje, las personas involucradas, el vehículo y los hechos. Las aseguradoras investigan los accidentes y determinan cómo se aplican las pólizas y leyes pertinentes.
 
 ## Ejemplo de un viaje de fin de semana
 
-Suponga que su primo visita New Mexico, tiene licencia válida y solicita su vehículo para salir de viaje un fin de semana. Antes de aceptar, revise si la póliza permite ese uso ocasional, si existe una exclusión para la persona y si se trata de uso estrictamente personal. Si el primo piensa hacer entregas pagadas durante el viaje, surge otra cuestión, porque el seguro personal puede limitar determinados usos comerciales.
+Suponga que su primo visita Nuevo México, tiene licencia válida y solicita su vehículo para salir de viaje un fin de semana. Antes de aceptar, revise si la póliza permite ese uso ocasional, si existe una exclusión para la persona y si se trata de uso estrictamente personal. Si el primo piensa hacer entregas pagadas durante el viaje, surge otra cuestión, porque el seguro personal puede limitar determinados usos comerciales.
 
 La respuesta no depende únicamente de que sean familiares o de que haya permiso. Confirme la información y el contrato antes de asumir que habrá cobertura.
 

@@ -3,6 +3,7 @@ id: tx-auto-07
 title: Does Car Insurance Cover Someone Else Driving Your Car?
 description: Learn how permission, excluded drivers, regular vehicle use, and policy terms may affect insurance when someone borrows your car.
 category: auto
+state: tx
 published: 2026-11-24
 updated: 2026-11-24
 author: editorial

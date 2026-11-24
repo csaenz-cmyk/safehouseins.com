@@ -3,8 +3,9 @@ id: nm-auto-03
 title: How Much Does Car Insurance Cost in New Mexico? What Affects Your Rate
 description: See New Mexico's 2024 auto insurance cost averages from NAIC, what they measure, and why your personal quote can differ.
 category: auto
-published: 2026-11-24
-updated: 2026-11-24
+state: nm
+published: pending
+updated: pending
 author: editorial
 image: blog/03-nm-car-insurance-cost.webp
 image_alt: Person reviewing paperwork beside an everyday parked car.

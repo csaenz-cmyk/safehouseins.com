@@ -20,7 +20,9 @@
     "emptyBtn": "Read the guides",
     "inEnglishH": "Articles in English",
     "inEnglishP": "These articles do not have a Spanish version yet.",
-    "inEnglish": "In English"
+    "inEnglish": "In English",
+    "stateLabel": "Filter articles by state",
+    "allStates": "All articles"
   },
   "post": {
     "titleSuffix": " · Safe House Insurance",
@@ -78,10 +80,40 @@
       "short": "Guides"
     }
   },
+  "states": {
+    "tx": "Texas",
+    "nm": "New Mexico"
+  },
   "authors": {
     "editorial": {
       "name": "Safe House Insurance",
       "bio": "Safe House Insurance is an independent insurance agency in El Paso, Texas, licensed in Texas and New Mexico."
+    }
+  },
+  "formal": {
+    "post": {
+      "disclaimerH": "Please note",
+      "disclaimer": "This article is for general educational purposes only and is not an offer of insurance, a guarantee of coverage or eligibility, or legal advice. Insurance availability, premiums, coverage, deductibles, exclusions, and claim decisions depend on the insurer, applicant, policy documents, and circumstances. Review the actual policy and ask a licensed insurance professional about your situation. Information may change after publication."
+    },
+    "cta": {
+      "h2": "Have Questions About Your Insurance Options?",
+      "p": "Our team can help you explore available coverage options based on your needs.",
+      "quote": "Get a Quote",
+      "call": "Call {call}"
+    },
+    "guides": {
+      "how-car-insurance-is-calculated": {
+        "nav": "How Your Rate Is Calculated",
+        "card": "What a rating engine is actually weighing, and which of those things you can still do something about."
+      },
+      "car-insurance-after-a-lapse": {
+        "nav": "After a Lapse",
+        "card": "What a gap in coverage actually costs, how long it counts against you, and how to stop it happening again."
+      },
+      "uninsured-motorist-coverage": {
+        "nav": "Uninsured Motorist",
+        "card": "The coverage that pays when the driver who hit you cannot — and why both states make you refuse it in writing."
+      }
     }
   }
 }

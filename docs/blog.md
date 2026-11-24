@@ -167,3 +167,31 @@ The page offers both WebP sizes (`srcset`) so a card or a phone downloads the
 800-pixel copy; Open Graph and the article data use the JPEG, which every app
 that unfurls a link can read. Each picture needs `image_alt` in English and in
 the Spanish file.
+
+## State, voice and the publication date
+
+**`state: tx` or `state: nm`** (English file) says which state's law the
+article is about. The blog page filters by it (All articles / Texas / New
+Mexico, kept in the address as `?state=nm`, combined with the search and Show
+more), every card carries the state's name, and the article's kicker links to
+the filtered blog. An article about neither state leaves it out.
+
+**`register: formal`** (Spanish file) is for an article written in *usted*.
+The site speaks *tú*; inside a formal article the blog's own words — the note
+at the end, the call to action and its buttons, the guide boxes — switch to
+their `blog.formal.*` versions in `locales/es/blog.json`, so the page keeps one
+voice. Articles without it are unchanged. The New Mexico articles are formal;
+the Texas ones are not.
+
+**`published: pending` / `updated: pending`** — an article that has not reached
+Live yet. Its pages show no date and carry no `datePublished`. On the day the
+owner authorizes publishing:
+
+```
+python3 tools/blog_publish.py        # pending -> today in El Paso (America/Denver)
+# then the rebuild in CLAUDE.md, commit, push, publish
+```
+
+`python3 tools/blog_publish.py --check` fails while anything is pending; it runs
+in Validate on `live`. Publishing is not an update: both dates get the same day,
+and an article's `updated` moves only when its content really changes.

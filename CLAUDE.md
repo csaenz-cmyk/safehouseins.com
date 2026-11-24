@@ -224,7 +224,12 @@ page, by design: its English page names only itself in hreflang, and
 promises no agency can make (`PROMISES` in `tools/blog_data.py`) and links to
 missing pages. `status: sample` articles are for Staging design review on
 `staging/blog-muestras` only — never publish that branch. The Blog link in the
-menu and footer appears once an article exists. How to add one:
+menu and footer appears once an article exists. Articles carry `state: tx|nm`
+(the blog's state filter), a Spanish file may say `register: formal` (an
+article in *usted*: the blog's own words in it switch to `blog.formal.*`), and
+an article not yet on Live is `published: pending` — **run
+`python3 tools/blog_publish.py` on the day it is authorized for Live** (El Paso
+date), rebuild, then publish. How to add one:
 `docs/blog.md`; `python3 tools/blog_data.py` tests the rules and
 `tools/blogbrowser.js` the pages.
 
