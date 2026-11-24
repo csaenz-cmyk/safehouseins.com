@@ -2,7 +2,7 @@
 register: formal
 title: ¿Es obligatoria la cobertura para conductores sin seguro en Nuevo México?
 description: Entienda cómo se ofrece y puede rechazarse UM/UIM en Nuevo México y qué explican los boletines OSI sobre límites y costos por vehículo.
-seo_title: Cobertura UM/UIM en Nuevo México: ¿es obligatoria? | Safe House Insurance
+seo_title: ¿Es obligatoria la cobertura UM/UIM en Nuevo México?
 seo_description: Entienda cómo se ofrece y puede rechazarse UM/UIM en Nuevo México y qué explican los boletines OSI sobre límites y costos por vehículo.
 image_alt: Conductor junto a un automóvil estacionado en un área de descanso desértica, revisando una tarjeta.
 sources:

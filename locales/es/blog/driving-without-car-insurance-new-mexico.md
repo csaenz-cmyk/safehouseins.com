@@ -2,7 +2,7 @@
 register: formal
 title: ¿Qué pasa si conduce sin seguro de auto en Nuevo México?
 description: Entienda el seguro obligatorio en Nuevo México, el sistema IIDB y qué hacer si recibe un aviso de incumplimiento o suspensión.
-seo_title: Conducir sin seguro de auto en Nuevo México: qué puede pasar | Safe House Insurance
+seo_title: Conducir sin seguro de auto en Nuevo México: qué puede pasar
 seo_description: Entienda el seguro obligatorio en Nuevo México, el sistema IIDB y qué hacer si recibe un aviso de incumplimiento o suspensión.
 image_alt: Conductor revisando una tarjeta dentro de un sedán estacionado en una calle residencial.
 sources:
@@ -48,7 +48,7 @@ Comprar un seguro después de ocurrido el accidente generalmente no crea cobertu
 
 Un vehículo realmente fuera de circulación plantea una situación distinta a uno que se conduce por las vías públicas. El MVD tiene procedimientos relacionados con un formulario de no uso o de seguro fuera del estado para situaciones determinadas. Ese proceso es administrativo y depende de los hechos de cada caso; no debe interpretarse como autorización general para manejar un vehículo sin seguro.
 
-Antes de cancelar el seguro de un automóvil almacenado, pregunte por riesgos mientras está estacionado, revise si un banco exige determinadas coberturas y consulte las obligaciones ante el MVD. Podrían existir opciones, pero sus condiciones dependen del vehículo y de los requisitos aplicables.
+Antes de cancelar el seguro de un automóvil almacenado, pregunte a la aseguradora por el riesgo de robo o daños mientras está estacionado, revise si un banco exige determinadas coberturas y consulte las obligaciones ante el MVD. Podrían existir opciones, pero sus condiciones dependen del vehículo y de los requisitos aplicables.
 
 ## Qué hacer si descubre que su póliza venció o fue cancelada
 

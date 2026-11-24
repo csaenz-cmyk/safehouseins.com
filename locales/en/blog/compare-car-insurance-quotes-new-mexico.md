@@ -9,7 +9,7 @@ updated: pending
 author: editorial
 image: blog/07-nm-compare-car-insurance-quotes.webp
 image_alt: Two adults comparing paperwork beside a laptop at a home dining table.
-seo_title: How to Compare Car Insurance Quotes in New Mexico | Safe House Insurance
+seo_title: How to Compare Car Insurance Quotes in New Mexico
 seo_description: Compare New Mexico car insurance quotes fairly by checking limits, deductibles, drivers, payment terms, and exclusions—not price alone.
 status: published
 related: liability-vs-full-coverage-car-insurance-new-mexico, how-much-does-car-insurance-cost-new-mexico, why-car-insurance-premium-increased-new-mexico, uninsured-motorist-coverage-required-new-mexico

@@ -9,7 +9,7 @@ updated: pending
 author: editorial
 image: blog/02-nm-liability-vs-full-coverage.webp
 image_alt: Two family cars parked outside a stucco-style home.
-seo_title: Liability vs. Full Coverage Auto Insurance in New Mexico | Safe House Insurance
+seo_title: Liability vs. Full Coverage Car Insurance in New Mexico
 seo_description: Learn the difference between liability-only and so-called full coverage auto insurance in New Mexico, including deductibles and lender requirements.
 status: published
 related: new-mexico-minimum-car-insurance-requirements, compare-car-insurance-quotes-new-mexico, how-much-does-car-insurance-cost-new-mexico

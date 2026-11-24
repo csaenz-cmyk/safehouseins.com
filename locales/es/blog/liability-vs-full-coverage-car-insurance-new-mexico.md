@@ -2,7 +2,7 @@
 register: formal
 title: Responsabilidad civil o cobertura completa en Nuevo México: ¿cuál es la diferencia?
 description: Entienda la diferencia entre responsabilidad civil, colisión y cobertura integral en Nuevo México, incluidos deducibles y vehículos financiados.
-seo_title: Liability vs. Full Coverage en Nuevo México: diferencias | Safe House Insurance
+seo_title: Responsabilidad civil vs. cobertura completa en Nuevo México
 seo_description: Entienda la diferencia entre responsabilidad civil, colisión y cobertura integral en Nuevo México, incluidos deducibles y vehículos financiados.
 image_alt: Dos automóviles familiares estacionados frente a una vivienda de estilo estuco.
 sources:

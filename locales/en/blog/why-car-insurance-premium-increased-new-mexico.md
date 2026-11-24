@@ -9,7 +9,7 @@ updated: pending
 author: editorial
 image: blog/08-nm-premium-increase.webp
 image_alt: Homeowner checking a renewal letter at the kitchen counter with an ordinary car visible outside.
-seo_title: Why Did My Car Insurance Increase in New Mexico? | Safe House Insurance
+seo_title: Why Did My Car Insurance Go Up in New Mexico?
 seo_description: Understand possible reasons a New Mexico auto insurance premium changed and how to review your renewal notice and options carefully.
 status: published
 related: compare-car-insurance-quotes-new-mexico, how-much-does-car-insurance-cost-new-mexico, liability-vs-full-coverage-car-insurance-new-mexico

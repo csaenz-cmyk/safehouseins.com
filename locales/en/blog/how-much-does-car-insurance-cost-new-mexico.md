@@ -9,7 +9,7 @@ updated: pending
 author: editorial
 image: blog/03-nm-car-insurance-cost.webp
 image_alt: Person reviewing paperwork beside an everyday parked car.
-seo_title: How Much Does Car Insurance Cost in New Mexico? | Safe House Insurance
+seo_title: How Much Does Car Insurance Cost in New Mexico?
 seo_description: See New Mexico's 2024 auto insurance cost averages from NAIC, what they measure, and why your personal quote can differ.
 status: published
 related: compare-car-insurance-quotes-new-mexico, why-car-insurance-premium-increased-new-mexico, liability-vs-full-coverage-car-insurance-new-mexico

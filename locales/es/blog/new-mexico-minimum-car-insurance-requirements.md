@@ -2,7 +2,7 @@
 register: formal
 title: ¿Cuáles son los requisitos mínimos de seguro de auto en Nuevo México?
 description: Conozca los límites mínimos 25/50/10 del seguro de auto en Nuevo México, qué significan y qué revisar antes de contratar una póliza.
-seo_title: Seguro de auto mínimo en Nuevo México: requisitos 25/50/10 | Safe House Insurance
+seo_title: Seguro de auto mínimo en Nuevo México: requisitos 25/50/10
 seo_description: Conozca los límites mínimos 25/50/10 del seguro de auto en Nuevo México, qué significan y qué revisar antes de contratar una póliza.
 image_alt: Sedán plateado en una carretera de dos carriles con montañas desérticas al fondo.
 sources:

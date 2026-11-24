@@ -9,7 +9,7 @@ updated: pending
 author: editorial
 image: blog/01-nm-minimum-requirements.webp
 image_alt: Silver sedan on a two-lane road with desert mountains in the background.
-seo_title: New Mexico Minimum Car Insurance Requirements Explained | Safe House Insurance
+seo_title: New Mexico Minimum Car Insurance: 25/50/10 Explained
 seo_description: Understand New Mexico's 25/50/10 minimum liability limits, what they cover, and questions to ask before choosing auto insurance.
 featured: yes
 status: published

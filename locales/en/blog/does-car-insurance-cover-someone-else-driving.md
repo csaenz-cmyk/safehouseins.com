@@ -4,12 +4,12 @@ title: Does Car Insurance Cover Someone Else Driving Your Car?
 description: Learn how permission, excluded drivers, regular vehicle use, and policy terms may affect insurance when someone borrows your car.
 category: auto
 state: tx
-published: 2026-11-24
-updated: 2026-11-24
+published: 2026-11-23
+updated: 2026-11-23
 author: editorial
 image: blog/does-car-insurance-cover-someone-else-driving.webp
 image_alt: A woman handing her car keys to a man in front of a parked car
-seo_title: Does Car Insurance Cover Someone Else Driving Your Car?
+seo_title: Does Car Insurance Cover Someone Else Driving Your Car in Texas?
 seo_description: Learn how permission, excluded drivers, regular vehicle use, and policy terms may affect insurance when someone borrows your car.
 status: published
 related: what-does-car-insurance-cover-texas, car-insurance-without-drivers-license-texas, liability-vs-full-coverage-car-insurance

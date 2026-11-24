@@ -2,7 +2,7 @@
 register: formal
 title: ¿Puede obtener seguro de auto sin licencia de conducir en Nuevo México?
 description: Conozca la diferencia entre ser propietario, solicitar una póliza y estar autorizado para conducir en Nuevo México sin promesas de aprobación.
-seo_title: ¿Seguro de auto sin licencia en Nuevo México? Qué debe saber | Safe House Insurance
+seo_title: Seguro de auto sin licencia de conducir en Nuevo México
 seo_description: Conozca la diferencia entre ser propietario, solicitar una póliza y estar autorizado para conducir en Nuevo México sin promesas de aprobación.
 image_alt: Dos adultos hablando sobre documentos de un automóvil en una mesa de cocina.
 sources:

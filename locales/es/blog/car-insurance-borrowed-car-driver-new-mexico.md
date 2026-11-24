@@ -2,7 +2,7 @@
 register: formal
 title: ¿Mi seguro de auto cubre a alguien que toma prestado mi vehículo en Nuevo México?
 description: Aprenda qué revisar antes de prestar su vehículo en Nuevo México: uso con permiso (permissive use), conductores del hogar, exclusiones y uso habitual.
-seo_title: ¿Mi seguro cubre a alguien que toma prestado mi auto en Nuevo México?
+seo_title: Prestar su auto en Nuevo México: ¿quién está cubierto?
 seo_description: Aprenda qué revisar antes de prestar su vehículo en Nuevo México: uso con permiso (permissive use), conductores del hogar, exclusiones y uso habitual.
 image_alt: Dos adultos intercambiando las llaves junto a un sedán gris en una entrada residencial.
 sources:

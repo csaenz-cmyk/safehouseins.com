@@ -9,7 +9,7 @@ updated: pending
 author: editorial
 image: blog/09-nm-borrowed-car-insurance.webp
 image_alt: Two adults exchanging car keys beside a parked gray sedan in a driveway.
-seo_title: Does Insurance Cover Someone Borrowing Your Car in New Mexico? | Safe House Insurance
+seo_title: Does Car Insurance Cover Someone Driving Your Car in New Mexico?
 seo_description: Learn what to check before lending your car in New Mexico, including permissive use, excluded drivers, and personal versus business driving.
 status: published
 related: car-insurance-without-drivers-license-new-mexico, liability-vs-full-coverage-car-insurance-new-mexico, compare-car-insurance-quotes-new-mexico

@@ -9,7 +9,7 @@ updated: pending
 author: editorial
 image: blog/04-nm-insurance-without-license.webp
 image_alt: Two adults discussing vehicle paperwork at a kitchen table.
-seo_title: Car Insurance Without a Driver's License in New Mexico? | Safe House Insurance
+seo_title: Car Insurance Without a Driver's License in New Mexico
 seo_description: Understand the questions involved in insuring a car without a driver's license in New Mexico, including named drivers and insurer rules.
 status: published
 related: compare-car-insurance-quotes-new-mexico, new-mexico-minimum-car-insurance-requirements, driving-without-car-insurance-new-mexico

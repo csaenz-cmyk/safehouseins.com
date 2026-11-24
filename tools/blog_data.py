@@ -307,6 +307,19 @@ def posts():
                 part['status'] = 'sample' if 'sample' in (st, p['status']) else st
                 p['es'] = part
         out.append(p)
+    # No two articles share a <title> in the same language: two pages asking
+    # Google to rank under one title compete with each other.
+    for code in ('en', 'es'):
+        seen = {}
+        for p in out:
+            w = p[code]
+            if not w or w.get('status') == 'draft':
+                continue
+            title = (w['seo_title'] or w['title']).strip().lower()
+            if title in seen:
+                raise BlogError('locales/%s/blog/%s.md: the same title as %s.md — "%s"'
+                                % (code, p['slug'], seen[title], w['seo_title'] or w['title']))
+            seen[title] = p['slug']
     known = {p['slug'] for p in out}
     for p in out:
         for r in p['related']:
@@ -498,6 +511,7 @@ def selftest():
         ('a translation that sets the category', {'en': {'ok': good}, 'es': {'ok': '---\ntitle: T\ndescription: D\ncategory: home\n---\nTexto.\n'}}, 'come from the English'),
         ('a translation with no English', {'en': {'ok': good}, 'es': {'other': '---\ntitle: T\ndescription: D\n---\nTexto.\n'}}, 'no English article'),
         ('a guide that does not exist', {'en': {'ok': good.replace('status:', 'guides: no-such-guide\nstatus:')}}, 'not one of the guides'),
+        ('two articles with one title', {'en': {'ok': good, 'twin': good.replace('id: a', 'id: b')}}, 'the same title'),
         ('an unknown field', {'en': {'ok': good.replace('status:', 'price: 49\nstatus:')}}, 'unknown field'),
         ('a bad file name', {'en': {'Bad_Name': good}}, 'file name'),
     ]

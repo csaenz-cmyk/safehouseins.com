@@ -9,7 +9,7 @@ updated: pending
 author: editorial
 image: blog/10-nm-moving-car-insurance.webp
 image_alt: White SUV with cardboard moving boxes outside a Southwestern-style house.
-seo_title: Moving to New Mexico? What to Know About Car Insurance | Safe House Insurance
+seo_title: Moving to New Mexico? Car Insurance, VIN and Registration
 seo_description: Moving to New Mexico with a car? Review insurance, MVD registration, proof of coverage, VIN details, and address changes.
 status: published
 related: new-mexico-minimum-car-insurance-requirements, compare-car-insurance-quotes-new-mexico, driving-without-car-insurance-new-mexico

@@ -4,8 +4,8 @@ title: What Is an SR-22 in Texas, and When Might You Need One?
 description: Learn what a Texas SR-22 filing is, why it may be required, how long it may be needed, and why it does not restore a license by itself.
 category: auto
 state: tx
-published: 2026-11-24
-updated: 2026-11-24
+published: 2026-11-23
+updated: 2026-11-23
 author: editorial
 image: blog/what-is-sr22-texas.webp
 image_alt: A woman at an office desk reviewing documents beside a blue folder and a set of car keys

@@ -9,7 +9,7 @@ updated: pending
 author: editorial
 image: blog/05-nm-driving-without-insurance.webp
 image_alt: Driver reviewing a card inside a parked sedan on a residential street.
-seo_title: Driving Without Car Insurance in New Mexico | Safe House Insurance
+seo_title: Driving Without Car Insurance in New Mexico: What Happens
 seo_description: Learn why New Mexico requires auto liability insurance and how MVD verification and registration notices may affect drivers.
 status: published
 related: new-mexico-minimum-car-insurance-requirements, moving-to-new-mexico-car-insurance-guide, compare-car-insurance-quotes-new-mexico

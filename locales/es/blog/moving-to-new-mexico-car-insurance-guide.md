@@ -2,7 +2,7 @@
 register: formal
 title: Qué debe saber del seguro de auto al mudarse a Nuevo México
 description: Si se muda a Nuevo México, conozca qué revisar sobre seguro de auto, inspección VIN, título, registro y licencia antes de conducir.
-seo_title: Mudarse a Nuevo México: seguro de auto, VIN y registro | Safe House Insurance
+seo_title: Mudarse a Nuevo México: seguro de auto, VIN y registro
 seo_description: Si se muda a Nuevo México, conozca qué revisar sobre seguro de auto, inspección VIN, título, registro y licencia antes de conducir.
 image_alt: SUV blanco junto a cajas de mudanza frente a una casa de estilo suroeste.
 sources:

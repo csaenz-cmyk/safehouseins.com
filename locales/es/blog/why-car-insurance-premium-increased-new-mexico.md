@@ -2,7 +2,7 @@
 register: formal
 title: ¿Por qué aumentó la prima de mi seguro de auto en Nuevo México?
 description: Descubra factores que pueden aumentar la prima de su auto y cómo revisar la renovación, conductores, descuentos y coberturas en Nuevo México.
-seo_title: ¿Por qué subió mi seguro de auto en Nuevo México? | Safe House Insurance
+seo_title: ¿Por qué subió mi seguro de auto en Nuevo México?
 seo_description: Descubra factores que pueden aumentar la prima de su auto y cómo revisar la renovación, conductores, descuentos y coberturas en Nuevo México.
 image_alt: Persona revisando una carta de renovación en la cocina, con un automóvil visible afuera.
 sources:

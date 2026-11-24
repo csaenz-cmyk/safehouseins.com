@@ -9,7 +9,7 @@ updated: pending
 author: editorial
 image: blog/06-nm-uninsured-motorist.webp
 image_alt: Driver beside a parked car at a desert roadside turnout reviewing a card.
-seo_title: Uninsured Motorist Coverage in New Mexico Explained | Safe House Insurance
+seo_title: Is Uninsured Motorist Coverage Required in New Mexico?
 seo_description: Is uninsured motorist coverage mandatory in New Mexico? Learn the difference between an offer, a rejection, and policy protection.
 status: published
 related: new-mexico-minimum-car-insurance-requirements, liability-vs-full-coverage-car-insurance-new-mexico, compare-car-insurance-quotes-new-mexico

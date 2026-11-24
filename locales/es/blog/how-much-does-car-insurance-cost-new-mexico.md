@@ -2,7 +2,7 @@
 register: formal
 title: ¿Cuánto cuesta el seguro de auto en Nuevo México y qué influye en el precio?
 description: Conozca los promedios de seguro de auto de Nuevo México publicados por NAIC para 2024 y los factores que afectan su cotización individual.
-seo_title: ¿Cuánto cuesta el seguro de auto en Nuevo México? Datos y factores | Safe House Insurance
+seo_title: ¿Cuánto cuesta el seguro de auto en Nuevo México?
 seo_description: Conozca los promedios de seguro de auto de Nuevo México publicados por NAIC para 2024 y los factores que afectan su cotización individual.
 image_alt: Persona revisando documentos junto a un automóvil estacionado.
 sources:

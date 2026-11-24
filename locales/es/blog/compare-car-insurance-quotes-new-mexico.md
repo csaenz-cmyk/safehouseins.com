@@ -2,7 +2,7 @@
 register: formal
 title: Cómo comparar cotizaciones de seguro de auto en Nuevo México
 description: Aprenda a comparar límites, deducibles, pagos iniciales, mensualidades, cargos y vigencia de seguros de auto en Nuevo México.
-seo_title: Cómo comparar cotizaciones de seguro de auto en Nuevo México | Safe House Insurance
+seo_title: Cómo comparar cotizaciones de seguro de auto en Nuevo México
 seo_description: Aprenda a comparar límites, deducibles, pagos iniciales, mensualidades, cargos y vigencia de seguros de auto en Nuevo México.
 image_alt: Dos adultos comparando documentos junto a una computadora portátil en una mesa de comedor.
 sources:
