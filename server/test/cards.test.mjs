@@ -346,7 +346,9 @@ test('events: one per ten seconds per thing, sixty a day per visitor', async () 
   assert.equal(e.DB.raw.prepare("SELECT detail FROM card_events WHERE type = 'service'").get().detail, 'pay');
   const cross = await cardEvent(new Request(HOST + '/api/card-event', { method: 'POST', headers: { 'User-Agent': UA, 'Sec-Fetch-Site': 'cross-site' }, body: '{"slug":"ana","type":"call"}' }), e);
   assert.equal(cross.status, 403);
-  const t0 = Date.now();
+  // Noon, so the 70 events (23 minutes) never straddle midnight UTC, where
+  // the daily count starts again and the cap would not show.
+  const t0 = Date.UTC(2026, 0, 15, 12);
   let kept = 0;
   for (let i = 0; i < 70; i++) if (await record(e.DB, { agent_id: a, type: 'quote', source: 'link', visitor: 'v-cap', lang: 'en', detail: String(i) }, t0 + i * 20e3)) kept++;
   assert.equal(kept, 60);
