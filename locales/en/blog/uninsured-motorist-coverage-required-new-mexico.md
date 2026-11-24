@@ -4,8 +4,8 @@ title: Does New Mexico Require Uninsured Motorist Coverage?
 description: Is uninsured motorist coverage mandatory in New Mexico? Learn the difference between an offer, a rejection, and policy protection.
 category: auto
 state: nm
-published: pending
-updated: pending
+published: 2026-11-23
+updated: 2026-11-23
 author: editorial
 image: blog/06-nm-uninsured-motorist.webp
 image_alt: Driver beside a parked car at a desert roadside turnout reviewing a card.

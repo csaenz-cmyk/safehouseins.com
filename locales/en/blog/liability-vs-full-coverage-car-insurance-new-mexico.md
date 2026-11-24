@@ -4,8 +4,8 @@ title: Liability vs. Full Coverage Car Insurance in New Mexico: What's the Diffe
 description: Learn the difference between liability-only and so-called full coverage auto insurance in New Mexico, including deductibles and lender requirements.
 category: auto
 state: nm
-published: pending
-updated: pending
+published: 2026-11-23
+updated: 2026-11-23
 author: editorial
 image: blog/02-nm-liability-vs-full-coverage.webp
 image_alt: Two family cars parked outside a stucco-style home.

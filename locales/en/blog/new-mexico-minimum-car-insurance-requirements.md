@@ -4,8 +4,8 @@ title: What Are the Minimum Car Insurance Requirements in New Mexico?
 description: Understand New Mexico's 25/50/10 minimum liability limits, what they cover, and questions to ask before choosing auto insurance.
 category: auto
 state: nm
-published: pending
-updated: pending
+published: 2026-11-23
+updated: 2026-11-23
 author: editorial
 image: blog/01-nm-minimum-requirements.webp
 image_alt: Silver sedan on a two-lane road with desert mountains in the background.

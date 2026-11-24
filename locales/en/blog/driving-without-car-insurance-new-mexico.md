@@ -4,8 +4,8 @@ title: What Happens If You Drive Without Car Insurance in New Mexico?
 description: Learn why New Mexico requires auto liability insurance and how MVD verification and registration notices may affect drivers.
 category: auto
 state: nm
-published: pending
-updated: pending
+published: 2026-11-23
+updated: 2026-11-23
 author: editorial
 image: blog/05-nm-driving-without-insurance.webp
 image_alt: Driver reviewing a card inside a parked sedan on a residential street.

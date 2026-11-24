@@ -4,8 +4,8 @@ title: Can You Get Car Insurance Without a Driver's License in New Mexico?
 description: Understand the questions involved in insuring a car without a driver's license in New Mexico, including named drivers and insurer rules.
 category: auto
 state: nm
-published: pending
-updated: pending
+published: 2026-11-23
+updated: 2026-11-23
 author: editorial
 image: blog/04-nm-insurance-without-license.webp
 image_alt: Two adults discussing vehicle paperwork at a kitchen table.

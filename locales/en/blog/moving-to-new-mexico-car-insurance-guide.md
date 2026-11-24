@@ -4,8 +4,8 @@ title: What to Know About Car Insurance When Moving to New Mexico
 description: Moving to New Mexico with a car? Review insurance, MVD registration, proof of coverage, VIN details, and address changes.
 category: auto
 state: nm
-published: pending
-updated: pending
+published: 2026-11-23
+updated: 2026-11-23
 author: editorial
 image: blog/10-nm-moving-car-insurance.webp
 image_alt: White SUV with cardboard moving boxes outside a Southwestern-style house.

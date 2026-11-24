@@ -4,8 +4,8 @@ title: How to Compare Car Insurance Quotes in New Mexico
 description: Compare New Mexico car insurance quotes fairly by checking limits, deductibles, drivers, payment terms, and exclusions—not price alone.
 category: auto
 state: nm
-published: pending
-updated: pending
+published: 2026-11-23
+updated: 2026-11-23
 author: editorial
 image: blog/07-nm-compare-car-insurance-quotes.webp
 image_alt: Two adults comparing paperwork beside a laptop at a home dining table.

@@ -4,8 +4,8 @@ title: Does Your Car Insurance Cover Drivers Who Borrow Your Car in New Mexico?
 description: Learn what to check before lending your car in New Mexico, including permissive use, excluded drivers, and personal versus business driving.
 category: auto
 state: nm
-published: pending
-updated: pending
+published: 2026-11-23
+updated: 2026-11-23
 author: editorial
 image: blog/09-nm-borrowed-car-insurance.webp
 image_alt: Two adults exchanging car keys beside a parked gray sedan in a driveway.
