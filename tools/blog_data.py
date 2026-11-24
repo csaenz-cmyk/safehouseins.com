@@ -361,6 +361,11 @@ def inline(s, link):
     s = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', s)
     s = re.sub(r'(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])', r'<em>\1</em>', s)
 
+    # [words]{lang=en}: words left in another language on purpose — the
+    # official English name of an MVD notice in a Spanish article — marked so
+    # a screen reader pronounces them in that language. The text is unchanged.
+    s = re.sub(r'\[([^\]]+)\]\{lang=([a-z]{2})\}', r'<span lang="\2">\1</span>', s)
+
     def a(m):
         href, ext = link(html.unescape(m.group(2)))
         attrs = ' target="_blank" rel="noopener"' if ext else ''

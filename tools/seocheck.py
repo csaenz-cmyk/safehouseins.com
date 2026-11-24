@@ -92,7 +92,9 @@ def main():
             if hit:
                 p0.append((rel, 'placeholder visible to visitors: ' + ph))
 
-        low = text.lower()
+        # A claim quoted as somebody's question — «¿cuál es el seguro más
+        # barato…?» — is the article rejecting the idea, not making it.
+        low = re.sub(r'[«“"][^«»“”"]{0,200}\?[»”"]', ' ', visible.lower())
         for a in ABSOLUTES:
             # "Not every insurance company offers SR-22 filings" is the
             # caveat, not the claim: a phrase preceded by "not" is negated.

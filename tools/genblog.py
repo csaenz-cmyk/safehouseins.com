@@ -738,6 +738,15 @@ def make_image(p, up, code):
     return image
 
 
+def source_lang(p, code, label, url):
+    """A Spanish article citing a source under the same title as the English
+    one — the page's own English name, left untranslated — says so with
+    lang="en"."""
+    if code == 'en':
+        return ''
+    return ' lang="en"' if (label, url) in p['en']['sources'] else ''
+
+
 def related(p, code):
     pool = blog_data.visible(code)
     slugs = {x['slug']: x for x in pool}
@@ -804,7 +813,8 @@ def post_page(p):
     if w['sources']:
         out += ('<section class="src" aria-labelledby="srch"><h2 id="srch">%s</h2><ol>%s</ol></section>\n'
                 % (t('blog.post.sources'),
-                   ''.join('<li>%s</li>' % (('<a href="%s" target="_blank" rel="noopener">%s</a>' % (a(u), e(l)))
+                   ''.join('<li>%s</li>' % (('<a href="%s" target="_blank" rel="noopener"%s>%s</a>'
+                                             % (a(u), source_lang(p, code, l, u), e(l)))
                                             if u else e(l)) for l, u in w['sources'])))
     if p['guides']:
         out += ('<aside class="gd" aria-labelledby="gdh"><h2 id="gdh">%s</h2><ul>%s</ul></aside>\n'
