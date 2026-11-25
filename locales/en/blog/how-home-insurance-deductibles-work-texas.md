@@ -4,8 +4,8 @@ title: How Do Home Insurance Deductibles Work in Texas?
 description: Learn Texas home insurance percentage deductibles, wind and hail deductibles, and how to compare out-of-pocket costs with hypothetical examples.
 category: home
 state: tx
-published: pending
-updated: pending
+published: 2026-11-25
+updated: 2026-11-25
 author: editorial
 image: blog/04-texas-home-insurance-deductibles.webp
 image_alt: Two adults reviewing home insurance paperwork and using a calculator at a kitchen table.

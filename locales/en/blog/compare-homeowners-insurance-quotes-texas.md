@@ -4,8 +4,8 @@ title: How to Compare Homeowners Insurance Quotes in Texas
 description: Compare Texas homeowners quotes fairly by matching dwelling limits, roof coverage, deductibles, exclusions, liability, and total policy costs.
 category: home
 state: tx
-published: pending
-updated: pending
+published: 2026-11-25
+updated: 2026-11-25
 author: editorial
 image: blog/08-compare-home-insurance-quotes-texas.webp
 image_alt: Homeowner comparing two home insurance documents at a table with a laptop and calculator.

@@ -4,8 +4,8 @@ title: What Does Homeowners Insurance Cover in Texas? A Complete Guide
 description: Learn how Texas home insurance can address the dwelling, belongings, liability, and temporary living costs—and which losses may be excluded.
 category: home
 state: tx
-published: pending
-updated: pending
+published: 2026-11-25
+updated: 2026-11-25
 author: editorial
 image: blog/01-what-homeowners-insurance-covers-texas.webp
 image_alt: Modest Texas brick-and-stucco home with desert landscaping photographed in natural afternoon light.

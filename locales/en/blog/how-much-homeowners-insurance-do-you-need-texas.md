@@ -4,8 +4,8 @@ title: How Much Homeowners Insurance Do You Need in Texas?
 description: Understand dwelling replacement cost, personal property limits, liability protection, and what to review when choosing Texas home insurance amounts.
 category: home
 state: tx
-published: pending
-updated: pending
+published: 2026-11-25
+updated: 2026-11-25
 author: editorial
 image: blog/02-how-much-home-insurance-texas.webp
 image_alt: Texas home beside a patio table with a measuring tape and blank planning notebook.

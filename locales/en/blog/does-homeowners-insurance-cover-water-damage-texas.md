@@ -4,8 +4,8 @@ title: Does Homeowners Insurance Cover Water Damage in Texas?
 description: Learn how Texas homeowners policies may treat burst pipes, leaks, sewer backup, mold, and floodwater, and what to check after damage.
 category: home
 state: tx
-published: pending
-updated: pending
+published: 2026-11-25
+updated: 2026-11-25
 author: editorial
 image: blog/06-water-damage-texas.webp
 image_alt: Plumber examining a small leak beneath a kitchen sink in a Texas home.

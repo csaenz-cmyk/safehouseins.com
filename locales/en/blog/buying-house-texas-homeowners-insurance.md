@@ -4,8 +4,8 @@ title: Buying a House in Texas? What to Know About Homeowners Insurance
 description: Learn when to compare Texas homeowners insurance while buying a house, including mortgage requirements, roof details, deductibles, flood risks, and closing.
 category: home
 state: tx
-published: pending
-updated: pending
+published: 2026-11-25
+updated: 2026-11-25
 author: editorial
 image: blog/10-buying-a-home-texas.webp
 image_alt: Prospective homebuyers receiving keys at the doorway of a modest Texas house.

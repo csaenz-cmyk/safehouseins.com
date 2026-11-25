@@ -4,8 +4,8 @@ title: Replacement Cost vs. Actual Cash Value: What Texas Homeowners Should Know
 description: Compare replacement cost and actual cash value in Texas homeowners insurance, with hypothetical roof examples, depreciation, and deductible questions.
 category: home
 state: tx
-published: pending
-updated: pending
+published: 2026-11-25
+updated: 2026-11-25
 author: editorial
 image: blog/03-replacement-cost-vs-actual-cash-value.webp
 image_alt: Close-up of weathered shingles on the roof of an ordinary Texas house.

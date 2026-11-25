@@ -4,8 +4,8 @@ title: Does Homeowners Insurance Cover Roof Damage in Texas?
 description: Understand roof damage claims in Texas, including wind and hail, wear and tear, depreciation, deductibles, inspections, and contractor questions.
 category: home
 state: tx
-published: pending
-updated: pending
+published: 2026-11-25
+updated: 2026-11-25
 author: editorial
 image: blog/05-roof-damage-texas.webp
 image_alt: Weathered Texas shingle roof with small marks and debris after a storm.

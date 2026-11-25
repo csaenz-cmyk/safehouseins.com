@@ -4,8 +4,8 @@ title: Flood Insurance vs. Homeowners Insurance in Texas: What's the Difference?
 description: Understand the difference between Texas homeowners insurance and separate flood insurance, including rising water, rain damage, and waiting periods.
 category: home
 state: tx
-published: pending
-updated: pending
+published: 2026-11-25
+updated: 2026-11-25
 author: editorial
 image: blog/07-flood-vs-homeowners-insurance-texas.webp
 image_alt: Rainwater pooling along the curb outside a brick Texas home following a heavy storm.

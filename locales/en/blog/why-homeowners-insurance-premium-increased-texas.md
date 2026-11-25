@@ -4,8 +4,8 @@ title: Why Did My Homeowners Insurance Premium Increase in Texas?
 description: Learn what can affect Texas home insurance renewal premiums, from construction costs and claims to roof changes, deductibles, and quote comparisons.
 category: home
 state: tx
-published: pending
-updated: pending
+published: 2026-11-25
+updated: 2026-11-25
 author: editorial
 image: blog/09-why-home-insurance-increased-texas.webp
 image_alt: Texas homeowner thoughtfully reviewing a home insurance renewal letter at a table.
