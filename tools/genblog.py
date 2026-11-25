@@ -912,7 +912,10 @@ def post_page(p):
     if img_abs:
         post_ld['image'] = img_abs
     out += ld(post_ld)
+    # The trail the page shows (home, blog, the article's category), then the
+    # article itself — the same labels and addresses as the visible crumbs.
     out += ld(breadcrumb_ld([(i18n.url(''), t('blog.ui.home')), (i18n.url('blog/'), t('blog.ui.blog')),
+                             (i18n.url('blog/') + '?topic=' + p['category'], cat_name(p, True)),
                              (i18n.url(path), w['title'])]))
     return out + footer(2)
 
