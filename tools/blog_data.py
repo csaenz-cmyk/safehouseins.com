@@ -71,6 +71,8 @@ LOCALES = os.path.join(ROOT, 'locales')
 CATEGORIES = {
     'auto':       {'quote': 'car'},
     'home':       {'quote': 'home'},
+    'renters':    {'quote': 'renters'},
+    # Commercial auto: work trucks and fleets, the form's "commercial" type.
     'commercial': {'quote': 'commercial'},
     'motorcycle': {'quote': 'moto'},
     'rv':         {'quote': None},
@@ -121,6 +123,19 @@ PROMISES = [
     r'no se requiere licencia', r'sin licencia requerida',
 ]
 _PROMISES = re.compile(r'\b(?:' + '|'.join(PROMISES) + r')\b', re.I)
+
+
+def promise(text):
+    """The first promise in `text`, or None. A phrase inside a question is
+    the article asking it — "¿El seguro me permite manejar una moto sin
+    licencia requerida?", answered "No" — not making it, as in seocheck.py.
+    The question is the sentence the phrase sits in, and only that one: a
+    promise in the next sentence is still refused."""
+    for hit in _PROMISES.finditer(text):
+        end = re.search(r'[.!?\n]', text[hit.end():])
+        if not (end and end.group(0) == '?'):
+            return hit.group(0)
+    return None
 
 
 class BlogError(ValueError):
@@ -353,10 +368,10 @@ def _lang_part(meta, body, where):
     }
     text = ' '.join([part['title'], part['description'], part['seo_title'],
                      part['seo_description'], body])
-    hit = _PROMISES.search(text)
+    hit = promise(text)
     if hit:
         raise BlogError('%s: "%s" promises something no agency can promise — eligibility, '
-                        'price and claims depend on the company and the policy' % (where, hit.group(0)))
+                        'price and claims depend on the company and the policy' % (where, hit))
     return part
 
 
@@ -502,6 +517,9 @@ def selftest():
         ('a clean article', {'en': {'ok': good}}, None),
         ('a promise in the body', {'en': {'ok': good.replace('Text.', 'Guaranteed approval for every driver.')}}, 'promises'),
         ('a promise in Spanish', {'en': {'ok': good}, 'es': {'ok': '---\ntitle: T\ndescription: D\n---\nTodos califican.\n'}}, 'promises'),
+        ('a promise asked as a question', {'en': {'ok': good}, 'es': {'ok': '---\ntitle: T\ndescription: D\n---\n### ¿El seguro me permite manejar sin licencia requerida?\n\nNo.\n'}}, None),
+        ('a promise after a question', {'en': {'ok': good.replace('Text.', 'Does it matter? Guaranteed approval for every driver.')}}, 'promises'),
+        ('a promise ending in an exclamation', {'en': {'ok': good.replace('Text.', 'Guaranteed approval!')}}, 'promises'),
         ('a missing field', {'en': {'ok': good.replace('author: editorial\n', '')}}, 'missing author'),
         ('a health category', {'en': {'ok': good.replace('category: auto', 'category: health')}}, 'category'),
         ('a bad date', {'en': {'ok': good.replace('2026-12-01', '12/01/2026')}}, 'YYYY-MM-DD'),

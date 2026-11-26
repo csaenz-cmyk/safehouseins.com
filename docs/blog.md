@@ -114,6 +114,11 @@ written, what it costs and whether a claim is paid depend on the company, the
 applicant, underwriting and the policy. `tools/seocheck.py` adds its own list
 of claims site-wide.
 
+A phrase inside a question is the article asking it, not making it — "¿El
+seguro me permite manejar una moto sin licencia requerida?", answered "No" —
+and passes, as in `seocheck.py`. Only the sentence that ends in "?" counts: a
+promise in the sentence after it is still refused.
+
 Every article ends with the same note — educational information, not a quote
 or an offer; eligibility, price and products vary by company and applicant;
 every policy is subject to its terms, conditions and exclusions — then its

@@ -63,9 +63,13 @@
       "name": "Seguro de casa",
       "short": "Casa"
     },
+    "renters": {
+      "name": "Seguro para inquilinos",
+      "short": "Inquilinos"
+    },
     "commercial": {
-      "name": "Seguro comercial",
-      "short": "Comercial"
+      "name": "Seguro de auto comercial",
+      "short": "Auto comercial"
     },
     "motorcycle": {
       "name": "Seguro de motocicleta",

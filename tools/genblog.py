@@ -84,6 +84,7 @@ def cat_name(p, short=False):
 GLYPH = {
     'auto': '<path d="M5 17h14M3 17v-4l2.2-5.2A2 2 0 0 1 7 6.5h10a2 2 0 0 1 1.8 1.3L21 13v4"/><path d="M3 13h18"/><circle cx="7.5" cy="17.5" r="2"/><circle cx="16.5" cy="17.5" r="2"/>',
     'home': '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/>',
+    'renters': '<rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2"/><path d="M10.5 21v-3h3v3"/>',
     'commercial': '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8.5 7V5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',
     'motorcycle': '<circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5 9 10h5l4.5 6.5"/><path d="M14 10l-1.5-3H10M15.5 7.5h2.5"/>',
     'rv': '<path d="M2 17V7a2 2 0 0 1 2-2h11l5 5v7"/><path d="M2 17h20"/><rect x="5" y="8" width="4" height="3" rx=".6"/><path d="M12 8h3v4h-3z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',

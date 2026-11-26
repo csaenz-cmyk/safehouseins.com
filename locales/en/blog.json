@@ -63,9 +63,13 @@
       "name": "Homeowners Insurance",
       "short": "Home Insurance"
     },
+    "renters": {
+      "name": "Renters Insurance",
+      "short": "Renters"
+    },
     "commercial": {
-      "name": "Commercial Insurance",
-      "short": "Commercial"
+      "name": "Commercial Auto Insurance",
+      "short": "Commercial Auto"
     },
     "motorcycle": {
       "name": "Motorcycle Insurance",

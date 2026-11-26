@@ -114,6 +114,9 @@ function check(ok, what) { console.log((ok ? 'ok    ' : 'FAIL  ') + what); if (!
   }
 
   // ---- every article ----
+  // The quote form's type each topic's button must open (blog_data.CATEGORIES).
+  const QUOTE = { auto: 'car', home: 'home', renters: 'renters', commercial: 'commercial', motorcycle: 'moto' };
+  const byType = {};
   let n = 0;
   for (const lang of ['en', 'es']) {
     for (const href of links[lang]) {
@@ -133,6 +136,12 @@ function check(ok, what) { console.log((ok ? 'ok    ' : 'FAIL  ') + what); if (!
         tag + ': BlogPosting dates are the ones on the page');
       check((await p.locator('.cta a[href*="quote.html"]').count()) === 1 && (await p.locator('.back a').count()) === 1,
         tag + ': Get a Quote and Back to the Blog');
+      const topic = new URL(await p.locator('nav.crumbs a[href*="topic="]').getAttribute('href'), url).searchParams.get('topic');
+      const qtype = new URL(await p.locator('.cta a.pri').getAttribute('href'), url).searchParams.get('type');
+      if (topic in QUOTE) {
+        check(qtype === QUOTE[topic], tag + ': the button opens the "' + QUOTE[topic] + '" quote (' + topic + ')');
+        byType[qtype] = byType[qtype] || url;
+      }
       const alts = await p.locator('link[rel=alternate][hreflang]').evaluateAll((l) => l.map((x) => x.hreflang));
       if (!isEs && !alts.includes('es')) {
         const sw = await p.locator('header > nav .lsw a[data-lang=es]').getAttribute('href');
@@ -144,6 +153,16 @@ function check(ok, what) { console.log((ok ? 'ok    ' : 'FAIL  ') + what); if (!
   }
   check(n === links.en.length + links.es.filter((h) => !h.startsWith('../../')).length || n > 0 || !links.en.length,
     'visited ' + n + ' article pages');
+
+  // ---- each product's button opens the form with that product chosen ----
+  for (const [type, url] of Object.entries(byType)) {
+    await p.goto(url);
+    await p.click('.cta a.pri');
+    await p.waitForLoadState('domcontentloaded');
+    await p.waitForTimeout(300);
+    check(/\/quote(\.html)?/.test(p.url()) && await p.locator('input[name=type][value="' + type + '"]').isChecked(),
+      'a ' + type + ' article opens the quote form with "' + type + '" chosen');
+  }
 
   // ---- the quote button and language preference ----
   if (links.en.length) {
