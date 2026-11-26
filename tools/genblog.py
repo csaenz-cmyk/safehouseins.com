@@ -142,10 +142,15 @@ CSS = """
   .crumbs a{color:var(--pblue)}
   .crumbs a:hover{text-decoration:underline}
   .crumbs i{font-style:normal;color:#C4D2E6;letter-spacing:0}
-  .kick{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.13em;
+  /* Text, not a flex row: a long category ("Commercial Property Insurance")
+     wraps in balanced lines with "· Texas" kept whole, instead of breaking
+     inside its own box with the state left alone at the right. */
+  .kick{display:block;font-size:11.5px;letter-spacing:.13em;line-height:1.6;text-wrap:balance;
       text-transform:uppercase;font-weight:900;color:var(--pblue)}
-  .kick::before{content:"";width:22px;height:2px;border-radius:2px;
+  .kick::before{content:"";display:inline-block;vertical-align:middle;margin:-2px 8px 0 0;
+      width:22px;height:2px;border-radius:2px;
       background:linear-gradient(90deg,var(--pblue),var(--pcyan))}
+  .kick .kst{white-space:nowrap}
   h1{margin-top:14px;font-size:clamp(32px,5.4vw,58px);line-height:1.04;font-weight:900;
       letter-spacing:-.038em;color:var(--pnavy);text-wrap:balance;max-width:18ch}
   .post-page h1{max-width:22ch;font-size:clamp(30px,4.8vw,50px);line-height:1.08}
@@ -588,6 +593,7 @@ INDEX_JS = """<script>
   var u=new URLSearchParams(location.search);
   if(u.get('topic')&&chips.some(function(c){return c.dataset.cat===u.get('topic');})) cat=u.get('topic');
   if(u.get('state')&&schips.some(function(c){return c.dataset.state===u.get('state');})) st=u.get('state');
+  var arrived=cat!=='all'||st!=='all';
   function setParam(k,v){
     try{var s=new URL(location.href); if(v==='all') s.searchParams.delete(k); else s.searchParams.set(k,v);
       history.replaceState(null,'',s);}catch(_){}
@@ -616,6 +622,17 @@ INDEX_JS = """<script>
     apply(); if(first&&!first.hidden){ var l=first.querySelector('h3 a'); if(l) l.focus({preventScroll:false}); }
   });
   apply();
+  // Arrived from an article's category or state link (?topic= / ?state=):
+  // open at the list, not the page's introduction, with the chosen chip in
+  // view — on a phone the chip row scrolls sideways and it could be off screen.
+  if(arrived){
+    [].concat(chips,schips).forEach(function(c){
+      if(c.getAttribute('aria-pressed')!=='true'||c.dataset.cat==='all'||c.dataset.state==='all') return;
+      var row=c.parentNode; if(row.scrollWidth>row.clientWidth) row.scrollLeft=c.offsetLeft-row.offsetLeft-(row.clientWidth-c.offsetWidth)/2;
+    });
+    var h=document.getElementById('allh');
+    if(h) window.scrollTo(0,Math.max(0,h.getBoundingClientRect().top+window.pageYOffset-16));
+  }
 })();
 </script>"""
 
@@ -846,7 +863,8 @@ def post_page(p):
              + '<meta property="article:section" content="%s">\n' % a(plain(cat_name(p))))
     kick = '<a href="%s">%s</a>' % (cat_href, cat_name(p))
     if p['state']:
-        kick += ' <span aria-hidden="true">·</span> <a href="%sblog/?state=%s">%s</a>' % (up, p['state'], t('blog.states.' + p['state']))
+        kick += (' <span class="kst"><span aria-hidden="true">·</span> <a href="%sblog/?state=%s">%s</a></span>'
+                 % (up, p['state'], t('blog.states.' + p['state'])))
     out = head(up=up, path=path, link=path, title=title, desc=desc, og_type='article', image=img_abs,
                extra_head=extra, body_class='post-page', langs=langs, sample=sample,
                robots='noindex, nofollow' if sample else None,
@@ -885,15 +903,18 @@ def post_page(p):
             % (up, author, t('blog.authors.%s.bio' % p['author'])))
     cat = blog_data.CATEGORIES[p['category']]
     qtype = cat['quote']
+    words = 'cta.'
     if cat.get('contact'):
-        # No quote type fits (commercial property): talk to an agent.
+        # No quote type fits (commercial property): talk to an agent, in a box
+        # written for business owners (blog.cta.property.*).
         primary = '<a class="btn pri" href="%scontact.html">%s</a>' % (up, say(p, 'cta.contact'))
+        words = 'cta.property.'
     else:
         primary = ('<a class="btn pri" href="%squote.html%s">%s</a>'
                    % (up, ('?type=' + qtype) if qtype else '', say(p, 'cta.quote')))
     out += ('<section class="cta" aria-labelledby="ctah"><h2 id="ctah">%s</h2><p>%s</p><div class="row">'
             '%s<a class="btn sec" href="tel:%s">%s</a></div></section>\n'
-            % (say(p, 'cta.h2'), say(p, 'cta.p'), primary, nap.CALL_E164, say(p, 'cta.call', call=nap.CALL)))
+            % (say(p, words + 'h2'), say(p, words + 'p'), primary, nap.CALL_E164, say(p, 'cta.call', call=nap.CALL)))
     out += ('<p class="back"><a href="%sblog/"><span aria-hidden="true">&larr;</span> %s</a></p>\n'
             % (up, t('blog.post.back')))
     out += '</article>\n</div>\n'

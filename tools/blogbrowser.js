@@ -166,6 +166,26 @@ function check(ok, what) { console.log((ok ? 'ok    ' : 'FAIL  ') + what); if (!
     check(/\/contact(\.html)?$/.test(new URL(p.url()).pathname), 'Talk to an Agent opens the contact page');
   }
 
+  // ---- an article's category link opens the blog filtered, chip in view ----
+  for (const [w, h] of [[1440, 900], [390, 844]]) {
+    const first = propUrl || quoteUrl;
+    if (!first) break;
+    const v = await b.newPage({ viewport: { width: w, height: h } });
+    await v.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
+    await v.goto(first);
+    const topic = new URL(await v.locator('nav.crumbs a[href*="topic="]').getAttribute('href'), first).searchParams.get('topic');
+    await v.click('nav.crumbs a[href*="topic="]');
+    await v.waitForLoadState('domcontentloaded');
+    await v.waitForTimeout(300);
+    const chip = v.locator('.chip[data-cat="' + topic + '"]');
+    const box = await chip.boundingBox();
+    check((await chip.getAttribute('aria-pressed')) === 'true' && box && box.x >= 0 && box.x + box.width <= w && box.y >= 0 && box.y + box.height <= h,
+      w + 'px: the category link opens the blog with "' + topic + '" chosen and in view');
+    const off = await v.locator('#grid .card').evaluateAll((cs, t) => cs.filter((c) => !c.hidden && c.dataset.cat !== t).length, topic);
+    check(off === 0, w + 'px: only "' + topic + '" articles are listed');
+    await v.close();
+  }
+
   // ---- the quote button and language preference ----
   if (quoteUrl) {
     const first = quoteUrl;

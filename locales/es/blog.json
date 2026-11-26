@@ -46,7 +46,11 @@
     "p": "Nuestro equipo puede ayudarte a conocer las opciones de cobertura disponibles según tus necesidades.",
     "quote": "Cotiza ahora",
     "call": "Llama al {call}",
-    "contact": "Habla con un agente"
+    "contact": "Habla con un agente",
+    "property": {
+      "h2": "¿Tienes preguntas sobre el seguro de propiedad comercial?",
+      "p": "¿Eres propietario de un edificio comercial, rentas un local o necesitas proteger los bienes de tu negocio? Comunícate con Safe House Insurance para conocer las opciones de cobertura disponibles."
+    }
   },
   "ui": {
     "breadcrumb": "Ruta de navegación",
@@ -105,7 +109,11 @@
       "p": "Nuestro equipo puede ayudarle a conocer las opciones de cobertura disponibles según sus necesidades.",
       "quote": "Solicite una cotización",
       "call": "Llame al {call}",
-      "contact": "Hable con un agente"
+      "contact": "Hable con un agente",
+      "property": {
+        "h2": "¿Tiene preguntas sobre el seguro de propiedad comercial?",
+        "p": "¿Es propietario de un edificio comercial, renta un local o necesita proteger los bienes de su negocio? Comuníquese con Safe House Insurance para conocer las opciones de cobertura disponibles."
+      }
     },
     "guides": {
       "how-car-insurance-is-calculated": {

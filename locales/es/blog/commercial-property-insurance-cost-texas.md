@@ -2,7 +2,7 @@
 register: formal
 title: ¿Qué factores influyen en el costo del seguro de propiedad comercial en Texas?
 description: Conozca qué influye en el costo del seguro de propiedad comercial en Texas: ubicación, construcción, ocupación, límites, deducibles y bienes asegurados.
-seo_title: ¿Qué factores influyen en el costo del seguro de propiedad comercial en Texas?
+seo_title: Costo del seguro de propiedad comercial en Texas
 seo_description: Conozca qué influye en el costo del seguro de propiedad comercial en Texas: ubicación, construcción, ocupación, límites, deducibles y bienes asegurados.
 image_alt: Dueña de tienda de Texas revisando gastos de propiedad con calculadora y libreta
 sources:

@@ -77,10 +77,15 @@
   .crumbs a{color:var(--pblue)}
   .crumbs a:hover{text-decoration:underline}
   .crumbs i{font-style:normal;color:#C4D2E6;letter-spacing:0}
-  .kick{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.13em;
+  /* Text, not a flex row: a long category ("Commercial Property Insurance")
+     wraps in balanced lines with "· Texas" kept whole, instead of breaking
+     inside its own box with the state left alone at the right. */
+  .kick{display:block;font-size:11.5px;letter-spacing:.13em;line-height:1.6;text-wrap:balance;
       text-transform:uppercase;font-weight:900;color:var(--pblue)}
-  .kick::before{content:"";width:22px;height:2px;border-radius:2px;
+  .kick::before{content:"";display:inline-block;vertical-align:middle;margin:-2px 8px 0 0;
+      width:22px;height:2px;border-radius:2px;
       background:linear-gradient(90deg,var(--pblue),var(--pcyan))}
+  .kick .kst{white-space:nowrap}
   h1{margin-top:14px;font-size:clamp(32px,5.4vw,58px);line-height:1.04;font-weight:900;
       letter-spacing:-.038em;color:var(--pnavy);text-wrap:balance;max-width:18ch}
   .post-page h1{max-width:22ch;font-size:clamp(30px,4.8vw,50px);line-height:1.08}
@@ -860,7 +865,7 @@
 </div>
     <div class="bin narrow">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> <i>/</i> <a href="../../blog/">Blog</a> <i>/</i> <a href="../../blog/?topic=commercial-property">Commercial Property</a></nav>
-      <span class="kick"><a href="../../blog/?topic=commercial-property">Commercial Property Insurance</a> <span aria-hidden="true">·</span> <a href="../../blog/?state=tx">Texas</a></span>
+      <span class="kick"><a href="../../blog/?topic=commercial-property">Commercial Property Insurance</a> <span class="kst"><span aria-hidden="true">·</span> <a href="../../blog/?state=tx">Texas</a></span></span>
       <h1>Replacement Cost vs. Actual Cash Value for Commercial Buildings in Texas</h1>
       <p class="lede">Learn the difference between replacement cost and actual cash value in Texas commercial property insurance, with depreciation and deductible examples.</p>
       <div class="byline"><span class="au"><img src="../../assets/safehouse-heart.png" alt="" width="34" height="34"><span>By Safe House Insurance</span></span><span class="dot"></span><span>4 min read</span></div>
@@ -910,7 +915,7 @@
 <aside class="note" aria-label="Please note"><b>Please note</b>This article is for general educational purposes only and is not an offer of insurance, a guarantee of coverage or eligibility, or legal advice. Insurance availability, premiums, coverage, deductibles, exclusions, and claim decisions depend on the insurer, applicant, policy documents, and circumstances. Review the actual policy and ask a licensed insurance professional about your situation. Information may change after publication.</aside>
 <section class="src" aria-labelledby="srch"><h2 id="srch">Sources</h2><ol><li><a href="https://www.tdi.texas.gov/pubs/consumer/cb021.html" target="_blank" rel="noopener">TDI — Commercial property insurance guide, replacement cost versus ACV</a></li></ol></section>
 <div class="bio"><img src="../../assets/safehouse-heart.png" alt="" width="52" height="52"><div><b>Safe House Insurance</b><p>Safe House Insurance is an independent insurance agency in El Paso, Texas, licensed in Texas and New Mexico.</p></div></div>
-<section class="cta" aria-labelledby="ctah"><h2 id="ctah">Have Questions About Your Insurance Options?</h2><p>Our team can help you explore available coverage options based on your needs.</p><div class="row"><a class="btn pri" href="../../contact.html">Talk to an Agent</a><a class="btn sec" href="tel:+19155031207">Call <span class="nw">915-503-1207</span></a></div></section>
+<section class="cta" aria-labelledby="ctah"><h2 id="ctah">Questions About Commercial Property Insurance?</h2><p>Own a commercial building, lease a business space, or need coverage for your business property? Contact Safe House Insurance to discuss available coverage options.</p><div class="row"><a class="btn pri" href="../../contact.html">Talk to an Agent</a><a class="btn sec" href="tel:+19155031207">Call <span class="nw">915-503-1207</span></a></div></section>
 <p class="back"><a href="../../blog/"><span aria-hidden="true">&larr;</span> Back to the Blog</a></p>
 </article>
 </div>

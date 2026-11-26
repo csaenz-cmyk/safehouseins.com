@@ -46,7 +46,11 @@
     "p": "Our team can help you explore available coverage options based on your needs.",
     "quote": "Get a Quote",
     "call": "Call {call}",
-    "contact": "Talk to an Agent"
+    "contact": "Talk to an Agent",
+    "property": {
+      "h2": "Questions About Commercial Property Insurance?",
+      "p": "Own a commercial building, lease a business space, or need coverage for your business property? Contact Safe House Insurance to discuss available coverage options."
+    }
   },
   "ui": {
     "breadcrumb": "Breadcrumb",
@@ -105,7 +109,11 @@
       "p": "Our team can help you explore available coverage options based on your needs.",
       "quote": "Get a Quote",
       "call": "Call {call}",
-      "contact": "Talk to an Agent"
+      "contact": "Talk to an Agent",
+      "property": {
+        "h2": "Questions About Commercial Property Insurance?",
+        "p": "Own a commercial building, lease a business space, or need coverage for your business property? Contact Safe House Insurance to discuss available coverage options."
+      }
     },
     "guides": {
       "how-car-insurance-is-calculated": {
