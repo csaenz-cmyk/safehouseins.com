@@ -223,6 +223,12 @@ CSS = """
       letter-spacing:-.018em}
   .mlist span{display:block;margin-top:6px;font-size:13.5px;line-height:1.55;
       color:#5A6B85;font-weight:500}
+  /* The blog articles that cite this guide: titles only, and close to the
+     "more guides" list below it rather than a second full-height section. */
+  .fromblog{padding-bottom:0}
+  .fromblog + .more{margin-top:44px}
+  .fromblog .mlist a{padding:14px 18px}
+  .fromblog .mlist b{font-size:15px;line-height:1.4}
 
   /* ---- the hub ---- */
   .hub{padding:0 0 76px}
@@ -379,17 +385,19 @@ def blog_box(g):
     """The blog articles that name this guide in their `guides:` field. Each
     article already links its guides; this is the other direction, so a reader
     of the guide finds the state-by-state article and the two do not compete
-    for the same search as strangers."""
+    for the same search as strangers. Only articles that name the guide, in
+    the page's own language (a Spanish guide lists Spanish articles), four at
+    most, titles only."""
     code = i18n.lang()
     posts = [p for p in blog_data.visible(code) if g['slug'] in p['guides']
-             and (p['status'] if code == 'en' else p[code]['status']) == 'published']
+             and (p['status'] if code == 'en' else p[code]['status']) == 'published'][:4]
     if not posts:
         return ''
     return ('  <section class="more fromblog" aria-labelledby="blogh">\n'
             '    <h2 id="blogh">' + i18n.t('guides.ui.fromBlog') + '</h2>\n'
             '    <div class="mlist">\n'
             + ''.join('      <a href="' + UP + 'blog/' + p['slug'] + '/"><b>' + e(p[code]['title'])
-                      + '</b><span>' + e(p[code]['description']) + '</span></a>\n' for p in posts)
+                      + '</b></a>\n' for p in posts)
             + '    </div>\n  </section>\n')
 
 
