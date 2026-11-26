@@ -114,10 +114,11 @@ written, what it costs and whether a claim is paid depend on the company, the
 applicant, underwriting and the policy. `tools/seocheck.py` adds its own list
 of claims site-wide.
 
-A phrase inside a question is the article asking it, not making it — "¿El
-seguro me permite manejar una moto sin licencia requerida?", answered "No" —
-and passes, as in `seocheck.py`. Only the sentence that ends in "?" counts: a
-promise in the sentence after it is still refused.
+A phrase is refused wherever it appears — in a statement, a heading, a title,
+an FAQ question ("¿Aprobación garantizada para todos?") — and next to Safe
+House's name as much as anywhere else. There is no exception for questions:
+an article that needs to ask about one of these ideas words the question so it
+does not contain the phrase. The self-test checks each of these cases.
 
 Every article ends with the same note — educational information, not a quote
 or an offer; eligibility, price and products vary by company and applicant;

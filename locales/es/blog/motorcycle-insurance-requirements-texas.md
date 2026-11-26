@@ -68,7 +68,7 @@ No automáticamente. Frecuentemente la moto necesita su propia póliza correctam
 
 Son los mínimos habituales de responsabilidad civil en Texas, pero una pérdida cubierta puede superarlos. Considere sus circunstancias y opciones de límites.
 
-### ¿El seguro me permite manejar una moto sin licencia requerida?
+### ¿Puedo manejar una motocicleta sin la licencia requerida si tengo seguro?
 
 No. Un contrato de seguro nunca sustituye el derecho legal a conducir ni otros requisitos.
 
