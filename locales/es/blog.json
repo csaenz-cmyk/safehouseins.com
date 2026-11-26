@@ -45,7 +45,8 @@
     "h2": "¿Tienes preguntas sobre tus opciones de seguro?",
     "p": "Nuestro equipo puede ayudarte a conocer las opciones de cobertura disponibles según tus necesidades.",
     "quote": "Cotiza ahora",
-    "call": "Llama al {call}"
+    "call": "Llama al {call}",
+    "contact": "Habla con un agente"
   },
   "ui": {
     "breadcrumb": "Ruta de navegación",
@@ -66,6 +67,10 @@
     "commercial": {
       "name": "Seguro comercial",
       "short": "Comercial"
+    },
+    "commercial-property": {
+      "name": "Seguro de propiedad comercial",
+      "short": "Propiedad comercial"
     },
     "motorcycle": {
       "name": "Seguro de motocicleta",
@@ -99,7 +104,8 @@
       "h2": "¿Tiene preguntas sobre sus opciones de seguro?",
       "p": "Nuestro equipo puede ayudarle a conocer las opciones de cobertura disponibles según sus necesidades.",
       "quote": "Solicite una cotización",
-      "call": "Llame al {call}"
+      "call": "Llame al {call}",
+      "contact": "Hable con un agente"
     },
     "guides": {
       "how-car-insurance-is-calculated": {

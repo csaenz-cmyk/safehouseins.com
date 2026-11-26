@@ -45,7 +45,8 @@
     "h2": "Have Questions About Your Insurance Options?",
     "p": "Our team can help you explore available coverage options based on your needs.",
     "quote": "Get a Quote",
-    "call": "Call {call}"
+    "call": "Call {call}",
+    "contact": "Talk to an Agent"
   },
   "ui": {
     "breadcrumb": "Breadcrumb",
@@ -66,6 +67,10 @@
     "commercial": {
       "name": "Commercial Insurance",
       "short": "Commercial"
+    },
+    "commercial-property": {
+      "name": "Commercial Property Insurance",
+      "short": "Commercial Property"
     },
     "motorcycle": {
       "name": "Motorcycle Insurance",
@@ -99,7 +104,8 @@
       "h2": "Have Questions About Your Insurance Options?",
       "p": "Our team can help you explore available coverage options based on your needs.",
       "quote": "Get a Quote",
-      "call": "Call {call}"
+      "call": "Call {call}",
+      "contact": "Talk to an Agent"
     },
     "guides": {
       "how-car-insurance-is-calculated": {

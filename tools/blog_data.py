@@ -66,12 +66,17 @@ LOCALES = os.path.join(ROOT, 'locales')
 # The categories, in the order the filters show them. Names are
 # blog.categories.<key> in the catalogs. `quote` is the type the quote form
 # preselects from the article's button (quote.html?type=…); None opens the
-# form at its first question. Safe House does not write health or life
+# form at its first question; `contact: True` sends the button to the contact
+# page instead of the form. Safe House does not write health or life
 # insurance, and there is no category for either on purpose.
 CATEGORIES = {
     'auto':       {'quote': 'car'},
     'home':       {'quote': 'home'},
     'commercial': {'quote': 'commercial'},
+    # Commercial property is not commercial auto: the quote form's
+    # "commercial" type is work trucks and fleets, and it has no property
+    # type. Its articles send the reader to an agent (`contact`) instead.
+    'commercial-property': {'quote': None, 'contact': True},
     'motorcycle': {'quote': 'moto'},
     'rv':         {'quote': None},
     'guides':     {'quote': None},

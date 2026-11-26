@@ -10,7 +10,8 @@ ones:
     search and "Show more" do what they say
   - every article: one h1, a canonical to itself, BlogPosting data whose
     dates are the ones on the page, a Get a Quote button that opens the quote
-    form (preselected for the topic), a way back to the blog
+    form (preselected for the topic) — or, for commercial property, which the
+    form does not quote, Talk to an Agent to the contact page — a way back
   - an article with no Spanish version names no Spanish page, its EN | ES
     switch goes to the Spanish blog, and a visitor who chose Spanish is not
     sent to a page that does not exist; one with a Spanish version keeps a
@@ -114,6 +115,7 @@ function check(ok, what) { console.log((ok ? 'ok    ' : 'FAIL  ') + what); if (!
   }
 
   // ---- every article ----
+  let propUrl = null, quoteUrl = null;
   let n = 0;
   for (const lang of ['en', 'es']) {
     for (const href of links[lang]) {
@@ -131,8 +133,19 @@ function check(ok, what) { console.log((ok ? 'ok    ' : 'FAIL  ') + what); if (!
       const times = await p.locator('.byline time').evaluateAll((ts) => ts.map((t) => t.getAttribute('datetime')));
       check(post && post.datePublished === times[0] && post.dateModified === (times[1] || times[0]) && post.headline,
         tag + ': BlogPosting dates are the ones on the page');
-      check((await p.locator('.cta a[href*="quote.html"]').count()) === 1 && (await p.locator('.back a').count()) === 1,
-        tag + ': Get a Quote and Back to the Blog');
+      // Commercial property has no quote type (the form's "commercial" is
+      // work trucks): its button goes to an agent, never to the quote form.
+      if ((await p.locator('nav.crumbs a[href*="topic=commercial-property"]').count()) > 0) {
+        propUrl = propUrl || url;
+        const pri = await p.locator('.cta a.pri').getAttribute('href');
+        check(/contact\.html$/.test(pri) && (await p.locator('.cta a[href*="quote.html"]').count()) === 0
+          && (await p.locator('.cta a[href^="tel:"]').count()) === 1 && (await p.locator('.back a').count()) === 1,
+          tag + ': Talk to an Agent (contact page), the phone, no quote form, Back to the Blog');
+      } else {
+        quoteUrl = quoteUrl || url;
+        check((await p.locator('.cta a[href*="quote.html"]').count()) === 1 && (await p.locator('.back a').count()) === 1,
+          tag + ': Get a Quote and Back to the Blog');
+      }
       const alts = await p.locator('link[rel=alternate][hreflang]').evaluateAll((l) => l.map((x) => x.hreflang));
       if (!isEs && !alts.includes('es')) {
         const sw = await p.locator('header > nav .lsw a[data-lang=es]').getAttribute('href');
@@ -145,9 +158,17 @@ function check(ok, what) { console.log((ok ? 'ok    ' : 'FAIL  ') + what); if (!
   check(n === links.en.length + links.es.filter((h) => !h.startsWith('../../')).length || n > 0 || !links.en.length,
     'visited ' + n + ' article pages');
 
+  // ---- the agent button of a commercial property article ----
+  if (propUrl) {
+    await p.goto(propUrl);
+    await p.click('.cta a.pri');
+    await p.waitForLoadState('domcontentloaded');
+    check(/\/contact(\.html)?$/.test(new URL(p.url()).pathname), 'Talk to an Agent opens the contact page');
+  }
+
   // ---- the quote button and language preference ----
-  if (links.en.length) {
-    const first = new URL(links.en[0], BASE + '/blog/').href;
+  if (quoteUrl) {
+    const first = quoteUrl;
     await p.goto(first);
     const want = await p.locator('.cta a.pri').getAttribute('href');
     await p.click('.cta a.pri');

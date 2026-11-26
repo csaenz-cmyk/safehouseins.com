@@ -85,6 +85,7 @@ GLYPH = {
     'auto': '<path d="M5 17h14M3 17v-4l2.2-5.2A2 2 0 0 1 7 6.5h10a2 2 0 0 1 1.8 1.3L21 13v4"/><path d="M3 13h18"/><circle cx="7.5" cy="17.5" r="2"/><circle cx="16.5" cy="17.5" r="2"/>',
     'home': '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/>',
     'commercial': '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8.5 7V5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>',
+    'commercial-property': '<path d="M3 21h18"/><path d="M5 21V8l7-4 7 4v13"/><path d="M9 21v-5h6v5"/><path d="M9 10h2M13 10h2M9 13h2M13 13h2"/>',
     'motorcycle': '<circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5 9 10h5l4.5 6.5"/><path d="M14 10l-1.5-3H10M15.5 7.5h2.5"/>',
     'rv': '<path d="M2 17V7a2 2 0 0 1 2-2h11l5 5v7"/><path d="M2 17h20"/><rect x="5" y="8" width="4" height="3" rx=".6"/><path d="M12 8h3v4h-3z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
     'guides': '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/><path d="M9 8h7M9 11.5h5"/>',
@@ -882,12 +883,17 @@ def post_page(p):
     out += ('<div class="bio"><img src="%sassets/safehouse-heart.png" alt="" width="52" height="52">'
             '<div><b>%s</b><p>%s</p></div></div>\n'
             % (up, author, t('blog.authors.%s.bio' % p['author'])))
-    qtype = blog_data.CATEGORIES[p['category']]['quote']
+    cat = blog_data.CATEGORIES[p['category']]
+    qtype = cat['quote']
+    if cat.get('contact'):
+        # No quote type fits (commercial property): talk to an agent.
+        primary = '<a class="btn pri" href="%scontact.html">%s</a>' % (up, say(p, 'cta.contact'))
+    else:
+        primary = ('<a class="btn pri" href="%squote.html%s">%s</a>'
+                   % (up, ('?type=' + qtype) if qtype else '', say(p, 'cta.quote')))
     out += ('<section class="cta" aria-labelledby="ctah"><h2 id="ctah">%s</h2><p>%s</p><div class="row">'
-            '<a class="btn pri" href="%squote.html%s">%s</a>'
-            '<a class="btn sec" href="tel:%s">%s</a></div></section>\n'
-            % (say(p, 'cta.h2'), say(p, 'cta.p'), up, ('?type=' + qtype) if qtype else '',
-               say(p, 'cta.quote'), nap.CALL_E164, say(p, 'cta.call', call=nap.CALL)))
+            '%s<a class="btn sec" href="tel:%s">%s</a></div></section>\n'
+            % (say(p, 'cta.h2'), say(p, 'cta.p'), primary, nap.CALL_E164, say(p, 'cta.call', call=nap.CALL)))
     out += ('<p class="back"><a href="%sblog/"><span aria-hidden="true">&larr;</span> %s</a></p>\n'
             % (up, t('blog.post.back')))
     out += '</article>\n</div>\n'
