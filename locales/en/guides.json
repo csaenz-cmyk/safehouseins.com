@@ -1143,15 +1143,16 @@
     "car-insurance-without-a-license": {
       "nav": "Insurance Without a License",
       "card": "Foreign licenses, matrículas, a permit, or no license at all — what is actually possible and what it takes.",
-      "title": "Car Insurance Without a License in Texas and New Mexico",
-      "desc": "Can you get car insurance without a US driver license? What works with a foreign license, a matrícula, a permit or an ITIN, and how to get a policy in Texas or New Mexico.",
-      "h1": "Car insurance without a US license",
-      "lede": "It is one of the most common questions we get, and the answer people usually expect is wrong. In a lot of situations it can be done. What it takes is the right carrier and an agent who has placed it before.",
+      "title": "Car Insurance With No License in TX & NM",
+      "desc": "At Safe House Insurance, no license is required: we insure clients with no U.S. driver's license, or none at all. Each insurer sets its own requirements.",
+      "h1": "Car insurance without a driver's license",
+      "lede": "It is one of the most common questions we get, and the answer people usually expect is wrong. At Safe House Insurance, a driver's license is not required: we insure clients who have no U.S. license, and clients who have no driver's license at all. What it takes is the right insurance company and an agent who has placed it before.",
       "body": [
         [
           "First, the short answer",
           [
-            "Yes, often. Not at every company and not in every situation, but \"no US license\" is a reason to be shopped carefully, not a reason to be told no at the door.",
+            "Yes. At Safe House Insurance, no license is required. We work with insurance companies that write auto policies for clients without a U.S. driver's license, and even for clients with no driver's license at all, and we can start the process with a matrícula consular or any other ID you have.",
+            "Not every company accepts the same circumstances or the same documents, and each policy is issued only when it meets that company's eligibility and underwriting requirements. That is why \"no license\" is a reason to be shopped carefully, not a reason to be told no at the door.",
             "Some carriers will not write it at all. Others do it every day. Which is which is not published anywhere, and it is most of what an agency that places this business actually knows.",
             {
               "es": "Sí se puede. Llámanos y lo revisamos contigo en español."
@@ -1163,11 +1164,13 @@
           [
             {
               "ul": [
+                "<b>No driver's license of any kind.</b> Some of the companies we work with insure you anyway. Tell us, and we take it from there.",
                 "<b>A foreign driver license.</b> Mexican, and many others. Several carriers accept it directly; some want an international permit alongside it.",
                 "<b>A matrícula consular.</b> Widely used in this area and accepted by a number of the companies we represent.",
                 "<b>A passport.</b> On its own or with something else.",
                 "<b>An ITIN instead of a Social Security number.</b> Normal, and not an obstacle at the carriers that write this business.",
-                "<b>A learner permit.</b> Usually written with a licensed driver on the policy."
+                "<b>A learner permit.</b> Usually written with a licensed driver on the policy.",
+                "<b>Another government ID.</b> If what you have is not on this list, ask us: we can start the process with it."
               ]
             },
             "What matters more than any one document is that the whole picture is presented accurately the first time. A quote that gets corrected later is a quote that gets repriced later."
@@ -1210,12 +1213,20 @@
         ]
       ],
       "key": [
-        "\"No US license\" is a reason to be shopped carefully, not a refusal.",
+        "At Safe House, no license is required. Each policy still depends on the insurer's requirements.",
         "Foreign licenses, matrículas, passports and ITINs are all workable.",
         "List the real driver — an unknown driver is a claim problem.",
         "Prior coverage counts, even from another country, at some carriers."
       ],
       "faq": [
+        [
+          "Do I need a driver's license to get insured with Safe House?",
+          "No. At Safe House Insurance, no license is required: we insure clients without a U.S. driver's license and clients without any driver's license, through insurance companies that write these policies, and we can start with a matrícula consular or another ID. Not every company accepts the same circumstances or documents, and each policy's eligibility and issuance are subject to that company's requirements."
+        ],
+        [
+          "Does being insured mean I can drive without a license?",
+          "No. Being insured is not the same as being allowed to drive. Whether you may drive depends on your license status under state law (the DPS in Texas, the MVD in New Mexico), not on the policy."
+        ],
         [
           "Can I insure a car I own if I do not drive?",
           "Yes. You are the named insured and whoever actually drives it is listed as the operator. It is a standard way to write a policy, not a workaround."
@@ -1743,6 +1754,7 @@
       "text": "Text {text}"
     },
     "more": "More from Car Insurance 101",
+    "fromBlog": "From the blog",
     "read": "Read &rarr;",
     "titleSuffix": " · Safe House Insurance",
     "breadcrumb": "Breadcrumb"

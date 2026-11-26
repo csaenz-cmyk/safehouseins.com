@@ -655,10 +655,10 @@ def city_page_v2(slug, name, county, tags, nb, st, place):
     up = '../../../'
     ident = st + '-' + slug
 
-    title = i18n.t('cities.meta.title', city=name, abbr=d['abbr'])
+    title = place.get('title') or i18n.t('cities.meta.title', city=name, abbr=d['abbr'])
     # Search results cut descriptions off around 160 characters, so these are
     # written to fit with the longest city name on the list — in both languages.
-    desc = draft(name + 'v2d', 'cities.meta.desc', city=name, abbr=d['abbr'])
+    desc = place.get('desc') or draft(name + 'v2d', 'cities.meta.desc', city=name, abbr=d['abbr'])
     assert len(html.unescape(desc)) <= 160, (slug, i18n.lang(), len(desc))
 
     faq_html, faq_qs = faq(st, name, tags)

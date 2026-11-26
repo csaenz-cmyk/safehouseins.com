@@ -1,7 +1,7 @@
 ---
 id: nm-auto-04
 title: Can You Get Car Insurance Without a Driver's License in New Mexico?
-description: Understand the questions involved in insuring a car without a driver's license in New Mexico, including named drivers and insurer rules.
+description: Car insurance without a driver's license in New Mexico: owners, named and excluded drivers, insurer rules, and how Safe House insures clients with no license.
 category: auto
 state: nm
 published: 2026-11-23
@@ -10,7 +10,7 @@ author: editorial
 image: blog/04-nm-insurance-without-license.webp
 image_alt: Two adults discussing vehicle paperwork at a kitchen table.
 seo_title: Car Insurance Without a Driver's License in New Mexico
-seo_description: Understand the questions involved in insuring a car without a driver's license in New Mexico, including named drivers and insurer rules.
+seo_description: Car insurance without a driver's license in New Mexico: owners, named and excluded drivers, insurer rules, and how Safe House insures clients with no license.
 status: published
 related: compare-car-insurance-quotes-new-mexico, new-mexico-minimum-car-insurance-requirements, driving-without-car-insurance-new-mexico
 guides: car-insurance-without-a-license
@@ -77,4 +77,4 @@ If you have received an insurance noncompliance notice, communicate with the ins
 
 These questions are more productive than assuming every company has the same answer. A careful application may take more discussion, but it helps prevent misunderstandings about who is allowed to drive and what the policy might respond to.
 
-**Own a vehicle but do not hold a current driver's license?** Contact Safe House Insurance to discuss how ownership, identification, and the actual licensed driver could be presented in an application. Any quote or policy is subject to the insurer's requirements and does **not** authorize unlicensed driving.
+**Own a vehicle but do not hold a current driver's license?** At Safe House Insurance, no license is required: we insure clients without a U.S. driver's license and clients with no driver's license at all, through insurance companies that write these policies, and we can start the process with a matrícula consular or another ID. Contact us to discuss how ownership, identification, and the actual licensed driver could be presented in an application. Not every company accepts the same circumstances or documents. Any quote or policy is subject to the insurer's requirements and does **not** authorize unlicensed driving.

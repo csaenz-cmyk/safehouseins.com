@@ -28,7 +28,7 @@ room for home and renters guides later without a second decision.
 import os, sys, html, re
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import carriers, genproduct, guides_data, i18n, menu, nap, shell
+import blog_data, carriers, genproduct, guides_data, i18n, menu, nap, shell
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = 'https://www.safehouseins.com'
@@ -375,6 +375,24 @@ def chrome(up, link, title, desc, path, kick, h1, lede, crumbs):
         crumbs=crumbs, kick=kick, h1=h1, lede=lede)
 
 
+def blog_box(g):
+    """The blog articles that name this guide in their `guides:` field. Each
+    article already links its guides; this is the other direction, so a reader
+    of the guide finds the state-by-state article and the two do not compete
+    for the same search as strangers."""
+    code = i18n.lang()
+    posts = [p for p in blog_data.visible(code) if g['slug'] in p['guides']
+             and (p['status'] if code == 'en' else p[code]['status']) == 'published']
+    if not posts:
+        return ''
+    return ('  <section class="more fromblog" aria-labelledby="blogh">\n'
+            '    <h2 id="blogh">' + i18n.t('guides.ui.fromBlog') + '</h2>\n'
+            '    <div class="mlist">\n'
+            + ''.join('      <a href="' + UP + 'blog/' + p['slug'] + '/"><b>' + e(p[code]['title'])
+                      + '</b><span>' + e(p[code]['description']) + '</span></a>\n' for p in posts)
+            + '    </div>\n  </section>\n')
+
+
 def guide_page(g):
     g = guides_data.localized(g)
     t = i18n.t
@@ -422,6 +440,7 @@ def guide_page(g):
                   for q, a in g['faq'])
         + '  </section>\n\n'
         + cta(g)
+        + blog_box(g)
         + '  <section class="more petal1" aria-labelledby="moreh">\n'
         + '    <h2 id="moreh">' + t('guides.ui.more') + '</h2>\n'
         + '    <div class="mlist">\n'

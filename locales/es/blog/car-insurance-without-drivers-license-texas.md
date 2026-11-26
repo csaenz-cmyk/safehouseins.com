@@ -1,8 +1,8 @@
 ---
 title: ¿Puedes contratar seguro de auto sin licencia de manejo en Texas?
-description: Conoce por qué importa la situación de tu licencia de manejo al solicitar un seguro de auto en Texas y qué preguntas hacer antes de buscar una póliza.
+description: Seguro de auto sin licencia de manejo en Texas: qué piden las aseguradoras, qué cambia con licencia suspendida y cómo Safe House asegura sin licencia.
 seo_title: ¿Seguro de auto sin licencia de manejo en Texas?
-seo_description: Conoce por qué importa la situación de tu licencia de manejo al solicitar un seguro de auto en Texas y qué preguntas hacer antes de buscar una póliza.
+seo_description: Seguro de auto sin licencia de manejo en Texas: qué piden las aseguradoras, qué cambia con licencia suspendida y cómo Safe House asegura sin licencia.
 image_alt: Llaves de carro, una cartera y una tarjeta en blanco sobre una mesa de madera, con un carro estacionado afuera de la ventana
 sources:
   - Departamento de Seguros de Texas (TDI) — Guía del seguro de auto | https://www.tdi.texas.gov/pubs/consumer/cb020s.html
@@ -70,4 +70,4 @@ Pregúntale al DPS de Texas sobre la situación de tu licencia, las condiciones 
 
 ## Un siguiente paso útil
 
-Explícale tu situación con honestidad a un agente con licencia antes de suponer nada sobre tu elegibilidad. Safe House Insurance puede revisar las opciones disponibles, pero la aceptación, los conductores permitidos, la cobertura y el precio dependen de la aseguradora y de la póliza.
+Explícale tu situación con honestidad a un agente con licencia antes de suponer nada sobre tu elegibilidad. En Safe House Insurance no se requiere licencia: aseguramos a clientes que no tienen licencia de manejo de Estados Unidos y a clientes que no tienen ninguna licencia, con aseguradoras que emiten estas pólizas, y podemos empezar el proceso con tu matrícula consular u otra identificación. No todas las compañías aceptan las mismas situaciones ni los mismos documentos; la aceptación, los conductores permitidos, la cobertura y el precio dependen de la aseguradora y de la póliza.

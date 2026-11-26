@@ -13,6 +13,7 @@
       "text": "Mensaje al {text}"
     },
     "more": "Más de Seguro de auto 101",
+    "fromBlog": "Del blog",
     "read": "Leer &rarr;",
     "titleSuffix": " · Safe House Insurance",
     "breadcrumb": "Ruta de navegación"
@@ -1161,15 +1162,16 @@
     "car-insurance-without-a-license": {
       "nav": "Seguro sin licencia",
       "card": "Con licencia extranjera, con matrícula, con permiso o sin ninguna licencia — qué sí se puede y qué se necesita.",
-      "title": "Seguro de auto sin licencia en TX y NM",
-      "desc": "¿Puedes sacar seguro de auto sin licencia de EE. UU.? Qué sirve con licencia extranjera, matrícula, permiso o ITIN, y cómo asegurarte en Texas o Nuevo México.",
-      "h1": "Seguro de auto sin licencia de Estados Unidos",
-      "lede": "Es una de las preguntas que más nos hacen, y la respuesta que casi todos esperan es la equivocada. En muchos casos sí se puede. Lo que se necesita es la aseguradora correcta y un agente que ya lo haya hecho antes.",
+      "title": "Seguro de auto sin licencia en Texas y NM",
+      "desc": "En Safe House Insurance no se requiere licencia: aseguramos a clientes sin licencia de EE. UU. o sin ninguna. Cada aseguradora tiene sus requisitos.",
+      "h1": "Seguro de auto sin licencia de manejo",
+      "lede": "Es una de las preguntas que más nos hacen, y la respuesta que casi todos esperan es la equivocada. En Safe House Insurance no se requiere licencia de manejo: aseguramos a clientes que no tienen licencia de Estados Unidos y a clientes que no tienen ninguna licencia. Lo que se necesita es la aseguradora correcta y un agente que ya lo haya hecho antes.",
       "body": [
         [
           "Primero, la respuesta corta",
           [
-            "Sí, muchas veces. No en todas las compañías ni en todos los casos, pero “sin licencia de Estados Unidos” es razón para comparar tu caso con cuidado, no para que te digan que no de entrada.",
+            "Sí. En Safe House Insurance no se requiere licencia. Trabajamos con aseguradoras que emiten pólizas de auto para clientes sin licencia de manejo de Estados Unidos, e incluso para clientes que no tienen ninguna licencia, y podemos empezar el proceso con tu matrícula consular o cualquier otra identificación que tengas.",
+            "No todas las compañías aceptan las mismas situaciones ni los mismos documentos, y cada póliza se emite solo si cumple con los requisitos de elegibilidad y suscripción de esa compañía. Por eso “sin licencia” es razón para comparar tu caso con cuidado, no para que te digan que no de entrada.",
             "Algunas aseguradoras de plano no aseguran estos casos. Otras lo hacen todos los días. Cuál es cuál no está publicado en ningún lado, y eso es, en gran parte, lo que de verdad sabe una agencia que se dedica a esto.",
             {
               "es": "Sí se puede. Llámanos y lo revisamos contigo en español."
@@ -1181,11 +1183,13 @@
           [
             {
               "ul": [
+                "<b>Ninguna licencia de manejo.</b> Algunas de las compañías con las que trabajamos te aseguran de todos modos. Dinos tu caso y lo vemos desde ahí.",
                 "<b>Una licencia extranjera.</b> La mexicana y muchas otras. Varias aseguradoras la aceptan tal cual; algunas piden además un permiso internacional de manejo.",
                 "<b>Una matrícula consular.</b> Se usa mucho en esta zona y la aceptan varias de las compañías que representamos.",
                 "<b>Un pasaporte.</b> Solo o junto con otro documento.",
                 "<b>Un ITIN en lugar de número de Seguro Social.</b> Es normal, y no es obstáculo en las aseguradoras que trabajan estos casos.",
-                "<b>Un permiso de aprendizaje.</b> Por lo general se asegura con un conductor con licencia en la misma póliza."
+                "<b>Un permiso de aprendizaje.</b> Por lo general se asegura con un conductor con licencia en la misma póliza.",
+                "<b>Otra identificación oficial.</b> Si lo que tienes no está en esta lista, pregúntanos: podemos empezar el proceso con ella."
               ]
             },
             "Más que cualquier documento en particular, lo que importa es que toda tu situación se presente tal como es desde la primera vez. Una cotización que se corrige después es una cotización que después cambia de precio."
@@ -1228,12 +1232,20 @@
         ]
       ],
       "key": [
-        "“Sin licencia de Estados Unidos” es razón para comparar con cuidado, no un rechazo.",
+        "En Safe House no se requiere licencia. Cada póliza depende de los requisitos de la aseguradora.",
         "Licencia extranjera, matrícula, pasaporte o ITIN: con cualquiera se puede trabajar.",
         "Pon en la póliza a quien de verdad maneja — un conductor desconocido es un problema a la hora del reclamo.",
         "En algunas aseguradoras cuenta el seguro que ya tenías, aunque sea de otro país."
       ],
       "faq": [
+        [
+          "¿Necesito licencia de manejo para asegurarme con Safe House?",
+          "No. En Safe House Insurance no se requiere licencia: aseguramos a clientes sin licencia de manejo de Estados Unidos y a clientes sin ninguna licencia, con aseguradoras que emiten estas pólizas, y podemos empezar con tu matrícula consular u otra identificación. No todas las compañías aceptan las mismas situaciones ni los mismos documentos, y la elegibilidad y la emisión de cada póliza dependen de los requisitos de esa compañía."
+        ],
+        [
+          "¿Tener seguro quiere decir que puedo manejar sin licencia?",
+          "No. Estar asegurado no es lo mismo que tener permiso para manejar. Si puedes manejar o no depende de la situación de tu licencia según la ley del estado (el DPS en Texas, la MVD en Nuevo México), no de la póliza."
+        ],
         [
           "¿Puedo asegurar un carro que es mío si yo no manejo?",
           "Sí. Tú eres el titular de la póliza y quien de verdad lo maneja aparece como conductor. Es una forma estándar de hacer una póliza; no es ningún truco."

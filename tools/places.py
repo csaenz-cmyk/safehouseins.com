@@ -35,6 +35,8 @@ and in the catalog entry, each list the same length and order as its partner:
   factors   [heading, body] — the local driving considerations
   faq       [question, answer] — city-specific, appended to the state FAQ
   links     the label of each related link
+  title     optional: the page title, instead of the shared template's
+  desc      optional: the meta description, instead of the shared template's
 
 Rules this file is written under:
   * No average premiums, no "drivers here save", no accident/crime/weather
@@ -243,6 +245,10 @@ def get(state, slug):
                       in _paired(key, 'factors', row['factors'], w['factors'])]
     out['faq'] = [tuple(qa) for qa in w.get('faq', [])]
     out['links'] = _paired(key, 'links', row['links'], w['links'])
+    # Optional: a title and description written for this city's searches
+    # instead of the shared template's (El Paso, where the office is).
+    out['title'] = w.get('title')
+    out['desc'] = w.get('desc')
     return out
 
 def has(state, slug):

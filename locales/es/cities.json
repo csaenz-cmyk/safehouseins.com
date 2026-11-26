@@ -12,7 +12,7 @@
     "car": "Seguro de auto"
   },
   "hero": {
-    "h1": "Seguro de auto en<em>{city}, {abbr}.</em>",
+    "h1": "Seguro de auto en <em>{city}, {abbr}.</em>",
     "quote": "Obtén tu cotización gratis &rarr;",
     "text": "Mándanos un mensaje"
   },
@@ -1503,7 +1503,9 @@
       ]
     },
     "texas-el-paso": {
-      "blurb": "Compara opciones de varias compañías de seguros con la ayuda de un agente de Safe House con licencia &mdash; en español o en inglés, desde una oficina en la Montana Ave.",
+      "title": "Seguro de auto y aseguranza en El Paso, TX",
+      "desc": "Agencia de seguros local en El Paso. Comparamos por ti la aseguranza de auto de varias compañías: cotización gratis, en español o inglés, en la Montana.",
+      "blurb": "Compara tu aseguranza de auto con varias compañías de seguros con la ayuda de un agente de Safe House con licencia &mdash; en español o en inglés, desde una oficina en la Montana Ave.",
       "chips": [
         "Varias aseguradoras",
         "Español e inglés",
@@ -1589,6 +1591,10 @@
         [
           "¿Safe House me puede atender en español?",
           "<p>Sí &mdash; por teléfono, por mensaje y en persona en la oficina de la Montana Ave. Te atendemos en español.</p><p>Eso incluye repasar la póliza en sí y no solo el precio. Los términos de la cobertura son donde suele estar la confusión, y vale la pena entenderlos en el idioma en que piensas.</p>"
+        ],
+        [
+          "¿Safe House me puede asegurar sin licencia de manejo?",
+          "<p>Sí. En Safe House Insurance no se requiere licencia: aseguramos a clientes que no tienen licencia de manejo de Estados Unidos y a clientes que no tienen ninguna licencia, con aseguradoras que emiten estas pólizas. Podemos empezar el proceso con tu matr&iacute;cula consular u otra identificaci&oacute;n.</p><p>No todas las compañías aceptan las mismas situaciones ni los mismos documentos, y la elegibilidad y la emisi&oacute;n de cada p&oacute;liza dependen de los requisitos de esa compañía. Tener aseguranza no te autoriza a manejar sin una licencia válida. Más en nuestra guía, <a href=\"../../../learn/car-insurance-without-a-license/\">seguro de auto sin licencia de manejo</a>.</p>"
         ],
         [
           "¿De verdad tienen una oficina en El Paso?",

@@ -1,9 +1,9 @@
 ---
 register: formal
 title: ¿Puede obtener seguro de auto sin licencia de conducir en Nuevo México?
-description: Conozca la diferencia entre ser propietario, solicitar una póliza y estar autorizado para conducir en Nuevo México sin promesas de aprobación.
+description: Seguro de auto sin licencia de conducir en Nuevo México: propietario, conductores nombrados y excluidos, requisitos y cómo Safe House asegura sin licencia.
 seo_title: Seguro de auto sin licencia de conducir en Nuevo México
-seo_description: Conozca la diferencia entre ser propietario, solicitar una póliza y estar autorizado para conducir en Nuevo México sin promesas de aprobación.
+seo_description: Seguro de auto sin licencia de conducir en Nuevo México: propietario, conductores nombrados y excluidos, requisitos y cómo Safe House asegura sin licencia.
 image_alt: Dos adultos hablando sobre documentos de un automóvil en una mesa de cocina.
 sources:
   - MVD de Nuevo México — Seguros, avisos e IIDB (en inglés) | https://www.mvd.newmexico.gov/vehicles/insurance/
@@ -68,4 +68,4 @@ Si recibió un aviso de incumplimiento, contacte a la aseguradora y siga las ins
 
 Estas preguntas son más útiles que asumir que todas las aseguradoras tienen las mismas respuestas. Una solicitud bien documentada ayuda a evitar confusiones sobre quién puede conducir y en qué circunstancias podría responder la póliza.
 
-**¿Es propietario de un vehículo, pero no tiene licencia vigente?** Hable con Safe House Insurance sobre cómo declarar la propiedad, su identificación y al conductor que sí tiene licencia al solicitar una póliza. Toda cotización o emisión está sujeta a los requisitos de la aseguradora y **no autoriza a conducir sin licencia**.
+**¿Es propietario de un vehículo, pero no tiene licencia vigente?** En Safe House Insurance no se requiere licencia: aseguramos a clientes sin licencia de conducir de Estados Unidos y a clientes sin ninguna licencia, con aseguradoras que emiten estas pólizas, y podemos iniciar el proceso con su matrícula consular u otra identificación. Hable con nosotros sobre cómo declarar la propiedad, su identificación y al conductor que sí tiene licencia al solicitar una póliza. No todas las compañías aceptan las mismas situaciones ni los mismos documentos. Toda cotización o emisión está sujeta a los requisitos de la aseguradora y **no autoriza a conducir sin licencia**.

@@ -12,7 +12,7 @@
     "car": "Car insurance"
   },
   "hero": {
-    "h1": "Car insurance in<em>{city}, {abbr}.</em>",
+    "h1": "Car insurance in <em>{city}, {abbr}.</em>",
     "quote": "Get my free quote &rarr;",
     "text": "Text us"
   },
@@ -1503,6 +1503,8 @@
       ]
     },
     "texas-el-paso": {
+      "title": "Car Insurance Quotes in El Paso, TX",
+      "desc": "Local El Paso insurance agency. We compare the companies we represent for you: free quote, licensed agents, English or Spanish, office on Montana Ave.",
       "blurb": "Compare options from multiple insurance companies with help from a licensed Safe House agent &mdash; in English or Spanish, from an office on Montana Ave.",
       "chips": [
         "Multiple carriers",
@@ -1589,6 +1591,10 @@
         [
           "Can Safe House help me in Spanish?",
           "<p>Yes &mdash; on the phone, by text, and in person at the office on Montana Ave. Se habla espa&ntilde;ol.</p><p>That includes going through the policy itself rather than just the price. Coverage terms are where the confusion usually is, and they are worth understanding in whichever language you think in.</p>"
+        ],
+        [
+          "Can Safe House insure me without a driver&rsquo;s license?",
+          "<p>Yes. At Safe House Insurance, no license is required: we insure clients who have no U.S. driver&rsquo;s license, and clients with no driver&rsquo;s license at all, through insurance companies that write these policies. We can start the process with a matr&iacute;cula consular or another ID.</p><p>Not every company accepts the same circumstances or documents, and each policy&rsquo;s eligibility and issuance are subject to that company&rsquo;s requirements. Being insured does not authorize driving without a valid license. More in our guide, <a href=\"../../../learn/car-insurance-without-a-license/\">car insurance without a driver&rsquo;s license</a>.</p>"
         ],
         [
           "Do you have an actual office in El Paso?",
