@@ -112,15 +112,39 @@ PROMISES = [
     r'everyone qualifies', r'anyone qualifies', r'everybody qualifies',
     r'full coverage guaranteed', r'guaranteed full coverage',
     r'claims are always (?:covered|paid)', r'always covered',
-    r'no licen[cs]e required',
     r'aprobaci[oó]n garantizada', r'aceptaci[oó]n garantizada',
     r'(?:tarifas?|precios?) m[aá]s bajos? garantizad[oa]s?',
     r'todos califican', r'cualquiera califica',
     r'cobertura (?:total|completa|amplia) garantizada',
     r'siempre (?:est[aá]n? )?cubiert[oa]s?', r'siempre se pagan',
-    r'no se requiere licencia', r'sin licencia requerida',
 ]
 _PROMISES = re.compile(r'\b(?:' + '|'.join(PROMISES) + r')\b', re.I)
+
+# "No license required" is different: it is a real service of Safe House
+# Insurance, which places drivers with no U.S. license, or none, with the
+# companies that write them. So the phrase stands when the sentence it is in
+# says it of Safe House — "At Safe House Insurance, no license is required" —
+# and is refused anywhere else, where it would read as a promise about every
+# insurer. Nothing else on PROMISES gets this exception.
+NO_LICENSE = [
+    r"no (?:u\.?s\.? |driver'?s |driving )*licen[cs]e(?: is)? (?:required|needed)",
+    r'no se (?:requiere|necesita|pide) (?:ninguna )?licencia', r'sin licencia requerida',
+    r'no (?:se )?(?:requerimos|pedimos|exigimos) licencia',
+]
+_NO_LICENSE = re.compile(r'\b(?:' + '|'.join(NO_LICENSE) + r')\b', re.I)
+_SENTENCE = re.compile(r'(?<=[.!?;])\s+|\n+')
+
+
+def promise(text):
+    """The first promise in `text` an article may not make, or None."""
+    hit = _PROMISES.search(text)
+    if hit:
+        return hit.group(0)
+    for sentence in _SENTENCE.split(text):
+        hit = _NO_LICENSE.search(sentence)
+        if hit and not re.search(r'safe\s+house', sentence, re.I):
+            return hit.group(0)
+    return None
 
 
 class BlogError(ValueError):
@@ -353,10 +377,10 @@ def _lang_part(meta, body, where):
     }
     text = ' '.join([part['title'], part['description'], part['seo_title'],
                      part['seo_description'], body])
-    hit = _PROMISES.search(text)
+    hit = promise(text)
     if hit:
         raise BlogError('%s: "%s" promises something no agency can promise — eligibility, '
-                        'price and claims depend on the company and the policy' % (where, hit.group(0)))
+                        'price and claims depend on the company and the policy' % (where, hit))
     return part
 
 
@@ -502,6 +526,13 @@ def selftest():
         ('a clean article', {'en': {'ok': good}}, None),
         ('a promise in the body', {'en': {'ok': good.replace('Text.', 'Guaranteed approval for every driver.')}}, 'promises'),
         ('a promise in Spanish', {'en': {'ok': good}, 'es': {'ok': '---\ntitle: T\ndescription: D\n---\nTodos califican.\n'}}, 'promises'),
+        ('"no license required" said of nobody', {'en': {'ok': good.replace('Text.', 'No license required.')}}, 'promises'),
+        ('"no license required" said of an insurer', {'en': {'ok': good.replace('Text.', 'With this insurer no license is required.')}}, 'promises'),
+        ('"no license required" at Safe House', {'en': {'ok': good.replace('Text.', 'At Safe House Insurance, no license is required.')}}, None),
+        ('"no se requiere licencia" en Safe House', {'en': {'ok': good}, 'es': {'ok': '---\ntitle: T\ndescription: D\n---\nEn Safe House Insurance no se requiere licencia.\n'}}, None),
+        ('"no se requiere licencia" sin Safe House', {'en': {'ok': good}, 'es': {'ok': '---\ntitle: T\ndescription: D\n---\nCon esta aseguradora no se requiere licencia.\n'}}, 'promises'),
+        ('Safe House does not excuse other promises', {'en': {'ok': good.replace('Text.', 'Safe House Insurance: guaranteed approval, everyone qualifies.')}}, 'promises'),
+        ('Safe House in another sentence does not count', {'en': {'ok': good.replace('Text.', 'Call Safe House. No license required.')}}, 'promises'),
         ('a missing field', {'en': {'ok': good.replace('author: editorial\n', '')}}, 'missing author'),
         ('a health category', {'en': {'ok': good.replace('category: auto', 'category: health')}}, 'category'),
         ('a bad date', {'en': {'ok': good.replace('2026-12-01', '12/01/2026')}}, 'YYYY-MM-DD'),

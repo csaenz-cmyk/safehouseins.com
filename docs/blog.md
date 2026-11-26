@@ -109,10 +109,20 @@ article that does not exist; a `#` heading in the body (the title is the
 page's only h1); a link to a missing page; and any of the promises in
 `PROMISES` (`tools/blog_data.py`) — *guaranteed approval*, *guaranteed lowest
 rates*, *everyone qualifies*, *full coverage guaranteed*, *claims are always
-covered*, *no license required*, and their Spanish forms. Whether a policy is
+covered*, and their Spanish forms. Whether a policy is
 written, what it costs and whether a claim is paid depend on the company, the
 applicant, underwriting and the policy. `tools/seocheck.py` adds its own list
 of claims site-wide.
+
+*No license required* (*no se requiere licencia*) is the one exception, and
+only for Safe House itself: the agency insures clients with no U.S. driver's
+license, or none, through companies that write them, and may say so — "At Safe
+House Insurance, no license is required." The phrase passes only when the
+same sentence names Safe House (`NO_LICENSE` in `tools/blog_data.py`); said of
+nobody, or of an insurer, it is refused. Wherever it appears, the article also
+says that not every company accepts the same circumstances or documents, and
+that each policy's eligibility and issuance are subject to the company's
+requirements.
 
 Every article ends with the same note — educational information, not a quote
 or an offer; eligibility, price and products vary by company and applicant;
